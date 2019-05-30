@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main_template.xhtml">
+
+	<ui:define name="title">International Group</ui:define>
+
+	<ui:define name="content">
+	 <style>
+	 .input-group-icon input.form-control:first-child, .input-group-icon input.form-control:last-child, .input-search input.form-control:first-child, .input-search input.form-control:last-child{
+	 
+	 font-size:19px;
+	 }
+	 </style>
+		
+		
+			<div class="body-sign center-sign" style="    width: 150%;">
+				<a href="/" class="logo pull-left">
+					<img src="#{resource['images:logo.png']}" height="54" alt="Porto Admin" />
+				</a>
+
+				<div class="panel panel-sign">
+					<div class="panel-title-sign mt-xl text-right">
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
+					</div>
+					<div class="panel-body">
+						<h:form prependId="false" id="login-form" action="https://phpoll.com/login/process" method="post" role="form" >
+							<div class="form-group mb-lg">
+								<label>Email</label>
+								<div class="input-group input-group-icon">
+									<p:inputText type="email" id="Mail" class="form-control input-lg" value="#{loginBean.emailOfUserLoggedIn}"/>
+									<span class="input-group-addon">
+										<span class="icon icon-lg">
+											<i class="fa fa-user"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group mb-lg">
+								<div class="clearfix">
+									<label class="pull-left">Password</label>
+									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
+								</div>
+								<div class="input-group input-group-icon">
+									<p:inputText type="password" id="Password" required="true" class="form-control input-lg" value="#{loginBean.passwordOfUserLoggedIn}"/>
+									<span class="input-group-addon">
+										<span class="icon icon-lg">
+											<i class="fa fa-lock"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="checkbox-custom checkbox-default">
+										<input id="RememberMe" name="rememberme" type="checkbox"/>
+										<label for="RememberMe">Remember Me</label>
+									</div>
+								</div>
+								<div class="col-sm-4 text-right">
+									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary hidden-xs">
+									<f:ajax execute="@form" render="login-form" />
+									</h:commandButton>
+									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
+									<f:ajax execute="@form" render="login-form" />
+									</h:commandButton>
+								</div>
+							</div>
+
+							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
+								<span>or</span>
+							</span>
+
+							
+							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
+
+						</h:form>
+					</div>
+				</div>
+
+				 <p class="text-center text-muted mt-md mb-md"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
+ </p>
+			
+			</div>
+		
+		<!-- end: page -->
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

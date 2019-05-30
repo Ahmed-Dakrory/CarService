@@ -1,0 +1,741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard.xhtml">
+
+	<ui:define name="title"> TRT System : User Profile</ui:define>
+
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-consignees"><a href="consigneeList.jsf" class="mn-sub-item-current"><b>consignee List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+        
+        <h:form name="aspnetForm"  id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE3MDA2ODE2NjUPFgIeC09yaWdpbmFsVXJsBTRodHRwczovL3d3dy51c2F0cnQuY29tL2FwcC9Vc2VyUGFnZXMvdmVuZG9yTGlzdC5hc3B4FgJmD2QWBAICDw8WAh4EVGV4dAUnVXNlcjogVGFyZWsgU2FsbGFiaSAoPHNwYW4+VXNlcjwvc3Bhbj4pZGQCBA9kFgICAQ9kFkwCDQ8PFgIfAQUSQWNjb3VudCAjOiA4MzQxMjE1ZGQCDw8PZBYEHgtvbm1vdXNlb3ZlcgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHgpvbm1vdXNlb3V0BRt0aGlzLnN0eWxlLmN1cnNvcj0nZGVmYXVsdCdkAhEPD2QWBB8CBRh0aGlzLnN0eWxlLmN1cnNvcj0naGFuZCcfAwUbdGhpcy5zdHlsZS5jdXJzb3I9J2RlZmF1bHQnZAITDw9kFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QCFQ8PFgIeB0VuYWJsZWRoFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QCFw8PFgIeB1Zpc2libGVoFgYfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0Jx4Hb25jbGljawVlZXZlbnQuY2FuY2VsQnViYmxlPXRydWU7IHJldHVybiB3aW5kb3cuY29uZmlybSgnQXJlIHlvdSBzdXJlIHlvdSB3b3VsZCBsaWtlIHRvIGRlbGV0ZSB0aGlzIFZlbmRvcj8nKTtkAhkPDxYCHwVoZGQCGw8PFgIfBWhkZAIdDw8WBB4IUmVhZE9ubHlnHwEFBzgzNDEyMTUWAh4IT25DaGFuZ2UFD1NldElzQ2hhbmdlZCgpO2QCHw8PFgIfBWhkZAIhDw9kFgIfCAUPU2V0SXNDaGFuZ2VkKCk7ZAIjDw9kFgIfCAUPU2V0SXNDaGFuZ2VkKCk7ZAIlDw9kFgIfCAUPU2V0SXNDaGFuZ2VkKCk7ZAInDw9kFgIfCAUPU2V0SXNDaGFuZ2VkKCk7ZAIpDxAPFgYeDkRhdGFWYWx1ZUZpZWxkBQpDb3VudHJ5X0lEHg1EYXRhVGV4dEZpZWxkBQdDb3VudHJ5HgtfIURhdGFCb3VuZGcWAh8IBQ9TZXRJc0NoYW5nZWQoKTsQFfcBBlNFTEVDVAstIFVOS05PV04gLQpBRkdBTklTVEFOB0FMQkFOSUEHQUxHRVJJQQ5BTUVSSUNBTiBTQU1PQQdBTkRPUlJBBkFOR09MQQhBTkdVSUxMQRFBTlRJR1VBICYgQkFSQlVEQQlBUkdFTlRJTkEHQVJNRU5JQQVBUlVCQQlBVVNUUkFMSUEHQVVTVFJJQQpBWkVSQkFJSkFOB0JBSEFNQVMHQkFIUkFJTgpCQU5HTEFERVNICEJBUkJBRE9TB0JFTEFSVVMHQkVMR0lVTQZCRUxJWkUFQkVOSU4HQkVSTVVEQQZCSFVUQU4HQk9MSVZJQRJCT1NOSUEtSEVSQ0VRT1ZJTkEIQk9UU1dBTkEGQlJBWklMHkJSSVRJU0ggSU5ESUFOIE9DRUFOIFRFUlJJVE9SWRZCUklUSVNIIFZJUkdJTiBJU0xBTkRTEUJSVU5FSSBEQVJVU1NBTEFNCEJVTEdBUklBDEJVUktJTkEgRkFTTw9CVVJNQSAoTVlBTk1BUikHQlVSVU5ESQhDQU1CT0RJQRxDQU1FUk9PTiwgVU5JVEVEIFJFUFVCTElDIE9GBkNBTkFEQQpDQVBFIFZFUkRFDkNBWU1BTiBJU0xBTkRTGENFTlRSQUwgQUZSSUNBTiBSRVBVQkxJQwRDSEFEBUNISUxFBUNISU5BIENIUklTVE1BUyBJU0xBTkRTIChJTkRJQU4gT0NFQU4pF0NPQ09TIChLRUVMSU5HKSBJU0xBTkRTCENPTE9NQklBB0NPTU9ST1MTQ09OR08gKEJSQVpaQVZJTExFKQxDT09LIElTTEFORFMKQ09TVEEgUklDQQ1DT1RFIEQnSVZPSVJFB0NST0FUSUEEQ1VCQQZDWVBSVVMOQ1pFQ0ggUkVQVUJMSUMnREVNT0NSQVRJQyBSRVBVQkxJQyBPRiBDT05HTyAoS0lOU0hBU0EpB0RFTk1BUksIREpJQk9VVEkIRE9NSU5JQ0ESRE9NSU5JQ0FOIFJFUFVCTElDCkVBU1QgVElNT1IHRUNVQURPUgVFR1lQVAtFTCBTQUxWQURPUhFFUVVBVE9SSUFMIEdVSU5FQQdFUklUUkVBB0VTVE9OSUEIRVRISU9QSUEbRVVST1BFQU4gRUNPTk9NSUMgQ09NTVVOSVRZG0ZBTEtMQU5EIElTTEFORFMgKE1BTFZJTkFTKQ1GQVJPRSBJU0xBTkRTBEZJSkkHRklOTEFORAZGUkFOQ0UNRlJFTkNIIEdVSUFOQRBGUkVOQ0ggUE9MWU5FU0lBIUZSRU5DSCBTT1VUSEVSTiAmIEFOVEFSQ1RJQyBMQU5EUwVHQUJPTgZHQU1CSUEKR0FaQSBTVFJJUAdHRU9SR0lBHEdFUk1BTlksIEZFREVSQUwgUkVQVUJMSUMgT0YFR0hBTkEJR0lCUkFMVEFSSUdSRUFUIEJSSVRBSU4sIFVOSVRFRCBLSU5HRE9NLCBFTkdMQU5ELCBTQ09UTEFORCwgV0FMRVMsIE5PUlRIRVJOIElSRUxBTkQGR1JFRUNFCUdSRUVOTEFORAdHUkVOQURBCkdVQURFTE9VUEUER1VBTQlHVUFURU1BTEEGR1VJTkVBDUdVSU5FQS1CSVNTQVUGR1VZQU5BBUhBSVRJGEhFQVJEICYgTUNET05BTEQgSVNMQU5EUwhIT05EVVJBUwlIT05HIEtPTkcHSFVOR0FSWQdJQ0VMQU5EBUlORElBCUlORE9ORVNJQRtJTlRFUk5BVElPTkFMIE9SR0FOSVpBVElPTlMESVJBTgRJUkFRB0lSRUxBTkQGSVNSQUVMBUlUQUxZC0lWT1JZIENPQVNUB0pBTUFJQ0EFSkFQQU4GSk9SREFOCktBWkFLSFNUQU4FS0VOWUEIS0lSSUJBVEkLS09SRUEsTk9SVEgLS09SRUEsU09VVEgGS09TT1ZPBktVV0FJVApLWVJHWVpTVEFOJkxBTyBQRU9QTEUnUyBERU1PQ1JBVElDIFJFUFVCTElDKExBT1MpBkxBVFZJQQdMRUJBTk9OB0xFU09USE8HTElCRVJJQRZMSUJZQU4gQVJBQiBKQU1BSElSSVlBDUxJRUNIVEVOU1RFSU4JTElUSFVBTklBCkxVWEVNQk9VUkcFTUFDQVUJTUFDRURPTklBFE1BREFHQVNDQVIoTUFMQUdBU1kpBk1BTEFXSQhNQUxBWVNJQQhNQUxESVZFUwRNQUxJDE1BTFRBICYgR09aTxBNQVJTSEFMTCBJU0xBTkRTCk1BUlRJTklRVUUKTUFVUklUQU5JQQlNQVVSSVRJVVMHTUFZT1RURQZNRVhJQ08eTUlDUk9ORVNJQSwgRkVERVJBVEVEIFNUQVRFIE9GB01PTERPVkEGTU9OQUNPCE1PTkdPTElBCU1PTlNFUlJBVApNT05URU5FR1JPB01PUk9DQ08KTU9aQU1CSVFVRQdOQU1JQklBBU5BVVJVBU5FUEFMC05FVEhFUkxBTkRTFE5FVEhFUkxBTkRTIEFOVElMTEVTLE5FVVRSQUwgWk9ORSAoQkVUV0VFTiBTQVVESSBBUkFCSUEgQU5EIElSQVEpDU5FVyBDQUxFRE9OSUELTkVXIFpFQUxBTkQJTklDQVJBR1VBBU5JR0VSB05JR0VSSUEETklVRQ5OT1JGT0xLIElTTEFORBhOT1JUSEVSTiBNQVJJQU5BIElTTEFORFMGTk9SV0FZBE9NQU4IUEFLSVNUQU4FUEFMQVUGUEFOQU1BEFBBUFVBIE5FVyBHVUlORUEIUEFSQUdVQVkEUEVSVQtQSElMSVBQSU5FUw9QSVRDQUlSTiBJU0xBTkQGUE9MQU5ECFBPUlRVR0FMC1BVRVJUTyBSSUNPBVFBVEFSFFJFUFVCTElDIE9GIEFCS0hBWklBGFJFVU5JT04gKElTTEFORCwgRlJFTkNIKQdST01BTklBElJ1c3NpYW4gRmVkZXJhdGlvbgZSV0FOREELU0FJTlQgTFVDSUEgU0FJTlQgVklOQ0VOVCBBTkQgVEhFIEdSRU5BRElORVMKU0FOIE1BUklOTxZTQU8gVE9NRVMgQU5EIFBSSU5DSVBFDFNBVURJIEFSQUJJQQdTRU5FR0FMBlNFUkJJQRVTRVJCSUEgQU5EIE1PTlRFTkVHUk8KU0VZQ0hFTExFUwxTSUVSUkEgTEVPTkUJU0lOR0FQT1JFCFNMT1ZBS0lBCFNMT1ZFTklBD1NPTE9NT04gSVNMQU5EUwdTT01BTElBDFNPVVRIIEFGUklDQQVTUEFJTglTUkkgTEFOS0EKU1QuIEhFTEVOQQ9TVC4gS0lUVFMtTkVWSVMXU1QuIFBJRVJSRSBBTkQgTUlRVUVMT04FU1VEQU4HU1VSSU5BTR9TVkFMQkFSRCBBTkQgSkFOIE1BWUVOLCBJU0xBTkRTCVNXQVpJTEFORAZTV0VERU4LU1dJVFpFUkxBTkQUU1lSSUFOIEFSQUIgUkVQVUJM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c0NoYW5nZWQoKTsQFQMHRSAoRUlOKQdTIChTU04pC1QgKEZvcmVpZ24pFQMBMQEyATMUKwMDZ2dnZGQCMQ8PZBYCHwgFD1NldElzQ2hhbmdlZCgpO2QCMw8PZBYCHwgFD1NldElzQ2hhbmdlZCgpO2QCNQ8PZBYCHwgFD1NldElzQ2hhbmdlZCgpO2QCNw8PZBYCHwgFD1NldElzQ2hhbmdlZCgpO2QCOQ8PFgIfBWhkZAI7DxAPFggfCQUIU3RhdGVfSUQfCgUFU3RhdGUfC2cfBWgWAh8IBQ9TZXRJc0NoYW5nZWQoKTsQFWkTNDYgKFBPVEkgLSBHRU9SR0lBKRQ1MCAoVU1NIFFBU1IgLSBJUkFRKRVBQiAoQUxCRVJUQSAtIENhbmFkYSkcQUcgKEFHVUFTQ0FMSUVOVEVTIC0gTWV4aWNvKRtBSyAoQUxBU0tBIC0gVW5pdGVkIFN0YXRlcykcQUwgKEFMQUJBTUEgLSBVbml0ZWQgU3RhdGVzKR1BUiAoQVJLQU5TQVMgLSBVbml0ZWQgU3RhdGVzKSNBUyAoQU1FUklDQU4gU0FNT0EgLSBVbml0ZWQgU3RhdGVzKRxBWiAoQVJJWk9OQSAtIFVuaXRlZCBTdGF0ZXMpHUJDIChCQUpBIENBTElGT1JOSUEgLSBNZXhpY28pHkJDIChCUklUSVNIIENPTFVNQklBIC0gQ2FuYWRhKSNCTiAoQkFKQSBDQUxJRk9STklBIE5PUlRIIC0gTWV4aWNvKR1CUyAoQkFKQSBDQUxJRk9STklBIC0gTWV4aWNvKR9DQSAoQ0FMSUZPUk5JQSAtIFVuaXRlZCBTdGF0ZXMpGENIIChDRC4gSlVBUkVaIC0gTUVYSUNPKRdDSCAoQ0hJSFVBSFVBIC0gTWV4aWNvKRRDTCAoQ09MSU1BIC0gTWV4aWNvKRZDTSAoQ0FNUEVDSEUgLSBNZXhpY28pFkNPIChDT0FIVUlMQSAtIE1leGljbykdQ08gKENPTE9SQURPIC0gVW5pdGVkIFN0YXRlcykVQ1MgKENISUFQQVMgLSBNZXhpY28pIENUIChDT05ORUNUSUNVVCAtIFVuaXRlZCBTdGF0ZXMpNkRDIChESVNUUklDVCBPRiBDT0xVTUJJQSAoV0FTSElOR1RPTikgLSBVbml0ZWQgU3RhdGVzKR1ERSAoREVMQVdBUkUgLSBVbml0ZWQgU3RhdGVzKR5ERiAoRElTVFJJVE8gRkVERVJBTCAtIE1leGljbykVREcgKERVUkFOR08gLSBNZXhpY28pHEZMIChGTE9SSURBIC0gVW5pdGVkIFN0YXRlcykcR0EgKEdFT1JHSUEgLSBVbml0ZWQgU3RhdGVzKRZHUiAoR1VFUlJFUk8gLSBNZXhpY28pGEdUIChHVUFOQUpVQVRPIC0gTWV4aWNvKRVIRyAoSElEQUxHTyAtIE1leGljbykbSEkgKEhBV0FJSSAtIFVuaXRlZCBTdGF0ZXMpGUlBIChJT1dBIC0gVW5pdGVkIFN0YXRlcykaSUQgKElEQUhPIC0gVW5pdGVkIFN0YXRlcykdSUwgKElMTElOT0lTIC0gVW5pdGVkIFN0YXRlcykcSU4gKElORElBTkEgLSBVbml0ZWQgU3RhdGVzKRVKQSAoSkFMSVNDTyAtIE1leGljbykbS1MgKEtBTlNBUyAtIFVuaXRlZCBTdGF0ZXMpHUtZIChLRU5UVUNLWSAtIFVuaXRlZCBTdGF0ZXMpHkxBIChMT1VJU0lBTkEgLSBVbml0ZWQgU3RhdGVzKSJNQSAoTUFTU0FDSFVTRVRUUyAtIFVuaXRlZCBTdGF0ZXMpFk1CIChNQU5JVE9CQSAtIENhbmFkYSkdTUQgKE1BUllMQU5EIC0gVW5pdGVkIFN0YXRlcykaTUUgKE1BSU5FIC0gVW5pdGVkIFN0YXRlcykdTUkgKE1JQ0hJR0FOIC0gVW5pdGVkIFN0YXRlcykXTUkgKE1JQ0hPQUNBTiAtIE1leGljbykeTU4gKE1JTk5FU09UQSAtIFVuaXRlZCBTdGF0ZXMpHU1PIChNSVNTT1VSSSAtIFVuaXRlZCBTdGF0ZXMpFU1PIChNT1JFTE9TIC0gTWV4aWNvKSBNUyAoTUlTU0lTU0lQUEkgLSBVbml0ZWQgU3RhdGVzKRxNVCAoTU9OVEFOQSAtIFVuaXRlZCBTdGF0ZXMpFE1YIChNRVhJQ08gLSBNZXhpY28pFU5BIChOQVlBUklUIC0gTWV4aWNvKRtOQiAoTkVXIEJSVU5TV0lDSyAtIENhbmFkYSkjTkMgKE5PUlRIIENBUk9MSU5BIC0gVW5pdGVkIFN0YXRlcykhTkQgKE5PUlRIIERBS09UQSAtIFVuaXRlZCBTdGF0ZXMpHU5FIChORUJSQVNLQSAtIFVuaXRlZCBTdGF0ZXMpGk5GIChORVdGT1VORExBTkQgLSBDYW5hZGEpIk5IIChORVcgSEFNUFNISVJFIC0gVW5pdGVkIFN0YXRlcykfTkogKE5FVyBKRVJTRVkgLSBVbml0ZWQgU3RhdGVzKRhOTCAoTlVFVk8gTEVPTiAtIE1leGljbykfTk0gKE5FVyBNRVhJQ08gLSBVbml0ZWQgU3RhdGVzKRVOTSAoTkVXIE1FWElDTyAtIFVTQSkVTk0gKFVTQSAtIE5FVyBNRVhJQ08pGU5TIChOT1ZBIFNDT1RJQSAtIENhbmFkYSkhTlQgKE5PVEhFUk4gVEVSUklUT1JJRVMgLSBDYW5hZGEpG05WIChORVZBREEgLSBVbml0ZWQgU3RhdGVzKR1OWSAoTkVXIFlPUksgLSBVbml0ZWQgU3RhdGVzKRRPQSAoT0FYQUNBIC0gTWV4aWNvKRlPSCAoT0hJTyAtIFVuaXRlZCBTdGF0ZXMpHU9LIChPS0xBSE9NQSAtIFVuaXRlZCBTdGF0ZXMpFU9OIChPTlRBUklPIC0gQ2FuYWRhKRtPUiAoT1JFR09OIC0gVW5pdGVkIFN0YXRlcykhUEEgKFBFTk5TWUxWQU5JQSAtIFVuaXRlZCBTdGF0ZXMpIlBFIChQUklOQ0UgRURXQVJEIElTTEFORCAtIENhbmFkYSkgUFIgKFBVRVJUTyBSSUNPIC0gVW5pdGVkIFN0YXRlcykUUFUgKFBVRUJMQSAtIE1leGljbykUUUMgKFFVRUJFQyAtIENhbmFkYSkaUVIgKFFVSU5UQU5BIFJPTyAtIE1leGljbykXUVQgKFFVRVJFVEFSTyAtIE1leGljbykhUkkgKFJIT0RFIElTTEFORCAtIFVuaXRlZCBTdGF0ZXMpI1NDIChTT1VUSCBDQVJPTElOQSAtIFVuaXRlZCBTdGF0ZXMpIVNEIChTT1VUSCBEQUtPVEEgLSBVbml0ZWQgU3RhdGVzKRVTSSAoU0lOQUxPQSAtIE1leGljbykaU0sgKFNBU0tBVENIRVdBTiAtIENhbmFkYSkdU0wgKFNBTiBMVUlTIFBPVE9TSSAtIE1leGljbykUU08gKFNPTk9SQSAtIE1leGljbykVVEIgKFRBQkFTQ08gLSBNZXhpY28pFlRMIChUTEFYQ0FMQSAtIE1leGljbykYVE0gKFRBTUFVTElQQVMgLSBNZXhpY28pHlROIChURU5ORVNTRUUgLSBVbml0ZWQgU3RhdGVzKRpUWCAoVEVYQVMgLSBVbml0ZWQgU3RhdGVzKRlVVCAoVVRBSCAtIFVuaXRlZCBTdGF0ZXMpHVZBIChWSVJHSU5JQSAtIFVuaXRlZCBTdGF0ZXMpFlZFIChWRVJBQ1JVWiAtIE1leGljbykjVkkgKFZJUkdJTiBJU0xBTkRTIC0gVW5pdGVkIFN0YXRlcykcVlQgKFZFUk1PTlQgLSBVbml0ZWQgU3RhdGVzKR9XQSAoV0FTSElOR1RPTiAtIFVuaXRlZCBTdGF0ZXMpHldJIChXSVNDT05TSU4gLSBVbml0ZWQgU3RhdGVzKRdXUyAoV0VTVCBWSVJHSU5JQSAtIFVTKSJXViAoV0VTVCBWSVJHSU5JQSAtIFVuaXRlZCBTdGF0ZXMpHFdZIChXWU9NSU5HIC0gVW5pdGVkIFN0YXRlcykdWVQgKFlVS09OIFRFUlJJVE9SWSAtIENhbmFkYSkVWVUgKFlVQ0FUQU4gLSBNZXhpY28pF1pBIChaQUNBVEVDQVMgLSBNZXhpY28pFWkDMTA3AzEwNgI1NQI2NwExATIBMwE0ATUCNjgCNTYCNjkCNzABNgMxMDQCNzECNzICNzMCNzQBNwI3NQE4ATkCMTACNzYCNzcCMTECMTICNzgCNzkCODACMTMCMTQCMTUCMTYCMTcCODECMTgCMTkCMjACMjECNTcCMjICMjMCMjQCODICMjUCMjYCODMCMjcCMjgCODQCODUCNTgCMjkCMzACMzECNTkCMzICMzMCODYCMzQDMTAzAzEwMgI2MAI2MQIzNQIzNgI4NwIzNwIzOAI2MgIzOQI0MAI2MwI0MQI4OAI2NAI4OQI5MAI0MgI0MwI0NAI5MQI2NQI5MgI5MwI5NAI5NQI5NgI0NQI0NgI0NwI0OAI5NwI0OQI1MAI1MQI1MgMxMDECNTMCNTQCNjYCOTgCOTkUKwNpZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnFgFmZAI9Dw9kFgIfCAUPU2V0SXNDaGFuZ2VkKCk7ZAI/Dw9kFgIeCG9uQ2hhbmdlBTBTZXRJc0NoYW5nZWQoKTsgdGhpcy52YWx1ZT1DaGVja1ppcCh0aGlzLnZhbHVlKTtkAkEPD2QWAh8IBQ9TZXRJc0NoYW5nZWQoKTtkAkUPD2QWAh8IBQ9TZXRJc0NoYW5nZWQoKTtkAkkPD2QWAh8IBQ9TZXRJc0NoYW5nZWQoKTtkAksPD2QWAh8IBQ9TZXRJc0NoYW5nZWQoKTtkAk0PD2QWBB8CBRh0aGlzLnN0eWxlLmN1cnNvcj0naGFuZCcfAwUbdGhpcy5zdHlsZS5jdXJzb3I9J2RlZmF1bHQnZAJPDw9kFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QCUQ8PZBYEHwIFGHRoaXMuc3R5bGUuY3Vyc29yPSdoYW5kJx8DBRt0aGlzLnN0eWxlLmN1cnNvcj0nZGVmYXVsdCdkAlMPDxYCHwRoFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QCVQ8PFgIfBWgWBh8CBRh0aGlzLnN0eWxlLmN1cnNvcj0naGFuZCcfAwUbdGhpcy5zdHlsZS5jdXJzb3I9J2RlZmF1bHQnHwYFZWV2ZW50LmNhbmNlbEJ1YmJsZT10cnVlOyByZXR1cm4gd2luZG93LmNvbmZpcm0oJ0FyZSB5b3Ugc3VyZSB5b3Ugd291bGQgbGlrZSB0byBkZWxldGUgdGhpcyBWZW5kb3I/Jyk7ZAJXDw9kFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QCWQ8PZBYEHwIFGHRoaXMuc3R5bGUuY3Vyc29yPSdoYW5kJx8DBRt0aGlzLnN0eWxlLmN1cnNvcj0nZGVmYXVsdCdkAlsPD2QWBB8CBRh0aGlzLnN0eWxlLmN1cnNvcj0naGFuZCcfAwUbdGhpcy5zdHlsZS5jdXJzb3I9J2RlZmF1bHQnZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAQUoY3RsMDAkQm9keUhvbGRlciRjaGtBY2Nlc3NUb090aGVyRW5jRG9jc/igTtxDk1wVEmwbU6ycfkeayVNB" />
+</div>
+
+
+
+<script src="/app/WebResource.axd?d=PbeiUwjCvWNLetx6VaOUK86p_8dyVEa3tU_PAY6Y0CN0EoUWo9Q-n0A2GMdlFjkHsBUhVM0DJOoM6PzLFZHO9-mgG-6YWb0WpvLm9sQjvAGdHOXo0&amp;t=636776544783889403" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="226CE068" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAJwCziQWMKwahuUNuNo5yxguGuzyWT9bFgwXhE0bZnUV944fI9ikdwsB9XUL+G+9PherE3mkuysg4EHJ7wwpm+5ExDeWhLX3t7/7MBupWDpbaE+sDF0lW9xJGA/zInCSW4sAqNWcjVoep3cEqq/J8mWtHuCEFpMZKL5WHfFR11KoZdpSVnBRZYoT3NhNAfRGiKP464jz+FgITGdTAl6Nl+NXSBt7LC8H5F/xZDJDkWJkAdZoOVO2Otn4oRt8cekqpDilyXzknsCL4wr2+tVn4z52nqsFxpEENMKlUVTnBptET3Te8E660X4vNrqWmef9SSQZqnSA/kbKoVThNZtQPZTiRqU0qxxvCGkU4D3b4kVSjE+/0tTHQDV+LlavI6O7Cjr2CCJt8miOEDnTxHUq19naPz8kXpRthWyhEdy6Sx4QRnKQP1I26Tyl0B/+YE7QFcCNKsuZrCAWc/NQXi5AJjfgPCuKFTm7PD7EwVgC/akSrYnlFapioLiNuLintWFI4akzewaWB8h083VCrdwWhEqQjlVtFVizQF3N+tYkY73Uzxj26fhVU7Hgr6wFgQQCyEInevDKxWhAyn1swlSf52XjSYQL7+4mSUOk+mhQz6n3oVjSMbQBxkCpJvxz97CUhbxZr8uuI3rOwjeIEqE0QScM3zr30LiaTPn8NTXWql0viv5Qcc5hgsSB3rLh5EbovQllqmba+hDzOq51dVIhEtepdhdpyifdgK+ql2Quzp5AIdhCvPWoB77S2FKuY1HWrCuHa39zKLG5Z5YSiQAxvMKUaQbvFwu/1gkdBC4ECJvaJUVBQ4tiIUUhewkjISV2IpsDTfT8ZmbwBdqb6+XD/dUJXcewNoGcRTKVah4wuR7glXSDfG04w8fQ1B2mZuHjWvQCkrbaHH56hCXnlwIrErci6iibZtSH5+CCAcGop4uUAuYmEpgwaKNYBqhGHgOlGek1NSNuDqFxn+UClPQU1L/FWG4EHewyqzMQXr9+AmOkO2QlYOVlIs8+nJFKEQVLZzZamqxwDYzl1e5Q3VIjcjvHkLLtLZkivBth7l310rsEuL2MwYES1hpbaBaVUnkC1s3GO5wikMUPqnhejcx8UbWlp3wLDL4XoxogTyYYqDsubBThPnX2SQoodZ4Ce2TQGYQpjKreowKM6nwRDiyCkTbucNVAVpIqPHzqk6E7nZ2NAQfjo89glhFX3Gk77FsnJJ++IE44hmAO/Ny6o8H2SzEleuvviBsxqLRsKISnNvnxW8AG++YXu/Nh/+7w+st089t0lkkmPe+r1N+XKtBlGTxRhKwqeMPeNA8Tb/2nTUi6c5xY7gCufCsM73BVpe8p6i0Nt75uV7KjhwfNzDC5ePQgqjjwEFgHRn9zUWlsf+S7G8rAgE7+yC7aTwRcHIGaRNr60A5ylVdlelHPLiTNcG/ipUwGJfXo3unZAieHVv1DJTt2rckhis8cus0FbqytbPkvF68ujT9XINVILyN2imuWD3VjYTsgZYTzcgZGJJFxknwFsltLmgalsrmv6yIrFnDpRu6K3Er1lGCqeNWlS0c0aNhm9nRlLIqT1DM9GNinsqIfqvUKA8mBawrui7mz7WfA5fqIc2oJEGeZC1t1UYWwH3mqUQrKdrdOiwqt9YvNEhnELtkg9cOk0jpFWCRQdAmBfLMoY5I3OcP7pXzMGFNDASKZbsJ2TQFndmvltWi1dNWnqKuxfpIhmgwT5Vg6WuOLCSANuYBF5y8fald2VmrykegGUCQ5omzlsneRkDwudVNzEUla/e9w0ivy4p5W+s7VLXl+XfV70AOYXekIYhgGvF/o5DxL4k5Z4vm4aMiw1jjYbO2yL31uLS3werRSJOkldEEWpVGxWnnvRjbIulhDUeI2QEmcakIUqO/cOQbBQsbPh64pL0oqzIo5xRwXgSnGFvaioscf0RhIPndrYFb/4MU6QDSj1n8I3N0zMLOpmiOOARtEeXhDrsUoTD2j1GJpeDUqNpHl5vNdBKAEGuA5cvegAfq6vfQCua3JOO5CNr4s/z30tlvdpo77YMYGdFkW7C+6fa2TR3set4TJgCgv0UmuKUBv2ImGaf0izUDIcAYvfDRfVLYZ76HUFDZ7gZASA6NJQQpui6jECuywoqZeM5NpAntDM4JNtr7bv/UX0/CV6tnC2VnxucxcxMODIb3eT7qcUo15AMLU5JkQG8IxScskttwPWiAweVx+uaxQMXZuCXJPMtCkA+3g9DOdK8Ouniub25ve53vMh7ZfodmTtWTu46c8y+Zr0yvzi+R6iSw6QpvlDUXhxIOUVBB8z+Lesof3SxCSygvZUX9zYPehKSAmz/RoL7fwftsuWikThu0n0pqfynanbSxRpoYKPSpiFTuIXzAWGwAAAW7j4pmQwkYx9rIDYQX6XkbN6H0RZd9vSBEW9QC4Ju9XoRT6hxB1krt6YlvI1h5tidRb1ns1UiET5O46IGC9NNMzCR3oI/OEenNXxf3gjRAMlPJ4C37WqY6hihVkEsMavcgn7BzQsqAVoqfC2ZkCcHyi9en9mKM+bwv7219B4RdbCscSNYx0sMT41jXLZwZB9EJu7+qhvxBE7dzruY/rOwvVX/bhZw9SXglGTOjKhMQgBBpIem+HH7Vp36Qungi2yxPXHMVDcXAfhGFQZxI+ls3j+8y9Lh2gTgds0aWXEvy4Gtv4pPj7EVB+Y4CBAIBVdSVgLwQywGleZoMRu6NWWO44dEJSsPJfESnQbQdLgHO3cDcLimkh2zs3GQ3Qvaw1QDObNcs7RC8T9J4LObXYMpRsFkBBGH/Kh9zeMA5EPlW/cal5h/bSs0BcPJmiBY/yKxzXO+ujmBD4HGq6zC4TE3Dqbb5boNa6GvqDV3/gR/hEw/IH1WLFyEvG04nescvGnCkPSXo8TDYbxrNvF1Emf2qhK3Jt5S+GsNzFq9qB9g9bTHrPgFNwACLajQx0czgRunTdu37FFJvsr5L1g7VszyZi1AZ2ZNHBO/8ZhxbclLlGYH+lRSi5Lkh+22YBPa9/q5rySGjXs9/9ToYSLWOdRlp+Ohui41rM1OQ8AmRxvdM+AVJg9g47p53saC3w0y/goeEuOMIwoqC/pUD+5c0KJtISZc0mbz1Vz81W940/z+StJ13Yxe+WFf+u/vE3GJl6XfotFgq3JzwLqtqsxIZ7keCdcJRstwjiD1WyRsDH+WuxcyGR4IxE45onr5+CK6FVIJcG8A2dN0B9OQK+XdYrZ4A6Dp+hf0nFk2qQz1QmY/j7xoJ+PNUit+CUySCfbnxoA3Mdp1YwNCVdj6v9eUehTg+3zMsqpOrrm85dadmTav+mcl4Io4wNqQgUbOXdvoVrFGVlaesnk4DYri52WArDqYdorjMzucfhKtIoZqRTwih4YtAL6mj5J8nnguk8RwCYwpV6NLz9NePHhC2BceXmFoK40Qo4DfS3WhfWD5gIn9E8w6suJSnLNA6jBRDuiceZNUcHOH2HXiudyRd+2tCfeE0QGU/ZhFxHQ3pIasHvrMHaE5rhkt+yXqrCS5789U6+4kMLs5mAfQBsLX5ibGtHuwcoXu+KhWj5did7q6VxRp5xVUyvTRHwW41LTh5KZrZBKiU/hplRVfuprKqns683U+rIbtBuKy+PAb/ZmAgYc+oxHf3OPJYSR2Z5mLnIg+c4OhU55ot/aNT0R9LGkuB8BppqPUml5D0kCuO1SLY3mYRiN1/bhX+yTypgRTbzD6GWqrZbcgtb1wXpi2f6Ym+k1tECaacsHQpNKkVzBKogjzUfTjm6iDz3mG7+WuRmdZuEV0N5WH+PJFvh5yFoioW9JQTDFFJJp2iNzu4WF76RtwiJ4oYLTQxGXkcPMlDWnc3em4FThs9YX5aBmxFZ0eETfz3v5ywNzatTxz0ihBqb4FzPzVbqnltVuW+VTinx0OB+rFNm7q1djYezbBd5wtAqQw5BPpbRiR0lDu0mLGAORiqHUvjZwdYMd2Gu5mNsdtzGVTnOTQqAm9p09n6h1rrWUoLBghNxxmI7ytpP4VpJ37o7RILY8s1h2bNvZ//ML10jCONSimlBZMmqOaUtneLTOU612RObtdRd+SMmTltzNAFlKDUH5pnbkgr4YqOpxcvhXDI5bZf33SWE+U4159Ucm3PXgFr6CNXFCYuwnETCqpxdA6kpUZdXnlos+yR5gW1At1wSPd0gubetU4Dp0s+scoYqJdsmXejg9kPnzSeQLOvKD4SVfLvt5FNImO57e62lfrmSf/X3iMwztCQPLRRtCH/QROilXHD/qqnIBJWfI/ReEnW/+M+7GZWEErz7npt6YgGhzqZJ9/vFITid/akpXTQXOz8DYjw+o6wlmWXNT9yjrd/Np+vUI4FIPxXyw1JEI/oOGAAvFy2Efc16FIdMyTiaGIwqr/hthyNRdTq+HA2oQ6QmmeUozUt1RxxsrQiMumJLKzceiJIn0IVx/knAzDK5aVh1PTbJRTkLjoaqzBfNQ72zfHiHUOfoliJKkJuBAhcxcm8k/tqTaMN7LDL/NkzV9qhDxh7aRFS8Ve1T+dOWx3mka7RfU56IgOdAMdn7/HtsrVlUxJJVk4n061JEngun4NXD6AR1tESI6t2No44aZXTegVQ7RejT05CqgYNnN+P4SF1xddsr3XKontowbrfvXrHOtOH1EpghJiE0GPA1yZGunAudYJn9fCQBIZK2IT+jARYWTF9mhOiXBlWLvgVpp41vXuEoXpr3/JnI9q0lU7WzME0eqVIlZzHV4E58ADJ47OWzondk+mn6TxNMSpD6hFOY1w+5pQlF3qheFwOaiX5e5Xn8HATDZ69eWeS18SRDT3gboRpfEgOJu1XV/qLEe2fAsuouKxXLcCfifBlKAtO27KQyV3Vqu/DN7fYEcz0kn3CDsaK4sn/PWS3IDCZ5i0YilJ5SosqKEHcomoqvb/prBZUtrXv4tYX4CZxe7tG3FWrFumK6l1dAQLsoWxTBSRcyk3FF650nEobVGpLoeb3SSeX/DmHO4A9qxfZxYy5ga/e2eSX0X+Z9Scr+COpGpAZFgrIR1RMmU7R0Tn9xnOZswXvNtb60v0mxZF0b+Pt7Bk3c4+WWI8B6N5/SwXyyrxur0gKX8d5aS6jjiGoVOJOHF1vPWqFRYF2RQ1UBfFI2E+7UpwuhpvJdSw9qmVcky5ych9TyWbPZEmuojzf5zDdsf9rA1TEdNh2YtwB6aDbqeOdKJbx8npQ/1i8NLiMV8cm6fCdZssUwY86s8KCbVf9NrhrnzLIg8A5nODvzjKELGAHMZ59dglNbUzyGNnRFcsj20W8iLP0CYQsM1cmL8UPzBvXiYZhvDZTaKKUkwRwCzH2FRrzGJ/R8h4lDjA1tJaLVd1gWQgF4eAeybBhehJMMZFVjpXqEfSwYJsW1YyXxmS13x6e0MNbFoXOky7vGSRrE1NqK9LCoO1BQyHGlMNt5TC2tpSMRea9qLtXXsiV/Ev5x4CWJrbXiq2ZVDKefC7t6sM6tBdewDVQanKKqA2VzRnFDAeE5H+KWSl1+84MAeh0LfexoT86Mh6tY/579UiOagEldRLKIRjW0FG2tvn5BHk+Er/6C2iyPzs8k6yJJbmGlQ4rrEsqIg+kAaDF40IJqASxPxVV1Ijm3oxZ/RuK8q4A8ITr9RNrgXIdw7mIPNncbprGu2bfIGVbTA+e6vAbqYs0EdUL11/NHXrLGI9Fp42630mAzEw5Ef1BicYIGiHjj2ZAtPBixrNz2+at6jfMQWAVYUp7XkEbXzzSHzQpBaSWbEKR8lprXG0YDAB1FaYU5k6tW0TCqgDfeXEVo0VS4iM8P0KP4H1OX2Q8wO3KTA7hUEyLtk/g0fFnNCuuBYeyIuIo7HK+2U6o5EowRQ8OYdcpvdxHR7necrHN7MPNPDjvW4662JpyQ0j5FlXxJjRGgfWNbqMHt6MThuPdhZisgrmNnw5xR9HFc7ybmzmYOa47SLMUJK8Q54VrgqdgxgSZB4E+AmTUHNeeU4OJzGQL01ybwgi7mQOg/nzlelUxbqobTPUS9zgVOJXlus4hUSFnq11csppQ51HbTF7I4Xg2AzoLYPiwj0qdLBte3KJG1uVHQPASN0A==" />
+</div>
+            <div id="content">
+                
+    
+    <input name="ctl00$BodyHolder$hdClientID" type="hidden" id="ctl00_BodyHolder_hdClientID" />
+    <input name="ctl00$BodyHolder$hdIsChanged" type="hidden" id="ctl00_BodyHolder_hdIsChanged" value="0" />
+    <!-- page src -->
+    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
+        <tr valign="top">
+            <td style="    border: grey;    border-width: 1px;    border-style: double;    border-radius: 12px;">
+                <!-- Groups block -->
+                <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ebe4d8" border="0">
+                                <tr bgcolor="#f1f1f6">
+                                    <td>
+                                        <table cellspacing="0" cellpadding="3" width="100%" border="0">
+                                            <tr bgcolor="#f9f9f9">
+                                                <td class="tbltxt" width="100%" colspan="3">
+                                                    <img height="23" src="#{resource['images:icon-folder.gif']}" width="23" align="absMiddle" border="0"/>&nbsp;<font
+                                                        class="tblhdr">consignee Edit</font>&nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End of Groups block -->
+                <img height="4" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                <img height="4" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                <table cellspacing="0" cellpadding="1" width="184" border="0">
+                    <tr>
+                        <td >
+                            <table height="100" cellspacing="0" cellpadding="8" width="100%" bgcolor="white"
+                                border="0">
+                                <tr>
+                                    <td valign="top" bgcolor="#f1f1f1">
+                                        <font class="info"><b>Notes:</b><br></br>
+                                        </font>
+                                        <br></br>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <img height="8" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                <!-- Banner -->
+            </td>
+            <td width="100%">
+                <!-- Table 1 -->
+                
+                
+                <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
+                                <tr>
+                                    <td>
+                                        <!-- Table name block -->
+                                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                            <tr>
+                                                <td class="blkname" width="100%">
+                                                    <nobr>&nbsp;<span id="ctl00_BodyHolder_lblAccount">Account #: New Account</span></nobr>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 6px">
+                                            <tr>
+                                                <td>
+                                                    &nbsp;<p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdSave" value="Save" id="ctl00_BodyHolder_cmdSave" action="#{consigneeBean.saveNewconsigneeData()}" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                    <p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" action="#{consigneeBean.cancel()}" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                    <p:commandButton  class="btn btn-default" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" action="#{consigneeBean.cancel()}" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />                     
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td class="tbltxt" width="50" align="right">
+                                                    &nbsp;
+                                                </td>
+                                              </tr>
+                                              </table>
+                                                <!-- End of Table name block -->
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                <table cellspacing="4" cellpadding="0" width="100%" border="0" style="border-style: solid;    border-width: 1px;    padding: 9px;">
+                                                    <tr>
+                                                        <td>
+                                                            <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
+                                                                           
+                                                                            <tr height="2">
+                                                                                <td  colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Company:</div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompanyName" type="text" id="ctl00_BodyHolder_txtCompanyName" value="#{consigneeBean.addNewconsignee.userId.company}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="2" style="height: 2px">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Contact First Name:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{consigneeBean.addNewconsignee.userId.firstName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Contact Last Name:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{consigneeBean.addNewconsignee.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Country:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$ddlCountry"  value="#{consigneeBean.addNewconsignee.userId.country}" id="ctl00_BodyHolder_ddlCountry" style="font-size:11px;height:27px;width:205px;">
+																							 <f:selectItem itemValue="0"  itemLabel="- UNKNOWN -"></f:selectItem>
+	 <f:selectItem itemValue="310"  itemLabel="AFGANISTAN"></f:selectItem>
+	 <f:selectItem itemValue="313"  itemLabel="ALBANIA"></f:selectItem>
+	 <f:selectItem itemValue="366"  itemLabel="ALGERIA"></f:selectItem>
+	 <f:selectItem itemValue="318"  itemLabel="AMERICAN SAMOA"></f:selectItem>
+	 <f:selectItem itemValue="308"  itemLabel="ANDORRA"></f:selectItem>
+	 <f:selectItem itemValue="316"  itemLabel="ANGOLA"></f:selectItem>
+	 <f:selectItem itemValue="312"  itemLabel="ANGUILLA"></f:selectItem>
+	 <f:selectItem itemValue="311"  itemLabel="ANTIGUA &amp; BARBUDA"></f:selectItem>
+	 <f:selectItem itemValue="317"  itemLabel="ARGENTINA"></f:selectItem>
+	 <f:selectItem itemValue="314"  itemLabel="ARMENIA"></f:selectItem>
+	 <f:selectItem itemValue="321"  itemLabel="ARUBA"></f:selectItem>
+	 <f:selectItem itemValue="320"  itemLabel="AUSTRALIA"></f:selectItem>
+	 <f:selectItem itemValue="319"  itemLabel="AUSTRIA"></f:selectItem>
+	 <f:selectItem itemValue="322"  itemLabel="AZERBAIJAN"></f:selectItem>
+	 <f:selectItem itemValue="336"  itemLabel="BAHAMAS"></f:selectItem>
+	 <f:selectItem itemValue="329"  itemLabel="BAHRAIN"></f:selectItem>
+	 <f:selectItem itemValue="325"  itemLabel="BANGLADESH"></f:selectItem>
+	 <f:selectItem itemValue="324"  itemLabel="BARBADOS"></f:selectItem>
+	 <f:selectItem itemValue="340"  itemLabel="BELARUS"></f:selectItem>
+	 <f:selectItem itemValue="326"  itemLabel="BELGIUM"></f:selectItem>
+	 <f:selectItem itemValue="341"  itemLabel="BELIZE"></f:selectItem>
+	 <f:selectItem itemValue="331"  itemLabel="BENIN"></f:selectItem>
+	 <f:selectItem itemValue="332"  itemLabel="BERMUDA"></f:selectItem>
+	 <f:selectItem itemValue="337"  itemLabel="BHUTAN"></f:selectItem>
+	 <f:selectItem itemValue="334"  itemLabel="BOLIVIA"></f:selectItem>
+	 <f:selectItem itemValue="323"  itemLabel="BOSNIA-HERCEQOVINA"></f:selectItem>
+	 <f:selectItem itemValue="339"  itemLabel="BOTSWANA"></f:selectItem>
+	 <f:selectItem itemValue="335"  itemLabel="BRAZIL"></f:selectItem>
+	 <f:selectItem itemValue="409"  itemLabel="BRITISH INDIAN OCEAN TERRITORY"></f:selectItem>
+	 <f:selectItem itemValue="535"  itemLabel="BRITISH VIRGIN ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="333"  itemLabel="BRUNEI DARUSSALAM"></f:selectItem>
+	 <f:selectItem itemValue="328"  itemLabel="BULGARIA"></f:selectItem>
+	 <f:selectItem itemValue="327"  itemLabel="BURKINA FASO"></f:selectItem>
+	 <f:selectItem itemValue="338"  itemLabel="BURMA (MYANMAR)"></f:selectItem>
+	 <f:selectItem itemValue="330"  itemLabel="BURUNDI"></f:selectItem>
+	 <f:selectItem itemValue="419"  itemLabel="CAMBODIA"></f:selectItem>
+	 <f:selectItem itemValue="351"  itemLabel="CAMEROON, UNITED REPUBLIC OF"></f:selectItem>
+	 <f:selectItem itemValue="342"  itemLabel="CANADA"></f:selectItem>
+	 <f:selectItem itemValue="357"  itemLabel="CAPE VERDE"></f:selectItem>
+	 <f:selectItem itemValue="426"  itemLabel="CAYMAN ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="345"  itemLabel="CENTRAL AFRICAN REPUBLIC"></f:selectItem>
+	 <f:selectItem itemValue="511"  itemLabel="CHAD"></f:selectItem>
+	 <f:selectItem itemValue="350"  itemLabel="CHILE"></f:selectItem>
+	 <f:selectItem itemValue="352"  itemLabel="CHINA"></f:selectItem>
+	 <f:selectItem itemValue="358"  itemLabel="CHRISTMAS ISLANDS (INDIAN OCEAN)"></f:selectItem>
+	 <f:selectItem itemValue="343"  itemLabel="COCOS (KEELING) ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="353"  itemLabel="COLOMBIA"></f:selectItem>
+	 <f:selectItem itemValue="421"  itemLabel="COMOROS"></f:selectItem>
+	 <f:selectItem itemValue="346"  itemLabel="CONGO (BRAZZAVILLE)"></f:selectItem>
+	 <f:selectItem itemValue="349"  itemLabel="COOK ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="354"  itemLabel="COSTA RICA"></f:selectItem>
+	 <f:selectItem itemValue="550"  itemLabel="COTE D&#39;IVOIRE"></f:selectItem>
+	 <f:selectItem itemValue="402"  itemLabel="CROATIA"></f:selectItem>
+	 <f:selectItem itemValue="356"  itemLabel="CUBA"></f:selectItem>
+	 <f:selectItem itemValue="359"  itemLabel="CYPRUS"></f:selectItem>
+	 <f:selectItem itemValue="360"  itemLabel="CZECH REPUBLIC"></f:selectItem>
+	 <f:selectItem itemValue="344"  itemLabel="DEMOCRATIC REPUBLIC OF CONGO (KINSHASA)"></f:selectItem>
+	 <f:selectItem itemValue="363"  itemLabel="DENMARK"></f:selectItem>
+	 <f:selectItem itemValue="362"  itemLabel="DJIBOUTI"></f:selectItem>
+	 <f:selectItem itemValue="364"  itemLabel="DOMINICA"></f:selectItem>
+	 <f:selectItem itemValue="365"  itemLabel="DOMINICAN REPUBLIC"></f:selectItem>
+	 <f:selectItem itemValue="520"  itemLabel="EAST TIMOR"></f:selectItem>
+	 <f:selectItem itemValue="367"  itemLabel="ECUADOR"></f:selectItem>
+	 <f:selectItem itemValue="369"  itemLabel="EGYPT"></f:selectItem>
+	 <f:selectItem itemValue="507"  itemLabel="EL SALVADOR"></f:selectItem>
+	 <f:selectItem itemValue="392"  itemLabel="EQUATORIAL GUINEA"></f:selectItem>
+	 <f:selectItem itemValue="371"  itemLabel="ERITREA"></f:selectItem>
+	 <f:selectItem itemValue="368"  itemLabel="ESTONIA"></f:selectItem>
+	 <f:selectItem itemValue="373"  itemLabel="ETHIOPIA"></f:selectItem>
+	 <f:selectItem itemValue="374"  itemLabel="EUROPEAN ECONOMIC COMMUNITY"></f:selectItem>
+	 <f:selectItem itemValue="377"  itemLabel="FALKLAND ISLANDS (MALVINAS)"></f:selectItem>
+	 <f:selectItem itemValue="379"  itemLabel="FAROE ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="376"  itemLabel="FIJI"></f:selectItem>
+	 <f:selectItem itemValue="375"  itemLabel="FINLAND"></f:selectItem>
+	 <f:selectItem itemValue="380"  itemLabel="FRANCE"></f:selectItem>
+	 <f:selectItem itemValue="385"  itemLabel="FRENCH GUIANA"></f:selectItem>
+	 <f:selectItem itemValue="475"  itemLabel="FRENCH POLYNESIA"></f:selectItem>
+	 <f:selectItem itemValue="512"  itemLabel="FRENCH SOUTHERN &amp; ANTARCTIC LANDS"></f:selectItem>
+	 <f:selectItem itemValue="381"  itemLabel="GABON"></f:selectItem>
+	 <f:selectItem itemValue="389"  itemLabel="GAMBIA"></f:selectItem>
+	 <f:selectItem itemValue="398"  itemLabel="GAZA STRIP"></f:selectItem>
+	 <f:selectItem itemValue="384"  itemLabel="GEORGIA"></f:selectItem>
+	 <f:selectItem itemValue="361"  itemLabel="GERMANY, FEDERAL REPUBLIC OF"></f:selectItem>
+	 <f:selectItem itemValue="386"  itemLabel="GHANA"></f:selectItem>
+	 <f:selectItem itemValue="387"  itemLabel="GIBRALTAR"></f:selectItem>
+	 <f:selectItem itemValue="382"  itemLabel="GREAT BRITAIN, UNITED KINGDOM, ENGLAND, SCOTLAND, WALES, NORTHERN IRELAND"></f:selectItem>
+	 <f:selectItem itemValue="393"  itemLabel="GREECE"></f:selectItem>
+	 <f:selectItem itemValue="388"  itemLabel="GREENLAND"></f:selectItem>
+	 <f:selectItem itemValue="383"  itemLabel="GRENADA"></f:selectItem>
+	 <f:selectItem itemValue="391"  itemLabel="GUADELOUPE"></f:selectItem>
+	 <f:selectItem itemValue="395"  itemLabel="GUAM"></f:selectItem>
+	 <f:selectItem itemValue="394"  itemLabel="GUATEMALA"></f:selectItem>
+	 <f:selectItem itemValue="390"  itemLabel="GUINEA"></f:selectItem>
+	 <f:selectItem itemValue="396"  itemLabel="GUINEA-BISSAU"></f:selectItem>
+	 <f:selectItem itemValue="397"  itemLabel="GUYANA"></f:selectItem>
+	 <f:selectItem itemValue="403"  itemLabel="HAITI"></f:selectItem>
+	 <f:selectItem itemValue="400"  itemLabel="HEARD &amp; MCDONALD ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="401"  itemLabel="HONDURAS"></f:selectItem>
+	 <f:selectItem itemValue="399"  itemLabel="HONG KONG"></f:selectItem>
+	 <f:selectItem itemValue="404"  itemLabel="HUNGARY"></f:selectItem>
+	 <f:selectItem itemValue="412"  itemLabel="ICELAND"></f:selectItem>
+	 <f:selectItem itemValue="408"  itemLabel="INDIA"></f:selectItem>
+	 <f:selectItem itemValue="405"  itemLabel="INDONESIA"></f:selectItem>
+	 <f:selectItem itemValue="547"  itemLabel="INTERNATIONAL ORGANIZATIONS"></f:selectItem>
+	 <f:selectItem itemValue="411"  itemLabel="IRAN"></f:selectItem>
+	 <f:selectItem itemValue="410"  itemLabel="IRAQ"></f:selectItem>
+	 <f:selectItem itemValue="406"  itemLabel="IRELAND"></f:selectItem>
+	 <f:selectItem itemValue="407"  itemLabel="ISRAEL"></f:selectItem>
+	 <f:selectItem itemValue="413"  itemLabel="ITALY"></f:selectItem>
+	 <f:selectItem itemValue="348"  itemLabel="IVORY COAST"></f:selectItem>
+	 <f:selectItem itemValue="414"  itemLabel="JAMAICA"></f:selectItem>
+	 <f:selectItem itemValue="416"  itemLabel="JAPAN"></f:selectItem>
+	 <f:selectItem itemValue="415"  itemLabel="JORDAN"></f:selectItem>
+	 <f:selectItem itemValue="427"  itemLabel="KAZAKHSTAN"></f:selectItem>
+	 <f:selectItem itemValue="417"  itemLabel="KENYA"></f:selectItem>
+	 <f:selectItem itemValue="420"  itemLabel="KIRIBATI"></f:selectItem>
+	 <f:selectItem itemValue="423"  itemLabel="KOREA,NORTH"></f:selectItem>
+	 <f:selectItem itemValue="424"  itemLabel="KOREA,SOUTH"></f:selectItem>
+	 <f:selectItem itemValue="552"  itemLabel="KOSOVO"></f:selectItem>
+	 <f:selectItem itemValue="425"  itemLabel="KUWAIT"></f:selectItem>
+	 <f:selectItem itemValue="418"  itemLabel="KYRGYZSTAN"></f:selectItem>
+	 <f:selectItem itemValue="428"  itemLabel="LAO PEOPLE&#39;S DEMOCRATIC REPUBLIC(LAOS)"></f:selectItem>
+	 <f:selectItem itemValue="437"  itemLabel="LATVIA"></f:selectItem>
+	 <f:selectItem itemValue="429"  itemLabel="LEBANON"></f:selectItem>
+	 <f:selectItem itemValue="434"  itemLabel="LESOTHO"></f:selectItem>
+	 <f:selectItem itemValue="433"  itemLabel="LIBERIA"></f:selectItem>
+	 <f:selectItem itemValue="438"  itemLabel="LIBYAN ARAB JAMAHIRIYA"></f:selectItem>
+	 <f:selectItem itemValue="431"  itemLabel="LIECHTENSTEIN"></f:selectItem>
+	 <f:selectItem itemValue="435"  itemLabel="LITHUANIA"></f:selectItem>
+	 <f:selectItem itemValue="436"  itemLabel="LUXEMBOURG"></f:selectItem>
+	 <f:selectItem itemValue="447"  itemLabel="MACAU"></f:selectItem>
+	 <f:selectItem itemValue="444"  itemLabel="MACEDONIA"></f:selectItem>
+	 <f:selectItem itemValue="442"  itemLabel="MADAGASCAR(MALAGASY)"></f:selectItem>
+	 <f:selectItem itemValue="455"  itemLabel="MALAWI"></f:selectItem>
+	 <f:selectItem itemValue="457"  itemLabel="MALAYSIA"></f:selectItem>
+	 <f:selectItem itemValue="454"  itemLabel="MALDIVES"></f:selectItem>
+	 <f:selectItem itemValue="445"  itemLabel="MALI"></f:selectItem>
+	 <f:selectItem itemValue="452"  itemLabel="MALTA &amp; GOZO"></f:selectItem>
+	 <f:selectItem itemValue="443"  itemLabel="MARSHALL ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="449"  itemLabel="MARTINIQUE"></f:selectItem>
+	 <f:selectItem itemValue="450"  itemLabel="MAURITANIA"></f:selectItem>
+	 <f:selectItem itemValue="453"  itemLabel="MAURITIUS"></f:selectItem>
+	 <f:selectItem itemValue="543"  itemLabel="MAYOTTE"></f:selectItem>
+	 <f:selectItem itemValue="456"  itemLabel="MEXICO"></f:selectItem>
+	 <f:selectItem itemValue="378"  itemLabel="MICRONESIA, FEDERATED STATE OF"></f:selectItem>
+	 <f:selectItem itemValue="441"  itemLabel="MOLDOVA"></f:selectItem>
+	 <f:selectItem itemValue="440"  itemLabel="MONACO"></f:selectItem>
+	 <f:selectItem itemValue="446"  itemLabel="MONGOLIA"></f:selectItem>
+	 <f:selectItem itemValue="451"  itemLabel="MONSERRAT"></f:selectItem>
+	 <f:selectItem itemValue="548"  itemLabel="MONTENEGRO"></f:selectItem>
+	 <f:selectItem itemValue="439"  itemLabel="MOROCCO"></f:selectItem>
+	 <f:selectItem itemValue="458"  itemLabel="MOZAMBIQUE"></f:selectItem>
+	 <f:selectItem itemValue="459"  itemLabel="NAMIBIA"></f:selectItem>
+	 <f:selectItem itemValue="468"  itemLabel="NAURU"></f:selectItem>
+	 <f:selectItem itemValue="467"  itemLabel="NEPAL"></f:selectItem>
+	 <f:selectItem itemValue="465"  itemLabel="NETHERLANDS"></f:selectItem>
+	 <f:selectItem itemValue="315"  itemLabel="NETHERLANDS ANTILLES"></f:selectItem>
+	 <f:selectItem itemValue="469"  itemLabel="NEUTRAL ZONE (BETWEEN SAUDI ARABIA AND IRAQ)"></f:selectItem>
+	 <f:selectItem itemValue="460"  itemLabel="NEW CALEDONIA"></f:selectItem>
+	 <f:selectItem itemValue="471"  itemLabel="NEW ZEALAND"></f:selectItem>
+	 <f:selectItem itemValue="464"  itemLabel="NICARAGUA"></f:selectItem>
+	 <f:selectItem itemValue="461"  itemLabel="NIGER"></f:selectItem>
+	 <f:selectItem itemValue="463"  itemLabel="NIGERIA"></f:selectItem>
+	 <f:selectItem itemValue="470"  itemLabel="NIUE"></f:selectItem>
+	 <f:selectItem itemValue="462"  itemLabel="NORFOLK ISLAND"></f:selectItem>
+	 <f:selectItem itemValue="448"  itemLabel="NORTHERN MARIANA ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="466"  itemLabel="NORWAY"></f:selectItem>
+	 <f:selectItem itemValue="472"  itemLabel="OMAN"></f:selectItem>
+	 <f:selectItem itemValue="478"  itemLabel="PAKISTAN"></f:selectItem>
+	 <f:selectItem itemValue="484"  itemLabel="PALAU"></f:selectItem>
+	 <f:selectItem itemValue="473"  itemLabel="PANAMA"></f:selectItem>
+	 <f:selectItem itemValue="476"  itemLabel="PAPUA NEW GUINEA"></f:selectItem>
+	 <f:selectItem itemValue="485"  itemLabel="PARAGUAY"></f:selectItem>
+	 <f:selectItem itemValue="474"  itemLabel="PERU"></f:selectItem>
+	 <f:selectItem itemValue="477"  itemLabel="PHILIPPINES"></f:selectItem>
+	 <f:selectItem itemValue="481"  itemLabel="PITCAIRN ISLAND"></f:selectItem>
+	 <f:selectItem itemValue="479"  itemLabel="POLAND"></f:selectItem>
+	 <f:selectItem itemValue="483"  itemLabel="PORTUGAL"></f:selectItem>
+	 <f:selectItem itemValue="482"  itemLabel="PUERTO RICO"></f:selectItem>
+	 <f:selectItem itemValue="486"  itemLabel="QATAR"></f:selectItem>
+	 <f:selectItem itemValue="551"  itemLabel="REPUBLIC OF ABKHAZIA"></f:selectItem>
+	 <f:selectItem itemValue="487"  itemLabel="REUNION (ISLAND, FRENCH)"></f:selectItem>
+	 <f:selectItem itemValue="488"  itemLabel="ROMANIA"></f:selectItem>
+	 <f:selectItem itemValue="7"  itemLabel="Russian Federation"></f:selectItem>
+	 <f:selectItem itemValue="490"  itemLabel="RWANDA"></f:selectItem>
+	 <f:selectItem itemValue="430"  itemLabel="SAINT LUCIA"></f:selectItem>
+	 <f:selectItem itemValue="533"  itemLabel="SAINT VINCENT AND THE GRENADINES"></f:selectItem>
+	 <f:selectItem itemValue="502"  itemLabel="SAN MARINO"></f:selectItem>
+	 <f:selectItem itemValue="506"  itemLabel="SAO TOMES AND PRINCIPE"></f:selectItem>
+	 <f:selectItem itemValue="491"  itemLabel="SAUDI ARABIA"></f:selectItem>
+	 <f:selectItem itemValue="503"  itemLabel="SENEGAL"></f:selectItem>
+	 <f:selectItem itemValue="549"  itemLabel="SERBIA"></f:selectItem>
+	 <f:selectItem itemValue="355"  itemLabel="SERBIA AND MONTENEGRO"></f:selectItem>
+	 <f:selectItem itemValue="493"  itemLabel="SEYCHELLES"></f:selectItem>
+	 <f:selectItem itemValue="501"  itemLabel="SIERRA LEONE"></f:selectItem>
+	 <f:selectItem itemValue="496"  itemLabel="SINGAPORE"></f:selectItem>
+	 <f:selectItem itemValue="500"  itemLabel="SLOVAKIA"></f:selectItem>
+	 <f:selectItem itemValue="498"  itemLabel="SLOVENIA"></f:selectItem>
+	 <f:selectItem itemValue="492"  itemLabel="SOLOMON ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="504"  itemLabel="SOMALIA"></f:selectItem>
+	 <f:selectItem itemValue="544"  itemLabel="SOUTH AFRICA"></f:selectItem>
+	 <f:selectItem itemValue="372"  itemLabel="SPAIN"></f:selectItem>
+	 <f:selectItem itemValue="432"  itemLabel="SRI LANKA"></f:selectItem>
+	 <f:selectItem itemValue="497"  itemLabel="ST. HELENA"></f:selectItem>
+	 <f:selectItem itemValue="422"  itemLabel="ST. KITTS-NEVIS"></f:selectItem>
+	 <f:selectItem itemValue="480"  itemLabel="ST. PIERRE AND MIQUELON"></f:selectItem>
+	 <f:selectItem itemValue="494"  itemLabel="SUDAN"></f:selectItem>
+	 <f:selectItem itemValue="505"  itemLabel="SURINAM"></f:selectItem>
+	 <f:selectItem itemValue="499"  itemLabel="SVALBARD AND JAN MAYEN, ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="509"  itemLabel="SWAZILAND"></f:selectItem>
+	 <f:selectItem itemValue="495"  itemLabel="SWEDEN"></f:selectItem>
+	 <f:selectItem itemValue="347"  itemLabel="SWITZERLAND"></f:selectItem>
+	 <f:selectItem itemValue="508"  itemLabel="SYRIAN ARAB REPUBLIC"></f:selectItem>
+	 <f:selectItem itemValue="524"  itemLabel="TAIWAN, REPUBLIC OF CHINA"></f:selectItem>
+	 <f:selectItem itemValue="515"  itemLabel="TAJIKISTAN"></f:selectItem>
+	 <f:selectItem itemValue="525"  itemLabel="TANZANIA, UNITED REPUBLIC OF"></f:selectItem>
+	 <f:selectItem itemValue="514"  itemLabel="THAILAND"></f:selectItem>
+	 <f:selectItem itemValue="513"  itemLabel="TOGO"></f:selectItem>
+	 <f:selectItem itemValue="516"  itemLabel="TOKELAU ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="519"  itemLabel="TONGA"></f:selectItem>
+	 <f:selectItem itemValue="522"  itemLabel="TRINIDAD AND TOBAGO"></f:selectItem>
+	 <f:selectItem itemValue="518"  itemLabel="TUNISIA"></f:selectItem>
+	 <f:selectItem itemValue="521"  itemLabel="TURKEY"></f:selectItem>
+	 <f:selectItem itemValue="517"  itemLabel="TURKMENISTAN"></f:selectItem>
+	 <f:selectItem itemValue="510"  itemLabel="TURKS AND CAICOS ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="523"  itemLabel="TUVALU"></f:selectItem>
+	 <f:selectItem itemValue="527"  itemLabel="UGANDA"></f:selectItem>
+	 <f:selectItem itemValue="526"  itemLabel="UKRAINE"></f:selectItem>
+	 <f:selectItem itemValue="309"  itemLabel="UNITED ARAB EMIRATES"></f:selectItem>
+	 <f:selectItem itemValue="1"  itemLabel="United States"></f:selectItem>
+	 <f:selectItem itemValue="528"  itemLabel="UNITED STATES OUTLYING ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="536"  itemLabel="UNITED STATES VIRGIN ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="530"  itemLabel="URUGUAY"></f:selectItem>
+	 <f:selectItem itemValue="531"  itemLabel="UZBEKISTAN"></f:selectItem>
+	 <f:selectItem itemValue="538"  itemLabel="VANUATU"></f:selectItem>
+	 <f:selectItem itemValue="532"  itemLabel="VATICAN CITY STATE (HOLY SEE)"></f:selectItem>
+	 <f:selectItem itemValue="534"  itemLabel="VENEZUELA"></f:selectItem>
+	 <f:selectItem itemValue="537"  itemLabel="VIETNAM"></f:selectItem>
+	 <f:selectItem itemValue="540"  itemLabel="WALLIS AND FUTUMA ISLANDS"></f:selectItem>
+	 <f:selectItem itemValue="539"  itemLabel="WEST BANK"></f:selectItem>
+	 <f:selectItem itemValue="370"  itemLabel="WESTERN SAHARA"></f:selectItem>
+	 <f:selectItem itemValue="541"  itemLabel="WESTERN SAMOA"></f:selectItem>
+	 <f:selectItem itemValue="542"  itemLabel="YEMEN (SANA)"></f:selectItem>
+	 <f:selectItem itemValue="545"  itemLabel="ZAMBIA"></f:selectItem>
+	 <f:selectItem itemValue="546"  itemLabel="ZIMBABWE"></f:selectItem>
+
+																					</h:selectOneMenu>
+                                                                                </td>
+                                                                               
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" valign="top">
+                                                                                    <div style="margin-top: 3px; margin-left: 6px">
+                                                                                        Address 1:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtAddress" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress" value="#{consigneeBean.addNewconsignee.userId.address1}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                               
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" valign="top">
+                                                                                    <div style="margin-top: 3px; margin-left: 6px">
+                                                                                        Address 2:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtAddress2" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress2" value="#{consigneeBean.addNewconsignee.userId.address2}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        Phone:</div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtPhone" type="text" id="ctl00_BodyHolder_txtPhone" value="#{consigneeBean.addNewconsignee.userId.phone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        City:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtCity" type="text" id="ctl00_BodyHolder_txtCity" value="#{consigneeBean.addNewconsignee.userId.city}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        Phone2:</div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtPhone2" type="text" id="ctl00_BodyHolder_txtPhone2" value="#{consigneeBean.addNewconsignee.userId.phone2}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        MobilePhone:</div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtMobilePhone" type="text" id="ctl00_BodyHolder_txtMobilePhone" value="#{consigneeBean.addNewconsignee.userId.mobilePhone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        ZIP:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtZIP" type="text" maxlength="10" id="ctl00_BodyHolder_txtZIP"  value="#{consigneeBean.addNewconsignee.userId.zip}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div style="margin-left: 6px">
+                                                                                        Fax:</div>
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtFax" type="text" id="ctl00_BodyHolder_txtFax" value="#{consigneeBean.addNewconsignee.userId.fax}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" colspan="2" style="width: 360px;">
+                                                                                    <table cellspacing="0" cellpadding="1" width="100%" border="0">
+                                                                                        <tr style="height: 23px;">
+                                                                                            <td style="width: 300px;">
+                                                                                                <div style="margin-left: 6px">
+                                                                                                    Allow access to for this user
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td style="width: 60px;" align="right">
+                                                                                                <h:selectBooleanCheckbox id="ctl00_BodyHolder_chkAccessToOtherEncDocs" type="checkbox" name="ctl00$BodyHolder$chkAccessToOtherEncDocs" value="#{consigneeBean.addNewconsignee.allowAccess}"/>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div style="margin-left: 6px">
+                                                                                       * E-mail:</div>
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtEmail" type="text" id="ctl00_BodyHolder_txtEmail" value="#{consigneeBean.addNewconsignee.userId.email}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <!--<div style="MARGIN-LEFT: 6px">Quote:</div>-->
+                                                                                </td>
+                                                                                <td>
+                                                                                    <!--<input name="ctl00$BodyHolder$txtQuote" type="text" id="ctl00_BodyHolder_txtQuote" style="font-size:11px;height:19px;width:200px;" />-->
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" valign="top">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td colspan="4">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-top: 3px; margin-left: 6px">
+                                                                                        Other:</div>
+                                                                                </td>
+                                                                                <td colspan="4">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtOther" type="text" id="ctl00_BodyHolder_txtOther" value="#{consigneeBean.addNewconsignee.other}" style="font-size:11px;height:19px;width:500px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="69">
+                                                                                <td class="tbltxt" valign="top">
+                                                                                    <div style="margin-top: 3px; margin-left: 6px">
+                                                                                        Notes:</div>
+                                                                                </td>
+                                                                                <td colspan="4">
+                                                                                    <h:inputTextarea name="ctl00$BodyHolder$txtNotes" rows="2" cols="20" id="ctl00_BodyHolder_txtNotes" value="#{consigneeBean.addNewconsignee.notes}" style="font-size:11px;height:63px;width:500px;">
+																					</h:inputTextarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt" valign="top">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td colspan="4">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td align="left" colspan="5">
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{consigneeBean.saveNewconsigneeData()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{consigneeBean.cancel()}" name="ctl00$BodyHolder$cmdCancel2" value="Cancel" id="ctl00_BodyHolder_cmdCancel2"  style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{consigneeBean.cancel()}" name="ctl00$BodyHolder$cmdBackToList2" value="Back" id="ctl00_BodyHolder_cmdBackToList2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                <br></br>
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- End of Table 1 -->
+    <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+    <!-- Buttons block -->
+    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+        <tr>
+            <td>
+                <table cellspacing="0" cellpadding="5" width="100%" bgcolor="#f7f7f7" border="0">
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td width="100%" align="left" height="23">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- End of Buttons block -->
+
+            </div>  
+
+
+</h:form>
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

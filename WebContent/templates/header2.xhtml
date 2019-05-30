@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+
+   
+    
+    
+  <!-- the login handle box -->
+    <link rel="stylesheet" href="#{resource['css:header/style.bundle.css']}" />
+    
+	
+	   <div class="header">
+            <div class="header-main">
+              <div class="login">
+               <div class="d-none d-lg-block d-xl-block m-nav__item m-topbar__user-profile m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click" aria-expanded="true" >
+					<h:form style="margin-left: 100px;">   
+						<a href="#" class="m-nav__link m-dropdown__toggle">
+							<span class="m-topbar__userpic">
+								<h:graphicImage value="#{loginBean.theUserOfThisAccount.getphoto()}" style="border-style: solid;border-color: #a5a1a1;border-width: 1px;border-radius: 50%;border-width: 1px;width:60px;height:60px;border-color: #c3abab;" class="m--img-rounded m--marginless m--img-centered" alt=""/>
+							</span>
+											
+						</a>
+						
+						
+						
+						<div class="m-dropdown__wrapper" style="z-index: 101;">
+							<span class="m-dropdown__arrow m-dropdown__arrow--right " style="left: auto; right: 27%;"></span>
+							
+							<div style="background: #f3f3f3f7; display: #{loginBean.getTheStatueOfLoginMenu()};    " class="m-dropdown__inner">
+								<div class="m-dropdown__header m--align-center">
+									<div class="m-card-user m-card-user--skin-light">
+										
+										<div class="m-card-user__details">
+											<span class="m-card-user__name m--font-weight-500">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName}</span>
+											<br></br>
+											<br></br>
+											<a href="" class="m-card-user__email m--font-weight-300 m-link">#{loginBean.theUserOfThisAccount.email}</a>
+										</div>
+									</div>
+								</div>
+								
+								<h:commandLink action="#{loginBean.logOut}" style="width:91%" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</h:commandLink>
+								<br></br>
+								<br></br>	
+							</div>
+							
+							<div style="background: #f3f3f3f7;display: #{loginBean.getTheStatueMenuMain()};" class="m-dropdown__inner">
+								<div class="m-dropdown__body">
+									<div class="m-dropdown__content">
+									<div class="m-nav m-nav--skin-light">
+									<p:commandLink style="width:200px" class="m-nav__link">    
+													<i class="m-nav__link-icon flaticon-lifebuoy"></i>
+													</p:commandLink>
+										<h:commandButton value="Login" action="/pages/public/login.xhtml" style="width:91%" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"/>
+									</div>
+											
+										
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</h:form>
+				</div>
+              </div>
+              
+              
+              
+              
+              <div class="logo">
+              <img style="position: absolute;top: 3px;color: #fff;font-size: 12pt;width: 146px;height: 110px;border-radius: 8px;" src="/resources/images/logo.png"/> <!-- 
+              <a href="http://www.usatrt.com" target="_blank">TRT International</a>
+               -->
+              </div>
+              
+             
+			         <ul class="mn-main">
+			         <li class="mn-item-userprofile"><a href="/pages/secured/userData/userProfile.jsf">User Profile</a></li>
+			         <li class="mn-item-contactinfo"><a href="/pages/secured/userData/contactInfo.jsf">Contact Info</a></li>
+			         <li class="mn-item-freight"><a href="/pages/secured/admin/vehicleList.jsf">Freight List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/shipperList.jsf">Shipper List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/vendor/vendorList.jsf">Vendor List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1||loginBean.theUserOfThisAccount.role==2)?'block':'none'};"><a href="/pages/secured/customer/customerList.jsf">Customer List</a></li>
+			         <li class="mn-item-consignees" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/consignee/consigneeList.jsf" >Consignee List</a></li>
+			         <li class="mn-item-accounting"><a href="/pages/secured/admin/QuoteList.jsf">Quote List</a></li>
+			         <li class="mn-item-inventory"><a href="/pages/secured/admin/AddNewInventory.jsf">Add Inventory</a></li>
+			         </ul>
+           
+            </div>
+            <div class="header-navigation">
+            <ui:insert name="mainHead"> 
+                <ul class="mn-sub"><li class="mn-sub-item mn-item-userprofile"><a href="userProfile.jsf" class="mn-sub-item-current"><b>User Profile</b></a></li></ul>
+            </ui:insert>
+            </div>
+        </div>
+        
+     
+    
+		
+		
+    
+ <!--begin::login form shown-->
+<h:outputScript name="Scripts/header/scripts.bundle.js"/>
+ 
+
+ 
+</html>

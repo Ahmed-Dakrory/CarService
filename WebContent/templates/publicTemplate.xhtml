@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	lang="en">
+
+
+
+<h:head>
+   
+   
+   <meta name="theme-color" content="#073473"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>INTERNATIONAL Shipping</title>
+
+   
+	<!-- Skin CSS -->
+    <link rel="stylesheet" href="#{resource['css:public/vendorb315.css']}" />
+    <link rel="stylesheet" href="#{resource['css:public/appb315.css']}" />
+    
+    	
+    	
+    	
+    	
+    	
+   
+		
+    	
+   
+    <!-- Specific Page Vendor CSS -->
+	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.custom.css']}" />
+	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.icon.css']}" />
+	
+	
+</h:head>
+
+
+<h:body>
+   
+   
+<div class="main-wrapper">
+   <style>
+.num +  .top {
+   height: inherit;
+	 background-color: transparent;
+}
+    </style>
+   
+    <!-- Start of Header -->
+   
+   
+      
+   
+  
+
+<div class="top hidden-xs hidden-sm">
+<div class="container">
+
+
+
+<div id="top-login">
+<div class="box">Log In</div>
+<div class="login_form">
+<div class="left">
+
+
+<!--  Login Form Start -->
+
+<h:form id="top-login-form" class="site-form c-ajax"  >
+ <input name="TopLoginForm[topLoginForm]" id="TopLoginForm_topLoginForm" type="hidden" value="1" />
+<div class="form-group">
+<div class="form-row">
+<div>
+<label for="TopLoginForm_email">Email</label> 
+<p:inputText placeholder="example@gmail.com" style="width:351px" name="TopLoginForm[email]" type="email" id="Mail" class="form-control input-lg" value="#{loginBean.emailOfUserLoggedIn}"/>
+									
+</div>
+</div>
+<div class="form-row">
+<div>
+<label for="TopLoginForm_password">Password</label>
+<p:inputText placeholder="********" style="width:351px" name="TopLoginForm[password]" type="password" id="Password" required="true" class="form-control input-lg" value="#{loginBean.passwordOfUserLoggedIn}"/>
+									
+ </div>
+</div>
+<table style="width:265px;"><tbody>
+<tr>
+<td>
+<div class="remember-me"><input id="ytTopLoginForm_rememberMe" type="hidden" value="0" name="TopLoginForm[rememberMe]" /><input name="TopLoginForm[rememberMe]" id="TopLoginForm_rememberMe" value="1" type="checkbox" /> <span>Remember me</span></div>
+</td>
+</tr>
+</tbody></table>
+<div style="text-align: center">
+<h:commandButton id="top-login-submit" action="#{loginBean.login}" value="Log to My Account" type="submit" class="yBtn">
+	<f:ajax execute="@form"></f:ajax>
+</h:commandButton>
+</div>
+</div>
+</h:form> 
+
+<!--  End of Login Form -->
+
+
+
+
+
+
+
+
+<span class="closer"></span>
+</div>
+</div>
+</div>
+<div class="clearfix clr"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="header">
+<div class="container">
+<div class="row">
+<div class="ricon text-left col-xs-2 col-sm-1 hidden-md hidden-lg" id="responsive_menu_icon">
+<div class="mobile_menu_open">
+<div class="mobile_menu_open burger__container">
+<div class="burger-line"></div>
+<div class="burger-line"></div>
+<div class="burger-line"></div>
+</div>
+</div>
+</div>
+<div class="logo-big col-md-3 col-lg-3 visible-md visible-lg">
+<a href="en.html"><img src="#{resource['images:public/img/abetter_bid_logo.png']}" width="225" height="46" alt="A Better Bid® Car Auctions"/></a>
+</div>
+<div class="logo-responsive col-xs-8 col-sm-4 text-center visible-sm visible-xs">
+<a href="en.html"><img src="/resources/images/public/img/abetter_bid_logo.png" width="180" height="37" alt="A Better Bid® Car Auctions"/></a>
+</div>
+<div class="search col-sm-5 col-md-5 col-lg-6 hidden-xs">
+
+</div>
+
+<div class="phone col-md-4 col-lg-3 text-right hidden-xs hidden-sm">
+<div>Hablamos Español</div>
+<div class="num"><div></div>+1 786 801 3441</div>
+<div>
+6am - 7pm UTC-04:00 Monday - Friday </div>
+</div>
+<div class="ricon text-right col-xs-2 col-sm-2 hidden-md hidden-lg" id="responsive_account_icon">
+<div class="mobile_menu_open">
+<img src="/resources/images/img/account_icon_responsive.png" width="24" height="22" alt="Account"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="responsive_menu_block" style="display:none">
+
+<div class="responsive_menu" id="responsive_menu"></div>
+</div>
+
+
+<div id="responsive_account_block" style="display:none">
+<div class="block active">
+<div class="block_content">
+
+
+
+
+
+
+
+
+<!-- Mobile login Form -->
+
+<h:form id="m-top-login-form" class="site-form"  >
+ <input name="TopLoginMobileForm[topLoginForm]" id="TopLoginMobileForm_topLoginForm" type="hidden" value="1" />
+<div class="form-row">
+<p:inputText type="email" id="Mail_Mobile" placeholder="Email" style="width:100%" name="TopLoginMobileForm[email]" value="#{loginBean.emailOfUserLoggedIn}"/>
+									
+</div>
+<div class="form-row">
+<p:inputText placeholder="Password" style="width:100%" name="TopLoginMobileForm[password]" type="password" id="Password_Mobile" required="true" class="form-control input-lg" value="#{loginBean.passwordOfUserLoggedIn}"/>
+									
+ </div>
+ <h:commandButton action="#{loginBean.login}" value="LogIn to my account" type="submit" class="button yBtn" id="m-top-login-form__submit" style="width:100%; margin-bottom: 10px">
+	<f:ajax execute="@form" render="m-top-login-form" />
+ </h:commandButton>
+						
+<div class="block-content__bottom">
+<div class="remember-me"><input id="ytTopLoginMobileForm_rememberMe" type="hidden" value="0" name="TopLoginMobileForm[rememberMe]" /><input name="TopLoginMobileForm[rememberMe]" id="TopLoginMobileForm_rememberMe" value="1" type="checkbox" /> <span>Remember me</span></div>
+</div>
+<div class="clearfix"></div>
+</h:form>
+
+
+<!-- Mobile login Form End-->
+
+
+
+
+
+
+
+
+
+
+
+ </div>
+
+</div>
+
+</div>
+
+
+<div class="responsive-style__overlay"></div>
+
+
+<div class="mainmenu hidden-xs hidden-sm">
+<div class="container">
+<ul class="dropdown" id="yw0">
+<li class="has-submenu has-submenu__lvl1 first-main-menu" id="menu-link-search_bid">
+<a href="enek.html"> Home </a>
+
+</li>
+<li class=" has-submenu has-submenu__lvl1 mainmenu__item-live"><a href="enekkk.html">About</a>
+
+</li>
+<li><a href="en/contact-us.html">Contact Us</a></li>
+<li class="has-submenu has-submenu__lvl1 responsive_menu__get-started"><a href="javascript:void(0);" class="menu__fees-calc">Calculator</a><a href="ok.html">Get Started</a>
+
+</li>
+<li class="menu__fees-calc-mob"></li>
+</ul>
+
+
+</div>
+</div>
+
+  
+  
+     
+    
+    <!-- End of Header -->
+    
+   
+    <ui:insert name="content"> 
+    	 <ui:include src="content.xhtml"/> 
+  </ui:insert>
+   
+   
+    <ui:insert name="footer"> 
+    	 <ui:include src="footerPublic.xhtml"/> 
+  </ui:insert>
+   
+</div>
+<div id="global-modal"></div>
+   
+   
+   
+   
+   	<!-- Vendor -->
+   	
+		
+		<!-- Specific Page Vendor -->
+		<h:outputScript name="js/dashboard/assets/vendor/pnotify/pnotify.custom.js"/>
+		
+<h:outputScript  type="text/javascript" name="js/public/vendorb315.js"/>
+<h:outputScript  type="text/javascript" name="js/public/appb315.js"/>
+<script type="text/javascript">
+/*<![CDATA[*/
+app.inject('AppMain', [{"lang":"en","user":[],"eventsTracking":[],"googleApiKey":"AIzaSyC4YmXzr008FAqONKXk_Z-UFl-m8Hj_M0o","googleReCaptchaKey":"6LehBDcUAAAAALUf6FkPGmykxhWZc16W_2qoLxFN"}]);
+app.inject('SiteIndex', [{"rtl":false}]);
+app.inject('LayoutsPublicVehicleTypes', [{}]);
+app.inject('LayoutsMainLang', [{}]);
+app.inject('LayoutsMainSearch', [{}]);
+app.inject('LayoutsMainWatchListInit', [{}]);
+app.inject('LayoutsMainCustomSelect', [{}]);
+app.inject('LayoutsMainResponsive', [{}]);
+app.inject('LayoutsMainTimezone', [{}]);
+async function grOnLoad() {
+            app.event.emit("grecaptcha-loaded");
+        }
+var grSrc = document.createElement("script");grSrc.src = "../www.google.com/recaptcha/api0d1b.js?onload=grOnLoad&amp;render=explicit";grSrc.setAttribute("async", "async");grSrc.setAttribute("defer", "defer");document.body.appendChild(grSrc);
+app.inject('AccountTopLogin', []);
+app.inject('AccountMTopLogin', [{}]);
+app.inject('WidgetChangeType', [{"url":"\/en\/vehicle\/search\/makes","allMakes":"All Makes"}]);
+app.inject('WidgetChangeMake', [{"url":"\/en\/vehicle\/search\/models","allModels":"All Models"}]);
+app.inject('WidgetChangeModel', [{"url":"\/en\/vehicle\/search\/yearsFrom"}]);
+app.inject('WidgetChangeYearFrom', [{}]);
+app.inject('LayoutsMainLiveChat', [{}]);
+app.inject('Footer', [{}]);
+app.inject('Subscribe', []);
+app.inject('Cookies', [{}]);
+/*]]>*/
+</script>
+		
+</h:body>
+
+</html>

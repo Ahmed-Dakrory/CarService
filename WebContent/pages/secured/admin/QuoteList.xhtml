@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard.xhtml">
+
+	<ui:define name="title"> TRT System : User Profile</ui:define>
+
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-quotelist"><a href="QuoteList.jsf" class="mn-sub-item-current"><b>Quote List</b></a></li><li class="mn-sub-item mn-item-quoterequest"><a href="RequestAQuote.jsf">Quote Request</a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+     
+      <form name="aspnetForm" method="post" action="./QuoteList.jsf" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTc4OTA2MjM2NQ8WAh4LT3JpZ2luYWxVcmwFNWh0dHBzOi8vd3d3LnVzYXRydC5jb20vYXBwL1VzZXJQYWdlcy9jb250YWN0SW5mby5hc3B4FgJmD2QWBAICDw8WAh4EVGV4dAUnVXNlcjogVGFyZWsgU2FsbGFiaSAoPHNwYW4+VXNlcjwvc3Bhbj4pZGQCBA9kFgICAQ9kFgoCAw9kFgQCAQ8PFgIfAQUVVHJhbnNwb3J0YXRpb24gUXVvdGVzZGQCAw8WAh4LXyFJdGVtQ291bnQCBhYOZg9kFgJmDxUBFHRhYmxlX1RyYW5zcG9ydGF0aW9uZAIBD2QWHGYPFQQIR3JlZW5Sb3cFMTkyMjUKMDEvMDEvMjAxOQowNS8zMS8yMDE5ZAIBDxUBEU5FVyBZT1JLLE5ZKDEwMDEpZAICDxUBD0VsIEtob21zKDcyNTAwKWQCAw8VAQVPY2VhbmQCBA8VAQNDR01kAgUPDxYCHwEFA0ZDTGRkAgYPFQEHVmVoaWNsZWQCBw8VAQ1IaWdoIEN1YmUgVmFuZAIIDxUBATRkAgkPFQEBMGQCCg8VAQgkMjkwMC4wMGQCCw8VAQfigqwwLjAwZAIMDxUBAGQCDQ8PFgIeB1Zpc2libGVoZBYEAgEPDxYCHgtDb21tYW5kTmFtZQUFMTkyMjVkZAIDDw8WAh8EBQUxOTIyNWRkAgIPZBYcZg8VBAhHcmVlblJvdwUxOTIyNgowMi8wMi8yMDE5CjA2LzMwLzIwMTlkAgEPFQERU0FWQU5OQUgsR0EoMTcwMylkAgIPFQEmTUlTVVJBVEE8LUFsbCBPdGhlciBMaWJ5YSBQb3J0cyg3MjUwMClkAgMPFQEFT2NlYW5kAgQPFQEDQ0dNZAIFDw8WAh8BBQNGQ0xkZAIGDxUBB1ZlaGljbGVkAgcPFQENSGlnaCBDdWJlIFZhbmQCCA8VAQE0ZAIJDxUBATBkAgoPFQEIJDI5MDAuMDBkAgsPFQEH4oKsMC4wMGQCDA8VAQBkAg0PDxYCHwNoZBYEAgEPDxYCHwQFBTE5MjI2ZGQCAw8PFgIfBAUFMTkyMjZkZAIDD2QWHGYPFQQIR3JlZW5Sb3cFMTkyNjAKMDEvMDEvMjAxOQowNS8zMS8yMDE5ZAIBDxUBEU5FVyBZT1JLLE5ZKDEwMDEpZAICDxUBD0VsIEtob21zKDcyNTAwKWQCAw8VAQVPY2VhbmQCBA8VAQNDR01kAgUPDxYCHwEFA0ZDTGRkAgYPFQEHVmVoaWNsZWQCBw8VAQ1IaWdoIEN1YmUgVmFuZAIIDxUBATVkAgkPFQEBMGQCCg8VAQgkMzE1MC4wMGQCCw8VAQfigqwwLjAwZAIMDxUBAGQCDQ8PFgIfA2hkFgQCAQ8PFgIfBAUFMTkyNjBkZAIDDw8WAh8EBQUxOTI2MGRkAgQPZBYcZg8VBAhHcmVlblJvdwUxOTM5MgowMy8xMi8yMDE5CjA2LzMwLzIwMTlkAgEPFQEQSE9VU1RPTixUWCg1MzAxKWQCAg8VAQ9CZW5naGF6aSg3MjUwMSlkAgMPFQEFT2NlYW5kAgQPFQEbTUVESVRFUlJBTkVBTiBTSElQUElORyBDT1JQZAIFDw8WAh8BBQNGQ0xkZAIGDxUBB1ZlaGljbGVkAgcPFQENSGlnaCBDdWJlIFZhbmQCCA8VAQE0ZAIJDxUBATBkAgoPFQEIJDMyMDAuMDBkAgsPFQEH4oKsMC4wMGQCDA8VAQBkAg0PDxYCHwNoZBYEAgEPDxYCHwQFBTE5MzkyZGQCAw8PFgIfBAUFMTkzOTJkZAIFD2QWHGYPFQQIR3JlZW5Sb3cFMTk1NTIKMDIvMDIvMjAxOQowNi8zMC8yMDE5ZAIBDxUBEVNBVkFOTkFILEdBKDE3MDMpZAICDxUBD0VsIEtob21zKDcyNTAwKWQCAw8VAQVPY2VhbmQCBA8VAQNDR01kAgUPDxYCHwEFA0ZDTGRkAgYPFQEHVmVoaWNsZWQCBw8VAQ1IaWdoIEN1YmUgVmFuZAIIDxUBATRkAgkPFQEBMGQCCg8VAQgkMjkwMC4wMGQCCw8VAQfigqwwLjAwZAIMDxUBAGQCDQ8PFgIfA2hkFgQCAQ8PFgIfBAUFMTk1NTJkZAIDDw8WAh8EBQUxOTU1MmRkAgYPZBYcZg8VBAhHcmVlblJvdwUxOTU4OAowNC8wMS8yMDE5CjA1LzMxLzIwMTlkAgEPFQETTE9ORyBCRUFDSCxDQSgyNzA5KWQCAg8VAQ9FbCBLaG9tcyg3MjUwMClkAgMPFQEFT2NlYW5kAgQPFQEbTUVESVRFUlJBTkVBTiBTSElQUElORyBDT1JQZAIFDw8WAh8BBQNGQ0xkZAIGDxUBB1ZlaGljbGVkAgcPFQENSGlnaCBDdWJlIFZhbmQCCA8VAQE0ZAIJDxUBATBkAgoPFQEIJDM3MDAuMDBkAgsPFQEH4oKsMC4wMGQCDA8VAQBkAg0PDxYCHwNoZBYEAgEPDxYCHwQFBTE5NTg4ZGQCAw8PFgIfBAUFMTk1ODhkZAIFDw8WAh8DaGQWAgIBDw8WAh8BBQ5Mb2FkaW5nIFF1b3Rlc2RkAgcPDxYCHwNoZBYCAgEPDxYCHwEFDUNvbG9hZCBRdW90ZXNkZAIJDw8WAh8DaGQWAgIBDw8WAh8BBQ5TdG9yYWdlIFF1b3Rlc2RkAgsPDxYCHwNoZBYCAgEPDxYCHwEFGVBpY3R1cmVzIEluc3BlY3RvciBRdW90ZXNkZGQc19mcJ7BbP89ffnnIL/JwZTH6kg==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="9F710F6B" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAA+4ue8vR+i9brZbMz40TxfKSnPo+TuXYlj2MtZnStdotjJCgxy1JsQ+aHg4sYUQmDrydYxx08XARujcQINL3hScMUv7omPRGQ++/2herQ53nylXgJjyVQ3JGj30W6a7Lrwag5z2eyqZrUes9fr8cjLwri7cdTvmAXS1wQIj9K4fgGSOxAZs5EyKvWkg+DrqUKLLLOGITDLpSqKZlatOiC4kpkrx3OvhMNm2ruEVQqVHebk/DcRNjQn8Mgwdl0SeGNjCNTNN4AewuxeoaEebULvaMj4VQulWcmX/BY1f4nW+8vt5BoY261LiM1uGxOkMefIKnfUmE6PXgv2YRjqmSWOGeJ6ESA==" />
+</div>
+            <div id="content">
+                
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
+        <tbody>
+            <tr valign="top">
+                <td valign="top" align="left" style="width: 185px;">
+                    <!-- Groups block -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ebe4d8">
+                                    <tr bgcolor="#f1f1f6">
+                                        <td>
+                                            <table width="100%" cellspacing="0" cellpadding="3" border="0">
+                                                <tr bgcolor="#f9f9f9">
+                                                    <td width="100%" class="tbltxt" colspan="3">
+                                                        <img src="#{resource['images:icon-folder.gif']}" width="23" height="23" border="0" align="absMiddle"/>&nbsp;<font
+                                                            class="tblhdr"> Quotes List</font>&nbsp;
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Groups block -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="4"/><br></br>
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="4"/><br></br>
+                    <table width="184px" border="0" cellspacing="0" cellpadding="1">
+                        <tr>
+                            <td bgcolor="#003399">
+                                <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="8" height="100">
+                                    <tr>
+                                        <td bgcolor="#fff2d4" valign="top">
+                                            <font class="info"><b>Notes:</b><br></br>
+                                                Please click <u>Accept</u> if you’d like this quote to be applied to your shipments.
+                                                This confirmation is necessary to activate the quote for generating invoices for
+                                                you.<br />
+                                                <br />
+                                                Please click <u>Decline</u> if you do not want this quote to be applied to your
+                                                shipments. </font>
+                                            <br></br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="8"/><br></br>
+                    
+<div class="float" style="text-align: left; padding: 8px 0px 8px 8px; height: 90px; width:184px;">
+    <p class="info" style="font-weight: bold;">
+        Color indication:</p>
+    <table border="0" cellpadding="0" cellspacing="0" width="95%">
+        <tr>
+            <td style="padding-right: 5px;">
+                To Be Confirmed:</td>
+            <td class="YellowRow" style="width: 18%; border: solid 1px #333333;">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td style="padding-right: 5px;">
+                Accepted:</td>
+            <td class="GreenRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td style="padding-right: 5px;">
+                Declined:</td>
+            <td class="BlueRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
+                &nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+                    <!-- Banner -->
+                </td>
+                <td width="100%">
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <!-- Table name block -->
+                                            <!-- Client DataGrid-->
+                                            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        
+<table width="100%" cellspacing="0" cellpadding="8" style="border-right: gainsboro 1px solid;
+    border-top: gainsboro 1px solid; border-left: gainsboro 1px solid; border-bottom: gainsboro 1px solid;">
+    <tr>
+        <td>
+            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td class="blkname" width="100%">
+                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_lblTitle">Transportation Quotes</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        
+                                <table id="table_Transportation" cellspacing="1" cellpadding="4" border="0" style="background-color: White;
+                                    border-color: #999999; border-width: 1px; border-style: Solid; width: 100%;">
+                                    <tr align="center" style="color: Black; background-color: Gainsboro; font-size: 13px;
+                                        font-weight: bold; height: 20px;">
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbIDSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbIDSort&#39;,&#39;&#39;)" style="color: Black;">Quote</a></th>
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbQuoteDateSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbQuoteDateSort&#39;,&#39;&#39;)" style="color: Black;">Effective Date</a></th>
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbExpiredDateSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbExpiredDateSort&#39;,&#39;&#39;)" style="color: Black;">Expiration Date</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbPortOfExportSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbPortOfExportSort&#39;,&#39;&#39;)" style="color: Black;">Origin</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbDestinationSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbDestinationSort&#39;,&#39;&#39;)" style="color: Black;">Destination</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbModeSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbModeSort&#39;,&#39;&#39;)" style="color: Black;">Mode</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbCarrierSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbCarrierSort&#39;,&#39;&#39;)" style="color: Black;">Carrier</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbLoadTypeSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbLoadTypeSort&#39;,&#39;&#39;)" style="color: Black;">Load Type</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbCommoditySort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbCommoditySort&#39;,&#39;&#39;)" style="color: Black;">Commodity</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbEquipment" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbEquipment&#39;,&#39;&#39;)" style="color: Black;">Equipment</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbBilledItemsSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbBilledItemsSort&#39;,&#39;&#39;)" style="color: Black;">Items per Cont.</a>
+                                        </th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbPrepaidSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbPrepaidSort&#39;,&#39;&#39;)" style="color: Black;">Prepaid</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lbCollectSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lbCollectSort&#39;,&#39;&#39;)" style="color: Black;">Collect</a></th>
+                                        
+                                        <th scope="col">
+                                            <a id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl00_lnkNotesSort" href="javascript:__doPostBack(&#39;ctl00$BodyHolder$ucTransportationQuoteList$rptQuotesList$ctl00$lnkNotesSort&#39;,&#39;&#39;)" style="color: Black;">Note</a></th>
+                                        <th scope="col">
+                                            &nbsp;</th>
+                                    </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19225
+                                    </td>
+                                    <td>
+                                        01/01/2019
+                                    </td>
+                                    <td>
+                                        05/31/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        NEW YORK,NY(1001)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        El Khoms(72500)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        CGM
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl01_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        4
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $2900.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19226
+                                    </td>
+                                    <td>
+                                        02/02/2019
+                                    </td>
+                                    <td>
+                                        06/30/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        SAVANNAH,GA(1703)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        MISURATA -All Other Libya Ports(72500)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        CGM
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl02_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        4
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $2900.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19260
+                                    </td>
+                                    <td>
+                                        01/01/2019
+                                    </td>
+                                    <td>
+                                        05/31/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        NEW YORK,NY(1001)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        El Khoms(72500)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        CGM
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl03_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        5
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $3150.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19392
+                                    </td>
+                                    <td>
+                                        03/12/2019
+                                    </td>
+                                    <td>
+                                        06/30/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        HOUSTON,TX(5301)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        Benghazi(72501)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        MEDITERRANEAN SHIPPING CORP
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl04_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        4
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $3200.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19552
+                                    </td>
+                                    <td>
+                                        02/02/2019
+                                    </td>
+                                    <td>
+                                        06/30/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        SAVANNAH,GA(1703)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        El Khoms(72500)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        CGM
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl05_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        4
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $2900.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                <tr class="GreenRow" align="left"
+                                    style="font-size: 15px;">
+                                    <td align="right">
+                                        19588
+                                    </td>
+                                    <td>
+                                        04/01/2019
+                                    </td>
+                                    <td>
+                                        05/31/2019
+                                    </td>
+                                    
+                                    <td align="left">
+                                        LONG BEACH,CA(2709)
+                                    </td>
+                                    
+                                    <td align="left">
+                                        El Khoms(72500)
+                                    </td>
+                                    
+                                    <td>
+                                        Ocean
+                                    </td>
+                                    
+                                    <td align="left">
+                                        MEDITERRANEAN SHIPPING CORP
+                                    </td>
+                                    
+                                    <td>
+                                        <span id="ctl00_BodyHolder_ucTransportationQuoteList_rptQuotesList_ctl06_lbLCL">FCL</span>
+                                    </td>
+                                    
+                                    <td>
+                                        Vehicle
+                                    </td>
+                                    
+                                    <td>
+                                        High Cube Van
+                                    </td>
+                                    
+                                    <td>
+                                        4
+                                    </td>
+                                    
+                                    <td align="right">
+                                        $3700.00
+                                    </td>
+                                    
+                                    <td align="right">
+                                        €0.00
+                                    </td>
+                                    
+                                     <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            
+                                </table>
+                            
+                    </td>
+                </tr>
+            </table>
+            <img src="#{resource['images:dumb.gif']}" width="1" height="3" /><br />
+            <!-- Client GridView-->
+            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+        </td>
+    </tr>
+</table>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    <!-- Buttons block -->
+                    <!--
+			<table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#CCCCCC">
+				<tr>
+					<td>
+						<table width="100%" cellspacing="0" cellpadding="5" border="0" bgcolor="#F7F7F7">
+							<tr>
+								<td>
+									<table cellspacing="0" cellpadding="0" border="0">
+										<tr>
+		 									<TD width="100%"><IMG src="#{resource['images:dumb.gif']}" width="10" height="1"></TD>
+											<TD class="blkhdr" height="23"></TD>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			-->
+                    <!-- End of Buttons block -->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" bgcolor="white">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            </div>  
+        </form>
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>
