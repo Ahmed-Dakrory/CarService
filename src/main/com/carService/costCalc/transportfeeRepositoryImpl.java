@@ -3,7 +3,6 @@
  */
 package main.com.carService.costCalc;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -14,15 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import main.com.carService.loginNeeds.user;
-
 /**
  * @author A7med Al-Dakrory
  *
  */
 @Repository
 @Transactional
-public class costCalcRepositoryImpl implements costCalcRepository{
+public class transportfeeRepositoryImpl implements transportfeeRepository{
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -32,11 +29,9 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 	
 
 	@Override
-	public costCalc addcostCalc(costCalc data) {
+	public transportfee addtransportfee(transportfee data) {
 		try{
-			user addedUser=data.getUserId();
-			addedUser.setLastUpdate(Calendar.getInstance());
-			data.setUserId(addedUser);
+			
 			session = sessionFactory.openSession();
 			Transaction tx1 = session.beginTransaction();
 			session.saveOrUpdate(data);
@@ -53,11 +48,11 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 	}
 
 	@Override
-	public List<costCalc> getAll() {
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("costCalc.getAll");
+	public List<transportfee> getAll() {
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAll");
 
 				 @SuppressWarnings("unchecked")
-				List<costCalc> results=query.list();
+				List<transportfee> results=query.list();
 				 if(results.size()!=0){
 					 return results;
 				 }else{
@@ -67,7 +62,7 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 
 	
 	@Override
-	public boolean delete(costCalc data)throws Exception {
+	public boolean delete(transportfee data)throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			session = sessionFactory.openSession();
@@ -82,12 +77,12 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 	}
 
 	@Override
-	public costCalc getById(int id) {
+	public transportfee getById(int id) {
 		// TODO Auto-generated method stub
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("costCalc.getById").setInteger("id",id);
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getById").setInteger("id",id);
 
 		 @SuppressWarnings("unchecked")
-		List<costCalc> results=query.list();
+		List<transportfee> results=query.list();
 		 if(results.size()!=0){
 			 return results.get(0);
 		 }else{
@@ -95,12 +90,16 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 		 }
 	}
 
+	
+
+	
+
 	@Override
-	public List<costCalc> getAllByParentId(int idParent) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("costCalc.getAllByParentId").setInteger("id",idParent);
+	public List<transportfee> getAllGroupsOfLocation() {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfLocation");
 
 		 @SuppressWarnings("unchecked")
-		List<costCalc> results=query.list();
+		List<transportfee> results=query.list();
 		 if(results.size()!=0){
 			 return results;
 		 }else{
@@ -109,11 +108,11 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 	}
 
 	@Override
-	public List<costCalc> getAllByUserOfParentOfParentId(int idParent) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("costCalc.getAllByUserOfParentOfParentId").setInteger("id",idParent);
+	public List<transportfee> getAllGroupsOfCity() {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfCity");
 
 		 @SuppressWarnings("unchecked")
-		List<costCalc> results=query.list();
+		List<transportfee> results=query.list();
 		 if(results.size()!=0){
 			 return results;
 		 }else{
@@ -122,13 +121,28 @@ public class costCalcRepositoryImpl implements costCalcRepository{
 	}
 
 	@Override
-	public List<costCalc> getAllByShipperOfParentId(int idParent) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("costCalc.getAllByShipperOfParentId").setInteger("id",idParent);
+	public List<transportfee> getAllGroupsOfstate() {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfstate");
 
 		 @SuppressWarnings("unchecked")
-		List<costCalc> results=query.list();
+		List<transportfee> results=query.list();
 		 if(results.size()!=0){
 			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public transportfee getWithSpecs(String location, String city, String state) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getWithSpecs").setString("location",location)
+				 				.setString("city",city)
+				 				.setString("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<transportfee> results=query.list();
+		 if(results!=null){
+			 return results.get(0);
 		 }else{
 			 return null;
 		 }

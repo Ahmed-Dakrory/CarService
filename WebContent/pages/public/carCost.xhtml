@@ -12,12 +12,14 @@
 
 	<ui:define name="content">
 
+
+
 <div class="center">
 <div class="container breadcontainer hidden-sm hidden-xs">
 <div class="row">
 <div class="col-md-12">
 <div class="breadcrumbs">
-<span>Car Shipping Cost Calculator </span></div> <div class="clearfix"></div>
+<span>Car Shipping Fees Calculator </span></div> <div class="clearfix"></div>
 </div>
 </div>
 </div>
@@ -36,542 +38,158 @@
 </div>
 </div>
 <div id="content">
-<h2>Car Shipping Cost Calculator</h2>
+
+
+						
+						
+
+<div class="row">
+
+<div class="col-md-9 hidden-sm hidden-xs">
+							<div class="col-xs-12">
+								<section class="panel form-wizard" id="w4">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+						
+										
+<h1>Car Shipping Fees Calculator</h1>
 <p>
 Please indicate vehicle details, its location and the shipping destination to calculate the estimated shipping price.</p>
-<div class="row">
-<div class="col-md-9">
-<div class="shipping-container row">
-<form class="site-form shipping-form" methos="post" action="#" id="shipping-calc-form">
+									</header>
+									<div class="panel-body">
+										<div class="wizard-progress wizard-progress-lg">
+											<div class="steps-progress">
+												<div class="progress-indicator"></div>
+											</div>
+											<ul class="wizard-steps">
+												<li class="active">
+													<a href="#w4-account" data-toggle="tab"><span>1</span>Car Info</a>
+												</li>
+												<li>
+													<a href="#w4-profile" data-toggle="tab"><span>2</span>Location to ship from</a>
+												</li>
+												<li>
+													<a href="#w4-billing" data-toggle="tab"><span>3</span>Billing Info</a>
+												</li>
+												<li>
+													<a href="#w4-confirm" data-toggle="tab"><span>4</span>Confirmation</a>
+												</li>
+											</ul>
+										</div>
+						
+										<form class="form-horizontal" novalidate="novalidate">
+											<div class="tab-content">
+												<div id="w4-account" class="tab-pane active">
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-username">Username</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control" name="username" id="w4-username" required="true"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-password">Password</label>
+														<div class="col-sm-9">
+															<input type="password" class="form-control" name="password" id="w4-password" required="true" minlength="6"/>
+														</div>
+													</div>
+												</div>
+												<div id="w4-profile" class="tab-pane">
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-first-name">First Name</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control" name="first-name" id="w4-first-name" required="true"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-last-name">Last Name</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control" name="last-name" id="w4-last-name" required="true"/>
+														</div>
+													</div>
+												</div>
+												<div id="w4-billing" class="tab-pane">
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-cc">Card Number</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control" name="cc-number" id="w4-cc" required="true"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="inputSuccess">Expiration</label>
+														<div class="col-sm-5">
+															<select class="form-control" name="exp-month" >
+																<option>January</option>
+																<option>February</option>
+																<option>March</option>
+																<option>April</option>
+																<option>May</option>
+																<option>June</option>
+																<option>July</option>
+																<option>August</option>
+																<option>September</option>
+																<option>October</option>
+																<option>November</option>
+																<option>December</option>
+															</select>
+														</div>
+														<div class="col-sm-4">
+															<select class="form-control" name="exp-year" >
+																<option>2014</option>
+																<option>2015</option>
+																<option>2016</option>
+																<option>2017</option>
+																<option>2018</option>
+																<option>2019</option>
+																<option>2020</option>
+																<option>2021</option>
+																<option>2022</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div id="w4-confirm" class="tab-pane">
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="w4-email">Email</label>
+														<div class="col-sm-9">
+															<input type="text" class="form-control" name="email" id="w4-email" required="true"/>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-sm-3"></div>
+														<div class="col-sm-9">
+															<div class="checkbox-custom">
+																<input type="checkbox" name="terms" id="w4-terms" required="true"/>
+																<label for="w4-terms">I agree to the terms of service</label>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="panel-footer">
+										<ul class="pager">
+											<li class="previous disabled">
+												<a><i class="fa fa-angle-left"></i> Previous</a>
+											</li>
+											<li class="finish hidden pull-right">
+												<a>Finish</a>
+											</li>
+											<li class="next">
+												<a>Next <i class="fa fa-angle-right"></i></a>
+											</li>
+										</ul>
+									</div>
+								</section>
+							</div>
+						</div>
+						
+						
+						
 
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-<div class="step-box active" id="sh-step1">
-<div class="title">1. Vehicle Information</div>
-<div class="box-content">
-<div id="sh-lot-detail"></div>
-<div class="switch-box box-1">
-<label>Choose a vehicle type:</label>
-<div>
-<label class="select-label">
-<select id="sh-vehicle-type" name="vehicle_type">
-<option value="" selected="selected">Choose a vehicle type</option>
-<option value="sedan">Sedan</option>
-<option value="suv">SUV / Small Pickup</option>
-<option value="motorcycle">Motorcycle/ATV</option>
-<option value="other">Other</option>
-</select> </label>
-<span class="sh-check"></span>
-</div>
-</div>
-<div class="switch-box box-2">
-<label>Enter VIN/LOT Number:</label>
-<input id="sh-vin_lot" name="vin_lot" value=""/><span class="sh-check" style="margin-bottom: 0px;"></span>
-<div class="warning" id="sh-vin_lot-em_" style="display:none;"></div>
-<a href="#" class="button yBtn" id="sh-vin_lot-validate">Confirm</a>
-<span class="spinner"></span>
-<input type="hidden" id="sh-vin_lot_auction" name="lot_auction" value=""/>
-</div>
-<a href="login.html">Request Custom Quote</a>
-</div>
-<div class="box-overlay" style="display:none"></div>
-</div>
-</div>
-<div class="col-md-4 col-sm-4 col-xs-12">
-<div class="step-box" id="sh-step2">
-<div class="title">2. SHIP FROM</div>
-<div class="box-content">
-<div class="switch-box box-1">
-<label>Chose Auction:</label>
-<label class="select-label">
-<select id="sh-auctions" name="auction">
-<option value="copart">COPART</option>
-</select> </label>
-<span class="sh-check"></span>
-<label>Choose the auction location:</label>
-<label class="select-label">
-<select id="sh-locations" name="auction_location">
-<option value="" selected="selected">Choose location</option>
-<option value="204">AB - EDMONTON</option>
-<option value="203">AB - CALGARY</option>
-<option value="113">AK - ANCHORAGE</option>
-<option value="58">AL - MOBILE</option>
-<option value="136">AL - BIRMINGHAM</option>
-<option value="145">AL - MONTGOMERY</option>
-<option value="66">AL - TANNER</option>
-<option value="21">AR - LITTLE ROCK</option>
-<option value="140">AR - FAYETTEVILLE</option>
-<option value="47">AZ - PHOENIX</option>
-<option value="93">AZ - TUCSON</option>
-<option value="151">CA - ANTELOPE</option>
-<option value="5">CA - BAKERSFIELD</option>
-<option value="7">CA - SAN BERNARDINO</option>
-<option value="4">CA - FRESNO</option>
-<option value="3">CA - HAYWARD</option>
-<option value="10">CA - LOS ANGELES</option>
-<option value="78">CA - MARTINEZ</option>
-<option value="97">CA - RANCHO CUCAMONGA</option>
-<option value="327">CA - CRASHEDTOYS SACRAMENTO</option>
-<option value="2">CA - SACRAMENTO</option>
-<option value="16">CA - SO SACRAMENTO</option>
-<option value="59">CA - SAN DIEGO</option>
-<option value="6">CA - SAN JOSE</option>
-<option value="180">CA - SUN VALLEY</option>
-<option value="1">CA - VALLEJO</option>
-<option value="43">CA - VAN NUYS</option>
-<option value="186">CA - LONG BEACH</option>
-<option value="68">CO - DENVER</option>
-<option value="118">CO - COLORADO SPRINGS</option>
-<option value="120">CO - DENVER CENTRAL</option>
-<option value="193">CO - DENVER SOUTH</option>
-<option value="23">CT - HARTFORD</option>
-<option value="130">DE - SEAFORD</option>
-<option value="153">FL - ORLANDO NORTH</option>
-<option value="86">FL - FT. PIERCE</option>
-<option value="148">FL - MIAMI SOUTH</option>
-<option value="131">FL - JACKSONVILLE EAST</option>
-<option value="42">FL - JACKSONVILLE WEST</option>
-<option value="105">FL - MIAMI CENTRAL</option>
-<option value="33">FL - MIAMI NORTH</option>
-<option value="117">FL - TALLAHASSEE</option>
-<option value="108">FL - OCALA</option>
-<option value="55">FL - ORLANDO SOUTH</option>
-<option value="137">FL - PUNTA GORDA</option>
-<option value="34">FL - TAMPA SOUTH</option>
-<option value="70">FL - WEST PALM BEACH</option>
-<option value="15">GA - ATLANTA WEST</option>
-<option value="187">GA - MACON</option>
-<option value="175">GA - CARTERSVILLE</option>
-<option value="324">GA - CRASHEDTOYS ATLANTA</option>
-<option value="146">GA - ATLANTA SOUTH</option>
-<option value="157">GA - ATLANTA NORTH</option>
-<option value="107">GA - ATLANTA EAST</option>
-<option value="87">GA - SAVANNAH</option>
-<option value="88">GA - TIFTON</option>
-<option value="110">HI - HONOLULU</option>
-<option value="60">IA - DES MOINES</option>
-<option value="169">IA - DAVENPORT</option>
-<option value="72">ID - BOISE</option>
-<option value="189">IL - SOUTHERN ILLINOIS</option>
-<option value="81">IL - CHICAGO SOUTH</option>
-<option value="36">IL - CHICAGO NORTH</option>
-<option value="51">IL - PEORIA</option>
-<option value="156">IL - WHEELING</option>
-<option value="167">IN - HAMMOND</option>
-<option value="152">IN - FORT WAYNE</option>
-<option value="44">IN - INDIANAPOLIS</option>
-<option value="17">KS - KANSAS CITY</option>
-<option value="67">KS - WICHITA</option>
-<option value="83">KY - LEXINGTON WEST</option>
-<option value="115">KY - LEXINGTON EAST</option>
-<option value="143">KY - LOUISVILLE</option>
-<option value="138">KY - WALTON</option>
-<option value="50">LA - BATON ROUGE</option>
-<option value="79">LA - NEW ORLEANS</option>
-<option value="84">LA - SHREVEPORT</option>
-<option value="27">MA - SOUTH BOSTON</option>
-<option value="53">MA - NORTH BOSTON</option>
-<option value="149">MA - WEST WARREN</option>
-<option value="102">MD - BALTIMORE</option>
-<option value="32">MD - WASHINGTON DC</option>
-<option value="90">ME - LYMAN</option>
-<option value="159">MI - FLINT</option>
-<option value="161">MI - KINCHELOE</option>
-<option value="103">MI - LANSING</option>
-<option value="160">MI - IONIA</option>
-<option value="61">MI - DETROIT</option>
-<option value="52">MN - ST. CLOUD</option>
-<option value="311">MN - CRASHEDTOYS MINNEAPOLIS</option>
-<option value="37">MN - MINNEAPOLIS</option>
-<option value="80">MN - MINNEAPOLIS NORTH</option>
-<option value="20">MO - ST. LOUIS</option>
-<option value="125">MO - COLUMBIA</option>
-<option value="92">MO - SPRINGFIELD</option>
-<option value="141">MO - SIKESTON</option>
-<option value="40">MS - JACKSON</option>
-<option value="122">MT - BILLINGS</option>
-<option value="106">MT - HELENA</option>
-<option value="206">NB - MONCTON</option>
-<option value="41">NC - CHINA GROVE</option>
-<option value="54">NC - RALEIGH</option>
-<option value="154">NC - MEBANE</option>
-<option value="196">NC - MOCKSVILLE</option>
-<option value="123">NE - LINCOLN</option>
-<option value="155">NH - CANDIA</option>
-<option value="31">NJ - GLASSBORO EAST</option>
-<option value="91">NJ - SOMERVILLE</option>
-<option value="135">NJ - TRENTON</option>
-<option value="75">NM - ALBUQUERQUE</option>
-<option value="207">NS - HALIFAX</option>
-<option value="57">NV - LAS VEGAS</option>
-<option value="195">NV - NO</option>
-<option value="100">NV - RENO</option>
-<option value="94">NY - ALBANY</option>
-<option value="30">NY - LONG ISLAND</option>
-<option value="25">NY - SYRACUSE</option>
-<option value="35">NY - ROCHESTER</option>
-<option value="24">NY - NEWBURGH</option>
-<option value="112">OH - CLEVELAND WEST</option>
-<option value="29">OH - COLUMBUS</option>
-<option value="166">OH - DAYTON</option>
-<option value="111">OH - CLEVELAND EAST</option>
-<option value="18">OK - OKLAHOMA CITY</option>
-<option value="19">OK - TULSA</option>
-<option value="201">ON - TORONTO</option>
-<option value="202">ON - LONDON</option>
-<option value="104">OR - EUGENE</option>
-<option value="9">OR - PORTLAND NORTH</option>
-<option value="134">OR - PORTLAND SOUTH</option>
-<option value="165">PA - PITTSBURGH EAST</option>
-<option value="164">PA - PHILADELPHIA EAST</option>
-<option value="128">PA - CHAMBERSBURG</option>
-<option value="142">PA - SCRANTON</option>
-<option value="129">PA - ALTOONA</option>
-<option value="28">PA - PITTSBURGH NORTH</option>
-<option value="76">PA - HARRISBURG</option>
-<option value="26">PA - PHILADELPHIA</option>
-<option value="85">PA - PITTSBURGH SOUTH</option>
-<option value="127">PA - YORK HAVEN</option>
-<option value="205">QC - MONTREAL</option>
-<option value="199">RI - EXETER</option>
-<option value="56">SC - COLUMBIA</option>
-<option value="197">SC - NORTH CHARLESTON</option>
-<option value="144">SC - SPARTANBURG</option>
-<option value="63">TN - NASHVILLE</option>
-<option value="114">TN - KNOXVILLE</option>
-<option value="22">TN - MEMPHIS</option>
-<option value="73">TX - ABILENE</option>
-<option value="95">TX - AMARILLO</option>
-<option value="185">TX - ANDREWS</option>
-<option value="45">TX - EL PASO</option>
-<option value="96">TX - CORPUS CHRISTI</option>
-<option value="881">TX - *NCS - CENTRAL REGION</option>
-<option value="880">TX - *NCS - EASTERN REGION</option>
-<option value="882">TX - *NCS - MOUNTAIN REGION</option>
-<option value="883">TX - *NCS - PACIFIC REGION</option>
-<option value="771">TX - SEALED BID REPO</option>
-<option value="770">TX - *VIX*</option>
-<option value="313">TX - CRASHEDTOYS DALLAS</option>
-<option value="303">TX - TX</option>
-<option value="835">TX - Heavy Sale West</option>
-<option value="836">TX - Heavy Sale Central</option>
-<option value="837">TX - Heavy Sale East</option>
-<option value="295">TX - Atlantic Canada Auction</option>
-<option value="838">TX - RENTAL VEHICLE SALE</option>
-<option value="12">TX - DALLAS</option>
-<option value="98">TX - FT. WORTH</option>
-<option value="11">TX - HOUSTON</option>
-<option value="14">TX - LONGVIEW</option>
-<option value="13">TX - LUFKIN</option>
-<option value="65">TX - MCALLEN</option>
-<option value="62">TX - AUSTIN</option>
-<option value="74">TX - SAN ANTONIO</option>
-<option value="182">TX - WACO</option>
-<option value="181">TX - DALLAS SOUTH</option>
-<option value="370">TX - DRIVE DALLAS</option>
-<option value="188">UT - OGDEN</option>
-<option value="49">UT - SALT LAKE CITY</option>
-<option value="101">VA - NO</option>
-<option value="82">VA - DANVILLE</option>
-<option value="194">VA - FREDERICKSBURG</option>
-<option value="162">VA - HAMPTON</option>
-<option value="139">VA - RICHMOND</option>
-<option value="116">WA - SPOKANE</option>
-<option value="48">WA - NORTH SEATTLE</option>
-<option value="64">WA - GRAHAM</option>
-<option value="71">WA - PASCO</option>
-<option value="191">WI - APPLETON</option>
-<option value="39">WI - MILWAUKEE</option>
-<option value="38">WI - MADISON</option>
-<option value="89">WV - CHARLESTON</option>
-<option value="192">WY - CASPER</option>
-</select> </label>
-<span class="sh-check"></span>
-</div>
-<div class="switch-box box-2" style="display:none">
-<label>Origin zip code: <span id="sh-zip_from-detail"></span></label>
-<input type="hidden" name="zip_from" id="sh-zip_from" value=""/>
-<input id="sh-zip_from_show" value=""/><span class="sh-check"></span>
-<div class="warning" id="sh-zip_from-em_" style="display:none;"></div>
-<a href="#" class="button yBtn" id="sh-zip_from-validate">Confirm</a>
-<span class="spinner"></span>
-</div>
-<a href="#" class="sh-link" data-i="1" style="display:none">Ship From Auction</a>
-<a href="#" class="sh-link" data-i="2">Ship from ZIP</a>
-</div>
-<div class="box-overlay"></div>
-</div>
-</div>
-<div class="col-md-4 col-sm-4 col-xs-12">
-<div class="step-box last" id="sh-step3">
-<div class="title">3. SHIP TO</div>
-<div class="box-content">
-<div class="switch-box box-1">
-<label>Country of destination:</label>
-<label class="select-label">
-<select id="sh-country_to" name="country_to">
-<option value="" selected="selected">Choose a country</option>
-<option value="US">United States</option>
-<option value="AF">Afghanistan</option>
-<option value="AL">Albania</option>
-<option value="DZ">Algeria</option>
-<option value="AO">Angola</option>
-<option value="AR">Argentina</option>
-<option value="AM">Armenia</option>
-<option value="AW">Aruba</option>
-<option value="AU">Australia</option>
-<option value="AZ">Azerbaijan</option>
-<option value="BS">Bahamas</option>
-<option value="BH">Bahrain</option>
-<option value="BB">Barbados</option>
-<option value="BY">Belarus</option>
-<option value="BE">Belgium</option>
-<option value="BZ">Belize</option>
-<option value="BJ">Benin</option>
-<option value="BO">Bolivia (Plurinational State of)</option>
-<option value="BR">Brazil</option>
-<option value="BN">Brunei Darussalam</option>
-<option value="BG">Bulgaria</option>
-<option value="CV">Cabo Verde</option>
-<option value="KH">Cambodia</option>
-<option value="CM">Cameroon</option>
-<option value="CA">Canada</option>
-<option value="CL">Chile</option>
-<option value="CN">China</option>
-<option value="CO">Colombia</option>
-<option value="CG">Congo</option>
-<option value="CD">Congo (Democratic Republic of the)</option>
-<option value="CR">Costa Rica</option>
-<option value="HR">Croatia</option>
-<option value="CW">Curaçao</option>
-<option value="CY">Cyprus</option>
-<option value="CZ">Czech Republic</option>
-<option value="CI">Côte d&#039;Ivoire</option>
-<option value="DK">Denmark</option>
-<option value="DO">Dominican Republic</option>
-<option value="EC">Ecuador</option>
-<option value="EG">Egypt</option>
-<option value="SV">El Salvador</option>
-<option value="GQ">Equatorial Guinea</option>
-<option value="EE">Estonia</option>
-<option value="FJ">Fiji</option>
-<option value="FI">Finland</option>
-<option value="FR">France</option>
-<option value="PF">French Polynesia</option>
-<option value="GA">Gabon</option>
-<option value="GM">Gambia</option>
-<option value="GE">Georgia</option>
-<option value="DE">Germany</option>
-<option value="GH">Ghana</option>
-<option value="GR">Greece</option>
-<option value="GT">Guatemala</option>
-<option value="GN">Guinea</option>
-<option value="HT">Haiti</option>
-<option value="HN">Honduras</option>
-<option value="HU">Hungary</option>
-<option value="IN">India</option>
-<option value="ID">Indonesia</option>
-<option value="IQ">Iraq</option>
-<option value="IE">Ireland</option>
-<option value="IL">Israel</option>
-<option value="IT">Italy</option>
-<option value="JM">Jamaica</option>
-<option value="JP">Japan</option>
-<option value="JO">Jordan</option>
-<option value="KZ">Kazakhstan</option>
-<option value="KE">Kenya</option>
-<option value="KR">Korea (Republic of)</option>
-<option value="KW">Kuwait</option>
-<option value="KG">Kyrgyzstan</option>
-<option value="LV">Latvia</option>
-<option value="LB">Lebanon</option>
-<option value="LR">Liberia</option>
-<option value="LY">Libya</option>
-<option value="LT">Lithuania</option>
-<option value="MK">Macedonia (the former Yugoslav Republic of)</option>
-<option value="MY">Malaysia</option>
-<option value="MV">Maldives</option>
-<option value="MT">Malta</option>
-<option value="MQ">Martinique</option>
-<option value="MR">Mauritania</option>
-<option value="MX">Mexico</option>
-<option value="MN">Mongolia</option>
-<option value="MA">Morocco</option>
-<option value="MZ">Mozambique</option>
-<option value="MM">Myanmar</option>
-<option value="NA">Namibia</option>
-<option value="NL">Netherlands</option>
-<option value="NZ">New Zealand</option>
-<option value="NI">Nicaragua</option>
-<option value="NG">Nigeria</option>
-<option value="NO">Norway</option>
-<option value="OM">Oman</option>
-<option value="PK">Pakistan</option>
-<option value="PS">Palestine, State of</option>
-<option value="PA">Panama</option>
-<option value="PY">Paraguay</option>
-<option value="PE">Peru</option>
-<option value="PH">Philippines</option>
-<option value="PL">Poland</option>
-<option value="PT">Portugal</option>
-<option value="PR">Puerto Rico</option>
-<option value="QA">Qatar</option>
-<option value="RO">Romania</option>
-<option value="RU">Russian Federation</option>
-<option value="RE">Réunion</option>
-<option value="VC">Saint Vincent and the Grenadines</option>
-<option value="SA">Saudi Arabia</option>
-<option value="SN">Senegal</option>
-<option value="SL">Sierra Leone</option>
-<option value="SG">Singapore</option>
-<option value="SX">Sint Maarten (Dutch part)</option>
-<option value="SK">Slovakia</option>
-<option value="SI">Slovenia</option>
-<option value="ZA">South Africa</option>
-<option value="ES">Spain</option>
-<option value="LK">Sri Lanka</option>
-<option value="SR">Suriname</option>
-<option value="SE">Sweden</option>
-<option value="CH">Switzerland</option>
-<option value="TW">Taiwan</option>
-<option value="TJ">Tajikistan</option>
-<option value="TZ">Tanzania, United Republic of</option>
-<option value="TH">Thailand</option>
-<option value="TL">Timor-Leste</option>
-<option value="TG">Togo</option>
-<option value="TT">Trinidad and Tobago</option>
-<option value="TN">Tunisia</option>
-<option value="TR">Turkey</option>
-<option value="TM">Turkmenistan</option>
-<option value="UA">Ukraine</option>
-<option value="AE">United Arab Emirates</option>
-<option value="GB">United Kingdom of Great Britain and Northern Ireland</option>
-<option value="UY">Uruguay</option>
-<option value="UZ">Uzbekistan</option>
-<option value="VE">Venezuela (Bolivarian Republic of)</option>
-<option value="VN">Viet Nam</option>
-<option value="YE">Yemen</option>
-</select> </label>
-<span class="sh-check"></span>
-</div>
-<div class="switch-box box-2" style="display:none">
-<label>Port of destination:</label>
-<label class="select-label">
-<select id="sh-port" name="port_to"></select>
-</label>
-<span class="sh-check"></span>
-</div>
-<div class="switch-box box-3" style="display:none">
-<label for="sh-port-from">From USA Port:</label>
-<label class="select-label">
-<select id="sh-port_from" name="port_from">
-<option value="0">Select USA Port</option>
-<option value="1">NJ - Newark</option>
-<option value="2">FL - Miami</option>
-<option value="3">IL - Chicago</option>
-<option value="4">CA - Los Angeles</option>
-<option value="5">GA - Savannah</option>
-<option value="6">TX - Houston</option>
-<option value="8">WA - Seattle</option>
-<option value="9">VA - Virginia Beach</option>
-</select> </label>
-<span class="sh-check"></span>
-<div class="warning" id="sh-port_from-em_" style="display:none;"></div>
-</div>
-<div class="switch-box box-4" style="display:none">
-<label>Zip code: <span id="sh-zip_to-detail"></span></label>
-<input name="zip_to" id="sh-zip_to" value=""/><span class="sh-check" style="margin-bottom: 0px;"></span>
-<div class="warning" id="sh-zip_to-em_" style="display:none;"></div>
-<a href="#" class="button yBtn" id="sh-zip_to-validate">Confirm</a>
-<span class="spinner"></span>
-</div>
-<div class="switch-box box-5" style="display:none">
-<label>To US Border Crossing:</label>
-<label class="select-label">
-<select id="sh-to_us_border" name="to_us_border">
-<option value="0">Select US Border</option>
-<option value="1">ME - Calais</option>
-<option value="2">ME - Houlton</option>
-<option value="3">MI - Detroit</option>
-<option value="4">MI - Port Huron</option>
-<option value="5">MI - Sault Ste. Marie</option>
-<option value="6">MN - International Falls</option>
-<option value="7">MT - Sweet Grass</option>
-<option value="8">ND - Pembina</option>
-<option value="9">ND - Portal</option>
-<option value="10">NY - Alexandria Bay</option>
-<option value="11">NY - Buffalo</option>
-<option value="12">NY - Champlain</option>
-<option value="13">NY - Lewiston</option>
-<option value="14">NY - Niagara Falls</option>
-<option value="15">NY - Rooseveltown</option>
-<option value="16">VT - Derby Line</option>
-<option value="17">VT - Highgate Springs</option>
-<option value="18">WA - Blaine</option>
-</select> </label>
-<span class="sh-check"></span>
-</div>
-</div>
-<div class="box-overlay"></div>
-</div>
-</div>
-
-
-
-
-<div class="clr"></div>
-<div id="shipping-notify" class="row-fluid"></div>
-<div id="custom-quote" style="display: none">
-<div class="col-md-6">
-<table class="shipping-desc-table">
-<tbody>
-<tr>
-<td style="text-align: center">
-<strong>
-Instant shipping price is not available for this vehicle </strong>
-</td>
-</tr>
-<tr class="last">
-<td class="controls" style="text-align: center"><a href="login.html" class="button yBtn">custom quote</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="shipping-desc" id="shipping-description" style="display:none">
-<div class="desc-title">Estimated Quote</div>
-<div class="row-fluid">
-<div class="col-md-6">
-<table class="shipping-desc-table">
-<tbody>
-<tr>
-<td class="shc-name">Domestic Shipping:</td>
-<td colspan="2"><span id="domestic-shipping"></span> USD </td>
-</tr>
-<tr>
-<td class="shc-name">Ocean Shipping:</td>
-<td colspan="2"><span id="ocean-shipping"></span> USD</td>
-</tr>
-<tr class="last">
-<td class="title">Total</td>
-<td id="sh-price"><span id="total-shipping"></span> USD </td>
-<td class="controls">
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="col-md-6">
-<p>A Better Bid&reg;&nbsp; specialized in using 40-foot high cube containers that can normally fit three to four mid-sized vehicles. We base our rates on one vehicle per container, but additional charges may apply for inoperable and oversized vehicles. Rates are valid from the date of sale, not from the date shipping is ordered.</p>
-</div>
-</div>
-</div>
-</form>
-<div class="col-md-12" style="font-size: .95em;">
-NOTE: amounts displayed on this page are estimated. We aim to show you the lowest freight cost available on the selected route. In order to confirm the exact shipping price you may contact our shipping department or leave the request for Custom quote. </div>
-</div>
-</div>
 <div class="col-md-3 hidden-sm hidden-xs">
 <div class="searchBox">
 <div class="block_header">Contact Us</div>
@@ -612,6 +230,79 @@ NOTE: amounts displayed on this page are estimated. We aim to show you the lowes
 
 	</ui:define>
 	
+		
+	
+	<ui:define name="script">
+  			
+  			
+  			
+  			
+  			
+  			 	<!-- Vendor -->
+  		   
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery/jquery.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap/js/bootstrap.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/nanoscroller/nanoscroller.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/magnific-popup/magnific-popup.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"/>
+  			
+  			<script>
+  			   jQuery.noConflict();
+  			 </script>
+  			
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-validation/jquery.validate.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"/>
+  			<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  			
+  			
+  			<!-- Theme Base, Components and Settings -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
+  			
+  			<!-- Theme Custom -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.custom.js"/>
+  			
+  			<!-- Theme Initialization Files -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+  			
+  			<!-- Examples -->
+  			
+  	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  	
+  	
+  		<script type="text/javascript">
+  		
+  		
+  				
+/*<![CDATA[*/
+app.inject('AppMain', [{"lang":"en","user":[],"eventsTracking":[],"googleApiKey":"AIzaSyC4YmXzr008FAqONKXk_Z-UFl-m8Hj_M0o","googleReCaptchaKey":"6LehBDcUAAAAALUf6FkPGmykxhWZc16W_2qoLxFN"}]);
+app.inject('SiteIndex', [{"rtl":false}]);
+app.inject('LayoutsPublicVehicleTypes', [{}]);
+app.inject('LayoutsMainLang', [{}]);
+app.inject('LayoutsMainSearch', [{}]);
+app.inject('LayoutsMainWatchListInit', [{}]);
+app.inject('LayoutsMainCustomSelect', [{}]);
+app.inject('LayoutsMainResponsive', [{}]);
+app.inject('LayoutsMainTimezone', [{}]);
+async function grOnLoad() {
+            app.event.emit("grecaptcha-loaded");
+        }
+var grSrc = document.createElement("script");grSrc.src = "../www.google.com/recaptcha/api0d1b.js?onload=grOnLoad&amp;render=explicit";grSrc.setAttribute("async", "async");grSrc.setAttribute("defer", "defer");document.body.appendChild(grSrc);
+app.inject('AccountTopLogin', []);
+app.inject('AccountMTopLogin', [{}]);
+app.inject('WidgetChangeType', [{"url":"\/en\/vehicle\/search\/makes","allMakes":"All Makes"}]);
+app.inject('WidgetChangeMake', [{"url":"\/en\/vehicle\/search\/models","allModels":"All Models"}]);
+app.inject('WidgetChangeModel', [{"url":"\/en\/vehicle\/search\/yearsFrom"}]);
+app.inject('WidgetChangeYearFrom', [{}]);
+app.inject('LayoutsMainLiveChat', [{}]);
+app.inject('Footer', [{}]);
+app.inject('Subscribe', []);
+app.inject('Cookies', [{}]);
+/*]]>*/
+</script>
+	
+	</ui:define>
 	
 </ui:composition>
 </html>
