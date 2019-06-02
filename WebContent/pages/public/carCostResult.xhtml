@@ -70,150 +70,105 @@
 
 <div class="col-md-9 hidden-sm hidden-xs">
 							<div class="col-xs-12">
-								<section class="panel form-wizard" id="w4">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
-											<a href="#" class="fa fa-times"></a>
+							
+								<section role="main" class="content-body">
+
+					<!-- start: page -->
+
+					<section class="panel">
+						<div class="panel-body">
+							<div class="invoice">
+							
+								<div class="table-responsive">
+									<table class="table invoice-items">
+										<thead>
+											<tr class="h4 text-dark">
+												<th id="cell-id"     class="text-semibold">#</th>
+												<th id="cell-item"   class="text-semibold">Item</th>
+												<th id="cell-desc"   class="text-semibold">Description</th>
+												<th id="cell-price"  class="text-center text-semibold">Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td class="text-semibold text-dark">Fees A</td>
+												<td>Coprat Fees</td>
+												<td class="text-center">$#{calcBean.copartFees}</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td class="text-semibold text-dark">Fees B</td>
+												<td>online live Bid Fees</td>
+												<td class="text-center">$#{calcBean.onlineFees}</td>
+											</tr>
+											
+											<tr>
+												<td>3</td>
+												<td class="text-semibold text-dark">Fees C</td>
+												<td>Gate Fees</td>
+												<td class="text-center">$#{calcBean.gateFees}</td>
+											</tr>
+											
+											<tr>
+												<td>4</td>
+												<td class="text-semibold text-dark">Fees D</td>
+												<td>Sea Transportation Fees</td>
+												<td class="text-center">$#{calcBean.seaFees}</td>
+											</tr>
+											
+											<tr>
+												<td>5</td>
+												<td class="text-semibold text-dark">Fees E</td>
+												<td>Land Transportation Fees</td>
+												<td class="text-center">$#{calcBean.landFees}</td>
+											</tr>
+											
+											<tr>
+												<td>6</td>
+												<td class="text-semibold text-dark">Fees F</td>
+												<td>Our Transportation Fees</td>
+												<td class="text-center">$#{calcBean.ourFees}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							
+								<div class="invoice-summary">
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-8">
+											<table class="table h5 text-dark">
+												<tbody>
+													<tr class="b-top-none">
+														<td colspan="2">total Fees</td>
+														<td class="text-left">$#{calcBean.totalFees}</td>
+													</tr>
+													
+													<tr >
+														<td colspan="2">Car Price</td>
+														<td class="text-left">$#{calcBean.carPrice}</td>
+													</tr>
+													
+													<tr class="h4">
+														<td colspan="2">Total Cost</td>
+														<td class="text-left">$#{calcBean.totalFees + calcBean.carPrice}</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-						
-										
-<h1>Car Shipping Fees Calculator</h1>
-<p>
-Please indicate vehicle details, its location and the shipping destination to calculate the estimated shipping price.</p>
-									</header>
-									<div class="panel-body" >
-										<div class="wizard-progress wizard-progress-lg">
-											<div class="steps-progress">
-												<div class="progress-indicator"></div>
-											</div>
-											<ul class="wizard-steps">
-												<li class="active">
-													<a href="#w4-account" data-toggle="tab"><span>1</span>Car Info</a>
-												</li>
-												<li>
-													<a href="#w4-profile" data-toggle="tab"><span>2</span>Location to ship from</a>
-												</li>
-												<li>
-													<a href="#w4-billing" data-toggle="tab"><span>3</span>Billing Info</a>
-												</li>
-											</ul>
-										</div>
-						
-										<h:form id="mainForm" class="form-horizontal" >
-											<div class="tab-content" >
-											
-												<div id="w4-account" class="tab-pane active">
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-username">Username</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.carSize}" name="type" id="type" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:selectItem itemLabel="Small" itemValue="0"/>
-															<f:selectItem itemLabel="SUV" itemValue="1"/>
-														</h:selectOneMenu>
-														</div>
-													</div>
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-password">Car Price</label>
-														<div class="col-sm-9">
-															<h:inputText value="#{calcBean.carPrice}" inputStyleClass="form-control hasCustomSelect valid" name="price" id="w4-price" style=" width: 39%;  font-size: 14px;" placeholder="The price in $"/>
-														</div>
-													</div>
-												</div>
-											
-												<div id="w4-profile" class="tab-pane">
-													<h:panelGroup id="panelForm">
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">Location</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu  value="#{calcBean.selectedLocation}" name="type" id="type2" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:ajax listener="#{calcBean.refreshCityList()}" render="mainForm:panelForm"/>
-															<f:selectItems value="#{calcBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">City</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.selectedCity}" name="type" id="type3" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:ajax listener="#{calcBean.refreshStateList()}" render="mainForm:panelForm"/>
-															<f:selectItems value="#{calcBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">State</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															
-															<f:selectItems value="#{calcBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">Port</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu  value="#{calcBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:selectItem itemLabel="Newark, NJ" itemValue="0"/>
-															<f:selectItem itemLabel="Savannah, GA" itemValue="1"/>
-															<f:selectItem itemLabel="Houston, TX" itemValue="2"/>
-															<f:selectItem itemLabel="Los Angeles, CA" itemValue="3"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													</h:panelGroup>
-												</div>
-											
-												<div id="w4-billing" class="tab-pane">
-												
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-cc">Gate Fees</label>
-														<div class="col-sm-9">
-															<p:outputLabel style="background-color: beige;width: 33%;"  type="text" class="form-control" value="#{calcBean.gateFees}"/>
-														</div>
-													</div>
-													
-													
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-cc">Our Fees</label>
-														<div class="col-sm-9">
-															<p:outputLabel style="background-color: beige;width: 33%;"  type="text" class="form-control" value="#{calcBean.ourFees}"/>
-														</div>
-													</div>
-													
-													
-													
-												</div>
-											
-												
-											
-											</div>
-											<p:remoteCommand name="calcTheFees" action="#{calcBean.calcValueOfTotalFees()}"/>
-						
-										</h:form>
 									</div>
-									<div class="panel-footer">
-										<ul class="pager">
-											<li class="previous disabled">
-												<a><i class="fa fa-angle-left"></i> Previous</a>
-											</li>
-											<li class="finish hidden pull-right">
-												<a>Finish</a>
-											</li>
-											<li class="next">
-												<a>Next <i class="fa fa-angle-right"></i></a>
-											</li>
-										</ul>
-									</div>
-								</section>
+								</div>
+							</div>
+
+							<div class="text-right mr-lg">
+								<a href="/pages/public/carCost.xhtml" class="btn btn-default">Back</a>
+							</div>
+						</div>
+					</section>
+
+					<!-- end: page -->
+				</section>
+			
 							</div>
 						</div>
 						

@@ -107,32 +107,8 @@ public class transportfeeRepositoryImpl implements transportfeeRepository{
 		 }
 	}
 
-	@Override
-	public List<transportfee> getAllGroupsOfCity() {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfCity");
-
-		 @SuppressWarnings("unchecked")
-		List<transportfee> results=query.list();
-		 if(results.size()!=0){
-			 return results;
-		 }else{
-			 return null;
-		 }
-	}
-
-	@Override
-	public List<transportfee> getAllGroupsOfstate() {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfstate");
-
-		 @SuppressWarnings("unchecked")
-		List<transportfee> results=query.list();
-		 if(results.size()!=0){
-			 return results;
-		 }else{
-			 return null;
-		 }
-	}
-
+	
+	
 	@Override
 	public transportfee getWithSpecs(String location, String city, String state) {
 		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getWithSpecs").setString("location",location)
@@ -142,7 +118,37 @@ public class transportfeeRepositoryImpl implements transportfeeRepository{
 		 @SuppressWarnings("unchecked")
 		List<transportfee> results=query.list();
 		 if(results!=null){
+			 if(results.size()>0) {
 			 return results.get(0);
+			 }else {
+				 return null;
+			 }
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<transportfee> getAllGroupsOfCityWithLocation(String location) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfCityWithLocation").setString("location", location);
+
+		 @SuppressWarnings("unchecked")
+		List<transportfee> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<transportfee> getAllGroupsOfstateWithCity(String city) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("transportfee.getAllGroupsOfstateWithCity").setString("city", city);
+
+		 @SuppressWarnings("unchecked")
+		List<transportfee> results=query.list();
+		 if(results.size()!=0){
+			 return results;
 		 }else{
 			 return null;
 		 }

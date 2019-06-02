@@ -109,35 +109,7 @@ public class transportfeeAppServiceImpl implements ItransportfeeAppService{
 
 
 
-	@Override
-	public List<transportfee> getAllGroupsOfCity() {
-		try{
-			List<transportfee> course=transportfeeDataRepository.getAllGroupsOfCity();
-			
-			return course;
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				return null;
-			}
-	}
-
-
-
-	@Override
-	public List<transportfee> getAllGroupsOfstate() {
-		try{
-			List<transportfee> course=transportfeeDataRepository.getAllGroupsOfstate();
-			
-			return course;
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				return null;
-			}
-	}
+	
 
 
 
@@ -154,6 +126,38 @@ public class transportfeeAppServiceImpl implements ItransportfeeAppService{
 						ex.printStackTrace();
 						return null;
 					}
+	}
+
+
+
+	@Override
+	public List<transportfee> getAllGroupsOfCityWithLocation(String location) {
+		try{
+			List<transportfee> course=transportfeeDataRepository.getAllGroupsOfCityWithLocation(location);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<transportfee> getAllGroupsOfstateWithCity(String city) {
+		try{
+			List<transportfee> course=transportfeeDataRepository.getAllGroupsOfstateWithCity(city);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
 	}
 	
 	

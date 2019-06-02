@@ -238,7 +238,7 @@ fieldset .txtField { width : 220px; }
 
 /* FIX: jquery ui-tabs */
 .ui-tabs .ui-tabs-panel { padding: 0px; }
-.ui-widget { font-size: 9pt; }
+.ui-widget {/* font-size: 9pt; */}
 
 /* date picker styles */
 .date { width: 60px; font-size: 11px; }

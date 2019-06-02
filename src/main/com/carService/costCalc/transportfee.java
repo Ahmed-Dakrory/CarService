@@ -34,12 +34,12 @@ import org.hibernate.annotations.NamedQuery;
 	query = "from transportfee d group by d.location"
 			)
 	,
-	@NamedQuery(name="transportfee.getAllGroupsOfCity",
-	query = "from transportfee d group by d.city"
+	@NamedQuery(name="transportfee.getAllGroupsOfCityWithLocation",
+	query = "from transportfee d where d.location = :location group by d.city"
 			)
 	,
-	@NamedQuery(name="transportfee.getAllGroupsOfstate",
-	query = "from transportfee d group by d.state"
+	@NamedQuery(name="transportfee.getAllGroupsOfstateWithCity",
+	query = "from transportfee d where d.city = :city group by d.state"
 			)
 	,
 	@NamedQuery(name="transportfee.getWithSpecs",

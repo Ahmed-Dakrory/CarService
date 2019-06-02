@@ -26,13 +26,7 @@
 		ev.preventDefault();
 		var validated = $('#w4 form').valid();
 		if ( validated ) {
-			new PNotify({
-				title: 'Congratulations',
-				text: 'You Produce the Product',
-				type: 'custom',
-				addclass: 'notification-success',
-				icon: 'fa fa-check'
-			});
+			calcTheFees();
 		}
 	});
 
