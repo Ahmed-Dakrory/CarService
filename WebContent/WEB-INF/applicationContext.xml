@@ -28,6 +28,7 @@
 
 
 
+
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
 	<context:property-placeholder location="classpath:resources/jdbc.properties"/>
 

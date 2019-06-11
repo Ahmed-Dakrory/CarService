@@ -370,11 +370,11 @@ function ChangeVisibillity(strPanelName, strImgLinkName) {
 
     if (divControl.style.display == "inline") {
         divControl.style.display = "none";
-        imgLink.src = "../Images/expand.gif";
+        imgLink.src = "/resources/images/img/accordeon_close.png";
     }
     else {
         divControl.style.display = "inline";
-        imgLink.src = "../Images/collapse.gif";
+        imgLink.src = "/resources/images/img/accordeon_open.png";
     }
 }
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2019 at 10:36 AM
+-- Generation Time: Jun 11, 2019 at 06:08 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -64,17 +64,51 @@ CREATE TABLE `car` (
   `engineType` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `engineLiters` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `color` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `assemlyCountry` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL
+  `assemlyCountry` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `photoExist` int(11) DEFAULT NULL,
+  `docExist` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `car`
 --
 
-INSERT INTO `car` (`id`, `mainId`, `shipperId`, `vendorId`, `customerId`, `uuid`, `description`, `year`, `container`, `seal`, `inlandStatus`, `cargoRecieved`, `titleRecieved`, `dvl`, `stRecieved`, `origin`, `destination`, `etd`, `eta`, `loadrequest`, `releaseOption`, `consigneeId`, `state`, `landcost`, `seacost`, `fees`, `commision`, `lastUpdate`, `storageStartDate`, `storageEndDate`, `note`, `make`, `model`, `bodyStyle`, `engineType`, `engineLiters`, `color`, `assemlyCountry`) VALUES
-(7, 1, 10, NULL, NULL, 'skdklsdlksdlkds', 'Dakrory', '', '', '', 'giza', '2019-06-24 18:10:45', NULL, '2019-06-10 16:30:04', NULL, -1, 1, '2019-06-24 18:10:45', '2019-06-24 18:10:45', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-01 18:41:43', NULL, NULL, '', '', '', '', '', '', '', 'sdsd'),
-(8, 1, 13, NULL, NULL, 'kllksdklsdklsdklklds', 'Dakrory', '2017', 'lsd;lsd', 'sdlkwlkwe', 'giza', '2019-06-27 01:29:56', '2019-06-24 18:10:45', '2019-06-11 01:29:41', '2019-06-24 18:10:45', 371, 3446, '2019-06-19 01:29:49', '2019-06-24 18:10:45', 0, 0, NULL, NULL, 123, 9889, 8989, 998, '2019-06-02 01:31:13', '2019-06-24 18:10:45', NULL, 'please read it', 'sdlsdl', '222', 'sdfsdf', 'klmlk', 'lklkmmk', 'lkmmkl', 'مصر'),
-(9, 1, 15, NULL, NULL, 'skdklsdlksdlkdskjkj', 'Dakrory', '2017', 'lsd;lsd', 'sdlkwlkwe', 'giza', '2019-06-22 18:25:48', '2019-06-24 18:10:45', '2019-06-29 01:33:38', '2019-06-24 18:10:45', 39, 1, '2019-06-24 18:10:45', '2019-06-24 18:10:45', 1, 1, NULL, NULL, 8777, 788, 9898, 7788, '2019-06-02 01:34:44', '2019-06-24 18:10:45', NULL, 'klmkmlkl', 'sdlsdl', '222', 'sdfsdf', 'kllkklm', 'lkmmkl', 'lkmlmk', 'مصر');
+INSERT INTO `car` (`id`, `mainId`, `shipperId`, `vendorId`, `customerId`, `uuid`, `description`, `year`, `container`, `seal`, `inlandStatus`, `cargoRecieved`, `titleRecieved`, `dvl`, `stRecieved`, `origin`, `destination`, `etd`, `eta`, `loadrequest`, `releaseOption`, `consigneeId`, `state`, `landcost`, `seacost`, `fees`, `commision`, `lastUpdate`, `storageStartDate`, `storageEndDate`, `note`, `make`, `model`, `bodyStyle`, `engineType`, `engineLiters`, `color`, `assemlyCountry`, `photoExist`, `docExist`, `type`) VALUES
+(11, 1, 10, NULL, NULL, 'klasdkmlasdlmkasdlm', 'Zewail city', '2020', 'kdsds', 'lksdklsdk', 'giza', '2019-06-26 18:22:41', '2019-06-18 20:34:40', '2019-06-21 18:25:39', '2019-06-05 20:37:26', 371, 1412, '2019-06-14 20:37:19', '2019-06-18 20:37:24', 1, 1, NULL, 0, 2323, 788, 2322, 998, '2019-06-04 18:14:38', '2019-05-29 18:14:32', NULL, 'please read it', 'BMW', 'X5', 'klslklds', 'ksdlksdlk', 'sdsd', 'lkmlmk', 'مصر', 1, 1, NULL),
+(12, 1, 15, 1, NULL, 'lkkllksdsd', 'Dakrory', '2017', 'osdfksdf', 'lskldflksdf', 'Giza', '2019-06-15 15:56:52', '2019-06-20 15:56:58', '2019-06-22 15:56:56', '2019-06-26 15:57:05', 1, 4265, '2019-06-17 15:43:21', '2019-09-17 15:57:02', 1, 1, 2, 2, 55, NULL, 25, 122, '2019-06-06 13:39:46', '2019-06-01 16:29:16', NULL, '', 'BMW', '222', '4 doors', 'klmlk', '', '', 'مصر', 1, 0, 0),
+(13, 1, 15, 3, NULL, 'sdklsdklsdkldssd232323sd', 'mohamed', '2020', 'osdfksdf', 'lskldflksdf', 'klmkl', '2019-06-01 13:59:27', '2019-06-01 13:59:16', '2019-06-01 13:59:22', '2019-06-01 13:59:30', 39, 1412, '2019-07-01 15:54:52', '2019-06-01 13:59:25', 0, 1, 2, 6, 123, 13, 2322, 122, '2019-06-06 13:41:25', '2019-06-01 13:59:55', '2019-06-08 18:15:27', 'please read it', 'BMW', 'X5', '4 doors', '4cyl', '4liter', 'black', 'مصر', 1, 1, 0),
+(14, 1, 10, NULL, NULL, 'lksdklsdlksdsd22k23k23', '', '', '', '', '', NULL, NULL, '2019-06-15 11:25:08', NULL, 371, 1408, NULL, NULL, 0, 0, NULL, 6, NULL, NULL, NULL, NULL, '2019-06-06 14:26:16', NULL, NULL, '', '', '', '', '', '', '', '', 0, 0, 1),
+(15, 1, 10, 1, NULL, 'klasdkmlasdlmkasd', '', '2017', '', '', '', NULL, NULL, NULL, NULL, 381, 1531, NULL, NULL, 0, 0, NULL, 4, NULL, NULL, NULL, NULL, '2019-06-06 14:16:12', NULL, NULL, '', 'BMW', '222', 'sdfsdf', 'ksdlksdlk', 'lkmmkl', 'black', 'مصر', 0, 0, 1),
+(16, 1, 15, 2, NULL, 'lkkllksdsd23232', NULL, '2020', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 381, 1531, NULL, NULL, 0, 0, 1, 0, NULL, NULL, NULL, NULL, '2019-06-06 13:20:40', NULL, NULL, NULL, 'Toyota xxxx', 'crola', 'sdfsdf', 'ksdlksdlk', '4liter', 'black', 'مصر', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carimage`
+--
+
+CREATE TABLE `carimage` (
+  `id` int(11) NOT NULL,
+  `url` varchar(45) DEFAULT NULL,
+  `carId` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `carimage`
+--
+
+INSERT INTO `carimage` (`id`, `url`, `carId`, `type`) VALUES
+(1, 'img8272088495755286320.png', 11, 0),
+(2, 'img6032234184490386176.png', 11, 0),
+(3, 'img8272088495755286320.png', 11, 1),
+(4, 'img6032234184490386176.png', 11, 1),
+(5, 'img6084960490893956519.png', 13, 0),
+(6, 'img5541713043554210700.png', 13, 1),
+(7, 'img6305983527893027542.png', 12, 0),
+(8, 'img190549176288432223.png', 13, 0),
+(9, 'img5327908244231425875.png', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -96,9 +130,9 @@ CREATE TABLE `consignee` (
 --
 
 INSERT INTO `consignee` (`id`, `userId`, `other`, `notes`, `allowAccess`, `parentId`) VALUES
-(1, 18, '', '', 1, 15),
-(2, 19, '', '', 0, 15),
-(3, 20, '', '', 0, 15);
+(1, 18, '', 'sdklsdklsdklsdk', 1, 15),
+(2, 19, '', 'm,sdowekl', 0, 15),
+(3, 20, '', 'klsdlkmlmk2323lmk23', 0, 15);
 
 -- --------------------------------------------------------
 
@@ -853,6 +887,13 @@ ALTER TABLE `car`
   ADD KEY `consigneeIdKey_idx` (`consigneeId`);
 
 --
+-- Indexes for table `carimage`
+--
+ALTER TABLE `carimage`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carId_idx` (`carId`);
+
+--
 -- Indexes for table `consignee`
 --
 ALTER TABLE `consignee`
@@ -906,6 +947,11 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `car`
 --
 ALTER TABLE `car`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `carimage`
+--
+ALTER TABLE `carimage`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `consignee`
@@ -950,6 +996,12 @@ ALTER TABLE `car`
   ADD CONSTRAINT `mainIdkey` FOREIGN KEY (`mainId`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `shipperIdKey` FOREIGN KEY (`shipperId`) REFERENCES `shipper` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `vendorIdKey` FOREIGN KEY (`vendorId`) REFERENCES `vendor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `carimage`
+--
+ALTER TABLE `carimage`
+  ADD CONSTRAINT `carId` FOREIGN KEY (`carId`) REFERENCES `car` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `consignee`

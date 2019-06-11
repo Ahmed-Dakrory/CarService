@@ -53,7 +53,6 @@
 }
 					</style>
 	
-	#{carBean.refresh()}
               <h:form name="aspnetForm" id="aspnetForm">
 
 
@@ -206,7 +205,7 @@
                                                                                                         VIN:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIN" type="text" value="#{carBean.addNewCar.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText disabled="true" name="ctl00$BodyHolder$txtVIN" type="text" value="#{carBean.selectedCar.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
@@ -233,7 +232,7 @@
                                                                                                         Description:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carBean.addNewCar.description}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carBean.selectedCar.description}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
@@ -313,7 +312,7 @@
                                                                                                         State:</div>
                                                                                                 </td>
                                                                                                 <td>
-	                                                                                            	<h:selectOneMenu value="#{carBean.addNewCar.state}">
+	                                                                                            	<h:selectOneMenu value="#{carBean.selectedCar.state}">
 		                                                                                            	<c:forEach items="#{carBean.carStates}" var="var" varStatus="idx">
 		                                                                                            	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
 		                                                                                            	</c:forEach>
@@ -353,7 +352,7 @@
                                                                                                         Freight Type:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.addNewCar.type}" id="ctl00_BodyHolder_txttype" style="font-size:11px;height:19px;width:200px;" >
+                                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.selectedCar.type}" id="ctl00_BodyHolder_txttype" style="font-size:11px;height:19px;width:200px;" >
                                                                                                     <f:selectItem itemLabel="Vehcile" itemValue="0"/>
                                                                                                     <f:selectItem itemLabel="Dry Cargo" itemValue="1"/>
                                                                                                     </h:selectOneMenu>
@@ -379,7 +378,7 @@
                                                                                                         Make:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.addNewCar.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.selectedCar.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -387,7 +386,7 @@
                                                                                                 </td>
                                                                                                 <td>
                                                                                                   <!--  here the select for the port destination -->  
-                                                                                                     <h:selectOneMenu value="#{carBean.addNewCar.destination}" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" style="font-size:11px;height:19px;width:200px;">
+                                                                                                     <h:selectOneMenu value="#{carBean.selectedCar.destination}" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" style="font-size:11px;height:19px;width:200px;">
                                                                                                        	<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
 	<f:selectItem itemValue="1531" itemLabel="Aabenraa - Denmark - 40901"/>
 	<f:selectItem itemValue="1412" itemLabel="Aagotnes - Norway - 40311"/>
@@ -5364,14 +5363,14 @@
                                                                                                         Model:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carBean.addNewCar.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carBean.selectedCar.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Release :</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.addNewCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" />
+                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.selectedCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
@@ -5388,14 +5387,14 @@
                                                                                                         Year:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carBean.addNewCar.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carBean.selectedCar.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Container #:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.addNewCar.container}" id="ctl00_BodyHolder_txtContainer" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.selectedCar.container}" id="ctl00_BodyHolder_txtContainer" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
@@ -5412,14 +5411,14 @@
                                                                                                         Assembly Country:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" type="text" value="#{carBean.addNewCar.assemlyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" type="text" value="#{carBean.selectedCar.assemlyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Seal:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCarrier" type="text" value="#{carBean.addNewCar.seal}" id="ctl00_BodyHolder_txtCarrier" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCarrier" type="text" value="#{carBean.selectedCar.seal}" id="ctl00_BodyHolder_txtCarrier" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
@@ -5436,14 +5435,14 @@
                                                                                                         Body Style:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carBean.addNewCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carBean.selectedCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Inland Status:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVessel" type="text" value="#{carBean.addNewCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVessel" type="text" value="#{carBean.selectedCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
@@ -5460,7 +5459,7 @@
                                                                                                         Engine Type:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carBean.addNewCar.engineType}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carBean.selectedCar.engineType}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td style="width: 200px" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -5484,7 +5483,7 @@
                                                                                                         Engine Liters:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carBean.addNewCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carBean.selectedCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                 <td class="tbltxt">
@@ -5509,7 +5508,7 @@
                                                                                                         Color:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carBean.addNewCar.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carBean.selectedCar.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                 <td class="tbltxt">
@@ -5517,7 +5516,7 @@
                                                                                                         Note #:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" value="#{carBean.addNewCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" value="#{carBean.selectedCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                 <td>
@@ -5533,7 +5532,7 @@
                                                                                                         Commision:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carBean.addNewCar.commision}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carBean.selectedCar.commision}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                 <td class="tbltxt">
@@ -5541,7 +5540,7 @@
                                                                                                         Port of Origin:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:selectOneMenu value="#{carBean.addNewCar.origin}" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" style="font-size:11px;height:19px;width:200px;">
+                                                                                                    <h:selectOneMenu value="#{carBean.selectedCar.origin}" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" style="font-size:11px;height:19px;width:200px;">
 																										<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
 																										<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
 																										<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
@@ -5563,7 +5562,7 @@
                                                                                                         Our Fees:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.addNewCar.fees}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.selectedCar.fees}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                                 <td style="width: 250px" class="tbltxt">
@@ -5571,7 +5570,7 @@
                                                                                                         Land Fees:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="text" id="ctl00_BodyHolder_txtLand" value="#{carBean.addNewCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="text" id="ctl00_BodyHolder_txtLand" value="#{carBean.selectedCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
@@ -5586,7 +5585,7 @@
                                                                                                         Sea Fees:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtSeaCost" type="text" id="ctl00_BodyHolder_txtSeaCost" value="#{carBean.addNewCar.seacost}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtSeaCost" type="text" id="ctl00_BodyHolder_txtSeaCost" value="#{carBean.selectedCar.seacost}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                                  <td style="width: 250px" class="tbltxt">
@@ -5594,7 +5593,7 @@
                                                                                                         Load Request:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtloadRequ" type="text" id="ctl00_BodyHolder_txtloadRequ" value="#{carBean.addNewCar.loadrequest}" style="font-size:11px;height:19px;width:20px;" />
+                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtloadRequ" type="text" id="ctl00_BodyHolder_txtloadRequ" value="#{carBean.selectedCar.loadrequest}" style="font-size:11px;height:19px;width:20px;" />
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
@@ -6105,14 +6104,14 @@
                                                                         
                                                                                             <tr height="13">
                                                                                                 <td align="center">
-																									<p:commandButton class="btn btn-default" action="#{carBean.saveNewCarDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+																									<p:commandButton class="btn btn-default" action="#{carBean.updateDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="update" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                     
                                                                                                 </td>
                                                                                                 <td align="center">
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carBean.cancel()}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" action="#{carBean.cancel()}" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carBean.cancel()}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" action="#{carBean.cancel()}" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>

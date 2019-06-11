@@ -46,64 +46,64 @@ import main.com.carService.vendor.vendor;
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForMainUser",
-	query = "from car d where d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 or d.state = 4 and mainId = :userId"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainId = :userId"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForVendor",
-	query = "from car d where d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 or d.state = 4 and vendorId = :vendorId"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and vendorId = :vendorId"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForShipper",
-	query = "from car d where d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 or d.state = 4 and shipperId = :shipperId"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and shipperId = :shipperId"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForCustomer",
-	query = "from car d where d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 or d.state = 4 and customerId = :customerId"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and customerId = :customerId"
 			)
 	,
 	@NamedQuery(name="car.getAllWareHouseForConsignee",
-	query = "from car d where d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 or d.state = 4 and consigneeId = :consigneeId"
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and consigneeId = :consigneeId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForMainUser",
-	query = "from car d where d.state = 5 or d.state = 6 and mainId = :userId"
+	query = "from car d where (d.state = 4 or d.state = 5) and mainId = :userId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForVendor",
-	query = "from car d where d.state = 5 or d.state = 6 and vendorId = :vendorId"
+	query = "from car d where (d.state = 4 or d.state = 5) and vendorId = :vendorId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForShipper",
-	query = "from car d where d.state = 5 or d.state = 6 and shipperId = :shipperId"
+	query = "from car d where (d.state = 4 or d.state = 5) and shipperId = :shipperId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForCustomer",
-	query = "from car d where d.state = 5 or d.state = 6 and customerId = :customerId"
+	query = "from car d where (d.state = 4 or d.state = 5) and customerId = :customerId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForConsignee",
-	query = "from car d where d.state = 5 or d.state = 6 and consigneeId = :consigneeId"
+	query = "from car d where (d.state = 4 or d.state = 5) and consigneeId = :consigneeId"
 			)
 	
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForMainUser",
-	query = "from car d where d.state = 7 or d.state = 8 and mainId = :userId"
+	query = "from car d where (d.state = 6 or d.state = 7) and mainId = :userId"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForVendor",
-	query = "from car d where d.state = 7 or d.state = 8 and vendorId = :vendorId"
+	query = "from car d where (d.state = 6 or d.state = 7) and vendorId = :vendorId"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForShipper",
-	query = "from car d where d.state = 7 or d.state = 8 and shipperId = :shipperId"
+	query = "from car d where (d.state = 6 or d.state = 7) and shipperId = :shipperId"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForCustomer",
-	query = "from car d where d.state = 7 or d.state = 8 and customerId = :customerId"
+	query = "from car d where (d.state = 6 or d.state = 7) and customerId = :customerId"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightInTransitForConsignee",
-	query = "from car d where d.state = 7 or d.state = 8 and consigneeId = :consigneeId"
+	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId"
 			)
 	
 	
@@ -220,11 +220,10 @@ public class car {
 	public static int STATE_WARE_HOUSE_2=1;
 	public static int STATE_WARE_HOUSE_3=2;
 	public static int STATE_WARE_HOUSE_4=3;
-	public static int STATE_WARE_HOUSE_5=4;
-	public static int STATE_DRY_CARGO_1=5;
-	public static int STATE_DRY_CARGO_2=6;
-	public static int STATE_In_TRANSIT_1=7;
-	public static int STATE_In_TRANSIT_2=8;
+	public static int STATE_DRY_CARGO_1=4;
+	public static int STATE_DRY_CARGO_2=5;
+	public static int STATE_In_TRANSIT_1=6;
+	public static int STATE_In_TRANSIT_2=7;
 	
 	@Column(name = "state")
 	private Integer state;
@@ -254,14 +253,22 @@ public class car {
 	@Column(name = "note")
 	private String note;
 	
+	@Column(name = "photoExist")
+	private boolean photoExist;
 	
+	@Column(name = "docExist")
+	private boolean docExist;
 	
-		
+
+	public static int TYPE_Vehicle = 0;
+	public static int TYPE_DRY_Cargo = 0;
 	
+	@Column(name = "type")
+	private Integer type;
 
 	
 
-	public static String StateString[]= {"Warehouse (Title uploaded, VIR uploaded, Load Request NO)",
+	public static String stateString[]= {"Warehouse (Title uploaded, VIR uploaded, Load Request NO)",
 										 "Warehouse ( VIR and Title uploaded, Load Request YES)",
 										 "Warehouse (Title uploaded, VIR uploaded, Priority OK TO LOAD"
 										 + " / LOAD ASAP, Job Order Form assigned to freight)",
@@ -903,8 +910,11 @@ public class car {
 
 
 
+
+
+
 	public static String[] getStateString() {
-		return StateString;
+		return stateString;
 	}
 
 
@@ -915,7 +925,7 @@ public class car {
 
 
 	public static void setStateString(String[] stateString) {
-		StateString = stateString;
+		car.stateString = stateString;
 	}
 
 
@@ -1164,8 +1174,76 @@ public class car {
 	public void setAssemlyCountry(String assemlyCountry) {
 		this.assemlyCountry = assemlyCountry;
 	}
+
+
+
+
+
+
+
+
+	public boolean isPhotoExist() {
+		return photoExist;
+	}
+
+
+
+
+
+
+
+
+	public void setPhotoExist(boolean photoExist) {
+		this.photoExist = photoExist;
+	}
+
+
+
+
+
+
+
+
+	public boolean isDocExist() {
+		return docExist;
+	}
+
+
+
+
+
+
+
+
+	public void setDocExist(boolean docExist) {
+		this.docExist = docExist;
+	}
+
+
+
+
+
+
+
+
+	public Integer getType() {
+		return type;
+	}
+
+
+
+
+
+
+
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	
 
+	
+	
 	
 	
 }
