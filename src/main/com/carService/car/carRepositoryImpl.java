@@ -134,8 +134,8 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllWareHouseForCustomer(int custmerId) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllWareHouseForCustomer").setInteger("custmerId",custmerId);
+	public List<car> getAllWareHouseForCustomer(int customerId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllWareHouseForCustomer").setInteger("customerId",customerId);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -199,8 +199,8 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllDryCargoForCustomer(int custmerId) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllDryCargoForCustomer").setInteger("custmerId",custmerId);
+	public List<car> getAllDryCargoForCustomer(int customerId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllDryCargoForCustomer").setInteger("customerId",customerId);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -264,8 +264,8 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllFrightInTransitForCustomer(int custmerId) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightInTransitForCustomer").setInteger("custmerId",custmerId);
+	public List<car> getAllFrightInTransitForCustomer(int customerId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightInTransitForCustomer").setInteger("customerId",customerId);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();

@@ -133,6 +133,20 @@ public class customerRepositoryImpl implements customerRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public customer getByUserId(int userId) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("customer.getByUserId").setInteger("id",userId);
+
+				 @SuppressWarnings("unchecked")
+				List<customer> results=query.list();
+				 if(results.size()!=0){
+					 return results.get(0);
+				 }else{
+					 return null;
+				 }
+	}
 	
 
 

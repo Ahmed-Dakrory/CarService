@@ -26,11 +26,15 @@ import javax.imageio.ImageIO;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
+import helpers.retrofit.mainFiles.APIClient;
+import helpers.retrofit.mainFiles.APIInterface;
+import helpers.retrofit.mainFiles.OrderOutDetails;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorAppServiceImpl;
+import retrofit2.Call;
 import main.com.carService.car.car;
 import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.carImage.carimage;
@@ -122,6 +126,7 @@ public class carBean implements Serializable{
 	
 	private int consigneeId;
 	private consignee selectedConsignee;
+	private boolean progress=false;
 	
 	@PostConstruct
 	public void init() {
@@ -187,6 +192,23 @@ public class carBean implements Serializable{
 		
 		filterCarBySelectFirstTime();
 	}
+	
+	
+	public void releaseVariablesForRemind() {
+		images=new ArrayList<String>();
+		docs=new ArrayList<String>();
+		
+		
+		consigneeId=-1;
+		
+		
+		selectedConsignee=new consignee();
+
+		
+		filterCarBySelectFirstTime();
+	}
+	
+	
 	public void refresh(){
 		
 		
@@ -204,10 +226,73 @@ public class carBean implements Serializable{
 			addNewCar.setMainId(shipperOfThisAccount.getParentId());
 			allvendor=vendorFacade.getAllByParentId(shipperOfThisAccount.getId());
 			allconsignees=consigneeFacade.getAllByParentId(shipperOfThisAccount.getId());
+			
+		}else if(role==user.ROLE_VENDOR) {
+			releaseVariablesForRemind();
+			vendor vendorOfThisAccount=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			allcustomer=customerFacade.getAllByParentId(vendorOfThisAccount.getId());
+			
+		}else if(role==user.ROLE_CUSTOMER) {
+			releaseVariablesForRemind();
+			
+			
+		}else if(role==user.ROLE_CONGSIGNEE) {
+			releaseVariablesForRemind();
+			
+			
 		}
 		
 	}
 	
+	
+	public void theloaderFirst() {
+		
+			progress=true;
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+			
+		
+	}
+	
+	
+	public void getCarWithVinNew() {
+		if(!addNewCar.getUuid().equals("")) {
+			
+		APIInterface apiInterface = APIClient.getClient(addNewCar.getUuid()+"/").create(APIInterface.class);
+		  Call<OrderOutDetails> call = apiInterface.performOrder();
+	        try {
+	        	OrderOutDetails car= call.execute().body();
+
+	        	addNewCar.setMake(car.Results.get(0).Make);
+	        	addNewCar.setModel(car.Results.get(0).Model);
+	        	addNewCar.setYear(car.Results.get(0).ModelYear);
+	        	addNewCar.setAssemlyCountry(car.Results.get(0).PlantCountry);
+	        	addNewCar.setBodyStyle(car.Results.get(0).DriveType);
+	        	addNewCar.setEngineLiters(car.Results.get(0).DisplacementL);
+	        	addNewCar.setEngineType(car.Results.get(0).EngineConfiguration+"- "+car.Results.get(0).EngineCylinders+" Cylinders");
+
+
+				progress=false;
+
+	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+	          	  
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				progress=false;
+
+	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+			}
+		}else {
+			progress=false;
+
+    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'Please enter the Vin number',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
 	
 	public void filterCarBySelectFirstTime() {
 
@@ -316,7 +401,166 @@ public class carBean implements Serializable{
 				
 
 			}
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
+
+			vendor vendorNewId=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			if(selectedCarState==0) {
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			}else if(selectedCarState==1) {
+				// this for dry cargo
+
+				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
+
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				
+				
+			}else if(selectedCarState==2) {
+				// this for freight in transit
+
+				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
+
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+
+			}else if(selectedCarState==3) {
+				//this for all
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+			}
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
+
+			customer customerNewId=customerFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			if(selectedCarState==0) {
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			}else if(selectedCarState==1) {
+				// this for dry cargo
+
+				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
+
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				
+				
+			}else if(selectedCarState==2) {
+				// this for freight in transit
+
+				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
+
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+
+			}else if(selectedCarState==3) {
+				//this for all
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+			}
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
+
+			consignee consigneeNewId=consigneeFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			if(selectedCarState==0) {
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			}else if(selectedCarState==1) {
+				// this for dry cargo
+
+				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.getId());
+
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				
+				
+			}else if(selectedCarState==2) {
+				// this for freight in transit
+
+				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.getId());
+
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+
+			}else if(selectedCarState==3) {
+				//this for all
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+			}
 		}
+		
+		
+		
 		
 		
 	}
@@ -326,12 +570,13 @@ public class carBean implements Serializable{
 		filterCarBySelectFirstTime();
 		
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	public void goToAddNewcarShipper() {
 		refresh();
 		
@@ -375,7 +620,7 @@ public class carBean implements Serializable{
 			
 			try {
 				FacesContext.getCurrentInstance()
-				   .getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -432,7 +677,10 @@ public class carBean implements Serializable{
 
 		}
 	
-	
+	/**
+	 * 
+	 * shipper
+	 */
 	public void selectCarForShipper(int idcar) {
 		refresh();
 		selectedCar=carFacade.getById(idcar);
@@ -485,7 +733,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -500,6 +748,123 @@ public class carBean implements Serializable{
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	/**
+	 * vendor 
+	 */
+	
+	
+	public void selectCarForVendor(int idcar) {
+		refresh();
+		selectedCar=carFacade.getById(idcar);
+		selectedConsignee=selectedCar.getConsigneeId();
+		if(selectedConsignee!=null)
+			consigneeId=selectedConsignee.getId();
+		if(selectedCar.getCustomerId()==null) {
+			customer customerNew=new customer();
+	
+			selectedCar.setCustomerId(customerNew);
+		}
+		
+		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
+		List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+		
+		if(imagesOfCar!=null) {
+			for(int i=0;i<imagesOfCar.size();i++) {
+				images.add(imagesOfCar.get(i).getUrl());
+			}
+		}
+		if(docsOfCar!=null){
+			for(int i=0;i<docsOfCar.size();i++) {
+				docs.add(docsOfCar.get(i).getUrl());
+			}
+		}
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/customer/car/EditInventory.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void updateCarForVendor() {
+		
+		boolean isValid=checkValidForCar(selectedCar);
+		if(isValid) {
+			
+		carFacade.addcar(selectedCar);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your car has been updated.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'Check the Madatory fields',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
+
+	
+	
+	/**
+	 * customer 
+	 */
+	
+	
+	public void selectCarForCustomerOrConsignee(int idcar) {
+		refresh();
+		selectedCar=carFacade.getById(idcar);
+		selectedConsignee=selectedCar.getConsigneeId();
+		if(selectedConsignee!=null)
+			consigneeId=selectedConsignee.getId();
+		if(selectedCar.getCustomerId()==null) {
+			customer customerNew=new customer();
+	
+			selectedCar.setCustomerId(customerNew);
+		}
+		
+		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
+		List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+		
+		if(imagesOfCar!=null) {
+			for(int i=0;i<imagesOfCar.size();i++) {
+				images.add(imagesOfCar.get(i).getUrl());
+			}
+		}
+		if(docsOfCar!=null){
+			for(int i=0;i<docsOfCar.size();i++) {
+				docs.add(docsOfCar.get(i).getUrl());
+			}
+		}
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/userData/car/Inventory.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 	//Save the New Car with the main Account
 	public void saveNewCarDataMain() {
 		addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
@@ -548,7 +913,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -668,7 +1033,7 @@ public class carBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -744,7 +1109,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1014,6 +1379,14 @@ public class carBean implements Serializable{
 	
 	
 	
+	public boolean isProgress() {
+		return progress;
+	}
+
+	public void setProgress(boolean progress) {
+		this.progress = progress;
+	}
+
 	public Map<Integer, String> getDistinationMap() {
 		return distinationMap;
 	}

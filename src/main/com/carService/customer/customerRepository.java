@@ -19,5 +19,6 @@ public interface customerRepository {
 	public List<customer> getAllByUserOfParentOfParentId(int idParent);
 	public customer addcustomer(customer data);
 	public customer getById(int id);
+	public customer getByUserId(int userId);
 	public boolean delete(customer data)throws Exception;
 }

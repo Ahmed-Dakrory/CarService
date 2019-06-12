@@ -35,6 +35,11 @@ import main.com.carService.vendor.vendor;
 	query = "from customer d where d.id = :id"
 			)
 	,
+	@NamedQuery(name="customer.getByUserId",
+	query = "from customer d where d.userId = :id"
+			)
+	,
+	
 	@NamedQuery(name="customer.getAllByParentId",
 	query = "from customer d where d.parentId.id = :id"
 			)

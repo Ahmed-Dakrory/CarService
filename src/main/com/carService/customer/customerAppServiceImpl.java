@@ -129,6 +129,23 @@ public class customerAppServiceImpl implements IcustomerAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public customer getByUserId(int userId) {
+		// TODO Auto-generated method stub
+				try{
+					customer so=customerDataRepository.getByUserId(userId);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
 	
 	
 }

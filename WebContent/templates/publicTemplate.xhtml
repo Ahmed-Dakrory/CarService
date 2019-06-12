@@ -20,7 +20,7 @@
    
 	<!-- Skin CSS -->
     <link rel="stylesheet" href="#{resource['css:public/vendorb315.css']}" />
-    <link rel="stylesheet" href="#{resource['css:public/appb315.css']}" />
+    <link rel="stylesheet" href="#{resource['css:public/designMain.css']}" />
     
     	
     	
@@ -41,6 +41,11 @@
     <!-- Specific Page Vendor CSS -->
 	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.custom.css']}" />
 	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.icon.css']}" />
+	
+	
+	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.carousel.min.css']}" />
+	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.theme.default.min.css']}" />
+	
 	
 	
 		<h:outputScript name="js/dashboard/assets/vendor/modernizr/modernizr.js"/>
@@ -66,13 +71,47 @@
   
 
 <div class="top hidden-xs hidden-sm">
-<div class="container">
+<div class="container" style="    width: 100%;">
 
+<div class="row">
 
-
-<div id="top-login">
+<div class="col-md-1"></div>
+<div class="col-md-1" style="
+    margin-top: 5px;
+">
+<!--  
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="
+       background-image: url(/resources/images/schedule.png);
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 29px;">
+    	<span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Monday 9:00 am – 17.00 pm</div></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Tuesday9:00 am – 18.00 pm</div></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Wednesday 9:00 am – 18.00 pm</div></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Thurs &amp; Friday10:00 am – 16.00 pm</div></li>
+      <li role="presentation" class="divider"></li>
+       <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Sat10:00 am – 16.00 pm</div></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><div role="menuitem" tabindex="-1" style="font-size: large;">Sunday Closed</div></li>
+    </ul>
+  </div>
+ -->
+</div>
+<div class="col-md-7"></div>
+<div class="col-sm-1" style="
+    margin-top: 9px;
+"> 
+<div id="top-login" onclick="showOrNotShow();" style="    width: 51px;">
 <div class="box">Log In</div>
-<div class="login_form">
+<div id="login_form" class="login_form">
 <div class="left">
 
 
@@ -124,6 +163,13 @@
 </div>
 </div>
 <div class="clearfix clr"></div>
+
+</div>
+
+</div>
+
+
+
 </div>
 </div>
 
@@ -134,10 +180,11 @@
 
 
 <div class="header">
-<a href="en.html"><img style="
+<a href="en.html" class=" visible-md visible-lg" >
+<img style="
     position: absolute;
-    top: 45px;
-" src="#{resource['images:logo.png']}" width="155" height="91" alt="A international Car Auctions"/></a>
+    top: 39px;
+" src="#{resource['images:logo.png']}" width="135" height="87" alt="A international Car Auctions"/></a>
 
 <div class="container">
 <div class="row">
@@ -161,11 +208,20 @@
 
 </div>
 
-<div class="phone col-md-4 col-lg-3 text-right hidden-xs hidden-sm">
-<div>Hablamos Español</div>
-<div class="num"><div></div>+1 786 801 3441</div>
-<div>
-6am - 7pm UTC-04:00 Monday - Friday </div>
+
+
+
+
+
+<div class="phone  col-lg-3 text-right hidden-xs hidden-sm">
+<div>FIG-United States</div>
+<div class="num"><div></div>00353894435368</div>
+
+
+
+
+
+
 </div>
 <div class="ricon text-right col-xs-2 col-sm-2 hidden-md hidden-lg" id="responsive_account_icon">
 <div class="mobile_menu_open">
@@ -254,10 +310,10 @@
 <a href="/"> Home </a>
 
 </li>
-<li class=" has-submenu has-submenu__lvl1 mainmenu__item-live"><a href="enekkk.html">About</a>
+<li class=" has-submenu has-submenu__lvl1 mainmenu__item-live"><a href="/pages/public/about.jsf">About</a>
 
 </li>
-<li><a href="en/contact-us.html">Contact Us</a></li>
+<li><a href="/pages/public/contactUs.jsf">Contact Us</a></li>
 <li class="has-submenu has-submenu__lvl1 responsive_menu__get-started"><a href="/pages/public/carCost.xhtml">Calculate Shipping Cost</a>
 
 </li>
@@ -275,7 +331,7 @@
     <!-- End of Header -->
     
    
-    <ui:insert name="content"> 
+    <ui:insert name="content" > 
     	 <ui:include src="content.xhtml"/> 
   </ui:insert>
    
@@ -305,11 +361,18 @@
 		<!-- Specific Page Vendor -->
 		
 		
-		<h:outputScript name="js/dashboard/assets/vendor/pnotify/pnotify.custom.js"/>
 		
 <h:outputScript  type="text/javascript" name="js/public/vendorb315.js"/>
-<h:outputScript  type="text/javascript" name="js/public/appb315.js"/>
+<h:outputScript  type="text/javascript" name="js/public/displayMain.js"/>
 	
+
+
+	<h:outputScript name="js/dashboard/assets/vendor/pnotify/pnotify.custom.js"/>
+	
+
+
+
+    
 <script async="true" type="text/javascript">(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/yhv9hs5c';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 
   <ui:insert name="script"> 
@@ -322,6 +385,10 @@
 	<script>
 		   jQuery.noConflict();
 		 </script>
+		 
+		 
+		<h:outputScript name="js/public/owlcarousel/jquery.min.js"/>
+		<h:outputScript name="js/public/owlcarousel/owl.carousel.min.js"/>
 </h:body>
 
 </html>
