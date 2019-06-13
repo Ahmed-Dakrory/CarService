@@ -3,7 +3,7 @@ var loginForm = document.getElementById("login_form");
 
 var isShown = false;
 
-function showOrNotShow(){
+function showOrNot(){
 	
 	if(isShown){
 		loginForm.style.display = "none";
@@ -15,6 +15,18 @@ function showOrNotShow(){
 	
 	
 	isShown=!isShown;
+}
+
+
+function closeDialog(){
+	
+	
+	
+		loginForm.style.display = "none";
+	
+	
+	
+	isShown=false;
 }
 
 
