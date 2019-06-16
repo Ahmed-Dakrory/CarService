@@ -9,7 +9,7 @@ div.header ul li{list-style-type:none;float:left}
 div.header ul.mn-main li a{text-align: -webkit-center;/* text-indent:-9999px; */text-decoration: none;-webkit-text-fill-color: #dedede;/* background:url('/resources/imgs/sprites.png'); */text-align: -webkit-center;padding-block-start: 13px;}
 div.header ul.mn-sub li a{/* text-indent:-9999px; *//* background:url('/resources/imgs/sprites.png'); */background: white;padding-top: 11px;text-align: -webkit-center;border-radius: 17px;}
 
-div.header-main{height: 137px;background: #606567 url(/resources/imgs/sprites.png);background: #262831;}
+div.header-main{height: 155px;background: #606567 url(/resources/imgs/sprites.png);background: #262831;}
 div.logo {/* position:absolute; *//* right:20px; *//* top:10px; *//* color:#fff; *//* font-size:12pt; *//* background:#fff; *//* width: 10px; *//* height:60px; *//* background:url('/resources/images/logo.png'); *//* background-position:00px -340px; *//* text-indent:-9999px; */}
 table.content-table {width:100%}
 table.content-table div.trdatesrow { width: 770px; display: inline-block; }
@@ -19,7 +19,7 @@ table.content-table td.notes-container { vertical-align: top; }
 
 div.header div.help{position:absolute;right:400px;top:10px;color:#fff;font-size:10pt;font-family:Arial}
 
-div.header div.header-main ul{margin-left: 11%;padding-top: 90px;}
+div.header div.header-main ul{margin-left: 19%;padding-top: 106px;}
 div.header div.header-main ul li{height:40px}
 div.header div.header-main ul li a{float:left;height:40px;background-position:0 -100px;border-left: solid 1px #3a3c44;border-right: solid 1px #3a3c44;}
 div.header div.header-main ul li a:hover{background-color: #333640;}

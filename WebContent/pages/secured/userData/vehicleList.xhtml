@@ -9,14 +9,24 @@
 
 <ui:composition template="/templates/dashboard.xhtml">
 
-	<ui:define name="title"> TRT System : User Profile</ui:define>
- <ui:define name="mainHead"> 
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+	
+	 <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
            
 			</ui:define>
 
 	<ui:define name="content">
+	<style>
 	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: -webkit-center;
+    font-family: sans-serif;
+}
+	</style>
         <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
 
 
@@ -28,134 +38,6 @@
     <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
         <tbody>
             <tr valign="top">
-                <td>
-                    <!-- Groups block -->
-                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
-                        <tr bgcolor="#bbbbbb">
-                            <td>
-                                <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ebe4d8">
-                                    <tr bgcolor="#f1f1f6">
-                                        <td>
-                                            <table width="100%" cellspacing="0" cellpadding="3" border="0">
-                                                <tr bgcolor="#f9f9f9">
-                                                    <td width="100%" class="tbltxt" colspan="3">
-                                                        <img src="#{resource['images:icon-folder.gif']}" width="23" height="23" border="0" align="absMiddle"/>&nbsp;<font
-                                                            class="tblhdr">Freight List</font>&nbsp;
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- End of Groups block -->
-                    <img src="#{resource['images:dumb.gif']}" width="1" height="4"/><br></br>
-                    
-<div style="text-align: left; padding: 8px 8px 8px 8px; height: 100%; border: solid 1px #bbbbbb; z-index:10; background-color: #f1f1f6; width: 184px;">
-    <p class="info" style="font-weight: bold;">
-        Legend:</p>
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr >
-            <td colspan="2">
-                <br />
-                <b>Freight list (TRT Inventory)</b>
-                <br /><br />
-                <b>&nbsp;&nbsp;&nbsp;&nbsp;For Vehicles</b> 
-            </td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;Title uploaded, VIR uploaded, Load Request NO:</td>
-            <td class="YellowRow" style="width: 18%; border: solid 1px #333333;">
-                &nbsp;</td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;VIR and Title uploaded, Load Request YES:</td>
-            <td class="GreenRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
-                &nbsp;</td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;Title uploaded, VIR uploaded, Priority OK TO LOAD / LOAD ASAP, Job Order Form assigned to freight:</td>
-            <td class="RichGreenRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
-                &nbsp;</td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;No documents uploaded (Vehicle Inspection Report, Title or both):</td>
-            <td class="PinkRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
-                &nbsp;</td>
-        </tr>
-        
-        <tr>
-            <td colspan="2">
-                <br />
-                <b>&nbsp;&nbsp;&nbsp;&nbsp;For Dry Cargo</b> 
-            </td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;Load Request  NO:</td>
-            <td class="YellowRow" style="width: 18%; border: solid 1px #333333;">
-                &nbsp;</td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;Load Request YES:</td>
-            <td class="GreenRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
-                &nbsp;</td>
-        </tr>
-        
-        <tr>
-            <td colspan="2">
-                <br />
-                <b>Freight list (In Transit, Agent Inventory, Archive)</b> 
-                <br /><br />
-            </td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;ETA present :</td>
-            <td class="GreenRow" style="width: 18%; border: solid 1px #333333; border-top: 1px solid #333333;">
-                &nbsp;</td>
-        </tr>
-        <tr style="padding-top: 5px; padding-bottom: 5px;">
-            <td style="padding-right: 5px;">
-                &nbsp;&nbsp;No ETA:</td>
-            <td class="PinkRow" style="width: 18%; border: solid 1px #333333; border-top: 0;">
-                &nbsp;</td>
-        </tr>
-    </table>
-</div>
-
-                    <img src="#{resource['images:dumb.gif']}" width="1" height="4"/><br></br>
-                    <table width="184" border="0" cellspacing="0" cellpadding="1">
-                        <tr >
-                            <td bgcolor="#bbbbbb">
-                                <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="8" height="100">
-                                    <tr>
-                                        <td bgcolor="#f1f1f6" valign="top">
-                                            <font class="info"><b>Notes:</b><br></br>
-                                            </font>
-                                            <br></br>
-                                            You can search your freights by location, Universal ID (UID) or container number.
-                                            Load Request option: if you want your freight to be loaded as soon as it is ready
-                                            for loading please use this feature. Please select (tick) a freight you would like
-                                            to be loaded. Then select “YES” from “Load Request” drop-down list and click “Apply
-                                            Request” button. Please note that if you indicate “NO” option for your freight,
-                                            it will not be loaded until you select “YES” indicator.
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <img src="#{resource['images:dumb.gif']}" width="1" height="8"/><br></br>
-                    <!-- Banner -->
-                </td>
                 <td width="100%">
                     <!-- Table 1 -->
                     <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
@@ -234,30 +116,26 @@
 							<div class="panel-body">
 								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 									<thead>
-										<tr>
+										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
 											<th>UID</th>
 											<th>Description</th>
 											<th class="hidden-phone">Year</th>
 											<th class="hidden-phone">Vendor</th>
-											<th class="hidden-phone">Container #</th>
-											<th class="hidden-phone">Seal</th>
+											<th class="hidden-phone">Container#</th>
 											<th class="hidden-phone">No. Days</th>
 											<th class="hidden-phone">Inland Status</th>
 											<th class="hidden-phone">Cargo Received</th>
 											<th class="hidden-phone">Title Received</th>
-											<th class="hidden-phone">DVL</th>
-											<th class="hidden-phone">S.T Received</th>
 											<th class="hidden-phone">Origin</th>
 											<th class="hidden-phone">Destination</th>
 											<th class="hidden-phone">ETD</th>
 											<th class="hidden-phone">ETA</th>
-											<th class="hidden-phone">Load Request</th>
-											<th class="hidden-phone">Release</th>
 											<th class="hidden-phone">Consignee</th>
-											<th class="hidden-phone">Land cost</th>
+											<th class="hidden-phone">Land Cost</th>
 											<th class="hidden-phone">Sea Cost</th>
 											<th class="hidden-phone">Fees Cost</th>
 											<th class="hidden-phone">Commision Cost</th>
+											<th class="hidden-phone">Total Cost</th>
 											<th class="hidden-phone">Image</th>
 											<th class="hidden-phone">Docs</th>
 											
@@ -279,26 +157,22 @@
 											<td class="center hidden-phone">#{data.year}</td>
 											<td class="center hidden-phone">#{data.vendorId.userId.firstName}</td>
 											<td class="center hidden-phone">#{data.container}</td>
-											<td class="center hidden-phone">#{data.seal}</td>
 											<td class="center hidden-phone">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</td>
 											<td class="center hidden-phone">#{data.inlandStatus}</td>
 											<td class="center hidden-phone">#{carBean.getFormatedDate(data.cargoRecieved)}</td>
 											<td class="center hidden-phone">#{carBean.getFormatedDate(data.titleRecieved)}</td>
-											<td class="center hidden-phone">#{carBean.getFormatedDate(data.dvl)}</td>
-											<td class="center hidden-phone">#{carBean.getFormatedDate(data.stRecieved)}</td>
 											<td class="center hidden-phone">#{carBean.getTheOrigin(data.origin)}</td>
 											<td class="center hidden-phone">#{carBean.getTheDestination(data.destination)}
 											</td>
 											<td class="center hidden-phone">#{carBean.getFormatedDate(data.eta)}</td>
 											<td class="center hidden-phone">#{carBean.getFormatedDate(data.etd)}</td>
-											<td class="center hidden-phone" style="text-align: -webkit-center; vertical-align: middle;"><img src="#{data.loadrequest==true?'/resources/images/check_on.gif':'/resources/images/check_off.gif'}"/></td>
-											<td class="center hidden-phone" style="text-align: -webkit-center; vertical-align: middle;"><img src="#{data.releaseOption==true?'/resources/images/check_on.gif':'/resources/images/check_off.gif'}"/></td>
 											<td class="center hidden-phone">#{data.consigneeId.userId.firstName}</td>
 											<td class="center hidden-phone">$#{data.landcost}</td>
 											<td class="center hidden-phone">$#{data.seacost}</td>
 											<td class="center hidden-phone">$#{data.fees}</td>
 											<td class="center hidden-phone">$#{data.commision}</td>
-											<td class="center hidden-phone"><img style="display:#{data.photoExist==true?'block':'none'} ;     width: 40px;" src = "/resources/images/img/no-photo.jpg"/></td>
+											<td class="center hidden-phone">$#{data.commision+data.fees+data.seacost+data.landcost}</td>
+											<td class="center hidden-phone"><img style="display:#{data.photoExist==true?'block':'none'} ;     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d; border-radius: 15%;   width: 40px;" src = "/resources/images/img/no-photo.jpg"/></td>
 											<td class="center hidden-phone"><img style="display:#{data.docExist==true?'block':'none'} ;     width: 40px;" src = "/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png"/></td>
 										</tr>
 									</ui:repeat>

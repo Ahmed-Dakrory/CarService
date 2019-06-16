@@ -63,7 +63,7 @@ public class calcBean implements Serializable{
 	private double copartFees;
 	private double onlineFees;
 	private double GateFees=59;
-	private double ourFees=150;
+	private double ourFees=100;
 	private double seaFees;
 	private double landFees;
 	private double totalFees;
@@ -246,6 +246,12 @@ return copFees;
 		allLocation = transportfeeFacade.getAllGroupsOfLocation();
 		allCity=new ArrayList<transportfee>();
 		allState=new ArrayList<transportfee>();
+		selectedLocation=allLocation.get(0).getLocation();
+		
+		refreshCityList();
+		selectedCity=allCity.get(0).getCity();
+		
+		refreshStateList();
 	}
 
 	public void refreshCityList() {
