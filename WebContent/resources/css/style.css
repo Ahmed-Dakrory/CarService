@@ -25,7 +25,7 @@ div.header div.header-main ul li a{float:left;height:40px;background-position:0 
 div.header div.header-main ul li a:hover{background-color: #333640;}
 div.header div.header-main ul li.mn-item-contacts a{width:130px;background-position:0 -100px}
 div.header div.header-main ul li.mn-item-contacts a:hover{background-position:0 -140px}
-div.header div.header-main ul li.mn-item-inventory a{width:130px;background-position:-120px -100px}
+div.header div.header-main ul li.mn-item-inventory a{width:130px;background-position:-120px -100px;text-align: center;}
 div.header div.header-main ul li.mn-item-inventory a:hover{background-position:-120px -140px}
 div.header div.header-main ul li.mn-item-transactions a{width:125px;background-position:-250px -100px}
 div.header div.header-main ul li.mn-item-transactions a:hover{background-position:-250px -140px}
@@ -35,15 +35,15 @@ div.header div.header-main ul li.mn-item-accounting a{width:130px;background-pos
 div.header div.header-main ul li.mn-item-accounting a:hover{background-position:-510px -140px}
 div.header div.header-main ul li.mn-item-settings a{width:130px;background-position:-640px -100px}
 div.header div.header-main ul li.mn-item-settings a:hover{background-position:-640px -140px}
-div.header div.header-main ul li.mn-item-freight a{width:130px;background-position:-740px -100px}
+div.header div.header-main ul li.mn-item-freight a{width:130px;background-position:-740px -100px;text-align: center;}
 div.header div.header-main ul li.mn-item-freight a:hover{background-position:-740px -140px}
-div.header div.header-main ul li.mn-item-userprofile a{width:130px;background-position:-840px -100px}
+div.header div.header-main ul li.mn-item-userprofile a{width:130px;background-position:-840px -100px;text-align: center;}
 div.header div.header-main ul li.mn-item-userprofile a:hover{background-position:-840px -140px}
-div.header div.header-main ul li.mn-item-contactinfo a{width:130px;background-position:-960px -100px}
+div.header div.header-main ul li.mn-item-contactinfo a{width:130px;background-position:-960px -100px;text-align: center;}
 div.header div.header-main ul li.mn-item-contactinfo a:hover{background-position:-960px -140px}
-div.header div.header-main ul li.mn-item-vendors a{width:130px;background-position:-1090px -100px}
+div.header div.header-main ul li.mn-item-vendors a{width:130px;text-align: center;background-position:-1090px -100px;}
 div.header div.header-main ul li.mn-item-vendors a:hover{background-position:-1090px -140px}
-div.header div.header-main ul li.mn-item-consignees a{width:130px;background-position:-1220px -100px}
+div.header div.header-main ul li.mn-item-consignees a{width:130px;background-position:-1220px -100px;text-align: center;}
 div.header div.header-main ul li.mn-item-consignees a:hover{background-position:-1220px -140px}
 div.header div.header-main ul li.mn-item-assgnagents a{width:140px;background-position:-1350px -100px}
 div.header div.header-main ul li.mn-item-assgnagents a:hover{background-position:-1350px -140px}

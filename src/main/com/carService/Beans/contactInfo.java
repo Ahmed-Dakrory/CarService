@@ -5,7 +5,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
 
 
 @ManagedBean(name = "contactInfo")
@@ -42,6 +45,12 @@ public class contactInfo implements Serializable{
 	
 	public void refresh(){
 		
+	}
+	
+	public void previewImage(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		loginBean.getTheUserOfThisAccount().setImage(image);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanel");
 	}
 	
 	public void updateData() {

@@ -18,7 +18,43 @@
 			</ui:define>
 
 	<ui:define name="content">
-     
+     <style>
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						.ui-fileupload-buttonbar {
+    padding: 1.2em 10.4em;
+}
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: black;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8%;
+    }
+    .ui-datepicker .ui-icon {
+    display: block;
+    text-indent: 1px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    left: .5em;
+    top: .3em;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 17px;
+}
+					</style>
+	
        <h:form name="aspnetForm" method="post" action="./contactInfo.jsf" id="aspnetForm">
 <div>
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTYxNDg5MTMyNg8WAh4LT3JpZ2luYWxVcmwFN2h0dHBzOi8vd3d3LnVzYXRydC5jb20vYXBwL1VzZXJQYWdlcy9SZXF1ZXN0QVF1b3RlLmFzcHgWAmYPZBYEAgIPDxYCHgRUZXh0BSdVc2VyOiBUYXJlayBTYWxsYWJpICg8c3Bhbj5Vc2VyPC9zcGFuPilkZAIED2QWAgIBD2QWIAIDDw8WAh8BBRVBY2NvdW50ICM6IDAxMDgzNDA2MThkZAIFDw8WAh8BBQowMTA4MzQwNjE4ZGQCBw8PFgIfAQUTU2FsbGFiaSBDYXIgRGVhbGVyc2RkAg0PDxYCHwEFBVRhcmVrZGQCDw8PFgIfAWVkZAIRDw8WAh8BBQdTYWxsYWJpZGQCEw8PFgIfAQUOMDAzNTM4OTQ0MzUzNjhkZAIVDw8WAh8BBRF0c2FsbGFiaUB5YWhvby5jYWRkAhcPDxYCHwFlZGQCGQ8PFgIfAQUWTElCWUFOIEFSQUIgSkFNQUhJUklZQWRkAhsPDxYCHwEFHTcgTGVib25hbiBzdHIgU2FsbGFtIERpc3RyaWN0ZGQCHQ8PFgIfAWVkZAIfDw8WAh8BBQlCZW5naGF6aSBkZAIlDw8WAh8BZWRkAisPD2QWBB4Lb25tb3VzZW92ZXIFGHRoaXMuc3R5bGUuY3Vyc29yPSdoYW5kJx4Kb25tb3VzZW91dAUbdGhpcy5zdHlsZS5jdXJzb3I9J2RlZmF1bHQnZAIsDw9kFgQfAgUYdGhpcy5zdHlsZS5jdXJzb3I9J2hhbmQnHwMFG3RoaXMuc3R5bGUuY3Vyc29yPSdkZWZhdWx0J2QYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFIGN0bDAwJEJvZHlIb2xkZXIkY2JJbWFnZVJlcXVpcmVkGthUW+JwIVO5cuyK6cqIQn0iucw=" />
@@ -64,6 +100,13 @@
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>
+                                                                                
+                                                                               <p:fileUpload id="FileUploaded" fileUploadListener="#{contactInfo.previewImage}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+                                                                                    <h:panelGroup id="imagesPanel">
+                                                                                    <label for="aspnetForm:FileUploaded_input">
+													                                    <h:graphicImage value="#{loginBean.theUserOfThisAccount.getphoto()}" alt="image#{var}" style="max-width: 272px;margin-left: 93px;border: black;border-style: solid;border-radius: 3%;border-width: 1px;box-shadow: 1px 1px 7px #c5a5a5, 0 0 3px #ffffff, 0 0 3px #131313;max-height: 273px;height: auto;width: auto;" />
+													                                   </label>
+													                                   </h:panelGroup>
                                                                                     <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
                                                                                         <tbody>
                                                                                         <tr height="35">
@@ -513,6 +556,7 @@
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
+                                                                                                  
                                                                                                     </div>
                                                                                                 </td>
                                                                                                 <td width="200">

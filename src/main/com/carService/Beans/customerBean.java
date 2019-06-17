@@ -18,6 +18,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorAppServiceImpl;
 import main.com.carService.customer.customer;
@@ -153,7 +154,7 @@ public class customerBean implements Serializable{
 				"			text: 'Your customer has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		
+		Constants.sendEmailNewAccount(addNewcustomer.getUserId().getFirstName(),addNewcustomer.getUserId().getEmail(),addNewcustomer.getUserId().getEmail());
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf");

@@ -360,7 +360,7 @@ function CheckZip(zip) {
 
 function ViewDocById(strID) {
     if (strID != '-1') {
-        window.open('viewDoc.aspx?Document_ID=' + strID, '', 'width=850,height=900,scrollbars=yes,resizable=yes');
+    	window.open('/images/?file='+strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
     }
 }
 

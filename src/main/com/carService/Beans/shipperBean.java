@@ -17,6 +17,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 
 
 @ManagedBean(name = "shipperBean")
@@ -118,6 +119,7 @@ public class shipperBean implements Serializable{
 				"			text: 'Your shipper has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
+		Constants.sendEmailNewAccount(addNewshipper.getUserId().getFirstName(),addNewshipper.getUserId().getEmail(),addNewshipper.getUserId().getEmail());
 		
 		try {
 			FacesContext.getCurrentInstance()

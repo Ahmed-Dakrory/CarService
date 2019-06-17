@@ -32,6 +32,7 @@ import helpers.retrofit.mainFiles.OrderOutDetails;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorAppServiceImpl;
 import retrofit2.Call;
@@ -731,6 +732,7 @@ public class carBean implements Serializable{
 				"			type: 'success'\r\n" + 
 				"		});");
 		
+		
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
@@ -1106,6 +1108,8 @@ public class carBean implements Serializable{
 				"			text: 'Your car has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
+
+		sendUpdateToAll(selectedCar);
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -1122,6 +1126,26 @@ public class carBean implements Serializable{
 					"			left:\"2%\"\r\n" + 
 					"		});");
 		}
+	}
+
+	private void sendUpdateToAll(car selectedCar2) {
+		shipper shipperIdMail=shipperFacade.getById(selectedCar.getShipperId().getId());
+		vendor vendorIdMail=vendorFacade.getById(selectedCar.getShipperId().getId());
+		consignee consigneeIdMail=consigneeFacade.getById(selectedCar.getShipperId().getId());
+		customer customerIdMail=customerFacade.getById(selectedCar.getShipperId().getId());
+		
+		if(shipperIdMail!=null)
+			Constants.sendEmailUpdateFormat(shipperIdMail.getUserId().getFirstName(), shipperIdMail.getUserId().getEmail(), shipperIdMail.getUserId().getEmail());
+		
+		
+		if(vendorIdMail!=null)
+			Constants.sendEmailUpdateFormat(vendorIdMail.getUserId().getFirstName(), vendorIdMail.getUserId().getEmail(), vendorIdMail.getUserId().getEmail());
+		
+		if(consigneeIdMail!=null)
+			Constants.sendEmailUpdateFormat(consigneeIdMail.getUserId().getFirstName(), consigneeIdMail.getUserId().getEmail(), consigneeIdMail.getUserId().getEmail());
+		
+		if(customerIdMail!=null)
+			Constants.sendEmailUpdateFormat(customerIdMail.getUserId().getFirstName(), customerIdMail.getUserId().getEmail(), customerIdMail.getUserId().getEmail());
 	}
 
 	public String getFormatedDate(Calendar c) {

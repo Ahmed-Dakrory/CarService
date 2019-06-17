@@ -5,21 +5,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/dashboard.xhtml">
-
 
 	<ui:define name="title"> ADAWLIAA</ui:define>
 
  <ui:define name="mainHead"> 
-			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Vehicle List</b></a></li></ul>
-           
+			   <ul class="mn-sub"><li class="mn-sub-item mn-item-quotelist"><a href="QuoteList.jsf">Quote List</a></li><li class="mn-sub-item mn-item-quoterequest"><a href="RequestAQuote.jsf" class="mn-sub-item-current"><b>Quote Request</b></a></li></ul>
+             
 			</ui:define>
 
 	<ui:define name="content">
-		<style>
+        <style>
 					.ui-fileupload-choose {
 						    position: relative;
 						    overflow: hidden;
@@ -53,276 +51,951 @@
     right: 17px;
 }
 					</style>
-	
-              <h:form name="aspnetForm" id="aspnetForm">
-
+					
+					
+         <h:form name="aspnetForm" id="aspnetForm">
 
 
             <div id="content">
     <!-- page src -->
-    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
         <tbody>
             <tr valign="top">
                 <td width="100%">
-                    <!-- Table 1 -->
-                    
-                    
-                    
-                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <!-- Table name block -->
-                                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                                                        <tr>
-                                                            <td class="blkname" width="100%">
-                                                                <nobr>&nbsp;VIN:
-																					<span id="ctl00_BodyHolder_lblVIN">New Car</span></nobr>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
-                                                    <!-- End of Table name block -->
-                                               <!-- 
-                                                    <div id="ctl00_BodyHolder_pnDocs">
+                    <div id="ctl00_BodyHolder_pMain">
 	
-                                                        <table  cellspacing="4" cellpadding="0" width="100%" border="0" style="margin-top: 2px">
-                                                            <tbody>
+                        <table id="mainhost" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="left" valign="top">
+                                    <table bgcolor="#003399" border="0" cellpadding="1" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td align="left" valign="top">
+                                                <table bgcolor="#ffffff" border="0" cellpadding="8" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td>
+                                                            <span id="ctl00_BodyHolder_lbQuoteCreate" class="blkname">Request New Quote</span><br />
+                                                            <div style="float: left;">
+                                                                <p:commandButton action="#{quoteBean.updateQuote()}" type="submit" name="ctl00$BodyHolder$btSave2" value="Update"  id="ctl00_BodyHolder_btSave1" style="font-family:Verdana;font-size:10px;font-weight:bold;height:22px;width:100px;" />
+                                                            </div>
+                                                            <br />
+                                                            <table width="100%" style="border: solid 1px #d5d5d5;">
                                                                 <tr>
-                                                                    <td>
-                                                                        <table style="margin-top: 2px" cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc"
-                                                                            border="0">
+                                                                    <td width="100%">
+                                                                        <table border="0" cellpadding="0" cellspacing="0" class="EditTable" width="100%">
                                                                             <tr>
+                                                                                <td class="tbltxt" style="width: 700px; text-align: left; font-weight: bold;" colspan="4">
+                                                                                    Cargo Details:
+                                                                                </td>
                                                                                 <td>
-                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
-                                                                                        <tr height="23">
-                                                                                            <td class="tbltxt">
-                                                                                                &nbsp;Invoice: &nbsp;
-                                                                                                
-																									<p:commandButton class="btn btn-default" name="view" value="View" id="ctl00_BodyHolder_cmdInvoice" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-																									
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Date of Shipment:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText name="ctl00$BodyHolder$DateOfShipment" type="text" id="ctl00_BodyHolder_DateOfShipment" value="#{quoteBean.dateOfShipment}" />
+                                                                                    <span style="display:none">&nbsp;</span>
+	
+ <script>
+				
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_DateOfShipment').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_DateOfShipment').val(datetext);
+				    }
+				});
+				});
+            
+            </script>
+
+
+
+
+<!--   obout inc Calendar version 2.8.6  http://www.obout.com   -->
+
+
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Dimensions:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectOneMenu style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ddlDimentions" value="#{quoteBean.dimSelection}" tabindex="15">
+		<f:selectItem itemValue="1" itemLabel="CM"/>
+		<f:selectItem itemValue="2" itemLabel="Inches"/>
+
+	</h:selectOneMenu>
+                                                                                    
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Commodity:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <table id="ctl00_BodyHolder_rbCommodity" border="0">
+		<tr>
+			<td>
+			
+			<h:selectOneRadio value="#{quoteBean.commoditySelection}">
+			<f:selectItem itemLabel="Vehicle"  itemValue="0" />
+			<f:selectItem itemLabel="General Cargo"  itemValue="1" />
+			</h:selectOneRadio>
+			</td>
+			
+		</tr>
+	</table>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    HWD:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText  name="ctl00$BodyHolder$txtHeight" type="text" value="#{quoteBean.editQuote.height}" id="ctl00_BodyHolder_txtHeight" tabindex="16"  style="width:35px;" />
+                                                                                    <span style="padding: 0 4px 0 0;">X</span>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtWidth" type="text" value="#{quoteBean.editQuote.width}" id="ctl00_BodyHolder_txtWidth" tabindex="16" style="width:35px;" />
+                                                                                    <span  style="padding: 0 4px 0 0;">X</span>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtDepth" type="text" value="#{quoteBean.editQuote.depth}" id="ctl00_BodyHolder_txtDepth" tabindex="18"  style="width:35px;" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Commodity Description:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText name="ctl00$BodyHolder$CommodityDescription" type="text" id="ctl00_BodyHolder_CommodityDescription" tabindex="10" value="#{quoteBean.editQuote.comDescription}"/>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Weight:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtWeight" type="text"  id="ctl00_BodyHolder_txtWeight" tabindex="19" value="#{quoteBean.editQuote.weight}" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Move Type:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectOneMenu style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$MoveTypeDropDown" value="#{quoteBean.moveTypeSelection}" tabindex="11">
+		<f:selectItem itemValue="0" itemLabel=" Please select"/>
+		<f:selectItem itemValue="1" itemLabel="Port to Port"/>
+		<f:selectItem itemValue="2" itemLabel="Port to Door"/>
+		<f:selectItem itemValue="3" itemLabel="Door to Port"/>
+		<f:selectItem itemValue="4" itemLabel="Door to Door"/>
+
+	</h:selectOneMenu>
+                                                                                    <span id="ctl00_BodyHolder_valMoveTypeDropDown" style="color:Red;visibility:hidden;">*</span>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Quantity:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtQuantity" type="text" value="#{quoteBean.editQuote.quantity}" id="ctl00_BodyHolder_txtQuantity" tabindex="20" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Pieces:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectOneMenu style="width:173px;margin-bottom: 3px;margin-top: 3px;" value="#{quoteBean.piecesSelection}" name="ctl00$BodyHolder$PiecesDropDown" id="ctl00_BodyHolder_PiecesDropDown" tabindex="12">
+		<f:selectItem itemValue="1" itemLabel="1"/>
+		<f:selectItem itemValue="2" itemLabel="2"/>
+		<f:selectItem itemValue="3" itemLabel="3"/>
+		<f:selectItem itemValue="4" itemLabel="4"/>
+		<f:selectItem itemValue="5" itemLabel="5"/>
+		<f:selectItem itemValue="6" itemLabel="6"/>
+		<f:selectItem itemValue="7" itemLabel="7"/>
+		<f:selectItem itemValue="8" itemLabel="8"/>
+		<f:selectItem itemValue="9" itemLabel="9"/>
+		<f:selectItem itemValue="10" itemLabel="10"/>
+		<f:selectItem itemValue="0" itemLabel="&gt;10"/>
+
+	</h:selectOneMenu>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 350px" colspan="2">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0">
+                                                                                        <tr>
+                                                                                            <td style="width: 30px;">
+                                                                                                <span id="ctl00_BodyHolder_lblCBMTitle">CBM:</span>
+                                                                                            </td>
+                                                                                            <td style="width: 30px; padding-left: 5px; text-align: left !important;">
+                                                                                                <span id="ctl00_BodyHolder_lblCBM">0.000</span>
+                                                                                            </td>
+                                                                                            <td style="width: 30px; padding-left: 20px;">
+                                                                                                <span id="ctl00_BodyHolder_lblCBWTitle">CBW:</span>
+                                                                                            </td>
+                                                                                            <td style="width: 30px; padding-left: 5px; text-align: left !important;">
+                                                                                                <span id="ctl00_BodyHolder_lblCBW">0.000</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                &nbsp;
                                                                                             </td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    
-</div>
-                                                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
-                                                   
-                                                    -->
-                                                    <table style="
-    border: black;
-    border-style: solid;
-    border-width: 1px;
-    padding: 15px;
-" cellspacing="4" cellpadding="0" width="100%" border="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
-                                                                        <tbody>
-                                                                            <tr>
                                                                                 <td>
-                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
-                                                                                        <tbody>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        VIN:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputText disabled="true" name="ctl00$BodyHolder$txtVIN" type="text" value="#{carBean.selectedCar.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Shipper:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:selectOneMenu value="#{carBean.shipperSelectedId}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;width:200px;">
-																										<f:selectItems value="#{carBean.allshipper}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Mode:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <table id="ctl00_BodyHolder_rbMode" border="0">
+		<tr>
+			<td>
+			<h:selectOneRadio value="#{quoteBean.modeSelection}">
+			<f:selectItem itemValue="1" itemLabel="Container"/>
+			<f:selectItem itemValue="2" itemLabel="RO-RO"/>
+			</h:selectOneRadio>
+			</td>
+		</tr>
+	</table>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Marine Insurance:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectBooleanCheckbox value="#{quoteBean.marineInsuranceSelection}" id="ctl00_BodyHolder_cbInsurance" name="ctl00$BodyHolder$cbInsurance"  tabindex="22" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Load Type:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <table id="ctl00_BodyHolder_rbLoadType" border="0">
+		<tr>
+			<td>
+				<h:selectOneRadio value="#{quoteBean.loadTypeSelection}">
+				<f:selectItem itemValue="1" itemLabel="LCL"/>
+				<f:selectItem itemValue="2" itemLabel="FCL"/>
+				</h:selectOneRadio>
+			</td>
+			
+		</tr>
+	</table>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Declared Value:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtDeclaredValue" type="text" id="ctl00_BodyHolder_txtDeclaredValue" value="#{quoteBean.editQuote.declaredvalue}" tabindex="23" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 350px; font-weight: bold;" colspan="2">
+                                                                                    Shipping From:
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 350px; font-weight: bold;" colspan="2">
+                                                                                    Shipping To:
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Country:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectOneMenu value="#{quoteBean.countryfromSelection}" style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingFromCountryDropDown"  id="ctl00_BodyHolder_ShippingFromCountryDropDown"  tabindex="31" itemLabel="">
+		<f:selectItem itemValue="-1" itemLabel="SELECT"/>
+		<f:selectItem itemValue="310" itemLabel="AFGANISTAN"/>
+		<f:selectItem itemValue="313" itemLabel="ALBANIA"/>
+		<f:selectItem itemValue="366" itemLabel="ALGERIA"/>
+		<f:selectItem itemValue="318" itemLabel="AMERICAN SAMOA"/>
+		<f:selectItem itemValue="308" itemLabel="ANDORRA"/>
+		<f:selectItem itemValue="316" itemLabel="ANGOLA"/>
+		<f:selectItem itemValue="312" itemLabel="ANGUILLA"/>
+		<f:selectItem itemValue="311" itemLabel="ANTIGUA &amp; BARBUDA"/>
+		<f:selectItem itemValue="317" itemLabel="ARGENTINA"/>
+		<f:selectItem itemValue="314" itemLabel="ARMENIA"/>
+		<f:selectItem itemValue="321" itemLabel="ARUBA"/>
+		<f:selectItem itemValue="320" itemLabel="AUSTRALIA"/>
+		<f:selectItem itemValue="319" itemLabel="AUSTRIA"/>
+		<f:selectItem itemValue="322" itemLabel="AZERBAIJAN"/>
+		<f:selectItem itemValue="336" itemLabel="BAHAMAS"/>
+		<f:selectItem itemValue="329" itemLabel="BAHRAIN"/>
+		<f:selectItem itemValue="325" itemLabel="BANGLADESH"/>
+		<f:selectItem itemValue="324" itemLabel="BARBADOS"/>
+		<f:selectItem itemValue="340" itemLabel="BELARUS"/>
+		<f:selectItem itemValue="326" itemLabel="BELGIUM"/>
+		<f:selectItem itemValue="341" itemLabel="BELIZE"/>
+		<f:selectItem itemValue="331" itemLabel="BENIN"/>
+		<f:selectItem itemValue="332" itemLabel="BERMUDA"/>
+		<f:selectItem itemValue="337" itemLabel="BHUTAN"/>
+		<f:selectItem itemValue="334" itemLabel="BOLIVIA"/>
+		<f:selectItem itemValue="323" itemLabel="BOSNIA-HERCEQOVINA"/>
+		<f:selectItem itemValue="339" itemLabel="BOTSWANA"/>
+		<f:selectItem itemValue="335" itemLabel="BRAZIL"/>
+		<f:selectItem itemValue="409" itemLabel="BRITISH INDIAN OCEAN TERRITORY"/>
+		<f:selectItem itemValue="535" itemLabel="BRITISH VIRGIN ISLANDS"/>
+		<f:selectItem itemValue="333" itemLabel="BRUNEI DARUSSALAM"/>
+		<f:selectItem itemValue="328" itemLabel="BULGARIA"/>
+		<f:selectItem itemValue="327" itemLabel="BURKINA FASO"/>
+		<f:selectItem itemValue="338" itemLabel="BURMA (MYANMAR)"/>
+		<f:selectItem itemValue="330" itemLabel="BURUNDI"/>
+		<f:selectItem itemValue="419" itemLabel="CAMBODIA"/>
+		<f:selectItem itemValue="351" itemLabel="CAMEROON, UNITED REPUBLIC OF"/>
+		<f:selectItem itemValue="342" itemLabel="CANADA"/>
+		<f:selectItem itemValue="357" itemLabel="CAPE VERDE"/>
+		<f:selectItem itemValue="426" itemLabel="CAYMAN ISLANDS"/>
+		<f:selectItem itemValue="345" itemLabel="CENTRAL AFRICAN REPUBLIC"/>
+		<f:selectItem itemValue="511" itemLabel="CHAD"/>
+		<f:selectItem itemValue="350" itemLabel="CHILE"/>
+		<f:selectItem itemValue="352" itemLabel="CHINA"/>
+		<f:selectItem itemValue="358" itemLabel="CHRISTMAS ISLANDS (INDIAN OCEAN)"/>
+		<f:selectItem itemValue="343" itemLabel="COCOS (KEELING) ISLANDS"/>
+		<f:selectItem itemValue="353" itemLabel="COLOMBIA"/>
+		<f:selectItem itemValue="421" itemLabel="COMOROS"/>
+		<f:selectItem itemValue="346" itemLabel="CONGO (BRAZZAVILLE)"/>
+		<f:selectItem itemValue="349" itemLabel="COOK ISLANDS"/>
+		<f:selectItem itemValue="354" itemLabel="COSTA RICA"/>
+		<f:selectItem itemValue="550" itemLabel="COTE D&#39;IVOIRE"/>
+		<f:selectItem itemValue="402" itemLabel="CROATIA"/>
+		<f:selectItem itemValue="356" itemLabel="CUBA"/>
+		<f:selectItem itemValue="359" itemLabel="CYPRUS"/>
+		<f:selectItem itemValue="360" itemLabel="CZECH REPUBLIC"/>
+		<f:selectItem itemValue="344" itemLabel="DEMOCRATIC REPUBLIC OF CONGO (KINSHASA)"/>
+		<f:selectItem itemValue="363" itemLabel="DENMARK"/>
+		<f:selectItem itemValue="362" itemLabel="DJIBOUTI"/>
+		<f:selectItem itemValue="364" itemLabel="DOMINICA"/>
+		<f:selectItem itemValue="365" itemLabel="DOMINICAN REPUBLIC"/>
+		<f:selectItem itemValue="520" itemLabel="EAST TIMOR"/>
+		<f:selectItem itemValue="367" itemLabel="ECUADOR"/>
+		<f:selectItem itemValue="369" itemLabel="EGYPT"/>
+		<f:selectItem itemValue="507" itemLabel="EL SALVADOR"/>
+		<f:selectItem itemValue="392" itemLabel="EQUATORIAL GUINEA"/>
+		<f:selectItem itemValue="371" itemLabel="ERITREA"/>
+		<f:selectItem itemValue="368" itemLabel="ESTONIA"/>
+		<f:selectItem itemValue="373" itemLabel="ETHIOPIA"/>
+		<f:selectItem itemValue="374" itemLabel="EUROPEAN ECONOMIC COMMUNITY"/>
+		<f:selectItem itemValue="377" itemLabel="FALKLAND ISLANDS (MALVINAS)"/>
+		<f:selectItem itemValue="379" itemLabel="FAROE ISLANDS"/>
+		<f:selectItem itemValue="376" itemLabel="FIJI"/>
+		<f:selectItem itemValue="375" itemLabel="FINLAND"/>
+		<f:selectItem itemValue="380" itemLabel="FRANCE"/>
+		<f:selectItem itemValue="385" itemLabel="FRENCH GUIANA"/>
+		<f:selectItem itemValue="475" itemLabel="FRENCH POLYNESIA"/>
+		<f:selectItem itemValue="512" itemLabel="FRENCH SOUTHERN &amp; ANTARCTIC LANDS"/>
+		<f:selectItem itemValue="381" itemLabel="GABON"/>
+		<f:selectItem itemValue="389" itemLabel="GAMBIA"/>
+		<f:selectItem itemValue="398" itemLabel="GAZA STRIP"/>
+		<f:selectItem itemValue="384" itemLabel="GEORGIA"/>
+		<f:selectItem itemValue="361" itemLabel="GERMANY, FEDERAL REPUBLIC OF"/>
+		<f:selectItem itemValue="386" itemLabel="GHANA"/>
+		<f:selectItem itemValue="387" itemLabel="GIBRALTAR"/>
+		<f:selectItem itemValue="382" itemLabel="GREAT BRITAIN, UNITED KINGDOM, ENGLAND, SCOTLAND, WALES, NORTHERN IRELAND"/>
+		<f:selectItem itemValue="393" itemLabel="GREECE"/>
+		<f:selectItem itemValue="388" itemLabel="GREENLAND"/>
+		<f:selectItem itemValue="383" itemLabel="GRENADA"/>
+		<f:selectItem itemValue="391" itemLabel="GUADELOUPE"/>
+		<f:selectItem itemValue="395" itemLabel="GUAM"/>
+		<f:selectItem itemValue="394" itemLabel="GUATEMALA"/>
+		<f:selectItem itemValue="390" itemLabel="GUINEA"/>
+		<f:selectItem itemValue="396" itemLabel="GUINEA-BISSAU"/>
+		<f:selectItem itemValue="397" itemLabel="GUYANA"/>
+		<f:selectItem itemValue="403" itemLabel="HAITI"/>
+		<f:selectItem itemValue="400" itemLabel="HEARD &amp; MCDONALD ISLANDS"/>
+		<f:selectItem itemValue="401" itemLabel="HONDURAS"/>
+		<f:selectItem itemValue="399" itemLabel="HONG KONG"/>
+		<f:selectItem itemValue="404" itemLabel="HUNGARY"/>
+		<f:selectItem itemValue="412" itemLabel="ICELAND"/>
+		<f:selectItem itemValue="408" itemLabel="INDIA"/>
+		<f:selectItem itemValue="405" itemLabel="INDONESIA"/>
+		<f:selectItem itemValue="547" itemLabel="INTERNATIONAL ORGANIZATIONS"/>
+		<f:selectItem itemValue="411" itemLabel="IRAN"/>
+		<f:selectItem itemValue="410" itemLabel="IRAQ"/>
+		<f:selectItem itemValue="406" itemLabel="IRELAND"/>
+		<f:selectItem itemValue="407" itemLabel="ISRAEL"/>
+		<f:selectItem itemValue="413" itemLabel="ITALY"/>
+		<f:selectItem itemValue="348" itemLabel="IVORY COAST"/>
+		<f:selectItem itemValue="414" itemLabel="JAMAICA"/>
+		<f:selectItem itemValue="416" itemLabel="JAPAN"/>
+		<f:selectItem itemValue="415" itemLabel="JORDAN"/>
+		<f:selectItem itemValue="427" itemLabel="KAZAKHSTAN"/>
+		<f:selectItem itemValue="417" itemLabel="KENYA"/>
+		<f:selectItem itemValue="420" itemLabel="KIRIBATI"/>
+		<f:selectItem itemValue="423" itemLabel="KOREA,NORTH"/>
+		<f:selectItem itemValue="424" itemLabel="KOREA,SOUTH"/>
+		<f:selectItem itemValue="552" itemLabel="KOSOVO"/>
+		<f:selectItem itemValue="425" itemLabel="KUWAIT"/>
+		<f:selectItem itemValue="418" itemLabel="KYRGYZSTAN"/>
+		<f:selectItem itemValue="428" itemLabel="LAO PEOPLE&#39;S DEMOCRATIC REPUBLIC(LAOS)"/>
+		<f:selectItem itemValue="437" itemLabel="LATVIA"/>
+		<f:selectItem itemValue="429" itemLabel="LEBANON"/>
+		<f:selectItem itemValue="434" itemLabel="LESOTHO"/>
+		<f:selectItem itemValue="433" itemLabel="LIBERIA"/>
+		<f:selectItem itemValue="438" itemLabel="LIBYAN ARAB JAMAHIRIYA"/>
+		<f:selectItem itemValue="431" itemLabel="LIECHTENSTEIN"/>
+		<f:selectItem itemValue="435" itemLabel="LITHUANIA"/>
+		<f:selectItem itemValue="436" itemLabel="LUXEMBOURG"/>
+		<f:selectItem itemValue="447" itemLabel="MACAU"/>
+		<f:selectItem itemValue="444" itemLabel="MACEDONIA"/>
+		<f:selectItem itemValue="442" itemLabel="MADAGASCAR(MALAGASY)"/>
+		<f:selectItem itemValue="455" itemLabel="MALAWI"/>
+		<f:selectItem itemValue="457" itemLabel="MALAYSIA"/>
+		<f:selectItem itemValue="454" itemLabel="MALDIVES"/>
+		<f:selectItem itemValue="445" itemLabel="MALI"/>
+		<f:selectItem itemValue="452" itemLabel="MALTA &amp; GOZO"/>
+		<f:selectItem itemValue="443" itemLabel="MARSHALL ISLANDS"/>
+		<f:selectItem itemValue="449" itemLabel="MARTINIQUE"/>
+		<f:selectItem itemValue="450" itemLabel="MAURITANIA"/>
+		<f:selectItem itemValue="453" itemLabel="MAURITIUS"/>
+		<f:selectItem itemValue="543" itemLabel="MAYOTTE"/>
+		<f:selectItem itemValue="456" itemLabel="MEXICO"/>
+		<f:selectItem itemValue="378" itemLabel="MICRONESIA, FEDERATED STATE OF"/>
+		<f:selectItem itemValue="441" itemLabel="MOLDOVA"/>
+		<f:selectItem itemValue="440" itemLabel="MONACO"/>
+		<f:selectItem itemValue="446" itemLabel="MONGOLIA"/>
+		<f:selectItem itemValue="451" itemLabel="MONSERRAT"/>
+		<f:selectItem itemValue="548" itemLabel="MONTENEGRO"/>
+		<f:selectItem itemValue="439" itemLabel="MOROCCO"/>
+		<f:selectItem itemValue="458" itemLabel="MOZAMBIQUE"/>
+		<f:selectItem itemValue="459" itemLabel="NAMIBIA"/>
+		<f:selectItem itemValue="468" itemLabel="NAURU"/>
+		<f:selectItem itemValue="467" itemLabel="NEPAL"/>
+		<f:selectItem itemValue="465" itemLabel="NETHERLANDS"/>
+		<f:selectItem itemValue="315" itemLabel="NETHERLANDS ANTILLES"/>
+		<f:selectItem itemValue="469" itemLabel="NEUTRAL ZONE (BETWEEN SAUDI ARABIA AND IRAQ)"/>
+		<f:selectItem itemValue="460" itemLabel="NEW CALEDONIA"/>
+		<f:selectItem itemValue="471" itemLabel="NEW ZEALAND"/>
+		<f:selectItem itemValue="464" itemLabel="NICARAGUA"/>
+		<f:selectItem itemValue="461" itemLabel="NIGER"/>
+		<f:selectItem itemValue="463" itemLabel="NIGERIA"/>
+		<f:selectItem itemValue="470" itemLabel="NIUE"/>
+		<f:selectItem itemValue="462" itemLabel="NORFOLK ISLAND"/>
+		<f:selectItem itemValue="448" itemLabel="NORTHERN MARIANA ISLANDS"/>
+		<f:selectItem itemValue="466" itemLabel="NORWAY"/>
+		<f:selectItem itemValue="472" itemLabel="OMAN"/>
+		<f:selectItem itemValue="478" itemLabel="PAKISTAN"/>
+		<f:selectItem itemValue="484" itemLabel="PALAU"/>
+		<f:selectItem itemValue="473" itemLabel="PANAMA"/>
+		<f:selectItem itemValue="476" itemLabel="PAPUA NEW GUINEA"/>
+		<f:selectItem itemValue="485" itemLabel="PARAGUAY"/>
+		<f:selectItem itemValue="474" itemLabel="PERU"/>
+		<f:selectItem itemValue="477" itemLabel="PHILIPPINES"/>
+		<f:selectItem itemValue="481" itemLabel="PITCAIRN ISLAND"/>
+		<f:selectItem itemValue="479" itemLabel="POLAND"/>
+		<f:selectItem itemValue="483" itemLabel="PORTUGAL"/>
+		<f:selectItem itemValue="482" itemLabel="PUERTO RICO"/>
+		<f:selectItem itemValue="486" itemLabel="QATAR"/>
+		<f:selectItem itemValue="551" itemLabel="REPUBLIC OF ABKHAZIA"/>
+		<f:selectItem itemValue="487" itemLabel="REUNION (ISLAND, FRENCH)"/>
+		<f:selectItem itemValue="488" itemLabel="ROMANIA"/>
+		<f:selectItem itemValue="7" itemLabel="Russian Federation"/>
+		<f:selectItem itemValue="490" itemLabel="RWANDA"/>
+		<f:selectItem itemValue="430" itemLabel="SAINT LUCIA"/>
+		<f:selectItem itemValue="533" itemLabel="SAINT VINCENT AND THE GRENADINES"/>
+		<f:selectItem itemValue="502" itemLabel="SAN MARINO"/>
+		<f:selectItem itemValue="506" itemLabel="SAO TOMES AND PRINCIPE"/>
+		<f:selectItem itemValue="491" itemLabel="SAUDI ARABIA"/>
+		<f:selectItem itemValue="503" itemLabel="SENEGAL"/>
+		<f:selectItem itemValue="549" itemLabel="SERBIA"/>
+		<f:selectItem itemValue="355" itemLabel="SERBIA AND MONTENEGRO"/>
+		<f:selectItem itemValue="493" itemLabel="SEYCHELLES"/>
+		<f:selectItem itemValue="501" itemLabel="SIERRA LEONE"/>
+		<f:selectItem itemValue="496" itemLabel="SINGAPORE"/>
+		<f:selectItem itemValue="500" itemLabel="SLOVAKIA"/>
+		<f:selectItem itemValue="498" itemLabel="SLOVENIA"/>
+		<f:selectItem itemValue="492" itemLabel="SOLOMON ISLANDS"/>
+		<f:selectItem itemValue="504" itemLabel="SOMALIA"/>
+		<f:selectItem itemValue="544" itemLabel="SOUTH AFRICA"/>
+		<f:selectItem itemValue="372" itemLabel="SPAIN"/>
+		<f:selectItem itemValue="432" itemLabel="SRI LANKA"/>
+		<f:selectItem itemValue="497" itemLabel="ST. HELENA"/>
+		<f:selectItem itemValue="422" itemLabel="ST. KITTS-NEVIS"/>
+		<f:selectItem itemValue="480" itemLabel="ST. PIERRE AND MIQUELON"/>
+		<f:selectItem itemValue="494" itemLabel="SUDAN"/>
+		<f:selectItem itemValue="505" itemLabel="SURINAM"/>
+		<f:selectItem itemValue="499" itemLabel="SVALBARD AND JAN MAYEN, ISLANDS"/>
+		<f:selectItem itemValue="509" itemLabel="SWAZILAND"/>
+		<f:selectItem itemValue="495" itemLabel="SWEDEN"/>
+		<f:selectItem itemValue="347" itemLabel="SWITZERLAND"/>
+		<f:selectItem itemValue="508" itemLabel="SYRIAN ARAB REPUBLIC"/>
+		<f:selectItem itemValue="524" itemLabel="TAIWAN, REPUBLIC OF CHINA"/>
+		<f:selectItem itemValue="515" itemLabel="TAJIKISTAN"/>
+		<f:selectItem itemValue="525" itemLabel="TANZANIA, UNITED REPUBLIC OF"/>
+		<f:selectItem itemValue="514" itemLabel="THAILAND"/>
+		<f:selectItem itemValue="513" itemLabel="TOGO"/>
+		<f:selectItem itemValue="516" itemLabel="TOKELAU ISLANDS"/>
+		<f:selectItem itemValue="519" itemLabel="TONGA"/>
+		<f:selectItem itemValue="522" itemLabel="TRINIDAD AND TOBAGO"/>
+		<f:selectItem itemValue="518" itemLabel="TUNISIA"/>
+		<f:selectItem itemValue="521" itemLabel="TURKEY"/>
+		<f:selectItem itemValue="517" itemLabel="TURKMENISTAN"/>
+		<f:selectItem itemValue="510" itemLabel="TURKS AND CAICOS ISLANDS"/>
+		<f:selectItem itemValue="523" itemLabel="TUVALU"/>
+		<f:selectItem itemValue="527" itemLabel="UGANDA"/>
+		<f:selectItem itemValue="526" itemLabel="UKRAINE"/>
+		<f:selectItem itemValue="309" itemLabel="UNITED ARAB EMIRATES"/>
+		<f:selectItem itemValue="1" itemLabel="United States"/>
+		<f:selectItem itemValue="528" itemLabel="UNITED STATES OUTLYING ISLANDS"/>
+		<f:selectItem itemValue="536" itemLabel="UNITED STATES VIRGIN ISLANDS"/>
+		<f:selectItem itemValue="530" itemLabel="URUGUAY"/>
+		<f:selectItem itemValue="531" itemLabel="UZBEKISTAN"/>
+		<f:selectItem itemValue="538" itemLabel="VANUATU"/>
+		<f:selectItem itemValue="532" itemLabel="VATICAN CITY STATE (HOLY SEE)"/>
+		<f:selectItem itemValue="534" itemLabel="VENEZUELA"/>
+		<f:selectItem itemValue="537" itemLabel="VIETNAM"/>
+		<f:selectItem itemValue="540" itemLabel="WALLIS AND FUTUMA ISLANDS"/>
+		<f:selectItem itemValue="539" itemLabel="WEST BANK"/>
+		<f:selectItem itemValue="370" itemLabel="WESTERN SAHARA"/>
+		<f:selectItem itemValue="541" itemLabel="WESTERN SAMOA"/>
+		<f:selectItem itemValue="542" itemLabel="YEMEN (SANA)"/>
+		<f:selectItem itemValue="545" itemLabel="ZAMBIA"/>
+		<f:selectItem itemValue="546" itemLabel="ZIMBABWE"/>
+
+	</h:selectOneMenu>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Country:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                <h:selectOneMenu value="#{quoteBean.countrytoSelection}" style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingToCountryDropDown"  id="ctl00_BodyHolder_ShippingToCountryDropDown"  tabindex="31" itemLabel="">
+		<f:selectItem itemValue="-1" itemLabel="SELECT"/>
+		<f:selectItem itemValue="310" itemLabel="AFGANISTAN"/>
+		<f:selectItem itemValue="313" itemLabel="ALBANIA"/>
+		<f:selectItem itemValue="366" itemLabel="ALGERIA"/>
+		<f:selectItem itemValue="318" itemLabel="AMERICAN SAMOA"/>
+		<f:selectItem itemValue="308" itemLabel="ANDORRA"/>
+		<f:selectItem itemValue="316" itemLabel="ANGOLA"/>
+		<f:selectItem itemValue="312" itemLabel="ANGUILLA"/>
+		<f:selectItem itemValue="311" itemLabel="ANTIGUA &amp; BARBUDA"/>
+		<f:selectItem itemValue="317" itemLabel="ARGENTINA"/>
+		<f:selectItem itemValue="314" itemLabel="ARMENIA"/>
+		<f:selectItem itemValue="321" itemLabel="ARUBA"/>
+		<f:selectItem itemValue="320" itemLabel="AUSTRALIA"/>
+		<f:selectItem itemValue="319" itemLabel="AUSTRIA"/>
+		<f:selectItem itemValue="322" itemLabel="AZERBAIJAN"/>
+		<f:selectItem itemValue="336" itemLabel="BAHAMAS"/>
+		<f:selectItem itemValue="329" itemLabel="BAHRAIN"/>
+		<f:selectItem itemValue="325" itemLabel="BANGLADESH"/>
+		<f:selectItem itemValue="324" itemLabel="BARBADOS"/>
+		<f:selectItem itemValue="340" itemLabel="BELARUS"/>
+		<f:selectItem itemValue="326" itemLabel="BELGIUM"/>
+		<f:selectItem itemValue="341" itemLabel="BELIZE"/>
+		<f:selectItem itemValue="331" itemLabel="BENIN"/>
+		<f:selectItem itemValue="332" itemLabel="BERMUDA"/>
+		<f:selectItem itemValue="337" itemLabel="BHUTAN"/>
+		<f:selectItem itemValue="334" itemLabel="BOLIVIA"/>
+		<f:selectItem itemValue="323" itemLabel="BOSNIA-HERCEQOVINA"/>
+		<f:selectItem itemValue="339" itemLabel="BOTSWANA"/>
+		<f:selectItem itemValue="335" itemLabel="BRAZIL"/>
+		<f:selectItem itemValue="409" itemLabel="BRITISH INDIAN OCEAN TERRITORY"/>
+		<f:selectItem itemValue="535" itemLabel="BRITISH VIRGIN ISLANDS"/>
+		<f:selectItem itemValue="333" itemLabel="BRUNEI DARUSSALAM"/>
+		<f:selectItem itemValue="328" itemLabel="BULGARIA"/>
+		<f:selectItem itemValue="327" itemLabel="BURKINA FASO"/>
+		<f:selectItem itemValue="338" itemLabel="BURMA (MYANMAR)"/>
+		<f:selectItem itemValue="330" itemLabel="BURUNDI"/>
+		<f:selectItem itemValue="419" itemLabel="CAMBODIA"/>
+		<f:selectItem itemValue="351" itemLabel="CAMEROON, UNITED REPUBLIC OF"/>
+		<f:selectItem itemValue="342" itemLabel="CANADA"/>
+		<f:selectItem itemValue="357" itemLabel="CAPE VERDE"/>
+		<f:selectItem itemValue="426" itemLabel="CAYMAN ISLANDS"/>
+		<f:selectItem itemValue="345" itemLabel="CENTRAL AFRICAN REPUBLIC"/>
+		<f:selectItem itemValue="511" itemLabel="CHAD"/>
+		<f:selectItem itemValue="350" itemLabel="CHILE"/>
+		<f:selectItem itemValue="352" itemLabel="CHINA"/>
+		<f:selectItem itemValue="358" itemLabel="CHRISTMAS ISLANDS (INDIAN OCEAN)"/>
+		<f:selectItem itemValue="343" itemLabel="COCOS (KEELING) ISLANDS"/>
+		<f:selectItem itemValue="353" itemLabel="COLOMBIA"/>
+		<f:selectItem itemValue="421" itemLabel="COMOROS"/>
+		<f:selectItem itemValue="346" itemLabel="CONGO (BRAZZAVILLE)"/>
+		<f:selectItem itemValue="349" itemLabel="COOK ISLANDS"/>
+		<f:selectItem itemValue="354" itemLabel="COSTA RICA"/>
+		<f:selectItem itemValue="550" itemLabel="COTE D&#39;IVOIRE"/>
+		<f:selectItem itemValue="402" itemLabel="CROATIA"/>
+		<f:selectItem itemValue="356" itemLabel="CUBA"/>
+		<f:selectItem itemValue="359" itemLabel="CYPRUS"/>
+		<f:selectItem itemValue="360" itemLabel="CZECH REPUBLIC"/>
+		<f:selectItem itemValue="344" itemLabel="DEMOCRATIC REPUBLIC OF CONGO (KINSHASA)"/>
+		<f:selectItem itemValue="363" itemLabel="DENMARK"/>
+		<f:selectItem itemValue="362" itemLabel="DJIBOUTI"/>
+		<f:selectItem itemValue="364" itemLabel="DOMINICA"/>
+		<f:selectItem itemValue="365" itemLabel="DOMINICAN REPUBLIC"/>
+		<f:selectItem itemValue="520" itemLabel="EAST TIMOR"/>
+		<f:selectItem itemValue="367" itemLabel="ECUADOR"/>
+		<f:selectItem itemValue="369" itemLabel="EGYPT"/>
+		<f:selectItem itemValue="507" itemLabel="EL SALVADOR"/>
+		<f:selectItem itemValue="392" itemLabel="EQUATORIAL GUINEA"/>
+		<f:selectItem itemValue="371" itemLabel="ERITREA"/>
+		<f:selectItem itemValue="368" itemLabel="ESTONIA"/>
+		<f:selectItem itemValue="373" itemLabel="ETHIOPIA"/>
+		<f:selectItem itemValue="374" itemLabel="EUROPEAN ECONOMIC COMMUNITY"/>
+		<f:selectItem itemValue="377" itemLabel="FALKLAND ISLANDS (MALVINAS)"/>
+		<f:selectItem itemValue="379" itemLabel="FAROE ISLANDS"/>
+		<f:selectItem itemValue="376" itemLabel="FIJI"/>
+		<f:selectItem itemValue="375" itemLabel="FINLAND"/>
+		<f:selectItem itemValue="380" itemLabel="FRANCE"/>
+		<f:selectItem itemValue="385" itemLabel="FRENCH GUIANA"/>
+		<f:selectItem itemValue="475" itemLabel="FRENCH POLYNESIA"/>
+		<f:selectItem itemValue="512" itemLabel="FRENCH SOUTHERN &amp; ANTARCTIC LANDS"/>
+		<f:selectItem itemValue="381" itemLabel="GABON"/>
+		<f:selectItem itemValue="389" itemLabel="GAMBIA"/>
+		<f:selectItem itemValue="398" itemLabel="GAZA STRIP"/>
+		<f:selectItem itemValue="384" itemLabel="GEORGIA"/>
+		<f:selectItem itemValue="361" itemLabel="GERMANY, FEDERAL REPUBLIC OF"/>
+		<f:selectItem itemValue="386" itemLabel="GHANA"/>
+		<f:selectItem itemValue="387" itemLabel="GIBRALTAR"/>
+		<f:selectItem itemValue="382" itemLabel="GREAT BRITAIN, UNITED KINGDOM, ENGLAND, SCOTLAND, WALES, NORTHERN IRELAND"/>
+		<f:selectItem itemValue="393" itemLabel="GREECE"/>
+		<f:selectItem itemValue="388" itemLabel="GREENLAND"/>
+		<f:selectItem itemValue="383" itemLabel="GRENADA"/>
+		<f:selectItem itemValue="391" itemLabel="GUADELOUPE"/>
+		<f:selectItem itemValue="395" itemLabel="GUAM"/>
+		<f:selectItem itemValue="394" itemLabel="GUATEMALA"/>
+		<f:selectItem itemValue="390" itemLabel="GUINEA"/>
+		<f:selectItem itemValue="396" itemLabel="GUINEA-BISSAU"/>
+		<f:selectItem itemValue="397" itemLabel="GUYANA"/>
+		<f:selectItem itemValue="403" itemLabel="HAITI"/>
+		<f:selectItem itemValue="400" itemLabel="HEARD &amp; MCDONALD ISLANDS"/>
+		<f:selectItem itemValue="401" itemLabel="HONDURAS"/>
+		<f:selectItem itemValue="399" itemLabel="HONG KONG"/>
+		<f:selectItem itemValue="404" itemLabel="HUNGARY"/>
+		<f:selectItem itemValue="412" itemLabel="ICELAND"/>
+		<f:selectItem itemValue="408" itemLabel="INDIA"/>
+		<f:selectItem itemValue="405" itemLabel="INDONESIA"/>
+		<f:selectItem itemValue="547" itemLabel="INTERNATIONAL ORGANIZATIONS"/>
+		<f:selectItem itemValue="411" itemLabel="IRAN"/>
+		<f:selectItem itemValue="410" itemLabel="IRAQ"/>
+		<f:selectItem itemValue="406" itemLabel="IRELAND"/>
+		<f:selectItem itemValue="407" itemLabel="ISRAEL"/>
+		<f:selectItem itemValue="413" itemLabel="ITALY"/>
+		<f:selectItem itemValue="348" itemLabel="IVORY COAST"/>
+		<f:selectItem itemValue="414" itemLabel="JAMAICA"/>
+		<f:selectItem itemValue="416" itemLabel="JAPAN"/>
+		<f:selectItem itemValue="415" itemLabel="JORDAN"/>
+		<f:selectItem itemValue="427" itemLabel="KAZAKHSTAN"/>
+		<f:selectItem itemValue="417" itemLabel="KENYA"/>
+		<f:selectItem itemValue="420" itemLabel="KIRIBATI"/>
+		<f:selectItem itemValue="423" itemLabel="KOREA,NORTH"/>
+		<f:selectItem itemValue="424" itemLabel="KOREA,SOUTH"/>
+		<f:selectItem itemValue="552" itemLabel="KOSOVO"/>
+		<f:selectItem itemValue="425" itemLabel="KUWAIT"/>
+		<f:selectItem itemValue="418" itemLabel="KYRGYZSTAN"/>
+		<f:selectItem itemValue="428" itemLabel="LAO PEOPLE&#39;S DEMOCRATIC REPUBLIC(LAOS)"/>
+		<f:selectItem itemValue="437" itemLabel="LATVIA"/>
+		<f:selectItem itemValue="429" itemLabel="LEBANON"/>
+		<f:selectItem itemValue="434" itemLabel="LESOTHO"/>
+		<f:selectItem itemValue="433" itemLabel="LIBERIA"/>
+		<f:selectItem itemValue="438" itemLabel="LIBYAN ARAB JAMAHIRIYA"/>
+		<f:selectItem itemValue="431" itemLabel="LIECHTENSTEIN"/>
+		<f:selectItem itemValue="435" itemLabel="LITHUANIA"/>
+		<f:selectItem itemValue="436" itemLabel="LUXEMBOURG"/>
+		<f:selectItem itemValue="447" itemLabel="MACAU"/>
+		<f:selectItem itemValue="444" itemLabel="MACEDONIA"/>
+		<f:selectItem itemValue="442" itemLabel="MADAGASCAR(MALAGASY)"/>
+		<f:selectItem itemValue="455" itemLabel="MALAWI"/>
+		<f:selectItem itemValue="457" itemLabel="MALAYSIA"/>
+		<f:selectItem itemValue="454" itemLabel="MALDIVES"/>
+		<f:selectItem itemValue="445" itemLabel="MALI"/>
+		<f:selectItem itemValue="452" itemLabel="MALTA &amp; GOZO"/>
+		<f:selectItem itemValue="443" itemLabel="MARSHALL ISLANDS"/>
+		<f:selectItem itemValue="449" itemLabel="MARTINIQUE"/>
+		<f:selectItem itemValue="450" itemLabel="MAURITANIA"/>
+		<f:selectItem itemValue="453" itemLabel="MAURITIUS"/>
+		<f:selectItem itemValue="543" itemLabel="MAYOTTE"/>
+		<f:selectItem itemValue="456" itemLabel="MEXICO"/>
+		<f:selectItem itemValue="378" itemLabel="MICRONESIA, FEDERATED STATE OF"/>
+		<f:selectItem itemValue="441" itemLabel="MOLDOVA"/>
+		<f:selectItem itemValue="440" itemLabel="MONACO"/>
+		<f:selectItem itemValue="446" itemLabel="MONGOLIA"/>
+		<f:selectItem itemValue="451" itemLabel="MONSERRAT"/>
+		<f:selectItem itemValue="548" itemLabel="MONTENEGRO"/>
+		<f:selectItem itemValue="439" itemLabel="MOROCCO"/>
+		<f:selectItem itemValue="458" itemLabel="MOZAMBIQUE"/>
+		<f:selectItem itemValue="459" itemLabel="NAMIBIA"/>
+		<f:selectItem itemValue="468" itemLabel="NAURU"/>
+		<f:selectItem itemValue="467" itemLabel="NEPAL"/>
+		<f:selectItem itemValue="465" itemLabel="NETHERLANDS"/>
+		<f:selectItem itemValue="315" itemLabel="NETHERLANDS ANTILLES"/>
+		<f:selectItem itemValue="469" itemLabel="NEUTRAL ZONE (BETWEEN SAUDI ARABIA AND IRAQ)"/>
+		<f:selectItem itemValue="460" itemLabel="NEW CALEDONIA"/>
+		<f:selectItem itemValue="471" itemLabel="NEW ZEALAND"/>
+		<f:selectItem itemValue="464" itemLabel="NICARAGUA"/>
+		<f:selectItem itemValue="461" itemLabel="NIGER"/>
+		<f:selectItem itemValue="463" itemLabel="NIGERIA"/>
+		<f:selectItem itemValue="470" itemLabel="NIUE"/>
+		<f:selectItem itemValue="462" itemLabel="NORFOLK ISLAND"/>
+		<f:selectItem itemValue="448" itemLabel="NORTHERN MARIANA ISLANDS"/>
+		<f:selectItem itemValue="466" itemLabel="NORWAY"/>
+		<f:selectItem itemValue="472" itemLabel="OMAN"/>
+		<f:selectItem itemValue="478" itemLabel="PAKISTAN"/>
+		<f:selectItem itemValue="484" itemLabel="PALAU"/>
+		<f:selectItem itemValue="473" itemLabel="PANAMA"/>
+		<f:selectItem itemValue="476" itemLabel="PAPUA NEW GUINEA"/>
+		<f:selectItem itemValue="485" itemLabel="PARAGUAY"/>
+		<f:selectItem itemValue="474" itemLabel="PERU"/>
+		<f:selectItem itemValue="477" itemLabel="PHILIPPINES"/>
+		<f:selectItem itemValue="481" itemLabel="PITCAIRN ISLAND"/>
+		<f:selectItem itemValue="479" itemLabel="POLAND"/>
+		<f:selectItem itemValue="483" itemLabel="PORTUGAL"/>
+		<f:selectItem itemValue="482" itemLabel="PUERTO RICO"/>
+		<f:selectItem itemValue="486" itemLabel="QATAR"/>
+		<f:selectItem itemValue="551" itemLabel="REPUBLIC OF ABKHAZIA"/>
+		<f:selectItem itemValue="487" itemLabel="REUNION (ISLAND, FRENCH)"/>
+		<f:selectItem itemValue="488" itemLabel="ROMANIA"/>
+		<f:selectItem itemValue="7" itemLabel="Russian Federation"/>
+		<f:selectItem itemValue="490" itemLabel="RWANDA"/>
+		<f:selectItem itemValue="430" itemLabel="SAINT LUCIA"/>
+		<f:selectItem itemValue="533" itemLabel="SAINT VINCENT AND THE GRENADINES"/>
+		<f:selectItem itemValue="502" itemLabel="SAN MARINO"/>
+		<f:selectItem itemValue="506" itemLabel="SAO TOMES AND PRINCIPE"/>
+		<f:selectItem itemValue="491" itemLabel="SAUDI ARABIA"/>
+		<f:selectItem itemValue="503" itemLabel="SENEGAL"/>
+		<f:selectItem itemValue="549" itemLabel="SERBIA"/>
+		<f:selectItem itemValue="355" itemLabel="SERBIA AND MONTENEGRO"/>
+		<f:selectItem itemValue="493" itemLabel="SEYCHELLES"/>
+		<f:selectItem itemValue="501" itemLabel="SIERRA LEONE"/>
+		<f:selectItem itemValue="496" itemLabel="SINGAPORE"/>
+		<f:selectItem itemValue="500" itemLabel="SLOVAKIA"/>
+		<f:selectItem itemValue="498" itemLabel="SLOVENIA"/>
+		<f:selectItem itemValue="492" itemLabel="SOLOMON ISLANDS"/>
+		<f:selectItem itemValue="504" itemLabel="SOMALIA"/>
+		<f:selectItem itemValue="544" itemLabel="SOUTH AFRICA"/>
+		<f:selectItem itemValue="372" itemLabel="SPAIN"/>
+		<f:selectItem itemValue="432" itemLabel="SRI LANKA"/>
+		<f:selectItem itemValue="497" itemLabel="ST. HELENA"/>
+		<f:selectItem itemValue="422" itemLabel="ST. KITTS-NEVIS"/>
+		<f:selectItem itemValue="480" itemLabel="ST. PIERRE AND MIQUELON"/>
+		<f:selectItem itemValue="494" itemLabel="SUDAN"/>
+		<f:selectItem itemValue="505" itemLabel="SURINAM"/>
+		<f:selectItem itemValue="499" itemLabel="SVALBARD AND JAN MAYEN, ISLANDS"/>
+		<f:selectItem itemValue="509" itemLabel="SWAZILAND"/>
+		<f:selectItem itemValue="495" itemLabel="SWEDEN"/>
+		<f:selectItem itemValue="347" itemLabel="SWITZERLAND"/>
+		<f:selectItem itemValue="508" itemLabel="SYRIAN ARAB REPUBLIC"/>
+		<f:selectItem itemValue="524" itemLabel="TAIWAN, REPUBLIC OF CHINA"/>
+		<f:selectItem itemValue="515" itemLabel="TAJIKISTAN"/>
+		<f:selectItem itemValue="525" itemLabel="TANZANIA, UNITED REPUBLIC OF"/>
+		<f:selectItem itemValue="514" itemLabel="THAILAND"/>
+		<f:selectItem itemValue="513" itemLabel="TOGO"/>
+		<f:selectItem itemValue="516" itemLabel="TOKELAU ISLANDS"/>
+		<f:selectItem itemValue="519" itemLabel="TONGA"/>
+		<f:selectItem itemValue="522" itemLabel="TRINIDAD AND TOBAGO"/>
+		<f:selectItem itemValue="518" itemLabel="TUNISIA"/>
+		<f:selectItem itemValue="521" itemLabel="TURKEY"/>
+		<f:selectItem itemValue="517" itemLabel="TURKMENISTAN"/>
+		<f:selectItem itemValue="510" itemLabel="TURKS AND CAICOS ISLANDS"/>
+		<f:selectItem itemValue="523" itemLabel="TUVALU"/>
+		<f:selectItem itemValue="527" itemLabel="UGANDA"/>
+		<f:selectItem itemValue="526" itemLabel="UKRAINE"/>
+		<f:selectItem itemValue="309" itemLabel="UNITED ARAB EMIRATES"/>
+		<f:selectItem itemValue="1" itemLabel="United States"/>
+		<f:selectItem itemValue="528" itemLabel="UNITED STATES OUTLYING ISLANDS"/>
+		<f:selectItem itemValue="536" itemLabel="UNITED STATES VIRGIN ISLANDS"/>
+		<f:selectItem itemValue="530" itemLabel="URUGUAY"/>
+		<f:selectItem itemValue="531" itemLabel="UZBEKISTAN"/>
+		<f:selectItem itemValue="538" itemLabel="VANUATU"/>
+		<f:selectItem itemValue="532" itemLabel="VATICAN CITY STATE (HOLY SEE)"/>
+		<f:selectItem itemValue="534" itemLabel="VENEZUELA"/>
+		<f:selectItem itemValue="537" itemLabel="VIETNAM"/>
+		<f:selectItem itemValue="540" itemLabel="WALLIS AND FUTUMA ISLANDS"/>
+		<f:selectItem itemValue="539" itemLabel="WEST BANK"/>
+		<f:selectItem itemValue="370" itemLabel="WESTERN SAHARA"/>
+		<f:selectItem itemValue="541" itemLabel="WESTERN SAMOA"/>
+		<f:selectItem itemValue="542" itemLabel="YEMEN (SANA)"/>
+		<f:selectItem itemValue="545" itemLabel="ZAMBIA"/>
+		<f:selectItem itemValue="546" itemLabel="ZIMBABWE"/>
+
+	</h:selectOneMenu>
+                                                                                
+                                                                                
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    State:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    <h:selectOneMenu value="#{quoteBean.statefromSelection}" style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingFromStateDropDown"  id="ctl00_BodyHolder_ShippingFromStateDropDown"  tabindex="25" >
+		<f:selectItem itemValue="2" itemLabel="ALABAMA - AL"/>
+		<f:selectItem itemValue="1" itemLabel="ALASKA - AK"/>
+		<f:selectItem itemValue="4" itemLabel="AMERICAN SAMOA - AS"/>
+		<f:selectItem itemValue="5" itemLabel="ARIZONA - AZ"/>
+		<f:selectItem itemValue="3" itemLabel="ARKANSAS - AR"/>
+		<f:selectItem itemValue="6" itemLabel="CALIFORNIA - CA"/>
+		<f:selectItem itemValue="7" itemLabel="COLORADO - CO"/>
+		<f:selectItem itemValue="8" itemLabel="CONNECTICUT - CT"/>
+		<f:selectItem itemValue="10" itemLabel="DELAWARE - DE"/>
+		<f:selectItem itemValue="9" itemLabel="DISTRICT OF COLUMBIA (WASHINGTON) - DC"/>
+		<f:selectItem itemValue="11" itemLabel="FLORIDA - FL"/>
+		<f:selectItem itemValue="12" itemLabel="GEORGIA - GA"/>
+		<f:selectItem itemValue="13" itemLabel="HAWAII - HI"/>
+		<f:selectItem itemValue="15" itemLabel="IDAHO - ID"/>
+		<f:selectItem itemValue="16" itemLabel="ILLINOIS - IL"/>
+		<f:selectItem itemValue="17" itemLabel="INDIANA - IN"/>
+		<f:selectItem itemValue="14" itemLabel="IOWA - IA"/>
+		<f:selectItem itemValue="18" itemLabel="KANSAS - KS"/>
+		<f:selectItem itemValue="19" itemLabel="KENTUCKY - KY"/>
+		<f:selectItem itemValue="20" itemLabel="LOUISIANA - LA"/>
+		<f:selectItem itemValue="23" itemLabel="MAINE - ME"/>
+		<f:selectItem itemValue="22" itemLabel="MARYLAND - MD"/>
+		<f:selectItem itemValue="21" itemLabel="MASSACHUSETTS - MA"/>
+		<f:selectItem itemValue="24" itemLabel="MICHIGAN - MI"/>
+		<f:selectItem itemValue="25" itemLabel="MINNESOTA - MN"/>
+		<f:selectItem itemValue="27" itemLabel="MISSISSIPPI - MS"/>
+		<f:selectItem itemValue="26" itemLabel="MISSOURI - MO"/>
+		<f:selectItem itemValue="28" itemLabel="MONTANA - MT"/>
+		<f:selectItem itemValue="31" itemLabel="NEBRASKA - NE"/>
+		<f:selectItem itemValue="35" itemLabel="NEVADA - NV"/>
+		<f:selectItem itemValue="32" itemLabel="NEW HAMPSHIRE - NH"/>
+		<f:selectItem itemValue="33" itemLabel="NEW JERSEY - NJ"/>
+		<f:selectItem itemValue="34" itemLabel="NEW MEXICO - NM"/>
+		<f:selectItem itemValue="36" itemLabel="NEW YORK - NY"/>
+		<f:selectItem itemValue="29" itemLabel="NORTH CAROLINA - NC"/>
+		<f:selectItem itemValue="30" itemLabel="NORTH DAKOTA - ND"/>
+		<f:selectItem itemValue="37" itemLabel="OHIO - OH"/>
+		<f:selectItem itemValue="38" itemLabel="OKLAHOMA - OK"/>
+		<f:selectItem itemValue="39" itemLabel="OREGON - OR"/>
+		<f:selectItem itemValue="40" itemLabel="PENNSYLVANIA - PA"/>
+		<f:selectItem itemValue="41" itemLabel="PUERTO RICO - PR"/>
+		<f:selectItem itemValue="42" itemLabel="RHODE ISLAND - RI"/>
+		<f:selectItem itemValue="43" itemLabel="SOUTH CAROLINA - SC"/>
+		<f:selectItem itemValue="44" itemLabel="SOUTH DAKOTA - SD"/>
+		<f:selectItem itemValue="45" itemLabel="TENNESSEE - TN"/>
+		<f:selectItem itemValue="46" itemLabel="TEXAS - TX"/>
+		<f:selectItem itemValue="47" itemLabel="UTAH - UT"/>
+		<f:selectItem itemValue="50" itemLabel="VERMONT - VT"/>
+		<f:selectItem itemValue="49" itemLabel="VIRGIN ISLANDS - VI"/>
+		<f:selectItem itemValue="48" itemLabel="VIRGINIA - VA"/>
+		<f:selectItem itemValue="51" itemLabel="WASHINGTON - WA"/>
+		<f:selectItem itemValue="53" itemLabel="WEST VIRGINIA - WV"/>
+		<f:selectItem itemValue="52" itemLabel="WISCONSIN - WI"/>
+		<f:selectItem itemValue="54" itemLabel="WYOMING - WY"/>
+
+	</h:selectOneMenu>
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    State:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                     <h:selectOneMenu value="#{quoteBean.statetoSelection}" style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingToStateDropDown"  id="ctl00_BodyHolder_ShippingToStateDropDown"  tabindex="25" >
+		<f:selectItem itemValue="2" itemLabel="ALABAMA - AL"/>
+		<f:selectItem itemValue="1" itemLabel="ALASKA - AK"/>
+		<f:selectItem itemValue="4" itemLabel="AMERICAN SAMOA - AS"/>
+		<f:selectItem itemValue="5" itemLabel="ARIZONA - AZ"/>
+		<f:selectItem itemValue="3" itemLabel="ARKANSAS - AR"/>
+		<f:selectItem itemValue="6" itemLabel="CALIFORNIA - CA"/>
+		<f:selectItem itemValue="7" itemLabel="COLORADO - CO"/>
+		<f:selectItem itemValue="8" itemLabel="CONNECTICUT - CT"/>
+		<f:selectItem itemValue="10" itemLabel="DELAWARE - DE"/>
+		<f:selectItem itemValue="9" itemLabel="DISTRICT OF COLUMBIA (WASHINGTON) - DC"/>
+		<f:selectItem itemValue="11" itemLabel="FLORIDA - FL"/>
+		<f:selectItem itemValue="12" itemLabel="GEORGIA - GA"/>
+		<f:selectItem itemValue="13" itemLabel="HAWAII - HI"/>
+		<f:selectItem itemValue="15" itemLabel="IDAHO - ID"/>
+		<f:selectItem itemValue="16" itemLabel="ILLINOIS - IL"/>
+		<f:selectItem itemValue="17" itemLabel="INDIANA - IN"/>
+		<f:selectItem itemValue="14" itemLabel="IOWA - IA"/>
+		<f:selectItem itemValue="18" itemLabel="KANSAS - KS"/>
+		<f:selectItem itemValue="19" itemLabel="KENTUCKY - KY"/>
+		<f:selectItem itemValue="20" itemLabel="LOUISIANA - LA"/>
+		<f:selectItem itemValue="23" itemLabel="MAINE - ME"/>
+		<f:selectItem itemValue="22" itemLabel="MARYLAND - MD"/>
+		<f:selectItem itemValue="21" itemLabel="MASSACHUSETTS - MA"/>
+		<f:selectItem itemValue="24" itemLabel="MICHIGAN - MI"/>
+		<f:selectItem itemValue="25" itemLabel="MINNESOTA - MN"/>
+		<f:selectItem itemValue="27" itemLabel="MISSISSIPPI - MS"/>
+		<f:selectItem itemValue="26" itemLabel="MISSOURI - MO"/>
+		<f:selectItem itemValue="28" itemLabel="MONTANA - MT"/>
+		<f:selectItem itemValue="31" itemLabel="NEBRASKA - NE"/>
+		<f:selectItem itemValue="35" itemLabel="NEVADA - NV"/>
+		<f:selectItem itemValue="32" itemLabel="NEW HAMPSHIRE - NH"/>
+		<f:selectItem itemValue="33" itemLabel="NEW JERSEY - NJ"/>
+		<f:selectItem itemValue="34" itemLabel="NEW MEXICO - NM"/>
+		<f:selectItem itemValue="36" itemLabel="NEW YORK - NY"/>
+		<f:selectItem itemValue="29" itemLabel="NORTH CAROLINA - NC"/>
+		<f:selectItem itemValue="30" itemLabel="NORTH DAKOTA - ND"/>
+		<f:selectItem itemValue="37" itemLabel="OHIO - OH"/>
+		<f:selectItem itemValue="38" itemLabel="OKLAHOMA - OK"/>
+		<f:selectItem itemValue="39" itemLabel="OREGON - OR"/>
+		<f:selectItem itemValue="40" itemLabel="PENNSYLVANIA - PA"/>
+		<f:selectItem itemValue="41" itemLabel="PUERTO RICO - PR"/>
+		<f:selectItem itemValue="42" itemLabel="RHODE ISLAND - RI"/>
+		<f:selectItem itemValue="43" itemLabel="SOUTH CAROLINA - SC"/>
+		<f:selectItem itemValue="44" itemLabel="SOUTH DAKOTA - SD"/>
+		<f:selectItem itemValue="45" itemLabel="TENNESSEE - TN"/>
+		<f:selectItem itemValue="46" itemLabel="TEXAS - TX"/>
+		<f:selectItem itemValue="47" itemLabel="UTAH - UT"/>
+		<f:selectItem itemValue="50" itemLabel="VERMONT - VT"/>
+		<f:selectItem itemValue="49" itemLabel="VIRGIN ISLANDS - VI"/>
+		<f:selectItem itemValue="48" itemLabel="VIRGINIA - VA"/>
+		<f:selectItem itemValue="51" itemLabel="WASHINGTON - WA"/>
+		<f:selectItem itemValue="53" itemLabel="WEST VIRGINIA - WV"/>
+		<f:selectItem itemValue="52" itemLabel="WISCONSIN - WI"/>
+		<f:selectItem itemValue="54" itemLabel="WYOMING - WY"/>
+
+	</h:selectOneMenu>
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Port:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                   
+	<h:selectOneMenu value="#{quoteBean.portfromSelection}"  style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingFromPortDropDown" id="ctl00_BodyHolder_ShippingFromPortDropDown"  tabindex="27">
+																										<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
+																										<f:selectItem itemValue="60" itemLabel="BIRMINGHAM, AL (1904)"/>
+																										<f:selectItem itemValue="61" itemLabel="HUNTSVILLE, AL (1910)"/>
+																										<f:selectItem itemValue="57" itemLabel="MOBILE, AL (1901)"/>
+																										<f:selectItem itemValue="501" itemLabel="Tuscumbia , AL (1703)"/>
+																									
 																									</h:selectOneMenu>
-                                                                                                    
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Description:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carBean.selectedCar.description}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        DVL:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDVL" value="#{carBean.dvlDate}" type="text" class="timePicker" id="ctl00_BodyHolder_txtDVL" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Cargo Received:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIRReceived" type="text" value="#{carBean.cargoRecievedDate}" class="timePicker" id="ctl00_BodyHolder_txtVIRReceived" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        ETD:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtETD" class="timePicker" type="text" value="#{carBean.etdDate}" id="ctl00_BodyHolder_txtETD" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Title Received:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carBean.titleRecievedDate}" id="ctl00_BodyHolder_txtTitleReceived" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        ETA:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtETA" value="#{carBean.etaDate}" type="text" id="ctl00_BodyHolder_txtETA" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        StReceived:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtStampedTitleReceived" type="text" value="#{carBean.stRecievedDate}" id="ctl00_BodyHolder_txtStampedTitleReceived" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        State:</div>
-                                                                                                </td>
-                                                                                                <td>
-	                                                                                            	<h:selectOneMenu value="#{carBean.selectedCar.state}">
-		                                                                                            	<c:forEach items="#{carBean.carStates}" var="var" varStatus="idx">
-		                                                                                            	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
-		                                                                                            	</c:forEach>
-		                                                                                            </h:selectOneMenu>    
-																								</td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                   
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                 <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Freight Type:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.selectedCar.type}" id="ctl00_BodyHolder_txttype" style="font-size:11px;height:19px;width:200px;" >
-                                                                                                    <f:selectItem itemLabel="Vehcile" itemValue="0"/>
-                                                                                                    <f:selectItem itemLabel="Dry Cargo" itemValue="1"/>
-                                                                                                    </h:selectOneMenu>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Make:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.selectedCar.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Destination:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                  <!--  here the select for the port destination -->  
-                                                                                                     <h:selectOneMenu value="#{carBean.selectedCar.destination}" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" style="font-size:11px;height:19px;width:200px;">
+                                                                                 
+                                                                                </td>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Port:
+                                                                                </td>
+                                                                                <td style="width: 200px">
+                                                                                    
+																					     <h:selectOneMenu value="#{quoteBean.porttoSelection}" style="width:173px;margin-bottom: 3px;margin-top: 3px;" name="ctl00$BodyHolder$ShippingToPortDropDown" id="ctl00_BodyHolder_ShippingToPortDropDown"  tabindex="32">
                                                                                                        	<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
 	<f:selectItem itemValue="1531" itemLabel="Aabenraa - Denmark - 40901"/>
 	<f:selectItem itemValue="1412" itemLabel="Aagotnes - Norway - 40311"/>
@@ -5283,1011 +5956,67 @@
 
                                                                                                      
                                                                                                      </h:selectOneMenu>                                                                            
-                                                                                                 </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Model:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carBean.selectedCar.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Release :</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.selectedCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Year:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carBean.selectedCar.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Container #:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.selectedCar.container}" id="ctl00_BodyHolder_txtContainer" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Assembly Country:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" type="text" value="#{carBean.selectedCar.assemlyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Seal:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCarrier" type="text" value="#{carBean.selectedCar.seal}" id="ctl00_BodyHolder_txtCarrier" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Body Style:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carBean.selectedCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Inland Status:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVessel" type="text" value="#{carBean.selectedCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Engine Type:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carBean.selectedCar.engineType}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td style="width: 200px" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Storage Start Date:</div>
-                                                                                                </td>
-                                                                                                <td style="height: 23px">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDateTitlesSentToUSCustoms" type="text" value="#{carBean.storageStartDate}" id="ctl00_BodyHolder_txtDateTitlesSentToUSCustoms" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td style="height: 23px">
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Engine Liters:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carBean.selectedCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Storage End Date:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtNameOfRecipient" type="text" value="#{carBean.storageEndDate}" id="ctl00_BodyHolder_txtNameOfRecipient" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Color:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carBean.selectedCar.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Note #:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" value="#{carBean.selectedCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                            	<td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Commision:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carBean.selectedCar.commision}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Port of Origin:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:selectOneMenu value="#{carBean.selectedCar.origin}" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" style="font-size:11px;height:19px;width:200px;">
-																										<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
-																										<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
-																										<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
-																										<f:selectItem itemValue="371" itemLabel="MIAMI, FL (5201)"/>
-																										<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
-																										<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
-																									
-																									</h:selectOneMenu>
-                                                                                                </td>
-                                                                                                <td colspan="2" />
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td style="width: 250px" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Our Fees:</div>
-                                                                                                </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.selectedCar.fees}" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                    
-                                                                                                </td>
-                                                                                                <td style="width: 250px" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Land Fees:</div>
-                                                                                                </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="text" id="ctl00_BodyHolder_txtLand" value="#{carBean.selectedCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                    
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                              	<td style="width: 250px" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Sea Fees:</div>
-                                                                                                </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtSeaCost" type="text" id="ctl00_BodyHolder_txtSeaCost" value="#{carBean.selectedCar.seacost}" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                    
-                                                                                                </td>
-                                                                                                 <td style="width: 250px" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Load Request:</div>
-                                                                                                </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtloadRequ" type="text" id="ctl00_BodyHolder_txtloadRequ" value="#{carBean.selectedCar.loadrequest}" style="font-size:11px;height:19px;width:20px;" />
-                                                                                                    
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td colspan="6" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    <br></br>
-                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
-                                                                                                            onclick="ChangeVisibillity('picDiv','picExpand')">
-                                                                                                            <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Enclosed
-                                                                                                                Pictures:</b></a></div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
-                                                                                                    <div id="picDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	<p:fileUpload id="FileUploaded" fileUploadListener="#{carBean.previewImage}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
-        
-        
-        
-               <h:panelGroup id="imagesPanel">
-                                     
-<table border="1" style="    border: unset;">
-   <tr>
-        <td colspan="2">
-            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
-	<tr>
-                
-                
-	
-		<ui:repeat var="var" value="#{carBean.images}">
-			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <a href="#" onclick='ViewDocById("#{var}")'>
-                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">#{var}</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-                
-                
-               
-		</ui:repeat>
-             
-             
-              <td style="border: black;padding: 14px;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <label for="aspnetForm:FileUploaded_input">
-                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-                                    </label>
-                                        
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">click to select Image</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-	   
-               
-	</tr>
-</table>
-
-</td>
-    </tr>
-    <tr>
-    </tr>
-        
-</table>
-
-</h:panelGroup>
-
-                                                                                                    </div>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td colspan="6" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
-                                                                                                            onclick="ChangeVisibillity('docDiv','docExpand')">
-                                                                                                            <img id="docExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
-                                                                                                            <b>Enclosed Documents:</b></a></div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
-                                                                                                    <div id="docDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{carBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
-        
-        
-        
-               <h:panelGroup id="docsPanel">
-                                     
-<table border="1" style="    border: unset;">
-   <tr>
-        <td colspan="2">
-            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
-	<tr>
-                
-                
-	
-		<ui:repeat var="var" value="#{carBean.docs}">
-			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <a href="#" onclick='ViewDocById("#{var}")'>
-                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-                
-                
-               
-		</ui:repeat>
-             
-             
-              <td style="border: black;padding: 14px;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <label for="aspnetForm:docUploaded_input">
-                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-                                    </label>
-                                        
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById(#{var})'>
-                                    <span id="ctl00_BodyHolder_imageList_picList_ctl00_docName">click to select File</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-	   
-               
-	</tr>
-</table>
-
-</td>
-    </tr>
-    <tr>
-    </tr>
-        
-</table>
-
-</h:panelGroup>
-
-                                                                                                    </div>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                      <!--                     
-                                                                                           
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" colspan="2">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        <b>Consignee Information</b></div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td colspan="6">
-                                                                                                    
-
-
- <table width="100%" cellpadding="0" cellspacing="0"> <tr>
-                <td class="tbltxt"  >
-                    <div style="margin-left: 6px;">
-                        Company Name:</div>
-                </td>
-                <td >
-                    <select name="ctl00$BodyHolder$ucConsigneeView$ddlConsigneeCompanyName" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$BodyHolder$ucConsigneeView$ddlConsigneeCompanyName\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_BodyHolder_ucConsigneeView_ddlConsigneeCompanyName" style="font-size:11px;width:250px;">
-	<option value="-1">-SELECT-</option>
-	<option value="47538">Almajmoa adawliaa alawla for importing cars</option>
-	<option value="47408">Alshrq Alaaly Shipping.co</option>
-	<option value="47159">First international group</option>
-	<option value="47479">JANOOB ALMOTAWASSET SHIPPING AGENCIES</option>
-	<option selected="selected" value="47266">Shawati Almotawaset Co. ,</option>
-
-</select>
-                    
-                </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                    </div>
-                </td>
-                <td style="height: 23px">
-                </td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        First Name:</div>
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeFirstName" type="text" value="Fisal" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeFirstName" style="font-size:11px;height:19px;width:250px;" /></td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Phone:</div>
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneePhone" type="text" value="0912121252" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneePhone" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Last Name:</div>
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeLastName" type="text" value="Alsagier" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeLastName" style="font-size:11px;height:19px;width:250px;" /></td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Email:</div>
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeEmail" type="text" value="Sgfaisal@gmail.com" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeEmail" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                   <div style="margin-left: 6px">
-                        Country:</div>
-                </td>
-                <td>
-                
-                <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeCountry" type="text" value="LIBYAN ARAB JAMAHIRIYA" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeCountry" style="font-size:11px;height:19px;width:250px;" />
-                    </td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Phone 2:</div>
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtPhone2" type="text" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtPhone2" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Address 1:</div>
-                </td>
-                <td style="height: 23px">
-                <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeAddress" type="text" value="1 Fabrier street" maxlength="32" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeAddress" style="font-size:11px;height:19px;width:250px;" />
-                
-                    </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Mobile:</div>
-                </td>
-                <td style="height: 23px">
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtMobile" type="text" value="0926121252" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtMobile" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6" style="height: 2px">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt" style="height: 23px">
-                    
-                     <div style="margin-left: 6px">
-                        Address 2:</div>
-                    
-                </td>
-                <td style="height: 23px">
-                     <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeAddress2" type="text" value="The inviestment building " maxlength="32" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeAddress2" style="font-size:11px;height:19px;width:250px;" />
-                    </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Fax:</div>
-                </td>
-                <td style="height: 23px">
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtFax" type="text" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtFax" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                   <div style="margin-left: 6px">
-                        City:</div>
-                   
-                </td>
-                <td>
-                    <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneeCity" type="text" value="Elkhoms" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneeCity" style="font-size:11px;height:19px;width:250px;" />                   
-                   </td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                    </div>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Passport#:</div>
-                </td>
-                <td>
-                      <input name="ctl00$BodyHolder$ucConsigneeView$txtConsigneePassportNumber" type="text" maxlength="32" readonly="readonly" id="ctl00_BodyHolder_ucConsigneeView_txtConsigneePassportNumber" style="font-size:11px;height:19px;width:250px;" /></td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    &nbsp;</td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td align="center">
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-           
-            </table>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                        -->
-                                                                        
-                                                                                            <tr height="13">
-                                                                                                <td align="center">
-																									<p:commandButton class="btn btn-default" action="#{carBean.updateDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="update" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                                                    
-                                                                                                </td>
-                                                                                                <td align="center">
-                                                                                                    <p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" action="#{carBean.cancel()}" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <p:commandButton class="btn btn-default" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" action="#{carBean.cancel()}" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="2">
-                                                                                                <td colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                       
-                                                                                       
-                                                                                        </tbody>
-                                                                                    </table>
+                                                                                                 
+                                                                                    <span id="ctl00_BodyHolder_cvPortTo" style="color:Red;visibility:hidden;">*</span>
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
                                                                                 </td>
                                                                             </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                                                         
+                                                                           
+                                                                            <tr>
+                                                                                <td class="tbltxt" style="width: 150px">
+                                                                                    Notes:
+                                                                                </td>
+                                                                                <td style="width: 550px" colspan="3">
+                                                                                    <h:inputTextarea value="#{quoteBean.editQuote.note}" name="ctl00$BodyHolder$txtNotes" rows="5" cols="20" id="ctl00_BodyHolder_txtNotes" style="width: 517px;margin-top: 10px;"/>
+
+                                                                                </td>
+                                                                                <td>
+                                                                                    &nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="5" align="left" class="tbltxt">
+                                                                                    <span id="ctl00_BodyHolder_lblResult"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <div style="float: left;">
+                                                                <p:commandButton action="#{quoteBean.updateQuote()}" type="submit" name="ctl00$BodyHolder$btSave2" value="update"  id="ctl00_BodyHolder_btSave2" style="font-family:Verdana;font-size:10px;font-weight:bold;height:22px;width:100px;" />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <!-- End of Table 1 -->
-                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
+                        </table>
+                    
+</div>
+                    
+                  
+                    <!-- End of Buttons block -->
                 </td>
             </tr>
             <tr>
-                <td bgcolor="white" colspan="2">
+                <td colspan="2" bgcolor="white">
                 </td>
             </tr>
         </tbody>
     </table>
 
-            </div> 
-           
-            <script>
-				
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtDVL').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
+            </div>  
 
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtDVL').val(datetext);
-				    }
-				});
-				});
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtETD').val(datetext);
-				    }
-				});
-				});
-            
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtVIRReceived').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtVIRReceived').val(datetext);
-				    }
-				});
-				});
-					
-
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtNameOfRecipient').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtNameOfRecipient').val(datetext);
-				    }
-				});
-				});
-					
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtDateTitlesSentToUSCustoms').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtDateTitlesSentToUSCustoms').val(datetext);
-				    }
-				});
-				});
-					
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtETA').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtETA').val(datetext);
-				    }
-				});
-				});
-					
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtTitleReceived').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtTitleReceived').val(datetext);
-				    }
-				});
-				});
-					
-            
-            $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtStampedTitleReceived').datepicker({
-				    dateFormat: 'yy-dd-mm',
-				    onSelect: function(datetext){
-
-				        var d = new Date(); // for now
-
-				        var h = d.getHours();
-				        h = (h &lt; 10) ? ("0" + h) : h ;
-
-				        var m = d.getMinutes();
-				        m = (m &lt; 10) ? ("0" + m) : m ;
-
-				        var s = d.getSeconds();
-				        s = (s &lt; 10) ? ("0" + s) : s ;
-
-				        datetext = datetext + " " + h + ":" + m + ":" + s;
-
-				        $('#aspnetForm\\:ctl00_BodyHolder_txtStampedTitleReceived').val(datetext);
-				    }
-				});
-				});
-					
-						
-					</script>	
-					
-				
-        </h:form>
-        
+</h:form>
       
+	
 	</ui:define>
 	
 		

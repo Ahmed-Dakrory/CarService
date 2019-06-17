@@ -18,6 +18,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorAppServiceImpl;
 
@@ -141,6 +142,7 @@ public class vendorBean implements Serializable{
 				"			text: 'Your vendor has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
+		Constants.sendEmailNewAccount(addNewvendor.getUserId().getFirstName(),addNewvendor.getUserId().getEmail(),addNewvendor.getUserId().getEmail());
 		
 		try {
 			FacesContext.getCurrentInstance()
