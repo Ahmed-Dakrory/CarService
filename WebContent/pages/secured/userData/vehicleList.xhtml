@@ -21,6 +21,7 @@
 	<style>
 	
 	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
     border: 1px solid #dddddd;
     font-size: 11px;
     text-align: center;
@@ -117,6 +118,7 @@
 								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 									<thead>
 										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
+											<th>State</th>
 											<th>UID</th>
 											<th>Description</th>
 											<th class="hidden-phone">Year</th>
@@ -145,6 +147,17 @@
 									<ui:repeat var="data" value="#{carBean.allCars}">
 										<tr class="gradeX">
 											<td>
+											<h:graphicImage rendered="#{(data.state==0)?'true':'false'}" value="#{(data.state==0)?'/resources/images/states/1.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==1)?'true':'false'}" value="#{(data.state==1)?'/resources/images/states/2.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==2)?'true':'false'}" value="#{(data.state==2)?'/resources/images/states/3.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==3)?'true':'false'}" value="#{(data.state==3)?'/resources/images/states/4.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==4)?'true':'false'}" value="#{(data.state==4)?'/resources/images/states/5.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==5)?'true':'false'}" value="#{(data.state==5)?'/resources/images/states/6.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==6)?'true':'false'}" value="#{(data.state==6)?'/resources/images/states/7.png':''}" style="width: 150px;height: 71px;"/>
+											<h:graphicImage rendered="#{(data.state==7)?'true':'false'}" value="#{(data.state==7)?'/resources/images/states/8.png':''}" style="width: 150px;height: 71px;"/>
+													
+											</td>
+											<td>
 												<h:form>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForMain(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==1?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForShipper(data.id)}"/>
@@ -160,7 +173,13 @@
 											<td class="center hidden-phone">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</td>
 											<td class="center hidden-phone">#{data.inlandStatus}</td>
 											<td class="center hidden-phone">#{carBean.getFormatedDate(data.cargoRecieved)}</td>
-											<td class="center hidden-phone">#{carBean.getFormatedDate(data.titleRecieved)}</td>
+											<td class="center hidden-phone" style="vertical-align: middle;">
+												<h:graphicImage rendered="#{(data.titleRecieved==0)?'true':'false'}" value="#{(data.titleRecieved==0)?'/resources/images/states/s1.png':''}" style="width: 121px;height: 50px;"/>
+											<h:graphicImage rendered="#{(data.titleRecieved==1)?'true':'false'}" value="#{(data.titleRecieved==1)?'/resources/images/states/s2.png':''}" style="width: 121px;height: 50px;"/>
+											<h:graphicImage rendered="#{(data.titleRecieved==2)?'true':'false'}" value="#{(data.titleRecieved==2)?'/resources/images/states/s3.png':''}" style="width: 121px;height: 50px;"/>
+											<h:graphicImage rendered="#{(data.titleRecieved==3)?'true':'false'}" value="#{(data.titleRecieved==3)?'/resources/images/states/s4.png':''}" style="width: 121px;height: 50px;"/>
+											
+											</td>
 											<td class="center hidden-phone">#{carBean.getTheOrigin(data.origin)}</td>
 											<td class="center hidden-phone">#{carBean.getTheDestination(data.destination)}
 											</td>

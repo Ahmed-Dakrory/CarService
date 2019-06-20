@@ -18,6 +18,13 @@
 <title>ADAWLIAA</title>
 		<link rel="icon" type="image/png" href="#{resource['images:logo.png']}"/>
    
+   
+		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/bootstrap/css/bootstrap.css']}" />
+		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/font-awesome/css/font-awesome.css']}" />
+		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/magnific-popup/magnific-popup.css']}" />
+		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/bootstrap-datepicker/css/datepicker3.css']}" />
+		
+		
 	<!-- Skin CSS -->
     <link rel="stylesheet" href="#{resource['css:public/vendorb315.css']}" />
     <link rel="stylesheet" href="#{resource['css:public/designMain.css']}" />
@@ -25,40 +32,41 @@
     	
     	
     	
+		<!-- Vendor CSS -->
+		
+    <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/font-awesome/css/font-awesome.css']}" />
     	
+    	
+   
+    <!-- Specific Page Vendor CSS -->
+	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.custom.css']}" />
+	
+	
+	
+	
+	
     	
 	<link rel="stylesheet" href="#{resource['css:dashboard/theme.css']}" />
    
 		  
+		  
+	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.carousel.min.css']}" />
+	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.theme.default.min.css']}" />
+	
 	<!-- Skin CSS -->
     <link rel="stylesheet" href="#{resource['css:dashboard/assets/stylesheets/skins/default.css']}" />
     
     
 	<!-- Theme Custom CSS -->
     <link rel="stylesheet" href="#{resource['css:dashboard/assets/stylesheets/theme-custom.css']}" />
-    	
-   
-    <!-- Specific Page Vendor CSS -->
-	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.custom.css']}" />
-	<link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/pnotify/pnotify.icon.css']}" />
-	
-	
-	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.carousel.min.css']}" />
-	<link rel="stylesheet" href="#{resource['css:public/owlcarousel/owl.theme.default.min.css']}" />
 	
 	
 	
-	
-	
-	
-	
+		<h:outputScript name="js/dashboard/assets/vendor/modernizr/modernizr.js"/>
 	
 	
      
    
-		<!-- Vendor CSS -->
-		
-    <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/font-awesome/css/font-awesome.css']}" />
     	
     
 	
@@ -88,8 +96,6 @@
 	
 	
 	
-	
-		<h:outputScript name="js/dashboard/assets/vendor/modernizr/modernizr.js"/>
 </h:head>
 
 
@@ -111,7 +117,7 @@
    
   
 
-<div class="top hidden-xs hidden-sm">
+<div id="mainLogin" class="top hidden-xs hidden-sm">
 <div class="container" style="    width: 100%;">
 
 <div class="row">
@@ -224,7 +230,7 @@
 
 <div class="phone  col-lg-3 text-right hidden-xs hidden-sm">
 <div style="    margin-top: 7%;">FIG-United States</div>
-<div class="num"><div></div>00353894435368</div>
+<div class="num" style="    font-size: 19px;"><div></div>00353894435368</div>
 
 
 
@@ -370,6 +376,7 @@
 		<!-- Specific Page Vendor -->
 		
 		
+		<h:outputScript name="js/dashboard/assets/vendor/nanoscroller/nanoscroller.js"/>
 		
 <h:outputScript  type="text/javascript" name="js/public/vendorb315.js"/>
 <h:outputScript  type="text/javascript" name="js/public/displayMain.js"/>
@@ -378,11 +385,11 @@
 
 	<h:outputScript name="js/dashboard/assets/vendor/pnotify/pnotify.custom.js"/>
 	
-
-
+<!-- Theme Base, Components and Settings -->
+		<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
+		
 
     
-<script async="true" type="text/javascript">(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/yhv9hs5c';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 
   <ui:insert name="script"> 
     	<script>

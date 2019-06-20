@@ -86,11 +86,11 @@ a:active,
 }
 /* Sign Screens - Wrappers */
 .body-sign .panel-sign .panel-title-sign .title {
-	background-color: #0088cc;
+	background-color: #575d61;
 }
 
 .body-sign .panel-sign .panel-body {
-	border-top-color: #0088cc;
+	border-top-color: #f1f1f1;
 }
 /* Lock Screen */
 .body-locked .current-user .user-image {
@@ -132,19 +132,19 @@ body .btn-primary.dropdown-toggle {
 body .btn-primary {
 	color: #ffffff;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-	background-color: #0088cc;
-	border-color: #0088cc;
+	background-color: #686d6f;
+	border-color: #3c3c3c;
 }
 
 body .btn-primary:hover {
-	border-color: #0099e6 !important;
-	background-color: #0099e6;
+	border-color: #696d6f !important;
+	background-color: #5b6063;
 }
 
 body .btn-primary:active,
 body .btn-primary:focus {
-	border-color: #0077b3 !important;
-	background-color: #0077b3;
+	border-color: #1e2021 !important;
+	background-color: #747575;
 }
 
 body .btn-primary[disabled] {

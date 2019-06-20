@@ -18,10 +18,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 
+import main.com.carService.loginNeeds.user;
 import main.com.carService.quote.quote;
 import main.com.carService.quote.quoteAppServiceImpl;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.vendor.vendor;
+import main.com.carService.vendor.vendorAppServiceImpl;
 
 
 @ManagedBean(name = "quoteBean")
@@ -53,10 +56,14 @@ public class quoteBean implements Serializable{
 	
 	@ManagedProperty(value = "#{quoteFacadeImpl}")
 	private quoteAppServiceImpl quoteFacade;
+	
+	@ManagedProperty(value = "#{vendorFacadeImpl}")
+	private vendorAppServiceImpl vendorFacade;
 	 
 
 
 	private shipper shipperOfThisAccount;
+	private vendor vendorOfThisAccount;
 	
 	private List<quote> allQuotes;
 	
@@ -129,8 +136,15 @@ public class quoteBean implements Serializable{
 		statetoSelection=0;
 		portfromSelection=0;
 		porttoSelection=0;
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_SHIPPER) {
 		shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+		
 		allQuotes=quoteFacade.getAllByShipperId(shipperOfThisAccount.getId());
+		
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
+			vendorOfThisAccount=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			allQuotes=quoteFacade.getAllByShipperId(vendorOfThisAccount.getParentId().getId());
+		}
 	}
 
 	public String getStringFromCalendar(Calendar calendar) {
@@ -435,6 +449,18 @@ public class quoteBean implements Serializable{
 	}
 	public void setOrigineMap(Map<Integer, String> origineMap) {
 		this.origineMap = origineMap;
+	}
+	public vendorAppServiceImpl getVendorFacade() {
+		return vendorFacade;
+	}
+	public void setVendorFacade(vendorAppServiceImpl vendorFacade) {
+		this.vendorFacade = vendorFacade;
+	}
+	public vendor getVendorOfThisAccount() {
+		return vendorOfThisAccount;
+	}
+	public void setVendorOfThisAccount(vendor vendorOfThisAccount) {
+		this.vendorOfThisAccount = vendorOfThisAccount;
 	}
 	
 	

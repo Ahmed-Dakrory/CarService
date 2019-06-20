@@ -107,7 +107,6 @@ public class carBean implements Serializable{
 	
 
 	private  String cargoRecievedDate;
-	private  String titleRecievedDate;
 	private  String dvlDate;
 	private  String stRecievedDate;
 	private  String etdDate;
@@ -127,6 +126,8 @@ public class carBean implements Serializable{
 	
 	private int consigneeId;
 	private consignee selectedConsignee;
+
+	private  Integer titleRecievedSelected;
 	private boolean progress=false;
 	
 	@PostConstruct
@@ -151,7 +152,7 @@ public class carBean implements Serializable{
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
 		cargoRecievedDate="";
-		titleRecievedDate="";
+		titleRecievedSelected=0;
 		dvlDate="";
 		stRecievedDate="";
 		etdDate="";
@@ -175,7 +176,7 @@ public class carBean implements Serializable{
 		docs=new ArrayList<String>();
 		
 		cargoRecievedDate="";
-		titleRecievedDate="";
+		titleRecievedSelected=0;
 		dvlDate="";
 		stRecievedDate="";
 		etdDate="";
@@ -660,14 +661,14 @@ public class carBean implements Serializable{
 			}
 			
 			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
-			titleRecievedDate=getStringFromCalendar(selectedCar.getTitleRecieved());
 			dvlDate=getStringFromCalendar(selectedCar.getDvl());
 			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
 			etdDate=getStringFromCalendar(selectedCar.getEtd());
 			etaDate=getStringFromCalendar(selectedCar.getEta());
 			storageStartDate=getStringFromCalendar(selectedCar.getStorageStartDate());
 			storageEndDate=getStringFromCalendar(selectedCar.getStorageEndDate());
-			
+
+			titleRecievedSelected=selectedCar.getTitleRecieved();
 			try {
 				FacesContext.getCurrentInstance()
 				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf");
@@ -869,8 +870,10 @@ public class carBean implements Serializable{
 	}
 	//Save the New Car with the main Account
 	public void saveNewCarDataMain() {
+
+		addNewCar.setTitleRecieved(titleRecievedSelected);
+		
 		addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
-		addNewCar.setTitleRecieved(setCalendarFromString(titleRecievedDate));
 		addNewCar.setDvl(setCalendarFromString(dvlDate));
 		addNewCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		addNewCar.setEtd(setCalendarFromString(etdDate));
@@ -1064,8 +1067,10 @@ public class carBean implements Serializable{
 	//Used To update the car with the main account
 	public void updateDataMain() {
 
+
+		selectedCar.setTitleRecieved(titleRecievedSelected);
+		
 		selectedCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
-		selectedCar.setTitleRecieved(setCalendarFromString(titleRecievedDate));
 		selectedCar.setDvl(setCalendarFromString(dvlDate));
 		selectedCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		selectedCar.setEtd(setCalendarFromString(etdDate));
@@ -1288,12 +1293,14 @@ public class carBean implements Serializable{
 		this.cargoRecievedDate = cargoRecievedDate;
 	}
 
-	public String getTitleRecievedDate() {
-		return titleRecievedDate;
+	
+
+	public Integer getTitleRecievedSelected() {
+		return titleRecievedSelected;
 	}
 
-	public void setTitleRecievedDate(String titleRecievedDate) {
-		this.titleRecievedDate = titleRecievedDate;
+	public void setTitleRecievedSelected(Integer titleRecievedSelected) {
+		this.titleRecievedSelected = titleRecievedSelected;
 	}
 
 	public String getDvlDate() {

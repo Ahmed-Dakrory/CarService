@@ -217,7 +217,12 @@
                                                                                                         Title Received:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carBean.titleRecievedDate}" id="ctl00_BodyHolder_txtTitleReceived" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" style="font-size:11px;height:19px;width:200px;">
+                                                                                                	<f:selectItem itemLabel="No title" itemValue="0"/>
+                                                                                                	<f:selectItem itemLabel="Title Pending" itemValue="1"/>
+                                                                                                	<f:selectItem itemLabel="Lien on title" itemValue="2"/>
+                                                                                                	<f:selectItem itemLabel="Title ok" itemValue="3"/>
+                                                                                                </h:selectOneMenu>
                                                                                                 </td>
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">

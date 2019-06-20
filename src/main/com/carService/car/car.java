@@ -182,7 +182,7 @@ public class car {
 	private Calendar cargoRecieved;
 	
 	@Column(name = "titleRecieved")
-	private Calendar titleRecieved;
+	private Integer titleRecieved;
 	
 	@Column(name = "dvl")
 	private Calendar dvl;
@@ -224,6 +224,13 @@ public class car {
 	public static int STATE_DRY_CARGO_2=5;
 	public static int STATE_In_TRANSIT_1=6;
 	public static int STATE_In_TRANSIT_2=7;
+	
+	
+	public static int Title_No_Title=0;
+	public static int Title_Pending=1;
+	public static int Title_LienOnTitle=2;
+	public static int Title_TitleOk=3;
+	
 	
 	@Column(name = "state")
 	private Integer state;
@@ -279,6 +286,20 @@ public class car {
 										 "Fright In Transit  (No ETA)"};
 
 
+	public String getTitleString() {
+		String title="";
+		
+		if(titleRecieved==Title_No_Title) {
+			title="No Title";
+		}else if(titleRecieved==Title_Pending) {
+			title="Title Pending";
+		}else if(titleRecieved==Title_LienOnTitle) {
+			title="Lien On Title";
+		}else if(titleRecieved==Title_TitleOk) {
+			title="Title ok";
+		}
+		return title;
+	}
 
 
 
@@ -549,7 +570,7 @@ public class car {
 
 
 
-	public Calendar getTitleRecieved() {
+	public Integer getTitleRecieved() {
 		return titleRecieved;
 	}
 
@@ -560,7 +581,7 @@ public class car {
 
 
 
-	public void setTitleRecieved(Calendar titleRecieved) {
+	public void setTitleRecieved(Integer titleRecieved) {
 		this.titleRecieved = titleRecieved;
 	}
 
