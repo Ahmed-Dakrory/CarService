@@ -99,6 +99,7 @@ function __doPostBack(eventTarget, eventArgument) {
 											<th class="hidden-phone">Phone</th>
 											<th class="hidden-phone">Mobile</th>
 											<th class="hidden-phone">Email</th>
+											<th class="hidden-phone">Invoice</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -128,6 +129,10 @@ function __doPostBack(eventTarget, eventArgument) {
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
 													<a href="mailto:#{var.userId.email}" target="_blank">#{var.userId.email}</a>
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													<p:commandButton class="fa fa-money" action="#{shipperBean.invoiceDetails(var.id)}" style="padding: 5%;background: white; width: 25px;height: 25px;" value=""/>
 												</td>
 											</tr>
 											

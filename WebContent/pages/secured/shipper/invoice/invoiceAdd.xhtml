@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard.xhtml">
+
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="invoiceAdd.jsf" class="mn-sub-item-current"><b>Invoice</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+        
+        <h:form name="aspnetForm"  id="aspnetForm">
+
+
+<style>
+	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+
+.arrivingSoon {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	width: 170px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+
+.transportinProcess {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    background: -moz-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -o-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -ms-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: linear-gradient(to bottom, #ff9096 4%, #ff9096 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa3a3', endColorstr='#ffa3a3',GradientType=0);
+    background-color: #c16d6d;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #FFA3A7;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 170px;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    padding: 10px 24px;
+    height: 36px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffa3a3;
+}
+
+
+.noTitle {
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    box-shadow: inset 0px 1px 0px 0px #ffa3a3;
+    background: -moz-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -o-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: -ms-linear-gradient(top, #ffa3a3 5%, #ffa3a3 100%);
+    background: linear-gradient(to bottom, #ff9096 4%, #ff9096 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa3a3', endColorstr='#ffa3a3',GradientType=0);
+    background-color: #c16d6d;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #FFA3A7;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 126px;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    padding: 10px 24px;
+    height: 36px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffa3a3;
+}
+
+.documentCheck {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c7aa37), color-stop(1, #c7aa37));
+	background:-moz-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-webkit-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-o-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-ms-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:linear-gradient(to bottom, #c7aa37 5%, #c7aa37 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c7aa37', endColorstr='#c7aa37',GradientType=0);
+	background-color:#c7aa37;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #c7aa37;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	width: 170px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+
+
+.titlePending {
+	-moz-box-shadow: inset 0px 1px 0px 0px #bcc21b;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #bcc21b;
+    box-shadow: inset 0px 1px 0px 0px #4ca9d8;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c7aa37), color-stop(1, #c7aa37));
+    background: -moz-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -webkit-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -o-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -ms-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: linear-gradient(to bottom, #4ca9d8 5%, #4ca9d8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c7aa37', endColorstr='#c7aa37',GradientType=0);
+    background-color: #4ca9d8;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #4ca9d8;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 126px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+.lienOnTitle {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	box-shadow:inset 0px 1px 0px 0px #bcc21b;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c7aa37), color-stop(1, #c7aa37));
+	background:-moz-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-webkit-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-o-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:-ms-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+	background:linear-gradient(to bottom, #c7aa37 5%, #c7aa37 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c7aa37', endColorstr='#c7aa37',GradientType=0);
+	background-color:#c7aa37;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #c7aa37;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	width: 126px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.readyforShipping {
+	-moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4aa760), color-stop(1, #4aa760));
+    background: -moz-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -webkit-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -o-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -ms-linear-gradient(top, #5cc976 5%, #4aa760 100%);
+    background: linear-gradient(to bottom, #2bd052 5%, #4aa760 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cc976', endColorstr='#8ad164',GradientType=0);
+    background-color: #5cc976;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 170px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+.titleOk {
+	-moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4aa760), color-stop(1, #4aa760));
+    background: -moz-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -webkit-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -o-linear-gradient(top, #4aa760 5%, #4aa760 100%);
+    background: -ms-linear-gradient(top, #5cc976 5%, #4aa760 100%);
+    background: linear-gradient(to bottom, #2bd052 5%, #4aa760 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cc976', endColorstr='#8ad164',GradientType=0);
+    background-color: #5cc976;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 126px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+.intransit {
+	-moz-box-shadow:inset 0px 1px 0px 0px #3dc21b;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #3dc21b;
+	box-shadow:inset 0px 1px 0px 0px #3dc21b;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #39523f), color-stop(1, #448521));
+	background:-moz-linear-gradient(top, #39523f 5%, #448521 100%);
+	background:-webkit-linear-gradient(top, #39523f 5%, #448521 100%);
+	background:-o-linear-gradient(top, #39523f 5%, #448521 100%);
+	background:-ms-linear-gradient(top, #39523f 5%, #448521 100%);
+	background:linear-gradient(to bottom, #39523f 5%, #448521 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#39523f', endColorstr='#448521',GradientType=0);
+	background-color:#39523f;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	width: 170px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 24px;
+    height: 36px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+
+
+	</style>
+
+            <div id="content">
+                
+    
+    <input name="ctl00$BodyHolder$hdClientID" type="hidden" id="ctl00_BodyHolder_hdClientID" />
+    <input name="ctl00$BodyHolder$hdIsChanged" type="hidden" id="ctl00_BodyHolder_hdIsChanged" value="0" />
+    <!-- page src -->
+    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
+        <tr valign="top">
+            <td width="100%">
+                <!-- Table 1 -->
+                
+                
+                <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
+                                <tr>
+                                    <td>
+                                       
+                                        <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                       
+                                                <!-- End of Table name block -->
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                <table cellspacing="4" cellpadding="0" width="100%" border="0" style="border-style: solid;    border-width: 1px;    padding: 9px;">
+                                                    <tr>
+                                                        <td>
+                                                            <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
+                                                                          
+                                                                            <tr height="2">
+                                                                                <td  colspan="2" style="height: 2px">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        Shipper Name:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:outputText name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{shipperBean.shipperForInvoice.userId.firstName} #{shipperBean.shipperForInvoice.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                             <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Bank Name:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl11_BodyHolder_txtLastName" value="#{shipperBean.invoiceData.bankName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                            
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Bank Address:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{shipperBean.invoiceData.bankAddress}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        Bank Telephone:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl00_BodyHolder_txtSalesRep"  value="#{shipperBean.invoiceData.bankTelephone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                       * Bank Account Number:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h:inputText name="ctl00$BodyHolder$txtSalesRep" type="text" id="ctl11_BodyHolder_txtSalesRep"  value="#{shipperBean.invoiceData.bankAccountNumber}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                                <td>
+                                                                                </td>
+                                                                                <td class="tbltxt" width="130">
+                                                                                    <div style="margin-left: 6px">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td width="200">
+                                                                                </td>
+                                                                                <td width="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td class="tbltxt">
+                                                                                    <div style="margin-left: 6px">
+                                                                                        * Select the Cars Vin:</div>
+                                                                                </td>
+                                                                                <td>
+                                                                                <h:form>
+                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$ddlCountry"  value="#{shipperBean.selectedCarIdToBeAddedInInvoice}" id="ctl00_BodyHolder_ddlCountry" style="font-size:11px;height:27px;width:205px;">
+																							
+	 																					<f:selectItems value="#{shipperBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
+
+																					</h:selectOneMenu>
+																					
+																					
+																					<p:commandButton action="#{shipperBean.addCarToInvoice()}" style="width: 25px; height: 25px;  background: #f9f9f9; margin-left: 6px; padding: 6px;" value=""  class="fa fa-level-down"/>
+                                                                                </h:form>
+                                                                                </td>
+                                                                                
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                        
+                                                                            <tr height="23">
+                                                                               <section class="panel1">
+							<div class="panel-body">
+								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+									<thead>
+										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
+											<th>State</th>
+											<th>UID</th>
+											<th>Description</th>
+											<th class="hidden-phone">Year</th>
+											<th class="hidden-phone">Vendor</th>
+											<th class="hidden-phone">Container#</th>
+											<th class="hidden-phone">No. Days</th>
+											<th class="hidden-phone">Inland Status</th>
+											<th class="hidden-phone">Cargo Received</th>
+											<th class="hidden-phone">Title Received</th>
+											<th class="hidden-phone">Origin</th>
+											<th class="hidden-phone">Destination</th>
+											<th class="hidden-phone">ETD</th>
+											<th class="hidden-phone">ETA</th>
+											<th class="hidden-phone">Consignee</th>
+											<th class="hidden-phone">Land Cost</th>
+											<th class="hidden-phone">Sea Cost</th>
+											<th class="hidden-phone">Fees Cost</th>
+											<th class="hidden-phone">Commision Cost</th>
+											<th class="hidden-phone">Total Cost</th>
+											<th class="hidden-phone">Delete</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+									
+									<ui:repeat var="data" varStatus="dataStatue" value="#{shipperBean.carsForInvoice}">
+										<tr class="gradeX">
+											<td>
+											<h:panelGroup rendered="#{(data.state==0)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="transportinProcess">Transport In Process</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==1)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="documentCheck">Document Check</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==2)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="readyforShipping">Ready For Shipping</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==3)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="intransit">In Transit</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==4)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="arrivingSoon">Arriving Soon</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==5)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="intransit">In Transit ETA</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==6)?'true':'false'}"  style="width: 150px;height: 71px;">
+											<div  class="arrivingSoon">In Transit No ETA</div>
+											</h:panelGroup>
+													
+											</td>
+											<td>
+												#{data.uuid}
+											</td>
+											<td class="center hidden-phone">#{data.description}</td>
+											<td class="center hidden-phone">#{data.year}</td>
+											<td class="center hidden-phone">#{data.vendorId.userId.firstName}</td>
+											<td class="center hidden-phone">#{data.container}</td>
+											<td class="center hidden-phone">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</td>
+											<td class="center hidden-phone">#{data.inlandStatus}</td>
+											<td class="center hidden-phone">#{carBean.getFormatedDate(data.cargoRecieved)}</td>
+											<td class="center hidden-phone" style="vertical-align: middle;">
+												<h:panelGroup rendered="#{(data.titleRecieved==0)?'true':'false'}"  style="width: 150px;height: 71px;">
+												<div  class="noTitle">No Title</div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.titleRecieved==1)?'true':'false'}"  style="width: 150px;height: 71px;">
+												<div  class="titlePending">Title Pending</div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.titleRecieved==2)?'true':'false'}"  style="width: 150px;height: 71px;">
+												<div  class="lienOnTitle">Lien on Title</div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.titleRecieved==3)?'true':'false'}"  style="width: 150px;height: 71px;">
+												<div  class="titleOk">Title Ok</div>
+												</h:panelGroup>
+											</td>
+											<td class="center hidden-phone">#{carBean.getTheOrigin(data.origin)}</td>
+											<td class="center hidden-phone">#{carBean.getTheDestination(data.destination)}
+											</td>
+											<td class="center hidden-phone">#{carBean.getFormatedDate(data.eta)}</td>
+											<td class="center hidden-phone">#{carBean.getFormatedDate(data.etd)}</td>
+											<td class="center hidden-phone">#{data.consigneeId.userId.firstName}</td>
+											<td class="center hidden-phone">$#{data.landcost}</td>
+											<td class="center hidden-phone">$#{data.seacost}</td>
+											<td class="center hidden-phone">$#{data.fees}</td>
+											<td class="center hidden-phone">$#{data.commision}</td>
+											<td class="center hidden-phone">$#{data.commision+data.fees+data.seacost+data.landcost}</td>
+											<td class="center hidden-phone">
+											
+												<p:commandButton action="#{shipperBean.deleteCarInInvoice(dataStatue.index)}" style="width: 25px; height: 25px;" class="fa fa-times" value=""/>
+												
+											</td>
+										</tr>
+									</ui:repeat>
+										
+										
+									</tbody>
+								</table>
+							
+							
+							</div>
+						</section>
+
+
+
+
+
+                                                                            </tr>
+                                                                           
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                           
+                                                                            <tr height="2">
+                                                                                <td  colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="23">
+                                                                                <td align="left" colspan="5">
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.saveInvoiceData()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.cancel()}" name="ctl00$BodyHolder$cmdCancel2" value="Cancel" id="ctl00_BodyHolder_cmdCancel2"  style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;<p:commandButton class="btn btn-default" action="#{shipperBean.cancel()}" name="ctl00$BodyHolder$cmdBackToList2" value="Back" id="ctl00_BodyHolder_cmdBackToList2" style="font-family:Verdana;font-size:10px;font-weight:bold;width:100px;" />
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr height="2">
+                                                                                <td colspan="5">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                <br></br>
+                                                <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+                                                
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- End of Table 1 -->
+    <img height="3" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
+    <!-- Buttons block -->
+    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+        <tr>
+            <td>
+                <table cellspacing="0" cellpadding="5" width="100%" bgcolor="#f7f7f7" border="0">
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td width="100%" align="left" height="23">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- End of Buttons block -->
+
+            </div>  
+
+
+</h:form>
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>
