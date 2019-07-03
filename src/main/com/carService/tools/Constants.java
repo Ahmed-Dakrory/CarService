@@ -539,7 +539,7 @@ public class Constants {
 				"    font-size: 26px;\r\n" + 
 				"    color: white;\r\n" + 
 				"    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;\r\n" + 
-				"\"> please check the Vechiles for new updates</p>\r\n" + 
+				"\"> please check the Account for new updates</p>\r\n" + 
 				"            				\r\n" + 
 				"            				\r\n" + 
 				"            			</div>\r\n" + 

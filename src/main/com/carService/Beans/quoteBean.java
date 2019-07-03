@@ -23,6 +23,7 @@ import main.com.carService.quote.quote;
 import main.com.carService.quote.quoteAppServiceImpl;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorAppServiceImpl;
 
@@ -228,6 +229,8 @@ public class quoteBean implements Serializable{
 				"			type: 'success'\r\n" + 
 				"		});");
 		
+		sendUpdateToAll(editQuote);
+		
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf");
@@ -237,8 +240,18 @@ public class quoteBean implements Serializable{
 		}
 	}
 	
-	
-	
+	private void sendUpdateToAll(quote quotenew) {
+		shipper shipperIdMail=shipperFacade.getById(quotenew.getShipperId().getId());
+		List<vendor> vendors = vendorFacade.getAllByParentId(shipperIdMail.getId());
+		
+		if(shipperIdMail!=null)
+			Constants.sendEmailUpdateFormat(shipperIdMail.getUserId().getFirstName(), shipperIdMail.getUserId().getEmail(), shipperIdMail.getUserId().getEmail());
+		if(vendors!=null) {
+			for(int i=0;i<vendors.size();i++) {
+				Constants.sendEmailUpdateFormat(vendors.get(i).getUserId().getFirstName(), vendors.get(i).getUserId().getEmail(), vendors.get(i).getUserId().getEmail());
+			}
+		}
+	}
 	public void addNewQuote() {
 
 		newQuote.setDimensions(dimSelection);
@@ -263,7 +276,8 @@ public class quoteBean implements Serializable{
 				"			text: 'Your Quote has been added.',\r\n" + 
 				"			type: 'success'\r\n" + 
 				"		});");
-		
+
+		sendUpdateToAll(newQuote);
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf");
