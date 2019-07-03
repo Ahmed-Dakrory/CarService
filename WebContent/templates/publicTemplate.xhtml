@@ -108,6 +108,56 @@
    height: inherit;
 	 background-color: transparent;
 }
+
+
+
+
+
+
+
+
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
     </style>
    
     <!-- Start of Header -->
@@ -203,7 +253,7 @@
 <div class="container" style="width:100%;">
 <div class="row">
 
-<div class="ricon text-left col-xs-2 col-sm-1 hidden-md hidden-lg" id="responsive_menu_icon">
+<div class="ricon text-left col-xs-2 col-sm-1 hidden-md hidden-lg" onclick="openNav()" id="responsive_menu_icon">
 <div class="mobile_menu_open">
 <div class="mobile_menu_open burger__container">
 <div class="burger-line"></div>
@@ -224,8 +274,25 @@
 </div>
 
 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  
+  
+  <a href="/"> Home </a>
+<a href="/pages/public/about.jsf">About</a>
+<a href="/pages/public/contactUs.jsf">Contact Us</a>
+<a href="/pages/public/carCost.xhtml">Calculate Shipping Cost</a>
 
+</div>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
 
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
 
 
 <div class="phone  col-lg-3 text-right hidden-xs hidden-sm">
@@ -238,11 +305,15 @@
 
 
 </div>
+
+<!-- 
 <div class="ricon text-right col-xs-2 col-sm-2 hidden-md hidden-lg" id="responsive_account_icon">
 <div class="mobile_menu_open">
 <img src="/resources/images/img/account_icon_responsive.png" width="24" height="22" alt="Account"/>
 </div>
 </div>
+ -->
+
 </div>
 </div>
 </div>

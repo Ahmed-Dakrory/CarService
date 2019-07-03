@@ -20,7 +20,7 @@ public class Constants {
 		 String from = "aaldakrory@zewailcity.edu.eg";
 	        String pass = "Aa01061690939`";
 	        String[] to = {mail }; // list of recipient email addresses 
-	        String subject = "ADAWLIAA";
+	        String subject = "ADA International";
 	        String htmlText = getMessageUpdate();
 
 	        System.out.println("Email Sent To: "+name+" With Mail: "+mail);
@@ -518,20 +518,20 @@ public class Constants {
 				"          	<table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n" + 
 				"          		<tbody><tr>\r\n" + 
 				"          			<td class=\"logo\" style=\"text-align: center;\">\r\n" + 
-				"			            <h1><a href=\"#\">ADAWLIAA</a></h1>\r\n" + 
+				"			            <h1><a href=\"#\">ADA International</a></h1>\r\n" + 
 				"			          </td>\r\n" + 
 				"          		</tr>\r\n" + 
 				"          	</tbody></table>\r\n" + 
 				"          </td>\r\n" + 
 				"	      </tr><!-- end tr -->\r\n" + 
 				"	      <tr>\r\n" + 
-				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://18.224.251.123:8080/resources/images/public/img/h-banner.jpg);background-size: cover;height: 263px;\">\r\n" + 
+				"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/h-banner.jpg);background-size: cover;height: 263px;\">\r\n" + 
 				"          	<div class=\"overlay\"></div>\r\n" + 
 				"            <table>\r\n" + 
 				"            	<tbody><tr>\r\n" + 
 				"            		<td>\r\n" + 
 				"            			<div class=\"text\" style=\"padding: 0 4em; text-align: center;\">\r\n" + 
-				"            				<h2>ADAWLIAA</h2>\r\n" + 
+				"            				<h2>ADA International</h2>\r\n" + 
 				"							<br></br>\r\n" + 
 				"							<br></br>\r\n" + 
 				"							<br></br>\r\n" + 
@@ -553,7 +553,7 @@ public class Constants {
 				"          <td class=\"bg_dark email-section\" style=\"text-align:center;\">\r\n" + 
 				"          	<div class=\"heading-section heading-section-white\">\r\n" + 
 				"          		<span class=\"subheading\">Welcome</span>\r\n" + 
-				"            	<h2>ADAWLIAA INTERNATIONAL</h2>\r\n" + 
+				"            	<h2>ADA INTERNATIONAL</h2>\r\n" + 
 				"            	\r\n" + 
 				"          	</div>\r\n" + 
 				"          </td>\r\n" + 
@@ -610,7 +610,7 @@ public class Constants {
 		 String from = "aaldakrory@zewailcity.edu.eg";
 	        String pass = "Aa01061690939`";
 	        String[] to = {mail }; // list of recipient email addresses 
-	        String subject = "ADAWLIAA";
+	        String subject = "ADA International";
 	        String htmlText = "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\"><head>\r\n" + 
 	        		"    <meta charset=\"utf-8\"> <!-- utf-8 works for most cases -->\r\n" + 
 	        		"    <meta name=\"viewport\" content=\"width=device-width\"> <!-- Forcing initial-scale shouldn't be necessary -->\r\n" + 
@@ -1099,20 +1099,20 @@ public class Constants {
 	        		"          	<table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n" + 
 	        		"          		<tbody><tr>\r\n" + 
 	        		"          			<td class=\"logo\" style=\"text-align: center;\">\r\n" + 
-	        		"			            <h1><a href=\"#\">ADAWLIAA</a></h1>\r\n" + 
+	        		"			            <h1><a href=\"#\">ADA International</a></h1>\r\n" + 
 	        		"			          </td>\r\n" + 
 	        		"          		</tr>\r\n" + 
 	        		"          	</tbody></table>\r\n" + 
 	        		"          </td>\r\n" + 
 	        		"	      </tr><!-- end tr -->\r\n" + 
 	        		"	      <tr>\r\n" + 
-	        		"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://18.224.251.123:8080/resources/images/public/img/h-banner.jpg);background-size: cover;height: 263px;\">\r\n" + 
+	        		"          <td valign=\"middle\" class=\"hero bg_white\" style=\"background-image: url(http://adainter.com/resources/images/public/img/h-banner.jpg);background-size: cover;height: 263px;\">\r\n" + 
 	        		"          	<div class=\"overlay\"></div>\r\n" + 
 	        		"            <table>\r\n" + 
 	        		"            	<tbody><tr>\r\n" + 
 	        		"            		<td>\r\n" + 
 	        		"            			<div class=\"text\" style=\"padding: 0 4em; text-align: center;\">\r\n" + 
-	        		"            				<h2>ADAWLIAA</h2>\r\n" + 
+	        		"            				<h2>ADA International</h2>\r\n" + 
 	        		"							<br><br>\r\n" + 
 	        		"							<br><br>\r\n" + 
 	        		"							<br><br>\r\n" + 
@@ -1134,7 +1134,7 @@ public class Constants {
 	        		"          <td class=\"bg_dark email-section\" style=\"text-align:center;\">\r\n" + 
 	        		"          	<div class=\"heading-section heading-section-white\">\r\n" + 
 	        		"          		<span class=\"subheading\">Welcome</span>\r\n" + 
-	        		"            	<h2>ADAWLIAA INTERNATIONAL</h2>\r\n" + 
+	        		"            	<h2>ADA INTERNATIONAL</h2>\r\n" + 
 	        		"            	\r\n" + 
 	        		"          	</div>\r\n" + 
 	        		"          </td>\r\n" + 

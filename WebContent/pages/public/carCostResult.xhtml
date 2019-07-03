@@ -38,7 +38,7 @@
 
 
 <div class="center">
-<div class="container breadcontainer hidden-sm hidden-xs">
+<div class="container breadcontainer ">
 <div class="row">
 <div class="col-md-12">
 <div class="breadcrumbs">
@@ -68,7 +68,7 @@
 
 <div class="row">
 
-<div class="col-md-9 hidden-sm hidden-xs">
+<div class="col-md-9 ">
 							<div class="col-xs-12">
 							
 								<section role="main" class="content-body">
@@ -149,10 +149,17 @@
 														<td class="text-left">$#{calcBean.carPrice}</td>
 													</tr>
 													
-													<tr class="h4">
+													<tr class="h4 hidden-sm hidden-xs" >
 														<td colspan="2">Total Cost</td>
 														<td class="text-left">$#{calcBean.totalFees + calcBean.carPrice}</td>
 													</tr>
+													
+													<tr class="h5 hidden-md hidden-xl" >
+														<td colspan="2">Total Cost</td>
+														<td class="text-left">$#{calcBean.totalFees + calcBean.carPrice}</td>
+													</tr>
+													
+													
 												</tbody>
 											</table>
 										</div>
