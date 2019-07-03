@@ -17,14 +17,13 @@ public class Constants {
 	
 	
 	public static void sendEmailUpdateFormat(String name,String mail, String string) {
-		 String from = "aaldakrory@zewailcity.edu.eg";
-	        String pass = "Aa01061690939`";
+		
 	        String[] to = {mail }; // list of recipient email addresses 
 	        String subject = "ADA International";
 	        String htmlText = getMessageUpdate();
 
 	        System.out.println("Email Sent To: "+name+" With Mail: "+mail);
-	        sendFromGMail(from, pass, to, subject, htmlText);
+	        sendFromGMail( to, subject, htmlText);
 	        
 	
 	}
@@ -607,8 +606,7 @@ public class Constants {
 				"</body></html>";
 	}
 	public static void sendEmailNewAccount(String name,String mail, String account) {
-		 String from = "aaldakrory@zewailcity.edu.eg";
-	        String pass = "Aa01061690939`";
+		
 	        String[] to = {mail }; // list of recipient email addresses 
 	        String subject = "ADA International";
 	        String htmlText = "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\"><head>\r\n" + 
@@ -1188,19 +1186,21 @@ public class Constants {
 	        		"</body></html>";
 
 	        System.out.println("Email Sent To: "+name+" With Mail: "+mail);
-	        sendFromGMail(from, pass, to, subject, htmlText);
+	        sendFromGMail( to, subject, htmlText);
 	        
 	
 	}
 
-	 private static void sendFromGMail(final String from, final String pass, final String[] to, final String subject, final String body) {
+	 private static void sendFromGMail( final String[] to, final String subject, final String body) {
 		 new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
+				String from = "info@adainter.com";
+		        String pass = "T1234567t*";
 				// TODO Auto-generated method stub
 				 Properties props = System.getProperties();
-			        String host = "smtp.gmail.com";
+			        String host = "smtp.office365.com";
 			        props.put("mail.smtp.starttls.enable", "true");
 			        props.put("mail.smtp.host", host);
 			        props.put("mail.smtp.user", from);
