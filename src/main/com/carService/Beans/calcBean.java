@@ -78,79 +78,78 @@ public class calcBean implements Serializable{
 	public static int getLevel(double price) {
 	
 	int level = 0;
-	
 	if(price >= 1.00 && price <= 349.99) {
 	level = 0;
-	}else if(price > 350.00 && price < 399.99) {
+	}else if(price >= 350.00 && price <= 399.99) {
 	level = 1;
-	}else if(price > 400.00 && price < 449.99) {
+	}else if(price >= 400.00 && price <= 449.99) {
 	level = 2;
-	}else if(price > 450.00 && price < 499.99) {
+	}else if(price >= 450.00 && price <= 499.99) {
 	level = 3;
-	}else if(price > 500.00 && price < 549.99) {
+	}else if(price >= 500.00 && price <= 549.99) {
 	level = 4;
-	}else if(price > 550.00 && price < 599.99) {
+	}else if(price >= 550.00 && price <= 599.99) {
 	level = 5;
-	}else if(price > 600.00 && price < 699.99) {
+	}else if(price >= 600.00 && price <= 699.99) {
 	level = 6;
-	}else if(price > 700.00 && price < 799.99) {
+	}else if(price >= 700.00 && price <= 799.99) {
 	level = 7;
-	}else if(price > 800.00 && price < 899.99) {
+	}else if(price >= 800.00 && price <= 899.99) {
 	level = 8;
-	}else if(price > 900.00 && price < 999.99) {
+	}else if(price >= 900.00 && price <= 999.99) {
 	level = 9;
-	}else if(price > 1000.00 && price < 1199.99) {
+	}else if(price >= 1000.00 && price <= 1199.99) {
 	level = 10;
-	}else if(price > 1200.00 && price < 1299.99) {
+	}else if(price >= 1200.00 && price <= 1299.99) {
 	level = 11;
-	}else if(price > 1300.00 && price < 1399.99) {
+	}else if(price >= 1300.00 && price <= 1399.99) {
 	level = 12;
-	}else if(price > 1400.00 && price < 1499.99) {
+	}else if(price >= 1400.00 && price <= 1499.99) {
 	level = 13;
-	}else if(price > 1500.00 && price < 1599.99) {
+	}else if(price >= 1500.00 && price <= 1599.99) {
 	level = 14;
-	}else if(price > 1600.00 && price < 1699.99) {
+	}else if(price >= 1600.00 && price <= 1699.99) {
 	level = 15;
-	}else if(price > 1700.00 && price < 1799.99) {
+	}else if(price >= 1700.00 && price <= 1799.99) {
 	level = 16;
-	}else if(price > 1800.00 && price < 1999.99) {
+	}else if(price >= 1800.00 && price <= 1999.99) {
 	level = 17;
-	}else if(price > 2000.00 && price < 2399.99) {
+	}else if(price >= 2000.00 && price <= 2399.99) {
 	level = 18;
-	}else if(price > 2400.00 && price < 2499.99) {
+	}else if(price >= 2400.00 && price <= 2499.99) {
 	level = 19;
-	}else if(price > 2500.00 && price < 2999.99) {
+	}else if(price >= 2500.00 && price <= 2999.99) {
 	level = 20;
-	}else if(price > 3000.00 && price < 3499.99) {
+	}else if(price >= 3000.00 && price <= 3499.99) {
 	level = 21;
-	}else if(price > 3500.00 && price < 3999.99) {
+	}else if(price >= 3500.00 && price <= 3999.99) {
 	level = 22;
-	}else if(price > 4000.00 && price < 4499.99) {
+	}else if(price >= 4000.00 && price <= 4499.99) {
 	level = 23;
-	}else if(price > 4500.00 && price < 4999.99) {
+	}else if(price >= 4500.00 && price <= 4999.99) {
 	level = 24;
-	}else if(price > 5000.00 && price < 5999.99) {
+	}else if(price >= 5000.00 && price <= 5999.99) {
 	level = 25;
-	}else if(price > 6000.00 && price < 7499.99) {
+	}else if(price >= 6000.00 && price <= 7499.99) {
 	level = 26;
-	}else if(price > 7500.00 && price < 9999.99) {
+	}else if(price >= 7500.00 && price <= 9999.99) {
 	level = 27;
-	}else if(price > 10000.00 && price < 14999.99) {
+	}else if(price >= 10000.00 && price <= 14999.99) {
 	level = 28;
-	}else if(price > 15000.00 && price < 19999.99) {
+	}else if(price >= 15000.00 && price <= 19999.99) {
 	level = 29;
-	}else if(price > 20000.00 && price < 24999.99) {
+	}else if(price >= 20000.00 && price <= 24999.99) {
 	level = 30;
-	}else if(price > 25000.00 && price < 29999.99) {
+	}else if(price >= 25000.00 && price <= 29999.99) {
 	level = 31;
-	}else if(price > 30000.00 && price < 34999.99) {
+	}else if(price >= 30000.00 && price <= 34999.99) {
 	level = 32;
-	}else if(price > 35000.00 && price < 10000000.00) {
+	}else if(price >= 35000.00 && price <= 10000000.00) {
 	level = 33;
 	}else if(price == -1) {
 	level = 34;
 	}
-	
+
 	return level;
 	}
 

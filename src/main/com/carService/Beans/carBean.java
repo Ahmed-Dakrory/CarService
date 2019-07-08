@@ -1469,12 +1469,12 @@ public class carBean implements Serializable{
 	}
 	
 	void fillMap3() {
-		origineMap.put(-1, "--Not SELECT--");
-		origineMap.put(381, "HOUSTON");
-		origineMap.put(117, "LOS ANGELES");
-		origineMap.put(371, "MIAMI");
-		origineMap.put(1, "NEW YORK");
-		origineMap.put(39, "SAVANNAH");
+		origineMap.put(-1, "----");
+		origineMap.put(381, "TX");
+		origineMap.put(117, "CA");
+		origineMap.put(371, "FL");
+		origineMap.put(1, "NY");
+		origineMap.put(39, "GA");
 	}
 	void fillMap1() {
 		distinationMap.put(1, "Not Selected DESTINATION");   	
