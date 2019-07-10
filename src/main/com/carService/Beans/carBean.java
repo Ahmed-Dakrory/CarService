@@ -1140,17 +1140,17 @@ public class carBean implements Serializable{
 		customer customerIdMail=customerFacade.getById(selectedCar.getShipperId().getId());
 		
 		if(shipperIdMail!=null)
-			Constants.sendEmailUpdateFormat(shipperIdMail.getUserId().getFirstName(), shipperIdMail.getUserId().getEmail(), shipperIdMail.getUserId().getEmail());
+			Constants.sendEmailUpdateFormatCar(selectedCar2,shipperIdMail.getUserId().getFirstName(), shipperIdMail.getUserId().getEmail(), shipperIdMail.getUserId().getEmail());
 		
 		
 		if(vendorIdMail!=null)
-			Constants.sendEmailUpdateFormat(vendorIdMail.getUserId().getFirstName(), vendorIdMail.getUserId().getEmail(), vendorIdMail.getUserId().getEmail());
+			Constants.sendEmailUpdateFormatCar(selectedCar2,vendorIdMail.getUserId().getFirstName(), vendorIdMail.getUserId().getEmail(), vendorIdMail.getUserId().getEmail());
 		
 		if(consigneeIdMail!=null)
-			Constants.sendEmailUpdateFormat(consigneeIdMail.getUserId().getFirstName(), consigneeIdMail.getUserId().getEmail(), consigneeIdMail.getUserId().getEmail());
+			Constants.sendEmailUpdateFormatCar(selectedCar2,consigneeIdMail.getUserId().getFirstName(), consigneeIdMail.getUserId().getEmail(), consigneeIdMail.getUserId().getEmail());
 		
 		if(customerIdMail!=null)
-			Constants.sendEmailUpdateFormat(customerIdMail.getUserId().getFirstName(), customerIdMail.getUserId().getEmail(), customerIdMail.getUserId().getEmail());
+			Constants.sendEmailUpdateFormatCar(selectedCar2,customerIdMail.getUserId().getFirstName(), customerIdMail.getUserId().getEmail(), customerIdMail.getUserId().getEmail());
 	}
 
 	public String getFormatedDate(Calendar c) {
