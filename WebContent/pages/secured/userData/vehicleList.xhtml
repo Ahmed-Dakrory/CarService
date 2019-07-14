@@ -187,20 +187,20 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 }
 .readyforShipping {
 	-moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #e89e28;
-    box-shadow: inset 0px 1px 0px 0px #e89e28;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e89e28), color-stop(1, #e89e28));
+    -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    box-shadow: inset 0px 1px 0px 0px #3dc21b;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4aa760), color-stop(1, #4aa760));
     background: -moz-linear-gradient(top, #4aa760 5%, #4aa760 100%);
-    background: -webkit-linear-gradient(top, #e89e28 5%, ##e89e28 100%);
+    background: -webkit-linear-gradient(top, #4aa760 5%, #4aa760 100%);
     background: -o-linear-gradient(top, #4aa760 5%, #4aa760 100%);
     background: -ms-linear-gradient(top, #5cc976 5%, #4aa760 100%);
-    background: linear-gradient(to bottom, #e89e28 5%, #92651d 100%);
+    background: linear-gradient(to bottom, #4ce470 5%, #0a7925 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cc976', endColorstr='#8ad164',GradientType=0);
-    background-color: #e89e28;
+    background-color: #5cc976;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;
-    border: 1px solid #9c6d21;
+    border: 1px solid #18ab29;
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
@@ -208,7 +208,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     width: 91px;
     font-size: 12px;
     font-weight: bold;
-    text-shadow: 0px 1px 0px #e89e28;
+    text-shadow: 0px 1px 0px #2f6627;
 }
 
 .titleOk {
@@ -246,7 +246,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     background: -webkit-linear-gradient(top, #39523f 5%, #448521 100%);
     background: -o-linear-gradient(top, #39523f 5%, #448521 100%);
     background: -ms-linear-gradient(top, #39523f 5%, #448521 100%);
-    background: linear-gradient(to bottom, #7aad86 5%, #3a582a 100%);
+    background: linear-gradient(to bottom, #5ca96e 5%, #132f13 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39523f', endColorstr='#448521',GradientType=0);
     background-color: #39523f;
     -moz-border-radius: 6px;
@@ -357,6 +357,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th>UID</th>
 											<th>Description</th>
 											<th class="hidden-phone">Year</th>
+											<th class="hidden-phone">Shipper</th>
 											<th class="hidden-phone">Vendor</th>
 											<th class="hidden-phone">Container#</th>
 											<th class="hidden-phone">No. Days</th>
@@ -365,8 +366,8 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th class="hidden-phone">Title Received</th>
 											<th class="hidden-phone">Origin</th>
 											<th class="hidden-phone">Destination</th>
-											<th class="hidden-phone">ETD</th>
 											<th class="hidden-phone">ETA</th>
+											<th class="hidden-phone">ETD</th>
 											<th class="hidden-phone">Consignee</th>
 											<th class="hidden-phone">Land Cost</th>
 											<th class="hidden-phone">Sea Cost</th>
@@ -426,6 +427,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											</td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.description}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a href="#{data.container}">#{data.container}</a></span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</span></td>
@@ -453,7 +455,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheOrigin(data.origin)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheDestination(data.destination)}</span>
 											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
+											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.etd)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.consigneeId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span></td>

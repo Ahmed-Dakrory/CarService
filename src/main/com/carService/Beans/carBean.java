@@ -1045,6 +1045,14 @@ public class carBean implements Serializable{
 		}
 	}
 	
+	public boolean isTheRemainingDays30Day(Calendar ETA) {
+		if(getNumberOfDays(Calendar.getInstance(),ETA)<=Constants.Notifcation_Period) {
+			return true;
+		}
+		return false;
+		
+	}
+	
 	/**
 	 * Get the days Difference in the store
 	 */

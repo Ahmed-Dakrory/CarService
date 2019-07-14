@@ -16,6 +16,7 @@ public class Constants {
 
 	public static String URLwithVin="https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/";
 	
+	public static Integer Notifcation_Period=30;
 	
 	public static void sendEmailUpdateFormatCar(car selectedCar2, String name,String mail, String string) {
 		
