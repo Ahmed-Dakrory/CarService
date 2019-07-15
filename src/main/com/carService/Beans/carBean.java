@@ -669,6 +669,7 @@ public class carBean implements Serializable{
 			storageEndDate=getStringFromCalendar(selectedCar.getStorageEndDate());
 
 			titleRecievedSelected=selectedCar.getTitleRecieved();
+			shipperSelectedId=selectedCar.getShipperId().getId();
 			try {
 				FacesContext.getCurrentInstance()
 				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf");
@@ -708,6 +709,7 @@ public class carBean implements Serializable{
 				docs.add(docsOfCar.get(i).getUrl());
 			}
 		}
+		vendorSelectedId=selectedCar.getVendorId().getId();
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/admin/car/EditInventory.jsf");
@@ -787,6 +789,7 @@ public class carBean implements Serializable{
 				docs.add(docsOfCar.get(i).getUrl());
 			}
 		}
+		customerSelectedId=selectedCar.getCustomerId().getId();
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/customer/car/EditInventory.jsf");
@@ -1046,8 +1049,10 @@ public class carBean implements Serializable{
 	}
 	
 	public boolean isTheRemainingDays30Day(Calendar ETA) {
+		if(ETA!=null) {
 		if(getNumberOfDays(Calendar.getInstance(),ETA)<=Constants.Notifcation_Period) {
 			return true;
+		}
 		}
 		return false;
 		

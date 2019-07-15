@@ -172,6 +172,9 @@ public class car {
 	@Column(name = "container")
 	private String container;
 	
+	@Column(name = "containerLink")
+	private String containerLink;
+	
 	@Column(name = "seal")
 	private String seal;
 	
@@ -1260,6 +1263,24 @@ public class car {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+
+
+
+
+
+	public String getContainerLink() {
+		return containerLink;
+	}
+
+
+
+
+
+
+	public void setContainerLink(String containerLink) {
+		this.containerLink = containerLink;
 	}
 	
 

@@ -164,7 +164,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     text-shadow: 0px 1px 0px #777977;
 }
 
-.lienOnTitle {
+.RequestedTitle {
     -moz-box-shadow: inset 0px 1px 0px 0px #bcc21b;
     -webkit-box-shadow: inset 0px 1px 0px 0px #bcc21b;
     box-shadow: inset 0px 1px 0px 0px #4ca9d8;
@@ -189,6 +189,33 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
     font-weight: bold;
     text-shadow: 0px 1px 0px #40474e;
 }
+
+.lienOnTitle {
+   -moz-box-shadow: inset 0px 1px 0px 0px #bcc21b;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #bcc21b;
+    box-shadow: inset 0px 1px 0px 0px #a2728d;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c7aa37), color-stop(1, #c7aa37));
+    background: -moz-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -webkit-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -o-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: -ms-linear-gradient(top, #c7aa37 5%, #c7aa37 100%);
+    background: linear-gradient(to bottom, #e4aada 5%, #d24091 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c7aa37', endColorstr='#c7aa37',GradientType=0);
+    background-color: #c184a6;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #c184a6;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    width: 80px;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0px 1px 0px #707a84;
+}
+
 .readyforShipping {
 	-moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
     -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
@@ -429,8 +456,8 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th class="hidden-phone">Title Received</th>
 											<th class="hidden-phone">Origin</th>
 											<th class="hidden-phone">Destination</th>
-											<th class="hidden-phone">ETA</th>
 											<th class="hidden-phone">ETD</th>
+											<th class="hidden-phone">ETA</th>
 											<th class="hidden-phone">Consignee</th>
 											<th class="hidden-phone">Land Cost</th>
 											<th class="hidden-phone">Sea Cost</th>
@@ -501,19 +528,23 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 												</h:panelGroup>
 												
 												<h:panelGroup rendered="#{(data.titleRecieved==2)?'true':'false'}">
-												<div  class="lienOnTitle">Requested</div>
+												<div  class="RequestedTitle">Requested</div>
 												</h:panelGroup>
 												
 												<h:panelGroup rendered="#{(data.titleRecieved==3)?'true':'false'}">
 												<div  class="titleOk">Ok</div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.titleRecieved==4)?'true':'false'}">
+												<div  class="lienOnTitle">In Lien</div>
 												</h:panelGroup>
 													
 											</td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheOrigin(data.origin)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getTheDestination(data.destination)}</span>
 											</td>
-											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.etd)}</span></td>
+											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?'linear-gradient(to bottom, #c7898d 4%, #d42029 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.eta)}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.consigneeId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.landcost}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>

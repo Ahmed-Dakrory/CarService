@@ -26,90 +26,6 @@
     <!-- page src -->
     <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
         <tr valign="top">
-            <td>
-                <!-- Groups block -->
-                <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
-                    <tr bgcolor="#bbbbbb">
-                        <td>
-                            <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ebe4d8">
-                                <tr bgcolor="#f1f1f6">
-                                    <td>
-                                        <table width="100%" cellspacing="0" cellpadding="3" border="0">
-                                            <tr bgcolor="#f9f9f9">
-                                                <td width="100%" class="tbltxt" colspan="3">
-                                                    <img src="#{resource['images:icon-folder.gif']}" width="23" height="23" border="0" align="absMiddle"/>&nbsp;<font
-                                                        class="tblhdr">New Inventory</font>&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <!-- End of Groups block -->
-                <img src="#{resource['images:dumb.gif']}" width="1" height="4"/><br></br>
-                <table width="184" border="0" cellspacing="0" cellpadding="1">
-                    <tr bgcolor="#bbbbbb">
-                        <td bgcolor="#003399">
-                            <table width="100%" bgcolor="white" border="0" cellspacing="0" cellpadding="8" height="100">
-                                <tr>
-                                    <td bgcolor="#f1f1f6" valign="top">
-                                        <font class="info"><b>Notes:</b><br />
-                                            <br />
-                                            <b><i>Selecting freight type</i></b><br />
-                                            Please note that for automobiles, boats, motorbikes, scooters, etc. “Vehicle” Type
-                                            should be selected.<br />
-                                            <br />
-                                            <b><i>Checking VIN/PO# </i></b>
-                                            <br />
-                                            Please note it is required to check VIN/PO#. After checking VIN/PO# you can add
-                                            further information for your freight.
-                                            <br />
-                                            If your VIN is found in our external VIN database, vehicle information is added
-                                            automatically. Otherwise, please fill in the fields manually.
-                                            <br />
-                                            For a vehicle, it is required to indicate if it is Self-propelled or Immobile.
-                                            <br />
-                                            <br />
-                                            <b><i>Description</i></b>
-                                            <br />
-                                            For dry cargo, it is required to input description.
-                                            <br />
-                                            <br />
-                                            <b><i>Choosing destination </i></b>
-                                            <br />
-                                            Please select destination in three steps: 1) choose country; 2) choose state (if
-                                            any); 3) choose port or inland destination.
-                                            <br />
-                                            If you have not found your destination in this list, please enter it in the field
-                                            “Notes” at the bottom of the page.
-                                            <br />
-                                            <br />
-                                            <b><i>Consignee Info</i></b>
-                                            <br />
-                                            You can select consignee for a new freight from the list of your consignees. For
-                                            adding a new consignee, please go to Consignee List Tab.
-                                            <br />
-                                            <br />
-                                            <b><i>Picture Request</i></b>
-                                            <br />
-                                            Please tick the box if you require pictures of your freight.
-                                            <br />
-                                            <br />
-                                            <b><i>PLEASE CLICK SAVE BUTTON TO ADD FREIGHT TO THE SYSTEM</i></b> </font>
-                                        <br />
-                                        <br />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <img src="#{resource['images:dumb.gif']}" width="1" height="8"/><br></br>
-                <!-- Banner -->
-            </td>
             <td width="100%" style="min-height: 500px;">
                 <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
                     <tr>
@@ -119,7 +35,7 @@
                                     <td class="tbltxt" valign="top">
                                         <span><b>Please select freight type:</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         
-                                        <h:selectOneMenu name="ctl00$BodyHolder$ddlType" value="#{carBean.selectedCar.type}" id="ctl00_BodyHolder_ddlType" style="width:120px;">
+                                        <h:selectOneMenu disabled="true" name="ctl00$BodyHolder$ddlType" value="#{carBean.selectedCar.type}" id="ctl00_BodyHolder_ddlType" style="width:120px;">
 											<f:selectItem itemValue="0" itemLabel="Vehicle"/>
 											<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
 										

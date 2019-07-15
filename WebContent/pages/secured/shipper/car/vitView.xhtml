@@ -382,10 +382,11 @@
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" style="font-size:11px;height:19px;width:200px;">
-                                                                                                	<f:selectItem itemLabel="No title" itemValue="0"/>
-                                                                                                	<f:selectItem itemLabel="Title Pending" itemValue="1"/>
-                                                                                                	<f:selectItem itemLabel="Lien on title" itemValue="2"/>
-                                                                                                	<f:selectItem itemLabel="Title ok" itemValue="3"/>
+                                                                                                	<f:selectItem itemLabel="Missing" itemValue="0"/>
+                                                                                                	<f:selectItem itemLabel="Pending" itemValue="1"/>
+                                                                                                	<f:selectItem itemLabel="Requested" itemValue="2"/>
+                                                                                                	<f:selectItem itemLabel="Ok" itemValue="3"/>
+                                                                                                	<f:selectItem itemLabel="In Lien" itemValue="4"/>
                                                                                                 </h:selectOneMenu>
                                                                                                     
                                                                                                 </td>
@@ -5501,6 +5502,9 @@
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.addNewCar.container}" id="ctl00_BodyHolder_txtContainer" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                Link: 
+                                                                                                      <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.addNewCar.containerLink}" id="ctl00_BodyHolder_txtContainerLink" style="font-size:11px;height:19px;width:200px;" />
+                                                      
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
