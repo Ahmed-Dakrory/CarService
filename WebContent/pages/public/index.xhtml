@@ -90,46 +90,21 @@ FIRST INTERNATIONAL GROUP
     <div class="owl-stage-outer">
          <div class="owl-stage" style="transition: all 0s ease 0s; width: 5880px; transform: translate3d(-1102px, 0px, 0px);">
           
+        <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
         
-            
-            <div class="owl-item active center" >
+        	<div class="owl-item active center" >
             
              		<span href="en/25177299-2018-tesla-model_3.html" >
-					<img style="    width: 257px;" src="/resources/images/cs.copart.com/v1/AUTH_svc.pdoc00001/PIX133/33785fa6-4c0b-441b-9904-bef5d498628a.jpg"></img>
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a style="    color: #484848;">2018 TESLA<br></br>MODEL 3 <span>($21,000)</span></a></div>
+					 <h:graphicImage value="/images/?file=#{data.mainImage}" alt="image#{var}" style="    width: 257px;" />
+					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
 					</span>
            
             </div>
             
-            
-             <div class="owl-item active center" >
-            
-             		<span href="en/25177299-2018-tesla-model_3.html" >
-					<img style="    width: 257px;" src="/resources/images/cs.copart.com/v1/AUTH_svc.pdoc00001/PIX133/33eb4f8d-132a-403a-9069-41d966b3a445.jpg"></img>
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a style="    color: #484848;">2018 TESLA<br></br>MODEL 3 <span>($21,000)</span></a></div>
-					</span>
-           
-            </div>
+        </ui:repeat>
             
             
-            <div class="owl-item active center" >
             
-             		<span href="en/25177299-2018-tesla-model_3.html" >
-					<img style="    width: 257px;" src="/resources/images/cs.copart.com/v1/AUTH_svc.pdoc00001/PIX133/3686caaf-a65f-4d2b-981a-c1818a593adf.jpg"></img>
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a style="    color: #484848;">2018 TESLA<br></br>MODEL 3 <span>($21,000)</span></a></div>
-					</span>
-           
-            </div>
-            
-            
-            <div class="owl-item active center" >
-            
-             		<span href="en/25177299-2018-tesla-model_3.html" >
-					<img style="    width: 257px;" src="/resources/images/cs.copart.com/v1/AUTH_svc.pdoc00001/PIX133/6fbd2a9a-1705-4b41-ac57-195cd0901be4.jpg"></img>
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a style="    color: #484848;">2018 TESLA<br></br>MODEL 3 <span>($21,000)</span></a></div>
-					</span>
-           
-            </div>
            
             
             </div>
@@ -179,7 +154,7 @@ FIRST INTERNATIONAL GROUP
 <script>
 
 function openCategories(n){
-	window.location.href = '/pages/public/carsForType.jsf';
+	window.location.href = '/pages/public/carsForType.jsf?category='+n;
 	
 }
 </script>
@@ -192,7 +167,7 @@ function openCategories(n){
         
         
         
-          <div onclick="openCategories(1);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up">
+          <div onclick="openCategories(0);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/car.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -204,7 +179,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(2);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div onclick="openCategories(1);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/suv.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -217,7 +192,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(3);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <div onclick="openCategories(2);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/motorcycle.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -227,7 +202,7 @@ function openCategories(n){
             </div> <!-- .block-icon-1 -->
           </div>
 
-          <div onclick="openCategories(4);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <div onclick="openCategories(3);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/jet_ski.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -240,7 +215,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(5);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+          <div onclick="openCategories(4);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/snow_mobile.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -253,7 +228,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(6);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+          <div onclick="openCategories(5);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/heavy_d_vec.png" style="width: 106px;"/></div>
               <div class="media-body">

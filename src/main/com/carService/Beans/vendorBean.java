@@ -168,7 +168,7 @@ public class vendorBean implements Serializable{
 		try {
 
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,7 +179,7 @@ public class vendorBean implements Serializable{
 		carsForInvoice.remove(indexInList);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,7 +218,7 @@ public class vendorBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoice.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoice.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -230,7 +230,7 @@ public class vendorBean implements Serializable{
 		vendorForInvoice=vendorFacade.getById(idShipper);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,7 +247,7 @@ public class vendorBean implements Serializable{
 		addNewvendor.setParentId(shipper_of_this_account);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/vendorAddNew.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/vendorAddNew.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -259,7 +259,7 @@ public class vendorBean implements Serializable{
 		selectedvendor=vendorFacade.getById(idvendor);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/vendorEdit.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/vendorEdit.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -293,7 +293,7 @@ public class vendorBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/vendorList.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/vendorList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -349,7 +349,7 @@ public class vendorBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/vendorList.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/vendorList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

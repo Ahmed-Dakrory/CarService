@@ -94,7 +94,7 @@ public class consigneeBean implements Serializable{
 		addNewconsignee.setParentId(shipperOfThisAccount);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/consignee/consigneeAddNew.jsf");
+			   .getExternalContext().redirect("/pages/secured/consignee/consigneeAddNew.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class consigneeBean implements Serializable{
 		selectedconsignee=consigneeFacade.getById(idconsignee);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/consignee/consigneeEdit.jsf");
+			   .getExternalContext().redirect("/pages/secured/consignee/consigneeEdit.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,7 +139,7 @@ public class consigneeBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/consignee/consigneeList.jsf");
+			   .getExternalContext().redirect("/pages/secured/consignee/consigneeList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -195,7 +195,7 @@ public class consigneeBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/consignee/consigneeList.jsf");
+			   .getExternalContext().redirect("/pages/secured/consignee/consigneeList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

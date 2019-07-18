@@ -197,7 +197,7 @@ public class quoteBean implements Serializable{
 		dateOfShipment=getStringFromCalendar(editQuote.getDateOfShipment());
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/RequestAQuoteEdit.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/RequestAQuoteEdit.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,7 +233,7 @@ public class quoteBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -280,7 +280,7 @@ public class quoteBean implements Serializable{
 		sendUpdateToAll(newQuote);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf");
+			   .getExternalContext().redirect("/pages/secured/vendor/QuoteList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

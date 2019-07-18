@@ -133,7 +133,7 @@ public class shipperBean implements Serializable{
 		try {
 
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,7 +145,7 @@ public class shipperBean implements Serializable{
 		carsForInvoice.remove(indexInList);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -184,7 +184,7 @@ public class shipperBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoice.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoice.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,7 +198,7 @@ public class shipperBean implements Serializable{
 		addNewshipper.setParentId(loginBean.getTheUserOfThisAccount());
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/shipperAddNew.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/shipperAddNew.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +211,7 @@ public class shipperBean implements Serializable{
 		selectedshipper=shipperFacade.getById(idshipper);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/shipperEdit.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/shipperEdit.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,7 +223,7 @@ public class shipperBean implements Serializable{
 		shipperForInvoice=shipperFacade.getById(idShipper);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -256,7 +256,7 @@ public class shipperBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/shipperList.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/shipperList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -312,7 +312,7 @@ public class shipperBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/shipperList.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/shipperList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

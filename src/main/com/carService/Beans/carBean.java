@@ -1,9 +1,14 @@
 package main.com.carService.Beans;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +27,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
@@ -572,7 +582,7 @@ public class carBean implements Serializable{
 		filterCarBySelectFirstTime();
 		
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -584,7 +594,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/car/vitView.jsf");
+			   .getExternalContext().redirect("/pages/secured/shipper/car/vitView.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -606,8 +616,10 @@ public class carBean implements Serializable{
 			
 			
 			boolean isValid=checkValidForCar(addNewCar);
-			if(isValid) {
+			boolean checkVendor=checkVendorIsExist(addNewCar.getVendorId());
+			if(isValid&&checkVendor) {
 				boolean checkCar = checkCarIsExist(addNewCar.getUuid());
+				
 				if(checkCar) {
 			consignee consigneeNew=consigneeFacade.getById(consigneeId);
 			addNewCar.setConsigneeId(consigneeNew);
@@ -622,7 +634,7 @@ public class carBean implements Serializable{
 			
 			try {
 				FacesContext.getCurrentInstance()
-				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -643,6 +655,29 @@ public class carBean implements Serializable{
 			}
 		}
 
+		public boolean checkCustomerIsExist(customer customerExist) {
+			if(customerExist!=null) {
+				if(customerExist.getId()!=null&&customerExist.getId()!=-1) {
+					
+				return true;
+
+				}
+				}
+			
+			return false;
+		}
+		
+		public boolean checkVendorIsExist(vendor vendorExist) {
+			if(vendorExist!=null) {
+				if(vendorExist.getId()!=null&&vendorExist.getId()!=-1) {
+					
+				return true;
+
+				}
+				}
+			
+			return false;
+		}
 		public void selectCarForMain(int idcar) {
 			refresh();
 			selectedCar=carFacade.getById(idcar);
@@ -669,10 +704,12 @@ public class carBean implements Serializable{
 			storageEndDate=getStringFromCalendar(selectedCar.getStorageEndDate());
 
 			titleRecievedSelected=selectedCar.getTitleRecieved();
+			if(selectedCar.getShipperId()!=null) {
 			shipperSelectedId=selectedCar.getShipperId().getId();
+			}
 			try {
 				FacesContext.getCurrentInstance()
-				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf");
+				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf?faces-redirect=true");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -694,6 +731,8 @@ public class carBean implements Serializable{
 			vendor vendorNew=new vendor();
 	
 			selectedCar.setVendorId(vendorNew);
+		}else {
+			vendorSelectedId=selectedCar.getVendorId().getId();
 		}
 		
 		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
@@ -709,10 +748,10 @@ public class carBean implements Serializable{
 				docs.add(docsOfCar.get(i).getUrl());
 			}
 		}
-		vendorSelectedId=selectedCar.getVendorId().getId();
+		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/admin/car/EditInventory.jsf");
+			   .getExternalContext().redirect("/pages/secured/admin/car/EditInventory.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -720,10 +759,12 @@ public class carBean implements Serializable{
 
 	}
 
-	public void updateCarForShipper() {
+public void updateCarForShipper() {
 		
 		boolean isValid=checkValidForCar(selectedCar);
-		if(isValid) {
+
+		boolean checkVendor=checkVendorIsExist(selectedCar.getVendorId());
+		if(isValid&&checkVendor) {
 			
 		consignee consigneeNew=consigneeFacade.getById(consigneeId);
 		selectedCar.setConsigneeId(consigneeNew);
@@ -738,7 +779,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -752,6 +793,43 @@ public class carBean implements Serializable{
 					"		});");
 		}
 	}
+
+
+
+public void updateCarForCustomer() {
+	
+	boolean isValid=checkValidForCar(selectedCar);
+
+	boolean checkCustomer=checkCustomerIsExist(selectedCar.getCustomerId());
+	if(isValid&&checkCustomer) {
+		
+	consignee consigneeNew=consigneeFacade.getById(consigneeId);
+	selectedCar.setConsigneeId(consigneeNew);
+	carFacade.addcar(selectedCar);
+	
+	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+			"			title: 'Success',\r\n" + 
+			"			text: 'Your car has been updated.',\r\n" + 
+			"			type: 'success'\r\n" + 
+			"		});");
+	
+	
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+	}else {
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Check this ',\r\n" + 
+				"			text: 'Check the Madatory fields',\r\n" + 
+				"			left:\"2%\"\r\n" + 
+				"		});");
+	}
+}
 	
 	
 	
@@ -774,6 +852,8 @@ public class carBean implements Serializable{
 			customer customerNew=new customer();
 	
 			selectedCar.setCustomerId(customerNew);
+		}else {
+			customerSelectedId=selectedCar.getCustomerId().getId();
 		}
 		
 		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
@@ -789,10 +869,10 @@ public class carBean implements Serializable{
 				docs.add(docsOfCar.get(i).getUrl());
 			}
 		}
-		customerSelectedId=selectedCar.getCustomerId().getId();
+		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/customer/car/EditInventory.jsf");
+			   .getExternalContext().redirect("/pages/secured/customer/car/EditInventory.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -815,7 +895,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -847,6 +927,8 @@ public class carBean implements Serializable{
 			customer customerNew=new customer();
 	
 			selectedCar.setCustomerId(customerNew);
+		}else {
+			customerSelectedId=selectedCar.getCustomerId().getId();
 		}
 		
 		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
@@ -864,7 +946,7 @@ public class carBean implements Serializable{
 		}
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/car/Inventory.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/car/Inventory.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -921,7 +1003,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1006,7 +1088,7 @@ public class carBean implements Serializable{
 		return true;
 	}
 
-	
+	/*
 	public String saveImageToDirectory(byte[] image,String directory) {
 		String fileName="";
 		
@@ -1023,6 +1105,81 @@ public class carBean implements Serializable{
 		return fileName;
 	}
 
+*/
+	private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
+        double boundSize = size;
+           int origWidth = bufferedImage.getWidth();
+           int origHeight = bufferedImage.getHeight();
+           double scale;
+           if (origHeight > origWidth)
+               scale = boundSize / origHeight;
+           else
+               scale = boundSize / origWidth;
+            //* Don't scale up small images.
+           if (scale > 1.0)
+               return (bufferedImage);
+           int scaledWidth = (int) (scale * origWidth);
+           int scaledHeight = (int) (scale * origHeight);
+           Image scaledImage = bufferedImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+           // new ImageIcon(image); // load image
+           // scaledWidth = scaledImage.getWidth(null);
+           // scaledHeight = scaledImage.getHeight(null);
+           BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+           Graphics2D g = scaledBI.createGraphics();
+                g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+           g.drawImage(scaledImage, 0, 0, null);
+           g.dispose();
+           return (scaledBI);
+   }
+	
+	public String saveImageToDirectory(byte[] image,String directory) {
+		String fileName="";
+		try {
+			File file=File.createTempFile("img", ".jpg", new File(directory));
+		      byte [] data = image;
+		      ByteArrayInputStream bis = new ByteArrayInputStream(data);
+		      BufferedImage bImage2;
+			bImage2 = ImageIO.read(bis);
+			
+			
+			 
+		        OutputStream os = new FileOutputStream(file);
+			
+			// create a BufferedImage as the result of decoding the supplied InputStream
+	        BufferedImage image2=scaleImage(bImage2, 800);
+			// get all image writers for JPG format
+	        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+	 
+	        float quality = 0.5f;
+	        ImageWriter writer = (ImageWriter) writers.next();
+	        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+	        writer.setOutput(ios);
+	 
+	        ImageWriteParam param = writer.getDefaultWriteParam();
+	 
+	        // compress to a given quality
+	        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+	        param.setCompressionQuality(quality);
+	 
+	        // appends a complete image stream containing a single image and
+	        //associated stream and image metadata and thumbnails to the output
+	        writer.write(null, new IIOImage(image2, null, null), param);
+	 
+	     // close all streams
+	        os.close();
+	        ios.close();
+	        writer.dispose();
+			
+			
+			fileName=file.getName();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return fileName;
+	      
+	}
 	public void previewImage(FileUploadEvent event) {
 		byte[] image =event.getFile().getContents();
 		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
@@ -1041,7 +1198,7 @@ public class carBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1131,7 +1288,7 @@ public class carBean implements Serializable{
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf");
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

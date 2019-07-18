@@ -112,7 +112,7 @@ public class customerBean implements Serializable{
 		addNewcustomer.setParentId(vendor_of_this_account);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/customer/customerAddNew.jsf");
+			   .getExternalContext().redirect("/pages/secured/customer/customerAddNew.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class customerBean implements Serializable{
 		selectedcustomer=customerFacade.getById(idcustomer);
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/customer/customerEdit.jsf");
+			   .getExternalContext().redirect("/pages/secured/customer/customerEdit.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,7 +157,7 @@ public class customerBean implements Serializable{
 		Constants.sendEmailNewAccount(addNewcustomer.getUserId().getFirstName(),addNewcustomer.getUserId().getEmail(),addNewcustomer.getUserId().getEmail());
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf");
+			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -213,7 +213,7 @@ public class customerBean implements Serializable{
 		System.out.println("Cancel");
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf");
+			   .getExternalContext().redirect("/pages/secured/customer/customerList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
