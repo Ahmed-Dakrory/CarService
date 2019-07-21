@@ -12,6 +12,8 @@
 
 	<ui:define name="content">
 
+		  
+		  <link rel="stylesheet" href="#{resource['css:public/font-awesomeNew.min.css']}" />
 	<style>
 	#content h2 {
     background: #444444;
@@ -509,108 +511,83 @@ USD </td>
 <div class="calcheader icon_shipping">
 <a href="/pages/public/carCost.xhtml">Shipping Cost Calculator</a>
 </div>
-<div id="shc-container" style="display: none">
-<table class="calctable">
-<tbody><tr>
-<td>Ship to</td>
-<td>
-<div style="position:relative;">
-<span id="shc-destination"></span>
-<a href="#" id="shc-destination-change">
-Choose </a>
-<div class="glue-modal" id="shc-destination-modal" style="display:none">
-<div class="title">Destination <span class="modal-arrow-up"></span>
-<span class="close-modal"></span>
-</div>
-<div class="content">
-<form class="site-form" id="shc-form" action="https://abetter.bid/en/shipping/setUserDestination" method="post">
-<p>
-Indicate the destination to calculate the estimated shipping price. </p>
-<div class="box-1">
-<label>Country of destination:</label>
-<select id="shc-country_to" name="country_to" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;"><option value="">Select a Country</option><option value="US">United States</option><option value="AF">Afghanistan</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AO">Angola</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BO">Bolivia (Plurinational State of)</option><option value="BR">Brazil</option><option value="BN">Brunei Darussalam</option><option value="BG">Bulgaria</option><option value="CV">Cabo Verde</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CL">Chile</option><option value="CN">China</option><option value="CO">Colombia</option><option value="CG">Congo</option><option value="CD">Congo (Democratic Republic of the)</option><option value="CR">Costa Rica</option><option value="HR">Croatia</option><option value="CW">Curaçao</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="CI">Côte d'Ivoire</option><option value="DK">Denmark</option><option value="DO">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="EE">Estonia</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="PF">French Polynesia</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GR">Greece</option><option value="GT">Guatemala</option><option value="GN">Guinea</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="HU">Hungary</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KR">Korea (Republic of)</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="LT">Lithuania</option><option value="MK">Macedonia (the former Yugoslav Republic of)</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="MT">Malta</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MX">Mexico</option><option value="MN">Mongolia</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NL">Netherlands</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NG">Nigeria</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PS">Palestine, State of</option><option value="PA">Panama</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RE">Réunion</option><option value="VC">Saint Vincent and the Grenadines</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SX">Sint Maarten (Dutch part)</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="ZA">South Africa</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SR">Suriname</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania, United Republic of</option><option value="TH">Thailand</option><option value="TL">Timor-Leste</option><option value="TG">Togo</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="GB">United Kingdom of Great Britain and Northern Ireland</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VE">Venezuela (Bolivarian Republic of)</option><option value="VN">Viet Nam</option><option value="YE">Yemen</option></select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">United States</span></span> <div class="warning" id="shc-country_to-em_" style="display:none;"></div>
-</div>
-<div class="switch-box box-2" style="display:none">
-<label>Port of destination:</label>
-<select id="shc-port_to" name="port_to" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;"><option value="">Select a Port</option><option value="284">UNDEFINED</option><option value="285">UNKNOWN</option></select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Select a Port</span></span>
-<div class="warning" id="shc-port_to-em_" style="display:none;"></div>
-</div>
-<div class="switch-box box-3" style="display:none">
-<label for="sh-port-from">From USA Port:</label>
-<select id="shc-port_from" name="port_from" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="0">Select USA Port</option>
-<option value="1">NJ - Newark</option>
-<option value="2">FL - Miami</option>
-<option value="3">IL - Chicago</option>
-<option value="4">CA - Los Angeles</option>
-<option value="5">GA - Savannah</option>
-<option value="6">TX - Houston</option>
-<option value="8">WA - Seattle</option>
-<option value="9">VA - Virginia Beach</option>
-</select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Select USA Port</span></span><span class="sh-check"></span>
-<div class="warning" id="shc-port_from-em_" style="display:none;"></div>
-</div>
-<div class="switch-box box-4" style="">
-<label>Zip code: <span id="shc-zip_to-detail"></span></label>
-<input name="zip_to" id="shc-zip_to" value=""/><span class="sh-check"></span>
-<div class="warning" id="shc-zip_to-em_" style="display:none;"></div>
-<span class="spinner"></span>
-</div>
-<div class="switch-box box-5" style="display:none">
-<label>To US Border Crossing:</label>
-<select id="shc-to_us_border" name="to_us_border" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="0">Select US Border</option>
-<option value="1">ME - Calais</option>
-<option value="2">ME - Houlton</option>
-<option value="3">MI - Detroit</option>
-<option value="4">MI - Port Huron</option>
-<option value="5">MI - Sault Ste. Marie</option>
-<option value="6">MN - International Falls</option>
-<option value="7">MT - Sweet Grass</option>
-<option value="8">ND - Pembina</option>
-<option value="9">ND - Portal</option>
-<option value="10">NY - Alexandria Bay</option>
-<option value="11">NY - Buffalo</option>
-<option value="12">NY - Champlain</option>
-<option value="13">NY - Lewiston</option>
-<option value="14">NY - Niagara Falls</option>
-<option value="15">NY - Rooseveltown</option>
-<option value="16">VT - Derby Line</option>
-<option value="17">VT - Highgate Springs</option>
-<option value="18">WA - Blaine</option>
-</select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Select US Border</span></span> <div class="warning" id="shc-to_us_border-em_" style="display:none;"></div>
-<span class="sh-check"></span>
-</div>
-<a class="button yBtn" href="#" id="shc-submit" style="margin-top: 5px;">OK</a>
-<img class="spinner" src="../img/ajax-loader.gif" style="display:none" alt="Please Wait"/>
-</form>
-</div>
-</div>
-</div>
-</td>
-</tr>
-<tr id="shc-shipping-custom" style="display: none">
-<td>
-Shipping price </td>
-<td>
-<a href="account/shipping_custom">
-Request Custom Quote</a>
-</td>
-</tr>
-<tr id="shc-total-shipping-cost">
-<td>
-Estimated cost of transportation </td>
-<td>
-$<span id="shc-price"></span>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="font-size: 12px">
-Please <a href="contact-us.html">contact us</a> to find out the exact quote for shipping </td>
-</tr>
-</tbody></table>
-</div>
 <img class="spinner" src="../img/ajax-loader.gif" style="display: none;" alt="Please Wait"/> </div>
+
+<style>
+
+/* container */
+
+#share {
+	width: 100%;
+  	margin: 19px auto;
+  	text-align: center;
+}
+
+/* buttons */
+
+#share a {
+	border: #f7f1f1;
+    border-width: 3px;
+    border-style: solid;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    font-size: 27px;
+    color: #fff;
+    transition: opacity 0.15s linear;
+}
+
+#share a:hover {
+	opacity: 0.5;
+}
+
+/* icons */
+
+#share i {
+  	position: relative;
+    top: 44%;
+    transform: translateY(-49%);
+}
+
+/* colors */
+
+.facebook {
+ 	background: #3b5998;
+}
+
+.whatsup {
+  background: rgb(69, 194, 84);
+}
+
+.viber {
+  	    background: rgb(121, 80, 154);
+}
+
+
+.sharePanel{
+}
+</style>
+<div class="sharePanel">
+<div> <p style="position: relative;top: 18px;font-size: 19px;font-family: sans-serif;font-weight: 700;color: #676565;text-align: center;"> Share Now</p> </div>
+
+<div id="share">
+
+  <!-- facebook -->
+  <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank"><i class="fab fa-facebook"></i></a>
+
+  <!-- twitter -->
+  <a class="whatsup " href="https://web.whatsapp.com/send?text=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- google plus -->
+  <a class="viber hidden-md hidden-lg hidden-xl" href="viber://pa/info?uri=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank"><i class="fab fa-viber"></i></a>
+
+</div>
+</div>
+
+
+
 </div>
 </div>
 </div>
