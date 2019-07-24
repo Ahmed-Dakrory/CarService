@@ -497,7 +497,8 @@ public class user {
 		}
 	}
 
-	
+	public static int Active=1;
+	public static int InActive=0;
 	
 
 	public String getphoto() {

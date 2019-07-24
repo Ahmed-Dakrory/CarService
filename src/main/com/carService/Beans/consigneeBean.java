@@ -17,6 +17,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.tools.Constants;
 import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
 
@@ -121,7 +122,12 @@ public class consigneeBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewconsignee.getUserId().getEmail());
 			if(checkEmail) {
-		userNew.setActive(1);
+				if(addNewconsignee.getAllowAccess()) {
+		userNew.setActive(user.Active);
+				}else {
+					userNew.setActive(user.InActive);
+					
+				}
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_CONGSIGNEE);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
@@ -131,6 +137,8 @@ public class consigneeBean implements Serializable{
 		
 		addNewconsignee.setParentId(shipperOfThisAccount);
 		consigneeFacade.addconsignee(addNewconsignee);
+		Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getEmail());
+		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your consignee has been added.',\r\n" + 
@@ -205,7 +213,15 @@ public class consigneeBean implements Serializable{
 	public void updateData() {
 
 		boolean isValid=checkValidForUser(selectedconsignee);
+		user userNew= selectedconsignee.getUserId();
 		if(isValid) {
+			
+			if(selectedconsignee.getAllowAccess()) {
+				userNew.setActive(user.Active);
+				}else {
+					userNew.setActive(user.InActive);
+							
+				}
 		loginBean.getUserDataFacede().adduser(selectedconsignee.getUserId());
 		
 		consigneeFacade.addconsignee(selectedconsignee);

@@ -1,8 +1,9 @@
 package main.com.carService.Beans;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -1120,14 +1121,18 @@ public void updateCarForCustomer() {
                return (bufferedImage);
            int scaledWidth = (int) (scale * origWidth);
            int scaledHeight = (int) (scale * origHeight);
-           Image scaledImage = bufferedImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
-           // new ImageIcon(image); // load image
-           // scaledWidth = scaledImage.getWidth(null);
-           // scaledHeight = scaledImage.getHeight(null);
+           
+           BufferedImage after = new BufferedImage(origWidth, origHeight, BufferedImage.TYPE_INT_ARGB);
+           AffineTransform at = new AffineTransform();
+           at.scale(scale, scale);
+           AffineTransformOp scaleOp = 
+              new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+           after = scaleOp.filter(bufferedImage, after);
+           
            BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
            Graphics2D g = scaledBI.createGraphics();
                 g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-           g.drawImage(scaledImage, 0, 0, null);
+           g.drawImage(after, 0, 0, null);
            g.dispose();
            return (scaledBI);
    }

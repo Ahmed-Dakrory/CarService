@@ -87,7 +87,7 @@ public class vendorBean implements Serializable{
 	private Float carFeesInvoice;
 	private Float invoiceFeesTax;
 	
-	public static int TaxPercentage=14;
+	public static int TaxPercentage=0;
 	
 	@PostConstruct
 	public void init() {

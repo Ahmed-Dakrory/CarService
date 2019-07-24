@@ -79,25 +79,25 @@
              
 			         <ul class="mn-main">
 			         <li class="mn-item-userprofile"><a href="/">Main Page</a></li>
-			         <li class="mn-item-userprofile"><a href="/pages/secured/userData/userProfile.jsf">User Profile</a></li>
-			         <li class="mn-item-contactinfo"><a href="/pages/secured/userData/contactInfo.jsf">Contact Info</a></li>
-			         <li class="mn-item-freight"><a href="/pages/secured/userData/vehicleList.jsf">Freight List</a></li>
-			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/shipperList.jsf">Shipper List</a></li>
-			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/vendor/vendorList.jsf">Vendor List</a></li>
-			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1||loginBean.theUserOfThisAccount.role==2)?'block':'none'};"><a href="/pages/secured/customer/customerList.jsf">Customer List</a></li>
-			         <li class="mn-item-consignees" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/consignee/consigneeList.jsf" >Consignee List</a></li>
-			         <li class="mn-item-accounting" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/vendor/QuoteList.jsf">Quote List</a></li>
-			         <li class="mn-item-accounting" style="display:#{(loginBean.theUserOfThisAccount.role==2)?'block':'none'};"><a href="/pages/secured/customer/QuoteList.jsf">Quote List</a></li>
-			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/admin/car/AddNewInventory.jsf">Add Inventory</a></li>
-			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/car/vitView.jsf">Add Inventory</a></li>
-			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/CarLandingPage/vehicleList.jsf">Freight Landing</a></li>
+			         <li class="mn-item-userprofile"><a href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">User Profile</a></li>
+			         <li class="mn-item-contactinfo"><a href="/pages/secured/userData/contactInfo.jsf?faces-redirect=true">Contact Info</a></li>
+			         <li class="mn-item-freight"><a href="/pages/secured/userData/vehicleList.jsf?faces-redirect=true">Freight List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/shipperList.jsf?faces-redirect=true">Shipper List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/vendor/vendorList.jsf?faces-redirect=true">Vendor List</a></li>
+			         <li class="mn-item-vendors" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1||loginBean.theUserOfThisAccount.role==2)?'block':'none'};"><a href="/pages/secured/customer/customerList.jsf?faces-redirect=true">Customer List</a></li>
+			         <li class="mn-item-consignees" style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/consignee/consigneeList.jsf?faces-redirect=true" >Consignee List</a></li>
+			         <li class="mn-item-accounting" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/vendor/QuoteList.jsf?faces-redirect=true">Quote List</a></li>
+			         <li class="mn-item-accounting" style="display:#{(loginBean.theUserOfThisAccount.role==2)?'block':'none'};"><a href="/pages/secured/customer/QuoteList.jsf?faces-redirect=true">Quote List</a></li>
+			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};"><a href="/pages/secured/admin/car/AddNewInventory.jsf?faces-redirect=true">Add Inventory</a></li>
+			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/car/vitView.jsf?faces-redirect=true">Add Inventory</a></li>
+			         <li class="mn-item-inventory" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};"><a href="/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true">Freight Landing</a></li>
 			         </ul>
            
            </div>
             </div>
             <div class="header-navigation">
             <ui:insert name="mainHead"> 
-                <ul class="mn-sub"><li class="mn-sub-item mn-item-userprofile"><a href="userProfile.jsf" class="mn-sub-item-current"><b>User Profile</b></a></li></ul>
+                <ul class="mn-sub"><li class="mn-sub-item mn-item-userprofile"><a href="userProfile.jsf?faces-redirect=true" class="mn-sub-item-current"><b>User Profile</b></a></li></ul>
             </ui:insert>
             </div>
         </div>
