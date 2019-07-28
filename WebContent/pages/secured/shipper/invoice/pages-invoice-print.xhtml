@@ -126,14 +126,14 @@
 														<td colspan="2">Total Car Shipping Cost Fees</td>
 														<td class="text-left">$#{shipperBean.carFeesInvoice}</td>
 													</tr>
-													<!-- 
+													
 													<tr>
-														<td colspan="2">Tax Fees</td>
-														<td class="text-left">$#{shipperBean.invoiceFeesTax}</td>
-													</tr> -->
+														<td colspan="2">Transfer Fees</td>
+														<td class="text-left">$#{shipperBean.invoiceData.transferFees/100*shipperBean.carFeesInvoice}</td>
+													</tr> 
 													<tr class="h4">
 														<td colspan="2">Grand Total</td>
-														<td class="text-left">$#{shipperBean.carFeesInvoice}</td>
+														<td class="text-left">$#{shipperBean.carFeesInvoice+(shipperBean.invoiceData.transferFees/100*shipperBean.carFeesInvoice)}</td>
 													</tr>
 												</tbody>
 											</table>

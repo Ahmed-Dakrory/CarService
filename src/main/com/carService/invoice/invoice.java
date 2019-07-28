@@ -78,6 +78,9 @@ public class invoice {
 	
 	@Column(name = "bankAccountNumber")
 	private String bankAccountNumber;
+	
+	@Column(name = "transferFees")
+	private Integer transferFees;
 
 
 	public Integer getId() {
@@ -157,6 +160,16 @@ public class invoice {
 
 	public void setBankAccountNumber(String bankAccountNumber) {
 		this.bankAccountNumber = bankAccountNumber;
+	}
+
+
+	public Integer getTransferFees() {
+		return transferFees;
+	}
+
+
+	public void setTransferFees(Integer transferFees) {
+		this.transferFees = transferFees;
 	}
 	
 	

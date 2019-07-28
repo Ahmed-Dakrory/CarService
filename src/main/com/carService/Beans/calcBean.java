@@ -217,17 +217,17 @@ copFees=650.00;
 }else if(level == 28) {
 copFees=675.00;
 }else if(level == 29) {
-copFees = 1.04 * price;
+copFees = 0.04 * price;
 }else if(level == 30) {
-copFees = 1.04 * price;
+copFees = 0.04 * price;
 }else if(level == 31) {
-copFees = 1.04 * price;
+copFees = 0.04 * price;
 }else if(level == 32) {
-copFees = 1.04 * price;
+copFees = 0.04 * price;
 }else if(level == 33) {
-copFees = 1.04 * price;
+copFees = 0.04 * price;
 }else if(level == 34) {
-copFees = 1.20 * price;
+copFees = 0.20 * price;
 }
 
 return copFees;

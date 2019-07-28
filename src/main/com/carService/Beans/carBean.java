@@ -1650,6 +1650,7 @@ public void updateCarForCustomer() {
 		origineMap.put(371, "FL");
 		origineMap.put(1, "NY");
 		origineMap.put(39, "GA");
+		origineMap.put(391, "IN");
 	}
 	void fillMap1() {
 		distinationMap.put(1, "Not Selected DESTINATION");   	

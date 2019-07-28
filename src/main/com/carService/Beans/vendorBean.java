@@ -85,9 +85,7 @@ public class vendorBean implements Serializable{
 	private List<car> carsForInvoice;
 	private Integer selectedCarIdToBeAddedInInvoice;
 	private Float carFeesInvoice;
-	private Float invoiceFeesTax;
 	
-	public static int TaxPercentage=0;
 	
 	@PostConstruct
 	public void init() {
@@ -195,7 +193,6 @@ public class vendorBean implements Serializable{
 		
 		invoiceFacade.addinvoice(invoiceData);
 		carFeesInvoice=(float) 0;
-		invoiceFeesTax=(float) 0;
 		for(int i=0;i<carsForInvoice.size();i++) {
 			invoiceCar carinvoice=new invoiceCar();
 			carinvoice.setCarId(carsForInvoice.get(i));
@@ -211,7 +208,6 @@ public class vendorBean implements Serializable{
 					+Commision+Fees);
 			
 			carFeesInvoice+=totalForCar;
-			invoiceFeesTax=totalForCar*TaxPercentage/100;
 		}
 		
 		
@@ -513,21 +509,8 @@ public class vendorBean implements Serializable{
 		this.carFeesInvoice = carFeesInvoice;
 	}
 
-	public Float getInvoiceFeesTax() {
-		return invoiceFeesTax;
-	}
-
-	public void setInvoiceFeesTax(Float invoiceFeesTax) {
-		this.invoiceFeesTax = invoiceFeesTax;
-	}
-
-	public static int getTaxPercentage() {
-		return TaxPercentage;
-	}
-
-	public static void setTaxPercentage(int taxPercentage) {
-		TaxPercentage = taxPercentage;
-	}
+	
+	
 	
 
 	
