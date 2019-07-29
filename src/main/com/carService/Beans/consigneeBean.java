@@ -75,7 +75,7 @@ public class consigneeBean implements Serializable{
 	public void refresh(){
 		int role=loginBean.getTheUserOfThisAccount().getRole();
 		if(role==user.ROLE_MAIN) {
-			allconsignees=consigneeFacade.getAllByParentOfParentId(loginBean.getTheUserOfThisAccount().getId());
+			allconsignees=consigneeFacade.getAllByMainAccountIdOfParentShipper(loginBean.getTheUserOfThisAccount().getId());
 			
 		}else if(role==user.ROLE_SHIPPER) {
 			shipper shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
@@ -122,12 +122,9 @@ public class consigneeBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewconsignee.getUserId().getEmail());
 			if(checkEmail) {
-				if(addNewconsignee.getAllowAccess()) {
-		userNew.setActive(user.Active);
-				}else {
-					userNew.setActive(user.InActive);
-					
-				}
+				
+				
+				
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_CONGSIGNEE);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));
@@ -153,11 +150,48 @@ public class consigneeBean implements Serializable{
 			e.printStackTrace();
 		}
 			}else {
-				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-						"			title: 'Check this ',\r\n" + 
-						"			text: 'This email is already Registered',\r\n" + 
-						"			left:\"2%\"\r\n" + 
-						"		});");
+
+				userNew=loginBean.getUserDataFacede().getByEmailAndRole(addNewconsignee.getUserId().getEmail(),user.ROLE_CONGSIGNEE);
+if(userNew!=null) {
+				shipper shipperOfThisAccount=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+				if(!isTheConsigneeExistForThisShipperAndConsignee(shipperOfThisAccount,userNew)) {
+
+
+		
+				addNewconsignee.setUserId(userNew);
+		
+		addNewconsignee.setParentId(shipperOfThisAccount);
+		consigneeFacade.addconsignee(addNewconsignee);
+		//Not Need This Email Notification as the consignee is registered already
+		//Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getEmail());
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your consignee has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/consignee/consigneeList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				}else {
+					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+							"			title: 'Check this ',\r\n" + 
+							"			text: 'This Consignee is already Registered',\r\n" + 
+							"			left:\"2%\"\r\n" + 
+							"		});");
+				}
+}else {
+	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+			"			title: 'Check this ',\r\n" + 
+			"			text: 'This Email is for another Role and cannot be used',\r\n" + 
+			"			left:\"2%\"\r\n" + 
+			"		});");
+}
 			}
 		}else {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -166,6 +200,17 @@ public class consigneeBean implements Serializable{
 					"			left:\"2%\"\r\n" + 
 					"		});");
 		}
+	}
+
+	private boolean isTheConsigneeExistForThisShipperAndConsignee(shipper shipperOfThisAccount,user userNew) {
+		// TODO Auto-generated method stub
+		consignee allconsigneeForThisShipper = consigneeFacade.getAllByParentIdAndUserId(shipperOfThisAccount.getId(),userNew.getId());
+		if(allconsigneeForThisShipper!=null) {
+			
+				return true;
+			
+		}
+		return false;
 	}
 
 	private boolean checkEmailIsExist(String email) {
@@ -213,15 +258,9 @@ public class consigneeBean implements Serializable{
 	public void updateData() {
 
 		boolean isValid=checkValidForUser(selectedconsignee);
-		user userNew= selectedconsignee.getUserId();
 		if(isValid) {
 			
-			if(selectedconsignee.getAllowAccess()) {
-				userNew.setActive(user.Active);
-				}else {
-					userNew.setActive(user.InActive);
-							
-				}
+			
 		loginBean.getUserDataFacede().adduser(selectedconsignee.getUserId());
 		
 		consigneeFacade.addconsignee(selectedconsignee);

@@ -57,7 +57,7 @@ public class loginBean implements Serializable{
 			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
 				if(id!=null){
 					user user=userDataFacede.getById(id);
-					user.setActive(1);
+					user.setActive(true);
 					userDataFacede.adduser(user);
 					
 				}

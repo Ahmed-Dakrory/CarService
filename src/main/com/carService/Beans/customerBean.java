@@ -139,7 +139,7 @@ public class customerBean implements Serializable{
 		if(isValid) {
 			boolean checkEmail = checkEmailIsExist(addNewcustomer.getUserId().getEmail());
 			if(checkEmail) {
-		userNew.setActive(1);
+		userNew.setActive(true);
 		userNew.setDate(Calendar.getInstance());
 		userNew.setRole(user.ROLE_CUSTOMER);
 		userNew.setPassword(new  Md5PasswordEncoder().encodePassword(userNew.getEmail(),userNew.getEmail()));

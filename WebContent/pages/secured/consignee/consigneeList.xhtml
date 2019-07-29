@@ -93,7 +93,7 @@ function __doPostBack(eventTarget, eventArgument) {
 								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/consignee/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 									<thead>
 										<tr>
-											<th style="display:#{(loginBean.theUserOfThisAccount.role==1)?'table-cell':'none'};">Account#</th>
+											<th style="display:table-cell;">Account#</th>
 											<th>Company</th>
 											<th class="hidden-phone">Name</th>
 											<th class="hidden-phone">Phone</th>
@@ -106,7 +106,7 @@ function __doPostBack(eventTarget, eventArgument) {
 											<ui:repeat var="var" value="#{consigneeBean.allconsignees}">
 											<tr align="left" class="gradeX">
 												
-												<td class="center hidden-phone" style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};background-color:#FAFAFA;">
+												<td class="center hidden-phone" style="display:block;background-color:#FAFAFA;">
 												<h:commandLink value="#{var.userId.id}" action="#{consigneeBean.selectconsignee(var.id)}"/>
 												</td>
 												

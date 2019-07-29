@@ -109,21 +109,17 @@ public class consigneeRepositoryImpl implements consigneeRepository{
 	}
 
 	@Override
-	public consignee getByUserId(int id) {
+	public List<consignee> getAllByUserId(int id) {
 		// TODO Auto-generated method stub
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("consignee.getByUserId").setInteger("id",id);
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("consignee.getAllByUserId").setInteger("id",id);
 
 				 @SuppressWarnings("unchecked")
 				List<consignee> results=query.list();
-				 if(results.size()!=0){
-					 return results.get(0);
-				 }else{
-					 return null;
-				 }
+					 return results;
 	}
 
 	@Override
-	public List<consignee> getAllByParentOfParentId(int idUserParent) {
+	public List<consignee> getAllByMainAccountIdOfParentShipper(int idUserParent) {
 		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("consignee.getAllByParentOfParentId").setInteger("id",idUserParent);
 
 		 @SuppressWarnings("unchecked")
@@ -133,6 +129,20 @@ public class consigneeRepositoryImpl implements consigneeRepository{
 		 }else{
 			 return null;
 		 }
+	}
+
+	@Override
+	public consignee getAllByParentIdAndUserId(int id, int idUser) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("consignee.getAllByParentIdAndUserId").setInteger("id",id).setInteger("idUser",idUser);
+
+				 @SuppressWarnings("unchecked")
+				List<consignee> results=query.list();
+				 if(results.size()!=0){
+					 return results.get(0);
+				 }else{
+					 return null;
+				 }
 	}
 	
 

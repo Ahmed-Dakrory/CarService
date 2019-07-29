@@ -35,17 +35,21 @@ import main.com.carService.shipper.shipper;
 	query = "from consignee d where d.id = :id"
 			)
 	,
-	@NamedQuery(name="consignee.getByUserId",
+	@NamedQuery(name="consignee.getAllByUserId",
 	query = "from consignee d where d.userId = :id"
 			)
 	,
 	@NamedQuery(name="consignee.getAllByParentId",
 	query = "from consignee d where d.parentId.id = :id"
 			)
+	,
+	@NamedQuery(name="consignee.getAllByParentIdAndUserId",
+	query = "from consignee d where d.parentId.id = :id and d.userId.id = :idUser"
+			)
 	
 	,
 	@NamedQuery(name="consignee.getAllByParentOfParentId",
-	query = "from consignee d where d.parentId.parentId.id = :id"
+	query = "from consignee d where d.parentId.parentId.id = :id group by d.userId"
 			)
 	
 	
@@ -66,8 +70,6 @@ public class consignee {
 	@Column(name = "other")
 	private String other;
 	
-	@Column(name = "allowAccess")
-	private boolean allowAccess;
 	
 		
 	
@@ -109,17 +111,6 @@ public class consignee {
 	public void setOther(String other) {
 		this.other = other;
 	}
-
-
-	public boolean getAllowAccess() {
-		return allowAccess;
-	}
-
-
-	public void setAllowAccess(boolean allowAccess) {
-		this.allowAccess = allowAccess;
-	}
-
 
 
 	public user getUserId() {

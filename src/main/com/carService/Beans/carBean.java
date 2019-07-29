@@ -520,10 +520,11 @@ public class carBean implements Serializable{
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
 
-			consignee consigneeNewId=consigneeFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			List<consignee> consigneeNewId=consigneeFacade.getAllByUserId(loginBean.getTheUserOfThisAccount().getId());
+			for(int i=0;i<consigneeNewId.size();i++ ) {
 			if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.getId());
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -533,7 +534,7 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
 
 				
 				if(dryCargoMain!=null)
@@ -544,7 +545,7 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==2) {
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
 
 				
 				if(transitMain!=null)
@@ -555,9 +556,9 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.getId());
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -570,6 +571,8 @@ public class carBean implements Serializable{
 				
 
 			}
+			
+		}
 		}
 		
 		

@@ -152,4 +152,18 @@ public class userRepositoryImpl implements userRepository{
 		 }
 	}
 
+	@Override
+	public user getByEmailAndRole(String email, int role) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("user.getByEmailAndRole").setString("email",email).setInteger("role", role);
+
+				 @SuppressWarnings("unchecked")
+				List<user> results=query.list();
+				 if(results.size()!=0){
+					 return results.get(0);
+				 }else{
+					 return null;
+				 }
+	}
+
 }

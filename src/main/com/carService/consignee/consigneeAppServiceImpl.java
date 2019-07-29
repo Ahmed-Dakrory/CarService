@@ -100,10 +100,10 @@ public class consigneeAppServiceImpl implements IconsigneeAppService{
 
 
 	@Override
-	public consignee getByUserId(int id) {
+	public List<consignee> getAllByUserId(int id) {
 		// TODO Auto-generated method stub
 				try{
-					consignee so=consigneeDataRepository.getByUserId(id);
+					List<consignee> so=consigneeDataRepository.getAllByUserId(id);
 					
 					return so;
 					}
@@ -117,9 +117,9 @@ public class consigneeAppServiceImpl implements IconsigneeAppService{
 
 
 	@Override
-	public List<consignee> getAllByParentOfParentId(int idUserParent) {
+	public List<consignee> getAllByMainAccountIdOfParentShipper(int idUserParent) {
 		try{
-			List<consignee> course=consigneeDataRepository.getAllByParentOfParentId(idUserParent);
+			List<consignee> course=consigneeDataRepository.getAllByMainAccountIdOfParentShipper(idUserParent);
 			
 			return course;
 			}
@@ -128,6 +128,23 @@ public class consigneeAppServiceImpl implements IconsigneeAppService{
 				ex.printStackTrace();
 				return null;
 			}
+	}
+
+
+
+	@Override
+	public consignee getAllByParentIdAndUserId(int id, int idUser) {
+		// TODO Auto-generated method stub
+				try{
+					consignee so=consigneeDataRepository.getAllByParentIdAndUserId(id,idUser);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
 	}
 	
 	

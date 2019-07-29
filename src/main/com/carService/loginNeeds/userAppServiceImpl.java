@@ -146,6 +146,23 @@ public class userAppServiceImpl implements IuserAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public user getByEmailAndRole(String email, int role) {
+		// TODO Auto-generated method stub
+				try{
+					user so=userDataRepository.getByEmailAndRole(email,role);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
 	
 }
 		

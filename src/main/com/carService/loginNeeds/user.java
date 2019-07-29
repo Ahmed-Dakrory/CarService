@@ -38,6 +38,11 @@ import org.hibernate.annotations.NamedQuery;
 			)
 	
 	,
+	@NamedQuery(name="user.getByEmailAndRole",
+	query = "from user d where d.email = :email and d.role = :role"
+			)
+	
+	,
 	@NamedQuery(name="user.getAllWithRole",
 	query = "from user d where d.role = :role"
 			)
@@ -97,7 +102,7 @@ public class user {
 
 
 	@Column(name = "active")
-	private Integer active;
+	private boolean active;
 	
 
 	@Column(name = "country")
@@ -290,14 +295,14 @@ public class user {
 
 
 
-	public Integer getActive() {
+	public boolean getActive() {
 		return active;
 	}
 
 
 
 
-	public void setActive(Integer active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

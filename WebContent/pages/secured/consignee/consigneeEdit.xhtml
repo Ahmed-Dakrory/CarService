@@ -51,54 +51,6 @@ return true;
     <!-- page src -->
     <table cellspacing="0" cellpadding="5" class="content-table" border="0">
         <tr valign="top" >
-            <td>
-                <!-- Groups block -->
-                <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
-                    <tr bgcolor="#bbbbbb">
-                        <td>
-                            <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ebe4d8" border="0">
-                                <tr bgcolor="#f1f1f6">
-                                    <td>
-                                        <table cellspacing="0" cellpadding="3" width="100%" border="0">
-                                            <tr bgcolor="#f9f9f9">
-                                                <td class="tbltxt" width="100%" colspan="3">
-                                                    <img height="23" src="#{resource['images:icon-folder.gif']}" width="23" align="absMiddle" border="0"/>&nbsp;<font
-                                                        class="tblhdr">consignee Edit</font>&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <!-- End of Groups block -->
-                <img height="4" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
-                <table cellspacing="0" cellpadding="1" width="184" border="0">
-                    <tr>
-                        <td bgcolor="#bbbbbb">
-                            <table height="100" cellspacing="0" cellpadding="8" width="100%" bgcolor="white"
-                                border="0">
-                                <tr>
-                                    <td valign="top" bgcolor="#f1f1f1">
-                                        <font class="info"><b>Notes:</b><br></br>
-                                        </font>
-                                        <br></br>
-                                        By clicking Allow Access button you create for your Consignee access to his personal
-                                        account, where he can view general characteristics of the freight shipped to him,
-                                        trace shipping process and view documents for the freight. After editing your Consignee’s
-                                        information or adding New Consignee please click Save button.
-                                   
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                <img height="8" src="#{resource['images:dumb.gif']}" width="1"/><br></br>
-                <!-- Banner -->
-            </td>
             <td width="100%">
                 <!-- Table 1 -->
                 
@@ -148,7 +100,7 @@ return true;
                                                                                         * Account #:</div>
                                                                                 </td>
                                                                                 <td width="200">
-                                                                                    <h:inputText  name="ctl00$BodyHolder$txtAccount" type="text" value="#{consigneeBean.selectedconsignee.userId.id}" readonly="true" id="ctl00_BodyHolder_txtAccount" OnChange="SetIsChanged();" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText   name="ctl00$BodyHolder$txtAccount" type="text" value="#{consigneeBean.selectedconsignee.userId.id}" readonly="true" id="ctl00_BodyHolder_txtAccount" OnChange="SetIsChanged();" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td colspan="3" valign="top" align="left" rowspan="9" class="tbltxt" style="height: 23px">
                                                                                     
@@ -164,7 +116,7 @@ return true;
                                                                                         * Company:</div>
                                                                                 </td>
                                                                                 <td width="200">
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompanyName" type="text" id="ctl00_BodyHolder_txtCompanyName" value="#{consigneeBean.selectedconsignee.userId.company}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtCompanyName" type="text" id="ctl00_BodyHolder_txtCompanyName" value="#{consigneeBean.selectedconsignee.userId.company}"  style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -177,7 +129,7 @@ return true;
                                                                                         * Contact First Name:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{consigneeBean.selectedconsignee.userId.firstName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtFirstName" type="text" id="ctl00_BodyHolder_txtFirstName" value="#{consigneeBean.selectedconsignee.userId.firstName}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -190,7 +142,7 @@ return true;
                                                                                         * Contact Last Name:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{consigneeBean.selectedconsignee.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtLastName" type="text" id="ctl00_BodyHolder_txtLastName" value="#{consigneeBean.selectedconsignee.userId.lastName}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr height="2">
@@ -230,7 +182,7 @@ return true;
                                                                                         * Country:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$ddlCountry"  value="#{consigneeBean.selectedconsignee.userId.country}" id="ctl00_BodyHolder_ddlCountry" style="font-size:11px;height:27px;width:205px;">
+                                                                                    <h:selectOneMenu disabled="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$ddlCountry"  value="#{consigneeBean.selectedconsignee.userId.country}" id="ctl00_BodyHolder_ddlCountry" style="font-size:11px;height:27px;width:205px;">
 																							 <f:selectItem itemValue="0"  itemLabel="- UNKNOWN -"></f:selectItem>
 	 <f:selectItem itemValue="310"  itemLabel="AFGANISTAN"></f:selectItem>
 	 <f:selectItem itemValue="313"  itemLabel="ALBANIA"></f:selectItem>
@@ -492,7 +444,7 @@ return true;
                                                                                         Address 1:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtAddress" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress" value="#{consigneeBean.selectedconsignee.userId.address1}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText  readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtAddress" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress" value="#{consigneeBean.selectedconsignee.userId.address1}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 
                                                                             </tr>
@@ -506,14 +458,14 @@ return true;
                                                                                         Address 2:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtAddress2" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress2" value="#{consigneeBean.selectedconsignee.userId.address2}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtAddress2" type="text" maxlength="32" id="ctl00_BodyHolder_txtAddress2" value="#{consigneeBean.selectedconsignee.userId.address2}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td class="tbltxt" width="130">
                                                                                     <div style="margin-left: 6px">
                                                                                         Phone:</div>
                                                                                 </td>
                                                                                 <td width="200">
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtPhone" type="text" id="ctl00_BodyHolder_txtPhone" value="#{consigneeBean.selectedconsignee.userId.phone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtPhone" type="text" id="ctl00_BodyHolder_txtPhone" value="#{consigneeBean.selectedconsignee.userId.phone}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td width="5">
                                                                                 </td>
@@ -528,14 +480,14 @@ return true;
                                                                                         City:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtCity" type="text" id="ctl00_BodyHolder_txtCity" value="#{consigneeBean.selectedconsignee.userId.city}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtCity" type="text" id="ctl00_BodyHolder_txtCity" value="#{consigneeBean.selectedconsignee.userId.city}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td class="tbltxt" width="130">
                                                                                     <div style="margin-left: 6px">
                                                                                         Phone2:</div>
                                                                                 </td>
                                                                                 <td width="200">
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtPhone2" type="text" id="ctl00_BodyHolder_txtPhone2" value="#{consigneeBean.selectedconsignee.userId.phone2}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtPhone2" type="text" id="ctl00_BodyHolder_txtPhone2" value="#{consigneeBean.selectedconsignee.userId.phone2}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td width="5">
                                                                                 </td>
@@ -557,7 +509,7 @@ return true;
                                                                                         MobilePhone:</div>
                                                                                 </td>
                                                                                 <td width="200">
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtMobilePhone" type="text" id="ctl00_BodyHolder_txtMobilePhone" value="#{consigneeBean.selectedconsignee.userId.mobilePhone}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtMobilePhone" type="text" id="ctl00_BodyHolder_txtMobilePhone" value="#{consigneeBean.selectedconsignee.userId.mobilePhone}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td width="5">
                                                                                 </td>
@@ -572,14 +524,14 @@ return true;
                                                                                         ZIP:</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtZIP" type="text" maxlength="10" id="ctl00_BodyHolder_txtZIP"  value="#{consigneeBean.selectedconsignee.userId.zip}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtZIP" type="text" maxlength="10" id="ctl00_BodyHolder_txtZIP"  value="#{consigneeBean.selectedconsignee.userId.zip}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td>
                                                                                     <div style="margin-left: 6px">
                                                                                         Fax:</div>
                                                                                 </td>
                                                                                 <td class="tbltxt" width="130">
-                                                                                    <h:inputText name="ctl00$BodyHolder$txtFax" type="text" id="ctl00_BodyHolder_txtFax" value="#{consigneeBean.selectedconsignee.userId.fax}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                    <h:inputText readonly="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" name="ctl00$BodyHolder$txtFax" type="text" id="ctl00_BodyHolder_txtFax" value="#{consigneeBean.selectedconsignee.userId.fax}" style="font-size:11px;height:19px;width:200px;" />
                                                                                 </td>
                                                                                 <td width="200">
                                                                                 </td>
@@ -600,7 +552,7 @@ return true;
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td style="width: 60px;" align="right">
-                                                                                             <h:selectBooleanCheckbox id="ctl00_BodyHolder_chkAccessToOtherEncDocs" type="checkbox" name="ctl00$BodyHolder$chkAccessToOtherEncDocs" value="#{consigneeBean.selectedconsignee.allowAccess}"/>
+                                                                                             <h:selectBooleanCheckbox disabled="#{loginBean.theUserOfThisAccount.role==0?'false':'true'}" id="ctl00_BodyHolder_chkAccessToOtherEncDocs" type="checkbox" name="ctl00$BodyHolder$chkAccessToOtherEncDocs" value="#{consigneeBean.selectedconsignee.userId.active}"/>
                                                                                              </td>
                                                                                             <td>
                                                                                             </td>
