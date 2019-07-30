@@ -1213,6 +1213,16 @@ public void updateCarForCustomer() {
 		}
 	}
 	
+	public boolean isLandStatuesDiffMoreThan15Day(Calendar cargoRecieved,Calendar startStorage,String inlandStatues) {
+		if(inlandStatues.toLowerCase().equalsIgnoreCase("OK")) {
+			return false;
+		}
+		if(Math.abs(getNumberOfDays(cargoRecieved,startStorage))>15) {
+		return true;
+		}
+		return false;
+	}
+	
 	public boolean isTheRemainingDays30Day(Calendar ETA) {
 		if(ETA!=null) {
 		if(getNumberOfDays(Calendar.getInstance(),ETA)<=Constants.Notifcation_Period) {
