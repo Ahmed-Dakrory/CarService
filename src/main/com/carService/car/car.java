@@ -105,6 +105,10 @@ import main.com.carService.vendor.vendor;
 	@NamedQuery(name="car.getAllFrightInTransitForConsignee",
 	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId"
 			)
+	,
+	@NamedQuery(name="car.getAllWithAllowSendState",
+	query = "from car d where d.allowSendEmail = :state"
+			)
 	
 	
 })
@@ -218,6 +222,17 @@ public class car {
 	@JoinColumn(name = "consigneeId")
 	private consignee consigneeId;
 
+	@Column(name = "allowSendEmail")
+	private boolean allowSendEmail;
+	
+	
+
+	@Column(name = "emailToSendComment")
+	private String emailToSendComment;
+	
+
+	@Column(name = "commentToSend")
+	private String commentToSend;
 	
 	public static int STATE_WARE_HOUSE_1=0;
 	public static int STATE_WARE_HOUSE_2=1;
@@ -1281,6 +1296,60 @@ public class car {
 
 	public void setContainerLink(String containerLink) {
 		this.containerLink = containerLink;
+	}
+
+
+
+
+
+
+	public boolean isAllowSendEmail() {
+		return allowSendEmail;
+	}
+
+
+
+
+
+
+	public void setAllowSendEmail(boolean allowSendEmail) {
+		this.allowSendEmail = allowSendEmail;
+	}
+
+
+
+
+
+
+	public String getEmailToSendComment() {
+		return emailToSendComment;
+	}
+
+
+
+
+
+
+	public void setEmailToSendComment(String emailToSendComment) {
+		this.emailToSendComment = emailToSendComment;
+	}
+
+
+
+
+
+
+	public String getCommentToSend() {
+		return commentToSend;
+	}
+
+
+
+
+
+
+	public void setCommentToSend(String commentToSend) {
+		this.commentToSend = commentToSend;
 	}
 	
 

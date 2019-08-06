@@ -7,6 +7,7 @@ package main.com.carService.invoice;
 
 
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,38 @@ public class invoiceAppServiceImpl implements IinvoiceAppService{
 	public invoice getByUserIdCustomer(int userId) {
 		try{
 			invoice course=invoiceDataRepository.getByUserIdCustomer(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<invoice> getAllByUserId(int userId) {
+		try{
+			List<invoice> course=invoiceDataRepository.getAllByUserId(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<invoice> getAllByUserIdBetweenDates(int userId, Calendar dateLower, Calendar dateHigh) {
+		try{
+			List<invoice> course=invoiceDataRepository.getAllByUserIdBetweenDates(userId,dateLower, dateHigh);
 			
 			return course;
 			}

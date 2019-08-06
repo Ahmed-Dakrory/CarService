@@ -295,6 +295,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 }
 	</style>
 
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
             <div id="content">
                 
     
@@ -431,14 +432,14 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                 </td>
                                                                                 <td>
                                                                                 <h:form>
-                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$ddlCountry"  value="#{vendorBean.selectedCarIdToBeAddedInInvoice}" id="ctl00_BodyHolder_ddlCountry" style="font-size:11px;height:27px;width:205px;">
+                                                                                    <p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"  name="ctl00$BodyHolder$ddlCountry"  value="#{vendorBean.selectedCarIdToBeAddedInInvoice}" id="ctl00_BodyHolder_ddlCountry" style="width:230px">
 																							
 	 																					<f:selectItems value="#{vendorBean.carsForthisAccount}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
 
-																					</h:selectOneMenu>
+																					</p:selectOneMenu>
 																					
 																					
-																					<p:commandButton action="#{vendorBean.addCarToInvoice()}" style="width: 25px; height: 25px;  background: #f9f9f9; margin-left: 6px; padding: 6px;" value=""  class="fa fa-level-down"/>
+																					<p:commandButton action="#{vendorBean.addCarToInvoice()}" style="width: 29px;height: 31px;background: #ffffff;margin-left: 6px;padding: 9px;" value=""  class="fa fa-level-down"/>
                                                                                 </h:form>
                                                                                 </td>
                                                                                 
@@ -526,7 +527,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a href="#{data.container}">#{data.container}</a></span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.inlandStatus}</span></td>
+											<td class="center hidden-phone" style="background:#{carBean.isLandStatuesDiffMoreThan15Day(data.storageStartDate,data.storageEndDate,data.inlandStatus)?'#ffe271':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.inlandStatus}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.cargoRecieved)}</span></td>
 											<td class="center hidden-phone" style="vertical-align: middle;">
 											

@@ -144,6 +144,19 @@
 		<beans:property name="sessionFactory" ref="sessionFactory" />
 	</beans:bean>
 	
+	
+	
+	<beans:bean id="quartzJob" class="main.com.carService.tools.SampleJob"/>
+<beans:bean id="jobFactoryBean" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+       p:targetObject-ref="quartzJob" p:targetMethod="run"/>
+       
+<beans:bean id="triggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+       p:jobDetail-ref="jobFactoryBean"  p:cronExpression="40 52 12 ? * 3"/>
+       
+<beans:bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+       p:triggers-ref="triggerFactoryBean"/>
+
+<!-- 
 	<beans:bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
     <beans:property name="autoStartup">
         <beans:value>true</beans:value>
@@ -156,8 +169,7 @@
       
       
 </beans:bean>
-
-	
+	 -->
  <context:component-scan base-package="com.springapp.mvc"/>
     <context:annotation-config />
     <mvc:annotation-driven/>

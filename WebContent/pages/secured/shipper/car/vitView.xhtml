@@ -5680,7 +5680,7 @@
                                                                                                         Land Fees:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="text" id="ctl00_BodyHolder_txtLand" value="#{carBean.addNewCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="number" id="ctl00_BodyHolder_txtLand" value="#{carBean.addNewCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
@@ -5707,6 +5707,54 @@
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                             
+                                                                                            <tr height="23">
+                                                                                              
+                                                                                                
+                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Email of the Comment:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText name="emailOfTheCar"  id="emailOfTheCar" value="#{carBean.addNewCar.emailToSendComment}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                                
+                                                                                                
+                                                                                                	<td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Comment To be Send:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText name="commentToSend" type="text" id="commentToSend" value="#{carBean.addNewCar.commentToSend}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                                
+                                                                                            </tr>
+                                                                                            
+                                                                                             <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                             <tr height="23">
+                                                                                              
+                                                                                                
+                                                                                                 <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Active Send Email:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:selectBooleanCheckbox name="sendCommentBool"  id="sendCommentBool" value="#{carBean.addNewCar.allowSendEmail}" style="font-size:11px;height:19px;width:20px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
                                                                                             <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>

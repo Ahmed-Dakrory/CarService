@@ -39,6 +39,16 @@ import main.com.carService.loginNeeds.user;
 	@NamedQuery(name="invoice.getByUserIdCustomer",
 	query = "from invoice d where d.userIdCustomer.id = :id"
 			)
+	
+	,
+	@NamedQuery(name="invoice.getAllByUserId",
+	query = "from invoice d where d.userIdIssuer.id = :id"
+			)
+	
+	,
+	@NamedQuery(name="invoice.getAllByUserIdBetweenDates",
+	query = "from invoice d where d.userIdIssuer.id = :id and d.date > :dateLower and d.date < :dateHigher"
+			)
 
 })
 

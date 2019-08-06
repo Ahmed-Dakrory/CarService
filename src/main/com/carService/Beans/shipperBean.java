@@ -2,8 +2,11 @@ package main.com.carService.Beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +22,7 @@ import main.com.carService.car.car;
 import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.invoice.invoice;
 import main.com.carService.invoice.invoiceAppServiceImpl;
+import main.com.carService.invoice.invoiceDTO;
 import main.com.carService.invoiceCars.invoiceCar;
 import main.com.carService.invoiceCars.invoiceCarAppServiceImpl;
 import main.com.carService.loginNeeds.user;
@@ -76,6 +80,13 @@ public class shipperBean implements Serializable{
 	private List<car> carsForInvoice;
 	private Integer selectedCarIdToBeAddedInInvoice;
 	private Float carFeesInvoice;
+	
+	private List<invoiceDTO> allInvoice;
+	private String dateLower;
+	private String dateHigh;
+	private float totalFees;
+	
+	
 	@PostConstruct
 	public void init() {
 		
@@ -88,6 +99,67 @@ public class shipperBean implements Serializable{
 		addNewshipper.setParentId(loginBean.getTheUserOfThisAccount());
 		
 		invoiceData=new invoice();
+	}
+	
+	public void getAllInvoicesBetweenDates() {
+		totalFees = 0;
+		Calendar lowDate = setCalendarFromString(dateLower);
+		Calendar highDate = setCalendarFromString(dateHigh);
+		
+		allInvoice =new ArrayList<invoiceDTO>();
+		List<invoice> allInvoicesForThisMainAccount =new ArrayList<invoice>();
+		if(lowDate == null || highDate ==null) {
+			allInvoicesForThisMainAccount = invoiceFacade.getAllByUserId(loginBean.getTheUserOfThisAccount().getId());
+			
+		}else {
+		allInvoicesForThisMainAccount = invoiceFacade.getAllByUserIdBetweenDates(loginBean.getTheUserOfThisAccount().getId(),lowDate,highDate);
+		}
+		if(allInvoicesForThisMainAccount!=null) {
+		if(allInvoicesForThisMainAccount.size()>0) {
+		for(int i=0;i<allInvoicesForThisMainAccount.size();i++) {
+			int totalFeesForInvoice = 0;
+			List<invoiceCar> allCarsForThisInvoice = invoiceCarFacade.getAllByinvoiceId(allInvoicesForThisMainAccount.get(i).getId());
+			for(int j=0;j<allCarsForThisInvoice.size();j++) {
+				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
+				float landCost=selectedCar.getLandcost();
+				float Seacost=selectedCar.getSeacost();
+				float Commision=selectedCar.getCommision();
+				float Fees=selectedCar.getFees();
+						
+				float totalForCar=(float) (landCost+Seacost
+						+Commision+Fees);
+				
+				
+				//This for total Fees Without Transfer
+				totalFeesForInvoice+=totalForCar;
+				
+				
+				//This for the total Fees With Transfer
+
+				float trFees = 0;
+				if(allInvoicesForThisMainAccount.get(i).getTransferFees()!=null) {
+					trFees=allInvoicesForThisMainAccount.get(i).getTransferFees();
+				}
+				totalFees = totalFees + totalForCar + (totalForCar/100*trFees);
+			}
+			
+			invoiceDTO invoicedto =new invoiceDTO();
+			invoicedto.setCarsForInvoice(allCarsForThisInvoice);
+			invoicedto.setInvoice(allInvoicesForThisMainAccount.get(i));
+			invoicedto.setTotalPrice(totalFeesForInvoice);
+			invoicedto.setNumberOfCars(allCarsForThisInvoice.size());
+			
+			allInvoice.add(invoicedto);
+		}
+		}
+		}
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void refresh(){
@@ -112,6 +184,26 @@ public class shipperBean implements Serializable{
 			carsForthisAccount.addAll(transitMain);
 		
 	}
+	
+	private Calendar setCalendarFromString(String cargoRecievedDate2) {
+
+		Calendar cal = null;
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
+		try {
+			if(cargoRecievedDate2!=null) {
+			if(!cargoRecievedDate2.equals("")) {
+				cal=Calendar.getInstance();
+				Date date=formatter.parse(cargoRecievedDate2);
+				cal.setTime(date);
+			}
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		return cal;
+	}
+	
 	
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";
@@ -216,6 +308,24 @@ public class shipperBean implements Serializable{
 	
 	public void invoiceDetails(int idShipper) {
 		shipperForInvoice=shipperFacade.getById(idShipper);
+		
+		
+		carsForthisAccount=new ArrayList<car>();
+		
+		List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(idShipper);
+		List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(idShipper);
+		List<car> transitMain = carFacade.getAllFrightInTransitForShipper(idShipper);
+
+		if(wareHouseMain!=null)
+			carsForthisAccount.addAll(wareHouseMain);
+			
+		if(dryCargoMain!=null)
+			carsForthisAccount.addAll(dryCargoMain);
+			
+		if(transitMain!=null)
+			carsForthisAccount.addAll(transitMain);
+			
+		
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceAdd.jsf?faces-redirect=true");
@@ -464,6 +574,38 @@ public class shipperBean implements Serializable{
 
 	public void setCarFeesInvoice(Float carFeesInvoice) {
 		this.carFeesInvoice = carFeesInvoice;
+	}
+
+	public List<invoiceDTO> getAllInvoice() {
+		return allInvoice;
+	}
+
+	public void setAllInvoice(List<invoiceDTO> allInvoice) {
+		this.allInvoice = allInvoice;
+	}
+
+	public String getDateLower() {
+		return dateLower;
+	}
+
+	public void setDateLower(String dateLower) {
+		this.dateLower = dateLower;
+	}
+
+	public String getDateHigh() {
+		return dateHigh;
+	}
+
+	public void setDateHigh(String dateHigh) {
+		this.dateHigh = dateHigh;
+	}
+
+	public float getTotalFees() {
+		return totalFees;
+	}
+
+	public void setTotalFees(float totalFees) {
+		this.totalFees = totalFees;
 	}
 
 	

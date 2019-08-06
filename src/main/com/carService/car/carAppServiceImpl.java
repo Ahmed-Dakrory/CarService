@@ -339,6 +339,22 @@ public class carAppServiceImpl implements IcarAppService{
 						return null;
 					}
 	}
+
+
+
+	@Override
+	public List<car> getAllWithAllowSendState(boolean state) {
+		try{
+			List<car> course=carDataRepository.getAllWithAllowSendState(state);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

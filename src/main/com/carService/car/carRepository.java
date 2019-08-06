@@ -13,6 +13,7 @@ import java.util.List;
 public interface carRepository {
 
 	public List<car> getAll();
+	public List<car> getAllWithAllowSendState(boolean state);
 	public List<car> getAllWareHouseForMainUser(int userId);
 	public List<car> getAllWareHouseForVendor(int vendorId);
 	public List<car> getAllWareHouseForShipper(int shipperId);

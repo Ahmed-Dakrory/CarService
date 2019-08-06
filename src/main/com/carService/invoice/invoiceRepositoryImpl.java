@@ -3,6 +3,7 @@
  */
 package main.com.carService.invoice;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -99,6 +100,33 @@ public class invoiceRepositoryImpl implements invoiceRepository{
 		 List<invoice> results=query.list();
 		 if(results.size()!=0){
 			 return results.get(0);
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<invoice> getAllByUserId(int userId) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("invoice.getAllByUserId").setInteger("id",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<invoice> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<invoice> getAllByUserIdBetweenDates(int userId, Calendar dateLower, Calendar dateHigh) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("invoice.getAllByUserIdBetweenDates")
+				 .setInteger("id",userId).setCalendar("dateLower", dateLower).setCalendar("dateHigher", dateHigh);
+
+		 @SuppressWarnings("unchecked")
+		List<invoice> results=query.list();
+		 if(results.size()!=0){
+			 return results;
 		 }else{
 			 return null;
 		 }

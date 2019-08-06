@@ -1213,11 +1213,11 @@ public void updateCarForCustomer() {
 		}
 	}
 	
-	public boolean isLandStatuesDiffMoreThan15Day(Calendar cargoRecieved,Calendar startStorage,String inlandStatues) {
+	public boolean isLandStatuesDiffMoreThan15Day(Calendar storeStart,Calendar storeEnd,String inlandStatues) {
 		if(inlandStatues.toLowerCase().equalsIgnoreCase("OK")) {
 			return false;
 		}
-		if(Math.abs(getNumberOfDays(cargoRecieved,startStorage))>15) {
+		if(Math.abs(getNumberOfDays(storeStart,storeEnd))>15) {
 		return true;
 		}
 		return false;
