@@ -54,6 +54,13 @@
 }
 					</style>
 	
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/jquerysctipttop.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/email.multiple.css']}" />
+    	
+    
+		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
+		
+		
               <h:form name="aspnetForm" id="aspnetForm">
 
 
@@ -5544,7 +5551,7 @@
                                                                                                     
                                                                                                 </td>
                                                                                             </tr>
-                                                                                            <tr height="2">
+                                                                                            <tr height="23">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
                                                                                             </tr>
@@ -5553,25 +5560,68 @@
                                                                                             <tr height="23">
                                                                                               
                                                                                                 
-                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                <td style="width: 250px"  class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Email of the Comment:</div>
                                                                                                 </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="emailOfTheCar"  id="emailOfTheCar" value="#{carBean.selectedCar.emailToSendComment}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                <td colspan="3" style="width: 250px" align="left">
                                                                                                     
+                                                                                                    
+                                                                                                    
+                                                                                                        <div class="col-sm-12 email-id-row" style="overflow: auto;height: 78px;">
+																												        <h:inputText type="text" value ="#{carBean.selectedCar.emailToSendComment}" id="essai" placeholder="Email"/>
+																												    </div>
+																												                
+																														<h:outputScript name="js/dashboard/mailMultiple/jquery-3.3.1.slim.min.js"/>                                                         
+																														        
+																												    <script>
+																												
+																													   jQuery.noConflict();
+																													   
+																													   </script>   
+																												     <script>
+																												
+																												 	    $(document).ready(function($){
+																												        	let data = '#{carBean.selectedCar.emailToSendComment}'.split(";")
+																												            $("#aspnetForm\\:essai").email_multiple({
+																												                data: data
+																												                // reset: true
+																												            });
+																												        });
+																												
+																												        
+																												    </script>
+																												     <script>
+																												
+																													   jQuery.noConflict();
+																													   
+																													   </script>  
+							                                                                                 </td>
+                                                                                                
+                                                                                                
+                                                                                                	
+                                                                                                
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                             <tr height="9">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
-                                                                                                
-                                                                                                
-                                                                                                	<td style="width: 250px" class="tbltxt">
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                            <tr  height="23">
+                                                                                            <td style="vertical-align: initial;width: 250px;" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                         Comment To be Send:</div>
                                                                                                 </td>
-                                                                                                <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="commentToSend" type="text" id="commentToSend" value="#{carBean.selectedCar.commentToSend}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                <td colspan="3" style="width: 250px" align="left">
+                                                                                                    <h:inputTextarea name="commentToSend" id="commentToSend" value="#{carBean.selectedCar.commentToSend}" style="font-size:11px;height:150px;width:100%;" />
                                                                                                     
                                                                                                 </td>
-                                                                                                
                                                                                             </tr>
                                                                                             
                                                                                              <tr height="2">
@@ -6340,7 +6390,15 @@
 				});
 				});
 					
-						
+            
+	        $(document).ready(function() {
+	        	  $(window).keydown(function(event){
+	        	    if(event.keyCode == 13) {
+	        	      event.preventDefault();
+	        	      return false;
+	        	    }
+	        	  });
+	        	});
 					</script>	
 					
 				

@@ -225,7 +225,7 @@ public class carBean implements Serializable{
 	public void refresh(){
 		
 		
-		
+		progress=false;
 		int role=loginBean.getTheUserOfThisAccount().getRole();
 		if(role==user.ROLE_MAIN) {
 			releaseVariablesForMain();
@@ -261,11 +261,20 @@ public class carBean implements Serializable{
 	public void theloaderFirst() {
 		
 			progress=true;
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
-			
+			refreshUpdatecCarData();
 		
 	}
-	
+	public void refreshUpdatecCarData() {
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtModel");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtMake");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtYear");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtAssemblyCountry");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtBodyStyle");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineType");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineLiters");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:searchButton");
+	}
 	
 	public void getCarWithVinNew() {
 		if(!addNewCar.getUuid().equals("")) {
@@ -285,20 +294,17 @@ public class carBean implements Serializable{
 
 
 				progress=false;
-
-	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+				refreshUpdatecCarData();
 	          	  
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				progress=false;
-
-	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+				refreshUpdatecCarData();
 			}
 		}else {
 			progress=false;
-
-    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
+			refreshUpdatecCarData();
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
 					"			text: 'Please enter the Vin number',\r\n" + 

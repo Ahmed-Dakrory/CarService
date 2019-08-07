@@ -43,9 +43,19 @@ public class SampleJob
 	      List<car> allCars=carDataRepository.getAllWithAllowSendState(true);
 	      for(int i=0;i<allCars.size();i++) {
 	    	  car selectedCar = allCars.get(i);
-	    	  Constants.sendEmailNotificationForThisEmailWithMessage(selectedCar, selectedCar.getCommentToSend(), selectedCar.getEmailToSendComment());
+	    	  if(selectedCar.getEmailToSendComment()!=null) {
+	    		  
+	    		  if(!selectedCar.getEmailToSendComment().equalsIgnoreCase("")) {
+	    	  String[] AllEmails = selectedCar.getEmailToSendComment().split(";");
+	    	  for(int j=0;j<AllEmails.length;j++) {
+	    		  String sentEmail= AllEmails[j];
+	    		  //System.out.println("Ahmed Dakrory: "+sentEmail);
+	    		  Constants.sendEmailNotificationForThisEmailWithMessage(selectedCar, selectedCar.getCommentToSend(), sentEmail);
+	    	  }
+	    		  }
+	    	  }
 	      }
-			System.out.println("Hello Quartz!: "+allCars.size());	
+			//System.out.println("Hello Quartz!: "+allCars.size());	
 	   }
 	
 
