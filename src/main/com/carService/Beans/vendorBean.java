@@ -179,10 +179,18 @@ public class vendorBean implements Serializable{
 			List<invoiceCar> allCarsForThisInvoice = invoiceCarFacade.getAllByinvoiceId(allInvoicesForThisMainAccount.get(i).getId());
 			for(int j=0;j<allCarsForThisInvoice.size();j++) {
 				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
-				float landCost=selectedCar.getLandcost();
-				float Seacost=selectedCar.getSeacost();
-				float Commision=selectedCar.getCommision();
-				float Fees=selectedCar.getFees();
+				
+				float landCost=0;
+				float Seacost=0;
+				float Commision=0;
+				float Fees=0;
+				
+				
+				if(selectedCar.getLandcost()!=null) landCost=selectedCar.getLandcost();
+				if(selectedCar.getSeacost()!=null) Seacost=selectedCar.getSeacost();
+				if(selectedCar.getCommision()!=null) Commision=selectedCar.getCommision();
+				if(selectedCar.getFees()!=null) Fees=selectedCar.getFees();
+				
 						
 				float totalForCar=(float) (landCost+Seacost
 						+Commision+Fees);
