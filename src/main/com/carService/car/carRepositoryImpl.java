@@ -315,6 +315,71 @@ public class carRepositoryImpl implements carRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForMainUser(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentForMainUser").setInteger("userId",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForVendor(int vendorId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentForVendor").setInteger("vendorId",vendorId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForShipper(int shipperId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentForShipper").setInteger("shipperId",shipperId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForCustomer(int custmerId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentForCustomer").setInteger("custmerId",custmerId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForConsignee(int consigneeId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentForConsignee").setInteger("consigneeId",consigneeId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 	
 
 

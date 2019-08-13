@@ -32,6 +32,14 @@ public interface carRepository {
 	public List<car> getAllFrightInTransitForShipper(int shipperId);
 	public List<car> getAllFrightInTransitForCustomer(int custmerId);
 	public List<car> getAllFrightInTransitForConsignee(int consigneeId);
+	
+	
+	public List<car> getAllFrightSentForPaymentForMainUser(int userId);
+	public List<car> getAllFrightSentForPaymentForVendor(int vendorId);
+	public List<car> getAllFrightSentForPaymentForShipper(int shipperId);
+	public List<car> getAllFrightSentForPaymentForCustomer(int custmerId);
+	public List<car> getAllFrightSentForPaymentForConsignee(int consigneeId);
+	
 	public car addcar(car data);
 	public car getById(int id);
 	public car getByVin(String vinId);

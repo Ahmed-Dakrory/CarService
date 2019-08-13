@@ -231,6 +231,7 @@ public class carBean implements Serializable{
 			releaseVariablesForMain();
 			addNewCar.setMainId(loginBean.getTheUserOfThisAccount());
 			allshipper = shipperFacade.getAllByParentId(loginBean.getTheUserOfThisAccount().getId());
+			allvendor=vendorFacade.getAllByParentIdForUser(loginBean.getTheUserOfThisAccount().getId());
 			
 		}else if(role==user.ROLE_SHIPPER) {
 			releaseVariablesForShipper();
@@ -350,12 +351,25 @@ public class carBean implements Serializable{
 				
 				
 
+			}else if(selectedCarState==4) {
+				
+				// this for freight in transit
+
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
+				
+				
+
 			}else if(selectedCarState==3) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -365,6 +379,9 @@ public class carBean implements Serializable{
 				
 				if(transitMain!=null)
 					allCars.addAll(transitMain);
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
 				
 
 			}
@@ -402,21 +419,37 @@ public class carBean implements Serializable{
 				
 
 
+			}else if(selectedCarState==4) {
+				// this for freight sent for payment
+
+				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
+
+				
+				if(sentShipper!=null)
+					allCars.addAll(sentShipper);
+				
+
+
 			}else if(selectedCarState==3) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
 				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
+				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
 				if(dryCargoMain!=null)
 					allCars.addAll(dryCargoMain);
-				
+
 				if(transitMain!=null)
 					allCars.addAll(transitMain);
+				
+
+				if(sentShipper!=null)
+					allCars.addAll(sentShipper);
 				
 
 			}
@@ -454,12 +487,24 @@ public class carBean implements Serializable{
 				
 
 
+			}else if(selectedCarState==4) {
+				// this for freight Sent
+
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
+
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
+				
+
+
 			}else if(selectedCarState==3) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
 				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -469,6 +514,9 @@ public class carBean implements Serializable{
 				
 				if(transitMain!=null)
 					allCars.addAll(transitMain);
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
 				
 
 			}
@@ -506,12 +554,24 @@ public class carBean implements Serializable{
 				
 
 
+			}else if(selectedCarState==4) {
+				// this for freight in transit
+
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
+
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
+				
+
+
 			}else if(selectedCarState==3) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
 				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -521,6 +581,9 @@ public class carBean implements Serializable{
 				
 				if(transitMain!=null)
 					allCars.addAll(transitMain);
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
 				
 
 			}
@@ -559,12 +622,24 @@ public class carBean implements Serializable{
 				
 
 
+			}else if(selectedCarState==4) {
+				// this for freight Sent
+
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
+
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
+				
+
+
 			}else if(selectedCarState==3) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
 				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -574,6 +649,9 @@ public class carBean implements Serializable{
 				
 				if(transitMain!=null)
 					allCars.addAll(transitMain);
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
 				
 
 			}
@@ -715,8 +793,12 @@ public class carBean implements Serializable{
 
 			titleRecievedSelected=selectedCar.getTitleRecieved();
 			if(selectedCar.getShipperId()!=null) {
-			shipperSelectedId=selectedCar.getShipperId().getId();
-			}
+				shipperSelectedId=selectedCar.getShipperId().getId();
+				}
+			
+			if(selectedCar.getVendorId()!=null) {
+				vendorSelectedId=selectedCar.getVendorId().getId();
+				}
 			try {
 				FacesContext.getCurrentInstance()
 				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf?faces-redirect=true");
@@ -978,6 +1060,9 @@ public void updateCarForCustomer() {
 		
 		//Set the selected shipper
 		addNewCar.setShipperId(shipperFacade.getById(shipperSelectedId));
+		
+		//Set the selected Vendor
+		addNewCar.setVendorId(vendorFacade.getById(vendorSelectedId));
 		
 		boolean isValid=checkValidForCar(addNewCar);
 		if(isValid) {
@@ -1271,9 +1356,13 @@ public void updateCarForCustomer() {
 		selectedCar.setEta(setCalendarFromString(etaDate));
 		selectedCar.setStorageStartDate(setCalendarFromString(storageStartDate));
 		selectedCar.setStorageEndDate(setCalendarFromString(storageEndDate));
-		
+
 		//Set the selected shipper
 		selectedCar.setShipperId(shipperFacade.getById(shipperSelectedId));
+		
+
+		//Set the selected shipper
+		selectedCar.setVendorId(vendorFacade.getById(vendorSelectedId));
 		
 		boolean isValid=checkValidForCar(selectedCar);
 		if(isValid) {

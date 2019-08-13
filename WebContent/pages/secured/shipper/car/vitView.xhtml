@@ -331,6 +331,21 @@
                                                                                                 <td>
                                                                                                 </td>
                                                                                             </tr>
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Vendor:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:selectOneMenu value="#{carBean.vendorSelectedId}"  name="ctl00$BodyHolder$ddlVendor" id="ctl00_BodyHolder_ddlVendor" style="font-size:11px;width:200px;">
+																										<f:selectItems value="#{carBean.allvendor}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																									</h:selectOneMenu>
+                                                                                                    
+                                                                                                </td>
+                                                                                                
+                                                                                               
+                                                                                            </tr>
                                                                                             <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
@@ -396,6 +411,7 @@
                                                                                                 	<f:selectItem itemLabel="Requested" itemValue="2"/>
                                                                                                 	<f:selectItem itemLabel="Ok" itemValue="3"/>
                                                                                                 	<f:selectItem itemLabel="In Lien" itemValue="4"/>
+                                                                                                	<f:selectItem itemLabel="Paid" itemValue="5"/>
                                                                                                 </h:selectOneMenu>
                                                                                                     
                                                                                                 </td>

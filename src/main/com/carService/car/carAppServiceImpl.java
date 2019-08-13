@@ -355,6 +355,86 @@ public class carAppServiceImpl implements IcarAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForMainUser(int userId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForMainUser(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForVendor(int vendorId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForVendor(vendorId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForShipper(int shipperId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForShipper(shipperId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForCustomer(int custmerId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForCustomer(custmerId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForConsignee(int consigneeId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForConsignee(consigneeId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

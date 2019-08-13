@@ -106,6 +106,26 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId"
 			)
 	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUser",
+	query = "from car d where (d.state = 8) and mainId = :userId"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForVendor",
+	query = "from car d where (d.state = 8) and vendorId = :vendorId"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForShipper",
+	query = "from car d where (d.state = 8) and shipperId = :shipperId"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForCustomer",
+	query = "from car d where (d.state = 8) and customerId = :customerId"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForConsignee",
+	query = "from car d where (d.state = 8) and consigneeId = :consigneeId"
+			)
+	,
 	@NamedQuery(name="car.getAllWithAllowSendState",
 	query = "from car d where d.allowSendEmail = :state"
 			)
@@ -242,12 +262,15 @@ public class car {
 	public static int STATE_DRY_CARGO_2=5;
 	public static int STATE_In_TRANSIT_1=6;
 	public static int STATE_In_TRANSIT_2=7;
+	public static int STATE_Sent_For_Payment=8;
 	
 	
-	public static int Title_No_Title=0;
+	public static int Title_Missing=0;
 	public static int Title_Pending=1;
-	public static int Title_LienOnTitle=2;
-	public static int Title_TitleOk=3;
+	public static int Title_Requested=2;
+	public static int Title_Ok=3;
+	public static int Title_InLien=4;
+	public static int Title_Paid=4;
 	
 	
 	@Column(name = "state")
@@ -301,20 +324,24 @@ public class car {
 										 "Dry Cargo (Load Request NO)",
 										 "Dry Cargo (Load Request YES)",
 										 "Fright In Transit ( ETA present)",
-										 "Fright In Transit  (No ETA)"};
-
+										 "Fright In Transit  (No ETA)",
+										 "Sent For Payment"};
 
 	public String getTitleString() {
 		String title="";
 		
-		if(titleRecieved==Title_No_Title) {
-			title="No Title";
+		if(titleRecieved==Title_Missing) {
+			title="Missing";
 		}else if(titleRecieved==Title_Pending) {
 			title="Title Pending";
-		}else if(titleRecieved==Title_LienOnTitle) {
-			title="Lien On Title";
-		}else if(titleRecieved==Title_TitleOk) {
+		}else if(titleRecieved==Title_Requested) {
+			title="Requested";
+		}else if(titleRecieved==Title_Ok) {
 			title="Title ok";
+		}else if(titleRecieved==Title_InLien) {
+			title="In Lien";
+		}else if(titleRecieved==Title_Paid) {
+			title="PAID";
 		}
 		return title;
 	}
