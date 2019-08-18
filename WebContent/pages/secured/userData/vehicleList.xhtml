@@ -520,8 +520,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
 											
 											
-											<td class="center hidden-phone" style="display:#{data.releaseOption?'table-cell':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/check_on.gif"></img></span></td>
-											<td class="center hidden-phone" style="display:#{data.releaseOption?'none':'table-cell'};"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/check_off.gif"></img></span></td>
+											<td class="center hidden-phone" style="display:table-cell;"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.releaseOption?'check_on.gif':'check_off.gif'}"></img></span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="color: #371cc3;" onclick="openThisSite('#{data.containerLink}');">#{data.container}</a></span></td>
 											<script>
 											function openThisSite(url){

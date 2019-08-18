@@ -103,7 +103,7 @@ public class carBean implements Serializable{
 	@ManagedProperty(value = "#{carimageFacadeImpl}")
 	private carimageAppServiceImpl carimageFacade;
 	
-	private int selectedCarState=3;
+	private int selectedCarState=0; 
 	private List<car> allCars;
 	private List<consignee> allconsignees;
 	private List<shipper> allshipper;
@@ -156,7 +156,7 @@ public class carBean implements Serializable{
 		
 		
 
-		selectedCarState=3;
+		selectedCarState=0;
 	}
 	
 	public void releaseVariablesForMain() {
