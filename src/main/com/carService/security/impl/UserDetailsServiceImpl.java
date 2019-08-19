@@ -61,6 +61,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_VENDOR"));
 				user = new User(dao.getEmail(), dao.getPassword(), true,
 						true, true, true, studentAuthorities);
+			}else if(dao.getRole()==main.com.carService.loginNeeds.user.ROLE_MAIN2) {
+				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
+				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_MAINTWO"));
+				user = new User(dao.getEmail(), dao.getPassword(), true,
+						true, true, true, studentAuthorities);
 			}else  {
 				Collection<GrantedAuthority> studentAuthorities = new ArrayList<GrantedAuthority>();
 				studentAuthorities.add(new GrantedAuthorityImpl("ROLE_CUSTOMER"));

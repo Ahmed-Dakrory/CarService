@@ -484,6 +484,7 @@ public class user {
 	public static int ROLE_VENDOR=2;
 	public static int ROLE_CUSTOMER=3;
 	public static int ROLE_CONGSIGNEE=4;
+	public static int ROLE_MAIN2=5;
 
 	
 
@@ -497,6 +498,8 @@ public class user {
 			return "Vendor";
 		}else if(role==ROLE_CUSTOMER) {
 			return "Customer";
+		}else if(role==ROLE_MAIN2) {
+			return "Main User";
 		}else{
 			return "Consignee";
 		}

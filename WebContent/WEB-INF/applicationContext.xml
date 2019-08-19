@@ -47,7 +47,7 @@
 		<sec:form-login login-page="/" authentication-failure-url="/pages/errors/403.html"
 			default-target-url="/pages/public/index.xhtml" />
 		<sec:intercept-url pattern="/pages/secured/userData/**"
-			access="ROLE_MAIN,ROLE_SHIPPER,ROLE_VENDOR,ROLE_CUSTOMER" />
+			access="ROLE_MAIN,ROLE_SHIPPER,ROLE_VENDOR,ROLE_CUSTOMER,ROLE_MAINTWO" />
 			<sec:intercept-url pattern="/pages/secured/vendor/**"
 			access="ROLE_MAIN,ROLE_SHIPPER" />
 			<sec:intercept-url pattern="/pages/secured/customer/**"
@@ -58,6 +58,8 @@
 			access="ROLE_MAIN,ROLE_SHIPPER" />
 			<sec:intercept-url pattern="/pages/secured/shipper/**"
 			access="ROLE_MAIN" />
+			<sec:intercept-url pattern="/pages/secured/mainTwo/**"
+			access="ROLE_MAIN,ROLE_MAINTWO" />
 			
 	<sec:custom-filter ref="profileCustomFilter" after="LAST"  />
 	
