@@ -5,185 +5,521 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <ui:composition template="/templates/dashboard.xhtml">
 
-
+	
 	<ui:define name="title"> ADAWLIAA</ui:define>
+
  <ui:define name="mainHead"> 
-			      <ul class="mn-sub"><li class="mn-sub-item mn-item-addinventory"><a href="AddNewInventory.jsf" class="mn-sub-item-current"><b>Add Inventory</b></a></li></ul>
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Vehicle List</b></a></li></ul>
            
 			</ui:define>
 
 	<ui:define name="content">
-        <h:form name="aspnetForm" method="post" action="./AddNewInventory.jsf" id="aspnetForm">
+	
+	
+		<style>
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: black;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8%;
+    }
+    .ui-datepicker .ui-icon {
+    display: block;
+    text-indent: 1px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    left: .5em;
+    top: .3em;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 17px;
+}
+					</style>
+		<!-- Vendor CSS -->
+		
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/jquerysctipttop.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/email.multiple.css']}" />
+    	
+    
+    <!-- Head Libs -->
+		  
+		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
+		
+	#{carBean.refresh()}
+              <h:form name="aspnetForm" id="aspnetForm">
+
+
 
             <div id="content">
-                
-
-
     <!-- page src -->
-    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
-        <tr valign="top">
-            <td width="100%" style="min-height: 500px;">
-                <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
-                    <tr>
-                        <td>
-                            <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#f7f7f7">
-                                <tr>
-                                    <td class="tbltxt" valign="top">
-                                        <span><b>Please select freight type:</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        
-                                        <h:selectOneMenu disabled="true" name="ctl00$BodyHolder$ddlType" value="#{carBean.selectedCar.type}" id="ctl00_BodyHolder_ddlType" style="width:120px;">
-											<f:selectItem itemValue="0" itemLabel="Vehicle"/>
-											<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
-										
-										</h:selectOneMenu>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top">
-                                        &nbsp;
-                                                <table cellspacing="0" cellpadding="1" width="98%" bgcolor="#f7f7f7" border="0">
-                                                    <tr height="23">
-                                                        <td class="tbltxt" width="150">
-                                                            <div style="margin-left: 6px">
-                                                                * VIN :</div>
-                                                        </td>
-                                                        <td>
-                                                            <h:inputText readonly="true" name="ctl00$BodyHolder$txtVIN" type="text" value="#{carBean.selectedCar.uuid}" maxlength="17" id="ctl00_BodyHolder_txtVIN"  style="font-size:11px;height:19px;width:250px;" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                
-                                                
-                                                
-                                                <div id="ctl00_BodyHolder_pnlVehicle" style="height:100%;width:98%;">
-	
-                                                    <table id="VehicleTable" cellspacing="0" cellpadding="1" width="100%" bgcolor="#f7f7f7"
-                                                        border="0" style="float: left;">
-                                                        
-                                                        <tr height="23">
-                                                            <td class="tbltxt" width="150">
-                                                                <div style="margin-left: 6px">
-                                                                   * Vendor:</div>
-                                                            </td>
-                                                            <td class="tbltxt" style="height: 23px;">
-                                                                <h:selectOneMenu value="#{carBean.selectedCar.vendorId.id}" name="ctl00$BodyHolder$ddlVendorVehicle" id="ctl00_BodyHolder_ddlVendorVehicle" class="tbltxt" style="width:250px;">
-																	<f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
-																	<f:selectItems value="#{carBean.allvendor}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.firstName} #{var.userId.lastName}"/>
-																</h:selectOneMenu>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Make:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtMake" value="#{carBean.selectedCar.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Model:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtModel" value="#{carBean.selectedCar.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Year:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtYear" value="#{carBean.selectedCar.year}" id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Assembly Country:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" value="#{carBean.selectedCar.assemlyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Body Style:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtBodyStyle" value="#{carBean.selectedCar.bodyStyle}" id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Engine Type:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtEngineType" value="#{carBean.selectedCar.engineType}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt">
-                                                                <div style="margin-left: 6px">
-                                                                    Engine Liters:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$txtEngineLiters" value="#{carBean.selectedCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                        <tr height="23">
-                                                            <td class="tbltxt" width="150">
-                                                                <div style="margin-left: 6px">
-                                                                    Color:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputText name="ctl00$BodyHolder$tbColor" value="#{carBean.selectedCar.color}" id="ctl00_BodyHolder_tbColor" style="font-size:11px;height:19px;width:250px;" />
-                                                            </td>
-                                                        </tr>
+    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                    <!-- Table 1 -->
+                    
+                    
+                    
+                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <!-- Table name block -->
+                                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
                                                         <tr>
-                                                            <td class="tbltxt" width="174" valign="top" colspan="2">
-                                                                <div style="margin-left: 6px">
-                                                                    <b>
-                                                                        <br />
-                                                                        Port of Destination:</b></div>
+                                                            <td class="blkname" width="100%">
+                                                                <nobr>&nbsp;VIN:
+																					<span id="ctl00_BodyHolder_lblVIN">New Car</span></nobr>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td style="padding-left: 0px;" colspan="2">
-                                                                <div id="ctl00_BodyHolder_ucOriginSelectorVehicle_UpdatePanel1">
-		
-        <table class="EditTable" bgcolor="#f7f7f7" border="0" cellspacing="0" style="padding-left: 6px;
-            margin: 0px;">
-            <tr>
-                <td class="tbltxt" style="height: 23px; width: 164px; padding-left: 6px;">
-                    Country:</td>
-                <td class="tbltxt" style="height: 23px;">
-                    <h:selectOneMenu value="#{carBean.selectedCar.destination}" name="ctl00$BodyHolder$ucOriginSelectorVehicle$ddlCountry" id="ctl00_BodyHolder_ucOriginSelectorVehicle_ddlCountry" disabled="disabled" style="width:250px;">
-			
-			<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
+                                                    </table>
+                                                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
+                                                    <!-- End of Table name block -->
+                                           
+                                                    <table style="
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 15px;
+" cellspacing="4" cellpadding="0" width="100%" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                <h:panelGroup id="tableRendered">
+                                                                                
+                                                                                    <script>
+				
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtDVL').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtDVL').val(datetext);
+				    }
+				});
+				});
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtETD').val(datetext);
+				    }
+				});
+				});
+            
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtVIRReceived').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtVIRReceived').val(datetext);
+				    }
+				});
+				});
+					
+
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtNameOfRecipient').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtNameOfRecipient').val(datetext);
+				    }
+				});
+				});
+					
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtDateTitlesSentToUSCustoms').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtDateTitlesSentToUSCustoms').val(datetext);
+				    }
+				});
+				});
+					
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtETA').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtETA').val(datetext);
+				    }
+				});
+				});
+					
+            
+           
+            
+            $(function() {
+				$('#aspnetForm\\:ctl00_BodyHolder_txtStampedTitleReceived').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:ctl00_BodyHolder_txtStampedTitleReceived').val(datetext);
+				    }
+				});
+				});
+					
+						
+					</script>	
+                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
+                                                                                        <tbody>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        VIN:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIN" type="text" value="#{carBean.addNewCar.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                    <p:commandButton id="searchButton" value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(carBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
+                                                                                                   <p:remoteCommand name="theloaderFirst" action="#{carBean.theloaderFirst()}"/>
+                                                                                                   <p:remoteCommand name="getCarWithVinNewJs" action="#{carBean.getCarWithVinNew()}"/>
+                                                                                                    <script>
+                                                                                                    
+                                                                                                    function loadingOk(){
+                                                                                                    	theloaderFirst();
+                                                                                                    	var delayInMilliseconds = 0.3; //0.5 second
+
+                                                                                    					setTimeout(function() {
+                                                                                    						getCarWithVinNewJs();
+                                                                                    					}, delayInMilliseconds);
+                                                                                    					
+                                                                                                    }
+                                                                                                    </script>
+                                                                                                   
+                                                                                                   
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Shipper:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:selectOneMenu value="#{carBean.shipperSelectedId}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;width:200px;">
+																										<f:selectItems value="#{carBean.allshipper}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																									</h:selectOneMenu>
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Vendor:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:selectOneMenu value="#{carBean.vendorSelectedId}"  name="ctl00$BodyHolder$ddlVendor" id="ctl00_BodyHolder_ddlVendor" style="font-size:11px;width:200px;">
+																										<f:selectItems value="#{carBean.allvendor}" var="var" itemLabel="#{var.userId.firstName} #{var.userId.lastName}" itemValue="#{var.id}"/>
+																									</h:selectOneMenu>
+                                                                                                    
+                                                                                                </td>
+                                                                                                
+                                                                                               
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Description:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carBean.addNewCar.description}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        DVL:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDVL" value="#{carBean.dvlDate}" type="text" class="timePicker" id="ctl00_BodyHolder_txtDVL" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Cargo Received:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIRReceived" type="text" value="#{carBean.cargoRecievedDate}" class="timePicker" id="ctl00_BodyHolder_txtVIRReceived" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        ETD:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtETD" class="timePicker" type="text" value="#{carBean.etdDate}" id="ctl00_BodyHolder_txtETD" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Title Received:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" style="font-size:11px;height:19px;width:200px;">
+                                                                                                	<f:selectItem itemLabel="Missing" itemValue="0"/>
+                                                                                                	<f:selectItem itemLabel="Pending" itemValue="1"/>
+                                                                                                	<f:selectItem itemLabel="Requested" itemValue="2"/>
+                                                                                                	<f:selectItem itemLabel="Ok" itemValue="3"/>
+                                                                                                	<f:selectItem itemLabel="In Lien" itemValue="4"/>
+                                                                                                	<f:selectItem itemLabel="Paid" itemValue="5"/>
+                                                                                                </h:selectOneMenu>
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        ETA:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtETA" value="#{carBean.etaDate}" type="text" id="ctl00_BodyHolder_txtETA" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        StReceived:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtStampedTitleReceived" type="text" value="#{carBean.stRecievedDate}" id="ctl00_BodyHolder_txtStampedTitleReceived" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        State:</div>
+                                                                                                </td>
+                                                                                                <td>
+	                                                                                            	<h:selectOneMenu value="#{carBean.addNewCar.state}">
+		                                                                                            	<c:forEach items="#{carBean.carStates}" var="var" varStatus="idx">
+		                                                                                            	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
+		                                                                                            	</c:forEach>
+		                                                                                            </h:selectOneMenu>    
+																								</td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                   
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                 <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Freight Type:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:selectOneMenu name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.addNewCar.type}" id="ctl00_BodyHolder_txttype" style="font-size:11px;height:19px;width:200px;" >
+                                                                                                    <f:selectItem itemLabel="Vehcile" itemValue="0"/>
+                                                                                                    <f:selectItem itemLabel="Dry Cargo" itemValue="1"/>
+                                                                                                    </h:selectOneMenu>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Make:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carBean.addNewCar.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Destination:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                  <!--  here the select for the port destination -->  
+                                                                                                     <h:selectOneMenu value="#{carBean.addNewCar.destination}" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" style="font-size:11px;height:19px;width:200px;">
+                                                                                                       	<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
 	<f:selectItem itemValue="1531" itemLabel="Aabenraa - Denmark - 40901"/>
 	<f:selectItem itemValue="1412" itemLabel="Aagotnes - Norway - 40311"/>
 	<f:selectItem itemValue="1532" itemLabel="Aalborg - Denmark - 40903"/>
@@ -5141,259 +5477,281 @@
 	<f:selectItem itemValue="1840" itemLabel="Zwyndrecht - Belgium - 42300"/>
 
 
-				</h:selectOneMenu>		
-</td>
-            </tr>
-           
-           
-        </table>
-    
-	</div>
-&nbsp;
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="tbltxt" width="150" valign="top" colspan="2">
-                                                                <div style="margin-left: 6px">
-                                                                    <b>
-                                                                        <br />
-                                                                        Origin:</b></div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding-left: 0px;" colspan="2">
-                                                                <div id="ctl00_BodyHolder_DestinationSelectorVehicle_UpdatePanel1">
-		
-<table class="EditTable" bgColor="#f7f7f7" border="0" cellspacing="0" style="padding-left: 6px; margin: 0px;">
-    <tr>
-        <td class="tbltxt" style="height: 23px; width: 164px; padding-left: 6px;">
-            Country:</td>
-        <td class="tbltxt" style="height: 23px;">
-            <h:selectOneMenu value="#{carBean.selectedCar.origin}" name="ctl00$BodyHolder$DestinationSelectorVehicle$ddlCountry" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$BodyHolder$DestinationSelectorVehicle$ddlCountry\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_BodyHolder_DestinationSelectorVehicle_ddlCountry" style="width:250px;">
-			<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
+                                                                                                     
+                                                                                                     </h:selectOneMenu>                                                                            
+                                                                                                 </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Model:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carBean.addNewCar.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Release :</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtBookingNumber" type="text" value="#{carBean.addNewCar.releaseOption}" id="ctl00_BodyHolder_txtBookingNumber" style="font-size:11px;height:19px;width:20px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Year:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carBean.addNewCar.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Container #:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.addNewCar.container}" id="ctl00_BodyHolder_txtContainer" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                Link: 
+                                                                                                      <h:inputText name="ctl00$BodyHolder$txtContainer" type="text" value="#{carBean.addNewCar.containerLink}" id="ctl00_BodyHolder_txtContainerLink" style="font-size:11px;height:19px;width:200px;" />
+                                                      
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Assembly Country:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" type="text" value="#{carBean.addNewCar.assemlyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Seal:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCarrier" type="text" value="#{carBean.addNewCar.seal}" id="ctl00_BodyHolder_txtCarrier" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Body Style:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carBean.addNewCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Inland Status:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVessel" type="text" value="#{carBean.addNewCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Engine Type:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carBean.addNewCar.engineType}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td style="width: 200px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Storage Start Date:</div>
+                                                                                                </td>
+                                                                                                <td style="height: 23px">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDateTitlesSentToUSCustoms" type="text" value="#{carBean.storageStartDate}" id="ctl00_BodyHolder_txtDateTitlesSentToUSCustoms" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td style="height: 23px">
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Engine Liters:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carBean.addNewCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Storage End Date:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtNameOfRecipient" type="text" value="#{carBean.storageEndDate}" id="ctl00_BodyHolder_txtNameOfRecipient" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Color:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carBean.addNewCar.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Note #:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" value="#{carBean.addNewCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                            	<td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Commision:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carBean.addNewCar.commision}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Port of Origin:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:selectOneMenu value="#{carBean.addNewCar.origin}" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" style="font-size:11px;height:19px;width:200px;">
+																										<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
 																										<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
 																										<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
 																										<f:selectItem itemValue="371" itemLabel="MIAMI, FL (5201)"/>
 																										<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
 																										<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
-																									
-
-		</h:selectOneMenu>
-		</td>
-    </tr>
-    
-    
-</table>
-    
-	</div>
-&nbsp;
-
-                                                            </td>
-                                                        </tr>
-                                                        <tr height="23">
-                                                            <td class="tbltxt" width="150" colspan="2">
-                                                                <div style="margin-left: 6px">
-                                                                    <b>Consignee Info:</b></div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2" style="margin-left: 6px">
-                                                                
-<h:panelGroup id="consigneePanel">
- <table  width="100%" cellpadding="0" cellspacing="0"> 
- 			<tr>
-                <td class="tbltxt"  >
-                    <div style="margin-left: 6px;">
-                        Company Name:</div>
-                </td>
-                <td >
-                    <h:selectOneMenu value="#{carBean.consigneeId}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$BodyHolder$ucConsigneeViewVehicle$ddlConsigneeCompanyName\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_BodyHolder_ucConsigneeViewVehicle_ddlConsigneeCompanyName" style="font-size:11px;width:250px;">
-						<f:ajax listener="#{carBean.selectConsignee()}"/>
-						<f:selectItem itemValue="-1" itemLabel="-SELECT-"/>
-						<f:selectItems value="#{carBean.allconsignees}" var="var" itemValue="#{var.id}" itemLabel="#{var.userId.firstName} #{var.userId.lastName}"/>
-					</h:selectOneMenu>
-                    
-                </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                    </div>
-                </td>
-                <td style="height: 23px">
-                </td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        First Name:</div>
-                </td>
-                <td>
-                    <h:inputText value="#{carBean.selectedConsignee.userId.firstName}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeFirstName" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeFirstName" style="font-size:11px;height:19px;width:250px;" /></td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Phone:</div>
-                </td>
-                <td>
-                    <h:inputText value="#{carBean.selectedConsignee.userId.phone}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneePhone" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneePhone" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Last Name:</div>
-                </td>
-                <td>
-                    <h:inputText name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeLastName" value="#{carBean.selectedConsignee.userId.lastName}" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeLastName" style="font-size:11px;height:19px;width:250px;" /></td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Email:</div>
-                </td>
-                <td>
-                    <h:inputText name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeEmail" value="#{carBean.selectedConsignee.userId.email}" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeEmail" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                   <div style="margin-left: 6px">
-                        Country:</div>
-                </td>
-                <td>
-                
-                <h:inputText value="#{carBean.selectedConsignee.userId.country}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeCountry" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeCountry" style="font-size:11px;height:19px;width:250px;" />
-                    </td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                        Phone 2:</div>
-                </td>
-                <td>
-                    <h:inputText value="#{carBean.selectedConsignee.userId.phone2}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtPhone2" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtPhone2" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Address 1:</div>
-                </td>
-                <td style="height: 23px">
-                <h:inputText name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeAddress" value="#{carBean.selectedConsignee.userId.address1}" type="text" maxlength="32" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeAddress" style="font-size:11px;height:19px;width:250px;" />
-                
-                    </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Mobile:</div>
-                </td>
-                <td style="height: 23px">
-                    <h:inputText value="#{carBean.selectedConsignee.userId.mobilePhone}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtMobile" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtMobile" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6" style="height: 2px">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt" style="height: 23px">
-                    
-                     <div style="margin-left: 6px">
-                        Address 2:</div>
-                    
-                </td>
-                <td style="height: 23px">
-                     <h:inputText value="#{carBean.selectedConsignee.userId.address2}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeAddress2" type="text" maxlength="32" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeAddress2" style="font-size:11px;height:19px;width:250px;" />
-                    </td>
-                <td style="height: 23px">
-                </td>
-                <td class="tbltxt" style="height: 23px">
-                    <div style="margin-left: 6px">
-                        Fax:</div>
-                </td>
-                <td style="height: 23px">
-                    <h:inputText value="#{carBean.selectedConsignee.userId.fax}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtFax" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtFax" style="font-size:11px;height:19px;width:200px;" /></td>
-                <td style="height: 23px">
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            <tr height="23">
-                <td class="tbltxt">
-                   <div style="margin-left: 6px">
-                        City:</div>
-                   
-                </td>
-                <td>
-                    <h:inputText value="#{carBean.selectedConsignee.userId.city}" name="ctl00$BodyHolder$ucConsigneeViewVehicle$txtConsigneeCity" type="text" readonly="true" id="ctl00_BodyHolder_ucConsigneeViewVehicle_txtConsigneeCity" style="font-size:11px;height:19px;width:250px;" />                   
-                   </td>
-                <td>
-                </td>
-                <td class="tbltxt">
-                    <div style="margin-left: 6px">
-                    </div>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            
-            <tr height="2">
-                <td bgcolor="#ffffff" colspan="6">
-                </td>
-            </tr>
-            
-           
-           <tr height="23">
-                                                            <td class="tbltxt" width="150">
-                                                                <div style="margin-left: 6px">
-                                                                    Notes:</div>
-                                                            </td>
-                                                            <td>
-                                                                <h:inputTextarea readonly="true" value="#{carBean.selectedConsignee.notes}" name="ctl00$BodyHolder$tbVehicleNotes" rows="5" cols="20" id="ctl00_BodyHolder_tbVehicleNotes" style="width:510px;">
-</h:inputTextarea>
-                                                            </td>
-                                                        </tr>
-            </table>
-              </h:panelGroup>
-                                                            </td>
-                                                        </tr>
-                                                     
-
-  <tr height="23">
+																										<f:selectItem itemValue="391" itemLabel="Indianapolis IN (4110)"/>
+																									</h:selectOneMenu>
+                                                                                                </td>
+                                                                                                <td colspan="2" />
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Our Fees:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.addNewCar.fees}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Land Fees:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtLandFees" type="number" id="ctl00_BodyHolder_txtLand" value="#{carBean.addNewCar.landcost}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                              	<td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Sea Fees:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtSeaCost" type="text" id="ctl00_BodyHolder_txtSeaCost" value="#{carBean.addNewCar.seacost}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                                 <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Load Request:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtloadRequ" type="text" id="ctl00_BodyHolder_txtloadRequ" value="#{carBean.addNewCar.loadrequest}" style="font-size:11px;height:19px;width:20px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                              <tr height="23">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                         
+                                                                                           
+                                                                                            
+                                                                                            
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
                                                                                                     <br></br>
@@ -5408,7 +5766,7 @@
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                     <div id="picDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	
+                                                                                                     	<p:fileUpload id="FileUploaded" fileUploadListener="#{carBean.previewImage}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
         
         
         
@@ -5451,7 +5809,30 @@
 		</ui:repeat>
              
              
-            
+              <td style="border: black;padding: 14px;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <label for="aspnetForm:FileUploaded_input">
+                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
+                                    </label>
+                                        
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
+                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">click to select Image</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
 	   
                
 	</tr>
@@ -5472,6 +5853,10 @@
                                                                                                 <td>
                                                                                                 </td>
                                                                                             </tr>
+  
+
+  
+  
                                                                                             <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -5486,7 +5871,8 @@
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                     <div id="docDiv" style="display: inline; margin-left: 6px">
-                       
+                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{carBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
         
         
                <h:panelGroup id="docsPanel">
@@ -5526,7 +5912,34 @@
                 
                
 		</ui:repeat>
-                     
+             
+             
+              <td style="border: black;padding: 14px;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <label for="aspnetForm:docUploaded_input">
+                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
+                                    </label>
+                                        
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewDocById(5955963)'>
+                                    <span id="ctl00_BodyHolder_imageList_picList_ctl00_docName">click to select File</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
+	   
+               
 	</tr>
 </table>
 
@@ -5547,46 +5960,103 @@
                                                                                             </tr>
                                                                                             
                                                                                             
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                        
-                                                        <tr height="2">
-                                                            <td colspan="1">
-                                                                <p:commandButton action="#{carBean.updateCarForShipper()}" class="btn btn-default" name="ctl00$BodyHolder$btnVehicleSave" value="Update" id="ctl00_BodyHolder_btnVehicleSave" style="font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                            </td>
-                                                            
-                                                            
-                                                             <td colspan="1">
-                                                                <p:commandButton  action="#{carBean.cancel()}" class="btn btn-default" name="ctl00$BodyHolder$btnVehicleBack" value="Cancel" id="ctl00_BodyHolder_btnVehicleBack" style="font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
-                                                            </td>
-                                                        </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                  
+                                                                        
+                                                                                            <tr height="13">
+                                                                                                <td align="center">
+																									<p:commandButton class="btn btn-default" action="#{carBean.saveNewCarDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                    
+                                                                                                </td>
+                                                                                                <td align="center">
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carBean.cancel()}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carBean.cancel()}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                       
+                                                                                       
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </h:panelGroup>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
                                                     </table>
-                                                
-</div>
-                                                <br />
-                                                
-                                                
-                                                <br />
-                                            
-                                        
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="white" colspan="2">
+                </td>
+            </tr>
+        </tbody>
     </table>
 
-            </div>  
+            </div> 
+           
+        
+				<script>
+				 $(document).ready(function() {
+		        	  $(window).keydown(function(event){
+		        	    if(event.keyCode == 13) {
+		        	      event.preventDefault();
+		        	      return false;
+		        	    }
+		        	  });
+		        	});
+				</script>	
+				
         </h:form>
-     
-     
+        
+      
 	</ui:define>
 	
 		

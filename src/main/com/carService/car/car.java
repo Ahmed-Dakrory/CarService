@@ -18,6 +18,7 @@ import org.hibernate.annotations.NamedQuery;
 import main.com.carService.consignee.consignee;
 import main.com.carService.customer.customer;
 import main.com.carService.loginNeeds.user;
+import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.shipper.shipper;
 import main.com.carService.vendor.vendor;
 
@@ -49,6 +50,10 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainId = :userId"
 			)
 	,
+	@NamedQuery(name="car.getAllWareHouseForMainUserTwo",
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and mainTwoId = :mainTwoId"
+			)
+	,
 	@NamedQuery(name="car.getAllWareHouseForVendor",
 	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and vendorId = :vendorId"
 			)
@@ -67,6 +72,10 @@ import main.com.carService.vendor.vendor;
 	,
 	@NamedQuery(name="car.getAllDryCargoForMainUser",
 	query = "from car d where (d.state = 4 or d.state = 5) and mainId = :userId"
+			)
+	,
+	@NamedQuery(name="car.getAllDryCargoForMainUserTwo",
+	query = "from car d where (d.state = 4 or d.state = 5) and mainTwoId = :mainTwoId"
 			)
 	,
 	@NamedQuery(name="car.getAllDryCargoForVendor",
@@ -90,6 +99,10 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 6 or d.state = 7) and mainId = :userId"
 			)
 	,
+	@NamedQuery(name="car.getAllFrightInTransitForMainUserTwo",
+	query = "from car d where (d.state = 6 or d.state = 7) and mainTwoId = :mainTwoId"
+			)
+	,
 	@NamedQuery(name="car.getAllFrightInTransitForVendor",
 	query = "from car d where (d.state = 6 or d.state = 7) and vendorId = :vendorId"
 			)
@@ -108,6 +121,10 @@ import main.com.carService.vendor.vendor;
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUser",
 	query = "from car d where (d.state = 8) and mainId = :userId"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUserTwo",
+	query = "from car d where (d.state = 8) and mainTwoId = :mainTwoId"
 			)
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForVendor",
@@ -158,6 +175,10 @@ public class car {
 	@ManyToOne
 	@JoinColumn(name = "customerId")
 	private customer customerId;
+	
+	@ManyToOne
+	@JoinColumn(name = "mainTwoId")
+	private mainTwo mainTwoId;
 	
 	@Column(name = "uuid")
 	private String uuid;
@@ -1377,6 +1398,24 @@ public class car {
 
 	public void setCommentToSend(String commentToSend) {
 		this.commentToSend = commentToSend;
+	}
+
+
+
+
+
+
+	public mainTwo getMainTwoId() {
+		return mainTwoId;
+	}
+
+
+
+
+
+
+	public void setMainTwoId(mainTwo mainTwoId) {
+		this.mainTwoId = mainTwoId;
 	}
 	
 

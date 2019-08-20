@@ -41,6 +41,8 @@ import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
 import main.com.carService.loginNeeds.user;
+import main.com.carService.mainTwo.mainTwo;
+import main.com.carService.mainTwo.mainTwoAppServiceImpl;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -89,6 +91,10 @@ public class carBean implements Serializable{
 	private shipperAppServiceImpl shipperFacade;
 	
 
+	@ManagedProperty(value = "#{mainTwoFacadeImpl}")
+	private mainTwoAppServiceImpl mainTwoFacade;
+	
+
 	@ManagedProperty(value = "#{carFacadeImpl}")
 	private carAppServiceImpl carFacade;
 	
@@ -106,6 +112,7 @@ public class carBean implements Serializable{
 	private int selectedCarState=0; 
 	private List<car> allCars;
 	private List<consignee> allconsignees;
+	private List<mainTwo> allMainTwo;
 	private List<shipper> allshipper;
 	private List<vendor> allvendor;
 	private List<customer> allcustomer;
@@ -125,6 +132,7 @@ public class carBean implements Serializable{
 	private  String storageStartDate;
 	private  String storageEndDate;
 
+	private int mainTwoSelectedId;
 	private int shipperSelectedId;
 	private int vendorSelectedId;
 	private int customerSelectedId;
@@ -182,6 +190,31 @@ public class carBean implements Serializable{
 		
 		filterCarBySelectFirstTime();
 	}
+	
+	public void releaseVariablesForMainTwo() {
+		images=new ArrayList<String>();
+		docs=new ArrayList<String>();
+		cargoRecievedDate="";
+		titleRecievedSelected=0;
+		dvlDate="";
+		stRecievedDate="";
+		etdDate="";
+		etaDate="";
+		storageStartDate="";
+		storageEndDate="";
+		
+		addNewCar=new car();
+		user userId=new user();
+		shipper shipperID=new shipper();
+
+		addNewCar.setMainId(userId);
+		addNewCar.setShipperId(shipperID);
+
+		allCars=new ArrayList<car>();
+		
+		filterCarBySelectFirstTime();
+		
+	}
 	public void releaseVariablesForShipper() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
@@ -232,6 +265,14 @@ public class carBean implements Serializable{
 			addNewCar.setMainId(loginBean.getTheUserOfThisAccount());
 			allshipper = shipperFacade.getAllByParentId(loginBean.getTheUserOfThisAccount().getId());
 			allvendor=vendorFacade.getAllByParentIdForUser(loginBean.getTheUserOfThisAccount().getId());
+			allMainTwo=mainTwoFacade.getAllByParentId(loginBean.getTheUserOfThisAccount().getId());
+		}else if(role==user.ROLE_MAIN2) {
+			releaseVariablesForMainTwo();
+			mainTwo mainTwoOfThisAccount=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			addNewCar.setMainTwoId(mainTwoOfThisAccount);
+			addNewCar.setMainId(mainTwoOfThisAccount.getParentId());
+			allshipper = shipperFacade.getAllByParentId(mainTwoOfThisAccount.getParentId().getId());
+			allvendor=vendorFacade.getAllByParentIdForUser(mainTwoOfThisAccount.getParentId().getId());
 			
 		}else if(role==user.ROLE_SHIPPER) {
 			releaseVariablesForShipper();
@@ -437,6 +478,74 @@ public class carBean implements Serializable{
 				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
 				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
 				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+				if(sentShipper!=null)
+					allCars.addAll(sentShipper);
+				
+
+			}
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
+
+			mainTwo mainTwoId=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			if(selectedCarState==0) {
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			}else if(selectedCarState==1) {
+				// this for dry cargo
+
+				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
+
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+				
+				
+			}else if(selectedCarState==2) {
+				// this for freight in transit
+
+				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
+
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+
+
+			}else if(selectedCarState==4) {
+				// this for freight sent for payment
+
+				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
+
+				
+				if(sentShipper!=null)
+					allCars.addAll(sentShipper);
+				
+
+
+			}else if(selectedCarState==3) {
+				//this for all
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
+				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
+				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -795,13 +904,64 @@ public class carBean implements Serializable{
 			if(selectedCar.getShipperId()!=null) {
 				shipperSelectedId=selectedCar.getShipperId().getId();
 				}
-			
+			if(selectedCar.getMainTwoId()!=null) {
+				mainTwoSelectedId = selectedCar.getMainTwoId().getId();
+			}
 			if(selectedCar.getVendorId()!=null) {
 				vendorSelectedId=selectedCar.getVendorId().getId();
 				}
 			try {
 				FacesContext.getCurrentInstance()
 				   .getExternalContext().redirect("/pages/secured/shipper/car/vitViewEdit.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+		/*
+		 * 
+		 * 
+		 * Select Car For Main Two
+		 */
+		
+		public void selectCarForMainTwo(int idcar) {
+			refresh();
+			selectedCar=carFacade.getById(idcar);
+			List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
+			List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+			
+			if(imagesOfCar!=null) {
+				for(int i=0;i<imagesOfCar.size();i++) {
+					images.add(imagesOfCar.get(i).getUrl());
+				}
+			}
+			if(docsOfCar!=null){
+				for(int i=0;i<docsOfCar.size();i++) {
+					docs.add(docsOfCar.get(i).getUrl());
+				}
+			}
+			
+			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
+			dvlDate=getStringFromCalendar(selectedCar.getDvl());
+			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
+			etdDate=getStringFromCalendar(selectedCar.getEtd());
+			etaDate=getStringFromCalendar(selectedCar.getEta());
+			storageStartDate=getStringFromCalendar(selectedCar.getStorageStartDate());
+			storageEndDate=getStringFromCalendar(selectedCar.getStorageEndDate());
+
+			titleRecievedSelected=selectedCar.getTitleRecieved();
+			if(selectedCar.getShipperId()!=null) {
+				shipperSelectedId=selectedCar.getShipperId().getId();
+				}
+			
+			if(selectedCar.getVendorId()!=null) {
+				vendorSelectedId=selectedCar.getVendorId().getId();
+				}
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/mainTwo/car/vitViewEdit.jsf?faces-redirect=true");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1047,7 +1207,11 @@ public void updateCarForCustomer() {
 	}
 	//Save the New Car with the main Account
 	public void saveNewCarDataMain() {
-
+		loginBean.getTheUserOfThisAccount();
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
+			addNewCar.setCommentToSend("");
+			addNewCar.setEmailToSendComment("");
+		}
 		addNewCar.setTitleRecieved(titleRecievedSelected);
 		
 		addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
@@ -1057,6 +1221,11 @@ public void updateCarForCustomer() {
 		addNewCar.setEta(setCalendarFromString(etaDate));
 		addNewCar.setStorageStartDate(setCalendarFromString(storageStartDate));
 		addNewCar.setStorageEndDate(setCalendarFromString(storageEndDate));
+		
+		//Set the selected Main Two
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
+		addNewCar.setMainTwoId(mainTwoFacade.getById(mainTwoSelectedId));
+		}
 		
 		//Set the selected shipper
 		addNewCar.setShipperId(shipperFacade.getById(shipperSelectedId));
@@ -1358,6 +1527,10 @@ public void updateCarForCustomer() {
 		selectedCar.setStorageEndDate(setCalendarFromString(storageEndDate));
 
 		//Set the selected shipper
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
+			selectedCar.setMainTwoId(mainTwoFacade.getById(mainTwoSelectedId));
+		}
+		//Set the selected shipper
 		selectedCar.setShipperId(shipperFacade.getById(shipperSelectedId));
 		
 
@@ -1421,9 +1594,15 @@ public void updateCarForCustomer() {
 		vendor vendorIdMail=vendorFacade.getById(selectedCar.getShipperId().getId());
 		consignee consigneeIdMail=consigneeFacade.getById(selectedCar.getShipperId().getId());
 		customer customerIdMail=customerFacade.getById(selectedCar.getShipperId().getId());
+		mainTwo mainTwoIdMail=mainTwoFacade.getById(selectedCar.getMainTwoId().getId());
+		
+		if(mainTwoIdMail!=null)
+			Constants.sendEmailUpdateFormatCar(selectedCar2,mainTwoIdMail.getUserId().getFirstName(), mainTwoIdMail.getUserId().getEmail(), mainTwoIdMail.getUserId().getEmail());
+		
 		
 		if(shipperIdMail!=null)
 			Constants.sendEmailUpdateFormatCar(selectedCar2,shipperIdMail.getUserId().getFirstName(), shipperIdMail.getUserId().getEmail(), shipperIdMail.getUserId().getEmail());
+		
 		
 		
 		if(vendorIdMail!=null)
@@ -1544,6 +1723,16 @@ public void updateCarForCustomer() {
 		this.customerFacade = customerFacade;
 	}
 
+	
+	
+	public List<mainTwo> getAllMainTwo() {
+		return allMainTwo;
+	}
+
+	public void setAllMainTwo(List<mainTwo> allMainTwo) {
+		this.allMainTwo = allMainTwo;
+	}
+
 	public List<shipper> getAllshipper() {
 		return allshipper;
 	}
@@ -1634,6 +1823,16 @@ public void updateCarForCustomer() {
 		this.storageEndDate = storageEndDate;
 	}
 
+	
+	
+	public int getMainTwoSelectedId() {
+		return mainTwoSelectedId;
+	}
+
+	public void setMainTwoSelectedId(int mainTwoSelectedId) {
+		this.mainTwoSelectedId = mainTwoSelectedId;
+	}
+
 	public int getShipperSelectedId() {
 		return shipperSelectedId;
 	}
@@ -1693,6 +1892,14 @@ public void updateCarForCustomer() {
 	
 	
 	
+	public mainTwoAppServiceImpl getMainTwoFacade() {
+		return mainTwoFacade;
+	}
+
+	public void setMainTwoFacade(mainTwoAppServiceImpl mainTwoFacade) {
+		this.mainTwoFacade = mainTwoFacade;
+	}
+
 	public boolean isProgress() {
 		return progress;
 	}

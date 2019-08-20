@@ -508,6 +508,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td>
 												<h:form>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForMain(data.id)}"/>
+													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==5?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForMainTwo(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==1?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForShipper(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==2?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForVendor(data.id)}"/>
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==3?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForCustomerOrConsignee(data.id)}"/>

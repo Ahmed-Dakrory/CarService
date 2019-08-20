@@ -435,6 +435,70 @@ public class carAppServiceImpl implements IcarAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<car> getAllWareHouseForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllWareHouseForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllDryCargoForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllDryCargoForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightInTransitForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightInTransitForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }
