@@ -19,7 +19,7 @@ table.content-table td.notes-container { vertical-align: top; }
 
 div.header div.help{position:absolute;right:400px;top:10px;color:#fff;font-size:10pt;font-family:Arial}
 
-div.header div.header-main ul{margin-left: 19%;padding-top: 91px;}
+div.header div.header-main ul{padding-top: 91px;margin-left: 9%;}
 div.header div.header-main ul li{height:40px}
 div.header div.header-main ul li a{float:left;height:40px;background-position:0 -100px;border-left: solid 1px #3a3c44;border-right: solid 1px #3a3c44;}
 div.header div.header-main ul li a:hover{background-color: #333640;}

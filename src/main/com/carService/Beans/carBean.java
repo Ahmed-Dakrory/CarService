@@ -1590,11 +1590,48 @@ public void updateCarForCustomer() {
 	}
 
 	private void sendUpdateToAll(car selectedCar2) {
-		shipper shipperIdMail=shipperFacade.getById(selectedCar.getShipperId().getId());
-		vendor vendorIdMail=vendorFacade.getById(selectedCar.getShipperId().getId());
-		consignee consigneeIdMail=consigneeFacade.getById(selectedCar.getShipperId().getId());
-		customer customerIdMail=customerFacade.getById(selectedCar.getShipperId().getId());
-		mainTwo mainTwoIdMail=mainTwoFacade.getById(selectedCar.getMainTwoId().getId());
+		
+		shipper shipperObject =selectedCar.getShipperId();
+		shipper shipperIdMail =null;
+		if(shipperObject!=null) {
+			Integer shipperId = shipperObject.getId();
+			shipperIdMail=shipperFacade.getById(shipperId);
+		}
+		
+		
+		
+		vendor vendorObject =selectedCar.getVendorId();
+		vendor vendorIdMail =null;
+		if(vendorObject!=null) {
+			Integer vendorId = vendorObject.getId();
+			vendorIdMail=vendorFacade.getById(vendorId);
+		}
+		
+		
+		consignee consigneeObject=selectedCar.getConsigneeId();
+		consignee consigneeIdMail =null;
+		if(consigneeObject!=null) {
+			Integer consigneeId = consigneeObject.getId();
+			consigneeIdMail=consigneeFacade.getById(consigneeId);
+		}
+		
+		
+		
+		customer customerObject=selectedCar.getCustomerId();
+		customer customerIdMail =null;
+		if(customerObject!=null) {
+			Integer customerId = customerObject.getId();
+			customerIdMail=customerFacade.getById(customerId);
+		}
+		
+		
+		
+		mainTwo mainTwoObject = selectedCar.getMainTwoId();
+		mainTwo mainTwoIdMail =null;
+		if(mainTwoObject!=null) {
+			Integer mainTwoId = mainTwoObject.getId();
+			mainTwoIdMail=mainTwoFacade.getById(mainTwoId);
+		}
 		
 		if(mainTwoIdMail!=null)
 			Constants.sendEmailUpdateFormatCar(selectedCar2,mainTwoIdMail.getUserId().getFirstName(), mainTwoIdMail.getUserId().getEmail(), mainTwoIdMail.getUserId().getEmail());
