@@ -12,15 +12,50 @@
 
 <style>
 .mySlides {display:none;}
+
+@media screen and (max-width: 1100px) {
+ .data2{
+  width: 100%;
+    height: 90px;
+    border-radius: 12px;
+    margin-bottom: 1px;
+    box-shadow: rgb(236, 232, 232) 9px 0px 11px, rgb(255, 255, 255) 0px 0px 8px, rgb(119, 112, 112) 0px 0px 35px;
+   padding:1%;
+    }
+    
+    .textData{
+         margin-left: 5%;
+		
+    }
+    
+ }
+ 
+ @media screen and (min-width: 1100px) {
+ .data2{
+   
+      width: 65%;
+    height: 90px;
+    margin-left: 19%;
+    border-radius: 12px;
+    margin-bottom: 1px;
+    box-shadow: rgb(236, 232, 232) 9px 0px 11px, rgb(255, 255, 255) 0px 0px 8px, rgb(119, 112, 112) 0px 0px 35px;
+   
+    }
+    
+     .textData{
+    left: 71%;
+    }
+ }
+ 
 </style>
   
 <div class="footer_wrapper" style="   bottom:0;   width:100%;   height:60px; ">
-<a href="http://cargomarin.com/" style="box-shadow: 2px 0px 1px #cecaca3b, 0 0 15px #ffffff, 0 0 1px #73383847;text-shadow: 1px 1px 2px #000000, 0 0 25px #ffffffe8, 0 0 5px #cacacad1;position: relative;border-radius: 12px;top: 2px;font-size: 23px;left: 71%;text-decoration: none;"> Cargo Marine</a>
-<img class="nature" src="/resources/images/0.jpg" width="65%" style="height:90px;margin-left: 19%;border-radius: 12px;margin-bottom: 1px;box-shadow: 9px 0px 11px #ece8e8, 0 0 8px #ffffff, 0 0 35px #777070;"/>
-<img class="nature" src="/resources/images/1.jpg" width="65%" style="height:90px;margin-left: 19%;border-radius: 12px;margin-bottom: 1px;box-shadow: 9px 0px 11px #ece8e8, 0 0 8px #ffffff, 0 0 35px #777070;"/>
-<img class="nature" src="/resources/images/2.jpg" width="65%" style="height:90px;margin-left: 19%;border-radius: 12px;margin-bottom: 1px;box-shadow: 9px 0px 11px #ece8e8, 0 0 8px #ffffff, 0 0 35px #777070;"/>
-<img class="nature" src="/resources/images/3.jpg" width="65%" style="height:90px;margin-left: 19%;border-radius: 12px;margin-bottom: 1px;box-shadow: 9px 0px 11px #ece8e8, 0 0 8px #ffffff, 0 0 35px #777070;"/>
-<img class="nature" src="/resources/images/4.jpg" width="65%" style="height:90px;margin-left: 19%;border-radius: 12px;margin-bottom: 1px;box-shadow: 9px 0px 11px #ece8e8, 0 0 8px #ffffff, 0 0 35px #777070;"/>
+<a href="http://cargomarin.com/" class="textData"  style="box-shadow: 2px 0px 1px #cecaca3b, 0 0 15px #ffffff, 0 0 1px #73383847;text-shadow: 1px 1px 2px #000000, 0 0 25px #ffffffe8, 0 0 5px #cacacad1;position: relative;border-radius: 12px;top: 2px;font-size: 23px;text-decoration: none;"> Cargo Marine</a>
+<img class="nature data2" src="/resources/images/0.jpg"  />
+<img class="nature data2" src="/resources/images/1.jpg"  />
+<img class="nature data2" src="/resources/images/2.jpg"  />
+<img class="nature data2" src="/resources/images/3.jpg"  />
+<img class="nature data2" src="/resources/images/4.jpg"  />
 
 <script>
 w3.slideshow(".nature", 2000);
