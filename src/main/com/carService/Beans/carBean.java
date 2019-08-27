@@ -257,6 +257,10 @@ public class carBean implements Serializable{
 	
 	public void refresh(){
 		
+		mainTwoSelectedId=-1;
+		shipperSelectedId=-1;
+		vendorSelectedId=-1;
+		customerSelectedId=-1;
 		
 		progress=false;
 		int role=loginBean.getTheUserOfThisAccount().getRole();
