@@ -249,7 +249,7 @@ public class shipperBean implements Serializable{
 	
 	
 	public void saveInvoiceData() {
-		
+
 		invoiceData.setUserIdCustomer(shipperForInvoice.getUserId());
 		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
 		invoiceData.setDate(Calendar.getInstance());
@@ -313,6 +313,8 @@ public class shipperBean implements Serializable{
 	}
 	
 	public void invoiceDetails(int idShipper) {
+
+		invoiceData=new invoice();
 		shipperForInvoice=shipperFacade.getById(idShipper);
 		
 		

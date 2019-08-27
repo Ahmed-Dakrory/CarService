@@ -289,7 +289,7 @@ public class vendorBean implements Serializable{
 	
 	
 	public void saveInvoiceData() {
-		
+
 		invoiceData.setUserIdCustomer(vendorForInvoice.getUserId());
 		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
 		invoiceData.setDate(Calendar.getInstance());
@@ -326,6 +326,8 @@ public class vendorBean implements Serializable{
 	}
 	
 	public void invoiceDetails(int vendorId) {
+
+		invoiceData=new invoice();
 		vendorForInvoice=vendorFacade.getById(vendorId);
 		
 
