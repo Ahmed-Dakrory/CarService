@@ -1595,7 +1595,7 @@ public void updateCarForCustomer() {
 
 	private void sendUpdateToAll(car selectedCar2) {
 		
-		shipper shipperObject =selectedCar.getShipperId();
+		shipper shipperObject =selectedCar2.getShipperId();
 		shipper shipperIdMail =null;
 		if(shipperObject!=null) {
 			Integer shipperId = shipperObject.getId();
@@ -1604,7 +1604,7 @@ public void updateCarForCustomer() {
 		
 		
 		
-		vendor vendorObject =selectedCar.getVendorId();
+		vendor vendorObject =selectedCar2.getVendorId();
 		vendor vendorIdMail =null;
 		if(vendorObject!=null) {
 			Integer vendorId = vendorObject.getId();
@@ -1612,7 +1612,7 @@ public void updateCarForCustomer() {
 		}
 		
 		
-		consignee consigneeObject=selectedCar.getConsigneeId();
+		consignee consigneeObject=selectedCar2.getConsigneeId();
 		consignee consigneeIdMail =null;
 		if(consigneeObject!=null) {
 			Integer consigneeId = consigneeObject.getId();
@@ -1621,7 +1621,7 @@ public void updateCarForCustomer() {
 		
 		
 		
-		customer customerObject=selectedCar.getCustomerId();
+		customer customerObject=selectedCar2.getCustomerId();
 		customer customerIdMail =null;
 		if(customerObject!=null) {
 			Integer customerId = customerObject.getId();
@@ -1630,7 +1630,7 @@ public void updateCarForCustomer() {
 		
 		
 		
-		mainTwo mainTwoObject = selectedCar.getMainTwoId();
+		mainTwo mainTwoObject = selectedCar2.getMainTwoId();
 		mainTwo mainTwoIdMail =null;
 		if(mainTwoObject!=null) {
 			Integer mainTwoId = mainTwoObject.getId();
