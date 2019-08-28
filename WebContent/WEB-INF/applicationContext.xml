@@ -153,7 +153,7 @@
        p:targetObject-ref="quartzJob" p:targetMethod="run"/>
        
 <beans:bean id="triggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
-       p:jobDetail-ref="jobFactoryBean"  p:cronExpression="40 52 12 ? * 3"/>
+       p:jobDetail-ref="jobFactoryBean"  p:cronExpression="40 52 12 ? * 4"/>
        
 <beans:bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
        p:triggers-ref="triggerFactoryBean"/>
