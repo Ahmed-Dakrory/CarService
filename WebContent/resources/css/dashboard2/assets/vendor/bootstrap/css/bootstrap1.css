@@ -184,7 +184,9 @@ optgroup {
 table {
   /* border-collapse: collapse; */
   border-spacing: 0;
-  border-radius: 11px;
+  /* border-radius: 11px; */
+  margin: 0;
+  padding: 0;
 }
 td,
 th {
@@ -900,7 +902,7 @@ html {
 body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   /* font-size: 14px; */
-  line-height: 1.42857143;
+  line-height: 0;
   color: #333333;
   background-color: #ffffff;
 }
@@ -2063,9 +2065,9 @@ th {
   text-align: left;
 }
 .table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 20px;
+  /* width: 100%; */
+  /* max-width: 100%; */
+  /* margin-bottom: 20px; */
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,
@@ -2073,8 +2075,6 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 0.2vw;
-  line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }
@@ -2110,7 +2110,7 @@ th {
   padding: 5px;
 }
 .table-bordered {
-  border: 1px solid #dddddd;
+  /* border: 1px solid #dddddd; */
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
