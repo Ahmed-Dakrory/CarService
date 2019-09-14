@@ -1,22 +1,12 @@
 package main.com.carService.Beans;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,25 +14,27 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.FileUploadEvent;
+
+import com.google.gson.Gson;
 
 import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
+import helpers.retrofit.mainFiles.copartReturnDataWithImages;
+import helpers.retrofit.mainFiles.copartReturnVin;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.carLanding.transmissionTypesEnum;
 import main.com.carService.carLandingImage.carimageLanding;
 import main.com.carService.carLandingImage.carimageLandingAppServiceImpl;
+import main.com.carService.tools.Constants;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Call;
 
 
@@ -144,6 +136,7 @@ public class carLandingBean implements Serializable{
 		}
 	}
 	
+	
 	public void makeSearch() {
 		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
 
@@ -166,116 +159,109 @@ public class carLandingBean implements Serializable{
     }
 	
 	
-	public String saveImageToDirectory(byte[] image,String directory) {
-		String fileName="";
+
+	
+	public void updateTheLotData() {
+		/*
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, String> params  = context.getExternalContext().getRequestParameterMap();
+		String dataCarRequest = params.get("dataCarRequest");
+		String carLot = params.get("carLot");
+		System.out.println("Ahmed: "+carLot);
+		System.out.println("Ahmed: "+dataCarRequest);
+		
+*/
+		String carLot = selectedFreight.getLot();
+		OkHttpClient clientVin = new OkHttpClient();
+
+		Request requestVin = new Request.Builder()
+		  .url(Constants.URLCopartVin+carLot)
+		  .get()
+		  .addHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
+		  .addHeader("access-control-request-headers", "*")
+		  .addHeader("cache-control", "no-cache")
+		  .build();
+		String vinData;
 		try {
-			File file=File.createTempFile("img", ".jpg", new File(directory));
-		      byte [] data = image;
-		      ByteArrayInputStream bis = new ByteArrayInputStream(data);
-		      BufferedImage bImage2;
-			bImage2 = ImageIO.read(bis);
+		Response responseVin = clientVin.newCall(requestVin).execute();
+		
+		vinData = responseVin.body().string();
+		
+		Gson gson = new Gson();
+		copartReturnVin carVin = gson.fromJson(vinData, copartReturnVin.class);
+		
+		if(carVin!=null) {
 			
-			
-			 
-		        OutputStream os = new FileOutputStream(file);
-			
-			// create a BufferedImage as the result of decoding the supplied InputStream
-	        BufferedImage image2=scaleImage(bImage2, 800);
-			// get all image writers for JPG format
-	        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
-	 
-	        float quality = 0.5f;
-	        ImageWriter writer = (ImageWriter) writers.next();
-	        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-	        writer.setOutput(ios);
-	 
-	        ImageWriteParam param = writer.getDefaultWriteParam();
-	 
-	        // compress to a given quality
-	        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-	        param.setCompressionQuality(quality);
-	 
-	        // appends a complete image stream containing a single image and
-	        //associated stream and image metadata and thumbnails to the output
-	        writer.write(null, new IIOImage(image2, null, null), param);
-	 
-	     // close all streams
-	        os.close();
-	        ios.close();
-	        writer.dispose();
-			
-			
-			fileName=file.getName();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		selectedFreight.setUuid(carVin.data);
+		
+		
+		}
+		}catch(Exception e) {
+
+			PrimeFaces.current().executeScript("hideDialog()");
+			PrimeFaces.current().executeScript("ErrorDialog()");
 		}
 		
-		return fileName;
-	      
-	}
-	/*
-	public String saveImageToDirectory(byte[] image,String directory) {
-		String fileName="";
-		
+		OkHttpClient client = new OkHttpClient();
+
+		Request request = new Request.Builder()
+		  .url(Constants.URLCopartImages+carLot)
+		  .get()
+		  .addHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
+		  .addHeader("access-control-request-headers", "*")
+		  .addHeader("cache-control", "no-cache")
+		  .build();
+		String dataCarRequest;
 		try {
-			File file=File.createTempFile("img", ".png",new File(directory));
-			ByteArrayInputStream bis = new ByteArrayInputStream(image);
-			BufferedImage bImage=ImageIO.read(bis);
-			BufferedImage bImageN=scaleImage(bImage, 15);
-			ImageIO.write(bImageN, "png", file);
-			fileName = file.getName();
-		}catch(IOException e) {
-			
+		Response response = client.newCall(request).execute();
+		
+			dataCarRequest = response.body().string();
+		
+		Gson gson2 = new Gson();
+		copartReturnDataWithImages carData = gson2.fromJson(dataCarRequest, copartReturnDataWithImages.class);
+		
+		if(carData!=null) {
+		selectedFreight.setLotUrl(Constants.URLCopartURL+selectedFreight.getLot());
+		selectedFreight.setActive(true);
+		selectedFreight.setCurrentBid(carData.data.lotDetails.currentBid);
+		selectedFreight.setAuctionLocation(carData.data.lotDetails.saleName);
+		selectedFreight.setCylinder(carData.data.lotDetails.cylinder);
+		selectedFreight.setDamageDescription(carData.data.lotDetails.damageDescription);
+		selectedFreight.setDocType(carData.data.lotDetails.docType);
+		selectedFreight.setEngineType(carData.data.lotDetails.engineType);
+		selectedFreight.setEstRetailValue(carData.data.lotDetails.estimatedRetails);
+		selectedFreight.setFuel(carData.data.lotDetails.fuel);
+		selectedFreight.setGridRow(carData.data.lotDetails.gridRow);
+		selectedFreight.setItemNumber(carData.data.lotDetails.itemNumber);
+		selectedFreight.setMake(carData.data.lotDetails.make);
+		selectedFreight.setModel(carData.data.lotDetails.model);
+		selectedFreight.setYear(carData.data.lotDetails.year);
+		selectedFreight.setOdoDescription(carData.data.lotDetails.odometerDispcription);
+		selectedFreight.setOdoMeter(carData.data.lotDetails.odometerNum+" "+carData.data.lotDetails.odometerChar);
+		selectedFreight.setRepairEstimate(carData.data.lotDetails.estimatedRepair);
+		selectedFreight.setSaleName(carData.data.lotDetails.saleName);
 		}
 		
-		return fileName;
+		if(carData != null) {
+			images = new ArrayList<String>();
+			selectedFreight.setMainImage(carData.data.imagesList.FULL_IMAGE.get(0).url);
+			for(int i=1;i<carData.data.imagesList.FULL_IMAGE.size();i++) {
+				images.add(carData.data.imagesList.FULL_IMAGE.get(i).url);
+			}
+		}
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+		PrimeFaces.current().executeScript("hideDialog()");
+		}catch (Exception e) {
+			// TODO: handle exception
+			PrimeFaces.current().executeScript("hideDialog()");
+			PrimeFaces.current().executeScript("ErrorDialog()");
+		}
+
+		
+		
 	}
 	
-	*/
-	private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
-        double boundSize = size;
-           int origWidth = bufferedImage.getWidth();
-           int origHeight = bufferedImage.getHeight();
-           double scale;
-           if (origHeight > origWidth)
-               scale = boundSize / origHeight;
-           else
-               scale = boundSize / origWidth;
-            //* Don't scale up small images.
-           if (scale > 1.0)
-               return (bufferedImage);
-           int scaledWidth = (int) (scale * origWidth);
-           int scaledHeight = (int) (scale * origHeight);
-           
-           BufferedImage after = new BufferedImage(origWidth, origHeight, BufferedImage.TYPE_INT_ARGB);
-           AffineTransform at = new AffineTransform();
-           at.scale(scale, scale);
-           AffineTransformOp scaleOp = 
-              new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-           after = scaleOp.filter(bufferedImage, after);
-           
-           BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-           Graphics2D g = scaledBI.createGraphics();
-                g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-           g.drawImage(after, 0, 0, null);
-           g.dispose();
-           return (scaledBI);
-   }
 	
-	public void previewImage(FileUploadEvent event) {
-		byte[] image =event.getFile().getContents();
-		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
-		images.add(fileName);
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanel");
-	}
-	
-	public void previewImageMain(FileUploadEvent event) {
-		byte[] image =event.getFile().getContents();
-		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
-		selectedFreight.setMainImage(fileName);
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
-	}
 	
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";

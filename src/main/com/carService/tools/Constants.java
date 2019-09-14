@@ -15,6 +15,10 @@ import main.com.carService.car.car;
 public class Constants {
 
 	public static String URLwithVin="https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/";
+	public static String URLCopartImages="https://www.copart.com/public/data/lotdetails/solr/lotImages/";
+	public static String URLCopartVin="https://www.copart.com/g2mext/public/lot/epic-vin/";
+	public static String URLCopartData="https://www.copart.com/public/data/lotdetails/solr/lotImages/";
+	public static String URLCopartURL="https://www.copart.com/lot/";
 	
 	public static Integer Notifcation_Period=30;
 	

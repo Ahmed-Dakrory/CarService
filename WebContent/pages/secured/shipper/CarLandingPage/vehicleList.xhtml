@@ -114,15 +114,15 @@
 											
 											<th class="hidden-phone">Image</th>
 											<th class="hidden-phone">Vin</th>
-											<th class="hidden-phone">Description</th>
+											<th class="hidden-phone">Damage Description</th>
 											<th class="hidden-phone">Year</th>
 											<th class="hidden-phone">Transmission</th>
-											<th class="hidden-phone">Date</th>
 											<th class="hidden-phone">Bid</th>
-											<th class="hidden-phone">Statue</th>
-											<th class="hidden-phone">Distance</th>
-											<th class="hidden-phone">Body Style</th>
+											<th class="hidden-phone">Lot Number</th>
+											<th class="hidden-phone">Engine Type</th>
 											<th class="hidden-phone">Categories</th>
+											<th class="hidden-phone">Date</th>
+											<th class="hidden-phone">Statue</th>
 											
 										</tr>
 									</thead>
@@ -130,7 +130,7 @@
 									<ui:repeat var="data" value="#{carLandingBean.listOfAddedCars}">
 										<tr class="gradeX">
 											<td style="    margin: 0;    padding: 2px;    width: 88px;">
-											<h:graphicImage value="/images/?file=#{data.mainImage}" alt="image#{data.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
+											<h:graphicImage value="#{data.mainImage}" alt="image#{data.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
 										
 											</td>
 											<td>
@@ -139,18 +139,24 @@
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{data.uuid}" action="#{carLandingBean.selectCarForMain(data.id)}"/>
 												</h:form>
 											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.description}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.damageDescription}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getTransmissionTypesEnum(data.transmission).name}</span></td>
 											
 											
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getFormatedDate(data.saleDate)}</span></td>
 											
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.currentBid}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.saleStatues}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.kiloDistance}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.bodyStyle}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">
+												
+												<h:form>
+													<a   href="#{data.lotUrl}" target="_blank">#{data.lot}</a>
+												</h:form>
+												</span>
+											</td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.engineType}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getCategoryEnum(data.category).name}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getFormatedDate(data.saleDate)}</span></td>
+											<td class="center hidden-phone" style="display:table-cell;"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.active?'check_on.gif':'check_off.gif'}"></img></span></td>
 										</tr>
 									</ui:repeat>
 										

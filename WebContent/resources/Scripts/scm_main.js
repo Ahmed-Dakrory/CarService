@@ -364,6 +364,12 @@ function ViewDocById(strID) {
     }
 }
 
+function ViewDocByIdOutSide(strID) {
+    if (strID != '-1') {
+    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+    }
+}
+
 function ChangeVisibillity(strPanelName, strImgLinkName) {
     var divControl = window.document.all[strPanelName];
     var imgLink = window.document.all[strImgLinkName];

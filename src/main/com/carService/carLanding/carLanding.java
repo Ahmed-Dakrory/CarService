@@ -79,8 +79,8 @@ public class carLanding {
 	private String uuid;
 	
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "lot")
+	private String lot;
 	
 
 	@Column(name = "model")
@@ -110,12 +110,12 @@ public class carLanding {
 	private Integer transmission;
 	
 
-	@Column(name = "primaryDamage")
-	private String primaryDamage;
+	@Column(name = "damageDescription")
+	private String damageDescription;
 	
 
-	@Column(name = "secondaryDamage")
-	private String secondaryDamage;
+	@Column(name = "itemNumber")
+	private String itemNumber;
 	
 	@Column(name = "color")
 	private String color;
@@ -132,8 +132,8 @@ public class carLanding {
 	@Column(name = "currentBid")
 	private String currentBid;
 
-	@Column(name = "saleStatues")
-	private String saleStatues;
+	@Column(name = "saleName")
+	private String saleName;
 
 	@Column(name = "auctionLocation")
 	private String auctionLocation;
@@ -144,8 +144,8 @@ public class carLanding {
 	@Column(name = "saleDate")
 	private Calendar saleDate;
 	
-	@Column(name = "kiloDistance")
-	private String kiloDistance;
+	@Column(name = "estRetailValue")
+	private String estRetailValue;
 	
 	@Column(name = "mainImage")
 	private String mainImage;
@@ -159,6 +159,41 @@ public class carLanding {
 	private boolean isShowenInLanding;
 
 
+	@Column(name = "lotUrl")
+	private String lotUrl;
+	
+
+	@Column(name = "engineType")
+	private String engineType;
+	
+	
+
+	@Column(name = "gridRow")
+	private String gridRow;
+	
+
+	@Column(name = "odoDescription")
+	private String odoDescription;
+	
+
+	@Column(name = "repairEstimate")
+	private String repairEstimate;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "userMaxBidId")
+	private user userMaxBidId;
+	
+
+
+	@Column(name = "active")
+	private boolean active;
+	
+
+
+	@Column(name = "endDate")
+	private Calendar endDate;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -188,15 +223,6 @@ public class carLanding {
 		this.uuid = uuid;
 	}
 
-
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 
 	public String getModel() {
@@ -279,25 +305,7 @@ public class carLanding {
 	}
 
 
-	public String getPrimaryDamage() {
-		return primaryDamage;
-	}
-
-
-	public void setPrimaryDamage(String primaryDamage) {
-		this.primaryDamage = primaryDamage;
-	}
-
-
-	public String getSecondaryDamage() {
-		return secondaryDamage;
-	}
-
-
-	public void setSecondaryDamage(String secondaryDamage) {
-		this.secondaryDamage = secondaryDamage;
-	}
-
+	
 
 	public String getColor() {
 		return color;
@@ -339,14 +347,7 @@ public class carLanding {
 	}
 
 
-	public String getSaleStatues() {
-		return saleStatues;
-	}
-
-
-	public void setSaleStatues(String saleStatues) {
-		this.saleStatues = saleStatues;
-	}
+	
 
 
 	public String getAuctionLocation() {
@@ -379,15 +380,6 @@ public class carLanding {
 	}
 
 
-	public String getKiloDistance() {
-		return kiloDistance;
-	}
-
-
-	public void setKiloDistance(String kiloDistance) {
-		this.kiloDistance = kiloDistance;
-	}
-
 
 	public Integer getCategory() {
 		return category;
@@ -416,6 +408,136 @@ public class carLanding {
 
 	public void setShowenInLanding(boolean isShowenInLanding) {
 		this.isShowenInLanding = isShowenInLanding;
+	}
+
+
+	public String getLot() {
+		return lot;
+	}
+
+
+	public void setLot(String lot) {
+		this.lot = lot;
+	}
+
+
+	public String getDamageDescription() {
+		return damageDescription;
+	}
+
+
+	public void setDamageDescription(String damageDescription) {
+		this.damageDescription = damageDescription;
+	}
+
+
+	public String getItemNumber() {
+		return itemNumber;
+	}
+
+
+	public void setItemNumber(String itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
+
+	public String getSaleName() {
+		return saleName;
+	}
+
+
+	public void setSaleName(String saleName) {
+		this.saleName = saleName;
+	}
+
+
+	public String getEstRetailValue() {
+		return estRetailValue;
+	}
+
+
+	public void setEstRetailValue(String estRetailValue) {
+		this.estRetailValue = estRetailValue;
+	}
+
+
+	public String getLotUrl() {
+		return lotUrl;
+	}
+
+
+	public void setLotUrl(String lotUrl) {
+		this.lotUrl = lotUrl;
+	}
+
+
+	public String getEngineType() {
+		return engineType;
+	}
+
+
+	public void setEngineType(String engineType) {
+		this.engineType = engineType;
+	}
+
+
+	public String getGridRow() {
+		return gridRow;
+	}
+
+
+	public void setGridRow(String gridRow) {
+		this.gridRow = gridRow;
+	}
+
+
+	public String getOdoDescription() {
+		return odoDescription;
+	}
+
+
+	public void setOdoDescription(String odoDescription) {
+		this.odoDescription = odoDescription;
+	}
+
+
+	public String getRepairEstimate() {
+		return repairEstimate;
+	}
+
+
+	public void setRepairEstimate(String repairEstimate) {
+		this.repairEstimate = repairEstimate;
+	}
+
+
+	public user getUserMaxBidId() {
+		return userMaxBidId;
+	}
+
+
+	public void setUserMaxBidId(user userMaxBidId) {
+		this.userMaxBidId = userMaxBidId;
+	}
+
+
+	public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+
+	public Calendar getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(Calendar endDate) {
+		this.endDate = endDate;
 	}
 
 
