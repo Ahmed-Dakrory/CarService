@@ -29,7 +29,7 @@ return xhr;
 
 
 //Make the actual CORS request.
-function makeCorsRequest(urlOfRequest,funcCommand) {
+function makeCorsRequest(urlOfRequest,funcCommand,data) {
 // This is a sample server that supports CORS.
 var url = urlOfRequest;
 
@@ -44,7 +44,7 @@ if (!xhr) {
 // Response handlers.
 xhr.onload = function() {
  var text = xhr.responseText;
- funcCommand(text);
+ funcCommand(text,data);
  return text;
 };
 

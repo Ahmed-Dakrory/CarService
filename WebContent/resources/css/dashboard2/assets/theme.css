@@ -1,56 +1,53 @@
 @charset "UTF-8";
 
-@import url("https://www.primefaces.org/showcase/javax.faces.resource/primeicons/primeicons.css.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
+@import url("/showcase/javax.faces.resource/primeicons/primeicons.css.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
 
 /* Nova-Light */
 :root {
-  /* --input-border-color:#a6a6a6; */
-  /* --input-hover-border-color:#212121; */
-  /* --input-focus-border-color:#007ad9; */
-  }
+  --input-border-color:#a6a6a6;
+  --input-hover-border-color:#212121;
+  --input-focus-border-color:#007ad9; }
 
 /* open-sans-300 - latin */
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 300;
-  src: url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
+  src: url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
   /* IE9 Compat Modes */
-  src: local("Open Sans Light"), local("OpenSans-Light"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
+  src: local("Open Sans Light"), local("OpenSans-Light"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-300.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
   /* Legacy iOS */ }
 /* open-sans-regular - latin */
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
+  src: url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
   /* IE9 Compat Modes */
-  src: local("Open Sans"), local("OpenSans"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
+  src: local("Open Sans"), local("OpenSans"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-regular.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
   /* Legacy iOS */ }
 /* open-sans-700 - latin */
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
+  src: url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT");
   /* IE9 Compat Modes */
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("https://www.primefaces.org/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.eot.xhtml?ln=primefaces&v=7.1-SNAPSHOT#iefix") format("embedded-opentype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.woff2.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff2"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.woff.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("woff"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.ttf.xhtml?ln=primefaces&v=7.1-SNAPSHOT") format("truetype"), url("/showcase/javax.faces.resource/fonts/open-sans-v13-latin-700.svg.xhtml?ln=primefaces&v=7.1-SNAPSHOT#OpenSans") format("svg");
   /* Legacy iOS */ }
 
 * {
   -moz-box-sizing: border-box;
-  /* -webkit-box-sizing: border-box; */
-  /* box-sizing: border-box; */
-  }
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
 
 body .ui-widget,
 body .ui-widget .ui-widget {
   text-decoration: none; }
 body .ui-widget:not(.pi),
 body .ui-widget .ui-widget:not(.pi) {
-  /* font-family: "Open Sans", "Helvetica Neue", sans-serif; */
-  /* font-size: 14px; */
-  }
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px; }
 body .ui-icon {
   height: 1em;
   width: 1em;
@@ -67,9 +64,8 @@ body .pi {
   font-size: 1.25em; }
 body .ui-corner-all {
   -moz-border-radius: 3px;
-  /* -webkit-border-radius: 3px; */
-  /* border-radius: 3px; */
-  }
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
 body .ui-corner-top {
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
@@ -139,9 +135,7 @@ body .ui-inputfield {
   -moz-appearance: none;
   appearance: none; }
   body .ui-inputfield.ui-state-hover:not(.ui-state-error) {
-    border-color: #212121;
-    background: #fdfdfd;
-    }
+    border-color: #212121; }
   body .ui-inputfield.ui-state-focus:not(.ui-state-error) {
     border-color: #007ad9;
     outline: 0 none;
@@ -186,8 +180,7 @@ body .ui-autocomplete {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-autocomplete .ui-autocomplete-dropdown .ui-icon:before {
-    font-family: FontAwesome;
-            content: "\f002"; }
+        content: ""; }
   body .ui-autocomplete .ui-autocomplete-multiple-container {
     padding: 0.2145em 0.429em; }
     body .ui-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-token {
@@ -216,9 +209,7 @@ body .ui-autocomplete {
         display: inline-block;
         font-size: 1.25em; }
         body .ui-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-token .ui-autocomplete-token-icon:before {
-              
-    font-family: FontAwesome;
-    content: "\f002"; }
+          content: ""; }
     body .ui-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-input-token {
       margin: 0;
       padding: 0.2145em 0; }
@@ -323,8 +314,7 @@ body .ui-chkbox {
         display: inline-block;
         font-size: 1.25em; }
         body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
-             content: "\f002";
-    font-family: FontAwesome; }
+          content: ""; }
       body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-closethick {
         font-family: 'primeicons';
         speak: none;
@@ -342,8 +332,7 @@ body .ui-chkbox {
         display: inline-block;
         font-size: 1.25em; }
         body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-closethick:before {
-             content: "\f002";
-    font-family: FontAwesome;}
+          content: ""; }
 body .ui-radiobutton {
   display: inline-block;
   vertical-align: middle;
@@ -451,8 +440,7 @@ body .ui-selectmanymenu {
       color: #007ad9; }
       body .ui-selectonelistbox .ui-selectlistbox-filter-container .ui-icon:before,
       body .ui-selectmanymenu .ui-selectlistbox-filter-container .ui-icon:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
   body .ui-selectonelistbox .ui-selectlistbox-listcontainer,
   body .ui-selectmanymenu .ui-selectlistbox-listcontainer {
     padding: 0;
@@ -499,7 +487,7 @@ body .ui-selectmanymenu {
           margin-right: 0.429em;
           vertical-align: middle; }
 body .ui-selectonemenu {
-  /* vertical-align: initial; */
+  vertical-align: initial;
   border: 1px solid #a6a6a6;
   position: relative;
   -moz-transition: border-color 0.3s;
@@ -507,9 +495,8 @@ body .ui-selectonemenu {
   -webkit-transition: border-color 0.3s;
   transition: border-color 0.3s;
   -moz-border-radius: 3px;
-  /* -webkit-border-radius: 3px; */
-  border-radius: 3px;
-  }
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
   body .ui-selectonemenu input.ui-selectonemenu-label {
     padding: 0.536em 0.429em; }
   body .ui-selectonemenu .ui-selectonemenu-trigger {
@@ -556,9 +543,7 @@ body .ui-selectonemenu {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon:before {
-            content: "\f0dd";
-            font-family: FontAwesome;
-            }
+        content: ""; }
   body .ui-selectonemenu.ui-state-hover:not(.ui-state-error) {
     border-color: #212121; }
   body .ui-selectonemenu.ui-state-focus:not(.ui-state-error) {
@@ -607,8 +592,7 @@ body .ui-selectonemenu-panel {
       margin-top: -0.5em;
       color: #007ad9; }
       body .ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
   body .ui-selectonemenu-panel .ui-selectonemenu-items {
     padding: 0; }
     body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item {
@@ -684,8 +668,7 @@ body .ui-selectcheckboxmenu {
         display: inline-block;
         font-size: 1.25em; }
         body .ui-selectcheckboxmenu .ui-selectcheckboxmenu-multiple-container .ui-selectcheckboxmenu-token .ui-selectcheckboxmenu-token-icon:before {
-              content: "\f002";
-    font-family: FontAwesome; }
+          content: ""; }
   body .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
     -moz-border-radius-topleft: 0;
     -webkit-border-top-left-radius: 0;
@@ -730,8 +713,7 @@ body .ui-selectcheckboxmenu {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
   body .ui-selectcheckboxmenu.ui-state-hover:not(.ui-state-error) {
     border-color: #212121; }
   body .ui-selectcheckboxmenu.ui-state-focus:not(.ui-state-error) {
@@ -1114,7 +1096,7 @@ body .ui-datepicker {
     font-size: 1.25em;
     right: 0.429em; }
     body .ui-datepicker .ui-datepicker-next:before {
-      content: ">"; }
+      content: ""; }
   body .ui-datepicker .ui-datepicker-prev {
     font-family: 'primeicons';
     speak: none;
@@ -1133,7 +1115,7 @@ body .ui-datepicker {
     font-size: 1.25em;
     left: 0.429em; }
     body .ui-datepicker .ui-datepicker-prev:before {
-      content: "<"; }
+      content: ""; }
   body .ui-datepicker .ui-datepicker-title {
     margin: 0;
     padding: 0 0.857em;
@@ -1244,8 +1226,7 @@ body .ui-datepicker {
         display: inline-block;
         font-size: 1.25em; }
         body .ui-datepicker .ui-timepicker .ui-picker-down .ui-icon:before {
-              content: "\f002"; 
-    font-family: FontAwesome;}
+          content: ""; }
   body .ui-datepicker .ui-monthpicker .ui-monthpicker-month {
     color: #333333; }
     body .ui-datepicker .ui-monthpicker .ui-monthpicker-month:hover {
@@ -1791,18 +1772,17 @@ body .ui-texteditor .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-
   stroke: #333333; }
 
 body .ui-button {
-  /* background-color: #007ad9; */
-  /* color: #ffffff; */
-  /* border: 1px solid #007ad9; */
-  /* font-size: 14px; */
-  /* margin: 0; */
-  /* margin-right: .1em; */
-  /* outline: 0 none; */
+  background-color: #007ad9;
+  color: #ffffff;
+  border: 1px solid #007ad9;
+  font-size: 14px;
+  margin: 0;
+  margin-right: .1em;
+  outline: 0 none;
   -moz-transition: background-color 0.3s;
   -o-transition: background-color 0.3s;
-  /* -webkit-transition: background-color 0.3s; */
-  /* transition: background-color 0.3s; */
-  }
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s; }
   body .ui-button.ui-state-focus {
     outline: 1px solid #666666;
     outline-offset: 1px;
@@ -1811,17 +1791,15 @@ body .ui-button {
     -moz-box-shadow: none;
     box-shadow: none; }
   body .ui-button.ui-state-hover {
-    /* background-color: #116fbf; */
-    /* border-color: #116fbf; */
-    /* color: #ffffff; */
-    }
+    background-color: #116fbf;
+    border-color: #116fbf;
+    color: #ffffff; }
   body .ui-button.ui-state-active, body .ui-button.ui-state-down {
     background-color: #005b9f;
     border-color: #005b9f;
     color: #ffffff; }
   body .ui-button.ui-button-text-only .ui-button-text {
-    /* padding: 0.429em 1em; */
-    }
+    padding: 0.429em 1em; }
   body .ui-button.ui-button-text-icon-left .ui-button-text {
     padding: 0.429em 1em 0.429em 2em; }
   body .ui-button.ui-button-text-icon-left .ui-icon {
@@ -2288,8 +2266,7 @@ body .ui-accordion .ui-accordion-header {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-accordion .ui-accordion-header > .ui-icon.ui-icon-triangle-1-s:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
 body .ui-accordion .ui-accordion-content {
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
@@ -3044,10 +3021,9 @@ body .ui-datatable .ui-datatable-data > tr {
     color: #333333; }
   body .ui-datatable .ui-datatable-data > tr.ui-state-highlight {
     border: 1px solid #c8c8c8;
-    background-color: #e0e4e6;
+    background-color: #007ad9;
     color: #ffffff;
-    cursor: default;
-    }
+    cursor: default; }
   body .ui-datatable .ui-datatable-data > tr.ui-datatable-selectable {
     cursor: pointer; }
     body .ui-datatable .ui-datatable-data > tr.ui-datatable-selectable.ui-state-highlight .ui-radiobutton > .ui-corner-all.ui-state-active, body .ui-datatable .ui-datatable-data > tr.ui-datatable-selectable.ui-state-highlight .ui-chkbox > .ui-corner-all.ui-state-active {
@@ -3909,8 +3885,7 @@ body .ui-treetable .ui-treetable-data > tr {
         font-size: 1.25em;
         margin-top: 1px; }
         body .ui-treetable .ui-treetable-data > tr > td .ui-treetable-toggler.ui-icon-triangle-1-s:before {
-              content: "\f002";
-    font-family: FontAwesome; }
+          content: ""; }
       body .ui-treetable .ui-treetable-data > tr > td .ui-treetable-toggler:hover {
         color: #333333; }
     body .ui-treetable .ui-treetable-data > tr > td .ui-chkbox.ui-selection {
@@ -5516,8 +5491,7 @@ body .ui-menu {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-menu.ui-menu-toggleable .ui-menu-list .ui-widget-header .ui-icon-triangle-1-s:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
     body .ui-menu.ui-menu-toggleable .ui-menu-list .ui-widget-header h3 {
       padding-left: 0; }
   body .ui-menu .ui-menu-list .ui-widget-header {
@@ -5822,8 +5796,7 @@ body .ui-panelmenu .ui-panelmenu-header {
       display: inline-block;
       font-size: 1.25em; }
       body .ui-panelmenu .ui-panelmenu-header .ui-icon.ui-icon-triangle-1-s:before {
-            content: "\f002";
-    font-family: FontAwesome; }
+        content: ""; }
   body .ui-panelmenu .ui-panelmenu-header a {
     display: inline;
     padding: 0;
@@ -5911,9 +5884,7 @@ body .ui-panelmenu .ui-panelmenu-content {
         font-size: 1.25em;
         font-size: 16px; }
         body .ui-panelmenu .ui-panelmenu-content .ui-menuitem-link > span.ui-icon.ui-panelmenu-icon.ui-icon-triangle-1-s:before {
-        
-    font-family: FontAwesome;
-              content: "\f002"; }
+          content: ""; }
     body .ui-panelmenu .ui-panelmenu-content .ui-menuitem-link .ui-menuitem-text {
       display: inline-block;
       vertical-align: middle; }

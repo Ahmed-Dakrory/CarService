@@ -66,12 +66,12 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
      <div class="item active">
-     	<h:graphicImage value="/images/?file=#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
+     	<h:graphicImage value="#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
       </div>
       
     <ui:repeat var="data" value="#{carLandingBean.imagesOfSelectedCarLanding}">
     	<div class="item">
-        	<h:graphicImage value="/images/?file=#{data.url}" alt="image#{data.url}" style="width: auto;max-width: 100%;"/>
+        	<h:graphicImage value="#{data.url}" alt="image#{data.url}" style="width: auto;max-width: 100%;"/>
       </div>
     </ui:repeat>
      
@@ -149,23 +149,23 @@
 Transmission </span>
 </span>
 </td>
-<td><span itemprop="transmission">#{carLandingBean.getTransmissionTypesEnum(carLandingBean.selectedCarPage.transmission)}</span></td>
+<td><span itemprop="transmission">#{carLandingBean.selectedCarPage.transmission}</span></td>
 </tr>
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Primary damage</span>
+<span>Damage Description</span>
 </span>
 </td>
-<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.primaryDamage}</span></td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.damageDescription}</span></td>
 </tr>
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Secondary damage</span>
+<span>Item Number</span>
 </span>
 </td>
-<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.secondaryDamage}</span></td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.itemNumber}</span></td>
 </tr>
 <tr>
 <td>
@@ -195,14 +195,7 @@ Transmission </span>
 </td>
 <td><span itemprop="color">#{carLandingBean.selectedCarPage.color}</span></td>
 </tr>
-<tr>
-<td>
-<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Description</span>
-</span>
-</td>
-<td><span itemprop="vehicleEngine">#{carLandingBean.selectedCarPage.description}</span></td>
-</tr>
+
 
 <tr>
 <td>
@@ -365,23 +358,23 @@ By clicking on the "Buy It Now" button below, you are committing to buy this veh
 Transmission </span>
 </span>
 </td>
-<td><span itemprop="transmission">#{carLandingBean.getTransmissionTypesEnum(carLandingBean.selectedCarPage.transmission)}</span></td>
+<td><span itemprop="transmission">carLandingBean.selectedCarPage.transmission)</span></td>
 </tr>
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Primary damage</span>
+<span>Damage description</span>
 </span>
 </td>
-<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.primaryDamage}</span></td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.damageDescription}</span></td>
 </tr>
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Secondary damage</span>
+<span>Item Number</span>
 </span>
 </td>
-<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.secondaryDamage}</span></td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.itemNumber}</span></td>
 </tr>
 <tr>
 <td>
@@ -413,14 +406,7 @@ Transmission </span>
 </td>
 <td><span itemprop="color">#{carLandingBean.selectedCarPage.color}</span></td>
 </tr>
-<tr>
-<td>
-<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Description</span>
-</span>
-</td>
-<td><span itemprop="vehicleEngine">#{carLandingBean.selectedCarPage.description}</span></td>
-</tr>
+
 
 <tr>
 <td>
@@ -453,7 +439,7 @@ Sale Information </h2>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >Sale Status </span>
 </td>
 <td>
-#{carLandingBean.selectedCarPage.saleStatues} </td>
+#{carLandingBean.selectedCarPage.saleName} </td>
 </tr>
 <tr>
 <td>

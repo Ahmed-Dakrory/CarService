@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -28,13 +29,9 @@ import helpers.retrofit.mainFiles.copartReturnVin;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
-import main.com.carService.carLanding.transmissionTypesEnum;
 import main.com.carService.carLandingImage.carimageLanding;
 import main.com.carService.carLandingImage.carimageLandingAppServiceImpl;
 import main.com.carService.tools.Constants;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Call;
 
 
@@ -76,8 +73,9 @@ public class carLandingBean implements Serializable{
 	private boolean progress=false;
 	
 	
-	
+
 	private  String saleDate;
+	private  String endDate;
 	
 
 	private List<String> images;
@@ -150,57 +148,22 @@ public class carLandingBean implements Serializable{
         return categoriesEnum.values();
     }
 	
-	public transmissionTypesEnum[] getTransmissionTypesEnum() {
-        return transmissionTypesEnum.values();
-    }
 	
-	public transmissionTypesEnum getTransmissionTypesEnum(int type) {
-        return transmissionTypesEnum.values()[type];
-    }
 	
 	
 
 	
 	public void updateTheLotData() {
-		/*
+	
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> params  = context.getExternalContext().getRequestParameterMap();
 		String dataCarRequest = params.get("dataCarRequest");
 		String carLot = params.get("carLot");
+		String carVinData = params.get("carVinData");
 		System.out.println("Ahmed: "+carLot);
 		System.out.println("Ahmed: "+dataCarRequest);
-		
-*/
+		/*
 		String carLot = selectedFreight.getLot();
-		OkHttpClient clientVin = new OkHttpClient();
-
-		Request requestVin = new Request.Builder()
-		  .url(Constants.URLCopartVin+carLot)
-		  .get()
-		  .addHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
-		  .addHeader("access-control-request-headers", "*")
-		  .addHeader("cache-control", "no-cache")
-		  .build();
-		String vinData;
-		try {
-		Response responseVin = clientVin.newCall(requestVin).execute();
-		
-		vinData = responseVin.body().string();
-		
-		Gson gson = new Gson();
-		copartReturnVin carVin = gson.fromJson(vinData, copartReturnVin.class);
-		
-		if(carVin!=null) {
-			
-		selectedFreight.setUuid(carVin.data);
-		
-		
-		}
-		}catch(Exception e) {
-
-			PrimeFaces.current().executeScript("hideDialog()");
-			PrimeFaces.current().executeScript("ErrorDialog()");
-		}
 		
 		OkHttpClient client = new OkHttpClient();
 
@@ -212,34 +175,54 @@ public class carLandingBean implements Serializable{
 		  .addHeader("cache-control", "no-cache")
 		  .build();
 		String dataCarRequest;
-		try {
+	
 		Response response = client.newCall(request).execute();
 		
 			dataCarRequest = response.body().string();
+				
+*/
+		Gson gson = new Gson();
+		copartReturnVin carVinDetails = gson.fromJson(carVinData, copartReturnVin.class);
 		
 		Gson gson2 = new Gson();
 		copartReturnDataWithImages carData = gson2.fromJson(dataCarRequest, copartReturnDataWithImages.class);
+		if(carVinData!=null) {
+			selectedFreight.setUuid(carVinDetails.data);
+		}
 		
 		if(carData!=null) {
-		selectedFreight.setLotUrl(Constants.URLCopartURL+selectedFreight.getLot());
-		selectedFreight.setActive(true);
-		selectedFreight.setCurrentBid(carData.data.lotDetails.currentBid);
-		selectedFreight.setAuctionLocation(carData.data.lotDetails.saleName);
-		selectedFreight.setCylinder(carData.data.lotDetails.cylinder);
-		selectedFreight.setDamageDescription(carData.data.lotDetails.damageDescription);
-		selectedFreight.setDocType(carData.data.lotDetails.docType);
-		selectedFreight.setEngineType(carData.data.lotDetails.engineType);
-		selectedFreight.setEstRetailValue(carData.data.lotDetails.estimatedRetails);
-		selectedFreight.setFuel(carData.data.lotDetails.fuel);
-		selectedFreight.setGridRow(carData.data.lotDetails.gridRow);
-		selectedFreight.setItemNumber(carData.data.lotDetails.itemNumber);
-		selectedFreight.setMake(carData.data.lotDetails.make);
-		selectedFreight.setModel(carData.data.lotDetails.model);
-		selectedFreight.setYear(carData.data.lotDetails.year);
-		selectedFreight.setOdoDescription(carData.data.lotDetails.odometerDispcription);
-		selectedFreight.setOdoMeter(carData.data.lotDetails.odometerNum+" "+carData.data.lotDetails.odometerChar);
-		selectedFreight.setRepairEstimate(carData.data.lotDetails.estimatedRepair);
-		selectedFreight.setSaleName(carData.data.lotDetails.saleName);
+			Calendar timeForSale=Calendar.getInstance();
+			if(carData.data.lotDetails.saleDatetimeInMilliSeconds!="") {
+
+				timeForSale.setTimeInMillis(Long.parseLong(carData.data.lotDetails.saleDatetimeInMilliSeconds));
+				
+
+				saleDate=getStringFromCalendar(timeForSale);
+				
+			}
+			
+			selectedFreight.setTransmission(carData.data.lotDetails.transmissionType);
+			selectedFreight.setLotUrl(Constants.URLCopartURL+selectedFreight.getLot());
+			selectedFreight.setActive(true);
+			selectedFreight.setCurrentBid(carData.data.lotDetails.currentBid);
+			selectedFreight.setAuctionLocation(carData.data.lotDetails.saleName);
+			selectedFreight.setCylinder(carData.data.lotDetails.cylinder);
+			selectedFreight.setDamageDescription(carData.data.lotDetails.damageDescription);
+			selectedFreight.setDocType(carData.data.lotDetails.docType);
+			selectedFreight.setEngineType(carData.data.lotDetails.engineType);
+			selectedFreight.setEstRetailValue(carData.data.lotDetails.estimatedRetails);
+			selectedFreight.setFuel(carData.data.lotDetails.fuel);
+			selectedFreight.setGridRow(carData.data.lotDetails.gridRow);
+			selectedFreight.setItemNumber(carData.data.lotDetails.itemNumber);
+			selectedFreight.setColor(carData.data.lotDetails.color);
+			selectedFreight.setMake(carData.data.lotDetails.make);
+			selectedFreight.setModel(carData.data.lotDetails.model);
+			selectedFreight.setBodyStyle(carData.data.lotDetails.bodyStyle);
+			selectedFreight.setYear(carData.data.lotDetails.year);
+			selectedFreight.setOdoDescription(carData.data.lotDetails.odometerDispcription);
+			selectedFreight.setOdoMeter(carData.data.lotDetails.odometerNum+" "+carData.data.lotDetails.odometerChar);
+			selectedFreight.setRepairEstimate(carData.data.lotDetails.estimatedRepair);
+			selectedFreight.setSaleName(carData.data.lotDetails.saleName);
 		}
 		
 		if(carData != null) {
@@ -251,12 +234,7 @@ public class carLandingBean implements Serializable{
 		}
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
 		PrimeFaces.current().executeScript("hideDialog()");
-		}catch (Exception e) {
-			// TODO: handle exception
-			PrimeFaces.current().executeScript("hideDialog()");
-			PrimeFaces.current().executeScript("ErrorDialog()");
-		}
-
+	
 		
 		
 	}
@@ -292,7 +270,6 @@ public class carLandingBean implements Serializable{
 	        	selectedFreight.setMake(car.Results.get(0).Make);
 	        	selectedFreight.setModel(car.Results.get(0).Model);
 	        	selectedFreight.setYear(car.Results.get(0).ModelYear);
-	        	selectedFreight.setAssemblyCountry(car.Results.get(0).PlantCountry);
 	        	selectedFreight.setBodyStyle(car.Results.get(0).DriveType);
 	        	selectedFreight.setFuel(car.Results.get(0).FuelTypePrimary);
 	        	selectedFreight.setCylinder(car.Results.get(0).EngineConfiguration+"- "+car.Results.get(0).EngineCylinders+" Cylinders");
@@ -336,6 +313,7 @@ public void addCarForMain() {
 		
 		selectedFreight=new carLanding();
 		saleDate="";
+		endDate="";
 		
 		images=new ArrayList<String>();
 		
@@ -353,6 +331,7 @@ public void addCarForMain() {
 		
 		selectedFreight=carLandingFacade.getById(selectedCarId);
 		saleDate=getStringFromCalendar(selectedFreight.getSaleDate());
+		endDate=getStringFromCalendar(selectedFreight.getEndDate());
 		List<carimageLanding> imagesOfCar =carimageLandingFacade.getAllByCarId(selectedFreight.getId());
 
 		images=new ArrayList<String>();
@@ -389,6 +368,8 @@ public void addCarForMain() {
 	
 	public void updateCarDataMain() {
 		selectedFreight.setSaleDate(setCalendarFromString(saleDate));
+		selectedFreight.setEndDate(setCalendarFromString(endDate));
+		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		carLandingFacade.addcarLanding(selectedFreight);
 		
 		for(int i=0;i<images.size();i++) {
@@ -472,6 +453,17 @@ public void addCarForMain() {
 
 	public void setSaleDate(String saleDate) {
 		this.saleDate = saleDate;
+	}
+
+
+	
+	public String getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 

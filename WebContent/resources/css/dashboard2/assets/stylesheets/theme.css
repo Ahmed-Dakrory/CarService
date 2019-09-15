@@ -12,7 +12,6 @@ html {
 body {
 	color: #777;
 	font-family: "Open Sans", Arial, sans-serif;
-	line-height: 22px;
 	margin: 0;
 	font-size: 13px;
 	overflow-x: auto;
@@ -16890,4 +16889,49 @@ html.dark .img-thumbnail,
 html.dark .thumbnail {
 	background-color: #21262d;
 	border-color: #282d36;
+}
+
+.devCloseButtonNew:hover{
+	
+    opacity: 1;
+	
+}
+.containerDevCloseButtonNew{
+	width: 100%;
+    text-align: -webkit-right;
+    position: relative;
+    right: 4%;
+    top: 3px;
+}
+.devCloseButtonNew{
+	
+	position: relative;
+    right: -1px;
+    width: 21px;
+    background: #b5b5bf;
+    height: 21px;
+    border-radius: 97%;
+    opacity: 0.5;
+}
+.closeButtonNew {
+          width: 9px;
+    height: 9px;
+}
+.closeButtonNew:hover {
+  opacity: 1;
+}
+.closeButtonNew:before, .closeButtonNew:after {
+      position: absolute;
+    left: 9px;
+    content: ' ';
+    height: 15px;
+    width: 3px;
+    background-color: #333;
+    top: 11%;
+}
+.closeButtonNew:before {
+  transform: rotate(45deg);
+}
+.closeButtonNew:after {
+  transform: rotate(-45deg);
 }

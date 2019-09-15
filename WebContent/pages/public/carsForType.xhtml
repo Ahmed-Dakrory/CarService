@@ -353,7 +353,7 @@ To
 										<script>
 										function ViewDocById(strID) {
 										    if (strID != '-1') {
-										    	window.open('/images/?file='+strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+										    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
 										    }
 										}
 										</script>
@@ -367,7 +367,7 @@ To
 												<div class="preview-photo" id="pph-24311239">
 
 													<a data-auction="copart" data-lot="24311239" onclick='ViewDocById("#{data.mainImage}")' class="see_photos">See Photos</a>
-													<h:graphicImage value="/images/?file=#{data.mainImage}" alt="image#{data.mainImage}"/></div>
+													<h:graphicImage value="#{data.mainImage}" alt="image#{data.mainImage}"/></div>
 												</td>
 												
 												<td class="column2 center hidden-phone">
@@ -380,9 +380,9 @@ To
 													#{data.uuid} </div>
 													<div class="odometer">
 													<span class="name">
-													Mileage:
+													OdoMeter:
 													</span>
-													#{data.kiloDistance} kiloMeter
+													#{data.odoMeter} #{data.odoDescription} 
 													</div>
 													
 													

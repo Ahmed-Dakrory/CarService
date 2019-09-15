@@ -92,9 +92,6 @@ public class carLanding {
 	@Column(name = "year")
 	private String year;
 
-	@Column(name = "assemblyCountry")
-	private String assemblyCountry;
-
 	@Column(name = "bodyStyle")
 	private String bodyStyle;
 	
@@ -107,7 +104,7 @@ public class carLanding {
 	
 
 	@Column(name = "transmission")
-	private Integer transmission;
+	private String transmission;
 	
 
 	@Column(name = "damageDescription")
@@ -255,15 +252,6 @@ public class carLanding {
 	}
 
 
-	public String getAssemblyCountry() {
-		return assemblyCountry;
-	}
-
-
-	public void setAssemblyCountry(String assemblyCountry) {
-		this.assemblyCountry = assemblyCountry;
-	}
-
 
 	public String getBodyStyle() {
 		return bodyStyle;
@@ -295,12 +283,12 @@ public class carLanding {
 	}
 
 
-	public Integer getTransmission() {
+	public String getTransmission() {
 		return transmission;
 	}
 
 
-	public void setTransmission(Integer transmission) {
+	public void setTransmission(String transmission) {
 		this.transmission = transmission;
 	}
 

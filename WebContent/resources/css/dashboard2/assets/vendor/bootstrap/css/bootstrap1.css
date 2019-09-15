@@ -902,7 +902,7 @@ html {
 body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   /* font-size: 14px; */
-  line-height: 0;
+  /* line-height: 0; */
   color: #333333;
   background-color: #ffffff;
 }
@@ -912,7 +912,7 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
-  line-height: inherit;
+  line-height: 100%!important;
 }
 a {
   /* color: #555e67; */
@@ -2315,7 +2315,7 @@ legend {
 }
 label {
   display: inline-block;
-  max-width: 100%;
+  /* max-width: 100%; */
   margin-bottom: 5px;
   font-weight: bold;
 }

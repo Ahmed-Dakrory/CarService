@@ -135,6 +135,29 @@
 				});
             
             $(function() {
+				$('#aspnetForm\\:endDate').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:endDate').val(datetext);
+				    }
+				});
+				});
+            
+            $(function() {
 				$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
 				    dateFormat: 'yy-dd-mm',
 				    onSelect: function(datetext){
@@ -254,21 +277,28 @@
                                                                                                    <h:panelGroup id="scriptPanel">
                                                                                                    
                                                                                                    <script>
+                                                                                                   
+
+                                                                                      				var lotNum = #{carLandingBean.selectedFreight.lot};
 																									function searchAndGetTheData(){
                                                                                            				showDialog('car');
                                                                                            				
-                                                                                           				var lotNum = #{carLandingBean.selectedFreight.lot};
-                                                                                           				var urlOfRequest =URLCopartImages+lotNum;
+                                                                                           				getVin(lotNum);
                                                                                            				
-                                                                                           				console.log(urlOfRequest);
-                                                                                           				//var textData = makeCorsRequest(urlOfRequest,showThisData);
-                                                                                           				updateLotData();
+																										//updateLotData();
                                                                                            				//hideDialog();
 																									}
-                                                                                           				
-																									function showThisData(text){
-                                                                                           				var lotNum = #{carLandingBean.selectedFreight.lot};
-                                                                                           				updateLotData([{name:'dataCarRequest', value:text}, {name:'carLot', value:lotNum}]);
+                                                                                           			function getVin(lotNum){
+                                                                                           				var urlOfRequestVin =URLCopartVin+lotNum;
+                                                                                           				makeCorsRequest(urlOfRequestVin,getDetailsForCar,lotNum);
+                                                                                           			}
+                                                                                           			
+                                                                                           			function getDetailsForCar(vinDetails,data){
+                                                                                           				var urlOfRequestImages =URLCopartImages+lotNum;
+                                                                                           				makeCorsRequest(urlOfRequestImages,showThisData,vinDetails);
+                                                                                           			}
+																									function showThisData(text,vinDetails){
+                                                                                           				updateLotData([{name:'dataCarRequest', value:text}, {name:'carLot', value:lotNum}, {name:'carVinData', value:vinDetails}]);
                                                                                            				
 																									}
                                                                                                    </script>
@@ -447,9 +477,9 @@
                                                                                                     Transmission Type :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                   <h:selectOneMenu value="#{carLandingBean.selectedFreight.transmission}" name="ctl00$BodyHolder$ddlVendors2" id="ctl00_BodyHolder_ddlVendors2" style="font-size:11px;height:19px;width:200px;">
-																										<f:selectItems value="#{carLandingBean.transmissionTypesEnum}" var="var" itemLabel="#{var.name}" itemValue="#{var.type}"/>
-																									</h:selectOneMenu>
+                                                                                                 <h:inputText  type="text" value="#{carLandingBean.selectedFreight.transmission}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                   
+                                                                                                 
                                                                                                  </td>
                                                                                                  
                                                                                                 <td width="200">
@@ -577,13 +607,16 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr height="23">
+                                                                                                
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
-                                                                                                        Assembly Country:</div>
+                                                                                                        Color:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtAssemblyCountry" type="text" value="#{carLandingBean.selectedFreight.assemblyCountry}" id="ctl00_BodyHolder_txtAssemblyCountry" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carLandingBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
+                                                                                                
+                                                                                               
                                                                                                 <td width="200">
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
@@ -632,9 +665,15 @@
                                                                                                     <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carLandingBean.selectedFreight.fuel}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                
-                                                                                                <td style="height: 23px">
+                                                                                               <td width="200">
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        End Date:</div>
                                                                                                 </td>
                                                                                                 <td>
+                                                                                                    <h:inputText  type="text" value="#{carLandingBean.endDate}" id="endDate" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr height="2">
@@ -675,24 +714,8 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
-                                                                                            <tr height="2">
-                                                                                                <td bgcolor="#ffffff" colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Color:</div>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carLandingBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                
-                                                                                               
-                                                                                                
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
+                                                                                          
+                                                                                            
                                                                                             <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
@@ -756,11 +779,9 @@
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                      <div id="picDivMain" style="display: inline; margin-left: 6px">
-                                                                                                     	
                                                                                                      	 <h:panelGroup id="imagesPanelMain">
-																	                                 
-																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carLandingBean.selectedFreight.mainImage!=''?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
-																	                                    <h:graphicImage value="#{carLandingBean.selectedFreight.mainImage}" rendered="#{carLandingBean.selectedFreight.mainImage!=''?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carLandingBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="#{carLandingBean.selectedFreight.mainImage}" rendered="#{carLandingBean.selectedFreight.mainImage!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
 																	                                    
 																	                                     </h:panelGroup>   
                                                                                                      	

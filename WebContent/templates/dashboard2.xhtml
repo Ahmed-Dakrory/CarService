@@ -55,9 +55,6 @@
     <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/font-awesome/css/font-awesome.css']}" />
     	
     
-    <!-- Head Libs -->
-		<h:outputScript name="js/dashboard/assets/vendor/modernizr/modernizr.js"/>
-		
 	
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="#{resource['css:dashboard/assets/stylesheets/theme.css']}" />
@@ -69,7 +66,8 @@
 	
 	
     	<!-- Head Libs -->
-		<h:outputScript name="js/dashboard2/assets/vendor/modernizr/modernizr.js"/>
+    	
+		<h:outputScript name="css/dashboard2/assets/vendor/modernizr/modernizr3.js"/>
 		
 	
 	
@@ -90,7 +88,12 @@
 
    		<h:body> 
 
-		
+		<style>
+
+.nano-content{
+margin-right: 0!important;
+}
+</style>
 		
 		<section class="body">
 
@@ -513,6 +516,7 @@
 
 			
 		</section>
+		
 		<script>
 		dialogLoader = bootbox.dialog({
     	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',

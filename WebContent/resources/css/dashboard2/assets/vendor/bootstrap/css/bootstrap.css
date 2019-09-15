@@ -182,7 +182,7 @@ optgroup {
   font-weight: bold;
 }
 table {
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   /* border-spacing: 0; */
   /* border-radius: 11px; */
 }
@@ -900,7 +900,7 @@ html {
 body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   /* font-size: 14px; */
-  /*line-height: 1.42857143;*/
+  /* line-height: 1.428571; */
   color: #333333;
   background-color: #ffffff;
 }
@@ -910,7 +910,7 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
-  line-height: inherit;
+  line-height: 100%;
 }
 a {
   /* color: #555e67; */
@@ -2051,8 +2051,8 @@ pre code {
   }
 }
 table {
-	border-radius: 19px;
-	background-color: transparent;
+    border-radius: 19px;
+    background-color: transparent;
 }
 caption {
   padding-top: 8px;
@@ -2316,7 +2316,7 @@ legend {
 }
 label {
   display: inline-block;
-  max-width: 100%;
+  /* max-width: 100%; */
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -5593,8 +5593,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    font-size: 23px;
-    margin: 25% auto;
+    margin: 30px auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);

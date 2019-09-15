@@ -87,6 +87,10 @@ public class copartReturnDataWithImages {
 	    		    public String make;
 	    		 
 
+	    		 @SerializedName("bstl")
+	    		    public String bodyStyle;
+	    		 
+
 	    		 @SerializedName("lmg")
 	    		    public String model;
 	    		 
@@ -100,9 +104,13 @@ public class copartReturnDataWithImages {
 
 	    		 @SerializedName("ad")
 	    		    public String saleDatetimeInMilliSeconds;
-	    		 
+
 	    		 @SerializedName("at")
 	    		    public String timeOfSaleDate;
+	    		 
+
+	    		 @SerializedName("clr")
+	    		    public String color;
 	    		 
 	    		 
 	    		 
