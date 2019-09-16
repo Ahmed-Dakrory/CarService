@@ -262,52 +262,9 @@
                                                                                     <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
                                                                                         <tbody>
                                                                                             <tr height="23">
-                                                                                            <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                     Lot Number : </div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                  <p:inputText type="text"  value="#{carLandingBean.selectedFreight.lot}" style="font-size:11px;height:19px;width:200px;" >
-                                                                                                    <p:ajax event="keyup" update="scriptPanel" />
-                                                                                                  </p:inputText>
-                                                                                                   <p:commandButton onclick="searchAndGetTheData()" value=""  style="background-image: url('/resources/images/img/zoom-magnifier.png'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
-                                                                                                   <p:remoteCommand actionListener="#{carLandingBean.updateTheLotData()}" name="updateLotData"></p:remoteCommand>
-                                                                                                   
-                                                                                                   
-                                                                                                   <h:panelGroup id="scriptPanel">
-                                                                                                   
-                                                                                                   <script>
-                                                                                                   
-
-                                                                                      				var lotNum = #{carLandingBean.selectedFreight.lot};
-																									function searchAndGetTheData(){
-                                                                                           				showDialog('car');
-                                                                                           				
-                                                                                           				getVin(lotNum);
-                                                                                           				
-																										//updateLotData();
-                                                                                           				//hideDialog();
-																									}
-                                                                                           			function getVin(lotNum){
-                                                                                           				var urlOfRequestVin =URLCopartVin+lotNum;
-                                                                                           				makeCorsRequest(urlOfRequestVin,getDetailsForCar,lotNum);
-                                                                                           			}
-                                                                                           			
-                                                                                           			function getDetailsForCar(vinDetails,data){
-                                                                                           				var urlOfRequestImages =URLCopartImages+lotNum;
-                                                                                           				makeCorsRequest(urlOfRequestImages,showThisData,vinDetails);
-                                                                                           			}
-																									function showThisData(text,vinDetails){
-                                                                                           				updateLotData([{name:'dataCarRequest', value:text}, {name:'carLot', value:lotNum}, {name:'carVinData', value:vinDetails}]);
-                                                                                           				
-																									}
-                                                                                                   </script>
-                                                                                                     </h:panelGroup>
-                                                                                                </td>
+                                                        
                                                                                                                                                                                                
                                                                                                
-                                                                                                <td width="200">
-                                                                                                </td>
                                                                                                 
                                                                                                 <td class="tbltxt" width="130" >
                                                                                                     <div style="margin-left: 6px">
@@ -340,10 +297,10 @@
                                                                                                
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
-                                                                                                        Sale Date:</div>
+                                                                                                        Start Biding Date:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDVL" value="#{carLandingBean.saleDate}" type="text" class="timePicker" id="ctl00_BodyHolder_txtDVL" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtDVL" value="#{carLandingBean.bidingDate}" type="text" class="timePicker" id="ctl00_BodyHolder_txtDVL" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 
                                                                                                 </td>
                                                                                                 
@@ -365,10 +322,10 @@
                                                                                                 </td>
                                                                                                <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
-                                                                                                      Doc Type :</div>
+                                                                                                      Secondry Damage :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.docType}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.secondaryDamage}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                                
@@ -547,10 +504,10 @@
                                                                                                 </td>
                                                                                                 <td class="tbltxt" width="130">
                                                                                                     <div style="margin-left: 6px">
-                                                                                                     Lot url : </div>
+                                                                                                     Lot : </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.lotUrl}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.lot}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -756,7 +713,35 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
-                                                                                            
+                                                                                             <tr>
+                                                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Images Url : </div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <p:inputText type="text"  value="#{carLandingBean.selectedFreight.allImagesLink}" style="font-size:11px;height:19px;width:200px;" >
+                                                                                                    <p:ajax event="keyup" update="scriptPanel" />
+                                                                                                  </p:inputText>
+                                                                                                   <p:commandButton onclick="searchAndGetTheData()" value=""  style="background-image: url('/resources/images/img/zoom-magnifier.png'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
+                                                                                                   <p:remoteCommand actionListener="#{carLandingBean.updateTheLotImages(carLandingBean.selectedFreight.allImagesLink)}" name="updateLotData"></p:remoteCommand>
+                                                                                                   
+                                                                                                   
+                                                                                                   <h:panelGroup id="scriptPanel">
+                                                                                                   
+                                                                                                   <script>
+                                                                                                   
+
+                                                                                      				var lotNum = #{carLandingBean.selectedFreight.lot};
+																									function searchAndGetTheData(){
+                                                                                           				showDialog('car');
+                                                                                           				
+                                                                                           				updateLotData();
+																									}
+                                                                                           			
+                                                                                                   </script>
+                                                                                                     </h:panelGroup>
+                                                                                                </td>
+                                                                                            </tr>
                                                                                             
                                                                                              <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
@@ -805,7 +790,9 @@
                                                                                                                 Pictures:</b></a></div>
                                                                                                 </td>
                                                                                             </tr>
+                                                                                           
                                                                                             <tr height="23">
+                                                                                            
                                                                                                 <td>
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">

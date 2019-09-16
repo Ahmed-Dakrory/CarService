@@ -28,5 +28,25 @@ public class APIClient {
         return retrofit;
     }
     
+    
+    
+    public static Retrofit getClientForCopartImages(String copartImagesLink) {
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(copartImagesLink)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+
+
+        return retrofit;
+    }
+    
    
 }

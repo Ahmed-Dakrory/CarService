@@ -12,6 +12,10 @@ public interface APIInterface {
 	 @GET("?format=json")
 	    Call<OrderOutDetails> performOrder();
 	 
+	 
+	 @GET(".")
+	    Call<copartReturnImages> getAllImagesFromCopart();
+	 
 	
   
 	 

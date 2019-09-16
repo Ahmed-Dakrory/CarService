@@ -1,14 +1,15 @@
 package main.com.carService.Beans;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,21 +18,21 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.PrimeFaces;
-
-import com.google.gson.Gson;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
-import helpers.retrofit.mainFiles.copartReturnDataWithImages;
-import helpers.retrofit.mainFiles.copartReturnVin;
+import helpers.retrofit.mainFiles.copartReturnImages;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
-import main.com.carService.carLandingImage.carimageLanding;
-import main.com.carService.carLandingImage.carimageLandingAppServiceImpl;
-import main.com.carService.tools.Constants;
 import retrofit2.Call;
 
 
@@ -73,24 +74,25 @@ public class carLandingBean implements Serializable{
 	private boolean progress=false;
 	
 	
-
-	private  String saleDate;
+	private String bidingDate;
 	private  String endDate;
 	
 
 	private List<String> images;
 	
 	private carLanding selectedCarPage;
-	private List<carimageLanding> imagesOfSelectedCarLanding;
 
-	@ManagedProperty(value = "#{carimageLandingFacadeImpl}")
-	private carimageLandingAppServiceImpl carimageLandingFacade;
 	
 
 	private Integer searchType;
 	private String searchMake;
 	private String searchStartYear;
 	private String searchEndYear;
+	
+	private List<carLanding> listOfUploadedDataCars;
+
+	private UploadedFile fileExcel;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -116,7 +118,21 @@ public class carLandingBean implements Serializable{
 			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
 				if(id!=null){
 					selectedCarPage=carLandingFacade.getById(id);
-					imagesOfSelectedCarLanding=carimageLandingFacade.getAllByCarId(id);
+					//Here Get the images For the main 
+					/**
+					 * 
+					 */
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				}
 			}
 		catch(Exception ex){
@@ -151,89 +167,44 @@ public class carLandingBean implements Serializable{
 	
 	
 	
-
-	
-	public void updateTheLotData() {
-	
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> params  = context.getExternalContext().getRequestParameterMap();
-		String dataCarRequest = params.get("dataCarRequest");
-		String carLot = params.get("carLot");
-		String carVinData = params.get("carVinData");
-		System.out.println("Ahmed: "+carLot);
-		System.out.println("Ahmed: "+dataCarRequest);
-		/*
-		String carLot = selectedFreight.getLot();
+	public void updateImagesWithLink(String lotImagesLink) {
 		
-		OkHttpClient client = new OkHttpClient();
+	        try {
+	        	images = new ArrayList<String>();
+	        	String newLinkUrlWithSlach = lotImagesLink.substring(0, lotImagesLink.indexOf('?'))+"/"+lotImagesLink.substring( lotImagesLink.indexOf('?'),lotImagesLink.length());
+	    		APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
+	    		  Call<copartReturnImages> call = apiInterface.getAllImagesFromCopart();
+	    		  
+	        	copartReturnImages carImages= call.execute().body();
 
-		Request request = new Request.Builder()
-		  .url(Constants.URLCopartImages+carLot)
-		  .get()
-		  .addHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
-		  .addHeader("access-control-request-headers", "*")
-		  .addHeader("cache-control", "no-cache")
-		  .build();
-		String dataCarRequest;
-	
-		Response response = client.newCall(request).execute();
-		
-			dataCarRequest = response.body().string();
+	        	if(carImages != null) {
+	    			
+	    			selectedFreight.setMainImage(carImages.lotImages.get(0).link.get(0).url);
+	    			for(int i=1;i<carImages.lotImages.size();i++) {
+	    				images.add(carImages.lotImages.get(i).link.get(0).url);
+	    			}
+	    		}
+	    	
+
+				PrimeFaces.current().executeScript("hideDialog()");
+	          	  
+			} catch (IOException e1) {
 				
-*/
-		Gson gson = new Gson();
-		copartReturnVin carVinDetails = gson.fromJson(carVinData, copartReturnVin.class);
-		
-		Gson gson2 = new Gson();
-		copartReturnDataWithImages carData = gson2.fromJson(dataCarRequest, copartReturnDataWithImages.class);
-		if(carVinData!=null) {
-			selectedFreight.setUuid(carVinDetails.data);
-		}
-		
-		if(carData!=null) {
-			Calendar timeForSale=Calendar.getInstance();
-			if(carData.data.lotDetails.saleDatetimeInMilliSeconds!="") {
-
-				timeForSale.setTimeInMillis(Long.parseLong(carData.data.lotDetails.saleDatetimeInMilliSeconds));
+				PrimeFaces.current().executeScript("hideDialog()");
+			} catch (Exception e1) {
 				
-
-				saleDate=getStringFromCalendar(timeForSale);
-				
+				PrimeFaces.current().executeScript("hideDialog()");
+			}catch (Error e1) {
+				PrimeFaces.current().executeScript("hideDialog()");
 			}
-			
-			selectedFreight.setTransmission(carData.data.lotDetails.transmissionType);
-			selectedFreight.setLotUrl(Constants.URLCopartURL+selectedFreight.getLot());
-			selectedFreight.setActive(true);
-			selectedFreight.setCurrentBid(carData.data.lotDetails.currentBid);
-			selectedFreight.setAuctionLocation(carData.data.lotDetails.saleName);
-			selectedFreight.setCylinder(carData.data.lotDetails.cylinder);
-			selectedFreight.setDamageDescription(carData.data.lotDetails.damageDescription);
-			selectedFreight.setDocType(carData.data.lotDetails.docType);
-			selectedFreight.setEngineType(carData.data.lotDetails.engineType);
-			selectedFreight.setEstRetailValue(carData.data.lotDetails.estimatedRetails);
-			selectedFreight.setFuel(carData.data.lotDetails.fuel);
-			selectedFreight.setGridRow(carData.data.lotDetails.gridRow);
-			selectedFreight.setItemNumber(carData.data.lotDetails.itemNumber);
-			selectedFreight.setColor(carData.data.lotDetails.color);
-			selectedFreight.setMake(carData.data.lotDetails.make);
-			selectedFreight.setModel(carData.data.lotDetails.model);
-			selectedFreight.setBodyStyle(carData.data.lotDetails.bodyStyle);
-			selectedFreight.setYear(carData.data.lotDetails.year);
-			selectedFreight.setOdoDescription(carData.data.lotDetails.odometerDispcription);
-			selectedFreight.setOdoMeter(carData.data.lotDetails.odometerNum+" "+carData.data.lotDetails.odometerChar);
-			selectedFreight.setRepairEstimate(carData.data.lotDetails.estimatedRepair);
-			selectedFreight.setSaleName(carData.data.lotDetails.saleName);
-		}
+	}
+	
+	public void updateTheLotImages(String lotImagesLink) {
 		
-		if(carData != null) {
-			images = new ArrayList<String>();
-			selectedFreight.setMainImage(carData.data.imagesList.FULL_IMAGE.get(0).url);
-			for(int i=1;i<carData.data.imagesList.FULL_IMAGE.size();i++) {
-				images.add(carData.data.imagesList.FULL_IMAGE.get(i).url);
-			}
-		}
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
-		PrimeFaces.current().executeScript("hideDialog()");
+		updateImagesWithLink(lotImagesLink);
+	    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+	    PrimeFaces.current().executeScript("hideDialog()");
+	       
 	
 		
 		
@@ -312,8 +283,8 @@ public void addCarForMain() {
 		
 		
 		selectedFreight=new carLanding();
-		saleDate="";
 		endDate="";
+		bidingDate="";
 		
 		images=new ArrayList<String>();
 		
@@ -328,18 +299,13 @@ public void addCarForMain() {
 	
 	public void selectCarForMain(int selectedCarId) {
 		
-		
+		PrimeFaces.current().executeScript("showDialog('car');");
 		selectedFreight=carLandingFacade.getById(selectedCarId);
-		saleDate=getStringFromCalendar(selectedFreight.getSaleDate());
 		endDate=getStringFromCalendar(selectedFreight.getEndDate());
-		List<carimageLanding> imagesOfCar =carimageLandingFacade.getAllByCarId(selectedFreight.getId());
+		bidingDate=getStringFromCalendar(selectedFreight.getBidingDate());
+		updateImagesWithLink(selectedFreight.getAllImagesLink());
 
-		images=new ArrayList<String>();
-		if(imagesOfCar!=null) {
-			for(int i=0;i<imagesOfCar.size();i++) {
-				images.add(imagesOfCar.get(i).getUrl());
-			}
-		}
+		
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vitView.jsf?faces-redirect=true");
@@ -366,18 +332,259 @@ public void addCarForMain() {
 		return cal;
 	}
 	
+	
+	
+	 public void parseFile(FileUploadEvent event) {
+	       System.out.println("File uploaded");
+	       UploadedFile fileUploaded = event.getFile();
+		 	try {
+		 		if(fileUploaded!=null) {
+		 		if(fileUploaded.getSize()!=0) {
+		 			InputStream fileData =fileUploaded.getInputstream(); 
+		 	       System.out.println("File streamed");
+		 		listOfUploadedDataCars = parseUsersFile(fileData);
+		 		
+		 		}
+		 		}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.toString());
+			}
+	    }
+	 
+	 
+	 public List<carLanding> parseUsersFile(InputStream input) {
+			List<carLanding> dataList = new ArrayList<carLanding>();
+			try {
+				//inputStream = resource.getInputStream();
+				// Create Workbook instance holding reference to .xlsx file
+				@SuppressWarnings("resource")
+				XSSFWorkbook workbook = new XSSFWorkbook(input);
+
+		 	       System.out.println("workBook");
+				// Get first/desired sheet from the workbook
+				XSSFSheet sheet = workbook.getSheetAt(0);
+
+		 	       System.out.println("Sheet");
+				// Iterate through each rows one by one
+
+				Iterator<Row> rowIterator = sheet.iterator();
+
+				while (rowIterator.hasNext()) {
+					Row row = rowIterator.next();
+					// For each row, iterate through all the columns
+					Iterator<Cell> cellIterator = row.cellIterator();
+					carLanding data=new carLanding();
+					
+					int count = 0;
+					while (cellIterator.hasNext()) {
+						Cell cell = cellIterator.next();
+						count++;
+					
+	                  switch(count) {
+		                case 8:
+		                	try {
+								data.setItemNumber(String.valueOf(cell.getNumericCellValue()));
+							} catch (Exception ex) { System.out.println(ex.toString());
+								
+							}
+		                	  break;
+		                	  
+		                case 9:
+		                	try {
+								data.setLot(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 11:
+							try {
+								data.setYear(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 12:
+							try {
+								data.setMake(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 14:
+							try {
+								data.setModel(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 15:
+							try {
+								data.setBodyStyle(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 16:
+							try {
+								data.setColor(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 17:
+							try {
+								data.setDamageDescription(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+						case 18:
+							try {
+								data.setSecondaryDamage(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+							  
+						case 23:
+							try {
+								data.setUuid(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 24:
+							try {
+								data.setOdoMeter(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+		                	  
+						case 25:
+							try {
+								data.setOdoDescription(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 26:
+							try {
+								data.setEstRetailValue(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 27:
+							try {
+								data.setRepairEstimate(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+
+						case 28:
+							try {
+								data.setEngineType(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 30:
+							try {
+								data.setTransmission(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 31:
+							try {
+								data.setFuel(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 32:
+							try {
+								data.setCylinder(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+		                	  
+						case 37:
+							try {
+								data.setAuctionLocation(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+		                	  
+						case 38:
+							try {
+								String state = cell.getStringCellValue();
+								data.setAuctionLocation(state+"-"+data.getAuctionLocation());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+		                	  
+						case 42:
+							try {
+								data.setMainImage(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 44:
+							try {
+								data.setGridRow(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+		                	  
+						case 46:
+							try {
+								data.setCurrentBid(String.valueOf(cell.getNumericCellValue()));
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+						case 47:
+							try {
+								data.setAllImagesLink(cell.getStringCellValue());
+							}catch (Exception ex) { System.out.println(ex.toString());
+							}
+		                	  break;
+		                	  
+							
+	                  }
+						
+							
+				
+						
+					
+				
+					}
+					data.setActive(true);
+					data.setCategory(categoriesEnum.SMALLCARS.getType());
+					data.setMainId(loginBean.getTheUserOfThisAccount());
+					data.setShowenInLanding(false);
+					dataList.add(data);
+				}
+				input.close();
+			 dataList.remove(0);
+			
+			return dataList;
+			 
+		
+			}catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+	
 	public void updateCarDataMain() {
-		selectedFreight.setSaleDate(setCalendarFromString(saleDate));
 		selectedFreight.setEndDate(setCalendarFromString(endDate));
+		selectedFreight.setBidingDate(setCalendarFromString(bidingDate));
 		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		carLandingFacade.addcarLanding(selectedFreight);
 		
-		for(int i=0;i<images.size();i++) {
-			carimageLanding cImage=new carimageLanding();
-			cImage.setCarId(selectedFreight);
-			cImage.setUrl(images.get(i));
-			carimageLandingFacade.addcarimageLanding(cImage);
-		}
+		
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true");
@@ -399,6 +606,7 @@ public void addCarForMain() {
 	}
 	
 
+	
 	public main.com.carService.loginNeeds.loginBean getLoginBean() {
 		return loginBean;
 	}
@@ -447,14 +655,7 @@ public void addCarForMain() {
 		this.progress = progress;
 	}
 
-	public String getSaleDate() {
-		return saleDate;
-	}
-
-	public void setSaleDate(String saleDate) {
-		this.saleDate = saleDate;
-	}
-
+	
 
 	
 	public String getEndDate() {
@@ -464,6 +665,19 @@ public void addCarForMain() {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	
+
+	
+
+	public String getBidingDate() {
+		return bidingDate;
+	}
+
+
+	public void setBidingDate(String bidingDate) {
+		this.bidingDate = bidingDate;
 	}
 
 
@@ -476,15 +690,6 @@ public void addCarForMain() {
 		this.images = images;
 	}
 
-
-	public carimageLandingAppServiceImpl getCarimageLandingFacade() {
-		return carimageLandingFacade;
-	}
-
-
-	public void setCarimageLandingFacade(carimageLandingAppServiceImpl carimageLandingFacade) {
-		this.carimageLandingFacade = carimageLandingFacade;
-	}
 
 
 	public List<carLanding> getListOfCarsLandingScroller() {
@@ -507,14 +712,7 @@ public void addCarForMain() {
 	}
 
 
-	public List<carimageLanding> getImagesOfSelectedCarLanding() {
-		return imagesOfSelectedCarLanding;
-	}
 
-
-	public void setImagesOfSelectedCarLanding(List<carimageLanding> imagesOfSelectedCarLanding) {
-		this.imagesOfSelectedCarLanding = imagesOfSelectedCarLanding;
-	}
 
 
 	public List<carLanding> getListOfCarsGroupByMake() {
@@ -564,6 +762,26 @@ public void addCarForMain() {
 
 	public void setSearchEndYear(String searchEndYear) {
 		this.searchEndYear = searchEndYear;
+	}
+
+
+	public List<carLanding> getListOfUploadedDataCars() {
+		return listOfUploadedDataCars;
+	}
+
+
+	public void setListOfUploadedDataCars(List<carLanding> listOfUploadedDataCars) {
+		this.listOfUploadedDataCars = listOfUploadedDataCars;
+	}
+
+
+	public UploadedFile getFileExcel() {
+		return fileExcel;
+	}
+
+
+	public void setFileExcel(UploadedFile fileExcel) {
+		this.fileExcel = fileExcel;
 	}
 
 

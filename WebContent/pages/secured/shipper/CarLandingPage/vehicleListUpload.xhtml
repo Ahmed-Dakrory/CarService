@@ -28,10 +28,26 @@
     font-family: sans-serif;
 }
 
-
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
 
 	</style>
-        <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+        <h:form name="aspnetForm" id="aspnetForm">
 
 
 #{carLandingBean.refresh()}
@@ -105,10 +121,14 @@
                                             <section class="panel">
                                             
 							<div class="panel-body">
-							   <h:form>
-									<h:commandButton value="Add New Car" action="#{carLandingBean.addCarForMain()}" class="btn btn-default" ></h:commandButton>
-									<h:commandButton value="Upload Files" action="/pages/secured/shipper/CarLandingPage/vehicleListUpload.jsf?faces-redirect=true" class="btn btn-default" ></h:commandButton>
-								</h:form>
+							    <h:form enctype="multipart/form-data" >  
+							   
+							   <p:fileUpload  fileUploadListener="#{carLandingBean.parseFile}" mode="advanced" dragDropSupport="false"
+                   sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(xlsx)$/" 
+							    />
+								  
+    
+    						</h:form>
 								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 									<thead>
 										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
@@ -186,7 +206,7 @@
     </table>
 
             </div>  
-        </form>
+        </h:form>
         
      
 	</ui:define>
