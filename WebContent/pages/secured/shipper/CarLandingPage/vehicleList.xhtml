@@ -18,7 +18,13 @@
 			</ui:define>
 
 	<ui:define name="content">
-	<style>
+	
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
+    	<style>
 	
 	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
 	vertical-align: middle;
@@ -28,8 +34,33 @@
     font-family: sans-serif;
 }
 
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
 
 
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+    
+    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
+    content: "\f046";
+    font-family: FontAwesome;
+}
 	</style>
         <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
 
@@ -107,64 +138,149 @@
 							<div class="panel-body">
 							   <h:form>
 									<h:commandButton value="Add New Car" action="#{carLandingBean.addCarForMain()}" class="btn btn-default" ></h:commandButton>
-									<h:commandButton value="Upload Files" action="/pages/secured/shipper/CarLandingPage/vehicleListUpload.jsf?faces-redirect=true" class="btn btn-default" ></h:commandButton>
+									<h:commandButton value="Upload Files" action="#{carLandingBean.goToCarDataUpload()}" class="btn btn-default" ></h:commandButton>
 								</h:form>
-								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
-									<thead>
-										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
-											
-											<th class="hidden-phone">Image</th>
-											<th class="hidden-phone">Vin</th>
-											<th class="hidden-phone">Damage Description</th>
-											<th class="hidden-phone">Year</th>
-											<th class="hidden-phone">Transmission</th>
-											<th class="hidden-phone">Bid</th>
-											<th class="hidden-phone">Lot Number</th>
-											<th class="hidden-phone">Engine Type</th>
-											<th class="hidden-phone">Categories</th>
-											<th class="hidden-phone">Date</th>
-											<th class="hidden-phone">Statue</th>
-											
-										</tr>
-									</thead>
-									<tbody>
-									<ui:repeat var="data" value="#{carLandingBean.listOfAddedCars}">
-										<tr class="gradeX">
-											<td style="    margin: 0;    padding: 2px;    width: 88px;">
-											<h:graphicImage value="#{data.mainImage}" alt="image#{data.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
-										
-											</td>
-											<td>
-												
-												<h:form>
-													<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{data.uuid}" action="#{carLandingBean.selectCarForMain(data.id)}"/>
-												
-												</h:form>
-											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.damageDescription}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.transmission}</span></td>
-											
-											
-											
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.currentBid}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">
-												
-												<h:form>
-													<a   href="https://www.copart.com/lot/#{data.lot}" target="_blank">#{data.lot}</a>
-												</h:form>
-												</span>
-											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.engineType}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getCategoryEnum(data.category).name}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carLandingBean.getFormatedDate(data.bidingDate)}</span></td>
-											<td class="center hidden-phone" style="display:table-cell;"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.active?'check_on.gif':'check_off.gif'}"></img></span></td>
-										</tr>
-									</ui:repeat>
-										
-										
-									</tbody>
-								</table>
+								<h:form id="tableForm">
+								
+        	
+    						 <p:dataTable id="carsTable" var="row" value="#{carLandingBean.listOfAddedCars}" widgetVar="carsTable" 
+                 rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="10,50,100,200,500,1000"
+                 selectionMode="single" selection="#{carLandingBean.selectedFreight}" rowKey="#{row.lot}"
+                 emptyMessage="No cars found with given criteria" filteredValue="#{carLandingBean.listOfFilteredCars}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+             <div class="container" style="margin: 0;    width: 100%;">
+	            <div class="row">
+	            	<div class="col-md-3" style="text-align: left;">
+	            	<p:outputLabel for="datetime" value="Start Biding Date" />
+       				<p:calendar id="datetime" value="#{carLandingBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:ajax event="change" />
+       				</p:calendar>
+	            	
+	            	</div>
+	            	<div class="col-md-3" style="text-align: left;">
+	            		<p:outputLabel for="datetime2" value="End Biding Date" />
+       					<p:calendar id="datetime2" value="#{carLandingBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:ajax event="change" />
+       					</p:calendar>
+       					
+	            	
+	            	</div> 
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton class="btn btn-default" value="Search" action="#{carLandingBean.getTheAllListOfCarsWithDates()}" update="carsTable"/>
+       					
+	            	
+	            	</div> 
+	            	
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton class="btn btn-default" value="Search Bid" action="#{carLandingBean.getTheBidListOfCarsWithDates()}" update="carsTable"/>
+       					
+	            	
+	            	</div> 
+	            	
+	            	
+	            	
+	            	<div class="col-md-3" style="text-align: right;">
+	            		<h:outputText value="Search all fields:" />
+	            		<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+	            	</div>
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="pi pi-align-justify" />
+       		 	<p:columnToggler datasource="carsTable" trigger="toggler" />
+	            	</div>
+	            </div>
+            </div>
+            </p:outputPanel>
+        </f:facet>
+        
+         
+ 
+ 		<p:column style="font-size: 11px;    text-align: center;" width="90" id="imageId" sortBy="#{row.mainImage}" filterBy="#{row.mainImage}">
+			<h:graphicImage value="#{row.mainImage}" alt="image#{row.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
+			<f:facet name="header">	<h:outputText value="Image" /> </f:facet>
+		</p:column>
+		
+		
+		<p:ajax event="rowSelect" listener="#{carLandingBean.selectCarRowForMain}"  />
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
+			
+			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{carLandingBean.selectCarForMain(row.id)}"/>
+			
+			 -->
+			<h:outputText value="#{row.uuid}" />
+
+			<f:facet name="header">	<h:outputText value="Vin" /> </f:facet>
+		</p:column>
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="code" sortBy="#{row.damageDescription}" filterBy="#{row.damageDescription}">
+			<h:outputText value="#{row.damageDescription}" />
+			<f:facet name="header">	<h:outputText value="Damage Description" /> </f:facet>
+		</p:column>
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="transmission" sortBy="#{row.transmission}" filterBy="#{row.transmission}">
+			<h:outputText value="#{row.transmission}" />
+			<f:facet name="header">	<h:outputText value="Transmission" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.currentBid}" filterBy="#{row.currentBid}">
+			<h:outputText value="#{row.currentBid}" />
+			<f:facet name="header">	<h:outputText value="Current Bid" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="lot" sortBy="#{row.lot}" filterBy="#{row.lot}">
+			
+				<a   href="https://www.copart.com/lot/#{row.lot}" target="_blank">#{row.lot}</a>
+			
+
+			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="category" sortBy="#{carLandingBean.getCategoryEnum(row.category).name}" filterBy="#{carLandingBean.getCategoryEnum(row.category).name}">
+			<h:outputText value="#{carLandingBean.getCategoryEnum(row.category).name}" />
+			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
+		</p:column>
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="model" sortBy="#{row.model}" filterBy="#{row.model}">
+			<h:outputText value="#{row.make}/#{row.model}" />
+			<f:facet name="header">	<h:outputText value="Make/Model" /> </f:facet>
+		</p:column>
+		
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="endDate" sortBy="#{row.endDate}" filterBy="#{row.endDate}">
+			<h:outputText value="#{row.endDate}" />
+			<f:facet name="header">	<h:outputText value="End Date" /> </f:facet>
+		</p:column>
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="year" sortBy="#{row.year}" filterBy="#{row.year}">
+			<h:outputText value="#{row.year}" />
+			<f:facet name="header">	<h:outputText value="Year" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="color" sortBy="#{row.color}" filterBy="#{row.color}">
+			<h:outputText value="#{row.color}" />
+			<f:facet name="header">	<h:outputText value="Color" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="active" sortBy="#{row.active}" filterBy="#{row.active}">
+			<img src="/resources/images/#{row.active?'check_on.gif':'check_off.gif'}"></img>
+			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
+		</p:column>
+		
+    </p:dataTable>
+							
+					</h:form>	
 							
 							
 							</div>

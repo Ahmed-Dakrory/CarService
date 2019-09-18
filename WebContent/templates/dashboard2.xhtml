@@ -543,6 +543,18 @@ margin-right: 0!important;
                 	            
                 	
                 	}
+		
+		function ErrorDialog2(text){
+        	dialogLoader = bootbox.dialog({
+        	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Error '+text+'</p>',
+        	    closeButton: true,
+        	    show: true,
+        	    onEscape:true
+        	});
+                	
+                	            
+                	
+                	}
                     
                     function hideDialog(){
                     	// do something in the background

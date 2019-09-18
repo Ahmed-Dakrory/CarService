@@ -7,6 +7,7 @@ package main.com.carService.carLanding;
 
 
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,6 +156,40 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, Integer category) {
 		try{
 			List<carLanding> course=carLandingDataRepository.getAllForSearch( yearStart,  yearEnd,  make,  category);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<carLanding> getAllBetweenDates(Calendar date1, Calendar date2) {
+		// TODO Auto-generated method stub
+		try{
+			List<carLanding> course=carLandingDataRepository.getAllBetweenDates( date1,  date2);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<carLanding> getAllBidBetweenDates(Calendar date1, Calendar date2) {
+		// TODO Auto-generated method stub
+		try{
+			List<carLanding> course=carLandingDataRepository.getAllBidBetweenDates( date1,  date2);
 			
 			return course;
 			}

@@ -165,5 +165,33 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 		 }
 	}
 
+	@Override
+	public List<carLanding> getAllBetweenDates(Calendar date1, Calendar date2) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllBetweenDates")
+				 .setCalendar("date1", date1).setCalendar("date2", date2);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<carLanding> getAllBidBetweenDates( Calendar date1, Calendar date2) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllBidBetweenDates")
+				 .setCalendar("date1", date1).setCalendar("date2", date2);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
 
 }

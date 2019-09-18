@@ -2,6 +2,7 @@ package main.com.carService.carLanding;
 
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +57,15 @@ import main.com.carService.loginNeeds.user;
 	,
 	@NamedQuery(name="carLanding.getAllForSearch",
 	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make = :make and d.category = :category"
+			)
+	,
+	@NamedQuery(name="carLanding.getAllBetweenDates",
+	query = "from carLanding d where d.bidingDate > :date1 and d.endDate < :date2"
+			)
+	
+	,
+	@NamedQuery(name="carLanding.getAllBidBetweenDates",
+	query = "from carLanding d where d.userMaxBidId.id > 0 and  d.bidingDate > :date1 and d.endDate < :date2"
 			)
 	
 })
@@ -139,7 +149,7 @@ public class carLanding {
 	private Calendar dateAdd;
 
 	@Column(name = "bidingDate")
-	private Calendar bidingDate;
+	private Date bidingDate;
 	
 	
 	@Column(name = "estRetailValue")
@@ -191,7 +201,7 @@ public class carLanding {
 
 
 	@Column(name = "endDate")
-	private Calendar endDate;
+	private Date endDate;
 
 
 
@@ -255,13 +265,13 @@ public class carLanding {
 
 
 
-	public Calendar getBidingDate() {
+	public Date getBidingDate() {
 		return bidingDate;
 	}
 
 
 
-	public void setBidingDate(Calendar bidingDate) {
+	public void setBidingDate(Date bidingDate) {
 		this.bidingDate = bidingDate;
 	}
 
@@ -589,13 +599,13 @@ public class carLanding {
 
 
 
-	public Calendar getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
 
 
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	

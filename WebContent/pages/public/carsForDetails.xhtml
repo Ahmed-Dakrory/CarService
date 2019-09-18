@@ -58,7 +58,7 @@
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <ui:repeat var="data" varStatus="statue" value="#{carLandingBean.imagesOfSelectedCarLanding}">
+      <ui:repeat var="data" varStatus="statue" value="#{carLandingBean.images}">
       <li data-target="#myCarousel" data-slide-to="#{statue.index+1}"></li>
       </ui:repeat>
     </ol>
@@ -69,9 +69,9 @@
      	<h:graphicImage value="#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
       </div>
       
-    <ui:repeat var="data" value="#{carLandingBean.imagesOfSelectedCarLanding}">
+    <ui:repeat var="data" value="#{carLandingBean.images}">
     	<div class="item">
-        	<h:graphicImage value="#{data.url}" alt="image#{data.url}" style="width: auto;max-width: 100%;"/>
+        	<h:graphicImage value="#{data}" alt="image#{data}" style="width: auto;max-width: 100%;"/>
       </div>
     </ui:repeat>
      
@@ -123,11 +123,11 @@
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Doc type</span>
+<span>Secondary Damage</span>
 </span>
 </td>
 <td>
-<div style="position: relative">#{carLandingBean.selectedCarPage.docType} </div>
+<div style="position: relative">#{carLandingBean.selectedCarPage.secondaryDamage} </div>
 </td>
 </tr>
 
@@ -330,12 +330,12 @@ By clicking on the "Buy It Now" button below, you are committing to buy this veh
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Doc type</span>
+<span>Secondary Damage</span>
 </span>
 </td>
 <td>
 <div style="position: relative">
-#{carLandingBean.selectedCarPage.docType} </div>
+#{carLandingBean.selectedCarPage.secondaryDamage} </div>
 </td>
 </tr>
 
@@ -477,7 +477,7 @@ Auction Location </span>
 Sale Date </span>
 </td>
 <td>
-#{carLandingBean.getFormatedDate(carLandingBean.selectedCarPage.saleDate)} </td>
+#{carLandingBean.selectedCarPage.bidingDate} </td>
 </tr>
 
 <tr class="bid">

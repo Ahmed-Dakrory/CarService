@@ -3,6 +3,7 @@
  */
 package main.com.carService.carLanding;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ public interface carLandingRepository {
 	public List<carLanding> getAll();
 	public List<carLanding> getAllForLanding();
 	public List<carLanding> getAllGroupsOfMake();
+	public List<carLanding> getAllBetweenDates(Calendar date1,Calendar date2);
+	public List<carLanding> getAllBidBetweenDates(Calendar date1,Calendar date2);
 	public List<carLanding> getAllForSearch(String yearStart,String yearEnd,String make,Integer category);
 	public List<carLanding> getAllForCategories(int categories);
 	public carLanding addcarLanding(carLanding data);

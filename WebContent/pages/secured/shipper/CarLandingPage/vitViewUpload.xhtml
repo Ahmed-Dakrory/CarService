@@ -122,6 +122,7 @@ body .ui-inputfield {
     width: 200px;
 }
 	</style>
+	
 	#{carLandingBean.refresh()}
 	
               <h:form name="aspnetForm" id="aspnetForm">
@@ -174,8 +175,7 @@ body .ui-inputfield {
                                                                             <tr>
                                                                                 <td>
                                                                                 <h:panelGroup id="tableRendered">
-                                                                                
-                                                                                  
+                                                                             
                                                                                     <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
                                                                                         <tbody>
                                                                                             <tr height="23">
@@ -217,7 +217,8 @@ body .ui-inputfield {
                                                                                                         Start Biding Date:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                <p:calendar id="bidingDate" value="#{carLandingBean.selectedFreight.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                   <p:calendar id="bidingDate" value="#{carLandingBean.selectedFreight.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                
                                                                                                 </td>
                                                                                                 
                                                                                             </tr>
@@ -547,8 +548,7 @@ body .ui-inputfield {
                                                                                                 </td>
                                                                                                 <td>
                                                                                                  <p:calendar id="endDate" value="#{carLandingBean.selectedFreight.endDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
-                                                                                               
-                                                                                              </td>
+                                                                                               </td>
                                                                                             </tr>
                                                                                             <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
@@ -899,14 +899,14 @@ body .ui-inputfield {
                                                                         
                                                                                             <tr height="13">
                                                                                                 <td align="center">
-																									<p:commandButton class="btn btn-default" action="#{carLandingBean.updateCarDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+																									<p:commandButton class="btn btn-default" action="#{carLandingBean.updateCarDataUpload()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                     
                                                                                                 </td>
                                                                                                 <td align="center">
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel2()}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel2()}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
