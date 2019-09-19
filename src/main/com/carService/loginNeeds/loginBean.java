@@ -2,6 +2,10 @@ package main.com.carService.loginNeeds;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -12,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
+import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyBox.moneyboxAppServiceImpl;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_details.depositeTypes;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_detailsAppServiceImpl;
 import main.com.carService.security.AuthenticationService;
 
 
@@ -33,17 +42,29 @@ public class loginBean implements Serializable{
 
 	@ManagedProperty(value = "#{userFacadeImpl}")
 	private userAppServiceImpl userDataFacede; 
-	 
+	
+	
+	@ManagedProperty(value = "#{moneyboxFacadeImpl}")
+	private moneyboxAppServiceImpl moneyboxDataFacede; 
+	
+	
+	@ManagedProperty(value = "#{moneybox_transaction_detailsFacadeImpl}")
+	private moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsDataFacede; 
+	
 
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
 	
 	
+	private moneybox thisAccountMoneyBox;
+	private List<moneybox_transaction_details> mymoneyTransactions;
+	
 	@PostConstruct
 	public void init() {
 		isLoggedIn=false;
 		theUserOfThisAccount=new user();
-		
+		thisAccountMoneyBox=new moneybox();
+		mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
 		
 	}
 	
@@ -67,12 +88,30 @@ public class loginBean implements Serializable{
 		}
 	}
 	
+	
+	public void reloadedParametersAndPanelRefresh() {
+
+		thisAccountMoneyBox=new moneybox();
+		mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
+		thisAccountMoneyBox = moneyboxDataFacede.getByUserId(theUserOfThisAccount.getId());
+		if(thisAccountMoneyBox==null) {
+			thisAccountMoneyBox=new moneybox();
+			mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
+		}else {
+			mymoneyTransactions=moneybox_transaction_detailsDataFacede.getAllByUserMoneyBoxId(thisAccountMoneyBox.getId(), 0, 6);
+		}
+		
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel");
+		
+	}
 	public String logOut(){
 
 		emailOfUserLoggedIn="";
 		passwordOfUserLoggedIn="";
 		authenticationService.logout();
 		theUserOfThisAccount=new user();
+		thisAccountMoneyBox=new moneybox();
 		isLoggedIn=false;
 		System.out.println("");
 		return "/pages/public/index.jsf?faces-redirect=true";
@@ -97,7 +136,12 @@ public class loginBean implements Serializable{
 			
 						boolean success = authenticationService.autoLogin(theUserOfThisAccount.getEmail(), passwordOfUserLoggedIn);
 						if (success) {
-
+							thisAccountMoneyBox = moneyboxDataFacede.getByUserId(theUserOfThisAccount.getId());
+							if(thisAccountMoneyBox==null) {
+								thisAccountMoneyBox=new moneybox();
+							}else {
+								mymoneyTransactions=moneybox_transaction_detailsDataFacede.getAllByUserMoneyBoxId(thisAccountMoneyBox.getId(), 0, 6);
+							}
 								FacesContext.getCurrentInstance().getExternalContext()
 											.getSessionMap().put("resetMenu", true);
 									
@@ -120,8 +164,58 @@ public class loginBean implements Serializable{
 	}
 	
 	
+	public void createNewUser(int role) {
+		System.out.println("Ahmed Dakrory");
+		theUserOfThisAccount.setRole(role);
+		theUserOfThisAccount.setActive(true);
+		if(checkCredentialsValid(theUserOfThisAccount)) {
+
+			theUserOfThisAccount.setDate(Calendar.getInstance());
+			theUserOfThisAccount.setPassword(new  Md5PasswordEncoder().encodePassword(passwordConfirm,theUserOfThisAccount.getEmail()));
+			userDataFacede.adduser(theUserOfThisAccount);
+			
+			thisAccountMoneyBox = new moneybox();
+			thisAccountMoneyBox.setActive(false);
+			thisAccountMoneyBox.setAvailableMoney(0);
+			thisAccountMoneyBox.setUserId(theUserOfThisAccount);
+			thisAccountMoneyBox.setTotalUsed(0);
+			moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
+			
+			
+			emailOfUserLoggedIn=theUserOfThisAccount.getEmail();
+			login();
+		}
+	}
 	
+
+private boolean checkCredentialsValid(user theUserOfThisAccount2) {
+		// TODO Auto-generated method stub
 	
+	user userToCheckMail =userDataFacede.getByEmail(theUserOfThisAccount2.getEmail());
+	if(userToCheckMail!=null) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Credentials!',\r\n" + 
+					"			text: 'The Email Is Registered!',\r\n" + 
+					"			type: 'error',\r\n" + 
+					"			left:\"1%\"\r\n" + 
+					"		});");
+			
+		
+		
+		return false;
+	}
+	
+	if(!passwordOfUserLoggedIn.equals(passwordConfirm)) {
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Credentials!',\r\n" + 
+				"			text: 'Passwords are not identical',\r\n" + 
+				"			type: 'error',\r\n" + 
+				"			left:\"1%\"\r\n" + 
+				"		});");
+		return false;
+	}
+		return true;
+	}
 
 public void updateDataOfUser() {
 		
@@ -171,7 +265,9 @@ public void updateDataOfUser() {
 	
 	
 	
-	
+	public depositeTypes getTransactionType(int type) {
+        return depositeTypes.values()[type];
+    }
 	
 	
 
@@ -266,6 +362,39 @@ public void updateDataOfUser() {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public moneyboxAppServiceImpl getMoneyboxDataFacede() {
+		return moneyboxDataFacede;
+	}
+
+	public void setMoneyboxDataFacede(moneyboxAppServiceImpl moneyboxDataFacede) {
+		this.moneyboxDataFacede = moneyboxDataFacede;
+	}
+
+	public moneybox_transaction_detailsAppServiceImpl getMoneybox_transaction_detailsDataFacede() {
+		return moneybox_transaction_detailsDataFacede;
+	}
+
+	public void setMoneybox_transaction_detailsDataFacede(
+			moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsDataFacede) {
+		this.moneybox_transaction_detailsDataFacede = moneybox_transaction_detailsDataFacede;
+	}
+
+	public moneybox getThisAccountMoneyBox() {
+		return thisAccountMoneyBox;
+	}
+
+	public void setThisAccountMoneyBox(moneybox thisAccountMoneyBox) {
+		this.thisAccountMoneyBox = thisAccountMoneyBox;
+	}
+
+	public List<moneybox_transaction_details> getMymoneyTransactions() {
+		return mymoneyTransactions;
+	}
+
+	public void setMymoneyTransactions(List<moneybox_transaction_details> mymoneyTransactions) {
+		this.mymoneyTransactions = mymoneyTransactions;
 	}
 	
 	

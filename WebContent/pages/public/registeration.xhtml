@@ -3,18 +3,146 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/main_template.xhtml">
+<ui:composition template="/templates/publicTemplate.xhtml">
 
-	<ui:define name="title">Shop Registeration</ui:define>
+	<ui:define name="title">International Group</ui:define>
 
 	<ui:define name="content">
 	
+	 <style>
+	 #mainLogin{
+	 display:none;
+	 }
+	
+	 .main-wrapper{
+	 
+    background: #9a9792e3;
+	 
+	 }
+	 
+	 .textEdit{
+	 border-radius: 4px!important;
+    width: 100%!important;
+    height: 37px!important;
+    font-size: 17px!important;
+    margin: 1px 0px 15px;
+	 }
+	 </style>
+		
+	<!-- Computer Registration -->	
+			<div class="body-sign center-sign hidden-sm hidden-xs" style="margin-top:7%;    width: 100%;">
+				<a href="/" class="logo pull-left">
+					<img src="#{resource['images:logo.png']}" height="54" alt="Porto Admin" />
+				</a>
+
+				<div class="panel panel-sign ">
+					<div class="panel-title-sign mt-xl text-right">
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Register</h2>
+					</div>
+					<div class="panel-body">
+						<h:form  id="login-form"  >
+							
+							<p:inputText placeholder="* Username" value="#{loginBean.theUserOfThisAccount.userName}" class="textEdit" required="true"/>
+							<p:inputText placeholder="* First Name" value="#{loginBean.theUserOfThisAccount.firstName}" class="textEdit" required="true"/>
+							<p:inputText placeholder="* Last Name" value="#{loginBean.theUserOfThisAccount.lastName}" class="textEdit" required="true"/>
+							<p:inputText placeholder="* Email" value="#{loginBean.theUserOfThisAccount.email}" class="textEdit" required="true"/>
+							<p:inputText placeholder="* Password" value="#{loginBean.passwordOfUserLoggedIn}" class="textEdit" required="true"/>
+							<p:inputText placeholder="* Enter The Password Again" value="#{loginBean.passwordConfirm}" class="textEdit" required="true"/>
+							
+							
+							
+							<p:commandButton value="Register" action="#{loginBean.createNewUser(6)}" update="login-form"/>
+							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
+								<span>or</span>
+							</span>
+
+
+						</h:form>
+					</div>
+				</div>
+
+				 
+			
+			</div>
+		
+	<!-- Mobile Registration -->		
+		<div class="container hidden-md hidden-xl hidden-lg "  style="    margin-bottom: 15%;">
+		<div class="row"  style="    margin: 5%;">
+		<a href="/" class="logo pull-left">
+					<img src="#{resource['images:logo.png']}" height="54" alt="Porto Admin" />
+				</a>
+		</div>
+			<div class="row">
+			
+				<h:form prependId="false" style="    margin: 5%;" id="login-form2" action="https://phpoll.com/login/process" method="post" role="form" >
+							<div class="form-group mb-lg">
+								<label>Email</label>
+								<div class="input-group ">
+									<p:inputText type="email" id="Mail2" class="form-control " value="#{loginBean.emailOfUserLoggedIn}"/>
+									<span class="input-group-addon">
+										<span class="icon icon-lg">
+											<i class="fa fa-user"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group mb-lg">
+								<div class="clearfix">
+									<label class="pull-left">Password</label>
+									
+								</div>
+								<div class="input-group ">
+									<p:inputText type="password" id="Password2" required="true" class="form-control " value="#{loginBean.passwordOfUserLoggedIn}"/>
+									<span class="input-group-addon">
+										<span class="icon icon-lg">
+											<i class="fa fa-lock"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="checkbox-custom checkbox-default">
+										<input id="RememberMe2" name="rememberme" type="checkbox"/>
+										<label for="RememberMe">Remember Me</label>
+									</div>
+								</div>
+								<div class="col-sm-4 text-right">
+									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary hidden-xs">
+									<f:ajax execute="@form" render="login-form" />
+									</h:commandButton>
+									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
+									<f:ajax execute="@form" render="login-form" />
+									</h:commandButton>
+								</div>
+							</div>
+
+							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
+								<span>or</span>
+							</span>
+
+							
+							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
+
+						</h:form>
+				
+			</div>
+		</div>
+		<!-- end: page -->
 	</ui:define>
 	
+		
+	<ui:define name="script">
+  	
+
+  	
+  	</ui:define>
 	
 </ui:composition>
 </html>
