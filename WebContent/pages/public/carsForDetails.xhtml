@@ -12,20 +12,43 @@
 
 	<ui:define name="content">
 
-		  
+		
 		  <link rel="stylesheet" href="#{resource['css:public/font-awesomeNew.min.css']}" />
 	<style>
 	#content h2 {
     background: #444444;
     font-weight: 700;
 }
+
+.ui-state-active{
+background: #c2c5c7;
+}
+
+.ui-button.ui-state-focus{
+background: #c2c5c7;
+
+}
 	</style>
-	
+	 <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   
 		  <link rel="stylesheet" href="#{resource['css:public/bootstrapSlider.css']}" />
+    
+    
 	#{carLandingBean.refresh()}
+	
+	#{carLandingBean.reloadedParametersAndPanelRefresh()}
+	<h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{carLandingBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+		</h:form>
+		<script>
+		setInterval(refreshMainViews, 500);
+			
+		</script>
+		
 	<div class="center">
 <div class="container breadcontainer hidden-sm hidden-xs">
 <div class="row">
@@ -217,7 +240,8 @@ Transmission </span>
 </tbody></table>
 </div>
 </div>
-<div class="col-md-6 col-sm-6">
+<h:form id="RightColumnData">
+<div class="col-md-6 col-sm-6" >
 
 
 <div id="bid-modal-cache" style="display: none">
@@ -258,27 +282,62 @@ Close </a>
 <div class="result" style="display:none"></div>
 </div>
 </div>
-<div class="buy-now-block" id="buy-now-block">
+<h:panelGroup id="differenceTime" style="    font-size: 28px;    color: #ada92f;    font-family: serif;    font-weight: 600;">
+Remains: #{carLandingBean.differenceTimeDate}
+</h:panelGroup>
+<h:panelGroup class="buy-now-block" id="buy-now-block" style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};">
 <table>
 <tbody><tr>
 <td>
-<div class="caption">
-Buy It Now price </div>
-<div class="price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+<div class="caption" style="font-size: 18px;">
+Current Price </div>
+<div style="text-align: center;    font-size: 35px;    color: brown;">
+<h:panelGroup style="font-size: 35px;"
+ class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
 $<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
 #{carLandingBean.selectedCarPage.currentBid} </span>
 <meta itemprop="priceCurrency" content="USD"/>
-USD </div>
+USD 
+<br></br>
+By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
+</h:panelGroup>
+</div>
 <div class="buy-now__learn-b">
+
+<h3>Select the amount to increase over the current Bid</h3>
+   <div style="width:100%;text-align: -webkit-center;" id="BidingPanel">
+   <h:form>
+   
+    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment"
+    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+   
+   <p:inputText id="increment" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
+   
+   
+ <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment"
+    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+        </h:form>
+        
+        <br></br>
+        <br></br>
+        <div>
+        <p:commandButton value="Bid"  action="#{carLandingBean.makeIncrementBid()}"
+    style="width: 305px;height: 60px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #7d6f39;font-family: serif;background: linear-gradient(to bottom, #c59245 29%, #cea430 100%);font-weight: 800;"/>
+        </div>
+        
+        </div>
+    <br></br>
+        
+ <br></br>
 <a href="/pages/public/contactUs.jsf" class="bn-link" id="buy-now-link">
-To Buy It just send us Email or call us </a>
+For Help Email or call us </a>
 
 </div>
 </td>
 
 </tr>
 </tbody></table>
-</div>
+</h:panelGroup>
 <div id="buy-now-modal-cache" data-url="/en/lot/buy_it_now" data-auction="copart" data-lot="25816049" data-price="127000" style="display: none">
 <div class="title">
 Confirm Buy It Now <span class="close-modal"></span>
@@ -286,9 +345,9 @@ Confirm Buy It Now <span class="close-modal"></span>
 <div class="content">
 <div class="lot-title"></div>
 <div class="lot-number">ID # <span>#{carLandingBean.selectedCarPage.id}</span></div>
-<div class="your-bid-wrapper">
-Buy It Now Price: <span class="your-bid">$#{carLandingBean.selectedCarPage.currentBid} USD</span>
-</div>
+<h:panelGroup class="your-bid-wrapper" id="CurrentPriceSmall">
+Current Price: <span class="your-bid">$#{carLandingBean.selectedCarPage.currentBid} USD</span>
+</h:panelGroup>
 <div class="your-bid-notice">
 By clicking on the "Buy It Now" button below, you are committing to buy this vehicle if you are the winning bidder. All bids are final. </div>
 <div class="controls">
@@ -486,9 +545,10 @@ Sale Date </span>
 Current Bid </span>
 </td>
 <td>
+<h:panelGroup id="CurrentBidAmount">
 <b itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-$#{carLandingBean.selectedCarPage.currentBid} </b>
-USD </td>
+$#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
+ </td>
 </tr>
 </tbody>
 </table>
@@ -575,6 +635,7 @@ USD </td>
 
 
 </div>
+</h:form>
 </div>
 </div>
 

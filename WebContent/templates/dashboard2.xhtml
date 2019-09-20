@@ -96,14 +96,11 @@ margin-right: 0!important;
 </style>
 		#{loginBean.reloadedParametersAndPanelRefresh()}
 		<h:form>
-			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews" action="#{reloadedParametersAndPanelRefresh.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 		</h:form>
 		<script>
 		setInterval(refreshMainViews, 600);
-			var i=0;
-			function play(){
-				console.log("ahmed");
-			}
+			
 		</script>
 		
 		<section class="body">

@@ -65,8 +65,8 @@ public class moneybox {
 	private float totalUsed;
 	
 	
-	@Column(name = "isActive")
-	private boolean isActive;
+	@Column(name = "active")
+	private boolean active;
 
 
 	public Integer getId() {
@@ -112,13 +112,16 @@ public class moneybox {
 
 
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
 
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
+
+
+	
 	
 
 	

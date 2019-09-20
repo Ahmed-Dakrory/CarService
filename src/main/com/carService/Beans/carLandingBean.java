@@ -95,7 +95,9 @@ public class carLandingBean implements Serializable{
 	private UploadedFile fileExcel;
 	
 	private Integer progressLoading;
-	 
+	private String differenceTimeDate;
+	private int incrementBid;
+	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
         	progressLoading = 0;
@@ -126,7 +128,7 @@ public class carLandingBean implements Serializable{
 	
 	
 	public void refresh(){
-
+		incrementBid=10;
 		listOfCarsLandingScroller=carLandingFacade.getAllForLanding();
 		listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
@@ -201,7 +203,95 @@ public class carLandingBean implements Serializable{
 			 
 		}
 	}
-	
+	public void makeIncrementBid() {
+		if(loginBean.getThisAccountMoneyBox()!=null) {
+			if(loginBean.getTheUserOfThisAccount().getId()!=null) {
+				System.out.println("DataUSer:"+String.valueOf(loginBean.getTheUserOfThisAccount().getId()));
+			 loginBean.setThisAccountMoneyBox(loginBean.getMoneyboxDataFacede().getByUserId(loginBean.getTheUserOfThisAccount().getId()));
+			System.out.println("Data:"+String.valueOf(loginBean.getThisAccountMoneyBox().isActive()));
+			 if(loginBean.getThisAccountMoneyBox().isActive()) {
+				//You can make a bid
+				if(selectedCarPage.isActive()) {
+					
+					//You are able to do it
+					if(!(incrementBid<=0)) {
+					selectedCarPage.setCurrentBid(String.valueOf(Integer.valueOf(selectedCarPage.getCurrentBid())+incrementBid));
+					selectedCarPage.setUserMaxBidId(loginBean.getTheUserOfThisAccount());
+					carLandingFacade.addcarLanding(selectedCarPage);
+					}else {
+						PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+								"			title: 'Your Bid ',\r\n" + 
+								"			text: 'Please increase the amount to not be zero or less',\r\n" + 
+								"			left:\"2%\"\r\n" + 
+								"		});");
+					}
+				}
+				
+			}else {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Your Account is not active ',\r\n" + 
+						"			text: 'Please Make a Deposite to Activate your Account, So You can Bid',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+		}else {
+			
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Problem',\r\n" + 
+					"			text: 'Please Login to be able to Bid',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+			
+		}
+	}
+	public void reloadedParametersAndPanelRefresh() {
+		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
+		Calendar nowTime=Calendar.getInstance();
+		Date timeNow=new Date();
+		timeNow.setTime(nowTime.getTimeInMillis());
+		
+		
+		Calendar TimeOfFreight = Calendar.getInstance();
+		TimeOfFreight.setTime(selectedCarPage.getEndDate());
+		Long diff = selectedCarPage.getEndDate().getTime()-timeNow.getTime();
+		
+
+
+		long diffSeconds = diff / 1000 % 60;
+		long diffMinutes = diff / (60 * 1000) % 60;
+		long diffHours = diff / (60 * 60 * 1000) % 24;
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+		
+		System.out.println("Ahmed: "+timeNow);
+		System.out.println("Ahmed: "+selectedCarPage.getEndDate());
+		System.out.println("Ahmed: "+timeNow.getTime());
+		System.out.println("Ahmed: "+selectedCarPage.getEndDate().getTime());
+		
+		if(diff<0&&selectedCarPage.isActive()) {
+			selectedCarPage.setActive(false);
+			carLandingFacade.addcarLanding(selectedCarPage);
+		}
+		
+		
+
+		differenceTimeDate=String.valueOf(diffDays)+"D: "+
+				String.valueOf(diffHours)+"H: "+
+				String.valueOf(diffMinutes)+"M: "+
+				String.valueOf(diffSeconds)+" S";
+		
+		if(diff<0) {
+			differenceTimeDate="Biding Finished";
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:buy-now-block");
+			
+		}
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:differenceTime");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:currentPriceDisplay");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentPriceSmall");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentBidAmount");
+		
+	}
 	
 	public void getTheAllListOfCarsWithDates() {
 		listOfAddedCars=new ArrayList<carLanding>();
@@ -360,6 +450,21 @@ public void addCarForMain() {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+
+	public void decreaseBy10Dollars() {
+		
+		incrementBid-=10;
+		if(incrementBid<0) {
+			incrementBid=0;
+		}
+	}
+
+	public void increaseBy10Dollars() {
+		System.out.println(String.valueOf(incrementBid));
+		incrementBid+=10;
+		
 	}
 	
 	public void selectCarForMain(int selectedCarId) {
@@ -883,6 +988,14 @@ public void addCarForMain() {
 	
 
 	
+	public String getDifferenceTimeDate() {
+		return differenceTimeDate;
+	}
+
+	public void setDifferenceTimeDate(String differenceTimeDate) {
+		this.differenceTimeDate = differenceTimeDate;
+	}
+
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -1018,6 +1131,14 @@ public void addCarForMain() {
 
 	public void setListOfFilteredCars(List<carLanding> listOfFilteredCars) {
 		this.listOfFilteredCars = listOfFilteredCars;
+	}
+
+	public int getIncrementBid() {
+		return incrementBid;
+	}
+
+	public void setIncrementBid(int incrementBid) {
+		this.incrementBid = incrementBid;
 	}
 
 
