@@ -33,6 +33,8 @@ import helpers.retrofit.mainFiles.copartReturnImages;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
+import main.com.carService.notification.notification;
+import main.com.carService.notification.notificationAppServiceImpl;
 import retrofit2.Call;
 
 
@@ -82,6 +84,8 @@ public class carLandingBean implements Serializable{
 	
 	private carLanding selectedCarPage;
 
+	@ManagedProperty(value = "#{notificationFacadeImpl}")
+	private notificationAppServiceImpl notificationFacade;
 	
 
 	private Integer searchType;
@@ -271,6 +275,7 @@ public class carLandingBean implements Serializable{
 		if(diff<0&&selectedCarPage.isActive()) {
 			selectedCarPage.setActive(false);
 			carLandingFacade.addcarLanding(selectedCarPage);
+			sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/userData/userProfile.jsf");
 		}
 		
 		
@@ -293,6 +298,20 @@ public class carLandingBean implements Serializable{
 		
 	}
 	
+	public void sendNotificationForUser(Integer id, String msg, String url) {
+		// TODO Auto-generated method stub
+		
+		notification n1 = new notification();
+		n1.setData(msg);
+		n1.setDate(new Date());
+		n1.setReaded(false);
+		n1.setUrl(url);
+		n1.setUserId(loginBean.getUserDataFacede().getById(id));
+		notificationFacade.addnotification(n1);
+		System.out.println("Done Ya Notification");
+		
+	}
+
 	public void getTheAllListOfCarsWithDates() {
 		listOfAddedCars=new ArrayList<carLanding>();
 		listOfAddedCars = carLandingFacade.getAllBetweenDates(toCalendar(bidingDate), toCalendar(endDate));
@@ -1139,6 +1158,14 @@ public void addCarForMain() {
 
 	public void setIncrementBid(int incrementBid) {
 		this.incrementBid = incrementBid;
+	}
+
+	public notificationAppServiceImpl getNotificationFacade() {
+		return notificationFacade;
+	}
+
+	public void setNotificationFacade(notificationAppServiceImpl notificationFacade) {
+		this.notificationFacade = notificationFacade;
 	}
 
 

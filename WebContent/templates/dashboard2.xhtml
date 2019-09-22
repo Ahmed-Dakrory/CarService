@@ -93,13 +93,33 @@
 .nano-content{
 margin-right: 0!important;
 }
+
+.notification-menu li {
+    margin: 0px 0 1px;
+}
+
+.notifications .notification-menu {
+    border: none;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    left: auto;
+    margin: 10px 0 0 0;
+    padding: 0;
+    right: -5px;
+    width: 356px;
+}
 </style>
 		#{loginBean.reloadedParametersAndPanelRefresh()}
 		<h:form>
-			<p:remoteCommand name="refreshMainViews" action="#{reloadedParametersAndPanelRefresh.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
+			
+			
+			
+			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
 		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
 			
 		</script>
 		
@@ -223,35 +243,46 @@ margin-right: 0!important;
 						<li>
 							<a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
 								<i class="fa fa-bell"></i>
-								<span class="badge" style="display:none;">3</span>
+							<h:form id="notifiactionPanel1">	
+								<span class="badge" style="display:#{(bidBean.allUnReadNotifcationForThisUser.size()>0)?'block':'none'};">#{bidBean.allUnReadNotifcationForThisUser.size()}</span>
+							</h:form>
 							</a>
 			
 							<div class="dropdown-menu notification-menu">
 								<div class="notification-title">
-									<span class="pull-right label label-default">0</span>
+								<h:form id="notifiactionPanel2">
+									<span class="pull-right label label-default">#{bidBean.allUnReadNotifcationForThisUser.size()}</span>
+									</h:form>
 									Alerts
 								</div>
 			
 								<div class="content">
 									<ul>
-									<!-- 
-										<li>
-											<a href="#" class="clearfix">
+									<h:form id="notifiactionPanel3">
+									<ui:repeat value="#{bidBean.allNotifcationForThisUserLimited}" var="var">
+										<li style="background:#{var.readed?'beige':'white'};">
+											<a href="#{var.url}" onclick="readThisNotification('#{var.id}')" class="clearfix">
 												<div class="image">
-													<i class="fa fa-thumbs-down bg-danger"></i>
+													<i class="fa fa-thumbs-up bg-danger"></i>
 												</div>
-												<span class="title">Server is Down!</span>
-												<span class="message">Just now</span>
+												<span class="title">#{var.data}</span>
+												<span class="message">#{var.date}</span>
 											</a>
+											<script>
+											
+											function readThisNotification(id){
+												
+												readNotification([{name: 'notificationId', value: id}, {name: 'data', value: 'NOTHING'}]);
+											}
+											</script>
 										</li>
-										 -->
+										</ui:repeat>
+										</h:form>
 									</ul>
 			
 									<hr />
 			
-									<div class="text-right">
-										<a href="#" class="view-more">View All</a>
-									</div>
+									
 								</div>
 							</div>
 						</li>
@@ -323,6 +354,15 @@ margin-right: 0!important;
 												<span>Freight List</span>
 											</a>
 										</li>
+										
+										<li style="display:#{(loginBean.theUserOfThisAccount.role==6)?'block':'none'};">
+											<a href="/pages/secured/userData/vehicleList.jsf?faces-redirect=true">
+												<span class="pull-right label label-primary">#{carBean.allCars.size()}</span>
+												<i class="fa  fa-car" aria-hidden="true"></i>
+												<span>Freight List</span>
+											</a>
+										</li>
+										
 										<li class="nav-parent">
 											<a>
 												<i class="fa fa-user" aria-hidden="true"></i>
@@ -384,6 +424,26 @@ margin-right: 0!important;
 												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 													<a href="/pages/secured/mainTwo/mainTwoList.jsf?faces-redirect=true">
 														 Followers List
+													</a>
+												</li>
+												
+												
+											</ul>
+											
+										</li>
+										
+										
+										
+										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+											<a >
+												<i class="fa fa-child" aria-hidden="true"></i>
+												<span>Manage Biding</span>
+											</a>
+											
+											<ul class="nav nav-children">
+												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+													<a href="/pages/secured/shipper/Bid/userOfBiding.jsf?faces-redirect=true">
+														 MoneyBoxs List
 													</a>
 												</li>
 												
