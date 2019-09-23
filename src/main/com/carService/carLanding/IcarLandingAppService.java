@@ -20,6 +20,7 @@ public interface IcarLandingAppService {
 	public List<carLanding> getAllForCategories(int categories);
 	public List<carLanding> getAllBetweenDates(Calendar date1,Calendar date2);
 	public List<carLanding> getAllBidBetweenDates(Calendar date1,Calendar date2);
+	public List<carLanding> getAllForUserBiding(int id);
 	public carLanding addcarLanding(carLanding data);
 	public carLanding getById(int id);
 	public carLanding getByVin(String vinId);

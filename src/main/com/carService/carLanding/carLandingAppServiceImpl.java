@@ -199,6 +199,23 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<carLanding> getAllForUserBiding(int id) {
+		// TODO Auto-generated method stub
+				try{
+					List<carLanding> course=carLandingDataRepository.getAllForUserBiding(id);
+					
+					return course;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
 	
 	
 }

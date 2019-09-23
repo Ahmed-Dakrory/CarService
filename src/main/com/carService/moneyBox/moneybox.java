@@ -64,6 +64,20 @@ public class moneybox {
 	@Column(name = "totalUsed")
 	private float totalUsed;
 	
+	@Column(name = "bankAccountNumber")
+	private String bankAccountNumber;
+
+	@Column(name = "bankName")
+	private String bankName;
+	
+
+	@Column(name = "bankAddress")
+	private String bankAddress;
+	
+
+	@Column(name = "bankTelephone")
+	private String bankTelephone;
+	
 	
 	@Column(name = "active")
 	private boolean active;
@@ -118,6 +132,46 @@ public class moneybox {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+
+	public String getBankAccountNumber() {
+		return bankAccountNumber;
+	}
+
+
+	public void setBankAccountNumber(String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
+	}
+
+
+	public String getBankName() {
+		return bankName;
+	}
+
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+
+	public String getBankAddress() {
+		return bankAddress;
+	}
+
+
+	public void setBankAddress(String bankAddress) {
+		this.bankAddress = bankAddress;
+	}
+
+
+	public String getBankTelephone() {
+		return bankTelephone;
+	}
+
+
+	public void setBankTelephone(String bankTelephone) {
+		this.bankTelephone = bankTelephone;
 	}
 
 

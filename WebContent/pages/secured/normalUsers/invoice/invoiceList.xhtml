@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="invoiceList.jsf" class="mn-sub-item-current"><b>Invoice List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+     #{shipperBean.refresh()}
+<style>
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: #cec2c2;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3%;
+    width: 15%;
+    }
+    .ui-datepicker .ui-icon {
+      display: contents!important;
+}
+.ui-datepicker-header{
+    width: -webkit-fill-available;
+}
+.ui-datepicker .ui-datepicker-next {
+       position: absolute;
+    right: 5%;
+}
+.ui-datepicker-calendar{
+    width: -webkit-fill-available;
+    padding: 5%;
+    margin: 1%;
+}
+.ui-datepicker-title{
+width: -webkit-fill-available;
+    text-align: -webkit-center;
+
+}
+					</style>
+	
+#{carLandingBean.refresh()}
+             <h:form name="aspnetForm" id="aspnetForm">
+
+            <div id="content">
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5">
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                
+                
+                
+						
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <!-- Table name block -->
+                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td class="blkname" width="100%">
+                                                        &nbsp;Invoices
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </table>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 4px">
+                                               <tr style="height: 22px">
+                                               
+                                               </tr>
+                                               
+                                                <tr style="height: 22px">
+                                                
+                                                <td style=" width: 9%;">
+                                                </td>
+                                                <td style=" width: 7%;">
+                                                
+                                                </td>
+                                                
+                                                <td style=" width: 25%;">
+                                               
+                                                </td>
+                                                
+                                                <td style=" width: 7%;">
+                                            
+                                                </td>
+                                              
+                                               <td style="height: 22px">
+                                                        &nbsp;
+                                  			                                                        
+                                       </td>
+								                    
+								                    
+                                               </tr>
+                                                <tr>
+                                                <td style=" width: 27%;">
+                                                </td>
+                                                   
+                                                    
+                                                </tr>
+                                            </table>
+                                            <!-- End of Table name block -->
+                                           <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <!-- Client DataGrid-->
+                                            
+                                            <section class="panel">
+							
+                                               
+							<div class="panel-body">
+								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/shipper/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+									
+									<thead>
+										<tr>
+											<th>Invoice Number#</th>
+											<th class="hidden-phone">Issuer</th>
+											<th class="hidden-phone">For Who</th>
+											<th class="hidden-phone">UUID</th>
+											<th class="hidden-phone">Invoice Date</th>
+											<th class="hidden-phone">Car Price</th>
+											<th class="hidden-phone">Copart Fees</th>
+											<th class="hidden-phone">our Fees</th>
+											<th class="hidden-phone">Total Price</th>
+											<th class="hidden-phone">See Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+										
+										
+											<ui:repeat var="var" value="#{carLandingBean.allInvoice}">
+											<tr align="left" class="gradeX">
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.id}
+												</td>
+												
+											
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.userIdIssuer.firstName} #{var.userIdIssuer.lastName}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.userIdCustomer.firstName} #{var.userIdCustomer.lastName}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.carLandingId.uuid}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{shipperBean.getFormatedDate(var.date)}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													$#{var.carLandingId.currentBid} 
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													$#{var.carLandingId.copartFees}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													$#{var.carLandingId.ourFees}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													$#{var.carLandingId.copartFees+var.carLandingId.currentBid+var.carLandingId.ourFees}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+												
+													<p:commandButton class="fa fa-money" action="#{carLandingBean.goToInvoice(var.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+																				
+												</td>
+												
+												
+											</tr>
+											
+											</ui:repeat>
+										
+										
+									</tbody>
+									
+									
+									<tbody>
+										
+										
+										
+									
+											
+										
+									</tbody>
+									
+									
+								</table>
+							
+							
+							
+							
+									
+								
+								
+							</div>
+							
+							
+							
+						</section>
+                                            
+                                            
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    
+                    <!-- End of Buttons block -->
+                </td>
+            </tr>
+            <p>
+                <tr>
+                    <td colspan="2" bgcolor="white">
+                    </td>
+                </tr>
+            </p>
+        </tbody>
+    </table>
+
+            </div>  
+        </h:form>
+        
+        
+     
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

@@ -193,5 +193,18 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 		 }
 	}
 
+	@Override
+	public List<carLanding> getAllForUserBiding(int id) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForUserBiding").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
 
 }

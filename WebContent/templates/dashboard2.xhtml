@@ -109,19 +109,7 @@ margin-right: 0!important;
 }
 </style>
 		#{loginBean.reloadedParametersAndPanelRefresh()}
-		<h:form>
-			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
-			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
-			
-			
-			
-			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
-		</h:form>
-		<script>
-		setInterval(refreshMainViews, 600);
-		setInterval(refreshMainViews2, 600);
-			
-		</script>
+		
 		
 		<section class="body">
 
@@ -356,12 +344,21 @@ margin-right: 0!important;
 										</li>
 										
 										<li style="display:#{(loginBean.theUserOfThisAccount.role==6)?'block':'none'};">
-											<a href="/pages/secured/userData/vehicleList.jsf?faces-redirect=true">
-												<span class="pull-right label label-primary">#{carBean.allCars.size()}</span>
+											<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
 												<i class="fa  fa-car" aria-hidden="true"></i>
 												<span>Freight List</span>
 											</a>
 										</li>
+										
+										
+										<li style="display:#{(loginBean.theUserOfThisAccount.role==6)?'block':'none'};">
+											<a href="/pages/secured/normalUsers/invoice/invoiceList.jsf?faces-redirect=true">
+												<i class="fa  fa-money" aria-hidden="true"></i>
+												<span>Invoices List</span>
+											</a>
+										</li>
+										
+										
 										
 										<li class="nav-parent">
 											<a>
@@ -436,7 +433,7 @@ margin-right: 0!important;
 										
 										<li class="nav-parent" style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 											<a >
-												<i class="fa fa-child" aria-hidden="true"></i>
+												<i class="fa fa-money" aria-hidden="true"></i>
 												<span>Manage Biding</span>
 											</a>
 											
@@ -726,7 +723,19 @@ margin-right: 0!important;
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
-		
+		<h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
+			
+			
+			
+			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
+		</h:form>
+		<script>
+		//setInterval(refreshMainViews, 600);
+		//setInterval(refreshMainViews2, 600);
+			
+		</script>
 		</h:body>
 
 </html>

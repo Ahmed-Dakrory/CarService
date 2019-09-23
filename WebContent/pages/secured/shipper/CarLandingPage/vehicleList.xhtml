@@ -278,6 +278,13 @@ body .ui-button {
 			<f:facet name="header">	<h:outputText value="Max Bid User" /> </f:facet>
 		</p:column>
 		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="sendData" sortBy="#{row.id}" filterBy="#{row.id}">
+			
+				<p:commandButton class="fa fa-money" action="#{carLandingBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+												
+			<f:facet name="header">	<h:outputText value="Not For Win Cars" /> </f:facet>
+		</p:column>
+		
 		
 		<p:column style="font-size: 11px; text-align: center;"    width="130" id="active" sortBy="#{row.active}" filterBy="#{row.active}">
 			<img src="/resources/images/#{row.active?'check_on.gif':'check_off.gif'}"></img>

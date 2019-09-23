@@ -20,6 +20,7 @@ public interface carLandingRepository {
 	public List<carLanding> getAllBidBetweenDates(Calendar date1,Calendar date2);
 	public List<carLanding> getAllForSearch(String yearStart,String yearEnd,String make,Integer category);
 	public List<carLanding> getAllForCategories(int categories);
+	public List<carLanding> getAllForUserBiding(int id);
 	public carLanding addcarLanding(carLanding data);
 	public carLanding getById(int id);
 	public carLanding getByVin(String vinId);

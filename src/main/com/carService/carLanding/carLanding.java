@@ -47,6 +47,11 @@ import main.com.carService.loginNeeds.user;
 			)
 	
 	,
+	@NamedQuery(name="carLanding.getAllForUserBiding",
+	query = "from carLanding d where d.userMaxBidId.id = :id"
+			)
+	
+	,
 	@NamedQuery(name="carLanding.getAllForCategories",
 	query = "from carLanding d where d.category = :category"
 			)
@@ -203,8 +208,18 @@ public class carLanding {
 	@Column(name = "endDate")
 	private Date endDate;
 
+	@Column(name = "state")
+	private Integer state;
 
+	
 
+	@Column(name = "copartFees")
+	private String copartFees;
+	
+
+	@Column(name = "ourFees")
+	private String ourFees;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -611,6 +626,79 @@ public class carLanding {
 	
 	
 	
+	public Integer getState() {
+		return state;
+	}
+
+
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	
+	
+
+
+	public String getCopartFees() {
+		return copartFees;
+	}
+
+
+
+	public void setCopartFees(String copartFees) {
+		this.copartFees = copartFees;
+	}
+
+
+
+	public String getOurFees() {
+		return ourFees;
+	}
+
+
+
+	public void setOurFees(String ourFees) {
+		this.ourFees = ourFees;
+	}
+
+
+
+
+
+	public enum stateOfCar {
+
+		BidingState(0,"Still in Biding"),ProcessState(1,"In Process..."),
+		PapersStates(2,"In Copart Biding"),Delivered(3,"Delivered");
+		
+		stateOfCar(int type,String name){
+			this.type=type;
+			this.name=name;
+		}
+		
+		int type=0;
+		
+		String name="";
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		
+	}
+
 
 	
 	

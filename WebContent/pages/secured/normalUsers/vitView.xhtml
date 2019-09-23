@@ -1,0 +1,932 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+	
+	<ui:define name="title"> ADAWLIAA</ui:define>
+
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Vehicle List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+	
+	
+		<style>
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: black;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8%;
+    }
+    .ui-datepicker .ui-icon {
+    display: block;
+    text-indent: 1px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    left: .5em;
+    top: .3em;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 17px;
+}
+					</style>
+	
+	
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
+    	<style>
+	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+    
+    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
+    content: "\f046";
+    font-family: FontAwesome;
+}
+
+body .ui-inputfield {
+    color: #333333;
+    font-size: 14px;
+    background: #ffffff;
+    padding: 0.429em;
+    border: 1px solid #a6a6a6;
+    outline: 0 none;
+    -moz-transition: border-color 0.3s;
+    -o-transition: border-color 0.3s;
+    -webkit-transition: border-color 0.3s;
+    transition: border-color 0.3s;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 11px;
+    height: 19px;
+    width: 200px;
+}
+
+.tbltxt {
+    font: 16px 'Verdana' , 'Tahoma' , sans-serif;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 16px;
+    line-height: normal;
+    font-family: Verdana, Tahoma, sans-serif;
+    color: #000;
+}
+	</style>
+	#{bidBean.refresh()}
+	
+              <h:form name="aspnetForm" id="aspnetForm">
+
+
+
+            <div id="content">
+    <!-- page src -->
+    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                    <!-- Table 1 -->
+                    
+                    
+                    
+                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <!-- Table name block -->
+                                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                                       
+                                                       
+                                                        <tr>
+                                                            <td class="blkname" width="100%">
+                                                                <nobr>&nbsp;VIN:
+																					<span id="ctl00_BodyHolder_lblVIN">New Car</span></nobr>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
+                                                    <!-- End of Table name block -->
+                                           
+                                                    <table style="
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 15px;
+" cellspacing="4" cellpadding="0" width="100%" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                <h:panelGroup id="tableRendered">
+                                                                                
+                                                                                  
+                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
+                                                                                        <tbody>
+                                                                                            <tr height="23">
+                                                        
+                                                                                                                                                                                               
+                                                                                               
+                                                                                                
+                                                                                                <td class="tbltxt" width="130" >
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                      Category :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                
+                                                                                                     <h:outputText  type="text" value="#{bidBean.getCategoryEnum(bidBean.selectedFreight.category).name}"  style="font-size:13px;height:19px;width:200px;" />
+                                                                                               
+                                                                                                  
+                                                                                                     
+                                                                                                </td>
+                                                                                                
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" >
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Damage Description:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{bidBean.selectedFreight.damageDescription}" id="ctl00_BodyHolder_txtCompany" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                               
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                               
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Start Biding Date:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                 <h:outputText type="text" value="#{bidBean.selectedFreight.bidingDate}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                  
+                                                                                                </td>
+                                                                                                
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        State:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                  <h:outputText type="text" value="#{bidBean.getStateOfCar(bidBean.selectedFreight.state).name}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                  
+                                                                                                </td>
+                                                                                               <td width="200">
+                                                                                                </td>
+                                                                                               <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                      Secondry Damage :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.secondaryDamage}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                               
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                 <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                      Auction Location :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.auctionLocation}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+               																					<td width="200">
+                                                                                                </td>
+                                                                                                 
+                                                                                                 <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Item Number :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.itemNumber}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                               
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                               
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Sale Name:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtStampedstate3" type="text" value="#{bidBean.selectedFreight.saleName}"  style="font-size:13px;height:19px;width:200px;" />
+                                                                                                
+																								</td>
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Estimated Retail : </div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.estRetailValue}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                                 
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                           
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                             	<td class="tbltxt" width="130" >
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    Transmission Type :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                 <h:outputText  type="text" value="#{bidBean.selectedFreight.transmission}"  style="font-size:13px;height:19px;width:200px;" />
+                                                                                                   
+                                                                                                 
+                                                                                                 </td>
+                                                                                                 
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                
+                                                                                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        VIN:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtVIN" type="text" value="#{bidBean.selectedFreight.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                
+                                                                                                    
+                                                                                                   
+                                                                                                   
+                                                                                                    
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                             <tr height="23">
+                                                                                             	
+                                                                                                 
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Make:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtMake" type="text" value="#{bidBean.selectedFreight.make}" id="ctl00_BodyHolder_txtMake" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Lot : </div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.lot}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Model:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtModel" type="text" value="#{bidBean.selectedFreight.model}" id="ctl00_BodyHolder_txtModel" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                               
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Grid/Row : </div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.gridRow}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Year:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtYear" type="text" value="#{bidBean.selectedFreight.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Odometer: </div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.odoMeter}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Color:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtColor" type="text" value="#{bidBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                               
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Odometer Descrip :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.odoDescription}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Body Style:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{bidBean.selectedFreight.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                              
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                     Repair Estimate :</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.repairEstimate}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                     
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Fuel Type:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{bidBean.selectedFreight.fuel}" id="ctl00_BodyHolder_txtEngineType" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                               
+                                                                                               <td width="200">
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        End Date:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                  <h:outputText type="text" value="#{bidBean.selectedFreight.endDate}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                  
+                                                                                               
+                                                                                              </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Engine Cylinder:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{bidBean.selectedFreight.cylinder}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                              
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Engine Type:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText name="engineType" type="text" value="#{bidBean.selectedFreight.engineType}" id="engineType" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                               
+                                                                                                
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                          
+                                                                                            
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23" style="height: 66px;    border: black;    border-style: dashed;">
+                                                                                            	<td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Current Bid:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText disabled="true" name="ctl00$BodyHolder$txtEngineCyl" type="text" value="$#{bidBean.selectedFreight.currentBid}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Copart Fees:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText   type="text" value="$#{bidBean.copartFees}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                              
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Our Fees:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText   type="text" value="$#{bidBean.ourFees}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                
+                                                                                                 <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Total Price:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:outputText   type="text" value="$#{bidBean.ourFees+bidBean.copartFees+bidBean.selectedFreight.currentBid}" style="font-size:13px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                             <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                           
+                                                                                            <tr height="23">
+                                                                                                
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                             <tr>
+                                                                                                                               
+                                                                                               
+                                                                                            </tr>
+                                                                                            
+                                                                                             <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    <br></br>
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDivMain','picExpandMain')">
+                                                                                                            <img id="picExpandMain" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Main
+                                                                                                                Pictures:</b></a></div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                              
+                                                                                                
+                                                                                                <tr height="23">
+                                                                                             
+                                                                                                </tr>
+                                                                                              <tr height="23">
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                                     <div id="picDivMain" style="display: inline; margin-left: 6px">
+                                                                                                     	 <h:panelGroup id="imagesPanelMain">
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{bidBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="#{bidBean.selectedFreight.mainImage}" rendered="#{bidBean.selectedFreight.mainImage!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    
+																	                                     </h:panelGroup>   
+                                                                                                     	
+                                                                                                     	</div>
+                                                                                                </td>
+                                                                                              </tr>
+                                                                                                  
+                                                                                            
+                                                                                           
+                                                                                          
+                                                                                         
+                                                                                          
+                                                                                                                                                                                    
+                                                                                            <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    <br></br>
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDiv','picExpand')">
+                                                                                                            <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Enclosed
+                                                                                                                Pictures:</b></a></div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                           
+                                                                                            <tr height="23">
+                                                                                            
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                                    <div id="picDiv" style="display: inline; margin-left: 6px">
+                                                                                                     	
+        
+        
+               <h:panelGroup id="imagesPanel">
+                                     
+<table border="1" style="    border: unset;">
+   <tr>
+        <td colspan="2">
+            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
+	<tr>
+                
+                
+	<p:panelGrid columns="1"   >
+		<ui:repeat var="var" varStatus="status" value="#{bidBean.images}">
+			
+                                        <p:graphicImage onclick='ViewDocByIdOutSide("#{var}")' value="#{var}" alt="image#{var}" style="border-width: 1px;width:100px;border-style: inset;margin: 1px;" >
+                                     
+                                        </p:graphicImage>
+                                        
+                    
+		</ui:repeat>
+		
+			</p:panelGrid>
+             
+             
+            
+	   
+               
+	</tr>
+</table>
+
+</td>
+    </tr>
+    <tr>
+    </tr>
+        
+</table>
+
+</h:panelGroup>
+
+                                                                                                    </div>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+  
+
+  <!--
+  
+                                                                                            <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('docDiv','docExpand')">
+                                                                                                            <img id="docExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
+                                                                                                            <b>Enclosed Documents:</b></a></div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                                    <div id="docDiv" style="display: inline; margin-left: 6px">
+                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{bidBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+        
+        
+               <h:panelGroup id="docsPanel">
+                                     
+<table border="1" style="    border: unset;">
+   <tr>
+        <td colspan="2">
+            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
+	<tr>
+                
+                
+	
+		<ui:repeat var="var" value="#{bidBean.docs}">
+			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <a href="#" onclick='ViewDocByIdOutSide("#{var}")'>
+                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewDocByIdOutSide("#{var}")'>
+                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
+                
+                
+               
+		</ui:repeat>
+             
+             
+              <td style="border: black;padding: 14px;border-width: 1px;">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <div>
+                                    <label for="aspnetForm:docUploaded_input">
+                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
+                                    </label>
+                                        
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a style="color: Black;" href="#" onclick='ViewDocByIdOutSide(5955963)'>
+                                    <span id="ctl00_BodyHolder_imageList_picList_ctl00_docName">click to select File</span></a>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        </tr>
+                    </table>
+                </td>
+	   
+               
+	</tr>
+</table>
+
+</td>
+    </tr>
+    <tr>
+    </tr>
+        
+</table>
+
+</h:panelGroup>
+
+                                                                                                    </div>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                             -->
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                  
+                                                                        
+                                                                                           
+                                                                                            <tr height="2">
+                                                                                                <td colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                       
+                                                                                       
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </h:panelGroup>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img height="3" src="/resources/images/dumb.gif" width="1"/><br></br>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="white" colspan="2">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            </div> 
+           
+        
+					
+				
+        </h:form>
+        
+      
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>
