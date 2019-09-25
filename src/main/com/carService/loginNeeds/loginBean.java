@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxAppServiceImpl;
+import main.com.carService.moneyBox.moneyboxConfig;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_details.depositeTypes;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_detailsAppServiceImpl;
@@ -104,6 +106,66 @@ public class loginBean implements Serializable{
 		
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel");
 		
+	}
+	
+	
+	public void saveBankAccountDetails() {
+		
+		moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your data has been changed.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+	}
+	
+	
+	public void activateMyAccount() {
+		
+		if(thisAccountMoneyBox!=null) {
+			if(thisAccountMoneyBox.getAvailableMoney()>=400) {
+				//You can activate the account
+				thisAccountMoneyBox.setActive(true);
+				moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
+				FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Your Account has been changed.',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+			}else {
+				
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Check this ',\r\n" + 
+						"			text: 'Please Make sure that your account has more than $400',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+			
+
+			 reloadedParametersAndPanelRefresh();
+		}
+		
+	}
+	public void addThisAmountToMyAccount(){
+		 FacesContext context = FacesContext.getCurrentInstance();
+		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+		 Integer amount = Integer.valueOf((String) map.get("paymentAmount"));
+		 
+		 moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede);
+		 
+		 reloadedParametersAndPanelRefresh();
+
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+			
+			
+		 PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your Money Has Been Deposite, for Any Inquiry Sent us over Email.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+		 
+		 
 	}
 	public String logOut(){
 

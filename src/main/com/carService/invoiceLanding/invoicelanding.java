@@ -34,21 +34,21 @@ import main.com.carService.loginNeeds.user;
 		     )
 	,
 	@NamedQuery(name="invoicelanding.getById",
-	query = "from invoicelanding d where d.id = :id"
+	query = "from invoicelanding d where d.id = :id order by d.date asc"
 			)
 	,
 	@NamedQuery(name="invoicelanding.getAllByUserIdCustomer",
-	query = "from invoicelanding d where d.userIdCustomer.id = :id"
+	query = "from invoicelanding d where d.userIdCustomer.id = :id order by d.date asc"
 			)
 	
 	,
 	@NamedQuery(name="invoicelanding.getAllByUserId",
-	query = "from invoicelanding d where d.userIdIssuer.id = :id"
+	query = "from invoicelanding d where d.userIdIssuer.id = :id order by d.date asc"
 			)
 	
 	,
 	@NamedQuery(name="invoicelanding.getAllByUserIdBetweenDates",
-	query = "from invoicelanding d where d.userIdIssuer.id = :id and d.date > :dateLower and d.date < :dateHigher"
+	query = "from invoicelanding d where d.userIdIssuer.id = :id and d.date > :dateLower and d.date < :dateHigher order by d.date asc"
 			)
 
 })

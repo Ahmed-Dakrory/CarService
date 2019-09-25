@@ -280,7 +280,7 @@ body .ui-button {
 		
 		<p:column style="font-size: 11px;    text-align: center;" width="130" id="sendData" sortBy="#{row.id}" filterBy="#{row.id}">
 			
-				<p:commandButton class="fa fa-money" action="#{carLandingBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+				<p:commandButton class="fa fa-bell" action="#{carLandingBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
 												
 			<f:facet name="header">	<h:outputText value="Not For Win Cars" /> </f:facet>
 		</p:column>
@@ -295,6 +295,19 @@ body .ui-button {
                     <f:selectItem itemLabel="All" itemValue="" />
                     <f:selectItem itemLabel="Active" itemValue="true" />
                     <f:selectItem itemLabel="In-Active" itemValue="false" />
+                </p:selectOneButton>
+            </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="paymentDone" sortBy="#{row.paymentDone}" filterBy="#{row.paymentDone}">
+			<img src="/resources/imgs/#{row.paymentDone?'correct.png':'error.png'}" style="    width: 39px;"></img>
+			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
+			 <f:facet name="filter">
+                <p:selectOneButton onchange="PF('carsTable').filter()" styleClass="custom-filter">
+                    <f:converter converterId="javax.faces.Boolean" />
+                    <f:selectItem itemLabel="All" itemValue="" />
+                    <f:selectItem itemLabel="Paid" itemValue="true" />
+                    <f:selectItem itemLabel="Not-Paid" itemValue="false" />
                 </p:selectOneButton>
             </f:facet>
 		</p:column>

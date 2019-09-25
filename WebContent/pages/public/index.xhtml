@@ -77,40 +77,30 @@ FIRST INTERNATIONAL GROUP
 </div>
 </div>
 </div>
-<div class="container">
+<div class="container" style=" width: 100%;">
 
-<div class="row  hidden-sm hidden-xs">
+<div class="row  hidden-sm hidden-xs" style="width: 94%;margin-top: 1%;margin-left: 3%;">
 <div class="col-md-12 ">
 <div class="main-title main-popular-title">
 <h2 class="main-title f-normal f-upper h2-like-h3">Buy it now vehicles</h2> </div>
 
 
 
-<div class=" loop owl-carousel owl-theme owl-loaded owl-drag">
-    <div class="owl-stage-outer">
-         <div class="owl-stage" style="transition: all 0s ease 0s; width: 5880px; transform: translate3d(-1102px, 0px, 0px);">
+                      <!-- Flickity HTML init -->
+<div class="carousel" style="width:100%"  data-flickity='{ "wrapAround": true }'>
           
         <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
-        
-        	<div class="owl-item active center" >
-            
-             		<span href="en/25177299-2018-tesla-model_3.html" >
-					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="    width: 257px;" />
+          <div class="carousel-cell owl-item active center">
+          	<span href="en/25177299-2018-tesla-model_3.html" >
+					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.5%;width: 100%;border-radius: 12px;" />
 					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
 					</span>
            
-            </div>
-            
+          </div>
+        	
         </ui:repeat>
-            
-            
-            
-           
-            
             </div>
-      </div>
-</div>
-          
+            
           
           
 

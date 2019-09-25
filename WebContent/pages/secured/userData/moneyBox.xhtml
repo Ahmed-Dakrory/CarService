@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+
+	<ui:define name="content">
+	<style>
+	table {
+    border-collapse: inherit;
+    /* border-spacing: 0; */
+    /* border-radius: 11px; */
+}
+td {
+    /* font-weight: 400; */
+    font-size: 95%;
+    font-family: arial;
+    text-align: -webkit-center;
+}
+
+.ui-panel .ui-panel-content {
+    border: 0;
+    background: 0;
+    padding: .5em 1em;
+    text-align: -webkit-center;
+}
+.mainLabels{
+    font-size: 28px;
+    font-family: serif;
+    color: #757575;
+    border: black;
+    border-style: solid;
+    border-color: #e8e8e8;
+    border-width: 1px;
+    padding: 1%;
+    background: #fdfdfd;
+    width: 40%;
+    border-radius: 13px;
+    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
+    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
+
+}
+
+.displayText{
+    font-size: 25px;
+    font-family: serif;
+    color: #757575;
+    border: black;
+    border-style: solid;
+    border-color: #e8e8e8;
+    border-width: 1px;
+    background: #fdfdfd;
+    width: 97px;
+    height: 97px;
+    border-radius: 79px;
+    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
+    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
+    margin-top: 1%;
+    padding-top: 4%;
+}
+
+.textBoxStyle{
+    width: 50%;
+    height: 35px;
+    font-size: 17px;
+    border-radius: 9px;
+    font-family: serif;
+    padding: 1%;
+}
+
+.BankHead{
+    width: 50%;
+    text-align: initial;
+    margin-top: 1%;
+}
+	</style>
+	
+	<script src="https://www.paypal.com/sdk/js?client-id=AYJafdGM8WMc40tom1a26q7kGrxKdqIp1eH5a-MPCMI-_oTfuWromWMsl6OpzbMaWT3HxywgJFIxtwCr"></script>
+	
+	  <h:form id="aspnetForm"> 
+	  
+	  <table  style="width:100%;padding: 5%;">
+	  	
+	  	
+	  	<tr>
+	  		<td>
+	  				<br></br>
+	  				<p class="BankHead">Bank Name</p>
+	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankName}" class="textBoxStyle"/>
+	  				<br></br>
+	  				<p class="BankHead">Bank Account Number</p>
+	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankAccountNumber}" class="textBoxStyle"/>
+	  				<br></br>
+	  				<p class="BankHead">Bank Address</p>
+	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankAddress}" class="textBoxStyle"/>
+	  				<br></br>
+	  				<p class="BankHead">Bank Tel</p>
+	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankTelephone}" class="textBoxStyle"/>
+	  				
+	  				<br></br>
+	  				<br></br>
+	  				<br></br>
+	  				
+	  				<p:commandButton class="btn btn-default DTTT_button_print" value="Save" action="#{loginBean.saveBankAccountDetails}"/>
+	  		</td>
+	  		
+	  		<td>
+	  				<p style="    font-size: 25px;    font-family: serif;"> Your Account is #{loginBean.thisAccountMoneyBox.active?'Active':'Not Active'}</p>
+		  			<p:graphicImage style="    width: 172px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
+	  		
+	  					<p:commandButton rendered="#{!loginBean.thisAccountMoneyBox.active}" disabled="#{loginBean.thisAccountMoneyBox.active}" class="btn btn-default DTTT_button_print" value="Activate the account" action="#{loginBean.activateMyAccount}"/>
+	  		
+	  		</td>
+	  	</tr>
+	  	
+	  	
+	  	
+	  <tr height="100">
+	  
+	  </tr>
+	  
+	  
+	  
+	  <tr>
+	  		<td>
+	  		
+		  			<p:outputLabel value="The Available Amount" class="mainLabels"/>
+		  			<br></br>
+		  			<p:outputLabel value="$#{loginBean.thisAccountMoneyBox.availableMoney}" class="displayText"/>
+	  		</td>
+	  		
+	  		<td>
+	  		
+		  			<p:outputLabel value="The Used Amount" class="mainLabels"/>
+		  			<br></br>
+		  			<p:outputLabel value="$#{loginBean.thisAccountMoneyBox.totalUsed}" class="displayText"/>
+	  		</td>
+	  	</tr>
+	  	
+	  	
+	  	
+	  	<tr height="100">
+	  
+	  </tr>
+	  
+	  
+	  
+	  	<tr style="display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};">
+	  		<td colspan="2">
+	  			<p style="    font-size: 24px;    text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to make a deposit with 400$</p>
+	  		</td>
+	  		
+	  	</tr>
+	  	
+	  	<tr height="100">
+	  
+	  </tr>
+	  
+	  	<tr>
+	  		<td colspan="2">
+	  			<div id="paypal-button-container" style="    width: 50%;"/>
+	  		</td>
+	  		
+	  	</tr>
+	  	
+	  	
+	  
+	  </table>
+	  
+	   <p:remoteCommand name="updatePayment" action="#{loginBean.addThisAmountToMyAccount}"/>
+        </h:form>
+     
+     
+     
+     
+     
+     
+     
+     <script>
+paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+		
+			description: 'Test description',
+            amount: {
+                currency_code: "USD",
+                value: '400'
+             }
+          }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+    	  //activateMyAccount
+        
+        var amount=400;
+		updatePayment([{name: 'paymentAmount', value: amount}, {name: 'data', value: 'NOTHING'}]);
+		
+        // Call your server to save the transaction
+        
+      });
+    },
+          onError: function( err){
+        	  
+            console.log(err);
+          }
+  }).render('#paypal-button-container');
+</script>
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

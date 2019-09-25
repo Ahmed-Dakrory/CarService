@@ -32,7 +32,6 @@ background: #c2c5c7;
 	 <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
     <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
     
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   
 		  <link rel="stylesheet" href="#{resource['css:public/bootstrapSlider.css']}" />
@@ -76,42 +75,23 @@ background: #c2c5c7;
 <div class="row">
 <div class="col-md-6 col-sm-6">
 
-<div class="container" style="width: 100%;margin-bottom: 3%;">
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <ui:repeat var="data" varStatus="statue" value="#{carLandingBean.images}">
-      <li data-target="#myCarousel" data-slide-to="#{statue.index+1}"></li>
-      </ui:repeat>
-    </ol>
+<div class="container" style="width: 100%;margin-bottom: 9%;">
+ 
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-     <div class="item active">
-     	<h:graphicImage value="#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
-      </div>
-      
-    <ui:repeat var="data" value="#{carLandingBean.images}">
-    	<div class="item">
-        	<h:graphicImage value="#{data}" alt="image#{data}" style="width: auto;max-width: 100%;"/>
-      </div>
-    </ui:repeat>
-     
-
-    
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+  <!-- Flickity HTML init -->
+<div class="carousel" style="width:100%"  data-flickity='{ "autoPlay": true , "wrapAround": true }'>
+          <div class="carousel-cell owl-item active center">
+        	<h:graphicImage value="#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
+     </div>
+        <ui:repeat var="data" value="#{carLandingBean.images}">
+        
+          <div class="carousel-cell owl-item active center">
+          	<h:graphicImage value="#{data}" alt="image#{data}" style="width: auto;max-width: 100%;"/>
+           
+          </div>
+        	
+        </ui:repeat>
+            </div>
 </div>
 
 
@@ -300,6 +280,10 @@ $<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
 USD 
 <br></br>
 By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
+
+
+<div><p style="font-size: large;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
+
 </h:panelGroup>
 </div>
 <div class="buy-now__learn-b">
@@ -653,72 +637,7 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 	<ui:define name="script">
   			
   			
-  			
-  			
-  			
-  			 	<!-- Vendor -->
-  		   
-  			<h:outputScript name="js/dashboard/assets/vendor/jquery/jquery.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap/js/bootstrap.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/nanoscroller/nanoscroller.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/magnific-popup/magnific-popup.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"/>
-  			
-  			<script>
-  			   jQuery.noConflict();
-  			 </script>
-  			
-  			<h:outputScript name="js/dashboard/assets/vendor/jquery-validation/jquery.validate.js"/>
-  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"/>
-  			<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
-  			
-  			
-  			<!-- Theme Base, Components and Settings -->
-  			<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
-  			
-  			<!-- Theme Custom -->
-  			<h:outputScript name="js/dashboard/assets/javascripts/theme.custom.js"/>
-  			
-  			<!-- Theme Initialization Files -->
-  			<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
-  			
-  			<!-- Examples -->
-  			
-  	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
-  	
-  	
-  		<script type="text/javascript">
   		
-  		
-  				
-/*<![CDATA[*/
-app.inject('AppMain', [{"lang":"en","user":[],"eventsTracking":[],"googleApiKey":"AIzaSyC4YmXzr008FAqONKXk_Z-UFl-m8Hj_M0o","googleReCaptchaKey":"6LehBDcUAAAAALUf6FkPGmykxhWZc16W_2qoLxFN"}]);
-app.inject('SiteIndex', [{"rtl":false}]);
-app.inject('LayoutsPublicVehicleTypes', [{}]);
-app.inject('LayoutsMainLang', [{}]);
-app.inject('LayoutsMainSearch', [{}]);
-app.inject('LayoutsMainWatchListInit', [{}]);
-app.inject('LayoutsMainCustomSelect', [{}]);
-app.inject('LayoutsMainResponsive', [{}]);
-app.inject('LayoutsMainTimezone', [{}]);
-async function grOnLoad() {
-            app.event.emit("grecaptcha-loaded");
-        }
-var grSrc = document.createElement("script");grSrc.src = "../www.google.com/recaptcha/api0d1b.js?onload=grOnLoad&amp;render=explicit";grSrc.setAttribute("async", "async");grSrc.setAttribute("defer", "defer");document.body.appendChild(grSrc);
-app.inject('AccountTopLogin', []);
-app.inject('AccountMTopLogin', [{}]);
-app.inject('WidgetChangeType', [{"url":"\/en\/vehicle\/search\/makes","allMakes":"All Makes"}]);
-app.inject('WidgetChangeMake', [{"url":"\/en\/vehicle\/search\/models","allModels":"All Models"}]);
-app.inject('WidgetChangeModel', [{"url":"\/en\/vehicle\/search\/yearsFrom"}]);
-app.inject('WidgetChangeYearFrom', [{}]);
-app.inject('LayoutsMainLiveChat', [{}]);
-app.inject('Footer', [{}]);
-app.inject('Subscribe', []);
-app.inject('Cookies', [{}]);
-/*]]>*/
-</script>
 	
 	</ui:define>
 	

@@ -104,6 +104,7 @@ public class carLandingBean implements Serializable{
 
 	private List<carLanding> listOfUploadedDataCars;
 	private List<carLanding> listOfFilteredCars;
+	private List<carLanding> listOfAllCars;
 
 	private UploadedFile fileExcel;
 	
@@ -119,6 +120,9 @@ public class carLandingBean implements Serializable{
 	private carLanding carForInvoice;
 	private Integer selectedCarIdToBeAddedInInvoice;
 	private List<invoicelanding> allInvoice;
+
+	private List<carLanding> allCarsString;
+	private String selectedCarSearch;
 	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
@@ -151,6 +155,39 @@ public class carLandingBean implements Serializable{
 	}
 	
 	
+	public List<carLanding> completeText(String query) {
+		allCarsString =new ArrayList<carLanding>();
+		for(int i=0;i<listOfAllCars.size();i++) {
+			if((listOfAllCars.get(i).getMake().toLowerCase()).contains(query.toLowerCase())||
+					(listOfAllCars.get(i).getYear().toLowerCase()).contains(query.toLowerCase())||
+					(listOfAllCars.get(i).getModel().toLowerCase()).contains(query.toLowerCase())||
+					(listOfAllCars.get(i).getLot().toLowerCase()).contains(query.toLowerCase())) {
+				allCarsString.add(listOfAllCars.get(i));
+			}
+		}
+		
+        return allCarsString;
+    }
+	
+	
+	public void onCarSelect() {
+		
+		System.out.println(String.valueOf(selectedCarSearch));
+		
+		carLanding selectedCar = carLandingFacade.getByVin(selectedCarSearch);
+				
+				HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    		origRequest.getRequestURL();
+	    			try {
+						FacesContext.getCurrentInstance().getExternalContext().redirect
+						("/pages/public/carsForDetails.jsf?id="+selectedCar.getId());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    		
+	}
+	
 	public void refresh(){
 		if(loginBean.getTheUserOfThisAccount()!=null) {
 			if(loginBean.getTheUserOfThisAccount().getRole()!=null) {
@@ -160,6 +197,7 @@ public class carLandingBean implements Serializable{
 			}
 		}
 		incrementBid=10;
+		listOfAllCars=carLandingFacade.getAll();
 		listOfCarsLandingScroller=carLandingFacade.getAllForLanding();
 		listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
@@ -421,7 +459,7 @@ public class carLandingBean implements Serializable{
 System.out.println("Data: "+String.valueOf(idUser));
 		invoiceData=new invoicelanding();
 		userForInvoice=loginBean.getUserDataFacede().getById(idUser);
-		invoiceMoneyBoxData = loginBean.getMoneyboxDataFacede().getByUserId(idUser);
+		invoiceMoneyBoxData = loginBean.getThisAccountMoneyBox();
 		
 		carsForthisAccount=carLandingFacade.getAllForUserBiding(idUser);
 
@@ -986,6 +1024,7 @@ public void addCarForMain() {
 					
 				
 					}
+					data.setPaymentDone(false);
 					data.setActive(true);
 					data.setMainId(loginBean.getTheUserOfThisAccount());
 					data.setShowenInLanding(false);
@@ -1364,7 +1403,31 @@ public void addCarForMain() {
 		this.allInvoice = allInvoice;
 	}
 
+	public List<carLanding> getListOfAllCars() {
+		return listOfAllCars;
+	}
 
+	public void setListOfAllCars(List<carLanding> listOfAllCars) {
+		this.listOfAllCars = listOfAllCars;
+	}
+
+	public List<carLanding> getAllCarsString() {
+		return allCarsString;
+	}
+
+	public void setAllCarsString(List<carLanding> allCarsString) {
+		this.allCarsString = allCarsString;
+	}
+
+	public String getSelectedCarSearch() {
+		return selectedCarSearch;
+	}
+
+	public void setSelectedCarSearch(String selectedCarSearch) {
+		this.selectedCarSearch = selectedCarSearch;
+	}
+
+	
 	
 	
 }

@@ -24,6 +24,7 @@ import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyBox.moneyboxConfig;
 import main.com.carService.notification.notification;
 import main.com.carService.notification.notificationAppServiceImpl;
 import retrofit2.Call;
@@ -135,7 +136,29 @@ public class bidBean implements Serializable{
 		}
 	}
 	
-	
+	public void makeThePaymentTransaction() {
+		float totalAmount = Float.valueOf(selectedFreight.getCurrentBid())+Float.valueOf(selectedFreight.getCopartFees())+Float.valueOf(selectedFreight.getOurFees());
+		if(loginBean.getThisAccountMoneyBox()!=null) {
+			if(loginBean.getThisAccountMoneyBox().getAvailableMoney()>=totalAmount) {
+				moneyboxConfig.makeaPayment(totalAmount, selectedFreight.getUserMaxBidId(), loginBean.getUserDataFacede(), loginBean.getMoneyboxDataFacede(), loginBean.getMoneybox_transaction_detailsDataFacede());
+				selectedFreight.setPaymentDone(true);
+				
+				carLandingFacade.addcarLanding(selectedFreight);
+	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Your Payment has been done.',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+			}else {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Your Account ',\r\n" + 
+						"			text: 'Please Make a Deposite to be able to make this payment with the freight Total Price',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+		}
+	}
 	public void updateImagesWithLink(String lotImagesLink) {
 		
         try {

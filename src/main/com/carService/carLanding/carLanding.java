@@ -204,6 +204,10 @@ public class carLanding {
 	private boolean active;
 	
 
+	@Column(name = "paymentDone")
+	private boolean paymentDone;
+	
+
 
 	@Column(name = "endDate")
 	private Date endDate;
@@ -660,6 +664,20 @@ public class carLanding {
 
 	public void setOurFees(String ourFees) {
 		this.ourFees = ourFees;
+	}
+
+
+
+
+
+	public boolean isPaymentDone() {
+		return paymentDone;
+	}
+
+
+
+	public void setPaymentDone(boolean paymentDone) {
+		this.paymentDone = paymentDone;
 	}
 
 

@@ -136,6 +136,18 @@ body .ui-inputfield {
     font-family: Verdana, Tahoma, sans-serif;
     color: #000;
 }
+
+.PaidingButton{
+background: #f19a28!important;
+    width: 113px;
+    height: 113px;
+    border-radius: 64px;
+    border-color: antiquewhite!important;
+    font-size: 28px!important;
+    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
+    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
+}
+}
 	</style>
 	#{bidBean.refresh()}
 	
@@ -618,10 +630,43 @@ body .ui-inputfield {
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
-                                                                                             <tr height="2">
+                                                                                             <tr height="20">
+                                                                                              
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="2" style="display:#{!bidBean.selectedFreight.paymentDone&amp;&amp;bidBean.selectedFreight.state>0?'contents':'none'};">
+                                                                                                <td bgcolor="#ffffff" colspan="3">
+                                                                                                </td>
+                                                                                                
+                                                                                                <td bgcolor="#ffffff" colspan="3">
+                                                                                                <p style="    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;    font-size: 25px;"> Your State Now is #{bidBean.getStateOfCar(bidBean.selectedFreight.state).name}</p>
+                                                                                                </td>
+                                                                                                
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                <p:commandButton value="Paid" class="PaidingButton" action="#{bidBean.makeThePaymentTransaction}"/>
+                                                                                                </td>
+                                                                                                
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
                                                                                             </tr>
+                                                                                           
+                                                                                           
+                                                                                           <tr height="2" style="display:#{bidBean.selectedFreight.paymentDone?'contents':'none'};">
+                                                                                                <td bgcolor="#ffffff" colspan="3">
+                                                                                                </td>
+                                                                                                
+                                                                                                <td bgcolor="#ffffff" colspan="3">
+                                                                                                <p style="    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;    font-size: 25px;"> Your Car Fees Paid</p>
+                                                                                                </td>
+                                                                                                
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                <p:graphicImage style="    width: 172px;" value="/resources/imgs/#{bidBean.selectedFreight.paymentDone?'correct':'error'}.png"></p:graphicImage>
+                                                                                                </td>
+                                                                                                
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                           
                                                                                            
                                                                                             <tr height="23">
                                                                                                 
