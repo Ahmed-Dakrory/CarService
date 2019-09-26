@@ -14,7 +14,7 @@
 
 	#{carLandingBean.refresh()}
 	<div class="center">
-<div class="container breadcontainer hidden-sm hidden-xs">
+<div class="container breadcontainer hidden-sm hidden-xs" style="    width: 55%;">
 <div class="row">
 <div class="col-md-12">
 <div class="breadcrumbs">
@@ -25,7 +25,7 @@
 <div class="clearfix"></div>
 <div class="container">
 </div>
-<div class="container">
+<div class="container" >
 <div class="clearfix"></div>
 <h1> Vehicles Types </h1>
 
@@ -60,6 +60,8 @@
 
 
 </label>
+
+<br></br>
 <label for="make">Make</label>
 <label class="select-label">
 
@@ -68,6 +70,8 @@
 </h:selectOneMenu>
 
  </label>
+ 
+ <br></br>
 <table>
 <tbody><tr>
 <td width="50%" style="padding:0">
@@ -76,6 +80,7 @@
 
 <h:selectOneMenu value="#{carLandingBean.searchStartYear}">
 
+<f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
 <f:selectItem itemLabel="2018" itemValue="2018"/>
 <f:selectItem itemLabel="2017" itemValue="2017"/>
@@ -127,9 +132,6 @@
 <f:selectItem itemLabel="1960" itemValue="1960"/>
 
 </h:selectOneMenu>
-
-
-<span class="custom-select custom-selectChanged" style="display: inline-block;"><span class="custom-selectInner" style="width: 85px; display: inline-block;">1960</span></span>
 </label>
 </td>
 <td style="padding:0">&nbsp;&nbsp;</td>
@@ -140,6 +142,7 @@
 
 <h:selectOneMenu value="#{carLandingBean.searchEndYear}">
 
+<f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
 <f:selectItem itemLabel="2018" itemValue="2018"/>
 <f:selectItem itemLabel="2017" itemValue="2017"/>
@@ -197,119 +200,6 @@
 </td>
 </tr>
 </tbody></table>
-<div id="advanced-search-block" class="advanced-search-block hide">
-<label for="sale_date">Auction Date</label>
-<input name="sale_date" type="hidden" id="sale-date" value=""/>
-<input type="text" readonly="" class="input-date hasDatepicker" id="sale-date-show" value=""/>
-To
-<input name="sale_date_to" type="hidden" id="sale-date-to" value=""/>
-<span dir="ltr">
-<input type="text" readonly="" class="input-date hasDatepicker" id="sale-date-to-show" value=""/>
-</span>
-<label for="saleDocument" style="margin-top:9px">Ownership Doc Type</label>
-<label class="select-label">
-<select name="saleDocument" id="sale-document" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="0">All Documents</option>
-<option value="CT">Clean Title</option><option value="ST">Salvage Title</option><option value="NR">Non-Repairable</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">All Documents</span></span>
-</label>
-<label for="posType">Auction Location</label>
-<div class="pos-types">
-<input id="pos-type-1" type="radio" class="pos-type" name="posType" value="1" checked="checked"/>
-<label for="pos-type-1">Location</label>
-<input id="pos-type-2" type="radio" class="pos-type" name="posType" value="2"/>
-<label for="pos-type-2">State / Province</label>
-<input id="pos-type-3" type="radio" class="pos-type" name="posType" value="3"/>
-<label for="pos-type-3">Zip</label>
-</div>
-<div id="pos-type-block-1" style="">
-<label class="select-label">
-<select name="location" id="location" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="0">Any Location</option>
-<option value="195"></option><option value="203">AB - CALGARY</option><option value="204">AB - EDMONTON</option><option value="113">AK - ANCHORAGE</option><option value="136">AL - BIRMINGHAM</option><option value="58">AL - MOBILE</option><option value="145">AL - MONTGOMERY</option><option value="66">AL - TANNER</option><option value="140">AR - FAYETTEVILLE</option><option value="21">AR - LITTLE ROCK</option><option value="47">AZ - PHOENIX</option><option value="93">AZ - TUCSON</option><option value="151">CA - ANTELOPE</option><option value="5">CA - BAKERSFIELD</option><option value="327">CA - CRASHEDTOYS SACRAMENTO</option><option value="4">CA - FRESNO</option><option value="3">CA - HAYWARD</option><option value="186">CA - LONG BEACH</option><option value="10">CA - LOS ANGELES</option><option value="78">CA - MARTINEZ</option><option value="97">CA - RANCHO CUCAMONGA</option><option value="2">CA - SACRAMENTO</option><option value="7">CA - SAN BERNARDINO</option><option value="59">CA - SAN DIEGO</option><option value="6">CA - SAN JOSE</option><option value="16">CA - SO SACRAMENTO</option><option value="180">CA - SUN VALLEY</option><option value="1">CA - VALLEJO</option><option value="43">CA - VAN NUYS</option><option value="118">CO - COLORADO SPRINGS</option><option value="68">CO - DENVER</option><option value="120">CO - DENVER CENTRAL</option><option value="193">CO - DENVER SOUTH</option><option value="23">CT - HARTFORD</option><option value="32">DC - WASHINGTON DC</option><option value="130">DE - SEAFORD</option><option value="86">FL - FT. PIERCE</option><option value="131">FL - JACKSONVILLE EAST</option><option value="42">FL - JACKSONVILLE WEST</option><option value="105">FL - MIAMI CENTRAL</option><option value="33">FL - MIAMI NORTH</option><option value="148">FL - MIAMI SOUTH</option><option value="108">FL - OCALA</option><option value="153">FL - ORLANDO NORTH</option><option value="55">FL - ORLANDO SOUTH</option><option value="137">FL - PUNTA GORDA</option><option value="117">FL - TALLAHASSEE</option><option value="34">FL - TAMPA SOUTH</option><option value="70">FL - WEST PALM BEACH</option><option value="107">GA - ATLANTA EAST</option><option value="157">GA - ATLANTA NORTH</option><option value="146">GA - ATLANTA SOUTH</option><option value="15">GA - ATLANTA WEST</option><option value="175">GA - CARTERSVILLE</option><option value="324">GA - CRASHEDTOYS ATLANTA</option><option value="187">GA - MACON</option><option value="87">GA - SAVANNAH</option><option value="88">GA - TIFTON</option><option value="110">HI - HONOLULU</option><option value="169">IA - DAVENPORT</option><option value="60">IA - DES MOINES</option><option value="72">ID - BOISE</option><option value="36">IL - CHICAGO NORTH</option><option value="81">IL - CHICAGO SOUTH</option><option value="51">IL - PEORIA</option><option value="189">IL - SOUTHERN ILLINOIS</option><option value="156">IL - WHEELING</option><option value="152">IN - FORT WAYNE</option><option value="167">IN - HAMMOND</option><option value="44">IN - INDIANAPOLIS</option><option value="17">KS - KANSAS CITY</option><option value="67">KS - WICHITA</option><option value="115">KY - LEXINGTON EAST</option><option value="83">KY - LEXINGTON WEST</option><option value="143">KY - LOUISVILLE</option><option value="138">KY - WALTON</option><option value="50">LA - BATON ROUGE</option><option value="79">LA - NEW ORLEANS</option><option value="84">LA - SHREVEPORT</option><option value="53">MA - NORTH BOSTON</option><option value="27">MA - SOUTH BOSTON</option><option value="149">MA - WEST WARREN</option><option value="102">MD - BALTIMORE</option><option value="90">ME - LYMAN</option><option value="61">MI - DETROIT</option><option value="159">MI - FLINT</option><option value="160">MI - IONIA</option><option value="161">MI - KINCHELOE</option><option value="103">MI - LANSING</option><option value="311">MN - CRASHEDTOYS MINNEAPOLIS</option><option value="37">MN - MINNEAPOLIS</option><option value="80">MN - MINNEAPOLIS NORTH</option><option value="52">MN - ST. CLOUD</option><option value="125">MO - COLUMBIA</option><option value="141">MO - SIKESTON</option><option value="92">MO - SPRINGFIELD</option><option value="20">MO - ST. LOUIS</option><option value="40">MS - JACKSON</option><option value="122">MT - BILLINGS</option><option value="106">MT - HELENA</option><option value="295">NB - ATLANTIC CANADA AUCTION</option><option value="206">NB - MONCTON</option><option value="41">NC - CHINA GROVE</option><option value="154">NC - MEBANE</option><option value="196">NC - MOCKSVILLE</option><option value="54">NC - RALEIGH</option><option value="123">NE - LINCOLN</option><option value="155">NH - CANDIA</option><option value="31">NJ - GLASSBORO EAST</option><option value="91">NJ - SOMERVILLE</option><option value="135">NJ - TRENTON</option><option value="75">NM - ALBUQUERQUE</option><option value="207">NS - HALIFAX</option><option value="57">NV - LAS VEGAS</option><option value="100">NV - RENO</option><option value="94">NY - ALBANY</option><option value="30">NY - LONG ISLAND</option><option value="24">NY - NEWBURGH</option><option value="35">NY - ROCHESTER</option><option value="25">NY - SYRACUSE</option><option value="111">OH - CLEVELAND EAST</option><option value="112">OH - CLEVELAND WEST</option><option value="29">OH - COLUMBUS</option><option value="166">OH - DAYTON</option><option value="18">OK - OKLAHOMA CITY</option><option value="19">OK - TULSA</option><option value="202">ON - LONDON</option><option value="201">ON - TORONTO</option><option value="104">OR - EUGENE</option><option value="9">OR - PORTLAND NORTH</option><option value="134">OR - PORTLAND SOUTH</option><option value="129">PA - ALTOONA</option><option value="128">PA - CHAMBERSBURG</option><option value="76">PA - HARRISBURG</option><option value="26">PA - PHILADELPHIA</option><option value="164">PA - PHILADELPHIA EAST-SUBLOT</option><option value="165">PA - PITTSBURGH EAST</option><option value="28">PA - PITTSBURGH NORTH</option><option value="85">PA - PITTSBURGH SOUTH</option><option value="142">PA - SCRANTON</option><option value="127">PA - YORK HAVEN</option><option value="205">QC - MONTREAL</option><option value="838">RENTAL VEHICLE SALE</option><option value="199">RI - EXETER</option><option value="56">SC - COLUMBIA</option><option value="197">SC - NORTH CHARLESTON</option><option value="144">SC - SPARTANBURG</option><option value="114">TN - KNOXVILLE</option><option value="22">TN - MEMPHIS</option><option value="63">TN - NASHVILLE</option><option value="73">TX - ABILENE</option><option value="95">TX - AMARILLO</option><option value="185">TX - ANDREWS</option><option value="62">TX - AUSTIN</option><option value="96">TX - CORPUS CHRISTI</option><option value="313">TX - CRASHEDTOYS DALLAS</option><option value="12">TX - DALLAS</option><option value="181">TX - DALLAS SOUTH</option><option value="370">TX - DRIVE DALLAS</option><option value="45">TX - EL PASO</option><option value="98">TX - FT. WORTH</option><option value="11">TX - HOUSTON</option><option value="14">TX - LONGVIEW</option><option value="13">TX - LUFKIN</option><option value="65">TX - MCALLEN</option><option value="74">TX - SAN ANTONIO</option><option value="182">TX - WACO</option><option value="188">UT - OGDEN</option><option value="49">UT - SALT LAKE CITY</option><option value="82">VA - DANVILLE</option><option value="194">VA - FREDERICKSBURG</option><option value="162">VA - HAMPTON</option><option value="139">VA - RICHMOND</option><option value="64">WA - GRAHAM</option><option value="48">WA - NORTH SEATTLE</option><option value="71">WA - PASCO</option><option value="116">WA - SPOKANE</option><option value="191">WI - APPLETON</option><option value="38">WI - MADISON</option><option value="39">WI - MILWAUKEE</option><option value="89">WV - CHARLESTON</option><option value="192">WY - CASPER</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Location</span></span>
-</label>
-</div>
-<div id="pos-type-block-2" style="display:none">
-<label class="select-label">
-<select name="state" id="state" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any State / Province</option>
-<optgroup label="USA"></optgroup><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option><optgroup label="CANADA"></optgroup><option value="AB">Alberta</option><option value="BC">British Columbia</option><option value="MB">Manitoba</option><option value="NB">New Brunswick</option><option value="NL">Newfoundland and Labrador</option><option value="NS">Nova Scotia</option><option value="ON">Ontario</option><option value="PE">Prince Edward Island</option><option value="QC">Quebec</option><option value="SK">Saskatchewan</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any State / Province</span></span>
-</label>
-</div>
-<div id="pos-type-block-3" style="display:none">
-<input type="text" name="zip" maxlength="12" id="zip" style="width: 127px;" value=""/>
-<label class="select-label">
-<select name="zip_distance" id="zip-distance" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;" class="hasCustomSelect">
-<option value="50">50 miles</option><option value="100">100 miles</option><option value="200">200 miles</option><option value="250">250 miles</option><option value="500">500 miles</option><option value="1000">1000 miles</option><option value="2000">2000 miles</option> </select><span class="custom-select" style="width: 100px; display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">50 miles</span></span>
-</label>
-</div>
-<label for="sale-status" style="margin-top:9px">Sale Status</label>
-<label class="select-label">
-<select name="saleStatus" id="sale-status" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Sale Status</option>
-<option value="PURE SALE">Pure Sale</option><option value="ON APPROVAL">On Approval</option><option value="ON MINIMUM BID">On Minimum Bid</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Sale Status</span></span>
-</label>
-<label for="auctionType">Auction Type</label>
-<div class="auction-types">
-<input id="auction-type-1" type="radio" class="auction-type" name="auctionType" value="" checked="checked"/>
-<label for="auction-type-1">All</label>
-<input id="auction-type-2" type="radio" class="auction-type" name="auctionType" value="bid"/>
-<label for="auction-type-2">Auction</label>
-<input id="auction-type-3" type="radio" class="auction-type" name="auctionType" value="buy-now"/>
-<label for="auction-type-3">Buy Now</label>
-</div>
-<label for="color" style="margin-top:9px">Sale Type</label>
-<label class="select-label">
-<select name="saleType" id="sale-type" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Sale Type</option>
-<option value="run_and_drive">Run &amp; Drive</option><option value="repossessed">Repo</option><option value="rentals">Retails</option><option value="impound">Impounded</option><option value="recovered_theft">Recovered Theft</option><option value="donations">Donations</option><option value="fleet_lease">Fleet &amp; Lease</option><option value="classic_cars">Classics</option><option value="luxury_vehicles">Exotics</option><option value="pickup_trucks">Pick Up Trucks</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Sale Type</span></span>
-</label>
-<label for="color" style="margin-top:9px">Color</label>
-<label class="select-label">
-<select name="color" id="color" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Color</option>
-<option value="BEIGE">BEIGE</option><option value="BLACK">BLACK</option><option value="BLUE">BLUE</option><option value="BROWN">BROWN</option><option value="BURGUNDY">BURGUNDY</option><option value="BURN">BURN</option><option value="CHARCOAL">CHARCOAL</option><option value="CREAM">CREAM</option><option value="GOLD">GOLD</option><option value="GRAY">GRAY</option><option value="GREEN">GREEN</option><option value="MAROON">MAROON</option><option value="ORANGE">ORANGE</option><option value="PINK">PINK</option><option value="PURPLE">PURPLE</option><option value="RED">RED</option><option value="SILVER">SILVER</option><option value="TAN">TAN</option><option value="TEAL">TEAL</option><option value="TURQUOISE">TURQUOISE</option><option value="TWO TONE">TWO TONE</option><option value="WHITE">WHITE</option><option value="YELLOW">YELLOW</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Color</span></span>
-</label>
-<label for="drive-type" style="margin-top:9px">Drive Type</label>
-<label class="select-label">
-<select name="driveType" id="drive-type" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Drive Type</option>
-<option value="ALL WHEEL DRIVE">All Wheel Drive</option><option value="FOUR BY FOUR">Four By Four</option><option value="FRONT-WHEEL DRIVE">Front-wheel Drive</option><option value="REAR-WHEEL DRIVE">Rear-wheel Drive</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Drive Type</span></span>
-</label>
-<label for="miles-from">Odometer In Miles</label>
-<input name="milesFrom" type="text" class="input-miles" id="miles-from" value=""/>
-To
-<input name="milesTo" type="text" class="input-miles" id="miles-to" value=""/>
-<label for="primary" style="margin-top:9px">Primary Damage</label>
-<label class="select-label">
-<select name="primary" id="primary" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Primary Damage</option>
-<option value="ALL OVER">ALL OVER</option><option value="BIOHAZARD/CHEMICAL">BIOHAZARD/CHEMICAL</option><option value="BURN">BURN</option><option value="BURN - ENGINE">BURN - ENGINE</option><option value="BURN - INTERIOR">BURN - INTERIOR</option><option value="FRAME DAMAGE REPORTE">FRAME DAMAGE REPORTE</option><option value="FRONT END">FRONT END</option><option value="HAIL">HAIL</option><option value="MECHANICAL">MECHANICAL</option><option value="MINOR DENT/SCRATCHES">MINOR DENTS/SCRATCHES</option><option value="MISSING/ALTERED VIN">MISSING/ALTERED VIN</option><option value="NORMAL WEAR">NORMAL WEAR</option><option value="PARTIAL/INCOMPLETE R">PARTIAL/INCOMPLETE R</option><option value="PREVIOUS REPAIR">PREVIOUS REPAIR</option><option value="REAR END">REAR END</option><option value="REJECTED REPAIR">REJECTED REPAIR</option><option value="REPLACED VIN">REPLACED VIN</option><option value="ROLLOVER">ROLLOVER</option><option value="SIDE">SIDE</option><option value="STRIPPED">STRIPPED</option><option value="TOP/ROOF">TOP/ROOF</option><option value="UNDERCARRIAGE">UNDERCARRIAGE</option><option value="VANDALISM">VANDALISM</option><option value="WATER/FLOOD">WATER/FLOOD</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Primary Damage</span></span>
-</label>
-<label for="fuel" style="margin-top:9px">Fuel Type</label>
-<label class="select-label">
-<select name="fuel" id="fuel" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any Fuel Type</option>
-<option value="GAS">Gasoline</option><option value="HYBRID ENGINE">Hybrid</option><option value="FLEXIBLE FUEL">Flexible</option><option value="DIESEL">Diesel</option><option value="COMPRESSED NATURAL G">Compress</option><option value="ELECTRIC">Electric</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any Fuel Type</span></span>
-</label>
-<label for="cylinders" style="margin-top:9px">Cylinders Count</label>
-<label class="select-label">
-<select name="cylinders" id="cylinders" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any cylinders count</option>
- <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="16">16</option><option value="R">R</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any cylinders count</span></span>
-</label>
-<label for="body-style" style="margin-top:9px">Body Style</label>
-<label class="select-label">
-<select name="bodyStyle" id="body-style" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any body style</option>
-<option value="2DR SPOR">2dr Spor</option><option value="3DR EXT">3dr Ext</option><option value="4DR EXT">4dr Ext</option><option value="4DR SPOR">4dr Spor</option><option value="ALL TERR">All Terr</option><option value="BUS">Bus</option><option value="CARGO VA">Cargo Va</option><option value="CHASSIS">Chassis</option><option value="CLUB CAB">Club Cab</option><option value="CLUB CHA">Club Cha</option><option value="CONVENTI">Conventi</option><option value="CONVERTI">Converti</option><option value="COUPE">Coupe</option><option value="COUPE 3D">Coupe 3d</option><option value="CREW CHA">Crew Cha</option><option value="CREW PIC">Crew Pic</option><option value="CUTAWAY">Cutaway</option><option value="DIRT">Dirt</option><option value="ENDURO">Enduro</option><option value="EXTENDED">Extended</option><option value="FIRE TRU">Fire Tru</option><option value="FORWARD">Forward</option><option value="GLIDERS">Gliders</option><option value="HATCHBAC">Hatchbac</option><option value="HEARSE">Hearse</option><option value="INCOMP P">Incomp P</option><option value="INCOMPLE">Incomple</option><option value="LIFTBACK">Liftback</option><option value="LIMOUSIN">Limousin</option><option value="MOTO CRO">Moto Cro</option><option value="MOTOR SC">Motor Sc</option><option value="MOTORIZE">Motorize</option><option value="PICKUP">Pickup</option><option value="RACER">Racer</option><option value="ROAD/STR">Road/str</option><option value="ROADSTER">Roadster</option><option value="SEDAN 2">Sedan 2</option><option value="SEDAN 4D">Sedan 4d</option><option value="SPORT PI">Sport Pi</option><option value="SPORTS V">Sports V</option><option value="STATION">Station</option><option value="STEP VAN">Step Van</option><option value="TANDEM">Tandem</option><option value="TILT CAB">Tilt Cab</option><option value="TRACTOR">Tractor</option><option value="UTILITY">Utility</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any body style</span></span>
-</label>
-<label for="engine-type" style="margin-top:9px">Engine Type</label>
-<label class="select-label">
-<select name="engineType" id="engine-type" class="hasCustomSelect" style="-webkit-appearance: menulist-button; width: 0px; position: absolute; opacity: 0; height: 32px; font-size: 14px;">
-<option value="">Any engine type</option>
-<option value=".0L">.0L</option><option value=".0L  5">.0L 5</option><option value=".0L  6">.0L 6</option><option value=".1L">.1L</option><option value=".1L  1">.1L 1</option><option value=".2L  1">.2L 1</option><option value=".2L  2">.2L 2</option><option value=".3L  1">.3L 1</option><option value=".3L  2">.3L 2</option><option value=".4L  1">.4L 1</option><option value=".4L  2">.4L 2</option><option value=".4L  4">.4L 4</option><option value=".5L  1">.5L 1</option><option value=".5L  2">.5L 2</option><option value=".5L  4">.5L 4</option><option value=".6L  1">.6L 1</option><option value=".6L  2">.6L 2</option><option value=".6L  4">.6L 4</option><option value=".7L  1">.7L 1</option><option value=".7L  2">.7L 2</option><option value=".7L  3">.7L 3</option><option value=".7L  4">.7L 4</option><option value=".8L  2">.8L 2</option><option value=".8L  3">.8L 3</option><option value=".8L  4">.8L 4</option><option value=".9L  2">.9L 2</option><option value=".9L  3">.9L 3</option><option value=".9L  4">.9L 4</option><option value="1.0L  2">1.0L 2</option><option value="1.0L  3">1.0L 3</option><option value="1.0L  4">1.0L 4</option><option value="1.1L  2">1.1L 2</option><option value="1.1L  3">1.1L 3</option><option value="1.1L  4">1.1L 4</option><option value="1.1L  R">1.1L R</option><option value="1.2L  2">1.2L 2</option><option value="1.2L  3">1.2L 3</option><option value="1.2L  4">1.2L 4</option><option value="1.3L  2">1.3L 2</option><option value="1.3L  3">1.3L 3</option><option value="1.3L  4">1.3L 4</option><option value="1.3L  R">1.3L R</option><option value="1.4L  2">1.4L 2</option><option value="1.4L  4">1.4L 4</option><option value="1.5L  2">1.5L 2</option><option value="1.5L  3">1.5L 3</option><option value="1.5L  4">1.5L 4</option><option value="1.5L  6">1.5L 6</option><option value="1.6L  2">1.6L 2</option><option value="1.6L  4">1.6L 4</option><option value="1.6L  6">1.6L 6</option><option value="1.7L  2">1.7L 2</option><option value="1.7L  4">1.7L 4</option><option value="1.8L  2">1.8L 2</option><option value="1.8L  4">1.8L 4</option><option value="1.8L  6">1.8L 6</option><option value="1.9L  2">1.9L 2</option><option value="1.9L  4">1.9L 4</option><option value="1.9L  6">1.9L 6</option><option value="10.0L  6">10.0L 6</option><option value="10.3L  6">10.3L 6</option><option value="10.4L  8">10.4L 8</option><option value="10.5L  6">10.5L 6</option><option value="10.8L  6">10.8L 6</option><option value="11.0L  6">11.0L 6</option><option value="11.1L  6">11.1L 6</option><option value="11.9L  6">11.9L 6</option><option value="12.0L  6">12.0L 6</option><option value="12.2L  6">12.2L 6</option><option value="12.5L  6">12.5L 6</option><option value="12.7L  6">12.7L 6</option><option value="12.8L  6">12.8L 6</option><option value="12.9L  6">12.9L 6</option><option value="13.0L  6">13.0L 6</option><option value="14.0L  6">14.0L 6</option><option value="14.1L  6">14.1L 6</option><option value="14.6L  6">14.6L 6</option><option value="14.8L  6">14.8L 6</option><option value="15.0L  6">15.0L 6</option><option value="15.2L  6">15.2L 6</option><option value="16.1L  6">16.1L 6</option><option value="2.0L  4">2.0L 4</option><option value="2.1L  2">2.1L 2</option><option value="2.1L  4">2.1L 4</option><option value="2.2L  4">2.2L 4</option><option value="2.2L  6">2.2L 6</option><option value="2.3L  3">2.3L 3</option><option value="2.3L  4">2.3L 4</option><option value="2.3L  5">2.3L 5</option><option value="2.3L  6">2.3L 6</option><option value="2.4L  4">2.4L 4</option><option value="2.4L  5">2.4L 5</option><option value="2.4L  6">2.4L 6</option><option value="2.5L  4">2.5L 4</option><option value="2.5L  5">2.5L 5</option><option value="2.5L  6">2.5L 6</option><option value="2.6L  4">2.6L 4</option><option value="2.6L  6">2.6L 6</option><option value="2.7L  4">2.7L 4</option><option value="2.7L  5">2.7L 5</option><option value="2.7L  6">2.7L 6</option><option value="2.8L  4">2.8L 4</option><option value="2.8L  6">2.8L 6</option><option value="2.9L  4">2.9L 4</option><option value="2.9L  6">2.9L 6</option><option value="2.9L  8">2.9L 8</option><option value="3.0L  4">3.0L 4</option><option value="3.0L  5">3.0L 5</option><option value="3.0L  6">3.0L 6</option><option value="3.0L  8">3.0L 8</option><option value="3.1L  6">3.1L 6</option><option value="3.2L  6">3.2L 6</option><option value="3.3L  6">3.3L 6</option><option value="3.4L  6">3.4L 6</option><option value="3.5L  5">3.5L 5</option><option value="3.5L  6">3.5L 6</option><option value="3.5L  8">3.5L 8</option><option value="3.6L  6">3.6L 6</option><option value="3.7L  5">3.7L 5</option><option value="3.7L  6">3.7L 6</option><option value="3.8L  6">3.8L 6</option><option value="3.8L  8">3.8L 8</option><option value="3.9L  4">3.9L 4</option><option value="3.9L  6">3.9L 6</option><option value="3.9L  8">3.9L 8</option><option value="4.0L  6">4.0L 6</option><option value="4.0L  8">4.0L 8</option><option value="4.1L  6">4.1L 6</option><option value="4.1L  8">4.1L 8</option><option value="4.2L  6">4.2L 6</option><option value="4.2L  8">4.2L 8</option><option value="4.3L  6">4.3L 6</option><option value="4.3L  8">4.3L 8</option><option value="4.4L  8">4.4L 8</option><option value="4.5L  6">4.5L 6</option><option value="4.5L  8">4.5L 8</option><option value="4.6L  4">4.6L 4</option><option value="4.6L  8">4.6L 8</option><option value="4.7L  4">4.7L 4</option><option value="4.7L  8">4.7L 8</option><option value="4.8L  4">4.8L 4</option><option value="4.8L  8">4.8L 8</option><option value="4.9L  4">4.9L 4</option><option value="4.9L  6">4.9L 6</option><option value="4.9L  8">4.9L 8</option><option value="4.9L 12">4.9L 12</option><option value="5.0L  8">5.0L 8</option><option value="5.0L 10">5.0L 10</option><option value="5.0L 12">5.0L 12</option><option value="5.2L  4">5.2L 4</option><option value="5.2L  8">5.2L 8</option><option value="5.2L 10">5.2L 10</option><option value="5.3L  4">5.3L 4</option><option value="5.3L  8">5.3L 8</option><option value="5.3L 12">5.3L 12</option><option value="5.4L  8">5.4L 8</option><option value="5.4L 12">5.4L 12</option><option value="5.5L  6">5.5L 6</option><option value="5.5L  8">5.5L 8</option><option value="5.5L 12">5.5L 12</option><option value="5.6L  8">5.6L 8</option><option value="5.7L  8">5.7L 8</option><option value="5.8L  8">5.8L 8</option><option value="5.8L 12">5.8L 12</option><option value="5.9L  6">5.9L 6</option><option value="5.9L  8">5.9L 8</option><option value="5.9L 12">5.9L 12</option><option value="6.0L  8">6.0L 8</option><option value="6.0L 12">6.0L 12</option><option value="6.1L  8">6.1L 8</option><option value="6.2L  8">6.2L 8</option><option value="6.2L 12">6.2L 12</option><option value="6.3L 12">6.3L 12</option><option value="6.4L  6">6.4L 6</option><option value="6.4L  8">6.4L 8</option><option value="6.5L  6">6.5L 6</option><option value="6.5L  8">6.5L 8</option><option value="6.6L  6">6.6L 6</option><option value="6.6L  8">6.6L 8</option><option value="6.6L 12">6.6L 12</option><option value="6.7L  6">6.7L 6</option><option value="6.7L  8">6.7L 8</option><option value="6.8L  8">6.8L 8</option><option value="6.8L 10">6.8L 10</option><option value="6.9L  6">6.9L 6</option><option value="6.9L  8">6.9L 8</option><option value="7.0L  6">7.0L 6</option><option value="7.0L  8">7.0L 8</option><option value="7.2L  6">7.2L 6</option><option value="7.3L  8">7.3L 8</option><option value="7.4L  8">7.4L 8</option><option value="7.5L  6">7.5L 6</option><option value="7.5L  8">7.5L 8</option><option value="7.6L  6">7.6L 6</option><option value="7.7L  6">7.7L 6</option><option value="7.8L  6">7.8L 6</option><option value="8.0L 10">8.0L 10</option><option value="8.1L  8">8.1L 8</option><option value="8.2L  8">8.2L 8</option><option value="8.3L  6">8.3L 6</option><option value="8.3L 10">8.3L 10</option><option value="8.4L 10">8.4L 10</option><option value="8.5L  4">8.5L 4</option><option value="8.7L  6">8.7L 6</option><option value="8.8L  6">8.8L 6</option><option value="9.0L  6">9.0L 6</option><option value="9.3L  6">9.3L 6</option> </select><span class="custom-select" style="display: inline-block;"><span class="custom-selectInner" style="width: 0px; display: inline-block;">Any engine type</span></span>
-</label>
-</div>
 <br></br>
 <div class="search-container">
 <p:commandButton value="FIND VEHICLES " action="#{carLandingBean.makeSearch()}"  class="yBtn find-vehicles-btn">
@@ -371,14 +261,14 @@ To
 												</td>
 												
 												<td class="column2 center hidden-phone">
-													<h2 class="title">
+													<h2 class="title" style="   margin-top: 5%;">
 													<a itemprop="url" href="/pages/public/carsForDetails.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
-													<div class="vin">
+													<div class="vin" style="    text-align: initial;">
 													<span class="name">
 													VIN:
 													</span>
 													#{data.uuid} </div>
-													<div class="odometer">
+													<div class="odometer" style="    text-align: initial;">
 													<span class="name">
 													OdoMeter:
 													</span>
@@ -388,7 +278,7 @@ To
 													
 												</td>
 												
-												<td class="center hidden-phone column3">
+												<td class="center hidden-phone column1">
 
 														<div class="location">
 														<span class="name">Location:</span>#{data.auctionLocation} </div>
@@ -396,7 +286,7 @@ To
 												</td>
 											
 												
-												<td class="center hidden-phone" >
+												<td class="center hidden-phone column3" >
 													<div class="location">
 														<span class="name">Location:</span> #{data.bidingDate}</div>
 												</td>
@@ -411,6 +301,10 @@ To
 													</div>
 													<div class="bidtype">
 													Current bid </div>
+													
+													
+													<a href="/pages/public/carsForDetails.jsf?id=#{data.id}" class="button yBtn_24">
+														Join Auction </a>
 													
 													
 												</td>

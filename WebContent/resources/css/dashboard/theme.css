@@ -1,7 +1,7 @@
 
 html,
 body {
-	background: #ecedf0;
+	background: #ffffff;
 	width: 100%;
 }
 
@@ -320,7 +320,7 @@ a:active {
 @media only screen and (max-width: 767px) {
 	html,
 	body {
-		background: #ecedf0;
+		background: #ffffff;
 	}
 
 	html.mobile-device .sidebar-left,
@@ -2746,8 +2746,8 @@ textarea[data-toggle=autosize] {
 select {
 	border: 1px solid #E5E7E9;
 	border-radius: 6px;
-	height: 46px;
-	padding: 12px;
+	height: 27px;
+	padding: 3px;
 	outline: none;
 }
 
@@ -12635,11 +12635,13 @@ html.dark .table .actions-hover a {
 }
 /* Filter */
 .dataTables_wrapper .dataTables_filter label {
-	width: 50%;
+	/* width: 89%; */
+	/* border-radius: 15px; */
 }
 
 .dataTables_wrapper .dataTables_filter input {
 	width: 100%;
+	border-radius: 7px!important;
 }
 
 @media only screen and (max-width: 991px) {

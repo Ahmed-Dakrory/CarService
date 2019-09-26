@@ -79,7 +79,7 @@ FIRST INTERNATIONAL GROUP
 </div>
 <div class="container" style=" width: 100%;">
 
-<div class="row  hidden-sm hidden-xs" style="width: 94%;margin-top: 1%;margin-left: 3%;">
+<div class="row  " style="width: 94%;margin-top: 1%;margin-left: 3%;">
 <div class="col-md-12 ">
 <div class="main-title main-popular-title">
 <h2 class="main-title f-normal f-upper h2-like-h3">Buy it now vehicles</h2> </div>
@@ -92,8 +92,8 @@ FIRST INTERNATIONAL GROUP
         <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
           <div class="carousel-cell owl-item active center">
           	<span href="en/25177299-2018-tesla-model_3.html" >
-					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.5%;width: 100%;border-radius: 12px;" />
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;background: #ecececb5;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
+					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.1%;width: 100%;border-radius: 6px;" />
+					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
 					</span>
            
           </div>
@@ -136,6 +136,9 @@ FIRST INTERNATIONAL GROUP
  color: #7d7d7d;
     font-size: 15px;
  }
+ .blockCateg{
+ cursor: pointer;
+ }
 </style>
 
 <br></br>
@@ -157,7 +160,7 @@ function openCategories(n){
         
         
         
-          <div onclick="openCategories(0);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up">
+          <div onclick="openCategories(0);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/car.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -169,7 +172,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(1);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div onclick="openCategories(1);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="100">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/suv.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -182,7 +185,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(2);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <div onclick="openCategories(2);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="200">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/motorcycle.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -192,7 +195,7 @@ function openCategories(n){
             </div> <!-- .block-icon-1 -->
           </div>
 
-          <div onclick="openCategories(3);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <div onclick="openCategories(3);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="300">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/jet_ski.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -205,7 +208,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(4);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+          <div onclick="openCategories(4);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="400">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/snow_mobile.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -218,7 +221,7 @@ function openCategories(n){
           
           
           
-          <div onclick="openCategories(5);" class="col-md-4 mb-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+          <div onclick="openCategories(5);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="500">
             <div class="media block-icon-1 d-block text-center">
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/heavy_d_vec.png" style="width: 106px;"/></div>
               <div class="media-body">
@@ -231,7 +234,7 @@ function openCategories(n){
         </div>
         <div class="row">
           
-          <div class="col-md-12 text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-md-12 text-center aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="100">
             <p><a href="/pages/public/carsForType.jsf" class="btn btn-black py-3 px-4">Show All</a></p>
           </div>
         </div>
