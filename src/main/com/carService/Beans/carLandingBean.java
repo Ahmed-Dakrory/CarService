@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -169,7 +170,25 @@ public class carLandingBean implements Serializable{
         return allCarsString;
     }
 	
-	
+	public void deleteCar() {
+		 FacesContext context = FacesContext.getCurrentInstance();
+		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+		 Integer carId = Integer.valueOf((String) map.get("carId"));
+		 
+		 carLanding deletedCar = carLandingFacade.getById(carId);
+		 deletedCar.setDeleted(true);
+		 carLandingFacade.addcarLanding(deletedCar);
+		 
+			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Car Has Been Deleted\", \"success\");");
+			
+		 try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
+	}
 	public void onCarSelect() {
 		
 		System.out.println(String.valueOf(selectedCarSearch));
@@ -1024,6 +1043,7 @@ public void addCarForMain() {
 					
 				
 					}
+					data.setDeleted(false);
 					data.setPaymentDone(false);
 					data.setActive(true);
 					data.setMainId(loginBean.getTheUserOfThisAccount());

@@ -30,47 +30,47 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="carLanding.getAll",
-		     query="SELECT c FROM carLanding c"
+		     query="SELECT c FROM carLanding c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="carLanding.getById",
-	query = "from carLanding d where d.id = :id"
+	query = "from carLanding d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carLanding.getByVin",
-	query = "from carLanding d where d.uuid = :uuid"
+	query = "from carLanding d where d.uuid = :uuid and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="carLanding.getAllForLanding",
-	query = "from carLanding d where d.isShowenInLanding = true"
+	query = "from carLanding d where d.isShowenInLanding = true and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="carLanding.getAllForUserBiding",
-	query = "from carLanding d where d.userMaxBidId.id = :id"
+	query = "from carLanding d where d.userMaxBidId.id = :id and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="carLanding.getAllForCategories",
-	query = "from carLanding d where d.category = :category"
+	query = "from carLanding d where d.category = :category and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllGroupsOfMake",
-	query = "from carLanding d group by d.make"
+	query = "from carLanding d where d.deleted = false group by d.make"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllForSearch",
-	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make = :make and d.category = :category"
+	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make = :make and d.category = :category and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllBetweenDates",
-	query = "from carLanding d where d.bidingDate > :date1 and d.endDate < :date2"
+	query = "from carLanding d where d.bidingDate > :date1 and d.endDate < :date2 and d.deleted = false"
 			)
 	
 	,
 	@NamedQuery(name="carLanding.getAllBidBetweenDates",
-	query = "from carLanding d where d.userMaxBidId.id > 0 and  d.bidingDate > :date1 and d.endDate < :date2"
+	query = "from carLanding d where d.userMaxBidId.id > 0 and  d.bidingDate > :date1 and d.endDate < :date2 and d.deleted = false"
 			)
 	
 })
@@ -223,6 +223,11 @@ public class carLanding {
 
 	@Column(name = "ourFees")
 	private String ourFees;
+	
+	
+	@Column(name = "deleted")
+	private boolean deleted;
+	
 	
 	public Integer getId() {
 		return id;
@@ -678,6 +683,20 @@ public class carLanding {
 
 	public void setPaymentDone(boolean paymentDone) {
 		this.paymentDone = paymentDone;
+	}
+
+
+
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 
