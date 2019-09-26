@@ -140,6 +140,7 @@ CREATE TABLE `carLanding` (
   `copartFees` varchar(45) DEFAULT NULL,
   `ourFees` varchar(45) DEFAULT NULL,
   `paymentDone` int(1) DEFAULT '0',
+  `deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `userMainId_idx` (`mainId`),
   KEY `userMaxBid_idx` (`userMaxBidId`),
@@ -671,4 +672,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-26 11:02:47
+-- Dump completed on 2019-09-26 11:37:34
