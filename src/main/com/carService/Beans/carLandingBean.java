@@ -31,6 +31,8 @@ import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
 import helpers.retrofit.mainFiles.copartReturnImages;
+import main.com.carService.biding.biding;
+import main.com.carService.biding.bidingAppServiceImpl;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
@@ -98,6 +100,10 @@ public class carLandingBean implements Serializable{
 	private invoicelandingAppServiceImpl invoicelandingFacade;
 	
 
+	@ManagedProperty(value = "#{bidingFacadeImpl}")
+	private bidingAppServiceImpl bidingFacade;
+	
+
 	private Integer searchType;
 	private String searchMake;
 	private String searchStartYear;
@@ -111,7 +117,8 @@ public class carLandingBean implements Serializable{
 	
 	private Integer progressLoading;
 	private String differenceTimeDate;
-	private int incrementBid;
+	private float incrementBid;
+	private float totalBid;
 	
 
 	private user userForInvoice;
@@ -124,6 +131,8 @@ public class carLandingBean implements Serializable{
 
 	private List<carLanding> allCarsString;
 	private String selectedCarSearch;
+	private biding currentBiding;
+	
 	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
@@ -216,6 +225,7 @@ public class carLandingBean implements Serializable{
 			}
 		}
 		incrementBid=10;
+		totalBid=0;
 		listOfAllCars=carLandingFacade.getAll();
 		listOfCarsLandingScroller=carLandingFacade.getAllForLanding();
 		listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
@@ -229,6 +239,14 @@ public class carLandingBean implements Serializable{
 				if(id!=null){
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
+					//Get the userBid if applicable
+					if(loginBean.isLoggedIn()) {
+						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+						totalBid=currentBiding.getFullAmount();
+						incrementBid=currentBiding.getIncrement();
+					}
+					
+					
 					//Here Get the images For the main 
 					/**
 					 * 
@@ -294,6 +312,7 @@ public class carLandingBean implements Serializable{
 		
 		
 	}
+	
 	public void makeIncrementBid() {
 		if(loginBean.getThisAccountMoneyBox()!=null) {
 			if(loginBean.getTheUserOfThisAccount().getId()!=null) {
@@ -305,20 +324,40 @@ public class carLandingBean implements Serializable{
 				if(selectedCarPage.isActive()) {
 					
 					//You are able to do it
-					if(!(incrementBid<=0)) {
-					selectedCarPage.setCurrentBid(String.valueOf(Integer.valueOf(selectedCarPage.getCurrentBid())+incrementBid));
-					selectedCarPage.setUserMaxBidId(loginBean.getTheUserOfThisAccount());
+					if(!(incrementBid<=0)&&!(totalBid<0)) {
+						
+						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+						if(currentBiding==null) {
+							currentBiding=new biding();
+						currentBiding.setFullAmount(totalBid);
+						currentBiding.setIncrement(incrementBid);
+						currentBiding.setLastDateBid(new Date());
+						currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
+						currentBiding.setCarlandingId(selectedCarPage);
+						bidingFacade.addbiding(currentBiding);
+						arrangeBidingForThisCar(selectedCarPage);
+						}else {
+							if(totalBid>=currentBiding.getFullAmount()) {
+							currentBiding.setFullAmount(totalBid);
+							currentBiding.setIncrement(incrementBid);
+							currentBiding.setLastDateBid(new Date());
+							currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
+							currentBiding.setCarlandingId(selectedCarPage);
+							bidingFacade.addbiding(currentBiding);
+							arrangeBidingForThisCar(selectedCarPage);
+							}else {
+								PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+										"			title: 'Your Biding ',\r\n" + 
+										"			text: 'Please Make a Biding Higher than the last time ',\r\n" + 
+										"			left:\"2%\"\r\n" + 
+										"		});");
+							}
+						}
+						
+						
 					
 					
-					int level = calcBean.getLevel(Float.valueOf(selectedCarPage.getCurrentBid()));
-					float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(selectedCarPage.getCurrentBid()));
 					
-					
-					selectedCarPage.setCopartFees(String.valueOf(copartFees));
-					selectedCarPage.setOurFees(String.valueOf((new calcBean()).getOurFees()));
-					
-					
-					carLandingFacade.addcarLanding(selectedCarPage);
 					}else {
 						PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 								"			title: 'Your Bid ',\r\n" + 
@@ -346,6 +385,43 @@ public class carLandingBean implements Serializable{
 			
 		}
 	}
+	private void arrangeBidingForThisCar(carLanding selectedCarPage2) {
+		//Get all maximum Bids for each car
+		List<biding> allBidingMax = bidingFacade.getAllMaxCarBidings();
+		
+		for(int i=0;i<allBidingMax.size();i++) {
+			carLanding car=carLandingFacade.getById(allBidingMax.get(i).getCarlandingId().getId());
+			
+			if(Float.valueOf(car.getCurrentBid())<allBidingMax.get(i).getFullAmount()) {
+				if(car.getUserMaxBidId().getId()!=allBidingMax.get(i).getUserId().getId()) {
+				
+				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmount(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount());
+				
+				float theTotalForTheManWhoLastMe=Float.valueOf(car.getCurrentBid());
+				if(theLastManWhoBidLessThanMe!=null) {
+
+					 theTotalForTheManWhoLastMe=theLastManWhoBidLessThanMe.getFullAmount();
+				}
+				float theNewAmount = allBidingMax.get(i).getIncrement()+theTotalForTheManWhoLastMe;
+				if(theNewAmount>allBidingMax.get(i).getFullAmount()) {
+					theNewAmount = allBidingMax.get(i).getFullAmount();
+				}
+				car.setCurrentBid(String.valueOf(theNewAmount));
+				car.setUserMaxBidId(allBidingMax.get(i).getUserId());
+				int level = calcBean.getLevel(Float.valueOf(car.getCurrentBid()));
+				float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(car.getCurrentBid()));
+				
+				
+				car.setCopartFees(String.valueOf(copartFees));
+				car.setOurFees(String.valueOf((new calcBean()).getOurFees()));
+				
+				carLandingFacade.addcarLanding(car);
+				}
+			}
+		}
+		
+	}
+
 	public void reloadedParametersAndPanelRefresh() {
 		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
 		Calendar nowTime=Calendar.getInstance();
@@ -654,21 +730,21 @@ System.out.println("Data: "+String.valueOf(idUser));
 		return returnedCalendarString;
 	}
 	
-public void addCarForMain() {
-		
-		
-		selectedFreight=new carLanding();
-		
-		images=new ArrayList<String>();
-		
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vitView.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void addCarForMain() {
+			
+			
+			selectedFreight=new carLanding();
+			
+			images=new ArrayList<String>();
+			
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vitView.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	}
 	
 
 	public void decreaseBy10Dollars() {
@@ -678,10 +754,24 @@ public void addCarForMain() {
 			incrementBid=0;
 		}
 	}
-
+	
 	public void increaseBy10Dollars() {
 		System.out.println(String.valueOf(incrementBid));
 		incrementBid+=10;
+		
+	}
+	
+	public void decreaseBy100DollarsMain() {
+		
+		totalBid-=100;
+		if(totalBid<0) {
+			totalBid=0;
+		}
+	}
+	
+	public void increaseBy100DollarsMain() {
+		System.out.println(String.valueOf(totalBid));
+		totalBid+=100;
 		
 	}
 	
@@ -1343,12 +1433,9 @@ public void addCarForMain() {
 		this.listOfFilteredCars = listOfFilteredCars;
 	}
 
-	public int getIncrementBid() {
+	
+	public float getIncrementBid() {
 		return incrementBid;
-	}
-
-	public void setIncrementBid(int incrementBid) {
-		this.incrementBid = incrementBid;
 	}
 
 	public notificationAppServiceImpl getNotificationFacade() {
@@ -1445,6 +1532,34 @@ public void addCarForMain() {
 
 	public void setSelectedCarSearch(String selectedCarSearch) {
 		this.selectedCarSearch = selectedCarSearch;
+	}
+
+	public bidingAppServiceImpl getBidingFacade() {
+		return bidingFacade;
+	}
+
+	public void setBidingFacade(bidingAppServiceImpl bidingFacade) {
+		this.bidingFacade = bidingFacade;
+	}
+
+	public float getTotalBid() {
+		return totalBid;
+	}
+
+	public void setTotalBid(float totalBid) {
+		this.totalBid = totalBid;
+	}
+
+	public void setIncrementBid(float incrementBid) {
+		this.incrementBid = incrementBid;
+	}
+
+	public biding getCurrentBiding() {
+		return currentBiding;
+	}
+
+	public void setCurrentBiding(biding currentBiding) {
+		this.currentBiding = currentBiding;
 	}
 
 	

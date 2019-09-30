@@ -286,19 +286,49 @@ By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
 
 </h:panelGroup>
 </div>
+<h:panelGroup rendered="#{carLandingBean.currentBiding==null?'false':'true'}">
+<div class="caption" style="font-size: 18px;">
+Your Bid Details </div>
+<div style="text-align: center;    font-size: 35px;    color: brown;">
+<h:panelGroup style="font-size: 25px;"
+ class="price" itemprop="offers" itemscope="" id="bidDetails" itemtype="http://schema.org/Offer" >
+Your Total Bid:<span itemprop="price" content="#{carLandingBean.currentBiding.fullAmount}">
+#{carLandingBean.currentBiding.fullAmount} </span>
+<meta itemprop="priceCurrency" content="USD"/>
+USD 
+<br></br>
+Incrementation: $#{carLandingBean.currentBiding.increment} USD
+
+
+</h:panelGroup>
+</div>
+</h:panelGroup>
+
 <div class="buy-now__learn-b">
 
-<h3>Select the amount to increase over the current Bid</h3>
+<h3>Set the amount and incrementation value for your Bid</h3>
    <div style="width:100%;text-align: -webkit-center;" id="BidingPanel">
    <h:form>
    
-    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment"
+    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
    
-   <p:inputText id="increment" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
+   <p:inputText id="increment" value="#{carLandingBean.totalBid}" style="    border-radius: 7px!important;"/>
    
    
- <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment"
+ <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment"
+    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+        
+   <br></br>
+   <br></br>
+   <br></br>
+    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment2"
+    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+   
+   <p:inputText id="increment2" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
+   
+   
+ <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment2"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
         </h:form>
         
