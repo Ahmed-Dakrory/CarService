@@ -61,7 +61,7 @@ import main.com.carService.loginNeeds.user;
 			)
 	,
 	@NamedQuery(name="carLanding.getAllForSearch",
-	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make = :make and d.category = :category and d.deleted = false"
+	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make like :make and d.category like :category and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllBetweenDates",
@@ -156,6 +156,10 @@ public class carLanding {
 	@Column(name = "bidingDate")
 	private Date bidingDate;
 	
+
+	@Column(name = "startDate")
+	private Date startDate;
+	
 	
 	@Column(name = "estRetailValue")
 	private String estRetailValue;
@@ -166,7 +170,7 @@ public class carLanding {
 	
 
 	@Column(name = "category")
-	private Integer category;
+	private String category;
 	
 	@Column(name = "isShowenInLanding")
 	private boolean isShowenInLanding;
@@ -512,13 +516,13 @@ public class carLanding {
 
 
 
-	public Integer getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
 
 
-	public void setCategory(Integer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -697,6 +701,20 @@ public class carLanding {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+
+
+
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 

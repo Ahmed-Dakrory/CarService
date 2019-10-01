@@ -149,9 +149,9 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 }
 
 	@Override
-	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, Integer category) {
+	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, String category) {
 		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForSearch")
-				 .setInteger("category",category)
+				 .setString("category",category)
 				 .setString("yearStart",yearStart)
 				 .setString("yearEnd",yearEnd)
 		 		 .setString("make",make);

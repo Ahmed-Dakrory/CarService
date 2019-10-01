@@ -83,7 +83,8 @@ public class carLandingBean implements Serializable{
 	carLanding selectedFreight;
 	private boolean progress=false;
 	
-	
+
+	private Date startDate;
 	private Date bidingDate;
 	private  Date endDate;
 	
@@ -104,7 +105,7 @@ public class carLandingBean implements Serializable{
 	private bidingAppServiceImpl bidingFacade;
 	
 
-	private Integer searchType;
+	private String searchType;
 	private String searchMake;
 	private String searchStartYear;
 	private String searchEndYear;
@@ -116,7 +117,8 @@ public class carLandingBean implements Serializable{
 	private UploadedFile fileExcel;
 	
 	private Integer progressLoading;
-	private String differenceTimeDate;
+	private String differenceTimeDateFromBidToEnd;
+	private String differenceTimeDateFromStartToBid;
 	private float incrementBid;
 	private float totalBid;
 	
@@ -133,7 +135,8 @@ public class carLandingBean implements Serializable{
 	private String selectedCarSearch;
 	private biding currentBiding;
 	
-	
+	private Long diffFromBidToEnd;
+	private Long diffFromStartToBid;
     public Integer getProgressLoading() {
         if(progressLoading == null) {
         	progressLoading = 0;
@@ -393,7 +396,7 @@ public class carLandingBean implements Serializable{
 			carLanding car=carLandingFacade.getById(allBidingMax.get(i).getCarlandingId().getId());
 			
 			if(Float.valueOf(car.getCurrentBid())<allBidingMax.get(i).getFullAmount()) {
-				if(car.getUserMaxBidId().getId()!=allBidingMax.get(i).getUserId().getId()) {
+				if(allowPersonToMakeBid(allBidingMax.get(i),car)) {
 				
 				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmount(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount());
 				
@@ -416,12 +419,28 @@ public class carLandingBean implements Serializable{
 				car.setOurFees(String.valueOf((new calcBean()).getOurFees()));
 				
 				carLandingFacade.addcarLanding(car);
+				
 				}
 			}
 		}
 		
 	}
 
+	
+	public boolean allowPersonToMakeBid(biding biding,carLanding car) {
+		
+		
+		if(car.getUserMaxBidId()==null) {
+			return true;
+		}
+		
+		if(car.getUserMaxBidId().getId()!=biding.getUserId().getId()) {
+			return true;
+		}
+		
+		return false;
+		
+	}
 	public void reloadedParametersAndPanelRefresh() {
 		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
 		Calendar nowTime=Calendar.getInstance();
@@ -431,44 +450,70 @@ public class carLandingBean implements Serializable{
 		
 		Calendar TimeOfFreight = Calendar.getInstance();
 		TimeOfFreight.setTime(selectedCarPage.getEndDate());
-		Long diff = selectedCarPage.getEndDate().getTime()-timeNow.getTime();
+		diffFromBidToEnd = selectedCarPage.getEndDate().getTime()-timeNow.getTime();
+		diffFromStartToBid = selectedCarPage.getBidingDate().getTime()-timeNow.getTime();
 		
 
 
-		long diffSeconds = diff / 1000 % 60;
-		long diffMinutes = diff / (60 * 1000) % 60;
-		long diffHours = diff / (60 * 60 * 1000) % 24;
-		long diffDays = diff / (24 * 60 * 60 * 1000);
+		long diffSecondsFromBidToEnd = diffFromBidToEnd / 1000 % 60;
+		long diffMinutesFromBidToEnd = diffFromBidToEnd / (60 * 1000) % 60;
+		long diffHoursFromBidToEnd = diffFromBidToEnd / (60 * 60 * 1000) % 24;
+		long diffDaysFromBidToEnd = diffFromBidToEnd / (24 * 60 * 60 * 1000);
+		
+		long diffSecondsFromStartToBid = diffFromStartToBid / 1000 % 60;
+		long diffMinutesFromStartToBid = diffFromStartToBid / (60 * 1000) % 60;
+		long diffHoursFromStartToBid = diffFromStartToBid / (60 * 60 * 1000) % 24;
+		long diffDaysFromStartToBid = diffFromStartToBid / (24 * 60 * 60 * 1000);
 		
 		System.out.println("Ahmed: "+timeNow);
 		System.out.println("Ahmed: "+selectedCarPage.getEndDate());
 		System.out.println("Ahmed: "+timeNow.getTime());
 		System.out.println("Ahmed: "+selectedCarPage.getEndDate().getTime());
 		
-		if(diff<0&&selectedCarPage.isActive()) {
+		if(diffFromBidToEnd<0&&selectedCarPage.isActive()) {
 			selectedCarPage.setActive(false);
 			selectedCarPage.setState(stateOfCar.ProcessState.getType());
 			carLandingFacade.addcarLanding(selectedCarPage);
-			sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
-		}
+			if(selectedCarPage.getUserMaxBidId()!=null) {
+				sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+	
+			}
+			}
 		
 		
 
-		differenceTimeDate=String.valueOf(diffDays)+"D: "+
-				String.valueOf(diffHours)+"H: "+
-				String.valueOf(diffMinutes)+"M: "+
-				String.valueOf(diffSeconds)+" S";
+		differenceTimeDateFromBidToEnd=String.valueOf(diffDaysFromBidToEnd)+"D: "+
+				String.valueOf(diffHoursFromBidToEnd)+"H: "+
+				String.valueOf(diffMinutesFromBidToEnd)+"M: "+
+				String.valueOf(diffSecondsFromBidToEnd)+" S";
 		
-		if(diff<0) {
-			differenceTimeDate="Biding Finished";
+		differenceTimeDateFromStartToBid=String.valueOf(diffDaysFromStartToBid)+"D: "+
+				String.valueOf(diffHoursFromStartToBid)+"H: "+
+				String.valueOf(diffMinutesFromStartToBid)+"M: "+
+				String.valueOf(diffSecondsFromStartToBid)+" S";
+		
+		if(diffFromBidToEnd<0) {
+			differenceTimeDateFromBidToEnd="Biding Finished";
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:buy-now-block");
 			
 		}
 
+		
+		//Get the userBid if applicable
+		if(loginBean.isLoggedIn()) {
+			currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+			if(currentBiding!=null) {
+				totalBid=currentBiding.getFullAmount();
+				incrementBid=currentBiding.getIncrement();
+			}
+		}
+		
+		
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:differenceTime");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:currentPriceDisplay");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentPriceSmall");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentBidAmount");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:bidDetails");
 		
 	}
 	
@@ -602,6 +647,17 @@ System.out.println("Data: "+String.valueOf(idUser));
 		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
 
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("panelCarsToUpdate");
+	}
+	
+	public void makeSearchOutSide() {
+		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/carsForType.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public categoriesEnum getCategoryEnum(int type) {
         return categoriesEnum.values()[type];
@@ -829,7 +885,7 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 
 	public boolean isDateValidated() {
-		if(endDate==null || bidingDate==null) {
+		if(endDate==null || bidingDate==null || startDate==null) {
 			return false;
 		}
 			return true;
@@ -954,6 +1010,8 @@ System.out.println("Data: "+String.valueOf(idUser));
 									data.setCategory(categoriesEnum.SnowMobile.getType());
 		                		}else if(valueOfType.equalsIgnoreCase("M")||valueOfType.equalsIgnoreCase("J")) {
 									data.setCategory(categoriesEnum.JetSkies.getType());
+		                		}else if(valueOfType.equalsIgnoreCase("Q")) {
+									data.setCategory(categoriesEnum.Korean.getType());
 		                		}else{
 									data.setCategory(categoriesEnum.SUV.getType());
 								}
@@ -1138,6 +1196,7 @@ System.out.println("Data: "+String.valueOf(idUser));
 					data.setActive(true);
 					data.setMainId(loginBean.getTheUserOfThisAccount());
 					data.setShowenInLanding(false);
+					data.setStartDate(startDate);
 					data.setBidingDate((bidingDate));
 					data.setEndDate((endDate));
 					data.setState(stateOfCar.BidingState.getType());
@@ -1188,7 +1247,6 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 	
 	public void updateCarDataUpload() {
-		listOfUploadedDataCars=new ArrayList<carLanding>();
 		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		
 		
@@ -1205,6 +1263,7 @@ System.out.println("Data: "+String.valueOf(idUser));
 		listOfUploadedDataCars=new ArrayList<carLanding>();
 		endDate=new Date();
 		bidingDate=new Date();
+		startDate=new Date();
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleListUpload.jsf?faces-redirect=true");
@@ -1288,12 +1347,20 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 
 	
-	public String getDifferenceTimeDate() {
-		return differenceTimeDate;
+	public String getDifferenceTimeDateFromBidToEnd() {
+		return differenceTimeDateFromBidToEnd;
 	}
 
-	public void setDifferenceTimeDate(String differenceTimeDate) {
-		this.differenceTimeDate = differenceTimeDate;
+	public void setDifferenceTimeDateFromBidToEnd(String differenceTimeDateFromBidToEnd) {
+		this.differenceTimeDateFromBidToEnd = differenceTimeDateFromBidToEnd;
+	}
+
+	public String getDifferenceTimeDateFromStartToBid() {
+		return differenceTimeDateFromStartToBid;
+	}
+
+	public void setDifferenceTimeDateFromStartToBid(String differenceTimeDateFromStartToBid) {
+		this.differenceTimeDateFromStartToBid = differenceTimeDateFromStartToBid;
 	}
 
 	public Date getEndDate() {
@@ -1308,6 +1375,14 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 
 	
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
 	public Date getBidingDate() {
 		return bidingDate;
@@ -1365,12 +1440,12 @@ System.out.println("Data: "+String.valueOf(idUser));
 	}
 
 
-	public Integer getSearchType() {
+	public String getSearchType() {
 		return searchType;
 	}
 
 
-	public void setSearchType(Integer searchType) {
+	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
 
@@ -1560,6 +1635,22 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	public void setCurrentBiding(biding currentBiding) {
 		this.currentBiding = currentBiding;
+	}
+
+	public Long getDiffFromBidToEnd() {
+		return diffFromBidToEnd;
+	}
+
+	public void setDiffFromBidToEnd(Long diffFromBidToEnd) {
+		this.diffFromBidToEnd = diffFromBidToEnd;
+	}
+
+	public Long getDiffFromStartToBid() {
+		return diffFromStartToBid;
+	}
+
+	public void setDiffFromStartToBid(Long diffFromStartToBid) {
+		this.diffFromStartToBid = diffFromStartToBid;
 	}
 
 	

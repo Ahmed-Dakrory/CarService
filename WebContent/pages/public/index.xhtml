@@ -42,9 +42,11 @@ position: relative;
     text-decoration: none;
 }
 </style>
+
+		  <link rel="stylesheet" href="#{resource['css:public/app.css']}" />
 <div class="center">
 <div class="clearfix"></div>
-<div style="    background: url(/resources/images/logo.png) 100% no-repeat;    background-size: 18%;border: 1px solid #d1d3d85c;border-bottom-right-radius: 151px 151px;    width: 100%;height: 100%; background-color: #61696a; padding-bottom: 0.1%;box-shadow: 0px 0px 8px #b7b7b7, 0px 0px 1px #a9a9a9, 0px 0px 42px #d2d2d2;">
+<div style="background: url(/resources/images/logo.png) 100% no-repeat;background-size: 18%;border: 1px solid #d1d3d85c;border-bottom-right-radius: 151px 151px;width: 100%;height: 100%;background-color: #0a1d35;padding-bottom: 0.1%;box-shadow: 0px 0px 8px #b7b7b7, 0px 0px 1px #a9a9a9, 0px 0px 42px #d2d2d2;">
 <div class="ab-banner__wrapper">
 <div class="ab-banner__container">
 <div class="ab-banner__content">
@@ -62,9 +64,13 @@ FIRST INTERNATIONAL GROUP
 </h1>
  -->
 
-<h2 class="ab-banner__title hidden-lg hidden-md" style="    margin-left: 8%;">
+<h2 class="ab-banner__title hidden-lg hidden-md" style=" margin-left: 8%;">
 
 ADAWLIAA 
+ </h2>
+ 
+ <h2 class="ab-banner__title hidden-xs hidden-sm" style="height: 415px;margin-left: 8%;">
+
  </h2>
  <h3 class="hidden-lg hidden-md" style="    margin-left: 7%;">
 <span style="text-shadow: 1px 2px 1px #cac9c9, 0 0 38px white, 0 0 13px #cacaca;font-size: 84%;">
@@ -73,7 +79,172 @@ FIRST INTERNATIONAL GROUP
 
 </h3>
 </div>
+<div class="ab-banner__search">
+<div class="searchWidget row-fluid">
+<div class="responsive_box responsive_box-main">
+<h:form  id="searchForm">
+<input type="hidden" value="norobots" name="norobots"/>
+<div>
+<label class="select-label">
+<h:selectOneMenu value="#{carLandingBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
 
+<f:selectItem itemLabel="Any Type" itemValue="%" />
+<f:selectItems value="#{carLandingBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
+</h:selectOneMenu>
+
+
+</label>
+</div>
+<div>
+<label class="select-label">
+
+<h:selectOneMenu value="#{carLandingBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
+
+<f:selectItem itemLabel="Any Type" itemValue="%" />
+<f:selectItems value="#{carLandingBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+</h:selectOneMenu>
+
+ </label>
+</div>
+
+
+
+<div class="search-year">
+<div class="search-year__from">
+
+<label class="select-label">
+
+<h:selectOneMenu value="#{carLandingBean.searchStartYear}">
+
+<f:selectItem itemLabel="2020" itemValue="2020"/>
+<f:selectItem itemLabel="2019" itemValue="2019"/>
+<f:selectItem itemLabel="2018" itemValue="2018"/>
+<f:selectItem itemLabel="2017" itemValue="2017"/>
+<f:selectItem itemLabel="2016" itemValue="2016"/>
+<f:selectItem itemLabel="2015" itemValue="2015"/>
+<f:selectItem itemLabel="2014" itemValue="2014"/>
+<f:selectItem itemLabel="2013" itemValue="2013"/>
+<f:selectItem itemLabel="2012" itemValue="2012"/>
+<f:selectItem itemLabel="2011" itemValue="2011"/>
+<f:selectItem itemLabel="2010" itemValue="2010"/>
+<f:selectItem itemLabel="2009" itemValue="2009"/>
+<f:selectItem itemLabel="2008" itemValue="2008"/>
+<f:selectItem itemLabel="2007" itemValue="2007"/>
+<f:selectItem itemLabel="2006" itemValue="2006"/>
+<f:selectItem itemLabel="2005" itemValue="2005"/>
+<f:selectItem itemLabel="2004" itemValue="2004"/>
+<f:selectItem itemLabel="2003" itemValue="2003"/>
+<f:selectItem itemLabel="2002" itemValue="2002"/>
+<f:selectItem itemLabel="2001" itemValue="2001"/>
+<f:selectItem itemLabel="2000" itemValue="2000"/>
+<f:selectItem itemLabel="1999" itemValue="1999"/>
+<f:selectItem itemLabel="1998" itemValue="1998"/>
+<f:selectItem itemLabel="1997" itemValue="1997"/>
+<f:selectItem itemLabel="1996" itemValue="1996"/>
+<f:selectItem itemLabel="1995" itemValue="1995"/>
+<f:selectItem itemLabel="1994" itemValue="1994"/>
+<f:selectItem itemLabel="1993" itemValue="1993"/>
+<f:selectItem itemLabel="1992" itemValue="1992"/>
+<f:selectItem itemLabel="1991" itemValue="1991"/>
+<f:selectItem itemLabel="1990" itemValue="1990"/>
+<f:selectItem itemLabel="1989" itemValue="1989"/>
+<f:selectItem itemLabel="1988" itemValue="1988"/>
+<f:selectItem itemLabel="1987" itemValue="1987"/>
+<f:selectItem itemLabel="1986" itemValue="1986"/>
+<f:selectItem itemLabel="1985" itemValue="1985"/>
+<f:selectItem itemLabel="1984" itemValue="1984"/>
+<f:selectItem itemLabel="1983" itemValue="1983"/>
+<f:selectItem itemLabel="1982" itemValue="1982"/>
+<f:selectItem itemLabel="1980" itemValue="1980"/>
+<f:selectItem itemLabel="1979" itemValue="1979"/>
+<f:selectItem itemLabel="1978" itemValue="1978"/>
+<f:selectItem itemLabel="1977" itemValue="1977"/>
+<f:selectItem itemLabel="1976" itemValue="1976"/>
+<f:selectItem itemLabel="1975" itemValue="1975"/>
+<f:selectItem itemLabel="1973" itemValue="1973"/>
+<f:selectItem itemLabel="1972" itemValue="1972"/>
+<f:selectItem itemLabel="1971" itemValue="1971"/>
+<f:selectItem itemLabel="1965" itemValue="1965"/>
+<f:selectItem itemLabel="1960" itemValue="1960"/>
+
+</h:selectOneMenu>
+</label>
+
+</div>
+<div class="search-year__to">
+
+<label class="select-label">
+
+
+<h:selectOneMenu value="#{carLandingBean.searchEndYear}">
+
+<f:selectItem itemLabel="2020" itemValue="2020"/>
+<f:selectItem itemLabel="2019" itemValue="2019"/>
+<f:selectItem itemLabel="2018" itemValue="2018"/>
+<f:selectItem itemLabel="2017" itemValue="2017"/>
+<f:selectItem itemLabel="2016" itemValue="2016"/>
+<f:selectItem itemLabel="2015" itemValue="2015"/>
+<f:selectItem itemLabel="2014" itemValue="2014"/>
+<f:selectItem itemLabel="2013" itemValue="2013"/>
+<f:selectItem itemLabel="2012" itemValue="2012"/>
+<f:selectItem itemLabel="2011" itemValue="2011"/>
+<f:selectItem itemLabel="2010" itemValue="2010"/>
+<f:selectItem itemLabel="2009" itemValue="2009"/>
+<f:selectItem itemLabel="2008" itemValue="2008"/>
+<f:selectItem itemLabel="2007" itemValue="2007"/>
+<f:selectItem itemLabel="2006" itemValue="2006"/>
+<f:selectItem itemLabel="2005" itemValue="2005"/>
+<f:selectItem itemLabel="2004" itemValue="2004"/>
+<f:selectItem itemLabel="2003" itemValue="2003"/>
+<f:selectItem itemLabel="2002" itemValue="2002"/>
+<f:selectItem itemLabel="2001" itemValue="2001"/>
+<f:selectItem itemLabel="2000" itemValue="2000"/>
+<f:selectItem itemLabel="1999" itemValue="1999"/>
+<f:selectItem itemLabel="1998" itemValue="1998"/>
+<f:selectItem itemLabel="1997" itemValue="1997"/>
+<f:selectItem itemLabel="1996" itemValue="1996"/>
+<f:selectItem itemLabel="1995" itemValue="1995"/>
+<f:selectItem itemLabel="1994" itemValue="1994"/>
+<f:selectItem itemLabel="1993" itemValue="1993"/>
+<f:selectItem itemLabel="1992" itemValue="1992"/>
+<f:selectItem itemLabel="1991" itemValue="1991"/>
+<f:selectItem itemLabel="1990" itemValue="1990"/>
+<f:selectItem itemLabel="1989" itemValue="1989"/>
+<f:selectItem itemLabel="1988" itemValue="1988"/>
+<f:selectItem itemLabel="1987" itemValue="1987"/>
+<f:selectItem itemLabel="1986" itemValue="1986"/>
+<f:selectItem itemLabel="1985" itemValue="1985"/>
+<f:selectItem itemLabel="1984" itemValue="1984"/>
+<f:selectItem itemLabel="1983" itemValue="1983"/>
+<f:selectItem itemLabel="1982" itemValue="1982"/>
+<f:selectItem itemLabel="1980" itemValue="1980"/>
+<f:selectItem itemLabel="1979" itemValue="1979"/>
+<f:selectItem itemLabel="1978" itemValue="1978"/>
+<f:selectItem itemLabel="1977" itemValue="1977"/>
+<f:selectItem itemLabel="1976" itemValue="1976"/>
+<f:selectItem itemLabel="1975" itemValue="1975"/>
+<f:selectItem itemLabel="1973" itemValue="1973"/>
+<f:selectItem itemLabel="1972" itemValue="1972"/>
+<f:selectItem itemLabel="1971" itemValue="1971"/>
+<f:selectItem itemLabel="1965" itemValue="1965"/>
+<f:selectItem itemLabel="1960" itemValue="1960"/>
+
+</h:selectOneMenu>
+
+
+</label>
+
+</div>
+</div>
+<div class="Widget_yBtn">
+<input value="Search" class="yBtn" name="yBtn" onclick="search()"/>
+<p:remoteCommand name="search" action="#{carLandingBean.makeSearchOutSide()}"/>
+
+</div>
+</h:form>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -165,7 +336,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/car.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">Small Cars</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">The definition of compact cars are cars that are bigger than a supermini and smaller than a mid-sized car</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>
@@ -177,7 +348,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/suv.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">SUV Cars</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">Sport utility vehicle (SUV) is a category of motor vehicles that combine elements of road-going passenger cars with features from off-road vehicles</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>
@@ -190,7 +361,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/motorcycle.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">MotorCycles</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">A motorcycle, often called a bike, motorbike, or cycle, is a two- or three-wheeled motor vehicle.</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>
@@ -200,7 +371,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/jet_ski.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">Jet Skis</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">Jet Ski is the brand name of a personal water craft (PWC)</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>
@@ -213,7 +384,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/snow_mobile.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">Snow Mobile</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">A snowmobile, also known as a motor sled, motor sledge, skimobile, snowscooter, or snowmachine, is a motorized vehicle designed for winter travel and recreation on snow.</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>
@@ -226,7 +397,7 @@ function openCategories(n){
               <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/heavy_d_vec.png" style="width: 106px;"/></div>
               <div class="media-body">
                 <h3 class="h5 mb-4">Heavy Duty Vehicle</h3>
-                <p class="pTable">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <p class="pTable">Heavy-duty trucks have a gross vehicle weight of 33,000 lb (15,000 kg) or more</p>
               </div>
             </div> <!-- .block-icon-1 -->
           </div>

@@ -155,7 +155,7 @@ body .ui-button {
              <div class="container" style="margin: 0;    width: 100%;">
 	            <div class="row">
 	            	<div class="col-md-3" style="text-align: left;">
-	            	<p:outputLabel for="datetime" value="Start Biding Date" />
+	            	<p:outputLabel for="datetime" value="Biding Date" />
        				<p:calendar id="datetime" value="#{carLandingBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
        					<p:ajax event="change" />
        				</p:calendar>
@@ -204,7 +204,7 @@ body .ui-button {
 		</p:column>
 		
 		
-		<p:ajax event="rowSelect" listener="#{carLandingBean.selectCarRowForMain}"  />
+		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carLandingBean.selectCarRowForMain}"  />
 		
 		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
 			

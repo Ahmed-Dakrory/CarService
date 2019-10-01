@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -209,8 +210,9 @@ public class loginBean implements Serializable{
 									
 
 			try {
-					FacesContext.getCurrentInstance()
-					   .getExternalContext().redirect("/pages/secured/userData/userProfile.jsf");
+					
+					ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+				    ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

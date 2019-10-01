@@ -220,14 +220,26 @@ body .ui-button {
             <p:outputPanel>
             <div class="container" style="margin: 0;    width: 100%;">
 	            <div class="row">
-	            	<div class="col-md-3" style="text-align: left;">
-	            	<p:outputLabel for="datetime" value="Start Biding Date" />
-       				<p:calendar id="datetime" value="#{carLandingBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+	            	
+	            	<div class="col-md-2" style="text-align: left;">
+	            	<p:outputLabel for="datetime" value="Start Date" />
+       				<p:calendar id="datetime" value="#{carLandingBean.startDate}" pattern="yyyy-dd-MM HH:mm:ss" >
        					<p:ajax event="change" />
        				</p:calendar>
 	            	
 	            	</div>
-	            	<div class="col-md-4" style="text-align: left;">
+	            	
+	            	
+	            	<div class="col-md-2" style="text-align: left;">
+	            	<p:outputLabel for="datetime1" value="Biding Date" />
+       				<p:calendar id="datetime1" value="#{carLandingBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:ajax event="change" />
+       				</p:calendar>
+	            	
+	            	</div>
+	            	
+	            	
+	            	<div class="col-md-3" style="text-align: left;">
 	            		<p:outputLabel for="datetime2" value="End Biding Date" />
        					<p:calendar id="datetime2" value="#{carLandingBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
        					<p:ajax event="change" />
@@ -260,7 +272,7 @@ body .ui-button {
 		</p:column>
 		
 		
-		<p:ajax event="rowSelect" listener="#{carLandingBean.selectCarRowForUpload}"  />
+		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carLandingBean.selectCarRowForUpload}"  />
 		
 		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
 			

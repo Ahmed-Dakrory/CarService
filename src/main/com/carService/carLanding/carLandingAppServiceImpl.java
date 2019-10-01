@@ -153,7 +153,7 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 
 
 	@Override
-	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, Integer category) {
+	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, String category) {
 		try{
 			List<carLanding> course=carLandingDataRepository.getAllForSearch( yearStart,  yearEnd,  make,  category);
 			
