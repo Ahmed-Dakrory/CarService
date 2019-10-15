@@ -195,14 +195,136 @@
 <div class="row">
 
 
-<div class="col-md-3"></div>
+<div class="col-md-3">
 
-<div class="col-md-7">
+						
+</div>
+
+<div class="col-md-3">
 
         </div>
         
-        <div class="col-sm-1" style="    margin-top: 1px;display:#{loginBean.loggedIn?'block':'none'};">
-        	<a href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">DashBoard</a>
+        <div class="col-md-1">
+
+        </div>
+        
+        <div class="col-md-1" style="    margin-top: 0.5%;display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role==0?'block':'none'};">
+<a href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">My DashBoard</a>
+        </div>
+        <div class="col-md-1">
+		<ul class="notifications" id="">
+		
+		<li>
+							<a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
+								<i class="fa fa-bell"></i>
+							<h:form id="notifiactionPanel1">	
+								<span class="badge" style="display:#{(bidBean.allUnReadNotifcationForThisUser.size()>0)?'block':'none'};">#{bidBean.allUnReadNotifcationForThisUser.size()}</span>
+							</h:form>
+							</a>
+			
+							<div class="dropdown-menu notification-menu">
+								<div class="notification-title">
+								<h:form id="notifiactionPanel2">
+									<span class="pull-right label label-default">#{bidBean.allUnReadNotifcationForThisUser.size()}</span>
+									</h:form>
+									Alerts
+								</div>
+			
+								<div class="content">
+									<ul>
+									<h:form id="notifiactionPanel3">
+									<ui:repeat value="#{bidBean.allNotifcationForThisUserLimited}" var="var">
+										<li style="background:#{var.readed?'beige':'white'};">
+											<a href="#{var.url}" onclick="readThisNotification('#{var.id}')" class="clearfix">
+												<div class="image">
+													<i class="fa fa-thumbs-up bg-danger"></i>
+												</div>
+												<span class="title">#{var.data}</span>
+												<span class="message">#{var.date}</span>
+											</a>
+											<script>
+											
+											function readThisNotification(id){
+												
+												readNotification([{name: 'notificationId', value: id}, {name: 'data', value: 'NOTHING'}]);
+											}
+											</script>
+										</li>
+										</ui:repeat>
+										</h:form>
+									</ul>
+			
+									<hr />
+			
+									
+								</div>
+							</div>
+						</li>
+		</ul>
+        </div>
+        
+        
+        <div class="col-md-1" style="    margin-top: -0.11%;display:#{loginBean.loggedIn?'block':'none'};">
+
+<ul class="notifications" id="">
+						<li>
+							<a style="width: fit-content;border-radius: 10px;padding-right: 19%;padding-left: 19%;text-decoration: none;" href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
+								<h:form id="notifiactionPanel">
+								<div style="height: 100%;font-size: 19px;font-family: cursive;">
+									<p >$#{loginBean.thisAccountMoneyBox.availableMoney}</p>
+								</div>
+								</h:form>
+								<span class="badge" style="display:none;">0</span>
+							</a>
+			
+							<div class="dropdown-menu notification-menu large">
+								<div class="notification-title">
+									<span class="pull-right label label-default" >#{loginBean.mymoneyTransactions.size()}</span>
+									Transactions
+								</div>
+			
+								<div class="content">
+									<ul>
+									<ui:repeat var="var" value="#{loginBean.mymoneyTransactions}">
+										<li style="    border: black;    border-block-end: solid;    border-width: 1px;    padding-bottom: 9px;">
+										
+											<p class="clearfix mb-xs">
+												<span class="message pull-left">Transaction Type: </span>
+												<span class="message pull-right text-dark">#{loginBean.getTransactionType(var.typeOfTransaction).name}</span>
+											</p>
+											
+												<div class="container ">
+													<div class="row">
+														<div class="col-md-2">
+															Last: $#{var.amountBefore}
+														</div>
+														
+														<div class="col-md-2">
+															Amount: $#{var.amount}
+														</div>
+														
+														<div class="col-md-3">
+															Date: #{var.date}
+														</div>
+													</div>
+												</div>
+											
+										</li>
+										</ui:repeat>
+										
+			 
+									</ul>
+								</div>
+								
+								
+							</div>
+						</li>
+						
+						</ul>
+        </div>
+        
+        <div class="col-sm-1" style="    margin-top: 0.5%;display:#{loginBean.loggedIn?'block':'none'};">
+        	<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
         </div>
 <div class="col-sm-1" style="    margin-top: 1px;display:#{loginBean.loggedIn?'none':'block'};"> 
 <div id="top-login"  style="    width: 51px;">
@@ -544,7 +666,12 @@ function closeNav() {
 		<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
 		
 
-    
+    <!-- Vendor -->
+		<h:outputScript name="js/dashboard2/assets/vendor/jquery/jquery.js"/>
+		<h:outputScript name="js/dashboard2/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"/>
+		<h:outputScript name="js/dashboard2/assets/vendor/bootstrap/js/bootstrap.js"/>
+		<h:outputScript name="js/dashboard2/assets/vendor/nanoscroller/nanoscroller.js"/>
+		
 
   <ui:insert name="script"> 
     	<script>
@@ -552,7 +679,82 @@ function closeNav() {
     	</script>
   </ui:insert>
 	
+	<script src="/javax.faces.resource/Scripts/scm_main.js.xhtml"></script>
 			 <h:outputScript name="js/public/flickity.pkgd.js"/>
+			 
+			 
+			 
+			 
+	
+			 
+			 	<script>
+		dialogLoader = bootbox.dialog({
+    	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',
+    	    closeButton: false,
+    	    show: false
+    	});
+		function showDialog(data){
+        	dialogLoader = bootbox.dialog({
+        	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',
+        	    closeButton: false,
+        	    show: true
+        	});
+        	
+                    	}
+		
+		function ErrorDialog(){
+        	dialogLoader = bootbox.dialog({
+        	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Error</p>',
+        	    closeButton: true,
+        	    show: true,
+        	    onEscape:true
+        	});
+                	
+                	            
+                	
+                	}
+		
+		function ErrorDialog2(text){
+        	dialogLoader = bootbox.dialog({
+        	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Error '+text+'</p>',
+        	    closeButton: true,
+        	    show: true,
+        	    onEscape:true
+        	});
+                	
+                	            
+                	
+                	}
+                    
+                    function hideDialog(){
+                    	// do something in the background
+                    	dialogLoader.modal('hide');
+                    	
+                    	
+                    }
+                    </script>
+		
+		
+		
+		
+		
+		
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
+		<h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
+			
+			
+			
+			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
+		</h:form>
+		<script>
+		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
+			
+		</script>
 </h:body>
 
 </html>

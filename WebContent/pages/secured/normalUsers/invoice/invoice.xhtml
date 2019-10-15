@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/dashboard2.xhtml">
+<ui:composition template="/templates/publicTemplate.xhtml">
 
 
 	<ui:define name="title"> ADAWLIAA</ui:define>
@@ -133,7 +133,74 @@
 	}
 }
         </style>
-        <h:form name="aspnetForm"  id="aspnetForm">  
+        
+        
+        
+        
+        <div class="container">
+<div class="clearfix"></div>
+
+
+<div class="row">
+<div class="col-md-12">
+</div>
+</div>
+<div id="content" style="    width: 100%;">
+<div class="account-table row">
+<div class="col-sm-12 col-md-2 side-menu account-menu">
+<div id="profile-side-menu" class="searchBox">
+<div class="group-title block_header responsive_header">
+Menu </div>
+<div class="responsive_box">
+<ul class="level1">
+<li class="active">
+<a href="/en/account">
+My Account </a>
+</li>
+</ul>
+<div class="sublevel">
+Menu </div>
+<ul class="level1 expand">
+<li >
+<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
+Profile Credentials</a>
+</li>
+<li >
+<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
+My Profile Data </a>
+</li>
+<li class="">
+<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
+MoneyBox </a>
+</li>
+
+<li class="menu-item-refunds">
+<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
+Invoice List </a>
+</li>
+</ul>
+
+
+
+
+
+<ul class="level1">
+<li>
+<a href="/en/account/logout">
+Log Out </a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-sm-12 col-md-10">
+<div id="ajax-content">
+<h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
+
+<div class="sort-boxes-account">
+
+
+<h:form name="aspnetForm"  id="aspnetForm">  
 
 			<section class="panel">
 						<div class="panel-body">
@@ -220,14 +287,14 @@
 											<ui:repeat var="var" value="#{carLandingBean.carForInvoice}">
 											
 											<tr>
-												<td>#{var.id}</td>
-												<td class="text-semibold text-dark">#{var.uuid}</td>
-												<td>#{var.make}</td>
-												<td class="text-center">$#{var.model}</td>
-												<td class="text-center">$#{var.currentBid}</td>
-												<td class="text-center">$#{var.ourFees}</td>
-												<td class="text-center">$#{var.copartFees}</td>
-												<td class="text-center">$#{var.currentBid+var.ourFees+var.copartFees}</td>
+												<td style="text-align: center;">#{var.id}</td>
+												<td style="text-align: center;" class="text-semibold text-dark">#{var.uuid}</td>
+												<td style="text-align: center;">#{var.make}</td>
+												<td style="text-align: center;" class="text-center">$#{var.model}</td>
+												<td style="text-align: center;" class="text-center">$#{var.currentBid}</td>
+												<td style="text-align: center;" class="text-center">$#{var.ourFees}</td>
+												<td style="text-align: center;" class="text-center">$#{var.copartFees}</td>
+												<td style="text-align: center;" class="text-center">$#{var.currentBid+var.ourFees+var.copartFees}</td>
 											</tr>
 											
 											</ui:repeat>
@@ -261,6 +328,22 @@
 					</section>
 			
 		</h:form>
+
+
+
+
+</div>
+<div class="clr"></div>
+
+</div>
+</div>
+</div>
+<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
+</div>
+</div>
+
+
+        
      
 	</ui:define>
 	
