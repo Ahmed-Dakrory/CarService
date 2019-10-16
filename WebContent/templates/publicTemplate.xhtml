@@ -452,7 +452,7 @@ margin: 0 auto;
     width: 100%;
     height: 36px;
     position: relative;
-    background: url(/resources/images/public/img/search.png) 98% 47% no-repeat;
+    
     background-color: #fff;
     border-radius: 16px!important;
 }
@@ -462,7 +462,7 @@ margin: 0 auto;
 
 <h:form>
   <p:autoComplete class="s-input2 s-tip2" id="themes"  value="#{carLandingBean.selectedCarSearch}" completeMethod="#{carLandingBean.completeText}"
-                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="enter the vehicle VIN or lot or make and model"
+                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="Enter vehicle VIN, make or model"
                         inputStyleClass="inputSearch">
                         
                           <p:ajax event="itemSelect" listener="#{carLandingBean.onCarSelect}"  />
