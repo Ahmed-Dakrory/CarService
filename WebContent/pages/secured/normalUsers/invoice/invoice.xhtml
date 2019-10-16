@@ -184,12 +184,17 @@ Invoice List </a>
 
 
 
+
 <ul class="level1">
 <li>
-<a href="/en/account/logout">
-Log Out </a>
+<a onclick="LogOutJS()" > 
+<i class="fa fa-power-off"></i> Log Out </a>
 </li>
 </ul>
+
+<h:form>
+					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
+				</h:form>
 </div>
 </div>
 </div>

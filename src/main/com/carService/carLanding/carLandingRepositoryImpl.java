@@ -124,7 +124,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 
 	@Override
 	public List<carLanding> getAllForCategories(int categories) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForCategories").setInteger("category",categories);
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForCategories").setInteger("category",categories).setMaxResults(30);
 
 		 @SuppressWarnings("unchecked")
 		List<carLanding> results=query.list();

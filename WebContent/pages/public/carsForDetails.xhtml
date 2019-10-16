@@ -661,6 +661,7 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 
 
 
+
 </div>
 </h:form>
 </div>
@@ -672,6 +673,43 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 </div>
 </div>
 	
+	
+	<div class="container">
+	<div class="row  " style="width: 94%;margin-top: 1%;margin-left: 3%;">
+<div class="col-md-12 ">
+<div class="main-title main-popular-title">
+<h2 class="main-title f-normal f-upper h2-like-h3">Related Cars</h2> </div>
+
+
+
+                      <!-- Flickity HTML init -->
+<div class="carousel" style="width:100%"  data-flickity='{ "wrapAround": true }'>
+          
+        <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingRelatedCars}">
+          <div class="carousel-cell owl-item active center">
+          	<span href="en/25177299-2018-tesla-model_3.html" >
+					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.1%;width: 100%;border-radius: 6px;" />
+					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
+					</span>
+           
+          </div>
+        	
+        </ui:repeat>
+            </div>
+            
+          
+          
+
+
+
+
+
+
+ </div>
+
+</div>
+	
+	</div>
 
 	</ui:define>
 	

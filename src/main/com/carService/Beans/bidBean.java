@@ -91,14 +91,17 @@ public class bidBean implements Serializable{
 		
 		listOfAllUsersMoneyBox=loginBean.getMoneyboxDataFacede().getAll();
 		
-
+		if(loginBean.isLoggedIn()) {
 		allNotifcationForThisUser=notificationFacade.getAllByuserId(loginBean.getTheUserOfThisAccount().getId());
 		
 		allCarForMyBid=carLandingFacade.getAllForUserBiding(loginBean.getTheUserOfThisAccount().getId());
+	
+		}
+		
 	}
 
 	public void refreshNotification() {
-		
+		if(loginBean.isLoggedIn()) {
 		allNotifcationForThisUserLimited=notificationFacade.getAllByuserIdAndLimit(loginBean.getTheUserOfThisAccount().getId(),0,30);
 		
 		allUnReadNotifcationForThisUser=notificationFacade.getAllByuserIdAndState(loginBean.getTheUserOfThisAccount().getId(),false,0,999);
@@ -107,7 +110,8 @@ public class bidBean implements Serializable{
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel1");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel2");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel3");
-	}
+		}
+		}
 	
 	
 	public stateOfCar getStateOfCar(int type) {
@@ -122,14 +126,13 @@ public class bidBean implements Serializable{
 	public void selectCarRowForMain(SelectEvent event) {
 		selectedFreight = ((carLanding) event.getObject());
 		System.out.println("Selected Id: "+selectedFreight.getLot());
-		PrimeFaces.current().executeScript("showDialog('car');");
 		updateImagesWithLink(selectedFreight.getAllImagesLink());
 		int level=calcBean.getLevel(Float.valueOf(selectedFreight.getCurrentBid()));
 		copartFees = calcBean.CalculateCopart(level, Float.valueOf(selectedFreight.getCurrentBid()));
 		
 		try {
 			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/normalUsers/vitView.jsf?faces-redirect=true");
+			   .getExternalContext().redirect("/pages/public/carsForDetails.jsf?id="+selectedFreight.getId()+"&faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -70,18 +70,32 @@ Invoice List </a>
 <a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
 My Bid Cars valid List </a>
 </li>
-</ul>
 
+<li class="">
+<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
+All Bids </a>
+</li>
+
+<li class="">
+<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
+Watch List </a>
+</li>
+</ul>
 
 
 
 
 <ul class="level1">
 <li>
-<a href="/en/account/logout">
-Log Out </a>
+<a onclick="LogOutJS()" > 
+<i class="fa fa-power-off"></i> Log Out </a>
 </li>
 </ul>
+
+<h:form>
+					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
+				</h:form>
+				
 </div>
 </div>
 </div>

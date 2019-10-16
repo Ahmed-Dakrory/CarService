@@ -13,7 +13,7 @@
 	<ui:define name="title"> ADAWLIAA</ui:define>
 	
 	 <ui:define name="mainHead"> 
-			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleListAllBids.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
            
 			</ui:define>
 
@@ -115,12 +115,12 @@ MoneyBox </a>
 Invoice List </a>
 </li>
 
-<li class="menu-item-refunds">
+<li class="">
 <a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
 My Bid Cars valid List </a>
 </li>
 
-<li class="">
+<li class="menu-item-refunds">
 <a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
 All Bids </a>
 </li>
@@ -155,10 +155,9 @@ Watch List </a>
 <div class="sort-boxes-account">
 
 
-<form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
+<form name="aspnetForm" method="post" action="./vehicleListAllBids.jsf" id="aspnetForm">
 
-
-#{bidBean.refresh()}
+#{carLandingBean.refresh()}
             <div id="content">
                 
     <input name="ctl00$BodyHolder$hdClient_ID" type="hidden" id="ctl00_BodyHolder_hdClient_ID" value="47089" />
@@ -216,12 +215,12 @@ Watch List </a>
 								<h:form id="tableForm">
 								
         	
-    						 <p:dataTable id="carsTable" var="row" value="#{bidBean.allCarForMyBid}" widgetVar="carsTable" 
+    						 <p:dataTable id="carsTable" var="row" value="#{carLandingBean.allCurrentBidCars}" widgetVar="carsTable" 
                  rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="10,50,100,200,500,1000"
-                 selectionMode="single" selection="#{bidBean.selectedFreight}" rowKey="#{row.lot}"
-                 emptyMessage="No cars found with given criteria" filteredValue="#{bidBean.listOfFilteredCars}">
+                 selectionMode="single" selection="#{carLandingBean.selectedFreight3}" rowKey="#{row.carlandingId.lot}"
+                 emptyMessage="No cars found with given criteria" filteredValue="#{carLandingBean.listOfFilteredCars3}">
  
         <f:facet name="header">
             <p:outputPanel>
@@ -257,20 +256,20 @@ Watch List </a>
         
          
     
- 		<p:column style="font-size: 13px;    text-align: center;" width="90" id="imageId" sortBy="#{row.mainImage}" filterBy="#{row.mainImage}">
-			<h:graphicImage value="#{row.mainImage}" alt="image#{row.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
+ 		<p:column style="font-size: 13px;    text-align: center;" width="90" id="imageId" sortBy="#{row.carlandingId.mainImage}" filterBy="#{row.carlandingId.mainImage}">
+			<h:graphicImage value="#{row.carlandingId.mainImage}" alt="image#{row.carlandingId.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
 			<f:facet name="header">	<h:outputText value="Image" /> </f:facet>
 		</p:column>
 		
 		
 		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{bidBean.selectCarRowForMain}"  />
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="uuid" sortBy="#{row.carlandingId.uuid}" filterBy="#{row.carlandingId.uuid}">
 			
 			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{bidBean.selectCarForMain(row.id)}"/>
 			
 			 -->
-			<h:outputText value="#{row.uuid}" />
+			<h:outputText value="#{row.carlandingId.uuid}" />
 
 			<f:facet name="header">	<h:outputText value="Vin" /> </f:facet>
 		</p:column>
@@ -281,41 +280,41 @@ Watch List </a>
 		
 		
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.currentBid}" filterBy="#{row.currentBid}">
-			<h:outputText value="#{row.currentBid}" />
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.carlandingId.currentBid}" filterBy="#{row.carlandingId.currentBid}">
+			<h:outputText value="#{row.carlandingId.currentBid}" />
 			<f:facet name="header">	<h:outputText value="Current Bid" /> </f:facet>
 		</p:column>
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="lot" sortBy="#{row.lot}" filterBy="#{row.lot}">
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="lot" sortBy="#{row.carlandingId.lot}" filterBy="#{row.carlandingId.lot}">
 			
-				<a   href="https://www.copart.com/lot/#{row.lot}" target="_blank">#{row.lot}</a>
+				<a   href="https://www.copart.com/lot/#{row.carlandingId.lot}" target="_blank">#{row.carlandingId.lot}</a>
 			
 
 			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
 		</p:column>
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="category" sortBy="#{bidBean.getCategoryEnum(row.category).name}" filterBy="#{bidBean.getCategoryEnum(row.category).name}">
-			<h:outputText value="#{bidBean.getCategoryEnum(row.category).name}" />
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="category" sortBy="#{bidBean.getCategoryEnum(row.carlandingId.category).name}" filterBy="#{bidBean.getCategoryEnum(row.carlandingId.category).name}">
+			<h:outputText value="#{bidBean.getCategoryEnum(row.carlandingId.category).name}" />
 			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
 		</p:column>
 		
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="model" sortBy="#{row.model}" filterBy="#{row.model}">
-			<h:outputText value="#{row.make}/#{row.model}" />
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="model" sortBy="#{row.carlandingId.model}" filterBy="#{row.carlandingId.model}">
+			<h:outputText value="#{row.carlandingId.make}/#{row.carlandingId.model}" />
 			<f:facet name="header">	<h:outputText value="Make/Model" /> </f:facet>
 		</p:column>
 		
 		
 		
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="endDate" sortBy="#{row.endDate}" filterBy="#{row.endDate}">
-			<h:outputText value="#{row.endDate}" />
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="endDate" sortBy="#{row.carlandingId.endDate}" filterBy="#{row.carlandingId.endDate}">
+			<h:outputText value="#{row.carlandingId.endDate}" />
 			<f:facet name="header">	<h:outputText value="End Date" /> </f:facet>
 		</p:column>
 		
 		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="state" sortBy="#{bidBean.getStateOfCar(row.state).name}" filterBy="#{bidBean.getStateOfCar(row.state).name}">
-			<h:outputText value="#{bidBean.getStateOfCar(row.state).name}" />
+		<p:column style="font-size: 13px;    text-align: center;" width="130" id="state" sortBy="#{bidBean.getStateOfCar(row.carlandingId.state).name}" filterBy="#{bidBean.getStateOfCar(row.carlandingId.state).name}">
+			<h:outputText value="#{bidBean.getStateOfCar(row.carlandingId.state).name}" />
 			<f:facet name="header">	<h:outputText value="state" /> </f:facet>
 		</p:column>
 		

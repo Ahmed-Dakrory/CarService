@@ -93,7 +93,7 @@ public class loginBean implements Serializable{
 	
 	
 	public void reloadedParametersAndPanelRefresh() {
-
+if(isLoggedIn) {
 		thisAccountMoneyBox=new moneybox();
 		mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
 		thisAccountMoneyBox = moneyboxDataFacede.getByUserId(theUserOfThisAccount.getId());
@@ -106,7 +106,7 @@ public class loginBean implements Serializable{
 		
 		
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel");
-		
+}
 	}
 	
 	
@@ -227,6 +227,52 @@ public class loginBean implements Serializable{
 		
 	}
 	
+	public void loginAfterReg(){
+
+		 String hashedPassword= new  Md5PasswordEncoder().encodePassword(passwordOfUserLoggedIn,emailOfUserLoggedIn);
+
+		theUserOfThisAccount = userDataFacede.getByEmailAndPassword(emailOfUserLoggedIn,hashedPassword);
+
+		if(theUserOfThisAccount!=null){
+			isLoggedIn=true;
+			
+		}else{
+			isLoggedIn=false;
+			theUserOfThisAccount=new user();
+			wrongPassword();
+		}
+		if(isLoggedIn){
+			
+
+			
+						boolean success = authenticationService.autoLogin(theUserOfThisAccount.getEmail(), passwordOfUserLoggedIn);
+						if (success) {
+							thisAccountMoneyBox = moneyboxDataFacede.getByUserId(theUserOfThisAccount.getId());
+							if(thisAccountMoneyBox==null) {
+								thisAccountMoneyBox=new moneybox();
+							}else {
+								mymoneyTransactions=moneybox_transaction_detailsDataFacede.getAllByUserMoneyBoxId(thisAccountMoneyBox.getId(), 0, 6);
+							}
+								FacesContext.getCurrentInstance().getExternalContext()
+											.getSessionMap().put("resetMenu", true);
+									
+
+								try {
+									FacesContext.getCurrentInstance()
+									   .getExternalContext().redirect("/");
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+		}else{
+			
+
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("FormMain");
+		}
+		
+	}
+	
 	
 	public void createNewUser(int role) {
 		System.out.println("Ahmed Dakrory");
@@ -247,7 +293,9 @@ public class loginBean implements Serializable{
 			
 			
 			emailOfUserLoggedIn=theUserOfThisAccount.getEmail();
-			login();
+			loginAfterReg();
+			
+			
 		}
 	}
 	

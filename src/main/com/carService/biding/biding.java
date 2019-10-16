@@ -42,6 +42,11 @@ import main.com.carService.loginNeeds.user;
 			)
 	
 	,
+	@NamedQuery(name="biding.getAllByuserId",
+	query = "from biding d where d.userId.id = :idUser"
+			)
+	
+	,
 	@NamedQuery(name="biding.getByCarIdLessThanFullAmount",
 	query = "from biding d where d.carlandingId.id = :idcar and d.fullAmount < :fullAmount order by d.fullAmount desc"
 			)

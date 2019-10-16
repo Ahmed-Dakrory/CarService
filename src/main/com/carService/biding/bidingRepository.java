@@ -14,6 +14,7 @@ import java.util.List;
 public interface bidingRepository {
 
 	public List<biding> getAll();
+	public List<biding> getAllByuserId(int idUser);
 	public biding getByCarIdAnduserId(int idCar,int idUser);
 	public biding getByCarIdLessThanFullAmount(int idCar,float amount);
 	public biding addbiding(biding data);

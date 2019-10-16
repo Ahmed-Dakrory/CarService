@@ -41,6 +41,8 @@ import main.com.carService.invoiceLanding.invoicelanding;
 import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
+import main.com.carService.myCars.mycars;
+import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
 import main.com.carService.notification.notificationAppServiceImpl;
 import retrofit2.Call;
@@ -68,6 +70,10 @@ public class carLandingBean implements Serializable{
 
 	@ManagedProperty(value = "#{loginBean}")
 	private main.com.carService.loginNeeds.loginBean loginBean; 
+	
+
+	@ManagedProperty(value = "#{bidBean}")
+	private bidBean bidBean; 
 	 
 
 
@@ -75,8 +81,9 @@ public class carLandingBean implements Serializable{
 	private carLandingAppServiceImpl carLandingFacade;
 	
 	List<carLanding> listOfAddedCars;
-	
+
 	List<carLanding> listOfCarsLandingScroller;
+	List<carLanding> listOfCarsLandingRelatedCars;
 	
 	List<carLanding> listOfCarsGroupByMake;
 	
@@ -103,6 +110,10 @@ public class carLandingBean implements Serializable{
 
 	@ManagedProperty(value = "#{bidingFacadeImpl}")
 	private bidingAppServiceImpl bidingFacade;
+	
+
+	@ManagedProperty(value = "#{mycarsFacadeImpl}")
+	private mycarsAppServiceImpl mycarsFacade;
 	
 
 	private String searchType;
@@ -137,6 +148,20 @@ public class carLandingBean implements Serializable{
 	
 	private Long diffFromBidToEnd;
 	private Long diffFromStartToBid;
+	
+
+	private List<biding> allCurrentBidCars;
+	private List<mycars> allCarsWatchList;
+	private List<mycars> allCarsFavorits;
+	
+	
+
+	private List<mycars> listOfFilteredCars2;
+	private mycars selectedFreight2;
+	private biding selectedFreight3;
+	private List<biding> listOfFilteredCars3;
+	
+	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
         	progressLoading = 0;
@@ -226,7 +251,20 @@ public class carLandingBean implements Serializable{
 					allInvoice=invoicelandingFacade.getAllByUserIdCustomer(loginBean.getTheUserOfThisAccount().getId());
 				}
 			}
-		}
+if(loginBean.getTheUserOfThisAccount().getId()!=null) {
+	
+			//Get All Watch List
+			allCarsWatchList = mycarsFacade.getAllByUserIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST);
+			
+
+			//Get All Favorites List
+			allCarsFavorits = mycarsFacade.getAllByUserIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_FAVORITE);
+			
+			//Get All Landing Car i have make a bid on it
+			allCurrentBidCars=bidingFacade.getAllByuserId(loginBean.getTheUserOfThisAccount().getId());
+		
+}
+}
 		incrementBid=10;
 		totalBid=0;
 		listOfAllCars=carLandingFacade.getAll();
@@ -242,11 +280,33 @@ public class carLandingBean implements Serializable{
 				if(id!=null){
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
+					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(Integer.valueOf(selectedCarPage.getCategory()));
+
 					//Get the userBid if applicable
 					if(loginBean.isLoggedIn()) {
+
+						
+						System.out.println("Ahmed CarBid3");
+						//Make this car added to my watch List
+						mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, id);
+						if(watchListCarNew==null) {
+						watchListCarNew =new mycars();
+						watchListCarNew.setCarLandingId(selectedCarPage);
+						watchListCarNew.setType(mycars.TYPE_WATCH_LIST);
+						watchListCarNew.setUserId(loginBean.getTheUserOfThisAccount());
+
+						}
+						mycarsFacade.addmycars(watchListCarNew);
+						
+						
+						
+						System.out.println("Ahmed CarBid");
 						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
 						totalBid=currentBiding.getFullAmount();
 						incrementBid=currentBiding.getIncrement();
+						
+						
+						
 					}
 					
 					
@@ -315,6 +375,26 @@ public class carLandingBean implements Serializable{
 		
 		
 	}
+	
+	
+	
+	
+	public void selectCarRowForMain2(SelectEvent event) {
+		selectedFreight2 = ((mycars) event.getObject());
+		System.out.println("Selected Id: "+selectedFreight2.getCarLandingId().getLot());
+		updateImagesWithLink(selectedFreight2.getCarLandingId().getAllImagesLink());
+		int level=calcBean.getLevel(Float.valueOf(selectedFreight2.getCarLandingId().getCurrentBid()));
+		bidBean.setCopartFees( calcBean.CalculateCopart(level, Float.valueOf(selectedFreight2.getCarLandingId().getCurrentBid())));
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/carsForDetails.jsf?id="+selectedFreight2.getCarLandingId().getId()+"&faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void makeIncrementBid() {
 		if(loginBean.getThisAccountMoneyBox()!=null) {
@@ -1651,6 +1731,86 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	public void setDiffFromStartToBid(Long diffFromStartToBid) {
 		this.diffFromStartToBid = diffFromStartToBid;
+	}
+
+	public mycarsAppServiceImpl getMycarsFacade() {
+		return mycarsFacade;
+	}
+
+	public void setMycarsFacade(mycarsAppServiceImpl mycarsFacade) {
+		this.mycarsFacade = mycarsFacade;
+	}
+
+	public List<biding> getAllCurrentBidCars() {
+		return allCurrentBidCars;
+	}
+
+	public void setAllCurrentBidCars(List<biding> allCurrentBidCars) {
+		this.allCurrentBidCars = allCurrentBidCars;
+	}
+
+	public List<mycars> getAllCarsWatchList() {
+		return allCarsWatchList;
+	}
+
+	public void setAllCarsWatchList(List<mycars> allCarsWatchList) {
+		this.allCarsWatchList = allCarsWatchList;
+	}
+
+	public List<mycars> getAllCarsFavorits() {
+		return allCarsFavorits;
+	}
+
+	public void setAllCarsFavorits(List<mycars> allCarsFavorits) {
+		this.allCarsFavorits = allCarsFavorits;
+	}
+
+	public bidBean getBidBean() {
+		return bidBean;
+	}
+
+	public void setBidBean(bidBean bidBean) {
+		this.bidBean = bidBean;
+	}
+
+	public List<mycars> getListOfFilteredCars2() {
+		return listOfFilteredCars2;
+	}
+
+	public void setListOfFilteredCars2(List<mycars> listOfFilteredCars2) {
+		this.listOfFilteredCars2 = listOfFilteredCars2;
+	}
+
+	public mycars getSelectedFreight2() {
+		return selectedFreight2;
+	}
+
+	public void setSelectedFreight2(mycars selectedFreight2) {
+		this.selectedFreight2 = selectedFreight2;
+	}
+
+	public biding getSelectedFreight3() {
+		return selectedFreight3;
+	}
+
+	public void setSelectedFreight3(biding selectedFreight3) {
+		this.selectedFreight3 = selectedFreight3;
+	}
+
+	public List<biding> getListOfFilteredCars3() {
+		return listOfFilteredCars3;
+	}
+
+	public void setListOfFilteredCars3(List<biding> listOfFilteredCars3) {
+		this.listOfFilteredCars3 = listOfFilteredCars3;
+	}
+
+	public List<carLanding> getListOfCarsLandingRelatedCars() {
+		return listOfCarsLandingRelatedCars;
+	}
+
+	public void setListOfCarsLandingRelatedCars(List<carLanding> listOfCarsLandingRelatedCars) {
+		this.listOfCarsLandingRelatedCars = listOfCarsLandingRelatedCars;
 	}
 
 	
