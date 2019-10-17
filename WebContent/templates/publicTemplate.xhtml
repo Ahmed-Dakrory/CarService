@@ -209,7 +209,7 @@
         </div>
         
         <div class="col-md-1" >
-<a style="    margin-top: 11%;display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role==0?'block':'none'};" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">My DashBoard</a>
+<a style="    margin-top: 11%;display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">My DashBoard</a>
         </div>
         <div class="col-md-1" >
 		<ul class="notifications" id="" style="    margin-top: 3.9%;display:#{loginBean.loggedIn?'block':'none'};">

@@ -27,20 +27,20 @@ import main.com.carService.car.car;
 	
 	
 	@NamedQuery(name="carimage.getAll",
-		     query="SELECT c FROM carimage c"
+		     query="SELECT c FROM carimage c where c.deleted = false"
 		     )
 	,
 	@NamedQuery(name="carimage.getById",
-	query = "from carimage d where d.id = :id"
+	query = "from carimage d where d.id = :id and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="carimage.getAllByCarIdAndType",
-	query = "from carimage d where d.carId.id = :id and d.type = :type"
+	query = "from carimage d where d.carId.id = :id and d.type = :type and d.deleted = false"
 			)
 	,
 	
 	@NamedQuery(name="carimage.getByUrl",
-	query = "from carimage d where d.url = :url"
+	query = "from carimage d where d.url = :url and d.deleted = false"
 			)
 	
 	
@@ -70,6 +70,11 @@ public class carimage {
 	@Column(name = "type")
 	private Integer type;
 
+	
+
+	@Column(name = "deleted")
+	private boolean deleted;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -111,7 +116,18 @@ public class carimage {
 	
 	
 	
+	public boolean isDeleted() {
+		return deleted;
+	}
 
+
+
+
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	
 	
 }

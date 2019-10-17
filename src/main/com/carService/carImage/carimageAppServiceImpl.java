@@ -47,6 +47,8 @@ public class carimageAppServiceImpl implements IcarimageAppService{
 				carimage data2=carimageDataRepository.addcarimage(data);
 				return data2;
 			}else {
+				existData.setDeleted(data.isDeleted());
+				carimageDataRepository.addcarimage(existData);
 				return existData;
 			}
 			}

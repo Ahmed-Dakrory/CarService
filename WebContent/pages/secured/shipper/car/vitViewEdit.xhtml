@@ -5704,6 +5704,12 @@
 	
 		<ui:repeat var="var" value="#{carBean.images}">
 			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
+				<div class="containerDevCloseButtonNew">
+						<div class="devCloseButtonNew" onclick="deleteImageNum('#{var}')">
+	                                	<div href="#"  class="closeButtonNew">
+	                                	</div>
+	                    </div>
+					</div>
                     <table>
                         <tr>
                             <td align="center">
@@ -5805,6 +5811,12 @@
 	
 		<ui:repeat var="var" value="#{carBean.docs}">
 			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
+			<div class="containerDevCloseButtonNew">
+						<div class="devCloseButtonNew" onclick="deleteDocsNum('#{var}')">
+	                                	<div href="#"  class="closeButtonNew">
+	                                	</div>
+	                           </div>
+					</div>
                     <table>
                         <tr>
                             <td align="center">
@@ -5880,6 +5892,23 @@
                                                                                             
                                                                                             
                                                                                             
+                                                                                              
+                                                                                            <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="23">
+                                                                                                <td style="text-align: right;">
+                                                                                                 <div class="fa fa-trash-o" style="font-size: 35px;"></div>
+                                                                                                
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                               <a onclick="deleteThisCar('#{carBean.selectedCar.id}')"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default "  >  Delete This Car</a>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
                                                                                             
                                                                                             
                                                                                             
@@ -6428,6 +6457,13 @@
 	        	});
 					</script>	
 					
+					
+						<p:remoteCommand name="deleteFile" action="#{carBean.deleteFile()}"> 
+	                                	</p:remoteCommand>
+	                                	
+	                                	
+	                                	<p:remoteCommand name="deleteCar" action="#{carBean.deleteCar()}"> 
+	                                	</p:remoteCommand>
 				
         </h:form>
         
