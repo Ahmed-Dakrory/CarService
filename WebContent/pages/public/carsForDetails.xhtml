@@ -72,6 +72,9 @@ background: #c2c5c7;
 <br/>
 <br/>
 <div class="row">
+
+
+
 <div class="col-md-6 col-sm-6">
 
 <div class="container" style="width: 100%;margin-bottom: 9%;">
@@ -79,9 +82,7 @@ background: #c2c5c7;
 
   <!-- Flickity HTML init -->
 <div class="carousel" style="width:100%"  data-flickity='{ "autoPlay": true , "wrapAround": true }'>
-          <div class="carousel-cell owl-item active center">
-        	<h:graphicImage value="#{carLandingBean.selectedCarPage.mainImage}" alt="image#{carLandingBean.selectedCarPage.mainImage}" style="width: auto;max-width: 100%;height: auto;max-height: 400px;"/>
-     </div>
+          
         <ui:repeat var="data" value="#{carLandingBean.images}">
         
           <div class="carousel-cell owl-item active center">
@@ -277,13 +278,13 @@ Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
 
 </h:panelGroup>
 <h:panelGroup class="buy-now-block" id="buy-now-block" style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};">
-<table>
+<table style="   box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <tbody><tr>
 <td>
-<div class="caption" style="font-size: 18px;">
+<div class="caption" style="font-size: 17px;">
 Current Price </div>
-<div style="text-align: center;    font-size: 35px;    color: brown;">
-<h:panelGroup style="font-size: 35px;"
+<div style="text-align: center;font-size: 35px;color: brown;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
+<h:panelGroup style="font-size: 21px;"
  class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
 $<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
 #{carLandingBean.selectedCarPage.currentBid} </span>
@@ -293,16 +294,16 @@ USD
 By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
 
 
-<div><p style="font-size: large;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
+<div><p style="font-size: 17px;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
 
 </h:panelGroup>
 </div>
 <h:panelGroup  id="bidDetails">
 <h:panelGroup rendered="#{carLandingBean.currentBiding==null?'false':'true'}">
-<div class="caption" style="font-size: 18px;">
+<div class="caption" style="font-size: 17px;">
 Your Bid Details </div>
 <div style="text-align: center;    font-size: 35px;    color: brown;">
-<h:panelGroup style="font-size: 25px;"
+<h:panelGroup style="font-size: 19px;"
  class="price" itemprop="offers" itemscope=""  itemtype="http://schema.org/Offer" >
 Your Total Bid:<span itemprop="price" content="#{carLandingBean.currentBiding.fullAmount}">
 #{carLandingBean.currentBiding.fullAmount} </span>
@@ -318,7 +319,7 @@ Incrementation: $#{carLandingBean.currentBiding.increment} USD
 </h:panelGroup>
 <div class="buy-now__learn-b">
 
-<h3>Set the amount and incrementation value for your Bid</h3>
+<h4>Set the amount and incrementation value for your Bid</h4>
    <div style="width:100%;text-align: -webkit-center;" id="BidingPanel">
    <h:form>
    Max Bid value: 
