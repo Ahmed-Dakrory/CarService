@@ -228,126 +228,116 @@ Watch List </a>
                                             <!-- Client DataGrid-->
                                             <section class="panel" >
                                             
-							<div class="panel-body">
-							  
-								<h:form id="tableForm">
-								
-        	
-    						 <p:dataTable id="carsTable" var="row" value="#{carLandingBean.allCarsWatchList}" widgetVar="carsTable" 
-                 rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="10,50,100,200,500,1000"
-                 selectionMode="single" selection="#{carLandingBean.selectedFreight2}" rowKey="#{row.carLandingId.lot}"
-                 emptyMessage="No cars found with given criteria" filteredValue="#{carLandingBean.listOfFilteredCars2}" >
- 
-        <f:facet name="header">
-            <p:outputPanel>
-             <div class="container" style="margin: 0;    width: 100%;">
-	            <div class="row">
-	            	<div class="col-md-3" style="text-align: left;">
-	            	
-	            	</div>
-	            	<div class="col-md-3" style="text-align: left;">
-	            	
-	            	
-	            	</div> 
-	            	<div class="col-md-1" style="text-align: left;">
-	            	
-	            	</div> 
-	            	
-	            	<div class="col-md-1" style="text-align: left;">
-	            		
-	            	
-	            	</div> 
-	            	
-	            	
-	            	
-	            	<div class="col-md-3" style="text-align: right;">
-	            		<h:outputText value="Search all fields:" />
-	            		<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-	            	</div>
-	            	
-	            </div>
-            </div>
-            </p:outputPanel>
-        </f:facet>
-        
-         
-    
- 		<p:column style="font-size: 13px;    text-align: center;" width="90" id="imageId" sortBy="#{row.carLandingId.mainImage}" filterBy="#{row.carLandingId.mainImage}">
-			<h:graphicImage value="#{row.carLandingId.mainImage}" alt="image#{row.carLandingId.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
-			<f:facet name="header">	<h:outputText value="Image" /> </f:facet>
-		</p:column>
-		
-		
-		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carLandingBean.selectCarRowForMain2}"  />
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="uuid" sortBy="#{row.carLandingId.uuid}" filterBy="#{row.carLandingId.uuid}">
-			
-			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.carLandingId.uuid}" action="#{bidBean.selectCarForMain(row.id)}"/>
-			
-			 -->
-			<h:outputText value="#{row.carLandingId.uuid}" />
-
-			<f:facet name="header">	<h:outputText value="Vin" /> </f:facet>
-		</p:column>
-		
-		
-		
-		
-		
-		
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.carLandingId.currentBid}" filterBy="#{row.carLandingId.currentBid}">
-			<h:outputText value="#{row.carLandingId.currentBid}" />
-			<f:facet name="header">	<h:outputText value="Current Bid" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="lot" sortBy="#{row.carLandingId.lot}" filterBy="#{row.carLandingId.lot}">
-			
-				<a   href="https://www.copart.com/lot/#{row.carLandingId.lot}" target="_blank">#{row.carLandingId.lot}</a>
-			
-
-			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="category" sortBy="#{bidBean.getCategoryEnum(row.carLandingId.category).name}" filterBy="#{bidBean.getCategoryEnum(row.carLandingId.category).name}">
-			<h:outputText value="#{bidBean.getCategoryEnum(row.carLandingId.category).name}" />
-			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
-		</p:column>
-		
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="model" sortBy="#{row.carLandingId.model}" filterBy="#{row.carLandingId.model}">
-			<h:outputText value="#{row.carLandingId.make}/#{row.carLandingId.model}" />
-			<f:facet name="header">	<h:outputText value="Make/Model" /> </f:facet>
-		</p:column>
-		
-		
-		
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="endDate" sortBy="#{row.carLandingId.endDate}" filterBy="#{row.carLandingId.endDate}">
-			<h:outputText value="#{row.carLandingId.endDate}" />
-			<f:facet name="header">	<h:outputText value="End Date" /> </f:facet>
-		</p:column>
-		
-		
-		<p:column style="font-size: 13px;    text-align: center;" width="130" id="state" sortBy="#{bidBean.getStateOfCar(row.carLandingId.state).name}" filterBy="#{bidBean.getStateOfCar(row.carLandingId.state).name}">
-			<h:outputText value="#{bidBean.getStateOfCar(row.carLandingId.state).name}" />
-			<f:facet name="header">	<h:outputText value="state" /> </f:facet>
-		</p:column>
-		
-		
-		
-		
-		
-    </p:dataTable>
-					
-					
+                                            
+                                            <div class="col-md-12 searchResult" style="    margin-top: -6%;">
+<h:panelGroup id="panelCarsToUpdate">
+<section class="panel">
 							
-					</h:form>	
+							<div class="panel-body list-view">
+								<table class="table table-bordered table-striped mb-none searchList carlist" id="datatable-tabletools" data-swf-path="assets/customer/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+									<thead>
+										<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
+											<th>Car</th>
+											<th>Details</th>
+											<th class="hidden-phone">Location</th>
+											<th class="hidden-phone">Date</th>
+											<th class="hidden-phone">Bid</th>
+										</tr>
+									</thead>
+									<tbody>
+											
+										<script>
+										function ViewDocById(strID) {
+										    if (strID != '-1') {
+										    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+										    }
+										}
+										</script>
+										
+											
+											 <ui:repeat var="data" value="#{carLandingBean.allCarsWatchList}">
+										
+											<tr align="left" class="gradeX">
+												
+												<td class="center hidden-phone column1">
+												<div class="preview-photo" id="pph-24311239">
+
+													<a data-auction="copart" data-lot="24311239" onclick='ViewDocById("#{data.carLandingId.mainImage}")' class="see_photos">See Photos</a>
+													<h:graphicImage value="#{data.carLandingId.mainImage}" alt="image#{data.carLandingId.mainImage}"/></div>
+												</td>
+												
+												<td class="column2 center hidden-phone">
+													<h2 class="title" style="   margin-top: 5%;">
+													<a itemprop="url" href="/pages/public/carsForDetails.jsf?id=#{data.carLandingId.id}"><span itemprop="name">#{data.carLandingId.year} #{data.carLandingId.make} #{data.carLandingId.model}</span></a> </h2>
+													<div class="vin" style="    text-align: initial;">
+													<span class="name">
+													VIN:
+													</span>
+													#{data.carLandingId.uuid} </div>
+													<div class="odometer" style="    text-align: initial;">
+													<span class="name">
+													OdoMeter:
+													</span>
+													#{data.carLandingId.odoMeter} #{data.carLandingId.odoDescription} 
+													</div>
+													
+													
+												</td>
+												
+												<td class="center hidden-phone column1">
+
+														<div class="location">
+														<span class="name">Location:</span>#{data.carLandingId.auctionLocation} </div>
+														
+												</td>
+											
+												
+												<td class="center hidden-phone column3" >
+													<div class="location">
+														<span class="name">Location:</span> #{data.carLandingId.bidingDate}</div>
+												</td>
+												
+												<td class="center hidden-phone column5">
+													<div class="price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+													$<span itemprop="price" content="#{data.carLandingId.currentBid}">
+													#{data.carLandingId.currentBid} </span>
+													<span class="currency">
+													USD </span>
+													<meta itemprop="priceCurrency" content="USD"/>
+													</div>
+													<div class="bidtype">
+													Current bid </div>
+													
+													
+													<a style="
+    width: 77px;
+    height: 39px;
+    padding-top: 5%;
+    color: #f7f7f7;
+    font-family: auto;
+" href="/pages/public/carsForDetails.jsf?id=#{data.carLandingId.id}" class="button yBtn_24">
+														Go </a>
+													
+													
+												</td>
+												
+												
+											</tr>
+											
+											
+											
+											 </ui:repeat>
+											
+											
+										
+									</tbody>
+								</table>
 							
 							
 							</div>
+						</section>
+</h:panelGroup>                                            
+</div>
 						</section>
                                        
                                         </td>
