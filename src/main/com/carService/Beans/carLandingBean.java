@@ -161,6 +161,9 @@ public class carLandingBean implements Serializable{
 	private biding selectedFreight3;
 	private List<biding> listOfFilteredCars3;
 	
+	private int carViewId=0;
+	private boolean carInWatchList=false;
+	private String currentBidStateDetails="You haven't Bid";
 	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
@@ -192,7 +195,13 @@ public class carLandingBean implements Serializable{
 		
 	}
 	
-	
+	public void refreshTheCurrentBidStatue() {
+		if(currentBiding==null) {
+			currentBidStateDetails="You haven't Bid";
+		}else if(currentBiding.getUserId().getId()==selectedCarPage.getUserMaxBidId().getId()) {
+			currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
+		}
+	}
 	public List<carLanding> completeText(String query) {
 		allCarsString =new ArrayList<carLanding>();
 		for(int i=0;i<listOfAllCars.size();i++) {
@@ -244,6 +253,39 @@ public class carLandingBean implements Serializable{
 	    		
 	}
 	
+	public void setCarToWatchList() {
+		if(loginBean.isLoggedIn()) {
+			System.out.println("Ahmed CarBid3");
+			//Make this car added to my watch List
+			mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, carViewId);
+			if(watchListCarNew==null) {
+				carInWatchList=true;
+				watchListCarNew =new mycars();
+				watchListCarNew.setCarLandingId(selectedCarPage);
+				watchListCarNew.setType(mycars.TYPE_WATCH_LIST);
+				watchListCarNew.setUserId(loginBean.getTheUserOfThisAccount());
+				mycarsFacade.addmycars(watchListCarNew);
+
+			}else {
+				carInWatchList=false;
+				try {
+					mycarsFacade.delete(watchListCarNew);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
+		}else {
+			
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Problem',\r\n" + 
+					"			text: 'Please Login ',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
 	public void refresh(){
 		if(loginBean.getTheUserOfThisAccount()!=null) {
 			if(loginBean.getTheUserOfThisAccount().getRole()!=null) {
@@ -281,7 +323,8 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
 					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(Integer.valueOf(selectedCarPage.getCategory()));
-
+					carViewId=id;
+					
 					//Get the userBid if applicable
 					if(loginBean.isLoggedIn()) {
 
@@ -290,15 +333,12 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						//Make this car added to my watch List
 						mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, id);
 						if(watchListCarNew==null) {
-						watchListCarNew =new mycars();
-						watchListCarNew.setCarLandingId(selectedCarPage);
-						watchListCarNew.setType(mycars.TYPE_WATCH_LIST);
-						watchListCarNew.setUserId(loginBean.getTheUserOfThisAccount());
-
+							carInWatchList=false;
+						}else {
+							carInWatchList=true;
 						}
-						mycarsFacade.addmycars(watchListCarNew);
-						
-						
+
+						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
 						
 						System.out.println("Ahmed CarBid");
 						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
@@ -373,7 +413,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		}
 		
 		
-		
+		refreshTheCurrentBidStatue();
 	}
 	
 	
@@ -589,7 +629,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		}
 		
 		
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:differenceTime");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("differenceTimeForm:differenceTime");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:currentPriceDisplay");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentPriceSmall");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentBidAmount");
@@ -1813,6 +1853,31 @@ System.out.println("Data: "+String.valueOf(idUser));
 		this.listOfCarsLandingRelatedCars = listOfCarsLandingRelatedCars;
 	}
 
+	public int getCarViewId() {
+		return carViewId;
+	}
+
+	public void setCarViewId(int carViewId) {
+		this.carViewId = carViewId;
+	}
+
+	public boolean isCarInWatchList() {
+		return carInWatchList;
+	}
+
+	public void setCarInWatchList(boolean carInWatchList) {
+		this.carInWatchList = carInWatchList;
+	}
+
+	public String getCurrentBidStateDetails() {
+		return currentBidStateDetails;
+	}
+
+	public void setCurrentBidStateDetails(String currentBidStateDetails) {
+		this.currentBidStateDetails = currentBidStateDetails;
+	}
+
+	
 	
 	
 	

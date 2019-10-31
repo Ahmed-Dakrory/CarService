@@ -48,45 +48,76 @@ background: #c2c5c7;
 		</script>
 		
 	<div class="center">
-<div class="container breadcontainer hidden-sm hidden-xs">
-<div class="row">
-<div class="col-md-12">
-<div class="breadcrumbs">
-<strong>&gt;</strong>&nbsp;&nbsp;&nbsp;<span>Vehicles (V)</span></div> <div class="clearfix"></div>
-</div>
-</div>
-</div>
-<div class="clearfix"></div>
-<div class="container">
-</div>
+
 <div class="container">
 
 
 <div id="content">
 <div class="lot" itemscope="" itemtype="http://schema.org/Vehicle" itemid="#vehicle">
+<h:form id="setWatchListData">
+<div class="upper">
+<a class="left-link" href="javascript:history.back()">
+<span class="hidden-md hidden-lg">&lt;</span>
+<span class="hidden-xs hidden-sm">To the previous page</span>
+</a>
+
+
+<div class="watchlist" >
+<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'none':'block'}" class="watchlist-link w-add" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
+<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'block':'none'}" class="watchlist-link w-remove" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
+</div>
+</div>
+</h:form>
+
+<h:form>
+<p:remoteCommand name="setWatchList" actionListener="#{carLandingBean.setCarToWatchList()}"/>
+</h:form>
 <br/>
 <br/>
 <div class="title" id="lot-title">
 <h1 itemprop="name" style="    font-size: 30px;">#{carLandingBean.selectedCarPage.year} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model} for Sale in #{carLandingBean.selectedCarPage.auctionLocation}: ##{carLandingBean.selectedCarPage.id}</h1>
 </div>
 <br/>
+<h:form id="differenceTimeForm">
+<h:panelGroup id="differenceTime" style="    font-size: 28px;    color: #ada92f;    font-family: serif;    font-weight: 600;">
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'false':'true'}">
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">
+Now Bid Faster to get it
+</h:panelGroup>
+<br></br>
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">Remains:</h:panelGroup> #{carLandingBean.differenceTimeDateFromBidToEnd}<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}"> until finish</h:panelGroup>
+</h:panelGroup>
+
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'true':'false'}">
+Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
+</h:panelGroup>
+
+</h:panelGroup>
+</h:form>
 <br/>
 <div class="row">
 
+ <style>
+   
 
+.carousel-cell {
+  width: 507px;
+  height: 350px;
+}
+
+   </style>
 
 <div class="col-md-6 col-sm-6">
-
-<div class="container" style="width: 100%;margin-bottom: 9%;">
+<div class="container" style="width: 103%;margin-bottom: 9%;">
  
 
   <!-- Flickity HTML init -->
-<div class="carousel" style="width:100%"  data-flickity='{ "autoPlay": true , "wrapAround": true }'>
+<div class="carousel" style="width:103%"  data-flickity='{ "autoPlay": true , "wrapAround": true }'>
           
         <ui:repeat var="data" value="#{carLandingBean.images}">
         
           <div class="carousel-cell owl-item active center">
-          	<h:graphicImage value="#{data}" alt="image#{data}" style="width: auto;max-width: 100%;"/>
+          	<h:graphicImage value="#{data}" alt="image#{data}" style="width: 505px;"/>
            
           </div>
         	
@@ -221,7 +252,7 @@ Transmission </span>
 </div>
 </div>
 <h:form id="RightColumnData">
-<div class="col-md-6 col-sm-6" >
+<div class="col-md-5 col-sm-5" >
 
 
 <div id="bid-modal-cache" style="display: none">
@@ -263,64 +294,19 @@ Close </a>
 </div>
 </div>
 
-<h:panelGroup id="differenceTime" style="    font-size: 28px;    color: #ada92f;    font-family: serif;    font-weight: 600;">
-<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'false':'true'}">
-<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">
-Now Bid Faster to get it
-</h:panelGroup>
-<br></br>
-<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">Remains:</h:panelGroup> #{carLandingBean.differenceTimeDateFromBidToEnd}<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}"> until finish</h:panelGroup>
-</h:panelGroup>
 
-<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'true':'false'}">
-Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
-</h:panelGroup>
-
-</h:panelGroup>
 <h:panelGroup class="buy-now-block" id="buy-now-block" style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};">
 <table style="   box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <tbody><tr>
-<td>
-<div class="caption" style="font-size: 17px;">
-Current Price </div>
-<div style="text-align: center;font-size: 35px;color: brown;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
-<h:panelGroup style="font-size: 21px;"
- class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
-$<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
-#{carLandingBean.selectedCarPage.currentBid} </span>
-<meta itemprop="priceCurrency" content="USD"/>
-USD 
-<br></br>
-By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
+<td style="padding:0%;">
 
+<div class="buy-now__learn-b" style="
+    padding: 3%;
+    background: linear-gradient(rgb(158, 153, 153) 0px, rgb(68, 68, 68) 95%, rgb(68, 68, 68) 0px);
+">
 
-<div><p style="font-size: 17px;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
-
-</h:panelGroup>
-</div>
-<h:panelGroup  id="bidDetails">
-<h:panelGroup rendered="#{carLandingBean.currentBiding==null?'false':'true'}">
-<div class="caption" style="font-size: 17px;">
-Your Bid Details </div>
-<div style="text-align: center;    font-size: 35px;    color: brown;">
-<h:panelGroup style="font-size: 19px;"
- class="price" itemprop="offers" itemscope=""  itemtype="http://schema.org/Offer" >
-Your Total Bid:<span itemprop="price" content="#{carLandingBean.currentBiding.fullAmount}">
-#{carLandingBean.currentBiding.fullAmount} </span>
-<meta itemprop="priceCurrency" content="USD"/>
-USD 
-<br></br>
-Incrementation: $#{carLandingBean.currentBiding.increment} USD
-
-
-</h:panelGroup>
-</div>
-</h:panelGroup>
-</h:panelGroup>
-<div class="buy-now__learn-b">
-
-<h4>Set the amount and incrementation value for your Bid</h4>
-   <div style="width:100%;text-align: -webkit-center;" id="BidingPanel">
+<h4 style="color: white;">Set the amount and incrementation value for your Bid</h4>
+   <div style="color:white;width:100%;text-align: -webkit-center;" id="BidingPanel">
    <h:form>
    Max Bid value: 
     <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
@@ -350,17 +336,58 @@ Incrementation: $#{carLandingBean.currentBiding.increment} USD
         <br></br>
         <div>
         <p:commandButton value="Bid"  action="#{carLandingBean.makeIncrementBid()}"
-    style="width: 305px;height: 60px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #7d6f39;font-family: serif;background: linear-gradient(to bottom, #c59245 29%, #cea430 100%);font-weight: 800;"/>
+    style="width: 305px;height: 60px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #716d5d;font-family: serif;background: linear-gradient(to bottom, #dedede 29%, #797979 100%);font-weight: 800;"/>
         </div>
         
         </div>
     <br></br>
-        
- <br></br>
-<a href="/pages/public/contactUs.jsf" class="bn-link" id="buy-now-link">
-For Help Email or call us </a>
 
 </div>
+
+
+<div class="caption" style="font-size: 13px;margin: 3%;">
+Current Price </div>
+<div style="margin: 3%;text-align: center;font-size: 35px;color: brown;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
+<h:panelGroup style="font-size: 17px;"
+ class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
+$<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
+#{carLandingBean.selectedCarPage.currentBid} </span>
+<meta itemprop="priceCurrency" content="USD"/>
+USD 
+<br></br>
+By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
+
+
+<div><p style="font-size: 17px;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
+
+</h:panelGroup>
+</div>
+<h:panelGroup  id="bidDetails" style="margin: 3%;">
+<h:panelGroup rendered="#{carLandingBean.currentBiding==null?'false':'true'}">
+<div class="caption" style="font-size: 13px;margin: 3%;">
+Your Bid Details </div>
+<div style="text-align: center;    font-size: 29px;    color: brown;">
+<h:panelGroup style="font-size: 13px;"
+ class="price" itemprop="offers" itemscope=""  itemtype="http://schema.org/Offer" >
+Your Total Bid:<span itemprop="price" content="#{carLandingBean.currentBiding.fullAmount}">
+#{carLandingBean.currentBiding.fullAmount} </span>
+<meta itemprop="priceCurrency" content="USD"/>
+USD 
+<br></br>
+Incrementation: $#{carLandingBean.currentBiding.increment} USD
+
+
+</h:panelGroup>
+</div>
+</h:panelGroup>
+</h:panelGroup>
+
+        
+ <br></br>
+<a href="/pages/public/contactUs.jsf" class="bn-link" id="buy-now-link" style="
+    margin: 2%;
+">
+For Help Email or call us </a>
 </td>
 
 </tr>
@@ -523,11 +550,26 @@ Sale Information </h2>
 
 <tr>
 <td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >Bid Status </span>
+</td>
+<td>
+<div style="    background: #8c8787;    color: whitesmoke;    width: fit-content;    padding-right: 11%;    padding-left: 11%;">
+#{carLandingBean.currentBidStateDetails}
+</div>
+
+ </td>
+</tr>
+
+
+<tr>
+<td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >Sale Status </span>
 </td>
 <td>
 #{carLandingBean.selectedCarPage.saleName} </td>
 </tr>
+
+
 <tr>
 <td>
 <span>
@@ -711,7 +753,6 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 </div>
 	
 	</div>
-
 	</ui:define>
 	
 		
