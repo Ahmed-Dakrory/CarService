@@ -79,7 +79,7 @@ background: #c2c5c7;
 </div>
 <br/>
 <h:form id="differenceTimeForm">
-<h:panelGroup id="differenceTime" style="    font-size: 28px;    color: #ada92f;    font-family: serif;    font-weight: 600;">
+<h:panelGroup id="differenceTime" style="font-size: 28px;color: #666666;font-family: serif;font-weight: 600;">
 <h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'false':'true'}">
 <h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">
 Now Bid Faster to get it
@@ -341,13 +341,41 @@ Close </a>
         
         </div>
     <br></br>
+<a onclick="PF('dlg2').show();">Final Price Calculator</a>
 
 </div>
+
+<p:dialog header="Final Price Calculator" widgetVar="dlg2" modal="true" >
+    <p:panelGrid columns="2">
+    	<p:outputLabel value="Enter the Final Bid"/>
+    	 <p:outputPanel>
+            <p:spinner  id="ajaxSpinner" value="#{carLandingBean.valueOfCarBid}">
+                <p:ajax update="ajaxSpinnerValue1" process="@this" listener="#{carLandingBean.updateAllFees()}"/>
+                
+            </p:spinner>
+            
+        </p:outputPanel>
+    </p:panelGrid>
+    <p:panelGrid id="ajaxSpinnerValue1" columns="2" style="width:100%">
+    
+    
+    	<p:outputLabel value="Copart Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.copartFees}"/>
+    	
+    	<p:outputLabel value="Our Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.ourFees}"/>
+    	
+    	<p:outputLabel value="Total Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.ourFees+carLandingBean.copartFees+carLandingBean.valueOfCarBid}"/>
+    	 
+    </p:panelGrid>
+   
+</p:dialog>  
 
 
 <div class="caption" style="font-size: 13px;margin: 3%;">
 Current Price </div>
-<div style="margin: 3%;text-align: center;font-size: 35px;color: brown;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
+<div style="margin: 3%;text-align: center;font-size: 35px;color: #334354;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
 <h:panelGroup style="font-size: 17px;"
  class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
 $<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
@@ -717,7 +745,16 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 </div>
 	
 	
-	<div class="container">
+ <style>
+   
+
+#sliderCarosel .carousel-cell {
+  width: 235px;
+  height: 250px;
+}
+
+   </style>
+	<div id ="sliderCarosel" class="container">
 	<div class="row  " style="width: 94%;margin-top: 1%;margin-left: 3%;">
 <div class="col-md-12 ">
 <div class="main-title main-popular-title">

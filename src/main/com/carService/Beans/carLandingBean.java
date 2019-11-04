@@ -164,6 +164,10 @@ public class carLandingBean implements Serializable{
 	private int carViewId=0;
 	private boolean carInWatchList=false;
 	private String currentBidStateDetails="You haven't Bid";
+	private float valueOfCarBid=0;
+
+	private double copartFees;
+	private double ourFees;
 	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
@@ -324,6 +328,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					selectedCarPage=carLandingFacade.getById(id);
 					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(Integer.valueOf(selectedCarPage.getCategory()));
 					carViewId=id;
+					valueOfCarBid=Float.valueOf(selectedCarPage.getCurrentBid());
 					
 					//Get the userBid if applicable
 					if(loginBean.isLoggedIn()) {
@@ -537,7 +542,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				
 				car.setCopartFees(String.valueOf(copartFees));
 				car.setOurFees(String.valueOf((new calcBean()).getOurFees()));
-				
+				valueOfCarBid=Float.valueOf(car.getCurrentBid());
 				carLandingFacade.addcarLanding(car);
 				
 				}
@@ -794,6 +799,15 @@ System.out.println("Data: "+String.valueOf(idUser));
 		  return cal;
 		}
 	
+	
+	public void updateAllFees() {
+		int level = calcBean.getLevel(valueOfCarBid);
+		 copartFees = calcBean.CalculateCopart(level, valueOfCarBid);
+		 ourFees= 100;
+		 System.out.println("Ahmed Dakrory Done");
+		 
+		 
+	}
 	public void updateImagesWithLink(String lotImagesLink) {
 		
 	        try {
@@ -1875,6 +1889,30 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	public void setCurrentBidStateDetails(String currentBidStateDetails) {
 		this.currentBidStateDetails = currentBidStateDetails;
+	}
+
+	public float getValueOfCarBid() {
+		return valueOfCarBid;
+	}
+
+	public void setValueOfCarBid(float valueOfCarBid) {
+		this.valueOfCarBid = valueOfCarBid;
+	}
+
+	public double getCopartFees() {
+		return copartFees;
+	}
+
+	public void setCopartFees(double copartFees) {
+		this.copartFees = copartFees;
+	}
+
+	public double getOurFees() {
+		return ourFees;
+	}
+
+	public void setOurFees(double ourFees) {
+		this.ourFees = ourFees;
 	}
 
 	
