@@ -295,7 +295,7 @@ Close </a>
 </div>
 
 
-<h:panelGroup class="buy-now-block" id="buy-now-block" style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};">
+<h:panelGroup class="buy-now-block" id="buy-now-block" style="">
 <table style="   box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <tbody><tr>
 <td style="padding:0%;">
@@ -309,39 +309,39 @@ Close </a>
    <div style="color:white;width:100%;text-align: -webkit-center;" id="BidingPanel">
    <h:form>
    Max Bid value: 
-    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
+    <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
    
-   <p:inputText id="increment" value="#{carLandingBean.totalBid}" style="    border-radius: 7px!important;"/>
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment" value="#{carLandingBean.totalBid}" style="    border-radius: 7px!important;"/>
    
    
- <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment"
+ <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
         
    <br></br>
    <br></br>
    <br></br>
    Incrementation: 
-    <p:commandButton value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment2"
+    <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment2"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
    
-   <p:inputText id="increment2" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment2" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
    
    
- <p:commandButton value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment2"
+ <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment2"
     style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
         </h:form>
         
         <br></br>
         <br></br>
         <div>
-        <p:commandButton value="Bid"  action="#{carLandingBean.makeIncrementBid()}"
+        <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="Bid"  action="#{carLandingBean.makeIncrementBid()}"
     style="width: 305px;height: 60px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #716d5d;font-family: serif;background: linear-gradient(to bottom, #dedede 29%, #797979 100%);font-weight: 800;"/>
         </div>
         
         </div>
     <br></br>
-<a onclick="PF('dlg2').show();">Final Price Calculator</a>
+<a style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};" onclick="PF('dlg2').show();">Final Price Calculator</a>
 
 </div>
 
