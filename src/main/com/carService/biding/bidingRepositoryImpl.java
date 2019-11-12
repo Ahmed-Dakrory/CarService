@@ -144,6 +144,20 @@ public class bidingRepositoryImpl implements bidingRepository{
 				
 	}
 
+	@Override
+	public biding getByCarIdandMaxAmount(int idCar) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdandMaxAmount")
+				 .setInteger("idcar",idCar);
+
+		 @SuppressWarnings("unchecked")
+		List<biding> results=query.list();
+		 if(results.size()!=0){
+			 return results.get(0);
+		 }else{
+			 return null;
+		 }
+	}
+
 
 
 	

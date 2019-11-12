@@ -168,6 +168,8 @@ public class carLandingBean implements Serializable{
 
 	private double copartFees;
 	private double ourFees;
+	private String timeInSecondsForLive;
+	private double timeLiveEnd=1;
 	
     public Integer getProgressLoading() {
         if(progressLoading == null) {
@@ -566,6 +568,33 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		return false;
 		
 	}
+	
+	public void reloadLiveBidingParamenters(boolean isLiveMode) {
+		if(isLiveMode) {
+			biding bidingMax = bidingFacade.getByCarIdandMaxAmount(selectedCarPage.getId());
+			Date timeNow = Calendar.getInstance().getTime();
+			Long diffFromMaxToNow = timeNow.getTime()-bidingMax.getLastDateBid().getTime();
+			
+			long diffSecondsFromMaxToNow = diffFromMaxToNow / 1000 % 60;
+			long diffMinutesFromMaxToNow = diffFromMaxToNow / (60 * 1000) % 60;
+			
+			timeInSecondsForLive = String.valueOf(diffMinutesFromMaxToNow)+" : "+String.valueOf(diffSecondsFromMaxToNow);
+			
+			if(diffMinutesFromMaxToNow >= timeLiveEnd) {
+				selectedCarPage.setActive(false);
+				selectedCarPage.setState(stateOfCar.ProcessState.getType());
+				carLandingFacade.addcarLanding(selectedCarPage);
+				if(selectedCarPage.getUserMaxBidId()!=null) {
+					sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:buy-now-block");
+				}
+			}
+			
+
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:liveBidDisplay");
+		}
+		
+	}
 	public void reloadedParametersAndPanelRefresh() {
 		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
 		Calendar nowTime=Calendar.getInstance();
@@ -577,9 +606,15 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		TimeOfFreight.setTime(selectedCarPage.getEndDate());
 		diffFromBidToEnd = selectedCarPage.getEndDate().getTime()-timeNow.getTime();
 		diffFromStartToBid = selectedCarPage.getBidingDate().getTime()-timeNow.getTime();
-		
-
-
+		if(selectedCarPage.isActive()) {
+		if(diffFromStartToBid<0) {
+			if(diffFromBidToEnd>0) {
+				//Live Mode
+				
+				reloadLiveBidingParamenters(true);
+			}
+		}
+		}
 		long diffSecondsFromBidToEnd = diffFromBidToEnd / 1000 % 60;
 		long diffMinutesFromBidToEnd = diffFromBidToEnd / (60 * 1000) % 60;
 		long diffHoursFromBidToEnd = diffFromBidToEnd / (60 * 60 * 1000) % 24;
@@ -1913,6 +1948,22 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	public void setOurFees(double ourFees) {
 		this.ourFees = ourFees;
+	}
+
+	public String getTimeInSecondsForLive() {
+		return timeInSecondsForLive;
+	}
+
+	public void setTimeInSecondsForLive(String timeInSecondsForLive) {
+		this.timeInSecondsForLive = timeInSecondsForLive;
+	}
+
+	public double getTimeLiveEnd() {
+		return timeLiveEnd;
+	}
+
+	public void setTimeLiveEnd(double timeLiveEnd) {
+		this.timeLiveEnd = timeLiveEnd;
 	}
 
 	

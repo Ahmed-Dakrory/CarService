@@ -50,6 +50,11 @@ import main.com.carService.loginNeeds.user;
 	@NamedQuery(name="biding.getByCarIdLessThanFullAmount",
 	query = "from biding d where d.carlandingId.id = :idcar and d.fullAmount < :fullAmount order by d.fullAmount desc"
 			)
+	
+	,
+	@NamedQuery(name="biding.getByCarIdandMaxAmount",
+	query = "FROM biding T WHERE T.fullAmount = (  SELECT MAX( T1.fullAmount ) FROM biding T1  WHERE T1.carlandingId.id = :idcar )"
+			)
 	,
 	
 	@NamedQuery(name="biding.getAllMaxCarBidings",

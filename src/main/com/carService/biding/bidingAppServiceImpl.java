@@ -149,6 +149,23 @@ public class bidingAppServiceImpl implements IbidingAppService{
 
 
 
+	@Override
+	public biding getByCarIdandMaxAmount(int idCar) {
+		// TODO Auto-generated method stub
+				try{
+					biding so=bidingDataRepository.getByCarIdandMaxAmount(idCar);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
+
+
+
 
 	
 	

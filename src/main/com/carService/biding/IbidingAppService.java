@@ -14,6 +14,7 @@ public interface IbidingAppService {
 
 	public List<biding> getAll();
 	public List<biding> getAllByuserId(int idUser);
+	public biding getByCarIdandMaxAmount(int idCar);
 	public biding getByCarIdAnduserId(int idCar,int idUser);
 	public biding getByCarIdLessThanFullAmount(int idCar,float amount);
 	public biding addbiding(biding data);

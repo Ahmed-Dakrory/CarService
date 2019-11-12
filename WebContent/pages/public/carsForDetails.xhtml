@@ -80,16 +80,15 @@ background: #c2c5c7;
 <br/>
 <h:form id="differenceTimeForm">
 <h:panelGroup id="differenceTime" style="font-size: 28px;color: #666666;font-family: serif;font-weight: 600;">
-<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'false':'true'}">
-<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'false':'true'}">
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}">
 Now Bid Faster to get it
 </h:panelGroup>
 <br></br>
-<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}">Remains:</h:panelGroup> #{carLandingBean.differenceTimeDateFromBidToEnd}<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0?'true':'false'}"> until finish</h:panelGroup>
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}">Total Remains: #{carLandingBean.differenceTimeDateFromBidToEnd}</h:panelGroup>
 </h:panelGroup>
 
-<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0?'true':'false'}">
-Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}"> Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
 </h:panelGroup>
 
 </h:panelGroup>
@@ -375,6 +374,17 @@ Close </a>
 
 <div class="caption" style="font-size: 13px;margin: 3%;">
 Current Price </div>
+<h:form id="liveBidDisplay" rendered="#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd&gt;0?'true':'false'}">
+ <h:panelGroup rendered="#{carLandingBean.selectedCarPage.active}">
+<div style="color: #334354;position: absolute;top: 5%;left: 86%;width: 151px;text-align: center;font-size: 29px;height: 151px;padding-top: 10%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
+ <div>Remains</div><div>#{carLandingBean.timeInSecondsForLive}</div> </div>
+ </h:panelGroup>
+ 
+ <h:panelGroup rendered="#{!carLandingBean.selectedCarPage.active}">
+ <div style="color: #0f1b29;position: absolute;top: 5%;left: 86%;width: 151px;text-align: center;font-size: 29px;height: 151px;padding-top: 8%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(36, 94, 162) 95%, rgb(37, 95, 162) 0px);font-weight: 700;">
+ <div>Bid</div><div>Finished</div> </div>
+ </h:panelGroup>
+</h:form>
 <div style="margin: 3%;text-align: center;font-size: 35px;color: #334354;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
 <h:panelGroup style="font-size: 17px;"
  class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
@@ -382,7 +392,9 @@ $<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
 #{carLandingBean.selectedCarPage.currentBid} </span>
 <meta itemprop="priceCurrency" content="USD"/>
 USD 
-<br></br>
+
+
+
 By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
 
 
