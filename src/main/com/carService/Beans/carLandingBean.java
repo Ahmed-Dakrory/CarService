@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +49,7 @@ import retrofit2.Call;
 
 
 @ManagedBean(name = "carLandingBean")
-@SessionScoped
+@ViewScoped
 public class carLandingBean implements Serializable{
 	
 	
@@ -347,12 +347,12 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 
 						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
 						
-						System.out.println("Ahmed CarBid");
+						
 						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+						if(currentBiding!=null) {
 						totalBid=currentBiding.getFullAmount();
 						incrementBid=currentBiding.getIncrement();
-						
-						
+						}
 						
 					}
 					
@@ -361,16 +361,16 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					/**
 					 * 
 					 */
+
 					String lotImagesLink=selectedCarPage.getAllImagesLink();
-					
 					 try {
 				        	images = new ArrayList<String>();
 				        	String newLinkUrlWithSlach = lotImagesLink.substring(0, lotImagesLink.indexOf('?'))+"/"+lotImagesLink.substring( lotImagesLink.indexOf('?'),lotImagesLink.length());
 				    		APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
 				    		  Call<copartReturnImages> call = apiInterface.getAllImagesFromCopart();
-				    		  
+				    		 
 				        	copartReturnImages carImages= call.execute().body();
-
+				        	
 				        	if(carImages != null) {
 				    			
 				        		selectedCarPage.setMainImage(carImages.lotImages.get(0).link.get(0).url);
@@ -379,7 +379,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				    			}
 				    		}
 				    	
-				        	System.out.println("ImagesLoaded");
+				        	
 
 				    		//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("myCarousel");
 				          	  
@@ -467,7 +467,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						bidingFacade.addbiding(currentBiding);
 						arrangeBidingForThisCar(selectedCarPage);
 						}else {
-							if(totalBid>=currentBiding.getFullAmount()) {
+							if(totalBid>currentBiding.getFullAmount()) {
 							currentBiding.setFullAmount(totalBid);
 							currentBiding.setIncrement(incrementBid);
 							currentBiding.setLastDateBid(new Date());
@@ -571,14 +571,16 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 	
 	public void reloadLiveBidingParamenters(boolean isLiveMode) {
 		if(isLiveMode) {
+			
 			biding bidingMax = bidingFacade.getByCarIdandMaxAmount(selectedCarPage.getId());
+			if(bidingMax!=null) {
 			Date timeNow = Calendar.getInstance().getTime();
 			Long diffFromMaxToNow = timeNow.getTime()-bidingMax.getLastDateBid().getTime();
 			
 			long diffSecondsFromMaxToNow = diffFromMaxToNow / 1000 % 60;
 			long diffMinutesFromMaxToNow = diffFromMaxToNow / (60 * 1000) % 60;
 			
-			timeInSecondsForLive = String.valueOf(diffMinutesFromMaxToNow)+" : "+String.valueOf(diffSecondsFromMaxToNow);
+			timeInSecondsForLive = String.valueOf(timeLiveEnd-1 - diffMinutesFromMaxToNow)+" : "+String.valueOf(60 - diffSecondsFromMaxToNow);
 			
 			if(diffMinutesFromMaxToNow >= timeLiveEnd) {
 				selectedCarPage.setActive(false);
@@ -587,15 +589,19 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				if(selectedCarPage.getUserMaxBidId()!=null) {
 					sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
 					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:buy-now-block");
+					PrimeFaces.current().executeScript("window.location.reload(true);");
 				}
 			}
 			
-
+		}else {
+			timeInSecondsForLive = "N ...";
+		}
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:liveBidDisplay");
 		}
 		
 	}
 	public void reloadedParametersAndPanelRefresh() {
+		System.out.println(String.valueOf(selectedCarPage.getId()));
 		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
 		Calendar nowTime=Calendar.getInstance();
 		Date timeNow=new Date();
