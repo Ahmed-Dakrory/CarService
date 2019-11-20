@@ -489,6 +489,11 @@ margin: 0 auto;
 <a href="/pages/public/contactUs.jsf?faces-redirect=true">Contact Us</a>
 <a href="/pages/public/carCost.jsf?faces-redirect=true">Calculate Shipping Cost</a>
 <a href="/pages/public/login.jsf?faces-redirect=true">Login</a>
+<a href="/pages/public/registeration.jsf?faces-redirect=true">Register Now</a>
+
+<a style="    margin-top: 11%;display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">My DashBoard</a>
+<a style="    margin-top: 7.5%;display:#{loginBean.loggedIn?'block':'none'};" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
+        
 
 </div>
 <script>
