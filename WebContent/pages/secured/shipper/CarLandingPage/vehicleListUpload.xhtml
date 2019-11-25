@@ -196,15 +196,19 @@ body .ui-button {
 							<p:growl id="growl" />
  
    
-							    <h:form enctype="multipart/form-data" >  
+							    <h:form enctype="multipart/form-data" rendered="#{!carLandingBean.isfileUploaded}">  
 							   
 							   <p:fileUpload  fileUploadListener="#{carLandingBean.parseFile}" mode="advanced" dragDropSupport="false"
-                   sizeLimit="1900000" fileLimit="1" allowTypes="/(\.|\/)(xlsx)$/" 
+                   sizeLimit="99000000" fileLimit="1" allowTypes="/(\.|\/)(xlsx)$/" onstart="done()"
 							    />
 								  
-    
     						</h:form>
     						
+    						<script>
+    						function done(){
+    							showDialog('car');
+    						}
+    						</script>
     						
     					<h:form id="tableForm">
 								
@@ -353,11 +357,13 @@ body .ui-button {
 							
 					</h:form>
     <br /><br />
-    <p:progressBar id="progressBarClient" widgetVar="pbClient" style="width:100%"/>
     
+    <h:form id="progressBar">
+    <p:progressBar  widgetVar="pbAjax" ajax="true" value="#{carLandingBean.progressLoading}" labelTemplate="{value}%" styleClass="animated" global="false"/>
+    </h:form>
 						
 					<br></br>
-	            		     <p:commandButton onclick="start()" class="btn btn-default" action="#{carLandingBean.saveTheNewUploadedList()}"  value="Save"  style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+	            		     <p:commandButton onclick="showDialog(' and saving Cars');PF('pbAjax').start();" class="btn btn-default" action="#{carLandingBean.saveTheNewUploadedList()}"  value="Save"  style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                            
 							</div>
 						</section>
