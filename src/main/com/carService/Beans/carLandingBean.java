@@ -452,13 +452,39 @@ return copFees;
 	    		
 	}
 	
+public boolean isCarInFavourites(int num) {
+		
+		if(loginBean.isLoggedIn()) {
+		mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
+		
+		if(watchListCarNew!=null) {
+			
+			return true;
+		}
+		}
+		return false;
+	}
+
+public boolean isNotCarInFavourites(int num) {
+	
+	if(loginBean.isLoggedIn()) {
+	mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
+	
+	if(watchListCarNew!=null) {
+		
+		return false;
+	}
+	}
+	return true;
+}
+	
 	public void setCarToWatchListNum(int num) {
 		
 		carLanding carId=carLandingFacade.getById(num);
 		if(loginBean.isLoggedIn()) {
 			System.out.println("Ahmed CarBid3");
 			//Make this car added to my watch List
-			mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, carViewId);
+			mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
 			if(watchListCarNew==null) {
 				carInWatchList=true;
 				watchListCarNew =new mycars();

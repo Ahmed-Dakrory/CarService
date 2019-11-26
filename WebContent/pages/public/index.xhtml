@@ -11,7 +11,7 @@
 	
 
 	<ui:define name="content">
-	
+	#{carLandingBean.refresh()}
 
 <style>
 
@@ -59,10 +59,10 @@ position: relative;
 <input type="hidden" value="norobots" name="norobots"/>
 <div>
 <label class="select-label">
-<h:selectOneMenu value="#{carLandingBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
+<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
 
 <f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carLandingBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
+<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
 </h:selectOneMenu>
 
 
@@ -71,10 +71,10 @@ position: relative;
 <div>
 <label class="select-label">
 
-<h:selectOneMenu value="#{carLandingBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
+<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
 
 <f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carLandingBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
 </h:selectOneMenu>
 
  </label>
@@ -87,7 +87,7 @@ position: relative;
 
 <label class="select-label">
 
-<h:selectOneMenu value="#{carLandingBean.searchStartYear}">
+<h:selectOneMenu value="#{carPageBean.searchStartYear}">
 
 <f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -149,7 +149,7 @@ position: relative;
 <label class="select-label">
 
 
-<h:selectOneMenu value="#{carLandingBean.searchEndYear}">
+<h:selectOneMenu value="#{carPageBean.searchEndYear}">
 
 <f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -211,7 +211,7 @@ position: relative;
 </div>
 <div class="Widget_yBtn">
 <input value="Search" class="yBtn" name="yBtn" onclick="search()"/>
-<p:remoteCommand name="search" action="#{carLandingBean.makeSearchOutSide()}"/>
+<p:remoteCommand name="search" action="#{carPageBean.makeSearchOutSide()}"/>
 
 </div>
 </h:form>

@@ -122,7 +122,7 @@ body .ui-inputfield {
     width: 200px;
 }
 	</style>
-	#{carLandingBean.refresh()}
+	#{carPageBean.refresh()}
 	
               <h:form name="aspnetForm" id="aspnetForm">
 
@@ -188,8 +188,8 @@ body .ui-inputfield {
                                                                                                       Category :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                   <h:selectOneMenu value="#{carLandingBean.selectedFreight.category}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;height:19px;width:200px;">
-																										<f:selectItems value="#{carLandingBean.categoriesEnum}" var="var" itemLabel="#{var.name}" itemValue="#{var.type}"/>
+                                                                                                   <h:selectOneMenu value="#{carPageBean.selectedFreight.category}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;height:19px;width:200px;">
+																										<f:selectItems value="#{carPageBean.categoriesEnum}" var="var" itemLabel="#{var.name}" itemValue="#{var.type}"/>
 																									</h:selectOneMenu>
                                                                                                   
                                                                                                      
@@ -206,7 +206,7 @@ body .ui-inputfield {
                                                                                                         Damage Description:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carLandingBean.selectedFreight.damageDescription}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtCompany" type="text" value="#{carPageBean.selectedFreight.damageDescription}" id="ctl00_BodyHolder_txtCompany" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                
                                                                                                 <td width="200">
@@ -217,7 +217,7 @@ body .ui-inputfield {
                                                                                                         Start Biding Date:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                <p:calendar id="bidingDate" value="#{carLandingBean.selectedFreight.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                <p:calendar id="bidingDate" value="#{carPageBean.selectedFreight.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                             </tr>
@@ -231,7 +231,7 @@ body .ui-inputfield {
                                                                                                         Is Active for Bid?:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                 <h:selectBooleanCheckbox name="isActiveForBid" value="#{carLandingBean.selectedFreight.active}" type="text" class="timePicker" id="isActiveForBid" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                 <h:selectBooleanCheckbox name="isActiveForBid" value="#{carPageBean.selectedFreight.active}" type="text" class="timePicker" id="isActiveForBid" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 
                                                                                                 </td>
                                                                                                <td width="200">
@@ -241,7 +241,7 @@ body .ui-inputfield {
                                                                                                       Secondry Damage :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.secondaryDamage}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.secondaryDamage}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                                
@@ -256,7 +256,7 @@ body .ui-inputfield {
                                                                                                       Auction Location :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.auctionLocation}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.auctionLocation}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                																					<td width="200">
@@ -267,7 +267,7 @@ body .ui-inputfield {
                                                                                                      Item Number :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.itemNumber}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.itemNumber}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                                
@@ -283,7 +283,7 @@ body .ui-inputfield {
                                                                                                         Sale Name:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtStampedstate3" type="text" value="#{carLandingBean.selectedFreight.saleName}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtStampedstate3" type="text" value="#{carPageBean.selectedFreight.saleName}"  style="font-size:11px;height:19px;width:200px;" />
                                                                                                 
 																								</td>
                                                                                                 <td width="200">
@@ -293,7 +293,7 @@ body .ui-inputfield {
                                                                                                      Estimated Retail : </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.estRetailValue}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.estRetailValue}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                                  
@@ -308,7 +308,7 @@ body .ui-inputfield {
                                                                                                         Show In Landing Page:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtCheck" value="#{carLandingBean.selectedFreight.showenInLanding}" type="text" class="timePicker" id="ctl00_BodyHolder_txtCheck" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:selectBooleanCheckbox name="ctl00$BodyHolder$txtCheck" value="#{carPageBean.selectedFreight.showenInLanding}" type="text" class="timePicker" id="ctl00_BodyHolder_txtCheck" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 
                                                                                                 </td>
                                                                                                 <td>
@@ -350,7 +350,7 @@ body .ui-inputfield {
                                                                                                     Transmission Type :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                 <h:inputText  type="text" value="#{carLandingBean.selectedFreight.transmission}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                 <h:inputText  type="text" value="#{carPageBean.selectedFreight.transmission}"  style="font-size:11px;height:19px;width:200px;" />
                                                                                                    
                                                                                                  
                                                                                                  </td>
@@ -377,11 +377,11 @@ body .ui-inputfield {
                                                                                                         VIN:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIN" type="text" value="#{carLandingBean.selectedFreight.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtVIN" type="text" value="#{carPageBean.selectedFreight.uuid}" id="ctl00_BodyHolder_txtVIN" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
-                                                                                                    <p:commandButton value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(carLandingBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
-                                                                                                   <p:remoteCommand name="theloaderFirst" action="#{carLandingBean.theloaderFirst()}"/>
-                                                                                                   <p:remoteCommand name="getCarWithVinNewJs" action="#{carLandingBean.getCarWithVinNew()}"/>
+                                                                                                    <p:commandButton value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(carPageBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
+                                                                                                   <p:remoteCommand name="theloaderFirst" action="#{carPageBean.theloaderFirst()}"/>
+                                                                                                   <p:remoteCommand name="getCarWithVinNewJs" action="#{carPageBean.getCarWithVinNew()}"/>
                                                                                                     <script>
                                                                                                     
                                                                                                     function loadingOk(){
@@ -414,7 +414,7 @@ body .ui-inputfield {
                                                                                                         Make:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carLandingBean.selectedFreight.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtMake" type="text" value="#{carPageBean.selectedFreight.make}" id="ctl00_BodyHolder_txtMake" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 <td width="200">
                                                                                                 </td>
@@ -423,7 +423,7 @@ body .ui-inputfield {
                                                                                                      Lot : </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.lot}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.lot}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -437,7 +437,7 @@ body .ui-inputfield {
                                                                                                         Model:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carLandingBean.selectedFreight.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtModel" type="text" value="#{carPageBean.selectedFreight.model}" id="ctl00_BodyHolder_txtModel" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                
                                                                                                 <td width="200">
@@ -447,7 +447,7 @@ body .ui-inputfield {
                                                                                                      Grid/Row : </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.gridRow}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.gridRow}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -461,7 +461,7 @@ body .ui-inputfield {
                                                                                                         Year:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carLandingBean.selectedFreight.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carPageBean.selectedFreight.year}"  id="ctl00_BodyHolder_txtYear" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                 <td width="200">
@@ -471,7 +471,7 @@ body .ui-inputfield {
                                                                                                      Odometer: </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.odoMeter}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.odoMeter}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -486,7 +486,7 @@ body .ui-inputfield {
                                                                                                         Color:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carLandingBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" value="#{carPageBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                
@@ -497,7 +497,7 @@ body .ui-inputfield {
                                                                                                      Odometer Descrip :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.odoDescription}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.odoDescription}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -511,7 +511,7 @@ body .ui-inputfield {
                                                                                                         Body Style:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carLandingBean.selectedFreight.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtBodyStyle" type="text" value="#{carPageBean.selectedFreight.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                               
                                                                                                 <td width="200">
@@ -521,7 +521,7 @@ body .ui-inputfield {
                                                                                                      Repair Estimate :</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <h:inputText type="text" value="#{carLandingBean.selectedFreight.repairEstimate}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                  <h:inputText type="text" value="#{carPageBean.selectedFreight.repairEstimate}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                      
                                                                                                 </td>
                                                                                             </tr>
@@ -535,7 +535,7 @@ body .ui-inputfield {
                                                                                                         Fuel Type:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carLandingBean.selectedFreight.fuel}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carPageBean.selectedFreight.fuel}" id="ctl00_BodyHolder_txtEngineType" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                
                                                                                                <td width="200">
@@ -546,7 +546,7 @@ body .ui-inputfield {
                                                                                                         End Date:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                 <p:calendar id="endDate" value="#{carLandingBean.selectedFreight.endDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                 <p:calendar id="endDate" value="#{carPageBean.selectedFreight.endDate}" pattern="yyyy-dd-MM HH:mm:ss" style="font-size:11px;height:19px;width:200px;" />
                                                                                                
                                                                                               </td>
                                                                                             </tr>
@@ -560,7 +560,7 @@ body .ui-inputfield {
                                                                                                         Engine Cylinder:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carLandingBean.selectedFreight.cylinder}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carPageBean.selectedFreight.cylinder}" id="ctl00_BodyHolder_txtEngineLiters" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                               
@@ -579,7 +579,7 @@ body .ui-inputfield {
                                                                                                         Engine Type:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText name="engineType" type="text" value="#{carLandingBean.selectedFreight.engineType}" id="engineType" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText name="engineType" type="text" value="#{carPageBean.selectedFreight.engineType}" id="engineType" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                                
@@ -600,7 +600,7 @@ body .ui-inputfield {
                                                                                                         Current Bid:</div>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <h:inputText disabled="true" name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carLandingBean.selectedFreight.currentBid}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText disabled="true" name="ctl00$BodyHolder$txtEngineCyl" type="text" value="#{carPageBean.selectedFreight.currentBid}" id="ctl00_BodyHolder_txtEngineCyl" style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                 
                                                                                               
@@ -636,23 +636,19 @@ body .ui-inputfield {
                                                                                                      Images Url : </div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                  <p:inputText type="text"  value="#{carLandingBean.selectedFreight.allImagesLink}" style="font-size:11px;height:19px;width:200px;" >
+                                                                                                  <p:inputText type="text"  value="#{carPageBean.selectedFreight.allImagesLink}" style="font-size:11px;height:19px;width:200px;" >
                                                                                                     <p:ajax event="keyup" update="scriptPanel" />
                                                                                                   </p:inputText>
-                                                                                                   <p:commandButton onclick="searchAndGetTheData()" value=""  style="background-image: url('/resources/images/img/zoom-magnifier.png'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
-                                                                                                   <p:remoteCommand actionListener="#{carLandingBean.updateTheLotImages(carLandingBean.selectedFreight.allImagesLink)}" name="updateLotData"></p:remoteCommand>
-                                                                                                   
+                                                                                                   <p:commandButton onclick="searchAndGetTheData()" action="#{carPageBean.updateTheLotImages(carPageBean.selectedFreight.allImagesLink)}" value=""  style="background-image: url('/resources/images/img/zoom-magnifier.png'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
+                                                                                                 
                                                                                                    
                                                                                                    <h:panelGroup id="scriptPanel">
                                                                                                    
                                                                                                    <script>
                                                                                                    
 
-                                                                                      				var lotNum = #{carLandingBean.selectedFreight.lot};
 																									function searchAndGetTheData(){
                                                                                            				showDialog('car');
-                                                                                           				
-                                                                                           				updateLotData();
 																									}
                                                                                            			
                                                                                                    </script>
@@ -682,8 +678,8 @@ body .ui-inputfield {
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                      <div id="picDivMain" style="display: inline; margin-left: 6px">
                                                                                                      	 <h:panelGroup id="imagesPanelMain">
-																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carLandingBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
-																	                                    <h:graphicImage value="#{carLandingBean.selectedFreight.mainImage}" rendered="#{carLandingBean.selectedFreight.mainImage!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carPageBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="#{carPageBean.selectedFreight.mainImage}" rendered="#{carPageBean.selectedFreight.mainImage!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
 																	                                    
 																	                                     </h:panelGroup>   
                                                                                                      	
@@ -727,7 +723,7 @@ body .ui-inputfield {
                 
                 
 	<p:panelGrid columns="1"   >
-		<ui:repeat var="var" varStatus="status" value="#{carLandingBean.images}">
+		<ui:repeat var="var" varStatus="status" value="#{carPageBean.images}">
 			
                                         <p:graphicImage onclick='ViewDocByIdOutSide("#{var}")' value="#{var}" alt="image#{var}" style="border-width: 1px;width:100px;border-style: inset;margin: 1px;" >
                                      
@@ -766,7 +762,7 @@ body .ui-inputfield {
                                                                                                 
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="1" class="tbltxt" valign="top">
-                                                                                               <a onclick="deleteThisCar('#{carLandingBean.selectedFreight.id}')"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default "  >  Delete This Car</a>
+                                                                                               <a onclick="deleteThisCar('#{carPageBean.selectedFreight.id}')"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default "  >  Delete This Car</a>
                                                                                                 </td>
 
                                                                                                 <td>
@@ -817,7 +813,7 @@ function deleteThisCar(carId){
                                                                                                 </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                     <div id="docDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{carLandingBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{carPageBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
         
         
         
@@ -831,7 +827,7 @@ function deleteThisCar(carId){
                 
                 
 	
-		<ui:repeat var="var" value="#{carLandingBean.docs}">
+		<ui:repeat var="var" value="#{carPageBean.docs}">
 			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
                     <table>
                         <tr>
@@ -938,14 +934,14 @@ function deleteThisCar(carId){
                                                                         
                                                                                             <tr height="13">
                                                                                                 <td align="center">
-																									<p:commandButton class="btn btn-default" action="#{carLandingBean.updateCarDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+																									<p:commandButton class="btn btn-default" action="#{carPageBean.updateCarDataMain()}" name="ctl00$BodyHolder$cmdSave2" value="Save" id="ctl00_BodyHolder_cmdSave2" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                     
                                                                                                 </td>
                                                                                                 <td align="center">
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carPageBean.cancel}" name="ctl00$BodyHolder$cmdBackToList" value="Back" id="ctl00_BodyHolder_cmdBackToList" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <p:commandButton class="btn btn-default" action="#{carLandingBean.cancel}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                    <p:commandButton class="btn btn-default" action="#{carPageBean.cancel}" name="ctl00$BodyHolder$cmdCancel" value="Cancel" id="ctl00_BodyHolder_cmdCancel" style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 </td>
                                                                                                 <td>
                                                                                                 </td>
@@ -990,7 +986,7 @@ function deleteThisCar(carId){
            
         
 						
-	                                	<p:remoteCommand name="deleteCar" action="#{carLandingBean.deleteCar()}"> 
+	                                	<p:remoteCommand name="deleteCar" action="#{carPageBean.deleteCar()}"> 
 	                                	</p:remoteCommand>
 	                    
 				

@@ -65,7 +65,7 @@ body .ui-button {
         <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
 
 
-#{carLandingBean.refresh()}
+#{carPageBean.refresh()}
             <div id="content">
                 
     <input name="ctl00$BodyHolder$hdClient_ID" type="hidden" id="ctl00_BodyHolder_hdClient_ID" value="47089" />
@@ -85,7 +85,7 @@ body .ui-button {
                                             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                                                 <tr>
                                                     <td class="blkname" style="width: 20%; height: 22px;">
-                                                        <nobr>&nbsp;Freight List<span id="ctl00_BodyHolder_lblCount">: #{carLandingBean.listOfAddedCars.size()}</span></nobr>
+                                                        <nobr>&nbsp;Freight List<span id="ctl00_BodyHolder_lblCount">: #{carPageBean.listOfAddedCars.size()}</span></nobr>
                                                     </td>
                                                     <td style="height: 22px">
                                                         
@@ -137,18 +137,18 @@ body .ui-button {
                                             
 							<div class="panel-body">
 							   <h:form>
-									<h:commandButton value="Add New Car" action="#{carLandingBean.addCarForMain()}" class="btn btn-default" ></h:commandButton>
+									<h:commandButton value="Add New Car" action="#{carPageBean.addCarForMain()}" class="btn btn-default" ></h:commandButton>
 									<h:commandButton value="Upload Files" action="#{carLandingBean.goToCarDataUpload()}" class="btn btn-default" ></h:commandButton>
 								</h:form>
 								<h:form id="tableForm">
 								
         	
-    						 <p:dataTable id="carsTable" var="row" value="#{carLandingBean.listOfAddedCars}" widgetVar="carsTable" 
+    						 <p:dataTable id="carsTable" var="row" value="#{carPageBean.listOfAddedCars}" widgetVar="carsTable" 
                  rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="10,50,100,200,500,1000"
-                 selectionMode="single" selection="#{carLandingBean.selectedFreight}" rowKey="#{row.lot}"
-                 emptyMessage="No cars found with given criteria" filteredValue="#{carLandingBean.listOfFilteredCars}">
+                 selectionMode="single" selection="#{carPageBean.selectedFreight}" rowKey="#{row.lot}"
+                 emptyMessage="No cars found with given criteria" filteredValue="#{carPageBean.listOfFilteredCars}">
  
         <f:facet name="header">
             <p:outputPanel>
@@ -156,27 +156,27 @@ body .ui-button {
 	            <div class="row">
 	            	<div class="col-md-3" style="text-align: left;">
 	            	<p:outputLabel for="datetime" value="Biding Date" />
-       				<p:calendar id="datetime" value="#{carLandingBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       				<p:calendar id="datetime" value="#{carPageBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
        					<p:ajax event="change" />
        				</p:calendar>
 	            	
 	            	</div>
 	            	<div class="col-md-3" style="text-align: left;">
 	            		<p:outputLabel for="datetime2" value="End Biding Date" />
-       					<p:calendar id="datetime2" value="#{carLandingBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:calendar id="datetime2" value="#{carPageBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
        					<p:ajax event="change" />
        					</p:calendar>
        					
 	            	
 	            	</div> 
 	            	<div class="col-md-1" style="text-align: left;">
-	            		<p:commandButton class="btn btn-default" value="Search" action="#{carLandingBean.getTheAllListOfCarsWithDates()}" update="carsTable"/>
+	            		<p:commandButton class="btn btn-default" value="Search" action="#{carPageBean.getTheAllListOfCarsWithDates()}" update="carsTable"/>
        					
 	            	
 	            	</div> 
 	            	
 	            	<div class="col-md-1" style="text-align: left;">
-	            		<p:commandButton class="btn btn-default" value="Search Bid" action="#{carLandingBean.getTheBidListOfCarsWithDates()}" update="carsTable"/>
+	            		<p:commandButton class="btn btn-default" value="Search Bid" action="#{carPageBean.getTheBidListOfCarsWithDates()}" update="carsTable"/>
        					
 	            	
 	            	</div> 
@@ -204,11 +204,11 @@ body .ui-button {
 		</p:column>
 		
 		
-		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carLandingBean.selectCarRowForMain}"  />
+		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carPageBean.selectCarRowForMain}"  />
 		
 		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
 			
-			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{carLandingBean.selectCarForMain(row.id)}"/>
+			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{carPageBean.selectCarForMain(row.id)}"/>
 			
 			 -->
 			<h:outputText value="#{row.uuid}" />
@@ -243,8 +243,8 @@ body .ui-button {
 			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
 		</p:column>
 		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="category" sortBy="#{carLandingBean.getCategoryEnum(row.category).name}" filterBy="#{carLandingBean.getCategoryEnum(row.category).name}">
-			<h:outputText value="#{carLandingBean.getCategoryEnum(row.category).name}" />
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="category" sortBy="#{carPageBean.getCategoryEnum(row.category).name}" filterBy="#{carPageBean.getCategoryEnum(row.category).name}">
+			<h:outputText value="#{carPageBean.getCategoryEnum(row.category).name}" />
 			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
 		</p:column>
 		
@@ -280,7 +280,7 @@ body .ui-button {
 		
 		<p:column style="font-size: 11px;    text-align: center;" width="130" id="sendData" sortBy="#{row.id}" filterBy="#{row.id}">
 			
-				<p:commandButton class="fa fa-bell" action="#{carLandingBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+				<p:commandButton class="fa fa-bell" action="#{carPageBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
 												
 			<f:facet name="header">	<h:outputText value="Not For Win Cars" /> </f:facet>
 		</p:column>
@@ -314,8 +314,13 @@ body .ui-button {
 		
     </p:dataTable>
 					
-					
-							
+				
+    <h:form id="progressBar">
+    <p:progressBar  widgetVar="pbAjax2" ajax="true" value="#{carPageBean.progressLoading}" labelTemplate="{value}%" styleClass="animated" global="false"/>
+    
+					  	<p:commandButton onclick="PF('pbAjax2').start();" class="btn btn-default" value="Deactive" action="#{carPageBean.deactiveAllListOfCarsWithDates()}" />
+    </h:form>	
+       						
 					</h:form>	
 							
 							
@@ -337,7 +342,8 @@ body .ui-button {
         </tbody>
     </table>
 
-            </div>  
+            </div> 
+            
         </form>
         
      

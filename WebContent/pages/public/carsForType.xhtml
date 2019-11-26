@@ -12,9 +12,9 @@
 
 	<ui:define name="content">
 
-	#{carLandingBean.refresh()}
+	#{carPageBean.refresh()}
 	<div class="center">
-<div class="container breadcontainer hidden-sm hidden-xs" style="    width: 55%;">
+<div class="container breadcontainer hidden-sm hidden-xs" style="    width: 75%;">
 <div class="row">
 <div class="col-md-12">
 <div class="breadcrumbs">
@@ -54,10 +54,10 @@
 <input type="hidden" name="per-page" value=""/>
 <label for="type">Vehicle type</label>
 <label class="select-label">
-<h:selectOneMenu value="#{carLandingBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
+<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
 
 <f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carLandingBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
+<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
 </h:selectOneMenu>
 
 
@@ -67,10 +67,10 @@
 <label for="make">Make</label>
 <label class="select-label">
 
-<h:selectOneMenu value="#{carLandingBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
+<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
 
 <f:selectItem itemLabel="Any Make" itemValue="%" />
-<f:selectItems value="#{carLandingBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
 </h:selectOneMenu>
 
  </label>
@@ -82,7 +82,7 @@
 <label for="yearFrom">Year from</label>
 <label class="select-label">
 
-<h:selectOneMenu value="#{carLandingBean.searchStartYear}">
+<h:selectOneMenu value="#{carPageBean.searchStartYear}">
 
 <f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -144,7 +144,7 @@
 <label class="select-label">
 
 
-<h:selectOneMenu value="#{carLandingBean.searchEndYear}">
+<h:selectOneMenu value="#{carPageBean.searchEndYear}">
 
 <f:selectItem itemLabel="2020" itemValue="2020"/>
 <f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -206,7 +206,7 @@
 </tbody></table>
 <br></br>
 <div class="search-container">
-<p:commandButton value="FIND VEHICLES " action="#{carLandingBean.makeSearch()}"  class="yBtn find-vehicles-btn">
+<p:commandButton value="FIND VEHICLES " action="#{carPageBean.makeSearch()}"  class="yBtn find-vehicles-btn">
 
 </p:commandButton>
 </div>
@@ -228,6 +228,29 @@
 
 
 <div class="col-md-9 searchResult" style="    margin-top: -6%;">
+<div class="container" style="width:100%">
+<div class="row">
+<div class="col-md-4">
+
+</div>
+
+
+<div class="col-md-4">
+
+<div> <span style="    font-size: 16px;    font-weight: 700;   color: #8d8c89;">Email: </span>
+<span style="    font-size: 19px;">#{loginBean.theUserOfThisAccount.email}</span>
+</div>
+</div>
+
+
+<div class="col-md-4">
+
+<div> <span style="    font-size: 16px;    font-weight: 700;   color: #8d8c89;">Phone: </span>
+<span style="    font-size: 19px;">#{loginBean.theUserOfThisAccount.phone}</span>
+</div>
+</div>
+</div>
+</div>
 <h:panelGroup id="panelCarsToUpdate">
 <section class="panel">
 							
@@ -253,7 +276,7 @@
 										</script>
 										
 											
-											 <ui:repeat var="data" value="#{carLandingBean.listOfAddedCars}">
+											 <ui:repeat var="data" value="#{carPageBean.listOfAddedCars}">
 										
 											<tr align="left" class="gradeX">
 												
@@ -280,13 +303,16 @@
 													</div>
 													
 													<div class="odometer" style="    text-align: initial;">
-													<span class="name">
-													Watch List:
-													</span>
-													<div class="watchlist" >
-<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'block':'block'}" class="watchlist-link w-add" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
-<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'block':'block'}" class="watchlist-link w-remove" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
-</div>
+													<h:form>
+													<div class="lot" itemscope="" itemtype="http://schema.org/Vehicle" itemid="#vehicle" style="    margin-left: -7px;">
+
+														<div style="height: 0;border: 0;font-size: 16px;margin: 0;" class="upper watchlist" >
+															<p:commandLink update="panelCarsToUpdate" action="#{carPageBean.setCarToWatchListNum(data.id)}" rendered="#{carPageBean.isNotCarInFavourites(data.id)}"  class="watchlist-link w-add"  rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</p:commandLink>
+															<p:commandLink update="panelCarsToUpdate" action="#{carPageBean.setCarToWatchListNum(data.id)}" rendered="#{carPageBean.isCarInFavourites(data.id)}" class="watchlist-link w-remove"  rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</p:commandLink>
+
+														</div>
+													</div>
+													</h:form>
 													</div>
 													
 													

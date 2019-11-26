@@ -43,7 +43,7 @@ import main.com.carService.loginNeeds.user;
 	
 	,
 	@NamedQuery(name="carLanding.getAllForLanding",
-	query = "from carLanding d where d.isShowenInLanding = true and d.deleted = false"
+	query = "from carLanding d where d.isShowenInLanding = true and d.deleted = false and d.active = 1"
 			)
 	
 	,
@@ -53,15 +53,15 @@ import main.com.carService.loginNeeds.user;
 	
 	,
 	@NamedQuery(name="carLanding.getAllForCategories",
-	query = "from carLanding d where d.category = :category and d.deleted = false"
+	query = "from carLanding d where d.category = :category and d.deleted = false and d.active = 1"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllGroupsOfMake",
-	query = "from carLanding d where d.deleted = false group by d.make"
+	query = "from carLanding d where d.deleted = false and d.active = 1 group by d.make "
 			)
 	,
 	@NamedQuery(name="carLanding.getAllForSearch",
-	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make like :make and d.category like :category and d.deleted = false"
+	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make like :make and d.category like :category and d.deleted = false and d.active = 1"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllBetweenDates",
