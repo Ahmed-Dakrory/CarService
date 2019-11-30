@@ -63,7 +63,7 @@ width: -webkit-fill-available;
 }
 					</style>
 	
-#{carLandingBean.refresh()}
+#{carPageBean.refresh()}
              <h:form name="aspnetForm" id="aspnetForm">
 
             <div id="content">
@@ -155,7 +155,7 @@ width: -webkit-fill-available;
 										
 										
 										
-											<ui:repeat var="var" value="#{carLandingBean.allInvoice}">
+											<ui:repeat var="var" value="#{carPageBean.allInvoice}">
 											<tr align="left" class="gradeX">
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
@@ -197,7 +197,7 @@ width: -webkit-fill-available;
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
 												
-													<p:commandButton class="fa fa-money" action="#{carLandingBean.goToInvoice(var.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+													<p:commandButton class="fa fa-money" action="#{carPageBean.goToInvoice(var.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
 																				
 												</td>
 												

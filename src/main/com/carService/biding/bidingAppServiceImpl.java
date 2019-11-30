@@ -86,9 +86,9 @@ public class bidingAppServiceImpl implements IbidingAppService{
 	
 
 	@Override
-	public biding getByCarIdAnduserId(int idCar, int idUser) {
+	public biding getByCarIdAnduserIdAndType(int idCar, int idUser,int type) {
 		try{
-			biding course=bidingDataRepository.getByCarIdAnduserId(idCar, idUser);
+			biding course=bidingDataRepository.getByCarIdAnduserIdAndType(idCar, idUser,type);
 			
 			return course;
 			}
@@ -102,9 +102,9 @@ public class bidingAppServiceImpl implements IbidingAppService{
 
 
 	@Override
-	public List<biding> getAllMaxCarBidings() {
+	public List<biding> getAllMaxCarBidingsAndType(int type) {
 		try{
-			List<biding> so=bidingDataRepository.getAllMaxCarBidings();
+			List<biding> so=bidingDataRepository.getAllMaxCarBidingsAndType(type);
 			
 			return so;
 			}
@@ -118,9 +118,9 @@ public class bidingAppServiceImpl implements IbidingAppService{
 
 
 	@Override
-	public biding getByCarIdLessThanFullAmount(int idCar, float amount) {
+	public biding getByCarIdLessThanFullAmountAndType(int idCar, float amount,int type) {
 		try{
-			biding course=bidingDataRepository.getByCarIdLessThanFullAmount(idCar, amount);
+			biding course=bidingDataRepository.getByCarIdLessThanFullAmountAndType(idCar, amount,type);
 			
 			return course;
 			}
@@ -150,10 +150,10 @@ public class bidingAppServiceImpl implements IbidingAppService{
 
 
 	@Override
-	public biding getByCarIdandMaxAmount(int idCar) {
+	public biding getByCarIdandMaxAmountAndType(int idCar,int type) {
 		// TODO Auto-generated method stub
 				try{
-					biding so=bidingDataRepository.getByCarIdandMaxAmount(idCar);
+					biding so=bidingDataRepository.getByCarIdandMaxAmountAndType(idCar,type);
 					
 					return so;
 					}

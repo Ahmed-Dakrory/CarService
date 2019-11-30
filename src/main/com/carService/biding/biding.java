@@ -37,8 +37,8 @@ import main.com.carService.loginNeeds.user;
 	query = "from biding d where d.id = :id"
 			)
 	,
-	@NamedQuery(name="biding.getByCarIdAnduserId",
-	query = "from biding d where d.carlandingId.id = :idcar and d.userId.id = :idUser"
+	@NamedQuery(name="biding.getByCarIdAnduserIdAndType",
+	query = "from biding d where d.carlandingId.id = :idcar and d.userId.id = :idUser and d.type = :type"
 			)
 	
 	,
@@ -47,18 +47,18 @@ import main.com.carService.loginNeeds.user;
 			)
 	
 	,
-	@NamedQuery(name="biding.getByCarIdLessThanFullAmount",
-	query = "from biding d where d.carlandingId.id = :idcar and d.fullAmount < :fullAmount order by d.fullAmount desc"
+	@NamedQuery(name="biding.getByCarIdLessThanFullAmountAndType",
+	query = "from biding d where d.carlandingId.id = :idcar and d.type = :type and d.fullAmount < :fullAmount order by d.fullAmount desc"
 			)
 	
 	,
-	@NamedQuery(name="biding.getByCarIdandMaxAmount",
-	query = "FROM biding T WHERE T.fullAmount = (  SELECT MAX( T1.fullAmount ) FROM biding T1  WHERE T1.carlandingId.id = :idcar )"
+	@NamedQuery(name="biding.getByCarIdandMaxAmountAndType",
+	query = "FROM biding T WHERE T.fullAmount = (  SELECT MAX( T1.fullAmount ) FROM biding T1  WHERE T1.carlandingId.id = :idcar and T1.type = :type )"
 			)
 	,
 	
-	@NamedQuery(name="biding.getAllMaxCarBidings",
-	query = "FROM biding T WHERE T.fullAmount in (  SELECT MAX( T1.fullAmount ) FROM biding T1  WHERE T1.carlandingId = T.carlandingId )"
+	@NamedQuery(name="biding.getAllMaxCarBidingsAndType",
+	query = "FROM biding T WHERE T.fullAmount in (  SELECT MAX( T1.fullAmount ) FROM biding T1  WHERE T1.carlandingId = T.carlandingId and T1.type = :type )"
 			)
 	
 	
@@ -83,7 +83,7 @@ public class biding {
 	@Column(name = "lastDateBid")
 	private Date lastDateBid;
 	
-	
+
 	@Column(name = "fullAmount")
 	private float fullAmount;
 	
@@ -91,6 +91,9 @@ public class biding {
 	@Column(name = "increment")
 	private float increment;
 	
+
+	@Column(name = "type")
+	private Integer type;
 	
 	@ManyToOne
 	@JoinColumn(name = "carlandingId")
@@ -156,8 +159,20 @@ public class biding {
 		this.carlandingId = carlandingId;
 	}
 
+
+	public Integer getType() {
+		return type;
+	}
+
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	
 
+	public static int TYPE_BIDING=0;
+	public static int TYPE_BUY_IT_NOW=1;
 	
 	
 }

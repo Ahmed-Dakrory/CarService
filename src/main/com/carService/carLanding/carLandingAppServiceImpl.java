@@ -153,9 +153,9 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 
 
 	@Override
-	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, String category) {
+	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make,String model, String category) {
 		try{
-			List<carLanding> course=carLandingDataRepository.getAllForSearch( yearStart,  yearEnd,  make,  category);
+			List<carLanding> course=carLandingDataRepository.getAllForSearch( yearStart,  yearEnd,  make, model,  category);
 			
 			return course;
 			}
@@ -215,6 +215,22 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 						ex.printStackTrace();
 						return null;
 					}
+	}
+
+
+
+	@Override
+	public List<carLanding> getAllGroupsOfModelWithMake(String model) {
+		try{
+			List<carLanding> course=carLandingDataRepository.getAllGroupsOfModelWithMake(model);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
 	}
 	
 	

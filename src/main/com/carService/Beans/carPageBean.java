@@ -24,6 +24,10 @@ import helpers.retrofit.mainFiles.OrderOutDetails;
 import helpers.retrofit.mainFiles.copartReturnImages;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
+import main.com.carService.invoiceLanding.invoicelanding;
+import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
+import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.myCars.mycars;
@@ -78,6 +82,7 @@ public class carPageBean implements Serializable{
 	
 	private String searchType;
 	private String searchMake;
+	private String searchModel;
 	private String searchStartYear;
 	private String searchEndYear;
 
@@ -86,6 +91,7 @@ public class carPageBean implements Serializable{
 	private carLanding selectedFreight;
 
 	List<carLanding> listOfCarsGroupByMake;
+	List<carLanding> listOfCarsGroupByModel;
 
 	@ManagedProperty(value = "#{transportfeeFacadeImpl}")
 	private transportfeeAppServiceImpl transportfeeFacade;
@@ -96,6 +102,18 @@ public class carPageBean implements Serializable{
 	
 	private List<String> images;
 	
+	private user userForInvoice;
+	private invoicelanding invoiceData;
+	private moneybox invoiceMoneyBoxData;
+	private List<carLanding> carsForthisAccount;
+	private carLanding carForInvoice;
+	private Integer selectedCarIdToBeAddedInInvoice;
+	private List<invoicelanding> allInvoice;
+
+	@ManagedProperty(value = "#{invoicelandingFacadeImpl}")
+	private invoicelandingAppServiceImpl invoicelandingFacade;
+	
+	
 	@PostConstruct
 	public void init() {
 
@@ -105,7 +123,9 @@ public class carPageBean implements Serializable{
 	}
 	
 	
-	
+	public void getAllModelsByMakes() {
+		listOfCarsGroupByModel=carLandingFacade.getAllGroupsOfModelWithMake(searchMake);
+	}
 	
 public void refresh() {
 		// TODO Auto-generated method stub
@@ -114,7 +134,13 @@ public void refresh() {
 			.getExternalContext()
 			.getRequest();
 	listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
+	if(loginBean.getTheUserOfThisAccount()!=null) {
+		if(loginBean.getTheUserOfThisAccount().getRole()!=null) {
+				allInvoice=invoicelandingFacade.getAllByUserIdCustomer(loginBean.getTheUserOfThisAccount().getId());
+			
+		}
 
+}
 	try{
 		Integer categories=Integer.parseInt(origRequest.getParameterValues("category")[0]);
 			if(categories!=null){
@@ -127,6 +153,59 @@ public void refresh() {
 		 
 	}
 	}
+
+public void goToInvoice(int id) {
+	invoiceData =new invoicelanding();
+	invoiceData = invoicelandingFacade.getById(id);
+	selectedCarIdToBeAddedInInvoice=-1;
+	selectedCarIdToBeAddedInInvoice=invoiceData.getCarLandingId().getId();
+	carForInvoice= carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
+	
+
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoice.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+public void saveInvoiceData() {
+
+	invoiceData.setUserIdCustomer(userForInvoice);
+	invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
+	invoiceData.setDate(Calendar.getInstance());
+	carLanding car=carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
+	invoiceData.setCarLandingId(car);
+	invoicelandingFacade.addinvoicelanding(invoiceData);
+	
+	
+	
+	
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoice2.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+
+public void addCarToInvoice() {
+	carForInvoice= carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
+	
+
+	try {
+
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoiceAdd.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 
 
 public void sendNotificationForCustomerCopartWinning(int id) {
@@ -219,7 +298,7 @@ public boolean isNotCarInFavourites(int num) {
 		public void makeSearch() {
 
 			listOfAddedCars=new ArrayList<carLanding>();
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
+		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("panelCarsToUpdate");
 	}
@@ -227,7 +306,7 @@ public boolean isNotCarInFavourites(int num) {
 	public void makeSearchOutSide() {
 
 		listOfAddedCars=new ArrayList<carLanding>();
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
+		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/public/carsForType.jsf?faces-redirect=true");
@@ -374,6 +453,32 @@ public void getCarWithVinNew() {
 		}
 }
 	
+	
+
+	public void invoiceDetails(int idUser) {
+
+		carForInvoice=new carLanding();
+System.out.println("Data: "+String.valueOf(idUser));
+		invoiceData=new invoicelanding();
+		userForInvoice=loginBean.getUserDataFacede().getById(idUser);
+		invoiceMoneyBoxData = loginBean.getThisAccountMoneyBox();
+		
+		carsForthisAccount=carLandingFacade.getAllForUserBiding(idUser);
+
+		invoiceData.setBankAccountNumber(invoiceMoneyBoxData.getBankAccountNumber());
+		invoiceData.setBankAddress(invoiceMoneyBoxData.getBankAddress());
+		invoiceData.setBankName(invoiceMoneyBoxData.getBankName());
+		invoiceData.setBankTelephone(invoiceMoneyBoxData.getBankTelephone());
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoiceAdd.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public void cancel() {
 		try {
 			FacesContext.getCurrentInstance()
@@ -454,6 +559,26 @@ public void getCarWithVinNew() {
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleListUpload.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public String getFormatedDate(Calendar c) {
+		String dateTime="";
+		if(c!=null) {
+		dateTime = String.valueOf(c.get(Calendar.DAY_OF_MONTH)) +"/"+
+				   String.valueOf(c.get(Calendar.MONTH)+1) +"/"+
+				   String.valueOf(c.get(Calendar.YEAR));
+		}
+		return dateTime;
+	}
+	
+	public void cancelInvoice() {
+		System.out.println("Cancel");
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/Bid/userOfBiding.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -727,6 +852,89 @@ public void addCarForMain() {
         this.progressLoading = progressLoading;
     }
     
+	public invoicelandingAppServiceImpl getInvoicelandingFacade() {
+		return invoicelandingFacade;
+	}
+
+	public void setInvoicelandingFacade(invoicelandingAppServiceImpl invoicelandingFacade) {
+		this.invoicelandingFacade = invoicelandingFacade;
+	}
+
+	public user getUserForInvoice() {
+		return userForInvoice;
+	}
+
+	public void setUserForInvoice(user userForInvoice) {
+		this.userForInvoice = userForInvoice;
+	}
+
+	public invoicelanding getInvoiceData() {
+		return invoiceData;
+	}
+
+	public void setInvoiceData(invoicelanding invoiceData) {
+		this.invoiceData = invoiceData;
+	}
+
+	public moneybox getInvoiceMoneyBoxData() {
+		return invoiceMoneyBoxData;
+	}
+
+	public void setInvoiceMoneyBoxData(moneybox invoiceMoneyBoxData) {
+		this.invoiceMoneyBoxData = invoiceMoneyBoxData;
+	}
+
+	public List<carLanding> getCarsForthisAccount() {
+		return carsForthisAccount;
+	}
+
+	public void setCarsForthisAccount(List<carLanding> carsForthisAccount) {
+		this.carsForthisAccount = carsForthisAccount;
+	}
+
+	public carLanding getCarForInvoice() {
+		return carForInvoice;
+	}
+
+	public void setCarForInvoice(carLanding carForInvoice) {
+		this.carForInvoice = carForInvoice;
+	}
+
+	public Integer getSelectedCarIdToBeAddedInInvoice() {
+		return selectedCarIdToBeAddedInInvoice;
+	}
+
+	public void setSelectedCarIdToBeAddedInInvoice(Integer selectedCarIdToBeAddedInInvoice) {
+		this.selectedCarIdToBeAddedInInvoice = selectedCarIdToBeAddedInInvoice;
+	}
+
+	public List<invoicelanding> getAllInvoice() {
+		return allInvoice;
+	}
+
+	public void setAllInvoice(List<invoicelanding> allInvoice) {
+		this.allInvoice = allInvoice;
+	}
+
+
+	public String getSearchModel() {
+		return searchModel;
+	}
+
+
+	public void setSearchModel(String searchModel) {
+		this.searchModel = searchModel;
+	}
+
+
+	public List<carLanding> getListOfCarsGroupByModel() {
+		return listOfCarsGroupByModel;
+	}
+
+
+	public void setListOfCarsGroupByModel(List<carLanding> listOfCarsGroupByModel) {
+		this.listOfCarsGroupByModel = listOfCarsGroupByModel;
+	}
 
 	
 	

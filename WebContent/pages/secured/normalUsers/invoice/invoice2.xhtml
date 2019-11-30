@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/dashboard2.xhtml">
 
 
 	<ui:define name="title"> ADAWLIAA</ui:define>
@@ -147,80 +147,9 @@
 </div>
 <div id="content" style="    width: 100%;">
 <div class="account-table row">
-<div class="col-sm-12 col-md-2 side-menu account-menu">
-<div id="profile-side-menu" class="searchBox">
-<div class="group-title block_header responsive_header">
-Menu </div>
-<div class="responsive_box">
-<ul class="level1">
-<li class="active">
-<a href="/en/account">
-My Account </a>
-</li>
-</ul>
-<div class="sublevel">
-Menu </div>
-<ul class="level1 expand">
-<li >
-<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
-Profile Credentials</a>
-</li>
-<li >
-<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
-My Profile Data </a>
-</li>
-<li class="">
-<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
-MoneyBox </a>
-</li>
 
-<li class="menu-item-refunds">
-<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
-Invoice List </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
-Current Cars </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Cars </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
-Watch List </a>
-</li>
-</ul>
-
-
-
-
-
-
-
-
-<ul class="level1">
-<li>
-<a onclick="LogOutJS()" > 
-<i class="fa fa-power-off"></i> Log Out </a>
-</li>
-</ul>
-
-<h:form>
-					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
-				</h:form>
-</div>
-</div>
-</div>
 <div class="col-sm-12 col-md-10">
 <div id="ajax-content">
-<h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account">
 
@@ -363,7 +292,6 @@ Watch List </a>
 </div>
 </div>
 </div>
-<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
 </div>
 </div>
 

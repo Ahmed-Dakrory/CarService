@@ -92,10 +92,11 @@ public class bidingRepositoryImpl implements bidingRepository{
 
 
 	@Override
-	public biding getByCarIdAnduserId(int idCar, int idUser) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdAnduserId")
+	public biding getByCarIdAnduserIdAndType(int idCar, int idUser,int type) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdAnduserIdAndType")
 				 .setInteger("idcar",idCar)
-				 .setInteger("idUser", idUser);
+				 .setInteger("idUser", idUser)
+				 .setInteger("type",type);
 
 		 @SuppressWarnings("unchecked")
 		List<biding> results=query.list();
@@ -107,9 +108,10 @@ public class bidingRepositoryImpl implements bidingRepository{
 	}
 
 	@Override
-	public List<biding> getAllMaxCarBidings() {
+	public List<biding> getAllMaxCarBidingsAndType(int type) {
 		// TODO Auto-generated method stub
-				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getAllMaxCarBidings");
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getAllMaxCarBidingsAndType")
+						 .setInteger("type",type);
 
 				 @SuppressWarnings("unchecked")
 				List<biding> results=query.list();
@@ -118,10 +120,11 @@ public class bidingRepositoryImpl implements bidingRepository{
 	}
 
 	@Override
-	public biding getByCarIdLessThanFullAmount(int idCar, float amount) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdLessThanFullAmount")
+	public biding getByCarIdLessThanFullAmountAndType(int idCar, float amount,int type) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdLessThanFullAmountAndType")
 				 .setInteger("idcar",idCar)
-				 .setFloat("fullAmount", amount);
+				 .setFloat("fullAmount", amount)
+				 .setInteger("type",type);
 
 		 @SuppressWarnings("unchecked")
 		List<biding> results=query.list();
@@ -145,9 +148,10 @@ public class bidingRepositoryImpl implements bidingRepository{
 	}
 
 	@Override
-	public biding getByCarIdandMaxAmount(int idCar) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdandMaxAmount")
-				 .setInteger("idcar",idCar);
+	public biding getByCarIdandMaxAmountAndType(int idCar,int type) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getByCarIdandMaxAmountAndType")
+				 .setInteger("idcar",idCar)
+				 .setInteger("type",type);
 
 		 @SuppressWarnings("unchecked")
 		List<biding> results=query.list();

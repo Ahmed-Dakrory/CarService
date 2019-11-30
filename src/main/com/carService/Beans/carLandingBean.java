@@ -39,10 +39,6 @@ import main.com.carService.costCalc.transportfee;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
-import main.com.carService.invoiceLanding.invoicelanding;
-import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
-import main.com.carService.loginNeeds.user;
-import main.com.carService.moneyBox.moneybox;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
@@ -106,9 +102,6 @@ public class carLandingBean implements Serializable{
 	private notificationAppServiceImpl notificationFacade;
 	
 
-	@ManagedProperty(value = "#{invoicelandingFacadeImpl}")
-	private invoicelandingAppServiceImpl invoicelandingFacade;
-	
 
 	@ManagedProperty(value = "#{bidingFacadeImpl}")
 	private bidingAppServiceImpl bidingFacade;
@@ -120,6 +113,7 @@ public class carLandingBean implements Serializable{
 
 	private String searchType;
 	private String searchMake;
+	private String searchModel;
 	private String searchStartYear;
 	private String searchEndYear;
 
@@ -136,13 +130,7 @@ public class carLandingBean implements Serializable{
 	private float totalBid;
 	
 
-	private user userForInvoice;
-	private invoicelanding invoiceData;
-	private moneybox invoiceMoneyBoxData;
-	private List<carLanding> carsForthisAccount;
-	private carLanding carForInvoice;
-	private Integer selectedCarIdToBeAddedInInvoice;
-	private List<invoicelanding> allInvoice;
+	
 
 	private List<carLanding> allCarsString;
 	private String selectedCarSearch;
@@ -550,11 +538,7 @@ public boolean isNotCarInFavourites(int num) {
 	public void refresh(){
 		isfileUploaded=false;
 		if(loginBean.getTheUserOfThisAccount()!=null) {
-			if(loginBean.getTheUserOfThisAccount().getRole()!=null) {
-				if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_NormalUser) {
-					allInvoice=invoicelandingFacade.getAllByUserIdCustomer(loginBean.getTheUserOfThisAccount().getId());
-				}
-			}
+			
 if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 	
 			//Get All Watch List
@@ -604,7 +588,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
 						
 						
-						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 						if(currentBiding!=null) {
 						totalBid=currentBiding.getFullAmount();
 						incrementBid=currentBiding.getIncrement();
@@ -737,7 +721,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					//You are able to do it
 					if(!(incrementBid<=0)&&!(totalBid<0)) {
 						
-						currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 						if(currentBiding==null) {
 							currentBiding=new biding();
 						currentBiding.setFullAmount(totalBid);
@@ -845,7 +829,7 @@ public void calcValueOfTotalFeesCarSelected() {
 
 	private void arrangeBidingForThisCar(carLanding selectedCarPage2) {
 		//Get all maximum Bids for each car
-		List<biding> allBidingMax = bidingFacade.getAllMaxCarBidings();
+		List<biding> allBidingMax = bidingFacade.getAllMaxCarBidingsAndType(biding.TYPE_BIDING);
 		
 		for(int i=0;i<allBidingMax.size();i++) {
 			carLanding car=carLandingFacade.getById(allBidingMax.get(i).getCarlandingId().getId());
@@ -853,7 +837,7 @@ public void calcValueOfTotalFeesCarSelected() {
 			if(Float.valueOf(car.getCurrentBid())<allBidingMax.get(i).getFullAmount()) {
 				if(allowPersonToMakeBid(allBidingMax.get(i),car)) {
 				
-				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmount(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount());
+				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmountAndType(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount(),biding.TYPE_BIDING);
 				
 				float theTotalForTheManWhoLastMe=Float.valueOf(car.getCurrentBid());
 				if(theLastManWhoBidLessThanMe!=null) {
@@ -900,7 +884,7 @@ public void calcValueOfTotalFeesCarSelected() {
 	public void reloadLiveBidingParamenters(boolean isLiveMode) {
 		if(isLiveMode) {
 			
-			biding bidingMax = bidingFacade.getByCarIdandMaxAmount(selectedCarPage.getId());
+			biding bidingMax = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId(),biding.TYPE_BIDING);
 			if(bidingMax!=null) {
 			Date timeNow = Calendar.getInstance().getTime();
 			Long diffFromMaxToNow = timeNow.getTime()-bidingMax.getLastDateBid().getTime();
@@ -925,6 +909,7 @@ public void calcValueOfTotalFeesCarSelected() {
 			timeInSecondsForLive = "N ...";
 		}
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:liveBidDisplay");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("buy-now-block");
 		}
 		
 	}
@@ -995,7 +980,7 @@ public void calcValueOfTotalFeesCarSelected() {
 		
 		//Get the userBid if applicable
 		if(loginBean.isLoggedIn()) {
-			currentBiding=bidingFacade.getByCarIdAnduserId(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId());
+			currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 			if(currentBiding!=null) {
 				totalBid=currentBiding.getFullAmount();
 				incrementBid=currentBiding.getIncrement();
@@ -1008,19 +993,11 @@ public void calcValueOfTotalFeesCarSelected() {
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentPriceSmall");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentBidAmount");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:bidDetails");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("buy-now-block");
 		
 	}
 	
-	public void cancelInvoice() {
-		System.out.println("Cancel");
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/Bid/userOfBiding.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public void sendNotificationForCustomerCopartWinning(int id) {
 		carLanding car = carLandingFacade.getById(id);
@@ -1033,83 +1010,72 @@ public void calcValueOfTotalFeesCarSelected() {
 				"		});");
 	}
 	
-	public void goToInvoice(int id) {
-		invoiceData =new invoicelanding();
-		invoiceData = invoicelandingFacade.getById(id);
-		selectedCarIdToBeAddedInInvoice=-1;
-		selectedCarIdToBeAddedInInvoice=invoiceData.getCarLandingId().getId();
-		carForInvoice= carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
-		
-
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoice.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	public void saveInvoiceData() {
-
-		invoiceData.setUserIdCustomer(userForInvoice);
-		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
-		invoiceData.setDate(Calendar.getInstance());
-		carLanding car=carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
-		invoiceData.setCarLandingId(car);
-		invoicelandingFacade.addinvoicelanding(invoiceData);
-		
-		
-		
-		
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoice.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void addCarToInvoice() {
-		carForInvoice= carLandingFacade.getById(selectedCarIdToBeAddedInInvoice);
-		
-
-		try {
-
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoiceAdd.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	
-	
-	
-	public void invoiceDetails(int idUser) {
-System.out.println("Data: "+String.valueOf(idUser));
-		invoiceData=new invoicelanding();
-		userForInvoice=loginBean.getUserDataFacede().getById(idUser);
-		invoiceMoneyBoxData = loginBean.getThisAccountMoneyBox();
-		
-		carsForthisAccount=carLandingFacade.getAllForUserBiding(idUser);
+	public void buyCarNow() {
+		System.out.println("Done");
+			if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 
-		invoiceData.setBankAccountNumber(invoiceMoneyBoxData.getBankAccountNumber());
-		invoiceData.setBankAddress(invoiceMoneyBoxData.getBankAddress());
-		invoiceData.setBankName(invoiceMoneyBoxData.getBankName());
-		invoiceData.setBankTelephone(invoiceMoneyBoxData.getBankTelephone());
+				System.out.println("Done2");
+			 loginBean.setThisAccountMoneyBox(loginBean.getMoneyboxDataFacede().getByUserId(loginBean.getTheUserOfThisAccount().getId()));
+
+				if(loginBean.getThisAccountMoneyBox()!=null) {
+			 if(loginBean.getThisAccountMoneyBox().isActive()) {
+				//You can make a bid
+				if(selectedCarPage.isActive()) {
+					
+
+					selectedCarPage.setActive(false);
+					selectedCarPage.setUserMaxBidId(loginBean.getTheUserOfThisAccount());
+					selectedCarPage.setCurrentBid(selectedCarPage.getBuyItNowPrice());
+					selectedCarPage.setState(stateOfCar.ProcessState.getType());
+					
+					
+					int level = calcBean.getLevel(Float.valueOf(selectedCarPage.getCurrentBid()));
+					float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(selectedCarPage.getCurrentBid()));
+					
+					
+					selectedCarPage.setCopartFees(String.valueOf(copartFees));
+					selectedCarPage.setOurFees(String.valueOf((new calcBean()).getOurFees()));
+					
+					
+					carLandingFacade.addcarLanding(selectedCarPage);
+			biding bid=new biding();
+			bid.setFullAmount(Float.valueOf(selectedCarPage.getCurrentBid()));
+			bid.setLastDateBid(new Date());
+			bid.setIncrement(0);
+			bid.setType(biding.TYPE_BUY_IT_NOW);
+			bid.setUserId(loginBean.getTheUserOfThisAccount());
+			bid.setCarlandingId(selectedCarPage);
+			bidingFacade.addbiding(bid);
 		
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice/invoiceAdd.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(), "You have Buyed a Car From Copart", "/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+		PrimeFaces.current().executeScript(" swal(\"Car Has been Added\", {\n" + 
+				"		      icon: \"success\",\n" + 
+				"		    });");
+				}
+
+				FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("differenceTimeForm:differenceTime");
+				FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData");
+			 }else {
+					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+							"			title: 'Your Account is not active ',\r\n" + 
+							"			text: 'Please Make a Deposite to Activate your Account, So You can Bid',\r\n" + 
+							"			left:\"2%\"\r\n" + 
+							"		});");
+				}
+				}
+			 }else {
+				
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Problem',\r\n" + 
+						"			text: 'Please Login to be able to Bid',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+	
+			 
+				
 	}
 	
 	public void sendNotificationForUser(Integer id, String msg, String url) {
@@ -1138,13 +1104,13 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	}
 	public void makeSearch() {
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
+		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("panelCarsToUpdate");
 	}
 	
 	public void makeSearchOutSide() {
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake, searchType);
+		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/public/carsForType.jsf?faces-redirect=true");
@@ -1579,6 +1545,20 @@ System.out.println("Data: "+String.valueOf(idUser));
 							}catch (Exception ex) { //
 							}
 		                	  break;
+		                	  
+						case 19:
+							try {
+								data.setDocState(getTheValueFromCell(cell));
+							}catch (Exception ex) { //
+							}
+		                	  break;
+		                	  
+						case 20:
+							try {
+								data.setDocType(getTheValueFromCell(cell));
+							}catch (Exception ex) { //
+							}
+		                	  break;
 							  
 						case 23:
 							try {
@@ -1676,10 +1656,23 @@ System.out.println("Data: "+String.valueOf(idUser));
 							}
 		                	  break;
 		                	  
+						case 45:
+							try {
+								String b =getTheValueFromCell(cell);
+								if(b.equalsIgnoreCase("Y")) {
+									data.setActivebuyItNow(true);
+								}else {
+									data.setActivebuyItNow(false);
+									
+								}
+							}catch (Exception ex) { //
+							}
+		                	  break;
+		                	  
 		                	  
 						case 46:
 							try {
-								data.setCurrentBid(getTheValueFromCell(cell));
+								data.setBuyItNowPrice(getTheValueFromCell(cell));
 								int level = calcBean.getLevel(Float.valueOf(getTheValueFromCell(cell)));
 								float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(getTheValueFromCell(cell)));
 								
@@ -2039,69 +2032,6 @@ System.out.println("Data: "+String.valueOf(idUser));
 		this.notificationFacade = notificationFacade;
 	}
 
-	public invoicelandingAppServiceImpl getInvoicelandingFacade() {
-		return invoicelandingFacade;
-	}
-
-	public void setInvoicelandingFacade(invoicelandingAppServiceImpl invoicelandingFacade) {
-		this.invoicelandingFacade = invoicelandingFacade;
-	}
-
-	public user getUserForInvoice() {
-		return userForInvoice;
-	}
-
-	public void setUserForInvoice(user userForInvoice) {
-		this.userForInvoice = userForInvoice;
-	}
-
-	public invoicelanding getInvoiceData() {
-		return invoiceData;
-	}
-
-	public void setInvoiceData(invoicelanding invoiceData) {
-		this.invoiceData = invoiceData;
-	}
-
-	public moneybox getInvoiceMoneyBoxData() {
-		return invoiceMoneyBoxData;
-	}
-
-	public void setInvoiceMoneyBoxData(moneybox invoiceMoneyBoxData) {
-		this.invoiceMoneyBoxData = invoiceMoneyBoxData;
-	}
-
-	public List<carLanding> getCarsForthisAccount() {
-		return carsForthisAccount;
-	}
-
-	public void setCarsForthisAccount(List<carLanding> carsForthisAccount) {
-		this.carsForthisAccount = carsForthisAccount;
-	}
-
-	public carLanding getCarForInvoice() {
-		return carForInvoice;
-	}
-
-	public void setCarForInvoice(carLanding carForInvoice) {
-		this.carForInvoice = carForInvoice;
-	}
-
-	public Integer getSelectedCarIdToBeAddedInInvoice() {
-		return selectedCarIdToBeAddedInInvoice;
-	}
-
-	public void setSelectedCarIdToBeAddedInInvoice(Integer selectedCarIdToBeAddedInInvoice) {
-		this.selectedCarIdToBeAddedInInvoice = selectedCarIdToBeAddedInInvoice;
-	}
-
-	public List<invoicelanding> getAllInvoice() {
-		return allInvoice;
-	}
-
-	public void setAllInvoice(List<invoicelanding> allInvoice) {
-		this.allInvoice = allInvoice;
-	}
 
 	public List<carLanding> getListOfAllCars() {
 		return listOfAllCars;
@@ -2493,6 +2423,16 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 	public void setIsfileUploaded(boolean isfileUploaded) {
 		this.isfileUploaded = isfileUploaded;
+	}
+
+
+	public String getSearchModel() {
+		return searchModel;
+	}
+
+
+	public void setSearchModel(String searchModel) {
+		this.searchModel = searchModel;
 	}
 
 	

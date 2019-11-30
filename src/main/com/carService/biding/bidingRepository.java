@@ -15,11 +15,11 @@ public interface bidingRepository {
 
 	public List<biding> getAll();
 	public List<biding> getAllByuserId(int idUser);
-	public biding getByCarIdAnduserId(int idCar,int idUser);
-	public biding getByCarIdandMaxAmount(int idCar);
-	public biding getByCarIdLessThanFullAmount(int idCar,float amount);
+	public biding getByCarIdAnduserIdAndType(int idCar,int idUser,int type);
+	public biding getByCarIdandMaxAmountAndType(int idCar,int type);
+	public biding getByCarIdLessThanFullAmountAndType(int idCar,float amount,int type);
 	public biding addbiding(biding data);
-	public List<biding> getAllMaxCarBidings();
+	public List<biding> getAllMaxCarBidingsAndType(int type);
 	public biding getById(int id);
 	public boolean delete(biding data)throws Exception;
 }

@@ -68,7 +68,8 @@
 <label class="select-label">
 
 <h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
-
+<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
+															
 <f:selectItem itemLabel="Any Make" itemValue="%" />
 <f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
 </h:selectOneMenu>
@@ -76,6 +77,21 @@
  </label>
  
  <br></br>
+ 
+ <label for="make">Model</label>
+<label class="select-label">
+
+<h:selectOneMenu value="#{carPageBean.searchModel}"  id="model" name="model"  class="custom-select" style="width: 205px; display: inline-block;">
+
+<f:selectItem itemLabel="Any Model" itemValue="%" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
+</h:selectOneMenu>
+
+ </label>
+ 
+ <br></br>
+ 
+ 
 <table>
 <tbody><tr>
 <td width="50%" style="padding:0">

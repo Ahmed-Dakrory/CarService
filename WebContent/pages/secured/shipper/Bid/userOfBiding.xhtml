@@ -258,9 +258,9 @@ body .ui-button {
 		<p:column headerText="Create Invoice" style="font-size: 13px;    text-align: center;" width="130" id="invoice" sortBy="#{row.id}" filterBy="#{row.id}">
 		
 			
-			<h:form>
-				<p:commandButton class="fa fa-money" action="#{carLandingBean.invoiceDetails(row.userId.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
-					</h:form>							
+			
+				<p:commandButton class="fa fa-money" action="#{carPageBean.invoiceDetails(row.userId.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+										
 			
 			
 		</p:column>

@@ -59,9 +59,15 @@ import main.com.carService.loginNeeds.user;
 	@NamedQuery(name="carLanding.getAllGroupsOfMake",
 	query = "from carLanding d where d.deleted = false and d.active = 1 group by d.make "
 			)
+	
+	,
+	@NamedQuery(name="carLanding.getAllGroupsOfModelWithMake",
+	query = "from carLanding d where d.deleted = false and d.make=:make and d.active = 1 group by d.model "
+			)
+	
 	,
 	@NamedQuery(name="carLanding.getAllForSearch",
-	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make like :make and d.category like :category and d.deleted = false and d.active = 1"
+	query = "from carLanding d where d.year <= :yearEnd and d.year >= :yearStart and d.make like :make and d.model like :model and d.category like :category and d.deleted = false and d.active = 1"
 			)
 	,
 	@NamedQuery(name="carLanding.getAllBetweenDates",
@@ -106,6 +112,18 @@ public class carLanding {
 
 	@Column(name = "year")
 	private String year;
+	
+
+	@Column(name = "docType")
+	private String docType;
+	
+
+	@Column(name = "docState")
+	private String docState;
+	
+
+	@Column(name = "buyItNowPrice")
+	private String buyItNowPrice;
 
 	@Column(name = "bodyStyle")
 	private String bodyStyle;
@@ -206,6 +224,11 @@ public class carLanding {
 
 	@Column(name = "active")
 	private boolean active;
+	
+	
+
+	@Column(name = "activebuyItNow")
+	private boolean activebuyItNow;
 	
 
 	@Column(name = "paymentDone")
@@ -693,6 +716,30 @@ public class carLanding {
 
 
 
+	public String getBuyItNowPrice() {
+		return buyItNowPrice;
+	}
+
+
+
+	public void setBuyItNowPrice(String buyItNowPrice) {
+		this.buyItNowPrice = buyItNowPrice;
+	}
+
+
+
+	public boolean isActivebuyItNow() {
+		return activebuyItNow;
+	}
+
+
+
+	public void setActivebuyItNow(boolean activebuyItNow) {
+		this.activebuyItNow = activebuyItNow;
+	}
+
+
+
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -707,6 +754,18 @@ public class carLanding {
 
 
 
+	public String getDocType() {
+		return docType;
+	}
+
+
+
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
+
+
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -715,6 +774,20 @@ public class carLanding {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+
+
+
+
+	public String getDocState() {
+		return docState;
+	}
+
+
+
+	public void setDocState(String docState) {
+		this.docState = docState;
 	}
 
 

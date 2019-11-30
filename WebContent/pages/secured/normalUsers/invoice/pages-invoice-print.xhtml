@@ -28,17 +28,17 @@
 											</div>
 					<div class="col-xs-6 mt-md">
 						<h5 class=" mt-none mb-sm text-dark text-bold">INVOICE</h5>
-						<h6 class="h6 m-none text-dark text-bold"># #{carLandingBean.invoiceData.id}</h6>
+						<h6 class="h6 m-none text-dark text-bold"># #{carPageBean.invoiceData.id}</h6>
 					</div>
 					<div class="col-xs-6 text-right mt-md mb-md">
 						<address class="ib mr-xlg">
-												#{carLandingBean.invoiceData.userIdIssuer.company}
+												#{carPageBean.invoiceData.userIdIssuer.company}
 												<br/>
-												#{carLandingBean.invoiceData.userIdIssuer.address1}
+												#{carPageBean.invoiceData.userIdIssuer.address1}
 												<br/>
-												Phone: #{carLandingBean.invoiceData.userIdIssuer.phone}
+												Phone: #{carPageBean.invoiceData.userIdIssuer.phone}
 												<br/>
-												#{carLandingBean.invoiceData.userIdIssuer.email}
+												#{carPageBean.invoiceData.userIdIssuer.email}
 											</address>
 						
 					</div>
@@ -50,17 +50,17 @@
 											<div class="bill-to">
 												<p class="h6 mb-xs text-dark text-semibold">To:</p>
 												<address>
-													#{carLandingBean.invoiceData.userIdCustomer.company}
+													#{carPageBean.invoiceData.userIdCustomer.company}
 												<br/>
-												#{carLandingBean.invoiceData.userIdCustomer.address1}
+												#{carPageBean.invoiceData.userIdCustomer.address1}
 												<br/>
-												Phone: #{carLandingBean.invoiceData.userIdCustomer.phone}
+												Phone: #{carPageBean.invoiceData.userIdCustomer.phone}
 												<br/>
-												#{carLandingBean.invoiceData.userIdCustomer.email}
+												#{carPageBean.invoiceData.userIdCustomer.email}
 												
 												<p class="mb-none" >
 													<span class="text-dark">Invoice Date:</span>
-													<span class="value">#{carLandingBean.getFormatedDate(carLandingBean.invoiceData.date)}</span>
+													<span class="value">#{carPageBean.getFormatedDate(carPageBean.invoiceData.date)}</span>
 												</p>
 												</address>
 												
@@ -71,13 +71,13 @@
 												<p class="mb-none" >
 													<p class="h6 mb-xs text-dark text-semibold">Bank Details:</p>
 													<address >
-													Bank Name: #{carLandingBean.invoiceData.bankName}
+													Bank Name: #{carPageBean.invoiceData.bankName}
 												<br/>
-												Bank Address: #{carLandingBean.invoiceData.bankAddress}
+												Bank Address: #{carPageBean.invoiceData.bankAddress}
 												<br/>
-												Bank Telephone: #{carLandingBean.invoiceData.bankTelephone}
+												Bank Telephone: #{carPageBean.invoiceData.bankTelephone}
 												<br/>
-												Bank Account Number: #{carLandingBean.invoiceData.bankAccountNumber}
+												Bank Account Number: #{carPageBean.invoiceData.bankAccountNumber}
 												</address>
 												</p>
 												
@@ -101,7 +101,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<ui:repeat var="var" value="#{carLandingBean.carForInvoice}">
+											<ui:repeat var="var" value="#{carPageBean.carForInvoice}">
 											
 											<tr>
 												<td>#{var.id}</td>
@@ -128,7 +128,7 @@
 												
 													<tr class="h5">
 														<td colspan="2">Grand Total</td>
-														<td class="text-left">$#{carLandingBean.carForInvoice.currentBid+carLandingBean.carForInvoice.ourFees+carLandingBean.carForInvoice.copartFees}</td>
+														<td class="text-left">$#{carPageBean.carForInvoice.currentBid+carPageBean.carForInvoice.ourFees+carPageBean.carForInvoice.copartFees}</td>
 													</tr>
 												</tbody>
 											</table>

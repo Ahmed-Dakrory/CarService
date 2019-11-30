@@ -15,6 +15,10 @@
 		
 		  <link rel="stylesheet" href="#{resource['css:public/font-awesomeNew.min.css']}" />
 	<style>
+	body .ui-widget-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 300%;
+}
 	#content h2 {
     background: #444444;
     font-weight: 700;
@@ -200,6 +204,33 @@ Transmission </span>
 </td>
 <td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.itemNumber}</span></td>
 </tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc state</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docState}</span><br></br>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc Type</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docType}</span><br></br>
+
+</td>
+</tr>
+
+
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
@@ -294,9 +325,68 @@ Close </a>
 </div>
 
 
+<h:form rendered="#{carLandingBean.selectedCarPage.activebuyItNow}">
+<div  class="buy-now-block" id="buy-now-block" style="margin-left: 5%;background: url(/resources/imgs/background9.jpg);">
+<table>
+<tbody><tr>
+<td>
+<div class="caption" style="    color: #ffffff;">
+Buy It Now price </div>
+<div class="price" style="    color: #f1f2f3;">
+$<span>
+#{carLandingBean.selectedCarPage.buyItNowPrice}</span>
+USD </div>
+<div class="buy-now__learn-b">
+<a class="bn-link" id="buy-now-link" style="    color: aliceblue;" onclick="PF('dlg1').show();">
+Learn more about Buy It Now </a>
+
+<p:dialog  header="Buy It Now" widgetVar="dlg1" modal="true" >
+
+<div class="content">
+<p></p><p style="    width: 395px;">
+<strong>Buy It Now</strong>
+&nbsp;allows you to purchase the vehicle immediately at a set price . Once confirmed, you will be directed to pay for the vehicle.
+you can calculate the total fees using the biding Calculator</p>
+<p></p>
+</div>
+   
+</p:dialog>
+
+
+
+</div>
+</td>
+<td class="button-column">
+<p:commandLink disabled="#{!carLandingBean.selectedCarPage.active}" class="button rBtnBig submit-proxy" onclick="buyNow();"  id="buy-now-submit" style="background: linear-gradient(rgb(232, 232, 232) 0px, rgb(140, 125, 125) 95%, rgb(122, 136, 142) 0px);color: #464343!important;border-radius: 10px;">Buy It Now</p:commandLink>
+
+
+</td>
+</tr>
+</tbody></table>
+</div>
+</h:form>
+
+
+<script>
+function buyNow(){
+	swal({
+		  title: "Are you sure?",
+		  text: "Are you sure to add this car to your Payments?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		   
+			  buyCar();
+		  } 
+		});
+}
+</script>
 <h:panelGroup class="buy-now-block" id="buy-now-block" style="">
 <table style="  width: 95%;
-    margin-left: 5%; box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
+    margin-left: 5%;margin-top: -19px; box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <tbody><tr>
 <td style="padding:0%;">
 
@@ -377,12 +467,12 @@ Close </a>
 Current Price </div>
 <h:form id="liveBidDisplay" rendered="#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd&gt;0?'true':'false'}">
  <h:panelGroup rendered="#{carLandingBean.selectedCarPage.active}">
-<div style="color: #334354;position: absolute;top: 5%;left: 86%;width: 151px;text-align: center;font-size: 29px;height: 151px;padding-top: 10%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
+<div style="color: #334354;position: absolute;top: 5%;left: 86%;width: 121px;text-align: center;font-size: 19px;height: 121px;padding-top: 6%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
  <div>Remains</div><div>#{carLandingBean.timeInSecondsForLive}</div> </div>
  </h:panelGroup>
  
  <h:panelGroup rendered="#{!carLandingBean.selectedCarPage.active}">
- <div style="color: #0f1b29;position: absolute;top: 5%;left: 86%;width: 151px;text-align: center;font-size: 29px;height: 151px;padding-top: 8%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(36, 94, 162) 95%, rgb(37, 95, 162) 0px);font-weight: 700;">
+ <div style="color: #0f1b29;position: absolute;top: 5%;left: 86%;width: 121px;text-align: center;font-size: 19px;height: 121px;padding-top: 5%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(36, 94, 162) 95%, rgb(37, 95, 162) 0px);font-weight: 700;">
  <div>Bid</div><div>Finished</div> </div>
  </h:panelGroup>
 </h:form>
@@ -482,17 +572,7 @@ By clicking on the "Buy It Now" button below, you are committing to buy this veh
 </td>
 <td><span itemprop="model">#{carLandingBean.selectedCarPage.model}</span></td>
 </tr>
-<tr>
-<td>
-<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Secondary Damage</span>
-</span>
-</td>
-<td>
-<div style="position: relative">
-#{carLandingBean.selectedCarPage.secondaryDamage} </div>
-</td>
-</tr>
+
 
 <tr>
 <td>
@@ -518,11 +598,25 @@ Transmission </span>
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
-<span>Damage description</span>
+<span>primary Damage</span>
 </span>
 </td>
 <td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.damageDescription}</span></td>
 </tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Secondary Damage</span>
+</span>
+</td>
+<td>
+<div style="position: relative">
+#{carLandingBean.selectedCarPage.secondaryDamage} </div>
+</td>
+</tr>
+
+
 <tr>
 <td>
 <span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
@@ -673,13 +767,13 @@ $#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
 <script>
 function runMethodCalc(){
 	runCalc();
-	PF('dlg2').show();
+	PF('dlg3').show();
 }
 </script>
 <h:form>
 <p:remoteCommand name="runCalc" action="#{carLandingBean.calcValueOfTotalFeesCarSelected}"></p:remoteCommand>
 </h:form>
-<p:dialog id="formShip" header="Shipping Calculator" widgetVar="dlg2" modal="true" >
+<p:dialog id="formShip" header="Shipping Calculator" widgetVar="dlg3" modal="true" >
     <p:panelGrid columns="2" style="width:100%;">
     	<p:outputLabel value="Enter the Final Bid"/>
     	<h:inputText value="#{carLandingBean.valueOfCarBid}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
@@ -919,6 +1013,11 @@ function runMethodCalc(){
 </div>
 	
 	</div>
+	
+	<h:form>
+
+<p:remoteCommand name="buyCar"  action="#{carLandingBean.buyCarNow()}"/>
+</h:form>
 	</ui:define>
 	
 		

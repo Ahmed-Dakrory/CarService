@@ -65,7 +65,7 @@ width: -webkit-fill-available;
 }
 					</style>
 	
-#{carLandingBean.refresh()}
+#{carPageBean.refresh()}
 
 <div class="container">
 <div class="clearfix"></div>
@@ -112,13 +112,13 @@ Invoice List </a>
 
 <li class="">
 <a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
-Current Bid </a>
+Current Cars </a>
 </li>
 
 
 <li class="">
 <a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Bids </a>
+All Cars </a>
 </li>
 
 <li class="">
@@ -193,7 +193,7 @@ Log Out </a>
 										
 										
 										
-											<ui:repeat var="var" value="#{carLandingBean.allInvoice}">
+											<ui:repeat var="var" value="#{carPageBean.allInvoice}">
 											<tr align="left" class="gradeX">
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
@@ -235,7 +235,7 @@ Log Out </a>
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
 												
-													<p:commandButton class="fa fa-money" action="#{carLandingBean.goToInvoice(var.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+													<p:commandButton class="fa fa-money" action="#{carPageBean.goToInvoice(var.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
 																				
 												</td>
 												

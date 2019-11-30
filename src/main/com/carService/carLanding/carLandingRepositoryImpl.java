@@ -149,12 +149,13 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 }
 
 	@Override
-	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make, String category) {
+	public List<carLanding> getAllForSearch(String yearStart, String yearEnd, String make,String model, String category) {
 		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForSearch")
 				 .setString("category",category)
 				 .setString("yearStart",yearStart)
 				 .setString("yearEnd",yearEnd)
-		 		 .setString("make",make);
+		 		 .setString("make",make)
+		 		 .setString("model",model);
 
 		 @SuppressWarnings("unchecked")
 		List<carLanding> results=query.list();
@@ -196,6 +197,19 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 	@Override
 	public List<carLanding> getAllForUserBiding(int id) {
 		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForUserBiding").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<carLanding> getAllGroupsOfModelWithMake(String make) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllGroupsOfModelWithMake").setString("make",make);
 
 		 @SuppressWarnings("unchecked")
 		List<carLanding> results=query.list();
