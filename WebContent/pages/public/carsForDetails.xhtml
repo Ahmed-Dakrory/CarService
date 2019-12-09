@@ -47,7 +47,7 @@ background: #c2c5c7;
 			<p:remoteCommand name="refreshMainViews" action="#{carLandingBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 		</h:form>
 		<script>
-		setInterval(refreshMainViews, 500);
+		setInterval(refreshMainViews, 600);
 			
 		</script>
 		
@@ -400,26 +400,26 @@ function buyNow(){
    <h:form>
    Max Bid value: 
     <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
-    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
    
-   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment" value="#{carLandingBean.totalBid}" style="    border-radius: 7px!important;"/>
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment" value="#{carLandingBean.totalBid}" style=" width: 41%;   border-radius: 7px!important;"/>
    
    
  <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment"
-    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+    style="width:25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
         
    <br></br>
    <br></br>
    <br></br>
    Incrementation: 
     <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment2"
-    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
    
-   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment2" value="#{carLandingBean.incrementBid}" style="    border-radius: 7px!important;"/>
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment2" value="#{carLandingBean.incrementBid}" style="  width: 41%;  border-radius: 7px!important;"/>
    
    
  <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment2"
-    style="width: 31px;height: 31px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #b3aaaa;"/>
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
         </h:form>
         
         <br></br>

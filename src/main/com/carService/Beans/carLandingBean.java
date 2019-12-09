@@ -570,33 +570,6 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					selectedCarPage=carLandingFacade.getById(id);
 					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(Integer.valueOf(selectedCarPage.getCategory()));
 					carViewId=id;
-					valueOfCarBid=Float.valueOf(selectedCarPage.getCurrentBid());
-					updateAllFees();
-					//Get the userBid if applicable
-					if(loginBean.isLoggedIn()) {
-
-						
-						System.out.println("Ahmed CarBid3");
-						//Make this car added to my watch List
-						mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, id);
-						if(watchListCarNew==null) {
-							carInWatchList=false;
-						}else {
-							carInWatchList=true;
-						}
-
-						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
-						
-						
-						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
-						if(currentBiding!=null) {
-						totalBid=currentBiding.getFullAmount();
-						incrementBid=currentBiding.getIncrement();
-						}
-						
-					}
-					
-					
 					//Here Get the images For the main 
 					/**
 					 * 
@@ -637,6 +610,34 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					
 					
 						}
+					valueOfCarBid=Float.valueOf(selectedCarPage.getCurrentBid());
+					updateAllFees();
+					//Get the userBid if applicable
+					if(loginBean.isLoggedIn()) {
+
+						
+						System.out.println("Ahmed CarBid3");
+						//Make this car added to my watch List
+						mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, id);
+						if(watchListCarNew==null) {
+							carInWatchList=false;
+						}else {
+							carInWatchList=true;
+						}
+
+						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
+						
+						
+						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
+						if(currentBiding!=null) {
+						totalBid=currentBiding.getFullAmount();
+						incrementBid=currentBiding.getIncrement();
+						}
+						
+					}
+					
+					
+					
 					
 					
 					
@@ -726,6 +727,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 							currentBiding=new biding();
 						currentBiding.setFullAmount(totalBid);
 						currentBiding.setIncrement(incrementBid);
+						currentBiding.setType(biding.TYPE_BIDING);
 						currentBiding.setLastDateBid(new Date());
 						currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
 						currentBiding.setCarlandingId(selectedCarPage);
@@ -740,6 +742,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 							currentBiding.setFullAmount(totalBid);
 							currentBiding.setIncrement(incrementBid);
 							currentBiding.setLastDateBid(new Date());
+							currentBiding.setType(biding.TYPE_BIDING);
 							currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
 							currentBiding.setCarlandingId(selectedCarPage);
 							bidingFacade.addbiding(currentBiding);
@@ -833,9 +836,13 @@ public void calcValueOfTotalFeesCarSelected() {
 		
 		for(int i=0;i<allBidingMax.size();i++) {
 			carLanding car=carLandingFacade.getById(allBidingMax.get(i).getCarlandingId().getId());
-			
-			if(Float.valueOf(car.getCurrentBid())<allBidingMax.get(i).getFullAmount()) {
+
+			System.out.println("Dakrory: "+car.getCurrentBid());
+			boolean checkMoney = checkBidMoney(car.getCurrentBid(),allBidingMax.get(i).getFullAmount());
+			if(checkMoney) {
+				System.out.println("Dakrory11: "+allBidingMax.get(i).getUserId().getEmail());
 				if(allowPersonToMakeBid(allBidingMax.get(i),car)) {
+					System.out.println("Dakrory0: "+allBidingMax.get(i).getUserId().getEmail());
 				
 				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmountAndType(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount(),biding.TYPE_BIDING);
 				
@@ -844,20 +851,25 @@ public void calcValueOfTotalFeesCarSelected() {
 
 					 theTotalForTheManWhoLastMe=theLastManWhoBidLessThanMe.getFullAmount();
 				}
+				System.out.println("Dakrory2: "+allBidingMax.get(i).getUserId().getEmail());
 				float theNewAmount = allBidingMax.get(i).getIncrement()+theTotalForTheManWhoLastMe;
 				if(theNewAmount>allBidingMax.get(i).getFullAmount()) {
 					theNewAmount = allBidingMax.get(i).getFullAmount();
 				}
+				System.out.println("Dakrory3: "+allBidingMax.get(i).getUserId().getEmail());
 				car.setCurrentBid(String.valueOf(theNewAmount));
 				car.setUserMaxBidId(allBidingMax.get(i).getUserId());
 				int level = calcBean.getLevel(Float.valueOf(car.getCurrentBid()));
 				float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(car.getCurrentBid()));
-				
+
+				System.out.println("Dakrory4: "+allBidingMax.get(i).getUserId().getEmail());
 				
 				car.setCopartFees(String.valueOf(copartFees));
 				car.setOurFees(String.valueOf((new calcBean()).getOurFees()));
 				valueOfCarBid=Float.valueOf(car.getCurrentBid());
+				System.out.println("Dakrory5: "+allBidingMax.get(i).getUserId().getEmail());
 				carLandingFacade.addcarLanding(car);
+				System.out.println("Dakrory6: "+allBidingMax.get(i).getUserId().getEmail());
 				
 				}
 			}
@@ -866,6 +878,19 @@ public void calcValueOfTotalFeesCarSelected() {
 	}
 
 	
+	private boolean checkBidMoney(String currentBid, float fullAmount) {
+		// TODO Auto-generated method stub
+		if(currentBid!=null) {
+			if(Float.valueOf(currentBid)<fullAmount) {
+				return true;
+			}
+		}else {
+			return true;
+		}
+		return false;
+	}
+
+
 	public boolean allowPersonToMakeBid(biding biding,carLanding car) {
 		
 		
