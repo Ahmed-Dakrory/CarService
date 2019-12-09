@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -209,15 +208,10 @@ if(isLoggedIn) {
 											.getSessionMap().put("resetMenu", true);
 									
 
-			try {
 					
-					ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-				    ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+				PrimeFaces.current().executeScript("location.reload();");
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 							}
 		}else{
 			
@@ -226,6 +220,8 @@ if(isLoggedIn) {
 		}
 		
 	}
+	
+	
 	
 	public void loginAfterReg(){
 
