@@ -1173,7 +1173,8 @@ public void calcValueOfTotalFeesCarSelected() {
 	        try {
 	        	images = new ArrayList<String>();
 	        	String newLinkUrlWithSlach = lotImagesLink.substring(0, lotImagesLink.indexOf('?'))+"/"+lotImagesLink.substring( lotImagesLink.indexOf('?'),lotImagesLink.length());
-	    		APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
+	    		System.out.println(newLinkUrlWithSlach);
+	        	APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
 	    		  Call<copartReturnImages> call = apiInterface.getAllImagesFromCopart();
 	    		  
 	        	copartReturnImages carImages= call.execute().body();
