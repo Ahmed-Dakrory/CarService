@@ -41,13 +41,15 @@ public class loginBean implements Serializable{
 	private user theUserOfThisAccount;
 	private int type;
 	
+	private Integer amountToPayThroughPayPal = 0;
+	
 
 	@ManagedProperty(value = "#{userFacadeImpl}")
 	private userAppServiceImpl userDataFacede; 
 	
 	
 	@ManagedProperty(value = "#{moneyboxFacadeImpl}")
-	private moneyboxAppServiceImpl moneyboxDataFacede; 
+	public moneyboxAppServiceImpl moneyboxDataFacede; 
 	
 	
 	@ManagedProperty(value = "#{moneybox_transaction_detailsFacadeImpl}")
@@ -58,7 +60,7 @@ public class loginBean implements Serializable{
 	private AuthenticationService authenticationService;
 	
 	
-	private moneybox thisAccountMoneyBox;
+	public moneybox thisAccountMoneyBox;
 	private List<moneybox_transaction_details> mymoneyTransactions;
 	
 	@PostConstruct
@@ -123,7 +125,7 @@ if(isLoggedIn) {
 	public void activateMyAccount() {
 		
 		if(thisAccountMoneyBox!=null) {
-			if(thisAccountMoneyBox.getAvailableMoney()>=400) {
+			if(thisAccountMoneyBox.getDepositedMoney()>=400) {
 				//You can activate the account
 				thisAccountMoneyBox.setActive(true);
 				moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
@@ -209,8 +211,13 @@ if(isLoggedIn) {
 									
 
 					
-				PrimeFaces.current().executeScript("location.reload();");
-				
+//				PrimeFaces.current().executeScript("location.reload();");
+								try {
+									FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/moneyBox.jsf?faces-redirect=true");
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 			
 							}
 		}else{
@@ -282,7 +289,7 @@ if(isLoggedIn) {
 			
 			thisAccountMoneyBox = new moneybox();
 			thisAccountMoneyBox.setActive(false);
-			thisAccountMoneyBox.setAvailableMoney(0);
+			thisAccountMoneyBox.setDepositedMoney(0);
 			thisAccountMoneyBox.setUserId(theUserOfThisAccount);
 			thisAccountMoneyBox.setTotalUsed(0);
 			moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
@@ -503,6 +510,14 @@ public void updateDataOfUser() {
 
 	public void setMymoneyTransactions(List<moneybox_transaction_details> mymoneyTransactions) {
 		this.mymoneyTransactions = mymoneyTransactions;
+	}
+
+	public Integer getAmountToPayThroughPayPal() {
+		return amountToPayThroughPayPal;
+	}
+
+	public void setAmountToPayThroughPayPal(Integer amountToPayThroughPayPal) {
+		this.amountToPayThroughPayPal = amountToPayThroughPayPal;
 	}
 	
 	

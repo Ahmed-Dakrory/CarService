@@ -459,6 +459,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th class="hidden-phone">Fees Cost</th>
 											<th class="hidden-phone">Commision Cost</th>
 											<th class="hidden-phone">Total Cost</th>
+											<th class="hidden-phone">AllImages</th>
 											<th class="hidden-phone">Image</th>
 											<th class="hidden-phone">Docs</th>
 											
@@ -570,6 +571,12 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="display:#{data.imagesLink!=''?'block':'none'} ; color: #371cc3;" onclick="openThisImages('#{data.imagesLink}');">Link</a></span></td>
+											<script>
+											function openThisImages(url){
+												window.open(url,'_blankImages');
+											}
+											</script>
 											<td class="center hidden-phone"><img style="display:#{data.photoExist==true?'block':'none'} ;     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d; border-radius: 15%;   width: 25px;" src = "/resources/images/img/no-photo.jpg"/></td>
 											<td class="center hidden-phone"><img style="display:#{data.docExist==true?'block':'none'} ;     width: 25px;" src = "/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png"/></td>
 										</tr>

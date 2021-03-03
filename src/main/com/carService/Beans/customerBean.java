@@ -16,6 +16,7 @@ import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -149,6 +150,15 @@ public class customerBean implements Serializable{
 		
 		addNewcustomer.setParentId(vendor_of_this_account);
 		customerFacade.addcustomer(addNewcustomer);
+		
+
+		loginBean.thisAccountMoneyBox = new moneybox();
+		loginBean.thisAccountMoneyBox.setActive(true);
+		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setUserId(userNew);
+		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
+		
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your customer has been added.',\r\n" + 

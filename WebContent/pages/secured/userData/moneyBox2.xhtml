@@ -49,7 +49,7 @@ td {
 }
 
 .displayText {
-    font-size: 25px;
+        font-size: 25px;
     font-family: serif;
     color: #757575;
     border: black;
@@ -57,15 +57,16 @@ td {
     border-color: #e8e8e8;
     border-width: 1px;
     background: #fdfdfd;
-    width: 101px;
-    height: 97px;
-    border-radius: 79px;
+    width: min-content;
+    border-radius: 155px;
     box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
     text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
     margin-top: 1%;
-    padding-top: 7%;
-    padding-left: 3%;
-    margin-left: 22%;
+    padding: 49px;
+    padding-top: 65px;
+    padding-bottom: 65px;
+    margin-left: 16%;
+    text-align: center;
 }
 .textBoxStyle{
     width: 50%;
@@ -83,17 +84,24 @@ td {
 }
 	</style>
 	
-	<script src="https://www.paypal.com/sdk/js?client-id=AfJLLJtGEwfl6Hye0lNyGe7Sm-OoqHu-Duhln5rwdfd9NCuldziZOsD_A8nt2zbVznmhVPJt5Qpw1ps3"></script>
+	 <script src="https://www.paypal.com/sdk/js?client-id=AfJLLJtGEwfl6Hye0lNyGe7Sm-OoqHu-Duhln5rwdfd9NCuldziZOsD_A8nt2zbVznmhVPJt5Qpw1ps3"></script>
+	 
+	 <!-- Trial
+	 <script src="https://www.paypal.com/sdk/js?client-id=AYJafdGM8WMc40tom1a26q7kGrxKdqIp1eH5a-MPCMI-_oTfuWromWMsl6OpzbMaWT3HxywgJFIxtwCr"></script>
+	-->
 	
+
+  
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link>
 	<div class="container">
 <div class="clearfix"></div>
 
-
+#{carBean.filterCarToGetTotalMoneyBox()}
 <div class="row">
 <div class="col-md-12">
 </div>
 </div>
-<div id="content">
+<p:panel id="aspnetForm">
 <div class="account-table row">
 <div class="col-sm-12 col-md-2 side-menu account-menu">
 <div id="profile-side-menu" class="searchBox">
@@ -163,14 +171,59 @@ Watch List </a>
 </div>
 </div>
 </div>
+
+
 <div class="col-sm-12 col-md-10" style="    border-radius: 7px;    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
+
+<div class="container bootstrap snippets bootdey" >
+  <div class="row">
+      <div class="col-md-12">
+      <div class="">
+      <div class="panel-body">
+                  <div class="row">
+                        <div class="col-xs-12 col-sm-8">
+                            <h2 class="text-primary"><b><span class="glyphicon glyphicon-user"></span> Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id} </b></h2>
+                            <div class="container">
+                            	<div class="row">
+                            		 <div class="col-xs-12 col-sm-4">
+			                            <h2><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h2>                    
+			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>The deposited Amount</small></p>
+			                        </div><!--/col-->
+			                        <div class="col-xs-12 col-sm-4">
+			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>The Used Amount</small></p>
+			                        </div><!--/col-->
+			                        <div class="col-xs-12 col-sm-4">
+			                            <h2><strong>$#{carBean.totalPrice}</strong></h2>                    
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>Total Cars Cost</small></p>
+			                        </div><!--/col-->
+			                        <div class="col-xs-12 col-sm-4">
+			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
+			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>The available Amount</small></p>
+			                        </div>
+                            	</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                        	<p style="    font-size: 25px;    font-family: serif;"> Your Account is #{loginBean.thisAccountMoneyBox.active?'Active':'Not Active'}</p>
+			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to send email to us</p>
+	                        <p:graphicImage style="    width: 172px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
+		  		
+		  					<!-- <p:commandButton rendered="#{!loginBean.thisAccountMoneyBox.active}" disabled="#{loginBean.thisAccountMoneyBox.active}" class="btn btn-default DTTT_button_print" value="Activate the account" action="#{loginBean.activateMyAccount}"/>
+	  							 -->
+                        </div>
+
+                       <!--/col-->
+                  </div><!--/row-->
+                  
+                  <div class="row">
+                  	
 <div id="ajax-content">
-<h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account">
 
 
-<h:form id="aspnetForm"> 
+<h:form > 
 	  
 	  <table  style="width:100%;padding: 5%;">
 	  	
@@ -196,65 +249,65 @@ Watch List </a>
 	  				
 	  				<p:commandButton class="btn btn-default DTTT_button_print" value="Save" action="#{loginBean.saveBankAccountDetails}"/>
 	  		</td>
+	  			
 	  		
-	  		<td>
-	  				<p style="    font-size: 25px;    font-family: serif;"> Your Account is #{loginBean.thisAccountMoneyBox.active?'Active':'Not Active'}</p>
-		  			<p:graphicImage style="    width: 172px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
-	  		
-	  					<p:commandButton rendered="#{!loginBean.thisAccountMoneyBox.active}" disabled="#{loginBean.thisAccountMoneyBox.active}" class="btn btn-default DTTT_button_print" value="Activate the account" action="#{loginBean.activateMyAccount}"/>
-	  		
-	  		</td>
-	  	</tr>
-	  	
-	  	
-	  	
-	  <tr height="100">
-	  
-	  </tr>
-	  
-	  
-	  
-	  <tr>
-	  		<td>
-	  		
-		  			<p:outputLabel value="The Available Amount" class="mainLabels"/>
-		  			<br></br>
-		  			<p:outputLabel value="$#{loginBean.thisAccountMoneyBox.availableMoney}" class="displayText"/>
-	  		</td>
-	  		
-	  		<td>
-	  		
-		  			<p:outputLabel value="The Used Amount" class="mainLabels"/>
-		  			<br></br>
-		  			<p:outputLabel value="$#{loginBean.thisAccountMoneyBox.totalUsed}" class="displayText"/>
-	  		</td>
-	  	</tr>
-	  	
-	  	
-	  	
-	  	<tr height="100">
-	  
-	  </tr>
-	  
-	  
-	  
-	  	<tr style="display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};">
 	  		<td colspan="2">
-	  			<p style="    font-size: 24px;    text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to make a deposit with 400$</p>
+	  			<p:panel id="amountTopay">
+	  				<p class="BankHead">Total Amount to pay without fractions</p>
+		  			<p:inputText  value="#{loginBean.amountToPayThroughPayPal}"  class="textBoxStyle"/>
+		  			<br></br>
+		  			<br></br>
+		  			<p:commandButton value = "Click Here before Pay" update="amountTopay"></p:commandButton>	
+		  			<br></br>
+		  			<br></br>
+		  			
+		  			<p:outputLabel value="You will pay #{loginBean.amountToPayThroughPayPal}"></p:outputLabel>
+		  			<div id="paypal-button-container" style="    width: 50%;"/>
+		  			
+						  			
+				     <script>
+				paypal.Buttons({
+				    createOrder: function(data, actions) {
+				      return actions.order.create({
+				        purchase_units: [{
+						
+							description: 'Test description',
+				            amount: {
+				                currency_code: "USD",
+				                value: '#{loginBean.amountToPayThroughPayPal}'
+				             }
+				          }]
+				      });
+				    },
+				    onApprove: function(data, actions) {
+				      return actions.order.capture().then(function(details) {
+				    	  //activateMyAccount
+				        
+				        var amount=#{loginBean.amountToPayThroughPayPal};
+						updatePayment([{name: 'paymentAmount', value: amount}, {name: 'data', value: 'NOTHING'}]);
+						
+				        // Call your server to save the transaction
+				        
+				      });
+				    },
+				          onError: function( err){
+				        	  
+				            console.log(err);
+				          }
+				  }).render('#paypal-button-container');
+				</script>
+	  			</p:panel>
+	  			
 	  		</td>
+	  		
 	  		
 	  	</tr>
 	  	
-	  	<tr height="100">
+	  	
+	  	
 	  
-	  </tr>
-	  
-	  	<tr>
-	  		<td colspan="2">
-	  			<div id="paypal-button-container" style="    width: 50%;"/>
-	  		</td>
-	  		
-	  	</tr>
+	  	
+	  	
 	  	
 	  	
 	  
@@ -270,10 +323,19 @@ Watch List </a>
 <div class="clr"></div>
 
 </div>
+                  </div>
+              </div><!--/panel-body-->
+          </div><!--/panel-->
+    </div>
+  </div>
+</div>        
+          
+
+
 </div>
 </div>
 <img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
-</div>
+</p:panel>
 </div>
 	
 	  
@@ -284,37 +346,6 @@ Watch List </a>
      
      
      
-     <script>
-paypal.Buttons({
-    createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-		
-			description: 'Test description',
-            amount: {
-                currency_code: "USD",
-                value: '400'
-             }
-          }]
-      });
-    },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
-    	  //activateMyAccount
-        
-        var amount=400;
-		updatePayment([{name: 'paymentAmount', value: amount}, {name: 'data', value: 'NOTHING'}]);
-		
-        // Call your server to save the transaction
-        
-      });
-    },
-          onError: function( err){
-        	  
-            console.log(err);
-          }
-  }).render('#paypal-button-container');
-</script>
 	</ui:define>
 	
 		

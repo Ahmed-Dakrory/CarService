@@ -57,8 +57,8 @@ public class moneybox {
 	
 
 	
-	@Column(name = "availableMoney")
-	private float availableMoney;
+	@Column(name = "depositedMoney")
+	private float depositedMoney;
 	
 	
 	@Column(name = "totalUsed")
@@ -105,13 +105,14 @@ public class moneybox {
 
 	
 
-	public float getAvailableMoney() {
-		return availableMoney;
+
+	public float getDepositedMoney() {
+		return depositedMoney;
 	}
 
 
-	public void setAvailableMoney(float availableMoney) {
-		this.availableMoney = availableMoney;
+	public void setDepositedMoney(float depositedMoney) {
+		this.depositedMoney = depositedMoney;
 	}
 
 

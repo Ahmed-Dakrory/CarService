@@ -216,9 +216,13 @@ public class car {
 	
 	@Column(name = "container")
 	private String container;
-	
+
 	@Column(name = "containerLink")
 	private String containerLink;
+	
+
+	@Column(name = "imagesLink")
+	private String imagesLink;
 	
 	@Column(name = "seal")
 	private String seal;
@@ -1437,6 +1441,24 @@ public class car {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+
+
+
+
+
+	public String getImagesLink() {
+		return imagesLink;
+	}
+
+
+
+
+
+
+	public void setImagesLink(String imagesLink) {
+		this.imagesLink = imagesLink;
 	}
 	
 

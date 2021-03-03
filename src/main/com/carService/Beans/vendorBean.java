@@ -25,6 +25,7 @@ import main.com.carService.invoice.invoiceDTO;
 import main.com.carService.invoiceCars.invoiceCar;
 import main.com.carService.invoiceCars.invoiceCarAppServiceImpl;
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -402,6 +403,15 @@ public class vendorBean implements Serializable{
 		
 		addNewvendor.setParentId(shipper_of_this_account);
 		vendorFacade.addvendor(addNewvendor);
+		
+
+
+		loginBean.thisAccountMoneyBox = new moneybox();
+		loginBean.thisAccountMoneyBox.setActive(true);
+		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setUserId(userNew);
+		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your vendor has been added.',\r\n" + 

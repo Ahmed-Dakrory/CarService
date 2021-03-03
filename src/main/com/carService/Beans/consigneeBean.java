@@ -15,6 +15,7 @@ import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.loginNeeds.user;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -136,6 +137,15 @@ public class consigneeBean implements Serializable{
 		consigneeFacade.addconsignee(addNewconsignee);
 		Constants.sendEmailNewAccount(addNewconsignee.getUserId().getFirstName(),addNewconsignee.getUserId().getEmail(),addNewconsignee.getUserId().getEmail());
 		
+		
+
+
+		loginBean.thisAccountMoneyBox = new moneybox();
+		loginBean.thisAccountMoneyBox.setActive(true);
+		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setUserId(userNew);
+		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your consignee has been added.',\r\n" + 

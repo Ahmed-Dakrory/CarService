@@ -156,7 +156,7 @@ body .ui-button {
                  rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                  rowsPerPageTemplate="10,50,100,200,500,1000"  editable="true"
-                 rowKey="#{row.id}"
+                 rowKey="#{row.moneyBoxItem.id}"
                  emptyMessage="No users found with given criteria" filteredValue="#{bidBean.selectedlistOfAllUsersMoneyBox}" >
  
         <f:facet name="header">
@@ -191,62 +191,78 @@ body .ui-button {
  
 		
 		
-		<p:column headerText="Id" style="font-size: 13px;    text-align: center;" width="130" id="id" sortBy="#{row.id}" filterBy="#{row.id}">
+		<p:column headerText="Id" style="font-size: 13px;    text-align: center;" width="130" id="id" sortBy="#{row.moneyBoxItem.id}" filterBy="#{row.moneyBoxItem.id}">
 		<p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{row.id}" /></f:facet>
-                <f:facet name="input"><h:outputText value="#{row.id}" /></f:facet>
+                <f:facet name="output"><h:outputText value="#{row.moneyBoxItem.id}" /></f:facet>
+                <f:facet name="input"><h:outputText value="#{row.moneyBoxItem.id}" /></f:facet>
 			</p:cellEditor>
 		</p:column>
 		
 		
 		
-		<p:column headerText="Username" style="font-size: 13px;    text-align: center;" width="130" id="userName" sortBy="#{row.userId.userName}" filterBy="#{row.userId.userName}">
+		<p:column headerText="Username" style="font-size: 13px;    text-align: center;" width="130" id="userName" sortBy="#{row.moneyBoxItem.userId.userName}" filterBy="#{row.moneyBoxItem.userId.userName}">
 			<p:cellEditor>
-			<f:facet name="output"><h:outputText value="#{row.userId.userName}" /></f:facet>
-                <f:facet name="input"><h:outputText value="#{row.userId.userName}" /></f:facet>
+			<f:facet name="output"><h:outputText value="#{row.moneyBoxItem.userId.userName}" /></f:facet>
+                <f:facet name="input"><h:outputText value="#{row.moneyBoxItem.userId.userName}" /></f:facet>
 			</p:cellEditor>
 		</p:column>
 		
 		
 		
-		<p:column headerText="Email" style="font-size: 13px;    text-align: center;" width="130" id="email" sortBy="#{row.userId.email}" filterBy="#{row.userId.email}">
-			<p:cellEditor>
-			
-			<f:facet name="output"><h:outputText value="#{row.userId.email}" /></f:facet>
-                <f:facet name="input"><h:outputText value="#{row.userId.email}" /></f:facet>
-			</p:cellEditor>
-		</p:column>
-		
-		<p:column headerText="Available Money" style="font-size: 13px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.availableMoney}" filterBy="#{row.availableMoney}">
+		<p:column headerText="Email" style="font-size: 13px;    text-align: center;" width="130" id="email" sortBy="#{row.moneyBoxItem.userId.email}" filterBy="#{row.moneyBoxItem.userId.email}">
 			<p:cellEditor>
 			
-			<f:facet name="output"><h:outputText value="$#{row.availableMoney}" /></f:facet>
-                <f:facet name="input"><h:inputText value="#{row.availableMoney}" /></f:facet>
+			<f:facet name="output"><h:outputText value="#{row.moneyBoxItem.userId.email}" /></f:facet>
+                <f:facet name="input"><h:outputText value="#{row.moneyBoxItem.userId.email}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		<p:column headerText="Deposited Money" style="font-size: 13px;    text-align: center;" width="130" id="currentBid" sortBy="#{row.moneyBoxItem.depositedMoney}" filterBy="#{row.moneyBoxItem.depositedMoney}">
+			<p:cellEditor>
+			
+			<f:facet name="output"><h:outputText value="$#{row.moneyBoxItem.depositedMoney}" /></f:facet>
+                <f:facet name="input"><h:inputText value="#{row.moneyBoxItem.depositedMoney}" /></f:facet>
 			</p:cellEditor>
 		</p:column>
 		
 		
 		
-		<p:column headerText="Total Used" style="font-size: 13px;    text-align: center;" width="130" id="totalUser" sortBy="#{row.totalUsed}" filterBy="#{row.totalUsed}">
+		<p:column headerText="Total Used" style="font-size: 13px;    text-align: center;" width="130" id="totalUser" sortBy="#{row.moneyBoxItem.totalUsed}" filterBy="#{row.moneyBoxItem.totalUsed}">
 		<p:cellEditor>
 			
-			<f:facet name="output"><h:outputText value="$#{row.totalUsed}" /></f:facet>
-                <f:facet name="input"><h:inputText value="#{row.totalUsed}" /></f:facet>
+			<f:facet name="output"><h:outputText value="$#{row.moneyBoxItem.totalUsed}" /></f:facet>
+                <f:facet name="input"><h:inputText value="#{row.moneyBoxItem.totalUsed}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		
+		<p:column headerText="Total Available" style="font-size: 13px;    text-align: center;" width="130" id="available" sortBy="$#{row.moneyBoxItem.depositedMoney-row.moneyBoxItem.totalUsed}" filterBy="$#{row.moneyBoxItem.depositedMoney-row.moneyBoxItem.totalUsed}">
+		<p:cellEditor>
+			
+			<f:facet name="output"><h:outputText value="$#{row.moneyBoxItem.depositedMoney-row.moneyBoxItem.totalUsed}" /></f:facet>
+                <f:facet name="input"><h:outputText value="$#{row.moneyBoxItem.depositedMoney-row.moneyBoxItem.totalUsed}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		
+		<p:column headerText="Cars Cost" style="font-size: 13px;    text-align: center;" width="130" id="totalCars" sortBy="#{row.totalCarPrices}" filterBy="#{row.totalCarPrices}">
+		<p:cellEditor>
+			
+			<f:facet name="output"><h:outputText value="#{row.totalCarPrices}" /></f:facet>
+                <f:facet name="input"><h:outputText value="#{row.totalCarPrices}" /></f:facet>
 			</p:cellEditor>
 		</p:column>
 		
 		
 		
 		
-		
-		
-		<p:column headerText="Statue" style="font-size: 13px;    text-align: center;" width="130" id="active" sortBy="#{row.active}" filterBy="#{row.active}">
+		<p:column headerText="Statue" style="font-size: 13px;    text-align: center;" width="130" id="active" sortBy="#{row.moneyBoxItem.active}" filterBy="#{row.moneyBoxItem.active}">
 			<p:cellEditor>
 			
-                <f:facet name="output"><img src="/resources/images/#{row.active?'check_on.gif':'check_off.gif'}"></img></f:facet>
+                <f:facet name="output"><img src="/resources/images/#{row.moneyBoxItem.active?'check_on.gif':'check_off.gif'}"></img></f:facet>
 			
                 <f:facet name="input">
-                    <h:selectOneMenu value="#{row.active}" style="width:100%">
+                    <h:selectOneMenu value="#{row.moneyBoxItem.active}" style="width:100%">
                         <f:selectItem itemLabel="Active" itemValue="true" />
                         <f:selectItem itemLabel="In-Active" itemValue="false" />
                     </h:selectOneMenu>
@@ -255,15 +271,15 @@ body .ui-button {
             </p:cellEditor>
 		</p:column>
 		
-		<p:column headerText="Create Invoice" style="font-size: 13px;    text-align: center;" width="130" id="invoice" sortBy="#{row.id}" filterBy="#{row.id}">
+		<!-- <p:column headerText="Create Invoice" style="font-size: 13px;    text-align: center;" width="130" id="invoice" sortBy="#{row.moneyBoxItem.id}" filterBy="#{row.moneyBoxItem.id}">
 		
 			
 			
-				<p:commandButton class="fa fa-money" action="#{carPageBean.invoiceDetails(row.userId.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+				<p:commandButton class="fa fa-money" action="#{carPageBean.invoiceDetails(row.moneyBoxItem.userId.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
 										
 			
 			
-		</p:column>
+		</p:column> -->
 		
 		 <p:column style="width:35px">
             <p:rowEditor />

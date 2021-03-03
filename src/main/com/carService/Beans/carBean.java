@@ -152,6 +152,8 @@ public class carBean implements Serializable{
 	private List<String> images_deleted;
 	private List<String> docs_deleted;
 	
+	
+	private float totalPrice=0;
 	@PostConstruct
 	public void init() {
 		distinationMap=new LinkedHashMap<Integer,String>();
@@ -421,6 +423,7 @@ public class carBean implements Serializable{
 					"		});");
 		}
 	}
+	
 	
 	public void filterCarBySelectFirstTime() {
 
@@ -838,6 +841,108 @@ public class carBean implements Serializable{
 		
 		
 		
+		
+	}
+	
+	
+	
+	
+	public void filterCarToGetTotalMoneyBox() {
+		selectedCarState = 0;
+		allCars=new ArrayList<car>();
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
+			
+				//This for warehouse
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_SHIPPER) {
+
+			shipper shipperNewId=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+		
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
+
+			mainTwo mainTwoId=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
+
+			vendor vendorNewId=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
+
+			customer customerNewId=customerFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			
+		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
+
+			List<consignee> consigneeNewId=consigneeFacade.getAllByUserId(loginBean.getTheUserOfThisAccount().getId());
+			for(int i=0;i<consigneeNewId.size();i++ ) {
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			
+		}
+		}
+		
+		
+		
+		totalPrice = 0;
+		for(int i=0;i<allCars.size();i++) {
+//			data.commision+data.fees+data.seacost+data.landcost
+			float commission = 0;
+			float fees = 0;
+			float seaCost = 0;
+			float landcost = 0;
+			if(allCars.get(i).getCommision()!=null) commission =  allCars.get(i).getCommision();
+			if(allCars.get(i).getFees()!=null) fees =  allCars.get(i).getFees();
+			if(allCars.get(i).getSeacost()!=null) seaCost =  allCars.get(i).getSeacost();
+			if(allCars.get(i).getLandcost()!=null) landcost =  allCars.get(i).getLandcost();
+			totalPrice +=commission+
+					fees+
+					seaCost+
+					landcost;
+		}
 		
 	}
 	
@@ -1936,6 +2041,15 @@ public void updateCarForCustomer() {
 
 	public void setSelectedCar(car selectedCar) {
 		this.selectedCar = selectedCar;
+	}
+
+	
+	public float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(float totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public car getAddNewCar() {

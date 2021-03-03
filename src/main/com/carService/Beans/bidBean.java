@@ -19,14 +19,28 @@ import org.primefaces.event.SelectEvent;
 import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.copartReturnImages;
+import main.com.carService.car.car;
+import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLanding.stateOfCar;
+import main.com.carService.consignee.consignee;
+import main.com.carService.consignee.consigneeAppServiceImpl;
+import main.com.carService.customer.customer;
+import main.com.carService.customer.customerAppServiceImpl;
+import main.com.carService.loginNeeds.user;
+import main.com.carService.mainTwo.mainTwo;
+import main.com.carService.mainTwo.mainTwoAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLanding.categoriesEnum;
+import main.com.carService.moneyBox.moneyBoxWithDetails;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxConfig;
 import main.com.carService.notification.notification;
 import main.com.carService.notification.notificationAppServiceImpl;
+import main.com.carService.shipper.shipper;
+import main.com.carService.shipper.shipperAppServiceImpl;
+import main.com.carService.vendor.vendor;
+import main.com.carService.vendor.vendorAppServiceImpl;
 import retrofit2.Call;
 
 
@@ -54,7 +68,7 @@ public class bidBean implements Serializable{
 	private main.com.carService.loginNeeds.loginBean loginBean; 
 	 
 
-	private List<moneybox> listOfAllUsersMoneyBox;
+	private List<moneyBoxWithDetails> listOfAllUsersMoneyBox;
 	private List<moneybox> selectedlistOfAllUsersMoneyBox;
 	
 	
@@ -80,6 +94,29 @@ public class bidBean implements Serializable{
 	private double copartFees;
 	private double ourFees=100;
 	
+	
+
+	@ManagedProperty(value = "#{carFacadeImpl}")
+	private carAppServiceImpl carFacade;
+	
+	@ManagedProperty(value = "#{consigneeFacadeImpl}")
+	private consigneeAppServiceImpl consigneeFacade;
+
+	@ManagedProperty(value = "#{shipperFacadeImpl}")
+	private shipperAppServiceImpl shipperFacade;
+	
+
+	@ManagedProperty(value = "#{mainTwoFacadeImpl}")
+	private mainTwoAppServiceImpl mainTwoFacade;
+	
+
+	@ManagedProperty(value = "#{vendorFacadeImpl}")
+	private vendorAppServiceImpl vendorFacade;
+	
+
+	@ManagedProperty(value = "#{customerFacadeImpl}")
+	private customerAppServiceImpl customerFacade;
+	
 	@PostConstruct
 	public void init() {
 		images=new ArrayList<String>();
@@ -89,8 +126,14 @@ public class bidBean implements Serializable{
 	
 	public void refresh(){
 		
-		listOfAllUsersMoneyBox=loginBean.getMoneyboxDataFacede().getAll();
+		listOfAllUsersMoneyBox = new ArrayList<moneyBoxWithDetails>();
+		List<moneybox> AllMoneyBoxs = loginBean.getMoneyboxDataFacede().getAll();
 		
+		for(int i=0;i<AllMoneyBoxs.size();i++) {
+			
+			moneyBoxWithDetails mO=new moneyBoxWithDetails(filterCarToGetTotalMoneyBox(AllMoneyBoxs.get(i).getUserId()), AllMoneyBoxs.get(i));
+			listOfAllUsersMoneyBox.add(mO);
+		}
 		if(loginBean.isLoggedIn()) {
 		allNotifcationForThisUser=notificationFacade.getAllByuserId(loginBean.getTheUserOfThisAccount().getId());
 		
@@ -112,6 +155,109 @@ public class bidBean implements Serializable{
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel3");
 		}
 		}
+	
+	
+	
+	public float filterCarToGetTotalMoneyBox(user userAccount) {
+		
+		List<car> allCars = new ArrayList<car>();
+		if(userAccount.getRole()==user.ROLE_MAIN) {
+			
+				//This for warehouse
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(userAccount.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+		}else if(userAccount.getRole()==user.ROLE_SHIPPER) {
+
+			shipper shipperNewId=shipperFacade.getByUserId(userAccount.getId());
+		
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+
+		}else if(userAccount.getRole()==user.ROLE_MAIN2) {
+
+			mainTwo mainTwoId=mainTwoFacade.getByUserId(userAccount.getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+
+		}else if(userAccount.getRole()==user.ROLE_VENDOR) {
+
+			vendor vendorNewId=vendorFacade.getByUserId(userAccount.getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+		}else if(userAccount.getRole()==user.ROLE_CUSTOMER) {
+
+			customer customerNewId=customerFacade.getByUserId(userAccount.getId());
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			
+		}else if(userAccount.getRole()==user.ROLE_CONGSIGNEE) {
+
+			List<consignee> consigneeNewId=consigneeFacade.getAllByUserId(userAccount.getId());
+			for(int i=0;i<consigneeNewId.size();i++ ) {
+			
+				//This for warehouse
+				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			
+		}
+		}
+		
+		
+		
+		float totalPrice = 0;
+		for(int i=0;i<allCars.size();i++) {
+//			data.commision+data.fees+data.seacost+data.landcost
+			float commission = 0;
+			float fees = 0;
+			float seaCost = 0;
+			float landcost = 0;
+			if(allCars.get(i).getCommision()!=null) commission =  allCars.get(i).getCommision();
+			if(allCars.get(i).getFees()!=null) fees =  allCars.get(i).getFees();
+			if(allCars.get(i).getSeacost()!=null) seaCost =  allCars.get(i).getSeacost();
+			if(allCars.get(i).getLandcost()!=null) landcost =  allCars.get(i).getLandcost();
+			totalPrice +=commission+
+					fees+
+					seaCost+
+					landcost;
+		}
+		
+		return totalPrice;
+		
+	}
 	
 	
 	public stateOfCar getStateOfCar(int type) {
@@ -142,7 +288,7 @@ public class bidBean implements Serializable{
 	public void makeThePaymentTransaction() {
 		float totalAmount = Float.valueOf(selectedFreight.getCurrentBid())+Float.valueOf(selectedFreight.getCopartFees())+Float.valueOf(selectedFreight.getOurFees());
 		if(loginBean.getThisAccountMoneyBox()!=null) {
-			if(loginBean.getThisAccountMoneyBox().getAvailableMoney()>=totalAmount) {
+			if(loginBean.getThisAccountMoneyBox().getDepositedMoney()>=totalAmount) {
 				moneyboxConfig.makeaPayment(totalAmount, selectedFreight.getUserMaxBidId(), loginBean.getUserDataFacede(), loginBean.getMoneyboxDataFacede(), loginBean.getMoneybox_transaction_detailsDataFacede());
 				selectedFreight.setPaymentDone(true);
 				
@@ -197,8 +343,8 @@ public class bidBean implements Serializable{
 	 public void onRowEdit(RowEditEvent event) {
 		 
 
-	        moneybox mNew= ((moneybox) event.getObject());
-	        
+	        moneyBoxWithDetails mNewWithDetails= ((moneyBoxWithDetails) event.getObject());
+	        moneybox mNew=mNewWithDetails.moneyBoxItem;
 	        loginBean.getMoneyboxDataFacede().addmoneybox(mNew);
 	        PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Success',\r\n" + 
@@ -241,11 +387,11 @@ public class bidBean implements Serializable{
 		this.loginBean = loginBean;
 	}
 
-	public List<moneybox> getListOfAllUsersMoneyBox() {
+	public List<moneyBoxWithDetails> getListOfAllUsersMoneyBox() {
 		return listOfAllUsersMoneyBox;
 	}
 
-	public void setListOfAllUsersMoneyBox(List<moneybox> listOfAllUsersMoneyBox) {
+	public void setListOfAllUsersMoneyBox(List<moneyBoxWithDetails> listOfAllUsersMoneyBox) {
 		this.listOfAllUsersMoneyBox = listOfAllUsersMoneyBox;
 	}
 
@@ -347,6 +493,54 @@ public class bidBean implements Serializable{
 
 	public void setOurFees(double ourFees) {
 		this.ourFees = ourFees;
+	}
+
+	public carAppServiceImpl getCarFacade() {
+		return carFacade;
+	}
+
+	public void setCarFacade(carAppServiceImpl carFacade) {
+		this.carFacade = carFacade;
+	}
+
+	public consigneeAppServiceImpl getConsigneeFacade() {
+		return consigneeFacade;
+	}
+
+	public void setConsigneeFacade(consigneeAppServiceImpl consigneeFacade) {
+		this.consigneeFacade = consigneeFacade;
+	}
+
+	public shipperAppServiceImpl getShipperFacade() {
+		return shipperFacade;
+	}
+
+	public void setShipperFacade(shipperAppServiceImpl shipperFacade) {
+		this.shipperFacade = shipperFacade;
+	}
+
+	public mainTwoAppServiceImpl getMainTwoFacade() {
+		return mainTwoFacade;
+	}
+
+	public void setMainTwoFacade(mainTwoAppServiceImpl mainTwoFacade) {
+		this.mainTwoFacade = mainTwoFacade;
+	}
+
+	public vendorAppServiceImpl getVendorFacade() {
+		return vendorFacade;
+	}
+
+	public void setVendorFacade(vendorAppServiceImpl vendorFacade) {
+		this.vendorFacade = vendorFacade;
+	}
+
+	public customerAppServiceImpl getCustomerFacade() {
+		return customerFacade;
+	}
+
+	public void setCustomerFacade(customerAppServiceImpl customerFacade) {
+		this.customerFacade = customerFacade;
 	}
 	
 	

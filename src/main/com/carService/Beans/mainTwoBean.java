@@ -18,6 +18,7 @@ import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
+import main.com.carService.moneyBox.moneybox;
 import main.com.carService.tools.Constants;
 
 
@@ -141,6 +142,16 @@ public class mainTwoBean implements Serializable{
 		
 		addNewmainTwo.setParentId(loginBean.getTheUserOfThisAccount());
 		mainTwoFacade.addmainTwo(addNewmainTwo);
+		
+		
+
+
+		loginBean.thisAccountMoneyBox = new moneybox();
+		loginBean.thisAccountMoneyBox.setActive(true);
+		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setUserId(userNew);
+		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your mainTwo has been added.',\r\n" + 
