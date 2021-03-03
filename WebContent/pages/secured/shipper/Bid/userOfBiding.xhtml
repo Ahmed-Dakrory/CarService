@@ -152,6 +152,13 @@ body .ui-button {
     						
     						
     					<h:form id="tableForm">
+    					<h:commandButton style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" class="btn btn-default" value="XLS" >
+    						<p:dataExporter type="xls" target="dataTable" fileName="report"/>
+    					</h:commandButton>
+    					
+    					
+    					
+    					
     						 <p:dataTable id="dataTable" var="row" value="#{bidBean.listOfAllUsersMoneyBox}" widgetVar="dataTable" 
                  rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -256,7 +263,7 @@ body .ui-button {
 		
 		
 		
-		<p:column headerText="Statue" style="font-size: 13px;    text-align: center;" width="130" id="active" sortBy="#{row.moneyBoxItem.active}" filterBy="#{row.moneyBoxItem.active}">
+		<p:column exportable="false" headerText="Statue" style="font-size: 13px;    text-align: center;" width="130" id="active" sortBy="#{row.moneyBoxItem.active}" filterBy="#{row.moneyBoxItem.active}">
 			<p:cellEditor>
 			
                 <f:facet name="output"><img src="/resources/images/#{row.moneyBoxItem.active?'check_on.gif':'check_off.gif'}"></img></f:facet>
@@ -281,7 +288,7 @@ body .ui-button {
 			
 		</p:column> -->
 		
-		 <p:column style="width:35px">
+		 <p:column exportable="false" style="width:35px">
             <p:rowEditor />
         </p:column>
 		
