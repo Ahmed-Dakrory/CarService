@@ -128,11 +128,12 @@ public class bidBean implements Serializable{
 		
 		listOfAllUsersMoneyBox = new ArrayList<moneyBoxWithDetails>();
 		List<moneybox> AllMoneyBoxs = loginBean.getMoneyboxDataFacede().getAll();
-		
-		for(int i=0;i<AllMoneyBoxs.size();i++) {
-			
-			moneyBoxWithDetails mO=new moneyBoxWithDetails(filterCarToGetTotalMoneyBox(AllMoneyBoxs.get(i).getUserId()), AllMoneyBoxs.get(i));
-			listOfAllUsersMoneyBox.add(mO);
+		if (AllMoneyBoxs!=null) {
+			for(int i=0;i<AllMoneyBoxs.size();i++) {
+				
+				moneyBoxWithDetails mO=new moneyBoxWithDetails(filterCarToGetTotalMoneyBox(AllMoneyBoxs.get(i).getUserId()), AllMoneyBoxs.get(i));
+				listOfAllUsersMoneyBox.add(mO);
+			}
 		}
 		if(loginBean.isLoggedIn()) {
 		allNotifcationForThisUser=notificationFacade.getAllByuserId(loginBean.getTheUserOfThisAccount().getId());

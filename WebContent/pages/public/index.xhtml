@@ -6,415 +6,322 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateCaromoto.xhtml">
 
-	<ui:define name="headBack">
-	<div class="clearfix"></div>
-<div style="/* background: url(/resources/images/logo.png) 100% no-repeat; *//* background-size: 18%; *//* border: 1px solid #d1d3d85c; *//* border-bottom-right-radius: 151px 151px; *//* width: 100%; *//* height: 100%; *//* background-color: #0a1d35; *//* padding-bottom: 0.1%; *//* box-shadow: 0px 0px 8px #b7b7b7, 0px 0px 1px #a9a9a9, 0px 0px 42px #d2d2d2; */">
-<div class="ab-banner__wrapper">
-<div class="ab-banner__container">
-
-<div class="visible-md visible-lg"><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br></div>
-<img class="ab-car_mobile" width="100%" src="/resources/images/back2.jpg" alt="car"/>
-
-</div>
-</div>
-
-
-</div>
+	<ui:define name="bodyBlock">
+		
+	#{carLandingBean.refresh()}
+	
 	
 	</ui:define>
 
 	<ui:define name="content">
-	#{carLandingBean.refresh()}
+		<section id="find-your-car">
+	    <div class="container">
+	<div class="row">
+	    <div class="col-md-3 find-car-title">
+	        <p><i class="fas fa-car"></i>Find Your Car</p>
+	    </div>
+	</div>
+		<h:form  id="searchForm">
+		    <div class="row car-search">
+		        <div class="col-md-2">
+		            <div class="dropdown btn btn-secondary">
+		            
+		            	<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="btn w-100" >
+	
+							<f:selectItem itemLabel="Any Type" itemValue="%" />
+							<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
+						</h:selectOneMenu>
+		               
+		              </div>
+		        </div>
+		
+		
+		        <div class="col-md-2 ">
+		            <div class="dropdown btn btn-secondary w-100">
+			               	<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"   class="btn">
+								<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
+								<f:selectItem itemLabel="Any Type" itemValue="%" />
+								<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+							</h:selectOneMenu>
+		              </div>
+		        </div>
+		
+		        <div class="col-md-2">
+		            <div class="dropdown btn btn-secondary w-100">
+		               		<h:selectOneMenu value="#{carPageBean.searchModel}" class="btn"  id="model" name="model"  >
+								
+								<f:selectItem itemLabel="Any Model" itemValue="%" />
+								<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
+							</h:selectOneMenu>
+		                </div>
+		        </div>
+		        
+		        
+		        <div class="col-md-2">
+		            <div class="dropdown btn btn-secondary w-100">
+		                
+		                <h:selectOneMenu value="#{carPageBean.searchStartYear}" class="btn" >
 
-<style>
+							<f:selectItem itemLabel="2020" itemValue="2020"/>
+							<f:selectItem itemLabel="2019" itemValue="2019"/>
+							<f:selectItem itemLabel="2018" itemValue="2018"/>
+							<f:selectItem itemLabel="2017" itemValue="2017"/>
+							<f:selectItem itemLabel="2016" itemValue="2016"/>
+							<f:selectItem itemLabel="2015" itemValue="2015"/>
+							<f:selectItem itemLabel="2014" itemValue="2014"/>
+							<f:selectItem itemLabel="2013" itemValue="2013"/>
+							<f:selectItem itemLabel="2012" itemValue="2012"/>
+							<f:selectItem itemLabel="2011" itemValue="2011"/>
+							<f:selectItem itemLabel="2010" itemValue="2010"/>
+							<f:selectItem itemLabel="2009" itemValue="2009"/>
+							<f:selectItem itemLabel="2008" itemValue="2008"/>
+							<f:selectItem itemLabel="2007" itemValue="2007"/>
+							<f:selectItem itemLabel="2006" itemValue="2006"/>
+							<f:selectItem itemLabel="2005" itemValue="2005"/>
+							<f:selectItem itemLabel="2004" itemValue="2004"/>
+							<f:selectItem itemLabel="2003" itemValue="2003"/>
+							<f:selectItem itemLabel="2002" itemValue="2002"/>
+							<f:selectItem itemLabel="2001" itemValue="2001"/>
+							<f:selectItem itemLabel="2000" itemValue="2000"/>
+							<f:selectItem itemLabel="1999" itemValue="1999"/>
+							<f:selectItem itemLabel="1998" itemValue="1998"/>
+							<f:selectItem itemLabel="1997" itemValue="1997"/>
+							<f:selectItem itemLabel="1996" itemValue="1996"/>
+							<f:selectItem itemLabel="1995" itemValue="1995"/>
+							<f:selectItem itemLabel="1994" itemValue="1994"/>
+							<f:selectItem itemLabel="1993" itemValue="1993"/>
+							<f:selectItem itemLabel="1992" itemValue="1992"/>
+							<f:selectItem itemLabel="1991" itemValue="1991"/>
+							<f:selectItem itemLabel="1990" itemValue="1990"/>
+							<f:selectItem itemLabel="1989" itemValue="1989"/>
+							<f:selectItem itemLabel="1988" itemValue="1988"/>
+							<f:selectItem itemLabel="1987" itemValue="1987"/>
+							<f:selectItem itemLabel="1986" itemValue="1986"/>
+							<f:selectItem itemLabel="1985" itemValue="1985"/>
+							<f:selectItem itemLabel="1984" itemValue="1984"/>
+							<f:selectItem itemLabel="1983" itemValue="1983"/>
+							<f:selectItem itemLabel="1982" itemValue="1982"/>
+							<f:selectItem itemLabel="1980" itemValue="1980"/>
+							<f:selectItem itemLabel="1979" itemValue="1979"/>
+							<f:selectItem itemLabel="1978" itemValue="1978"/>
+							<f:selectItem itemLabel="1977" itemValue="1977"/>
+							<f:selectItem itemLabel="1976" itemValue="1976"/>
+							<f:selectItem itemLabel="1975" itemValue="1975"/>
+							<f:selectItem itemLabel="1973" itemValue="1973"/>
+							<f:selectItem itemLabel="1972" itemValue="1972"/>
+							<f:selectItem itemLabel="1971" itemValue="1971"/>
+							<f:selectItem itemLabel="1965" itemValue="1965"/>
+							<f:selectItem itemLabel="1960" itemValue="1960"/>
 
+						</h:selectOneMenu>
 
-.owl-theme .owl-nav {
-    margin-top: 10px;
-    position: absolute;
-    top: 18px;
-    left: -5%;
-}
-
-.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
-    background: 0 0;
-    color: #0000003b;
-    border: none;
-    padding: 0!important;
-    font-size: 94px;
-}
-
-.owl-next{
-position: relative;
-    left: 1158px;
-}
-
-.owl-theme .owl-nav [class*=owl-]:hover {
-    background: #86979100;
-    color: #615c5c;
-    text-decoration: none;
-}
-</style>
-
-<div class="center">
-
-<div style="display: flex;">
-<div class="ab-banner__container">
-
-<div class="ab-banner__search">
-<div class="searchWidget row-fluid">
-<div class="responsive_box responsive_box-main">
-<h:form  id="searchForm">
-<input type="hidden" value="norobots" name="norobots"/>
-<div>
-<label class="select-label">
-<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
-
-<f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
-</h:selectOneMenu>
-
-
-</label>
-</div>
-<div>
-<label class="select-label">
-
-<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
-<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
-<f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
-</h:selectOneMenu>
-
- </label>
-</div>
-
-<div>
- 
-<label class="select-label">
-
-<h:selectOneMenu value="#{carPageBean.searchModel}"  id="model" name="model"  class="custom-select" style="width: 205px; display: inline-block;">
-
-<f:selectItem itemLabel="Any Model" itemValue="%" />
-<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
-</h:selectOneMenu>
-
- </label>
- 
-</div>
-
-<div class="search-year">
-<div class="search-year__from">
-
-<label class="select-label">
-
-<h:selectOneMenu value="#{carPageBean.searchStartYear}">
-
-<f:selectItem itemLabel="2020" itemValue="2020"/>
-<f:selectItem itemLabel="2019" itemValue="2019"/>
-<f:selectItem itemLabel="2018" itemValue="2018"/>
-<f:selectItem itemLabel="2017" itemValue="2017"/>
-<f:selectItem itemLabel="2016" itemValue="2016"/>
-<f:selectItem itemLabel="2015" itemValue="2015"/>
-<f:selectItem itemLabel="2014" itemValue="2014"/>
-<f:selectItem itemLabel="2013" itemValue="2013"/>
-<f:selectItem itemLabel="2012" itemValue="2012"/>
-<f:selectItem itemLabel="2011" itemValue="2011"/>
-<f:selectItem itemLabel="2010" itemValue="2010"/>
-<f:selectItem itemLabel="2009" itemValue="2009"/>
-<f:selectItem itemLabel="2008" itemValue="2008"/>
-<f:selectItem itemLabel="2007" itemValue="2007"/>
-<f:selectItem itemLabel="2006" itemValue="2006"/>
-<f:selectItem itemLabel="2005" itemValue="2005"/>
-<f:selectItem itemLabel="2004" itemValue="2004"/>
-<f:selectItem itemLabel="2003" itemValue="2003"/>
-<f:selectItem itemLabel="2002" itemValue="2002"/>
-<f:selectItem itemLabel="2001" itemValue="2001"/>
-<f:selectItem itemLabel="2000" itemValue="2000"/>
-<f:selectItem itemLabel="1999" itemValue="1999"/>
-<f:selectItem itemLabel="1998" itemValue="1998"/>
-<f:selectItem itemLabel="1997" itemValue="1997"/>
-<f:selectItem itemLabel="1996" itemValue="1996"/>
-<f:selectItem itemLabel="1995" itemValue="1995"/>
-<f:selectItem itemLabel="1994" itemValue="1994"/>
-<f:selectItem itemLabel="1993" itemValue="1993"/>
-<f:selectItem itemLabel="1992" itemValue="1992"/>
-<f:selectItem itemLabel="1991" itemValue="1991"/>
-<f:selectItem itemLabel="1990" itemValue="1990"/>
-<f:selectItem itemLabel="1989" itemValue="1989"/>
-<f:selectItem itemLabel="1988" itemValue="1988"/>
-<f:selectItem itemLabel="1987" itemValue="1987"/>
-<f:selectItem itemLabel="1986" itemValue="1986"/>
-<f:selectItem itemLabel="1985" itemValue="1985"/>
-<f:selectItem itemLabel="1984" itemValue="1984"/>
-<f:selectItem itemLabel="1983" itemValue="1983"/>
-<f:selectItem itemLabel="1982" itemValue="1982"/>
-<f:selectItem itemLabel="1980" itemValue="1980"/>
-<f:selectItem itemLabel="1979" itemValue="1979"/>
-<f:selectItem itemLabel="1978" itemValue="1978"/>
-<f:selectItem itemLabel="1977" itemValue="1977"/>
-<f:selectItem itemLabel="1976" itemValue="1976"/>
-<f:selectItem itemLabel="1975" itemValue="1975"/>
-<f:selectItem itemLabel="1973" itemValue="1973"/>
-<f:selectItem itemLabel="1972" itemValue="1972"/>
-<f:selectItem itemLabel="1971" itemValue="1971"/>
-<f:selectItem itemLabel="1965" itemValue="1965"/>
-<f:selectItem itemLabel="1960" itemValue="1960"/>
-
-</h:selectOneMenu>
-</label>
-
-</div>
-<div class="search-year__to">
-
-<label class="select-label">
-
-
-<h:selectOneMenu value="#{carPageBean.searchEndYear}">
-
-<f:selectItem itemLabel="2020" itemValue="2020"/>
-<f:selectItem itemLabel="2019" itemValue="2019"/>
-<f:selectItem itemLabel="2018" itemValue="2018"/>
-<f:selectItem itemLabel="2017" itemValue="2017"/>
-<f:selectItem itemLabel="2016" itemValue="2016"/>
-<f:selectItem itemLabel="2015" itemValue="2015"/>
-<f:selectItem itemLabel="2014" itemValue="2014"/>
-<f:selectItem itemLabel="2013" itemValue="2013"/>
-<f:selectItem itemLabel="2012" itemValue="2012"/>
-<f:selectItem itemLabel="2011" itemValue="2011"/>
-<f:selectItem itemLabel="2010" itemValue="2010"/>
-<f:selectItem itemLabel="2009" itemValue="2009"/>
-<f:selectItem itemLabel="2008" itemValue="2008"/>
-<f:selectItem itemLabel="2007" itemValue="2007"/>
-<f:selectItem itemLabel="2006" itemValue="2006"/>
-<f:selectItem itemLabel="2005" itemValue="2005"/>
-<f:selectItem itemLabel="2004" itemValue="2004"/>
-<f:selectItem itemLabel="2003" itemValue="2003"/>
-<f:selectItem itemLabel="2002" itemValue="2002"/>
-<f:selectItem itemLabel="2001" itemValue="2001"/>
-<f:selectItem itemLabel="2000" itemValue="2000"/>
-<f:selectItem itemLabel="1999" itemValue="1999"/>
-<f:selectItem itemLabel="1998" itemValue="1998"/>
-<f:selectItem itemLabel="1997" itemValue="1997"/>
-<f:selectItem itemLabel="1996" itemValue="1996"/>
-<f:selectItem itemLabel="1995" itemValue="1995"/>
-<f:selectItem itemLabel="1994" itemValue="1994"/>
-<f:selectItem itemLabel="1993" itemValue="1993"/>
-<f:selectItem itemLabel="1992" itemValue="1992"/>
-<f:selectItem itemLabel="1991" itemValue="1991"/>
-<f:selectItem itemLabel="1990" itemValue="1990"/>
-<f:selectItem itemLabel="1989" itemValue="1989"/>
-<f:selectItem itemLabel="1988" itemValue="1988"/>
-<f:selectItem itemLabel="1987" itemValue="1987"/>
-<f:selectItem itemLabel="1986" itemValue="1986"/>
-<f:selectItem itemLabel="1985" itemValue="1985"/>
-<f:selectItem itemLabel="1984" itemValue="1984"/>
-<f:selectItem itemLabel="1983" itemValue="1983"/>
-<f:selectItem itemLabel="1982" itemValue="1982"/>
-<f:selectItem itemLabel="1980" itemValue="1980"/>
-<f:selectItem itemLabel="1979" itemValue="1979"/>
-<f:selectItem itemLabel="1978" itemValue="1978"/>
-<f:selectItem itemLabel="1977" itemValue="1977"/>
-<f:selectItem itemLabel="1976" itemValue="1976"/>
-<f:selectItem itemLabel="1975" itemValue="1975"/>
-<f:selectItem itemLabel="1973" itemValue="1973"/>
-<f:selectItem itemLabel="1972" itemValue="1972"/>
-<f:selectItem itemLabel="1971" itemValue="1971"/>
-<f:selectItem itemLabel="1965" itemValue="1965"/>
-<f:selectItem itemLabel="1960" itemValue="1960"/>
-
-</h:selectOneMenu>
-
-
-</label>
-
-</div>
-</div>
-<div class="Widget_yBtn">
-<p:commandButton value="Search" class="yBtn" name="yBtn" onclick="search()"/>
-<p:remoteCommand name="search" action="#{carPageBean.makeSearchOutSide()}"/>
-
-</div>
-</h:form>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
-
-<div class="main-title main-popular-title">
-<h2 class="main-title f-normal f-upper h2-like-h3">Buy it now vehicles</h2> </div>
-<div class="container" style=" width: 100%;">
-
-<div class="row  " style="width: inset;margin-top: 1%;margin-left: 13%;margin-right: 13%;">
-
-
-
-
-                      <!-- Flickity HTML init -->
-<div class="carousel" style="width:100%"  data-flickity='{ "wrapAround": true }'>
+		             </div>
+		        </div>
+		
+		
+				 <div class="col-md-2">
+		            <div class="dropdown btn btn-secondary dropdown w-100">
+		            	
+						<h:selectOneMenu value="#{carPageBean.searchEndYear}" class="btn"  >
+						
+								<f:selectItem itemLabel="2020" itemValue="2020"/>
+								<f:selectItem itemLabel="2019" itemValue="2019"/>
+								<f:selectItem itemLabel="2018" itemValue="2018"/>
+								<f:selectItem itemLabel="2017" itemValue="2017"/>
+								<f:selectItem itemLabel="2016" itemValue="2016"/>
+								<f:selectItem itemLabel="2015" itemValue="2015"/>
+								<f:selectItem itemLabel="2014" itemValue="2014"/>
+								<f:selectItem itemLabel="2013" itemValue="2013"/>
+								<f:selectItem itemLabel="2012" itemValue="2012"/>
+								<f:selectItem itemLabel="2011" itemValue="2011"/>
+								<f:selectItem itemLabel="2010" itemValue="2010"/>
+								<f:selectItem itemLabel="2009" itemValue="2009"/>
+								<f:selectItem itemLabel="2008" itemValue="2008"/>
+								<f:selectItem itemLabel="2007" itemValue="2007"/>
+								<f:selectItem itemLabel="2006" itemValue="2006"/>
+								<f:selectItem itemLabel="2005" itemValue="2005"/>
+								<f:selectItem itemLabel="2004" itemValue="2004"/>
+								<f:selectItem itemLabel="2003" itemValue="2003"/>
+								<f:selectItem itemLabel="2002" itemValue="2002"/>
+								<f:selectItem itemLabel="2001" itemValue="2001"/>
+								<f:selectItem itemLabel="2000" itemValue="2000"/>
+								<f:selectItem itemLabel="1999" itemValue="1999"/>
+								<f:selectItem itemLabel="1998" itemValue="1998"/>
+								<f:selectItem itemLabel="1997" itemValue="1997"/>
+								<f:selectItem itemLabel="1996" itemValue="1996"/>
+								<f:selectItem itemLabel="1995" itemValue="1995"/>
+								<f:selectItem itemLabel="1994" itemValue="1994"/>
+								<f:selectItem itemLabel="1993" itemValue="1993"/>
+								<f:selectItem itemLabel="1992" itemValue="1992"/>
+								<f:selectItem itemLabel="1991" itemValue="1991"/>
+								<f:selectItem itemLabel="1990" itemValue="1990"/>
+								<f:selectItem itemLabel="1989" itemValue="1989"/>
+								<f:selectItem itemLabel="1988" itemValue="1988"/>
+								<f:selectItem itemLabel="1987" itemValue="1987"/>
+								<f:selectItem itemLabel="1986" itemValue="1986"/>
+								<f:selectItem itemLabel="1985" itemValue="1985"/>
+								<f:selectItem itemLabel="1984" itemValue="1984"/>
+								<f:selectItem itemLabel="1983" itemValue="1983"/>
+								<f:selectItem itemLabel="1982" itemValue="1982"/>
+								<f:selectItem itemLabel="1980" itemValue="1980"/>
+								<f:selectItem itemLabel="1979" itemValue="1979"/>
+								<f:selectItem itemLabel="1978" itemValue="1978"/>
+								<f:selectItem itemLabel="1977" itemValue="1977"/>
+								<f:selectItem itemLabel="1976" itemValue="1976"/>
+								<f:selectItem itemLabel="1975" itemValue="1975"/>
+								<f:selectItem itemLabel="1973" itemValue="1973"/>
+								<f:selectItem itemLabel="1972" itemValue="1972"/>
+								<f:selectItem itemLabel="1971" itemValue="1971"/>
+								<f:selectItem itemLabel="1965" itemValue="1965"/>
+								<f:selectItem itemLabel="1960" itemValue="1960"/>
+								
+								</h:selectOneMenu>
+		            	
+		            </div>
+		            
+		         </div>
+		        
+		        <div class="col-md-2 w-100">
+					
+					<p:commandButton value="Search" class="btn btn-secondary w-100  yBtn" name="yBtn" onclick="search()"/>
+					<p:remoteCommand name="search" action="#{carPageBean.makeSearchOutSide()}"/>
+		        </div>                                                 
+		
+		  </div>
+		          
+		</h:form>                                    
+	</div>
+	</section>
+			
+			
+			
+			
+			<section id="services" >
+			       <div class="serOverlay">
+			    <div class="container">
+			      <div class="head-services">
+			        <h3 class="">BUY IT NOW VEHICLES</h3>
+			    </div> 
+			       <div class="owl-carousel owl-theme">
+			       
+			       
+			       <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
+        
           
-        <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingScroller}">
-          <div class="carousel-cell owl-item active center">
-          	<span href="en/25177299-2018-tesla-model_3.html" >
-					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.1%;width: 100%;border-radius: 6px;" />
-					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
-					</span>
-           
-          </div>
+			            <div>
+			                <div class="single-service">
+			                  <h:graphicImage value="#{data.mainImage}" alt="image#{var}" class="img-fluid" />
+							<div class="overlay">
+			             
+			              <h4> #{data.year} #{data.make}  #{data.model} <span>($#{data.currentBid})</span></h4>
+			              
+			              <p> #{data.year} #{data.make}</p>
+			              <a href="/pages/public/carsForDetails.jsf?id=#{data.id}"><button class="btn">Read More</button></a>
+			              </div>
+			            </div>
+			          </div>
+			          
+			          
+			            
         	
         </ui:repeat>
-            </div>
-            
-          
-          
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<style>
-
- .row{
- display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}
- 
- .mb-4{
- font-family: -webkit-body;
-    font-weight: 700;
- }
- 
- .pTable{
- color: #7d7d7d;
-    font-size: 15px;
- }
- .blockCateg{
- cursor: pointer;
- }
-</style>
-
-<br></br>
-<br></br>
-<h:form>
-<script>
-
-function openCategories(n){
-	window.location.href = '/pages/public/carsForType.jsf?category='+n;
-	
-}
-</script>
-
-<div class="main-title main-popular-title">
-<h2 class="main-title f-normal f-upper h2-like-h3">All Categories</h2> </div>
-<div class="templateux-section bg-light">
-      <div class="container">
-        <div class="row mb-5">
-        
-        
-        
-          <div onclick="openCategories(0);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/car.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">Small Cars</h3>
-                <p class="pTable">The definition of compact cars are cars that are bigger than a supermini and smaller than a mid-sized car</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-          
-          
-          
-          <div onclick="openCategories(1);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="100">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/suv.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">SUV Cars</h3>
-                <p class="pTable">Sport utility vehicle (SUV) is a category of motor vehicles that combine elements of road-going passenger cars with features from off-road vehicles</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-          
-          
-          
-          
-          <div onclick="openCategories(2);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="200">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/motorcycle.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">MotorCycles</h3>
-                <p class="pTable">A motorcycle, often called a bike, motorbike, or cycle, is a two- or three-wheeled motor vehicle.</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-
-          <div onclick="openCategories(3);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="300">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/jet_ski.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">Jet Skis</h3>
-                <p class="pTable">Jet Ski is the brand name of a personal water craft (PWC). A runabout style PWC typically carries 1–3 people seated in a configuration like a typical bicycle or motorcycle.</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-          
-          
-          
-          
-          <div onclick="openCategories(4);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="400">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/snow_mobile.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">Snow Mobile</h3>
-                <p class="pTable">A snowmobile, also known as a motor sled, motor sledge, skimobile, snowscooter, or snowmachine, is a motorized vehicle designed for winter travel and recreation on snow.</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-          
-          
-          
-          
-          <div onclick="openCategories(5);" class="col-md-4 mb-4 aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="500">
-            <div class="media block-icon-1 d-block text-center">
-              <div class="icon mb-3"><img class="ion-ios-loop" src="/resources/images/public/img/types/heavy_d_vec.png" style="width: 106px;"/></div>
-              <div class="media-body">
-                <h3 class="h5 mb-4">Heavy Duty Vehicle</h3>
-                <p class="pTable">Heavy-duty trucks have a gross vehicle weight of 33,000 lb (15,000 kg) or more</p>
-              </div>
-            </div> <!-- .block-icon-1 -->
-          </div>
-
-        </div>
-        <div class="row">
-          
-          <div class="col-md-12 text-center aos-init aos-animate blockCateg" data-aos="fade-up" data-aos-delay="100">
-            <p><a href="/pages/public/carsForType.jsf" class="btn btn-black py-3 px-4">Show All</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-</h:form>
-</div>
-</div>
-
-  	
+        	    
+			          </div>
+			
+			    </div>
+			</div>
+			</section>
+			
+			    
+			
+			
+			
+			<section id="CATEGORIES">
+			<script>
+				
+				function openCategories(n){
+					window.location.href = '/pages/public/carsForType.jsf?category='+n;
+					
+				}
+				</script>
+			    <div class="container">
+			        <div class="row">
+			            <div class="col-md-5 categoriesImg">
+			            </div>
+			
+			            <div class="col-md-7 categoriesText pl-5">
+			                <h2>ALL CATEGORIES</h2>
+			                <div class="row">
+			                    <div class="col-md-1" onclick="openCategories(0);">
+			                        <i class="fas fa-car-side"></i>
+			                    </div>
+			                    
+			                    
+			                    <div class="col-md-5" onclick="openCategories(0);">
+			                     <h5>Small Cars</h5>
+			                     <p>The definition of compact cars are cars that are bigger than a supermini and smaller 
+			                         than a mid-sized car</p>
+			                    </div>
+			
+			                    <div class="col-md-1" onclick="openCategories(1);">
+			                        <i class="fas fa-car"></i>
+			                       </div>
+			                    <div class="col-md-5" onclick="openCategories(1);">
+			                     <h5>SUV Cars</h5>
+			                     <p>Sport utility vehicle (SUV) is a category of motor vehicles that combine elements
+			                          of road-going passenger cars with features from off-road vehicles</p>
+			                    </div>
+			
+			                    <div class="col-md-1" onclick="openCategories(2);">
+			                        <i class="fas fa-motorcycle"></i>
+			                         </div>
+			                    <div class="col-md-5" onclick="openCategories(2);">
+			                     <h5>MotorCycles</h5>
+			                     <p>A motorcycle, often called a bike, motorbike, or cycle, is a two- or three-wheeled 
+			                         motor vehicle.</p>
+			                    </div>
+			
+			
+			                    <div class="col-md-1" onclick="openCategories(3);">
+			<img src="/resources/Image/5bbfb5c630ed7-da7545b194ac6c7638c803481404e64e.png" class="w-100" alt=""/>                     
+			    </div>
+			                    <div class="col-md-5" onclick="openCategories(3);">
+			                     <h5>Jet Skis</h5>
+			                     <p>Jet Ski is the brand name of a personal water craft (PWC). A runabout style PWC 
+			                         typically carries 1–3 people seated in a configuration like a typical bicycle or motorcycle.</p>
+			                    </div>
+			
+			                    <div class="col-md-1" onclick="openCategories(4);">
+			                        <img src="/resources/Image/decal-sticker-snowmobile-sport-vehicle-others-ae3279e8d06ab3661e4135d1817c569b.png" class="w-100" alt=""/>                     
+			                    </div>
+			                    <div class="col-md-5" onclick="openCategories(4);">
+			                     <h5>Snow Mobile</h5>
+			                     <p>A snowmobile, also known as a motor sled, motor sledge, skimobile, snowscooter, 
+			                         or snowmachine, is a motorized vehicle designed for winter travel and recreation on snow.</p>
+			                    </div>
+			
+			                    <div class="col-md-1" onclick="openCategories(5);">
+			                        <i class="fas fa-truck-moving"></i>
+			                                             </div>
+			                    <div class="col-md-5" onclick="openCategories(5);">
+			                     <h5>Heavy Duty Vehicle</h5>
+			                     <p>Heavy-duty trucks have a gross vehicle weight of 33,000 lb (15,000 kg) or more</p>
+			                    </div>
+			
+			
+			                </div>
+			                <a type="button" href="/pages/public/carsForType.jsf" class="btn btn-primary">See More</a>
+			            </div>
+			
+			        </div>
+			    </div>
+			
+			</section>
+			
+			
+			
 	</ui:define>
 	
 	

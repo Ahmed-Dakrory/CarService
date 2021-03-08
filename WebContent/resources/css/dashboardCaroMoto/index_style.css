@@ -1,0 +1,307 @@
+#logo {
+    width: 100%;
+    background-color: white;
+}
+
+#logo .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#logo a img{
+    width: 50%;
+ }
+
+ #logo p{
+     font-size: 1.2rem;
+     font-weight: 400;
+ }
+
+#logo p i {
+    color: #e70013;
+    font-size: 1.5rem;
+}
+
+.navbar{
+    background-color: #e70013;
+    padding: 0;
+}
+
+
+.navbar-dark .navbar-nav .nav-link {
+    font-weight:600 ;
+    font-size: 1rem;
+    margin: 0 0.5rem;
+}
+
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color:  #e70013;
+    background-color: white;
+}
+
+header .header-img
+{
+    background-image: url(/resources/Image/Bunner-01.png);
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.header-img{
+}
+.carHeder{
+    width: 40%;
+    position: absolute;
+bottom: -80px;
+right: 50px;
+z-index: 99999999;
+}
+
+#find-your-car{
+    position: relative;
+    bottom: 60px;
+}
+#find-your-car .find-car-title{
+    background-color: #e70013;
+    color: white;
+    padding: 0.2rem 3rem;
+
+}
+#find-your-car .find-car-title p{
+font-size: 1.5rem;
+font-weight: 600;
+}
+
+#find-your-car .find-car-title p i{
+    margin-right: 0.3rem;
+}
+
+
+.btn-secondary {
+    color: #fff;
+    background-color: #e70013;
+    border:solid 1px white;
+}
+.btn-secondary:hover{
+    color: #e70013;
+    background-color: #8a8a8a70;
+    border:solid 1px white;
+}
+.car-search{
+    background-color: #e70013;
+    padding: 3rem 1rem;
+}
+
+
+
+
+#services {
+    text-align: center;
+    background-image: url(/resources/Image/ab-footer-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    top: -60px;
+}
+#services .serOverlay{
+    background-color: rgba(128, 128, 128, 0.692);
+    padding: 2rem 0;
+
+}
+
+#services .head-services h3{
+    font-size: 2rem;
+    color: white;
+    padding-top: 5rem;
+    font-weight: 600;
+padding: 1rem 0 2rem;
+}
+
+#services .head-services h3::after{
+  
+    content: "";
+    display: block;
+    height: 5px;
+    margin: auto;
+    margin-top: 1rem;
+    right: 0;
+    width: 80px;
+    background-color: #e70013;
+    transition: all 1s;
+}
+#services .head-services:hover h3::after{
+    width: 200px;
+}
+.owl-theme .owl-nav [class*=owl-]:hover{
+    background-color: rgba(238, 61, 43, 0.3);
+}
+
+#services .single-service {
+   
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+
+}
+#services .single-service img{
+    background-size: cover;
+  height: 40%;
+}
+
+#services .single-service .overlay{
+    background-color: white;
+    position: absolute;
+    top:  0%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1.2rem 2rem;
+    opacity: 0;
+    transition: opacity 1s , transform 1s;
+
+}
+#services .single-service:hover .overlay{
+    opacity: 1;
+    transform: rotate(360deg);}
+
+
+
+#services .single-service h4{
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 1s;
+    color: #252525;
+}
+
+
+#services .single-service a button{
+    background-color:#e70013;
+    color: white;
+    border: none;
+    border-radius: 7px;
+}
+#services .single-service a:hover button{
+    background-color:#252525;
+}
+
+#services .owl-prev, #services .owl-next{
+    position: absolute;
+    top: 50%;
+    font-size: 2rem;
+    color: #e70013; 
+}
+#services .owl-prev{
+left: -5%;
+}
+#services .owl-next{
+right: -5%;
+}
+
+
+
+
+#CATEGORIES {
+    margin: 5rem 0rem;
+}
+#CATEGORIES .categoriesImg{
+    margin-top: 3rem;
+    background-image: url(/resources/Image/car-1.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#CATEGORIES .categoriesText .btn{
+   background-color: #e70013;
+   border: none;
+   padding: 0.8rem 2rem;
+   margin-left: 5rem;
+   font-size: 1.2rem;
+}
+
+#CATEGORIES .categoriesText h2{
+    color: #e70013;
+    padding-bottom: 1.5rem;
+    margin-left: 2rem;
+}
+
+#CATEGORIES .categoriesText i{
+    font-size: 1.5rem;
+}
+
+#CATEGORIES .categoriesText h5{
+    font-size: 1.5rem;
+}
+
+#CATEGORIES .categoriesText p{
+    color: rgb(139, 138, 138);
+}
+
+#footer-contact{
+    background-image: url(/resources/Image/feedback-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+#footer-contact .layout{
+    background-color: rgba(19, 19, 18, 0.658);
+}
+
+#footer-contact .container img{
+    width: 70%;
+    margin: 2rem 0 1rem;
+
+}
+
+#footer-contact .container h5{
+    color: white;
+    padding-bottom: 0.3rem;
+    margin: 2rem 0 1rem;
+
+}
+
+#footer-contact .info ul{
+    list-style: none;
+    padding-left: 0;
+    color: white;
+}
+
+#footer-contact .info ul li a{
+    color: white;
+
+}
+
+#footer-contact ul li a:hover{
+    color:#e70013 ;
+}
+
+
+
+.inputSearch{
+	  border: none;
+	  position: relative;
+	  top: -5px;
+	  width: 100%;
+}
+
+.ui-autocomplete-panel .ui-autocomplete-table th, .ui-autocomplete-panel .ui-autocomplete-table td {
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    padding: 4px 10px 4px 10px;
+    background: white;
+    }
+    
+.yBtn{
+	background: linear-gradient(
+180deg
+,#989595 0,#bfbfbf 95%,#b1d5e6 0);
+padding-bottom: 11px;"
+}
