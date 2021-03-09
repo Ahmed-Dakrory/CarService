@@ -52,46 +52,46 @@
 		
 		
 		    <nav class="navbar navbar-expand-lg navbar-dark justify-content-md-center  ">
-		        <div class="row w-100 mr-1 ml-1 pr-1 pl-1">
+		        <div class="row w-100 mr-1 ml-1 pr-1 pl-1" style="direction:rtl">
 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		          <span class="navbar-toggler-icon"></span>
 		        </button>
 		      
 		        <div class="collapse navbar-collapse col-md-9" id="navbarSupportedContent">
-		          <ul class="navbar-nav mr-auto">
+		          <ul class="navbar-nav mr-auto w-100" style="direction:rtl" >
 		            <li class="nav-item active">
-		              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+		              <a class="nav-link" href="/">الرئيسية <span class="sr-only">(current)</span></a>
 		            </li>
 		            <li class="nav-item active">
-		              <a class="nav-link" href="/pages/public/about.jsf?faces-redirect=true">About Us</a>
-		            </li>
-		
-		            <li class="nav-item active">
-		              <a class="nav-link" href="/pages/public/carCost.jsf?faces-redirect=true">Calculate shipping cost</a>
+		              <a class="nav-link" href="/pages/public/about.jsf?faces-redirect=true">من نحن</a>
 		            </li>
 		
 		            <li class="nav-item active">
-		              <a class="nav-link" href="/pages/public/carsForType.jsf?category=0">Bid now</a>
+		              <a class="nav-link" href="/pages/public/carCost.jsf?faces-redirect=true">حساب التكاليف</a>
 		            </li>
 		
 		            <li class="nav-item active">
-		              <a class="nav-link" href="/pages/public/contactUs.jsf?faces-redirect=true">Contacts</a>
+		              <a class="nav-link" href="/pages/public/carsForType.jsf?category=0">ادخل المزاد</a>
+		            </li>
+		
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/pages/public/contactUs.jsf?faces-redirect=true">اتصل بنا</a>
 		            </li>
 		
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
-		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true">SignUp</a>
+		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true">حساب جديد</a>
 		            </li>
 		            
 		           <li class="nav-item active" style="display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};">
-		              <a class="nav-link" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">DashBoard</a>
+		              <a class="nav-link" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">وحدة التحكم</a>
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
-		              <a class="nav-link" href="/pages/public/login.jsf?faces-redirect=true">Login</a>
+		              <a class="nav-link" href="/pages/public/login.jsf?faces-redirect=true">تسجيل الدخول</a>
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
-		              <a class="nav-link" href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">Add Deposit</a>
+		              <a class="nav-link" href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">ايداع</a>
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
@@ -106,7 +106,7 @@
 		            
 		            <h:form>
 					  <p:autoComplete class="form-control m-2 s-input2 s-tip2" id="themes"  value="#{carLandingBean.selectedCarSearch}" completeMethod="#{carLandingBean.completeText}"
-					                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="Enter vehicle VIN, make or model"
+					                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="أدخل نوع , موديل , vin السيارة"
 					                        inputStyleClass="inputSearch" >
 					                        
 					                          <p:ajax event="itemSelect" listener="#{carLandingBean.onCarSelect}"  />
@@ -150,7 +150,7 @@
 			            </div>
 			
 			            <div class="col-md-4">
-			                <h5 class="ml-4">Contact Info</h5>
+			                <h5 class="ml-4">تواصل معنا</h5>
 			                <p class="ml-4">CargoLoop,LLC</p>
 			                <p class="mt-4"><i class="fas fa-map-marker-alt mr-2"></i> 2817 Tremont Rd. Savannah, GA 31405</p>
 			                <p class="mt-4"> <i class="fas fa-phone-alt mr-2"></i>(317) 706-0700</p>
@@ -158,12 +158,12 @@
 			            </div>
 			
 			            <div class="col-md-4 Info">
-			                <h5>Our Info</h5>
+			                <h5>عن كاروموتو ليبيا</h5>
 			                <ul>
-			                    <li><a href="/pages/public/about.jsf?faces-redirect=true">About Us </a></li>
-			                    <li><a href="/pages/public/carsForType.jsf?category=0">Bid Now </a></li>
-			                    <li><a href="/pages/public/carCost.jsf?faces-redirect=true">Calculate Shipping Cost</a></li>
-			                    <li><a href="/pages/public/contactUs.jsf?faces-redirect=true">Contact Us </a></li>
+			                    <li><a href="/pages/public/about.jsf?faces-redirect=true">من نحن </a></li>
+			                    <li><a href="/pages/public/carsForType.jsf?category=0">أدخل المزاد </a></li>
+			                    <li><a href="/pages/public/carCost.jsf?faces-redirect=true">حساب جديد</a></li>
+			                    <li><a href="/pages/public/contactUs.jsf?faces-redirect=true">اتصل بنا</a></li>
 			                </ul>
 			
 			            </div>

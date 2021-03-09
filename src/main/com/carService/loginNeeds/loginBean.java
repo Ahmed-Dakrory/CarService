@@ -79,6 +79,70 @@ public class loginBean implements Serializable{
 				.getRequest();
 		
 		try{
+			Integer moneyBoxId=Integer.parseInt(origRequest.getParameterValues("moneyBoxId")[0]);
+				if(moneyBoxId!=null){
+					//moneybox itemBox=moneyboxDataFacede.getById(moneyBoxId);
+					
+					try{
+						Integer amount=Integer.parseInt(origRequest.getParameterValues("amount")[0]);
+							if(amount!=null){
+								moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede);
+								 
+								 reloadedParametersAndPanelRefresh();
+
+									FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+									
+									
+								 PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+											"			title: 'Success',\r\n" + 
+											"			text: 'Your Money Has Been Deposite, for Any Inquiry Sent us over Email.',\r\n" + 
+											"			type: 'success'\r\n" + 
+											"		});");
+								  
+								 try {
+									 Integer type=Integer.parseInt(origRequest.getParameterValues("type")[0]);
+									 try {
+										 
+										 	
+											FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/moneyBox"+String.valueOf(type)+".jsf?faces-redirect=true");
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									try {
+									 
+									 	
+										FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/moneyBox.jsf?faces-redirect=true");
+									} catch (IOException e3) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+								 
+							
+								 
+				
+								
+							}
+						}
+					catch(Exception ex){
+						 
+					}
+					
+					 
+					 					
+				}
+			}
+		catch(Exception ex){
+			 
+		}
+		
+		
+		
+		try{
 			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
 				if(id!=null){
 					user user=userDataFacede.getById(id);

@@ -31,7 +31,7 @@
 		
 	<!-- Skin CSS -->
     <link rel="stylesheet" href="#{resource['css:public/vendorb315.css']}" />
-    <link rel="stylesheet" href="#{resource['css:public/designMain.css']}" />
+   <!--  <link rel="stylesheet" href="#{resource['css:public/designMain.css']}" />-->
     
     	
     	
@@ -98,6 +98,11 @@
 	
 	
 	
+	<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/all.min.css']}" />
+		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/bootstrap.min.css']}" />
+		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/owl.carousel.min.css']}" />
+		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/index_style.css']}" />
+		
 	
 	
 </h:head>
@@ -192,7 +197,7 @@
       
    
   
-
+<!-- 
 <div id="mainLogin" class="top hidden-xs hidden-sm">
 <div class="container" style="    width: 100%;">
 
@@ -339,7 +344,6 @@
 <div class="left">
 
 
-<!--  Login Form Start -->
 
 <h:form id="top-login-form" class="site-form c-ajax"  >
  <input name="TopLoginForm[topLoginForm]" id="TopLoginForm_topLoginForm" type="hidden" value="1" />
@@ -380,7 +384,6 @@
 </div>
 </h:form> 
 
-<!--  End of Login Form -->
 
 
 
@@ -405,10 +408,10 @@
 </div>
 
 
+ -->
 
 
-
-
+<!-- 
 
 <div class="header" style="background: url(/resources/imgs/background9.jpg);background-repeat: no-repeat;background-size: cover;box-shadow: 8px 10px 8px rgb(236, 236, 236), 0 0px 7px rgb(66, 66, 66);">
 
@@ -523,20 +526,13 @@ function closeNav() {
 
 </div>
 
-<!-- 
-<div class="ricon text-right col-xs-2 col-sm-2 hidden-md hidden-lg" id="responsive_account_icon">
-<div class="mobile_menu_open">
-<img src="/resources/images/img/account_icon_responsive.png" width="24" height="22" alt="Account"/>
+
 </div>
 </div>
+</div>
+
+
  -->
-
-</div>
-</div>
-</div>
-
-
-
 
 <div id="responsive_menu_block" style="display:none">
 
@@ -599,7 +595,7 @@ function closeNav() {
 
 <div class="responsive-style__overlay"></div>
 
-
+<!-- 
 <div class="mainmenu hidden-xs hidden-sm" style="background-repeat: no-repeat;background-size: cover;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);">
 <div class="container">
 <ul class="dropdown" id="yw0">
@@ -646,7 +642,117 @@ function closeNav() {
 </div>
  
 
-    
+     -->
+     
+     
+     <header>
+		    <section id="logo">
+		        <div class="w-100 mt-3 mb-1 mr-5 ml-5">
+		            <div class="row">
+		                <div class="col-md-3">
+		                    <a class="logo" href="index.html">
+		                        <img src="/resources/Image/caromoto logo-04.png" alt="logo" /></a>
+		            
+		                </div>
+		                <div class="col-md-4">
+		                    <p class="mt-4"><i class="fas fa-map-marker-alt mr-2"></i> 2817 Tremont Rd. Savannah, GA 31405</p>
+		
+		                </div>
+		                <div class="col-md-3">
+		                    <p class="mt-4"> <i class="fas fa-phone-alt mr-2"></i>(317) 706-0700</p>
+		                </div>
+		                
+		                <div class="col-md-2">
+		                    <a class="logo" href="index.html">
+		                        <img src="/resources/Image/eldawlia.jpeg" alt="logo"/></a>
+		            
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		  
+		
+		
+		    <nav class="navbar navbar-expand-lg navbar-dark justify-content-md-center  ">
+		        <div class="row w-100 mr-1 ml-1 pr-1 pl-1" style="direction:rtl">
+		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		          <span class="navbar-toggler-icon"></span>
+		        </button>
+		      
+		        <div class="collapse navbar-collapse col-md-9" id="navbarSupportedContent">
+		          <ul class="navbar-nav mr-auto w-100" style="direction:rtl" >
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/">الرئيسية <span class="sr-only">(current)</span></a>
+		            </li>
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/pages/public/about.jsf?faces-redirect=true">من نحن</a>
+		            </li>
+		
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/pages/public/carCost.jsf?faces-redirect=true">حساب التكاليف</a>
+		            </li>
+		
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/pages/public/carsForType.jsf?category=0">ادخل المزاد</a>
+		            </li>
+		
+		            <li class="nav-item active">
+		              <a class="nav-link" href="/pages/public/contactUs.jsf?faces-redirect=true">اتصل بنا</a>
+		            </li>
+		
+		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
+		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true">حساب جديد</a>
+		            </li>
+		            
+		           <li class="nav-item active" style="display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};">
+		              <a class="nav-link" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">وحدة التحكم</a>
+		            </li>
+		            
+		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
+		              <a class="nav-link" href="/pages/public/login.jsf?faces-redirect=true">تسجيل الدخول</a>
+		            </li>
+		            
+		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
+		              <a class="nav-link" href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">ايداع</a>
+		            </li>
+		            
+		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
+		              <a class="nav-link" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
+		            </li>
+		            
+		          </ul>
+		          
+		        </div>
+		        <div class="col-md-3">
+		            <!-- <input class="form-control m-2" placeholder="Search..."/>-->
+		            
+		            <h:form>
+					  <p:autoComplete class="form-control m-2 s-input2 s-tip2" id="themes"  value="#{carLandingBean.selectedCarSearch}" completeMethod="#{carLandingBean.completeText}"
+					                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="أدخل نوع , موديل , vin السيارة"
+					                        inputStyleClass="inputSearch" >
+					                        
+					                          <p:ajax event="itemSelect" listener="#{carLandingBean.onCarSelect}"  />
+					            <p:column style="width:10%">
+					                <h:graphicImage style="    width: 64px;    border-radius: 6px;" value="#{var.mainImage}" alt="#{var.model}" styleClass="ui-theme"/>
+					            </p:column>
+					             
+					            <p:column>
+					                <h:outputText value="#{var.make} / #{var.uuid}" />
+					            </p:column>
+					        </p:autoComplete>
+					
+					</h:form>
+		        </div>
+		       
+		      </div>
+		      </nav>
+			<ui:insert name="headBack"  > 
+    	 		
+  			</ui:insert>
+		     
+		
+		</header>
+		
     <!-- End of Header -->
     <ui:insert name="headBack"  > 
     	

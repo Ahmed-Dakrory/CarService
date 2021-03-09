@@ -17,10 +17,10 @@
 
 	<ui:define name="content">
 		<section id="find-your-car">
-	    <div class="container">
+	    <div class="container" style="direction:rtl">
 	<div class="row">
 	    <div class="col-md-3 find-car-title">
-	        <p><i class="fas fa-car"></i>Find Your Car</p>
+	        <p><i class="fas fa-car"></i>أختر سيارتك</p>
 	    </div>
 	</div>
 		<h:form  id="searchForm">
@@ -30,7 +30,7 @@
 		            
 		            	<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="btn w-100" >
 	
-							<f:selectItem itemLabel="Any Type" itemValue="%" />
+							<f:selectItem itemLabel="أى نوع" itemValue="%" />
 							<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
 						</h:selectOneMenu>
 		               
@@ -40,9 +40,9 @@
 		
 		        <div class="col-md-2 ">
 		            <div class="dropdown btn btn-secondary w-100">
-			               	<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"   class="btn">
+			               	<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"   class="btn w-100">
 								<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
-								<f:selectItem itemLabel="Any Type" itemValue="%" />
+								<f:selectItem itemLabel="أى نوع" itemValue="%" />
 								<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
 							</h:selectOneMenu>
 		              </div>
@@ -50,9 +50,9 @@
 		
 		        <div class="col-md-2">
 		            <div class="dropdown btn btn-secondary w-100">
-		               		<h:selectOneMenu value="#{carPageBean.searchModel}" class="btn"  id="model" name="model"  >
+		               		<h:selectOneMenu value="#{carPageBean.searchModel}" class="btn w-100"  id="model" name="model"  >
 								
-								<f:selectItem itemLabel="Any Model" itemValue="%" />
+								<f:selectItem itemLabel="أى موديل" itemValue="%" />
 								<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
 							</h:selectOneMenu>
 		                </div>
@@ -62,7 +62,7 @@
 		        <div class="col-md-2">
 		            <div class="dropdown btn btn-secondary w-100">
 		                
-		                <h:selectOneMenu value="#{carPageBean.searchStartYear}" class="btn" >
+		                <h:selectOneMenu value="#{carPageBean.searchStartYear}" class="btn w-100" >
 
 							<f:selectItem itemLabel="2020" itemValue="2020"/>
 							<f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -124,7 +124,7 @@
 				 <div class="col-md-2">
 		            <div class="dropdown btn btn-secondary dropdown w-100">
 		            	
-						<h:selectOneMenu value="#{carPageBean.searchEndYear}" class="btn"  >
+						<h:selectOneMenu value="#{carPageBean.searchEndYear}" class="btn w-100"  >
 						
 								<f:selectItem itemLabel="2020" itemValue="2020"/>
 								<f:selectItem itemLabel="2019" itemValue="2019"/>
@@ -185,7 +185,7 @@
 		        
 		        <div class="col-md-2 w-100">
 					
-					<p:commandButton value="Search" class="btn btn-secondary w-100  yBtn" name="yBtn" onclick="search()"/>
+					<p:commandButton value="بحث" class="btn btn-secondary w-100  yBtn" name="yBtn" onclick="search()"/>
 					<p:remoteCommand name="search" action="#{carPageBean.makeSearchOutSide()}"/>
 		        </div>                                                 
 		
@@ -202,7 +202,7 @@
 			       <div class="serOverlay">
 			    <div class="container">
 			      <div class="head-services">
-			        <h3 class="">BUY IT NOW VEHICLES</h3>
+			        <h3 class="">سيارات للبيع الأن</h3>
 			    </div> 
 			       <div class="owl-carousel owl-theme">
 			       
@@ -218,7 +218,7 @@
 			              <h4> #{data.year} #{data.make}  #{data.model} <span>($#{data.currentBid})</span></h4>
 			              
 			              <p> #{data.year} #{data.make}</p>
-			              <a href="/pages/public/carsForDetails.jsf?id=#{data.id}"><button class="btn">Read More</button></a>
+			              <a href="/pages/public/carsForDetails.jsf?id=#{data.id}"><button class="btn">المزيد</button></a>
 			              </div>
 			            </div>
 			          </div>
@@ -246,13 +246,13 @@
 					
 				}
 				</script>
-			    <div class="container">
+			    <div class="container" style="direction:rtl;">
 			        <div class="row">
 			            <div class="col-md-5 categoriesImg">
 			            </div>
 			
 			            <div class="col-md-7 categoriesText pl-5">
-			                <h2>ALL CATEGORIES</h2>
+			                <h2>كل أنواع المركبات</h2>
 			                <div class="row">
 			                    <div class="col-md-1" onclick="openCategories(0);">
 			                        <i class="fas fa-car-side"></i>
@@ -312,7 +312,7 @@
 			
 			
 			                </div>
-			                <a type="button" href="/pages/public/carsForType.jsf" class="btn btn-primary">See More</a>
+			                <a type="button" href="/pages/public/carsForType.jsf" class="btn btn-primary">مزيد</a>
 			            </div>
 			
 			        </div>
