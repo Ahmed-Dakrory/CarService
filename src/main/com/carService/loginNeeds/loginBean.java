@@ -108,10 +108,12 @@ public class loginBean implements Serializable{
 										} catch (IOException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
+											System.out.println("Ahmed Error: "+e.toString());
 										}
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
+									System.out.println("Ahmed Error: "+e.toString());
 									try {
 									 
 									 	
@@ -119,6 +121,7 @@ public class loginBean implements Serializable{
 									} catch (IOException e3) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
+										System.out.println("Ahmed Error: "+e3.toString());
 									}
 								}
 								 
@@ -129,7 +132,8 @@ public class loginBean implements Serializable{
 							}
 						}
 					catch(Exception ex){
-						 
+
+						System.out.println("Ahmed Error: "+ex.toString());
 					}
 					
 					 
