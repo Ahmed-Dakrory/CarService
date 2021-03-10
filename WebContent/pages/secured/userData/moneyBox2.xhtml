@@ -307,12 +307,12 @@ Watch List </a>
 		  			
 		  			 <script type="text/javascript">
     // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe("pk_test_2YQA8u5boAfuEBqV0x9Edn4n");
+    var stripe = Stripe("pk_live_xQs5sGcXeb1hjN9kMmqiaomk");
     var checkoutButton = document.getElementById("checkout-button");
 
     checkoutButton.addEventListener("click", function () {
-      fetch("http://caromotolibya.com:8083/create-checkout-session.php?price=#{loginBean.amountToPayThroughPayPal}&amp;name=CaroMoto Services&amp;moneyBoxId=#{loginBean.thisAccountMoneyBox.id}&amp;amount=#{loginBean.amountToPayThroughPayPal}&amp;type=", {
-        method: "POST",
+      fetch("https://caromotolibya.com/rest/Api/stripe?price=#{loginBean.amountToPayThroughPayPal}&amp;name=CaroMoto Services&amp;moneyBoxId=#{loginBean.thisAccountMoneyBox.id}&amp;amount=#{loginBean.amountToPayThroughPayPal}&amp;type=", {
+        method: "GET",
       })
         .then(function (response) {
         	console.log("Done1");
