@@ -63,7 +63,7 @@ z-index: 99999999;
 
 #find-your-car{
     position: relative;
-    bottom: 60px;
+    bottom: 75px;
 }
 #find-your-car .find-car-title{
     background-color: #e70013;
@@ -106,7 +106,7 @@ font-weight: 600;
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
-    top: -60px;
+    top: -75px;
 }
 #services .serOverlay{
     background-color: rgba(128, 128, 128, 0.692);
@@ -210,7 +210,10 @@ right: -5%;
 
 
 #CATEGORIES {
-    margin: 5rem 0rem;
+    margin: 0rem 0rem;
+    background-color: whitesmoke;
+    margin-top: -73px;
+    padding: 5rem 0;
 }
 #CATEGORIES .categoriesImg{
     margin-top: 3rem;
@@ -304,4 +307,24 @@ right: -5%;
 180deg
 ,#989595 0,#bfbfbf 95%,#b1d5e6 0);
 padding-bottom: 11px;"
+}
+
+
+
+@media only screen and (max-width: 576px){
+.categoriesText .w-100 {
+    width: 20%!important;
+}
+}
+
+
+@media only screen and (max-width: 576px){
+header .header-img {
+    background-image: url(/resources/Image/Bunner-01.png);
+    height: 40vh;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: white;
+}
 }

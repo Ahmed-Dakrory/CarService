@@ -47,11 +47,7 @@ background: #c2c5c7;
 }
 	</style>
 	
-	 <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
     <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
-    
-  
-		  <link rel="stylesheet" href="#{resource['css:public/bootstrapSlider.css']}" />
     
     
 	#{carLandingBean.refresh()}
@@ -297,8 +293,8 @@ Transmission </span>
 </tbody></table>
 </div>
 </div>
-<h:form id="RightColumnData">
-<div class="col-md-5 col-sm-5" >
+<h:form id="RightColumnData" class="col-md-6 col-sm-6 p-0 m-0">
+<div class="container" >
 
 
 <div id="bid-modal-cache" style="display: none">
@@ -342,7 +338,7 @@ Close </a>
 
 
 <h:form rendered="#{carLandingBean.selectedCarPage.activebuyItNow}">
-<div  class="buy-now-block" id="buy-now-block" style="margin-left: 5%;background: url(/resources/imgs/background9.jpg);">
+<div  class="buy-now-block" id="buy-now-block" style="background: url(/resources/imgs/background9.jpg);">
 <table>
 <tbody><tr>
 <td>
@@ -401,8 +397,7 @@ function buyNow(){
 }
 </script>
 <h:panelGroup class="buy-now-block" id="buy-now-block" style="">
-<table style="  width: 95%;
-    margin-left: 5%;margin-top: -19px; box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
+<table style="  margin-top: -19px; box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <tbody><tr>
 <td style="padding:0%;">
 
@@ -483,7 +478,7 @@ function buyNow(){
 Current Price </div>
 <h:form id="liveBidDisplay" rendered="#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd&gt;0?'true':'false'}">
  <h:panelGroup rendered="#{carLandingBean.selectedCarPage.active}">
-<div style="color: #334354;position: absolute;top: 5%;left: 91%;width: 77px;text-align: center;font-size: 15px;height: 77px;padding-top: 2%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
+<div style="color: #334354;position: absolute;top: 0%;left: 83%;width: 77px;text-align: center;font-size: 15px;height: 77px;padding-top: 3%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
  <div>Remains</div><div>#{carLandingBean.timeInSecondsForLive}</div> </div>
  </h:panelGroup>
  
