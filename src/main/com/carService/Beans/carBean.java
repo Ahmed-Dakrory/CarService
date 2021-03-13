@@ -1060,18 +1060,25 @@ public void refreshSelectedCarVendor() {
 	//Save the New Car with the shipper Account
 		public void saveNewCarDatashipper() {
 			
-			
+			System.out.println("Ahmed Add");
 			boolean isValid=checkValidForCar(addNewCar);
 			boolean checkVendor=checkVendorIsExist(addNewCar.getVendorId());
 			if(isValid&&checkVendor) {
 				boolean checkCar = checkCarIsExist(addNewCar.getUuid());
-				
+
+				System.out.println("Ahmed Add  3");
 				if(checkCar) {
+
+					System.out.println("Ahmed Add 5");
 			consignee consigneeNew=consigneeFacade.getById(consigneeId);
 			addNewCar.setConsigneeId(consigneeNew);
 			addNewCar.setState(car.STATE_WARE_HOUSE_1);
-			carFacade.addcar(addNewCar);
 			
+
+			System.out.println("Ahmed Add  7");
+			carFacade.addcar(addNewCar);
+
+			System.out.println("Ahmed Add  9");
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Success',\r\n" + 
 					"			text: 'Your car has been added.',\r\n" + 
