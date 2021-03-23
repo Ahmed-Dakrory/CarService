@@ -7,167 +7,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
 	<ui:define name="title"> ADAWLIAA</ui:define>
 	
-	 <ui:define name="mainHead"> 
-			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleListAllBids.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
-           
-			</ui:define>
 
 	<ui:define name="content">
 	
-	
-	
-    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
-    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
-    
-    	<style>
-	
-	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-	vertical-align: middle;
-    border: 1px solid #dddddd;
-    font-size: 11px;
-    text-align: center;
-    font-family: sans-serif;
-}
-
-
-body .ui-datatable .ui-datatable-data > tr.ui-state-highlight {
-    border: 1px solid #c8c8c8;
-    background-color: #e0e4e6;
-    color: #3a3535;
-    cursor: default;
-}
-
-
-body .ui-button {
-    background-color: #007ad9;
-    color: #ffffff;
-    border: 1px solid #007ad9;
-    font-size: 14px;
-    margin: 0;
-    margin-right: .1em;
-    outline: 0 none;
-    -moz-transition: background-color 0.3s;
-    -o-transition: background-color 0.3s;
-    -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s;
-}
-
-
-.ui-datatable .ui-datatable-header {
-        text-align: right !important;
-    }
-     
-    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
-        display: none;
-    }
-    
-    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
-    content: "\f046";
-    font-family: FontAwesome;
-}
-body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
-    background-color: #007ad9;
-    color: #737373;
-}
-body .ui-paginator .ui-paginator-pages .ui-paginator-page {
-    padding: 0;
-    border: 0 none;
-    text-align: center;
-    line-height: 2.643em;
-    min-width: 2.286em;
-    height: 0;
-    color: #737373;
-    margin: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-	</style>
-	
-	
-	<div class="container">
-<div class="clearfix"></div>
-
-
-<div class="row">
-<div class="col-md-12">
-</div>
-</div>
-<div id="content">
-<div class="account-table row">
-<div class="col-sm-12 col-md-2 side-menu account-menu">
-<div id="profile-side-menu" class="searchBox">
-<div class="group-title block_header responsive_header">
-Menu </div>
-<div class="responsive_box">
-<ul class="level1">
-<li class="active">
-<a href="/en/account">
-My Account </a>
-</li>
-</ul>
-<div class="sublevel">
-Menu </div>
-<ul class="level1 expand">
-<li >
-<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
-Profile Credentials</a>
-</li>
-<li >
-<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
-My Profile Data </a>
-</li>
-<li class="">
-<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
-Transactions </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
-Invoice List </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
-Current Cars </a>
-</li>
-
-<li class="menu-item-refunds">
-<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Cars </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
-Watch List </a>
-</li>
-</ul>
-
-
-
-
-
-<ul class="level1">
-<li>
-<a onclick="LogOutJS()" > 
-<i class="fa fa-power-off"></i> Log Out </a>
-</li>
-</ul>
-
-<h:form>
-					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
-				</h:form>
-</div>
-</div>
-</div>
-<div class="col-sm-12 col-md-10">
-<div id="ajax-content">
+	<div id="ajax-content">
 <h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account">
@@ -369,17 +217,14 @@ Watch List </a>
 <div class="clr"></div>
 
 </div>
-</div>
-</div>
-<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
-</div>
-</div>
 	
 	
-	
-	
-        
-        
+     <script>
+
+ 	$('#menu-header-bid').toggleClass('expand');
+ 	$('#menu-bid').fadeToggle();
+ 	$('#bid-all').toggleClass('menu-item-refunds');
+     </script>
      
 	</ui:define>
 	

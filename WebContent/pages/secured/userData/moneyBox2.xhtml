@@ -7,108 +7,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
 
 	<ui:define name="content">
-	<style>
-	table {
-    border-collapse: inherit;
-    /* border-spacing: 0; */
-    /* border-radius: 11px; */
-}
-td {
-    /* font-weight: 400; */
-    font-size: 95%;
-    font-family: arial;
-    text-align: -webkit-center;
-}
-
-.ui-panel .ui-panel-content {
-    border: 0;
-    background: 0;
-    padding: .5em 1em;
-    text-align: -webkit-center;
-}
-.mainLabels {
-    font-size: 28px;
-    font-family: serif;
-    color: #757575;
-    border: black;
-    border-style: solid;
-    border-color: #e8e8e8;
-    border-width: 1px;
-    padding: 3%;
-    background: #fdfdfd;
-    width: 67%;
-    border-radius: 13px;
-    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
-    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
-}
-
-.displayText {
-        font-size: 25px;
-    font-family: serif;
-    color: #757575;
-    border: black;
-    border-style: solid;
-    border-color: #e8e8e8;
-    border-width: 1px;
-    background: #fdfdfd;
-    width: min-content;
-    border-radius: 155px;
-    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #2f2f2f;
-    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;
-    margin-top: 1%;
-    padding: 49px;
-    padding-top: 65px;
-    padding-bottom: 65px;
-    margin-left: 16%;
-    text-align: center;
-}
-.textBoxStyle{
-    width: 92%;
-    height: 30px;
-    font-size: 17px;
-    border-radius: 9px;
-    font-family: serif;
-    padding: 1%;
-}
-
-.BankHead{
-    width: 50%;
-    text-align: initial;
-    margin-top: 1%;
-}
-
-
-
-
-
-#checkout-button {
-width: 400px;
-  height: 112px;
-  border-radius: 6px!important;
-  justify-content: space-between;
-  height: 36px;
-  background: #556cd6;
-  color: white;
-  width: 100%;
-  font-size: 14px;
-  border: 0;
-  font-weight: 500;
-  cursor: pointer;
-  letter-spacing: 0.6;
-  border-radius: 0 0 6px 6px;
-  transition: all 0.2s ease;
-  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-}
-#checkout-button:hover {
-  opacity: 0.8;
-}
-
-	</style>
 	
 	 <script src="https://www.paypal.com/sdk/js?client-id=AfJLLJtGEwfl6Hye0lNyGe7Sm-OoqHu-Duhln5rwdfd9NCuldziZOsD_A8nt2zbVznmhVPJt5Qpw1ps3"></script>
 	 
@@ -120,122 +23,78 @@ width: 400px;
     <script src="https://js.stripe.com/v3/"></script>
   
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"></link>
-	<div class="container">
+	<div>
 <div class="clearfix"></div>
 #{loginBean.refresh()}
 #{carBean.filterCarToGetTotalMoneyBox()}
-<div class="row">
-<div class="col-md-12">
-</div>
-</div>
+<style>
+
+#checkout-button {
+    width: 400px;
+    height: 112px;
+    border-radius: 6px!important;
+    justify-content: space-between;
+    height: 36px;
+    background: #556cd6;
+    color: white;
+    width: 100%;
+    font-size: 14px;
+    border: 0;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.6;
+    border-radius: 0 0 6px 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 5.5px 0px rgb(0 0 0 / 7%);
+}
+button, input[type="submit"] {
+    color: #333 !important;
+}
+
+</style>
 <p:panel id="aspnetForm">
 <div class="account-table row">
-<div class="col-sm-12 col-md-2 side-menu account-menu">
-<div id="profile-side-menu" class="searchBox">
-<div class="group-title block_header responsive_header">
-Menu </div>
-<div class="responsive_box">
-<ul class="level1">
-<li class="active">
-<a href="/en/account">
-My Account </a>
-</li>
-</ul>
-<div class="sublevel">
-Menu </div>
-<ul class="level1 expand">
-<li >
-<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
-Profile Credentials</a>
-</li>
-<li >
-<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
-My Profile Data </a>
-</li>
-<li class="menu-item-refunds">
-<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
-Transactions </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
-Invoice List </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
-Current Cars </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Cars </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
-Watch List </a>
-</li>
-
-</ul>
 
 
 
+<div  style="border-radius: 7px;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-align: right;">
 
-<ul class="level1">
-<li>
-<a onclick="LogOutJS()" > 
-<i class="fa fa-power-off"></i> Log Out </a>
-</li>
-</ul>
-
-<h:form>
-					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
-				</h:form>
-				
-</div>
-</div>
-</div>
-
-
-<div class="col-sm-12 col-md-10" style="    border-radius: 7px;    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
-
-<div class="container bootstrap snippets bootdey" >
+<div class=" bootstrap snippets bootdey" >
   <div class="row">
       <div class="col-md-12">
       <div class="">
       <div class="panel-body">
                   <div class="row">
                         <div class="col-xs-12 col-sm-8">
-                            <h2 class="text-primary"><b><span class="glyphicon glyphicon-user"></span> Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id} </b></h2>
+                            <h2 class="text-primary"><b><span class="fa fa-money"></span> مرحبا #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم ##{loginBean.theUserOfThisAccount.id} </b></h2>
                             <div class="container">
                             	<div class="row">
                             		 <div class="col-xs-12 col-sm-4">
 			                            <h2><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h2>                    
-			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>The deposited Amount</small></p>
+			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>المودع</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
 			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
-			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>The Used Amount</small></p>
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>المستخدم</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
 			                            <h2><strong>$#{carBean.totalPrice}</strong></h2>                    
-			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>Total Cars Cost</small></p>
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>التكلفة الكلية</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
 			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
-			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>The available Amount</small></p>
+			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>المتاح</small></p>
 			                        </div>
                             	</div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
-                        	<p style="    font-size: 25px;    font-family: serif;"> Your Account is #{loginBean.thisAccountMoneyBox.active?'Active':'Not Active'}</p>
+                        	<p style="font-size: 25px;font-family: serif;text-align: center;margin-top: 26px;"> حسابك #{loginBean.thisAccountMoneyBox.active?'فعال':'غير فعال'}</p>
 			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to send email to us</p>
-	                        <p:graphicImage style="    width: 172px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
-		  		
+	                        <div style="    text-align: center;">
+	                        	<p:graphicImage style="    width: 151px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
+		  		            </div>
+	                        
 		  					<!-- <p:commandButton rendered="#{!loginBean.thisAccountMoneyBox.active}" disabled="#{loginBean.thisAccountMoneyBox.active}" class="btn btn-default DTTT_button_print" value="Activate the account" action="#{loginBean.activateMyAccount}"/>
 	  							 -->
                         </div>
@@ -252,43 +111,69 @@ Watch List </a>
 
 <h:form > 
 	  
-	  <table  style="width:100%;padding: 5%;">
-	  	
-	  	
-	  	<tr>
-	  		<td>
-	  				<br></br>
-	  				<p class="BankHead">Bank Name</p>
-	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankName}" class="textBoxStyle"/>
-	  				<br></br>
-	  				<p class="BankHead">Bank Account Number</p>
-	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankAccountNumber}" class="textBoxStyle"/>
-	  				<br></br>
-	  				<p class="BankHead">Bank Address</p>
-	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankAddress}" class="textBoxStyle"/>
-	  				<br></br>
-	  				<p class="BankHead">Bank Tel</p>
-	  				<p:inputText value="#{loginBean.thisAccountMoneyBox.bankTelephone}" class="textBoxStyle"/>
-	  				
-	  				<br></br>
-	  				<br></br>
-	  				<br></br>
-	  				
-	  				<p:commandButton class="btn btn-default DTTT_button_print" value="Save" action="#{loginBean.saveBankAccountDetails}"/>
-	  		</td>
-	  			
-	  		
-	  		<td colspan="2">
-	  			<p:panel id="amountTopay">
-	  				<p class="BankHead">Total Amount to pay without fractions</p>
+	   <div class="container content-table" >
+            	<div class="row">
+            	
+            		<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >اسم البنك</label>
+						    <h:inputText value="#{loginBean.thisAccountMoneyBox.bankName}" class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رقم حساب البنك</label>
+						    <h:inputText value="#{loginBean.thisAccountMoneyBox.bankAccountNumber}" class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   
+                    <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >عنوان البنك</label>
+						    <h:inputText value="#{loginBean.thisAccountMoneyBox.bankAddress}" class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   
+                    <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رقم هاتف الخاص بالبنك</label>
+						    <h:inputText value="#{loginBean.thisAccountMoneyBox.bankTelephone}" class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+              </div>
+              
+              <div class="row">
+	            	<div class="col-md-6 mb-3">
+							<div class="form-group">
+							    <h:commandButton  actionListener="#{loginBean.saveBankAccountDetails}" class="btn btn-primary" value="حفظ" id="ctl00_BodyHolder_cmdSave" style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px;" >
+							    <f:ajax execute="@form" render="@form" />
+							    </h:commandButton>
+							</div>
+	  
+	                   </div>
+                   </div>
+                   
+              <div class="row" style="text-align: center;">
+              
+              		<p:panel id="amountTopay">
+	  				<p class="BankHead">الكمية المراد دفعها بدون كسور</p>
 		  			<p:inputText  value="#{loginBean.amountToPayThroughPayPal}"  class="textBoxStyle"/>
 		  			<br></br>
 		  			<br></br>
-		  			<p:commandButton value = "Click Here before Pay" update="amountTopay"></p:commandButton>	
+		  			<p:commandButton value = "اضغط هنا قبل الدفع" update="amountTopay"></p:commandButton>	
 		  			<br></br>
 		  			<br></br>
 		  			
-		  			<p:outputLabel value="You will pay #{loginBean.amountToPayThroughPayPal}"></p:outputLabel>
+		  			<p:outputLabel value="سوف تدفع  #{loginBean.amountToPayThroughPayPal}"></p:outputLabel>
 		  			
 		  			<div class="container">
 		  				<div class="row">
@@ -298,7 +183,7 @@ Watch List </a>
 		  					</div>
 		  					<div class="col-md-5">
 	  		
-							      <button type="button" id="checkout-button">Pay with Stripe</button>
+							      <button type="button" id="checkout-button">ادفع ب  Stripe</button>
 							   
 		  					</div>
 		  				</div>
@@ -369,23 +254,11 @@ Watch List </a>
 				  }).render('#paypal-button-container');
 				</script>
 	  			</p:panel>
-	  			
-	  		</td>
 	  		
-	  		
-	  		
-	  		
-	  	</tr>
-	  	
-	  	
-	  	
+              </div>
+          </div>
+                   
 	  
-	  	
-	  	
-	  	
-	  	
-	  
-	  </table>
 	  
 	   <p:remoteCommand name="updatePayment" action="#{loginBean.addThisAmountToMyAccount}"/>
         </h:form>
@@ -417,6 +290,13 @@ Watch List </a>
      
      
      
+     
+     <script>
+
+ 	$('#menu-header-profile').toggleClass('expand');
+ 	$('#menu-profile').fadeToggle();
+ 	$('#profile-transaction').toggleClass('menu-item-refunds');
+     </script>
      
      
      

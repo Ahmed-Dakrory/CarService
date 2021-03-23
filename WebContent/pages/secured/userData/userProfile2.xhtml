@@ -7,99 +7,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
-	<ui:define name="title"> ADAWLIAA</ui:define>
+	<ui:define name="title"> حسابى</ui:define>
 
 	<ui:define name="content">
-	<style>
+		<style>
 	table {
     border-collapse: inherit;
     /* border-spacing: 0; */
     /* border-radius: 11px; */
 }
 	</style>
-	
-	<div class="container">
-<div class="clearfix"></div>
-
-
-<div class="row">
-<div class="col-md-12">
-</div>
-</div>
-<div id="content">
-<div class="account-table row">
-<div class="col-sm-12 col-md-2 side-menu account-menu">
-<div id="profile-side-menu" class="searchBox">
-<div class="group-title block_header responsive_header">
-Menu </div>
-<div class="responsive_box">
-<ul class="level1">
-<li class="active">
-<a href="/en/account">
-My Account </a>
-</li>
-</ul>
-<div class="sublevel">
-Menu </div>
-<ul class="level1 expand">
-<li class="menu-item-refunds">
-<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
-Profile Credentials</a>
-</li>
-<li >
-<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
-My Profile Data </a>
-</li>
-<li >
-<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
-Transactions </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
-Invoice List </a>
-</li>
-
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">Current Cars </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Cars </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
-Watch List </a>
-</li>
-</ul>
-
-
-
-
-<ul class="level1">
-<li>
-<a onclick="LogOutJS()" > 
-<i class="fa fa-power-off"></i> Log Out </a>
-</li>
-</ul>
-
-<h:form>
-					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
-				</h:form>
-				
-</div>
-</div>
-</div>
-<div class="col-sm-12 col-md-10" style="    border-radius: 7px;    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
-<div id="ajax-content">
+		<div id="ajax-content">
 <h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account">
@@ -111,159 +32,64 @@ Watch List </a>
 
             <div id="content">
                 
-    <!-- page src -->
-    <table cellspacing="0" cellpadding="5" class="content-table" border="0">
-        <tbody>
-            <tr valign="top">
-                <td width="100%">
-                    <!-- Buttons block -->
-                    <!-- End of Buttons block -->
-                    <!-- Table 1 -->
-                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#003399" border="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <table cellspacing="0" cellpadding="8" width="100%" bgcolor="#ffffff" border="0">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                 
-                                                    <table cellspacing="4" cellpadding="0" width="100%" border="0" style="margin-top: 3px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <table cellspacing="0" cellpadding="1" width="100%" bgcolor="#cccccc" border="0">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" style="border-style: solid;    border-width: 1px;" border="0">
-                                                                                        <tbody>
-                                                                                        <tr height="35">
-                                                                                                <td  colspan="6">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        User Name:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtUserName" type="text" value="#{loginBean.theUserOfThisAccount.userName}" id="ctl00_BodyHolder_txtUserName" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td colspan="4">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="9">
-                                                                                                <td  colspan="5">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Password:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputSecret name="ctl00$BodyHolder$txtPassword" value="#{loginBean.passwordOfUserLoggedIn}" type="text" id="ctl00_BodyHolder_txtPassword" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="9">
-                                                                                                <td  colspan="5">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                             <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Password Confirm:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputSecret  name="ctl00$BodyHolder$txtPasswordconfirm" value="#{loginBean.passwordConfirm}" type="text" id="ctl00_BodyHolder_txtPasswordconfirm" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                           
-                                                                                           <tr height="9">
-                                                                                                <td  colspan="5">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                           
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        Email:</div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtEmail" type="text" value="#{loginBean.theUserOfThisAccount.email}" readonly="true" id="ctl00_BodyHolder_txtEmail" style="font-size:11px;height:19px;width:200px;" />
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            <tr height="23">
-                                                                                                <td class="tbltxt" width="130">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td width="200">
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="9">
-                                                                                                <td  colspan="5">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td align="right" colspan="5">
-                                                                                                    &nbsp;<p:commandButton action="#{loginBean.updateDataOfUser()}" name="ctl00$BodyHolder$cmdSave" value="Save" id="ctl00_BodyHolder_cmdSave"  style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:80px;" />
-                                                                                                    
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="13">
-                                                                                                <td colspan="5">
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- End of Table 1 -->
-                </td>
-            </tr>
-            <p>
-                <tr>
-                    <td bgcolor="white" colspan="2">
-                    </td>
-                </tr>
-            </p>
-        </tbody>
-    </table>
+                
+                
+             <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
+            	<div class="row">
+            	
+            		<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >اسم المستخدم</label>
+						    <h:inputText value="#{loginBean.theUserOfThisAccount.userName}" class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   </div>
+                   <div class="row">
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >الباسورد</label>
+						    <h:inputSecret value="#{loginBean.passwordOfUserLoggedIn}" class="form-control" type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >تأكيد الباسورد</label>
+						    <h:inputSecret value="#{loginBean.passwordConfirm}" class="form-control"  type="text"   />
+						</div>
+  
+                   </div>
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >البريد الألكترونى</label>
+						    <h:inputText value="#{loginBean.theUserOfThisAccount.email}" readonly="true"  class="form-control"   type="text"   />
+						</div>
+  
+                   </div>
+                   
+                 </div>
+             
+             
+             <div class="row">
+	            	<div class="col-md-6 mb-3">
+							<div class="form-group">
+							    <h:commandButton  actionListener="#{loginBean.updateDataOfUser()}" class="btn btn-primary" value="حفظ" id="ctl00_BodyHolder_cmdSave" style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px;" >
+							    <f:ajax execute="@form" render="@form" />
+							    </h:commandButton>
+							</div>
+	  
+	                   </div>
+                   </div>
+              </div>
+                  
 
             </div>  
         </h:form>
@@ -276,13 +102,15 @@ Watch List </a>
 <div class="clr"></div>
 
 </div>
-</div>
-</div>
-<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
-</div>
-</div>
+		
+		
+		
+     <script>
 
-
+ 	$('#menu-header-profile').toggleClass('expand');
+ 	$('#menu-profile').fadeToggle();
+ 	$('#profile-account').toggleClass('menu-item-refunds');
+     </script>
 	  
      
 	</ui:define>

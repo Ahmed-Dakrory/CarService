@@ -8,10 +8,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
-	<ui:define name="title"> ADAWLIAA</ui:define>
+	<ui:define name="title"> الفواتير</ui:define>
  <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="invoiceList.jsf" class="mn-sub-item-current"><b>Invoice List</b></a></li></ul>
            
@@ -21,126 +21,9 @@
 	
    		<link rel="stylesheet" href="#{resource['css:dashboard2/assets/vendor/font-awesome/css/font-awesome.css']}" />
      #{shipperBean.refresh()}
-<style>
-					.ui-fileupload-choose {
-						    position: relative;
-						    overflow: hidden;
-						    outline: 0;
-						    display: none;
-						}
-						
-						.ui-button-icon-only {
-    width: 19px;
-    background: url(/resources/images/public/img/gr-error.png) no-repeat;
-    height: 19px;
-}
 
-.ui-datepicker {
-   border: #cec2c2;
-    background: white;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 3%;
-    width: 15%;
-    }
-    .ui-datepicker .ui-icon {
-      display: contents!important;
-}
-.ui-datepicker-header{
-    width: -webkit-fill-available;
-}
-.ui-datepicker .ui-datepicker-next {
-       position: absolute;
-    right: 5%;
-}
-.ui-datepicker-calendar{
-    width: -webkit-fill-available;
-    padding: 5%;
-    margin: 1%;
-}
-.ui-datepicker-title{
-width: -webkit-fill-available;
-    text-align: -webkit-center;
-
-}
-					</style>
 	
 #{carPageBean.refresh()}
-
-<div class="container">
-<div class="clearfix"></div>
-
-
-<div class="row">
-<div class="col-md-12">
-</div>
-</div>
-<div id="content">
-<div class="account-table row">
-<div class="col-sm-12 col-md-2 side-menu account-menu">
-<div id="profile-side-menu" class="searchBox">
-<div class="group-title block_header responsive_header">
-Menu </div>
-<div class="responsive_box">
-<ul class="level1">
-<li class="active">
-<a href="/en/account">
-My Account </a>
-</li>
-</ul>
-<div class="sublevel">
-Menu </div>
-<ul class="level1 expand">
-<li >
-<a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">
-Profile Credentials</a>
-</li>
-<li >
-<a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">
-My Profile Data </a>
-</li>
-<li class="">
-<a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">
-MoneyBox </a>
-</li>
-
-<li class="menu-item-refunds">
-<a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">
-Invoice List </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
-Current Cars </a>
-</li>
-
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">
-All Cars </a>
-</li>
-
-<li class="">
-<a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">
-Watch List </a>
-</li>
-</ul>
-
-
-
-
-
-<ul class="level1">
-<li>
-<a href="/en/account/logout">
-Log Out </a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-sm-12 col-md-10" style="    border-radius: 7px;    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
 <div id="ajax-content">
 <h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
 
@@ -305,12 +188,16 @@ Log Out </a>
 <div class="clr"></div>
 
 </div>
-</div>
-</div>
-<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
-</div>
-</div>
 
+
+
+     <script>
+
+ 	$('#menu-header-profile').toggleClass('expand');
+ 	$('#menu-profile').fadeToggle();
+ 	$('#profile-invoice').toggleClass('menu-item-refunds');
+     </script>
+	  
 
 
              
