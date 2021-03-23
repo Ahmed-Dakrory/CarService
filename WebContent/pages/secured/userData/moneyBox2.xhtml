@@ -51,6 +51,18 @@ button, input[type="submit"] {
     color: #333 !important;
 }
 
+
+.fa{
+
+color: #161208;
+
+}
+
+.small, small {
+    font-size: 80%;
+    font-weight: 900;
+    color: #161208;
+}
 </style>
 <p:panel id="aspnetForm">
 <div class="account-table row">
@@ -70,19 +82,19 @@ button, input[type="submit"] {
                             <div class="container">
                             	<div class="row">
                             		 <div class="col-xs-12 col-sm-4">
-			                            <h2><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h2>                    
+			                            <h4 style="text-align: center;"><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h4>                    
 			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>المودع</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
-			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
+			                            <h4 style="text-align: center;"><strong>$#{loginBean.thisAccountMoneyBox.totalUsed}</strong></h4>                    
 			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>المستخدم</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
-			                            <h2><strong>$#{carBean.totalPrice}</strong></h2>                    
+			                            <h4 style="text-align: center;"><strong>$#{carBean.totalPrice}</strong></h4>                    
 			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>التكلفة الكلية</small></p>
 			                        </div><!--/col-->
 			                        <div class="col-xs-12 col-sm-4">
-			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
+			                            <h4 style="text-align: center;"><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h4>                    
 			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>المتاح</small></p>
 			                        </div>
                             	</div>
@@ -154,7 +166,7 @@ button, input[type="submit"] {
               <div class="row">
 	            	<div class="col-md-6 mb-3">
 							<div class="form-group">
-							    <h:commandButton  actionListener="#{loginBean.saveBankAccountDetails}" class="btn btn-primary" value="حفظ" id="ctl00_BodyHolder_cmdSave" style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px;" >
+							    <h:commandButton  actionListener="#{loginBean.saveBankAccountDetails}" class="btn btn-primary" value="حفظ" id="ctl00_BodyHolder_cmdSave" style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px; color:white!important;" >
 							    <f:ajax execute="@form" render="@form" />
 							    </h:commandButton>
 							</div>
