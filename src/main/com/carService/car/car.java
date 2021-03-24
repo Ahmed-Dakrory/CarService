@@ -70,6 +70,10 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and consigneeId = :consigneeId and d.deleted = false"
 			)
 	,
+	@NamedQuery(name="car.getAllWareHouseFornormalUserId",
+	query = "from car d where (d.state = 0 or d.state = 1 or d.state = 2 or d.state = 3 ) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	,
 	@NamedQuery(name="car.getAllDryCargoForMainUser",
 	query = "from car d where (d.state = 4 or d.state = 5) and mainId = :userId and d.deleted = false"
 			)
@@ -92,6 +96,11 @@ import main.com.carService.vendor.vendor;
 	,
 	@NamedQuery(name="car.getAllDryCargoForConsignee",
 	query = "from car d where (d.state = 4 or d.state = 5) and consigneeId = :consigneeId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllDryCargoFornormalUserId",
+	query = "from car d where (d.state = 4 or d.state = 5) and normalUserId = :normalUserId and d.deleted = false"
 			)
 	
 	,
@@ -119,6 +128,11 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 6 or d.state = 7) and consigneeId = :consigneeId and d.deleted = false"
 			)
 	,
+	@NamedQuery(name="car.getAllFrightInTransitFornormalUserId",
+	query = "from car d where (d.state = 6 or d.state = 7) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	,
+	
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUser",
 	query = "from car d where (d.state = 8) and mainId = :userId and d.deleted = false"
 			)
@@ -141,6 +155,37 @@ import main.com.carService.vendor.vendor;
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForConsignee",
 	query = "from car d where (d.state = 8) and consigneeId = :consigneeId and d.deleted = false"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightSentForPaymentFornormalUserId",
+	query = "from car d where (d.state = 8) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	,
+	@NamedQuery(name="car.getAllFrightAddByCustomerFornormalUserId",
+	query = "from car d where (d.state = 9) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightPayedByCustomerFornormalUserId",
+	query = "from car d where (d.state = 10) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightDelieveredFornormalUserId",
+	query = "from car d where (d.state = 11) and normalUserId = :normalUserId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllAddByCustomerForMainUser",
+	query = "from car d where (d.state =9 ) and mainId = :userId and d.deleted = false"
+			)
+	,
+	@NamedQuery(name="car.getAllPayedByCustomerForMainUser",
+	query = "from car d where (d.state =10 ) and mainId = :userId and d.deleted = false"
+			)
+	,
+	@NamedQuery(name="car.getAllDelieveredForMainUser",
+	query = "from car d where (d.state =11 ) and mainId = :userId and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="car.getAllWithAllowSendState",
@@ -175,6 +220,10 @@ public class car {
 	@ManyToOne
 	@JoinColumn(name = "customerId")
 	private customer customerId;
+	
+	@ManyToOne
+	@JoinColumn(name = "normalUserId")
+	private user normalUserId;
 	
 	@ManyToOne
 	@JoinColumn(name = "mainTwoId")
@@ -291,6 +340,9 @@ public class car {
 	public static int STATE_In_TRANSIT_1=6;
 	public static int STATE_In_TRANSIT_2=7;
 	public static int STATE_Sent_For_Payment=8;
+	public static int STATE_AddedByCustomer=9;
+	public static int STATE_PayedByCustomer=10;
+	public static int STATE_Delivered=11;
 	
 	
 	public static int Title_Missing=0;
@@ -353,7 +405,10 @@ public class car {
 										 "Dry Cargo (Load Request YES)",
 										 "Fright In Transit ( ETA present)",
 										 "Fright In Transit  (No ETA)",
-										 "Sent For Payment"};
+										 "Sent For Payment",
+										 "Added By Customer",
+										 "Payed by Customer",
+										 "Delivered"};
 
 	public String getTitleString() {
 		String title="";
@@ -1459,6 +1514,24 @@ public class car {
 
 	public void setImagesLink(String imagesLink) {
 		this.imagesLink = imagesLink;
+	}
+
+
+
+
+
+
+	public user getNormalUserId() {
+		return normalUserId;
+	}
+
+
+
+
+
+
+	public void setNormalUserId(user normalUserId) {
+		this.normalUserId = normalUserId;
 	}
 	
 

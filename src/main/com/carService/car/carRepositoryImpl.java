@@ -432,6 +432,136 @@ public class carRepositoryImpl implements carRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public List<car> getAllWareHouseFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllWareHouseFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllDryCargoFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllDryCargoFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightInTransitFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightInTransitFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightSentForPaymentFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightAddByCustomerFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightAddByCustomerFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightPayedByCustomerFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightPayedByCustomerFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightDelieveredFornormalUserId(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightDelieveredFornormalUserId").setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllAddByCustomerForMainUser(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllAddByCustomerForMainUser").setInteger("userId",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllPayedByCustomerForMainUser(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllPayedByCustomerForMainUser").setInteger("userId",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllDelieveredForMainUser(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllDelieveredForMainUser").setInteger("userId",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 	
 
 

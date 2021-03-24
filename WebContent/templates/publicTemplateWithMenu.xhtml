@@ -91,6 +91,12 @@
     
     
     
+		<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<h:outputScript name="js/dashboard2/assets/deleteCheckScripts.js"/>
+
+	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
     
 		  <link rel="stylesheet" href="#{resource['css:public/app.css']}" />
 	  
@@ -674,6 +680,15 @@
 
 
 
+<div id="menu-header-car" class="sublevel droparrow">قائمة السيارات</div>
+
+
+<ul  id="menu-car" class="level2" style="display: contents;">
+<li id="car-main"><a href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شخن فقط</a></li>
+<li id="car-all"><a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">كل السيارات </a></li>
+<li id="car-watchList"><a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">قأئمة المشاهدة </a></li>
+</ul>
+
 
 
 <ul class="level1">
@@ -696,6 +711,7 @@
 
   	$('#menu-profile').fadeToggle();
  	$('#menu-bid').fadeToggle();
+ 	$('#menu-car').fadeToggle();
      </script>
      
      
@@ -854,8 +870,8 @@
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		setInterval(refreshMainViews, 600);
-		setInterval(refreshMainViews2, 600);
+		//setInterval(refreshMainViews, 600);
+		//setInterval(refreshMainViews2, 600);
 			
 		</script>
 </h:body>

@@ -499,6 +499,166 @@ public class carAppServiceImpl implements IcarAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<car> getAllWareHouseFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllWareHouseFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllDryCargoFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllDryCargoFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightInTransitFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightInTransitFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightSentForPaymentFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightSentForPaymentFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightAddByCustomerFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightAddByCustomerFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightPayedByCustomerFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightPayedByCustomerFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightDelieveredFornormalUserId(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightDelieveredFornormalUserId(normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllAddByCustomerForMainUser(int userId) {
+		try{
+			List<car> course=carDataRepository.getAllAddByCustomerForMainUser(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllPayedByCustomerForMainUser(int userId) {
+		try{
+			List<car> course=carDataRepository.getAllPayedByCustomerForMainUser(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllDelieveredForMainUser(int userId) {
+		try{
+			List<car> course=carDataRepository.getAllDelieveredForMainUser(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

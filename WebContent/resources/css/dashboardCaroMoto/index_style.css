@@ -39,8 +39,8 @@
 
 
 .navbar-dark .navbar-nav .nav-link:hover {
-    color:  #e70013;
-    background-color: white;
+    color: #ffffff;
+    background-color: #ffffff1f;
 }
 
 header .header-img
@@ -66,10 +66,9 @@ z-index: 99999999;
     bottom: 75px;
 }
 #find-your-car .find-car-title{
-    background-color: #e70013;
+    background-color: #3b4772;
     color: white;
     padding: 0.2rem 3rem;
-
 }
 #find-your-car .find-car-title p{
 font-size: 1.5rem;
@@ -83,16 +82,16 @@ font-weight: 600;
 
 .btn-secondary {
     color: #fff;
-    background-color: #e70013;
-    border:solid 1px white;
+    background-color: #949cb861;
+    border: solid 1px #aca1a1;
 }
 .btn-secondary:hover{
-    color: #e70013;
+    color: #bcbcbc;
     background-color: #8a8a8a70;
-    border:solid 1px white;
+    /* border:solid 1px white; */
 }
 .car-search{
-    background-color: #e70013;
+    background-color: #3b4772;
     padding: 3rem 1rem;
 }
 
@@ -222,7 +221,7 @@ right: -5%;
     background-size: contain;
 }
 #CATEGORIES .categoriesText .btn{
-   background-color: #e70013;
+   background-color: #626261;
    border: none;
    padding: 0.8rem 2rem;
    margin-left: 5rem;
@@ -230,7 +229,7 @@ right: -5%;
 }
 
 #CATEGORIES .categoriesText h2{
-    color: #e70013;
+    color: #083079;
     padding-bottom: 1.5rem;
     margin-left: 2rem;
 }
@@ -282,7 +281,7 @@ right: -5%;
 }
 
 #footer-contact ul li a:hover{
-    color:#e70013 ;
+    color: #c0bebe;
 }
 
 
@@ -305,8 +304,8 @@ right: -5%;
 .yBtn{
 	background: linear-gradient(
 180deg
-,#989595 0,#bfbfbf 95%,#b1d5e6 0);
-padding-bottom: 11px;"
+,#334083 0,#8d8888 95%,#8a8b8b 0);
+	padding-bottom: 11px;"
 }
 
 
