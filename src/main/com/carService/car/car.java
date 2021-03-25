@@ -281,9 +281,28 @@ public class car {
 	
 	@Column(name = "cargoRecieved")
 	private Calendar cargoRecieved;
-	
+
 	@Column(name = "titleRecieved")
 	private Integer titleRecieved;
+	
+	
+
+	@Column(name = "typeOfOrder")
+	private Integer typeOfOrder;
+	
+
+	@Column(name = "orderNotesFromCustomer")
+	private String orderNotesFromCustomer;
+
+
+	@Column(name = "orderLink")
+	private String orderLink;
+	
+	
+
+
+	@Column(name = "orderPrice")
+	private float orderPrice;
 	
 	@Column(name = "dvl")
 	private Calendar dvl;
@@ -1532,6 +1551,79 @@ public class car {
 
 	public void setNormalUserId(user normalUserId) {
 		this.normalUserId = normalUserId;
+	}
+
+
+
+
+
+
+	public Integer getTypeOfOrder() {
+		return typeOfOrder;
+	}
+
+
+
+
+
+
+	public void setTypeOfOrder(Integer typeOfOrder) {
+		this.typeOfOrder = typeOfOrder;
+	}
+
+
+
+	public static int TYPE_SHIPPING = 0;
+	public static int TYPE_BUY_SHIPPING = 1;
+
+
+	public String getOrderNotesFromCustomer() {
+		return orderNotesFromCustomer;
+	}
+
+
+
+
+
+
+	public void setOrderNotesFromCustomer(String orderNotesFromCustomer) {
+		this.orderNotesFromCustomer = orderNotesFromCustomer;
+	}
+
+
+
+
+
+
+	public String getOrderLink() {
+		return orderLink;
+	}
+
+
+
+
+
+
+	public void setOrderLink(String orderLink) {
+		this.orderLink = orderLink;
+	}
+
+
+
+
+
+
+	public float getOrderPrice() {
+		return orderPrice;
+	}
+
+
+
+
+
+
+	public void setOrderPrice(float orderPrice) {
+		this.orderPrice = orderPrice;
 	}
 	
 

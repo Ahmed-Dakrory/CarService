@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+	
+
+	<ui:define name="content">
+	<style>
+	
+	a {
+    color: #165ad5;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+	</style>
+	<div id="ajax-content">
+<h2 class="account-header">مرحبا  #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم  ##{loginBean.theUserOfThisAccount.id}  </h2>
+
+<div class="sort-boxes-account" style=" border-radius: 11px;box-shadow: 1px 1px 1px 1px grey;  padding: 17px;">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+		#{normalUserBean.selectedCarState}
+			 <nobr>قائمة السيارات<span>: #{normalUserBean.allCars.size()}</span></nobr>
+		</div>
+		<div class="col-md-6">
+			<h:form id="formOfSelectionCarState">
+             <h:selectOneMenu value="#{normalUserBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
+				<f:ajax listener="#{normalUserBean.filterCarBySelect}"/>
+				<f:selectItem itemValue="0" itemLabel="ADA WAREHOUSE"/>
+				<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
+				<f:selectItem itemValue="2" itemLabel="Freight In Transit"/>
+				<f:selectItem itemValue="4" itemLabel="Sent For Payment"/>
+				<f:selectItem itemValue="6" itemLabel="Added by Customer"/>
+				<f:selectItem itemValue="3" itemLabel="Show All"/>
+			</h:selectOneMenu>
+			</h:form>
+		</div>
+	</div>
+	
+	<div class="row">
+		<form name="aspnetForm" class="w-100 mt-3" method="post" action="./vehicleList.jsf" id="aspnetForm">
+
+
+            <div id="content">
+                
+    <input name="ctl00$BodyHolder$hdClient_ID" type="hidden" id="ctl00_BodyHolder_hdClient_ID" value="47089" />
+    <!-- page src -->
+    
+                                           
+             <section class="panel" >
+             
+             
+             <div class="col-md-12 searchResult" >
+<h:panelGroup id="panelCarsToUpdate">
+<section class="panel" >
+
+<div class="panel-body list-view" style="border-radius: 11px;box-shadow: 0px 1px 3px 1px #dbdbdbeb;padding: 17px;">
+	<table class="table table-bordered table-striped mb-none searchList carlist" id="datatable-tabletools" data-swf-path="assets/customer/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+		<thead>
+			<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
+
+<th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السيارة</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">المكان</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">الوقت</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">السعر</th>
+	</tr>
+</thead>
+<tbody>
+		
+	<script>
+function ViewDocById(strID) {
+    if (strID != '-1') {
+    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+    }
+}
+</script>
+
+	
+	 <ui:repeat var="data" value="#{normalUserBean.allCars}">
+
+	<tr align="left" class="gradeX">
+				
+		<td class="d-none d-sm-table-cell center hidden-phone">
+			<h2 class="title" style=" margin-top: 5%;text-align: justify;">
+<a itemprop="url" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
+<div class="vin" style="    text-align: initial;">
+<span class="name">
+سيريال السيارة:
+</span>
+#{data.uuid} </div>
+<div class="odometer" style="    text-align: initial;">
+<span class="name">
+الماركة:
+</span>
+#{data.make} 
+</div>
+<div class="odometer" style="    text-align: initial;">
+	<span class="name">
+	الموديل:
+	</span>
+	#{data.model}
+	</div>
+	
+	
+</td>
+
+<td class="d-none d-sm-table-cell center hidden-phone column1">
+
+		<div class="location" style="text-align: justify;">
+		<span class="name">Statues:</span>#{data.state} </div>
+		
+</td>
+
+
+<td class="d-none d-sm-table-cell center hidden-phone column3" >
+	<div class="location" style="text-align: justify;">
+		<span class="name">Location:</span> 11/2/2021</div>
+</td>
+
+<td class="d-none d-sm-table-cell center hidden-phone column5" style="text-align: justify;">
+<div class="price" style="text-align: justify;" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+	$<span>#{data.orderPrice} </span>
+	<span class="currency">دولار </span>
+</div>
+<div class="bidtype" style="text-align: justify;">السعر الحالى </div>
+
+
+<a style="width: 77px;height: 39px;padding-top: 5%;color: #f7f7f7;font-family: auto;" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}" class="button yBtn_24">ذهاب اليها </a>
+													
+													
+												</td>
+												
+												
+											</tr>
+											
+											
+											
+											 </ui:repeat>
+											
+											
+										
+									</tbody>
+								</table>
+							
+							
+							</div>
+						</section>
+</h:panelGroup>                                            
+</div>
+						</section>
+                                       
+                    
+             
+
+            </div>  
+        </form>
+
+		
+	</div>
+</div>
+
+
+
+</div>
+
+</div>
+	
+	
+     <script>
+
+ 	$('#menu-header- car').toggleClass('expand');
+ 	$('#menu-car').fadeToggle();
+ 	$('#car-all').toggleClass('menu-item-refunds');
+     </script>
+     
+	
+        
+        
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

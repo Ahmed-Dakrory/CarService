@@ -112,7 +112,7 @@
 		  
 		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
 		
-	#{normalUserBean.refresh()}
+	#{normalUserBean.getCarWithId()}
               <h:form name="aspnetForm" id="aspnetForm">
 
 
@@ -149,8 +149,7 @@
 					
 						
 					</script>	
-                                                                                   
-                                                                                   
+                                                                                                          
              <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
             	<div class="row">
             	
@@ -182,7 +181,7 @@
 						  </div>
 					</div>
 				</div>
-				
+            	
             	<div class="row">
             	
             		<div class="col-md-6 mb-3">
@@ -5418,7 +5417,7 @@
 					 <div class="col-md-12 mb-3">
 						<div class="form-group">
 						    <label >ملاحظة</label>
-						     <h:inputText type="text" class="form-control" value="#{normalUserBean.addNewCar.orderNotesFromCustomer}"   />
+						     <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" class="form-control" value="#{normalUserBean.addNewCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber"  />
                        </div>
                    </div>
                    
@@ -5678,7 +5677,7 @@
 	                                	</p:remoteCommand>
         </h:form>
         
-       <script>
+      <script>
 
        function viewBuyRow(){
     	   if($('#aspnetForm\\:selectOfBuy').val()==1){

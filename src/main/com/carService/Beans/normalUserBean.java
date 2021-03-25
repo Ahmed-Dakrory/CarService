@@ -31,6 +31,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
@@ -152,6 +153,9 @@ public class normalUserBean implements Serializable{
 		for(int i=0;i<car.stateString.length;i++) {
 			carStates.add(car.stateString[i]);
 		}
+		
+		
+		
 		refresh();
 		
 		
@@ -159,6 +163,89 @@ public class normalUserBean implements Serializable{
 		selectedCarState=0;
 	}
 	
+	public String getStringFromCalendar(Calendar calendar) {
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
+		String returnedCalendarString="";
+		
+			if(calendar!=null) {
+				returnedCalendarString=formatter.format(calendar.getTime());
+			}
+		return returnedCalendarString;
+	}
+	
+	public void getCarWithId() {
+
+		
+
+		
+		
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getRequest();
+		Integer id = null;
+		try{
+			id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			
+			System.out.println("Ahmed old: "+String.valueOf(e));
+		}
+				if(id!=null){
+					
+					images=new ArrayList<String>();
+					docs=new ArrayList<String>();
+					
+					images_deleted=new ArrayList<String>();
+					docs_deleted=new ArrayList<String>();
+					
+					cargoRecievedDate="";
+					titleRecievedSelected=0;
+					dvlDate="";
+					stRecievedDate="";
+					etdDate="";
+					etaDate="";
+					storageStartDate="";
+					storageEndDate="";
+					
+					addNewCar=new car();
+					
+					addNewCar=carFacade.getById(id);
+					List<carimage> imagesPics = carimageFacade.getAllByCarIdAndType(id, carimage.TYPE_PIC);
+					if(imagesPics!=null) {
+					for(int i=0;i<imagesPics.size();i++) {
+						images.add(imagesPics.get(i).getUrl());
+
+					}
+					}
+					
+					List<carimage> docssPics = carimageFacade.getAllByCarIdAndType(id, carimage.TYPE_DOC);
+					if(docssPics!=null) {
+					for(int i=0;i<docssPics.size();i++) {
+						docs.add(docssPics.get(i).getUrl());
+
+					}
+					}
+
+					
+					cargoRecievedDate=getStringFromCalendar(addNewCar.getCargoRecieved());
+					dvlDate=getStringFromCalendar(addNewCar.getDvl());
+					stRecievedDate=getStringFromCalendar(addNewCar.getStRecieved());
+					etdDate=getStringFromCalendar(addNewCar.getEtd());
+
+					etaDate=getStringFromCalendar(addNewCar.getEta());
+					storageStartDate=getStringFromCalendar(addNewCar.getStorageStartDate());
+					storageEndDate=getStringFromCalendar(addNewCar.getStorageEndDate());
+
+					titleRecievedSelected=addNewCar.getTitleRecieved();
+
+
+					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+					
+				}
+		
+	}
 	
 public void refresh(){
 		
@@ -231,6 +318,17 @@ public void getCarWithVinNew() {
 	}
 }
 
+
+public void filterCarBySelect() {
+	filterCarBySelectFirstTime();
+	
+	try {
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 
 private boolean checkCarIsExist(String vinId) {
 	// TODO Auto-generated method stub
@@ -350,7 +448,7 @@ public void saveNewCarDataMain() {
 	
 	try {
 		FacesContext.getCurrentInstance()
-		   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+		   .getExternalContext().redirect("/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -556,7 +654,6 @@ public void releaseVariablesForMain() {
 public void filterCarBySelectFirstTime() {
 
 	allCars=new ArrayList<car>();
-if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_NormalUser) {
 
 		user userNewId=loginBean.getTheUserOfThisAccount();
 		
@@ -602,6 +699,39 @@ if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_NormalUser) {
 			
 
 
+		}else if(selectedCarState==5) {
+			// getAllFrightPayedByCustomerFornormalUserId
+
+			List<car> SentMain = carFacade.getAllFrightPayedByCustomerFornormalUserId(userNewId.getId());
+
+			
+			if(SentMain!=null)
+				allCars.addAll(SentMain);
+			
+
+
+		}else if(selectedCarState==6) {
+			// getAllFrightAddByCustomerFornormalUserId
+
+			List<car> SentMain = carFacade.getAllFrightAddByCustomerFornormalUserId(userNewId.getId());
+
+			
+			if(SentMain!=null)
+				allCars.addAll(SentMain);
+			
+
+
+		}else if(selectedCarState==7) {
+			// getAllFrightDelieveredFornormalUserId
+
+			List<car> SentMain = carFacade.getAllFrightDelieveredFornormalUserId(userNewId.getId());
+
+			
+			if(SentMain!=null)
+				allCars.addAll(SentMain);
+			
+
+
 		}else if(selectedCarState==3) {
 			//this for all
 
@@ -609,7 +739,20 @@ if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_NormalUser) {
 			List<car> dryCargoMain = carFacade.getAllDryCargoFornormalUserId(userNewId.getId());
 			List<car> transitMain = carFacade.getAllFrightInTransitFornormalUserId(userNewId.getId());
 			List<car> SentMain = carFacade.getAllFrightSentForPaymentFornormalUserId(userNewId.getId());
+			List<car> PayedMain = carFacade.getAllFrightPayedByCustomerFornormalUserId(userNewId.getId());
+			List<car> AddedByCustomerMain = carFacade.getAllFrightAddByCustomerFornormalUserId(userNewId.getId());
+			List<car> DeliveredtoCustomerMain = carFacade.getAllFrightDelieveredFornormalUserId(userNewId.getId());
 
+
+			if(AddedByCustomerMain!=null)
+				allCars.addAll(AddedByCustomerMain);
+			
+			if(PayedMain!=null)
+				allCars.addAll(PayedMain);
+			
+			if(DeliveredtoCustomerMain!=null)
+				allCars.addAll(DeliveredtoCustomerMain);
+			
 			if(wareHouseMain!=null)
 				allCars.addAll(wareHouseMain);
 			
@@ -630,9 +773,6 @@ if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_NormalUser) {
 	
 	
 	
-	
-	
-}
 
 
 public main.com.carService.loginNeeds.loginBean getLoginBean() {
