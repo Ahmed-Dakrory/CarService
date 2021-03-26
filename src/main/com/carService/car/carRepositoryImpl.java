@@ -30,7 +30,7 @@ public class carRepositoryImpl implements carRepository{
 	
 
 	@Override
-	public car addcar(car data) {
+	public car addcar(car data)throws Exception {
 		try{
 
 			data.setLastUpdate(Calendar.getInstance());
@@ -45,7 +45,7 @@ public class carRepositoryImpl implements carRepository{
 			{
 				System.out.println(">>>>>>>>>>");
 				ex.printStackTrace();
-				return null;
+				throw ex;
 			}
 	}
 

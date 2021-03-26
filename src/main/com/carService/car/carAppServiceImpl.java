@@ -40,7 +40,7 @@ public class carAppServiceImpl implements IcarAppService{
 	
 
 	@Override
-	public car addcar(car data) {
+	public car addcar(car data)throws Exception {
 		try{
 			car data2=carDataRepository.addcar(data);
 			return data2;
@@ -48,7 +48,7 @@ public class carAppServiceImpl implements IcarAppService{
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
-				return null;
+				throw ex;
 			}
 	}
 

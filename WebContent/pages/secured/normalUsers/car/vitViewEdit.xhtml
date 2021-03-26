@@ -101,6 +101,101 @@
 .ui-datepicker .ui-datepicker-next {
     right: 17px;
 }
+
+
+
+
+
+
+
+
+
+.progressbar li{
+  float: left;
+  width: 25%;
+  position: relative;
+  text-align: center;
+}
+
+
+
+.progressbar{
+  counter-reset: step;
+  list-style-type: none;
+  font: normal normal normal 20px/25px Ionicons;
+}
+.progressbar li:before{
+  content:counter(step);
+  counter-increment: step;
+  width: 61px;
+  height: 61px;
+  border: 2px solid #bebebe;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  line-height: 55px;
+  background: white;
+  color: #bebebe;
+  text-align: center;
+  font-weight: bold;
+}
+
+.progressbar li:after{
+      content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #979797;
+    top: 29px;
+    left: -50%;
+    z-index: -1;
+}
+
+
+.progressbar li:first-child:after{
+content: none;
+}
+
+.progressbar li.active + li:after{
+ background: #3aac5d;
+}
+.progressbar li.active + li:before{
+border-color: #3aac5d;
+background: #3aac5d;
+color: white
+}
+
+
+
+.progressbar li:first-child:before {
+    border-color: #3aac5d;
+    background: #3aac5d;
+    color: white;
+}
+
+
+
+
+
+.progressbar li.activeBad + li:after{
+ background: #c93119;
+}
+.progressbar li.activeBad + li:before{
+border-color: #c93119;
+background: #c93119;
+color: white
+}
+
+
+
+.progressbar li:first-child:before {
+    border-color: #3aac5d;
+    background: #3aac5d;
+    color: white;
+}
+
+
+
 					</style>
 		<!-- Vendor CSS -->
 		
@@ -151,6 +246,77 @@
 					</script>	
                                                                                                           
              <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
+            	<br></br>
+            	<br></br>
+            	<div class="row">
+            	
+            	    <!-- progressbar -->
+				     <div class="w-100">
+				          <ul class="progressbar" style="margin-left: 11%;">
+				            <li id="revise-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة المراجعة</div>
+									<div id="revise-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="dis-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة اتخاذ القرار</div>
+									<div id="dis-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="ship-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة الشحن</div>
+									<div id="ship-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="done-state" class="">
+								<div class="card border-0">
+									<div class="text-success">الاستلام</div>
+									<div id="done-comment" class="text-primary"></div>
+								</div>
+							</li>
+				           
+				          </ul>
+				      </div>
+				  
+
+
+            	</div>
+            	<hr></hr>
+            	<script>
+            		if(#{normalUserBean.addNewCar.state} &lt;= 7){
+            			$('#revise-state').toggleClass('active');
+            			$('#dis-state').toggleClass('active');
+
+            			$('#ship-comment').html('مازال فى مرحلة الشحن');
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            		}else if(#{normalUserBean.addNewCar.state} == 10){
+            			$('#revise-state').toggleClass('activeBad');
+
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('رفض');
+            		}else if(#{normalUserBean.addNewCar.state} == 11 || #{normalUserBean.addNewCar.state} == 12){
+            			$('#revise-state').toggleClass('active');
+            			
+
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            		}else if(#{normalUserBean.addNewCar.state} == 13 ){
+            			$('#revise-state').toggleClass('active');
+            			$('#dis-state').toggleClass('active');
+            			$('#ship-state').toggleClass('active');
+            			
+
+            			$('#ship-comment').html('تم');
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            			$('#done-comment').html('تم');
+            		}
+            	</script>
+            	
             	<div class="row">
             	
             		<div class="col-md-7 mb-3">

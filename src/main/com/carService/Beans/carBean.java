@@ -1076,22 +1076,31 @@ public void refreshSelectedCarVendor() {
 			
 
 			System.out.println("Ahmed Add  7");
-			carFacade.addcar(addNewCar);
-
-			System.out.println("Ahmed Add  9");
-			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-					"			title: 'Success',\r\n" + 
-					"			text: 'Your car has been added.',\r\n" + 
-					"			type: 'success'\r\n" + 
-					"		});");
-			
 			try {
-				FacesContext.getCurrentInstance()
-				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-			} catch (IOException e) {
+				carFacade.addcar(addNewCar);
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Your car has been added.',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+				
+				try {
+					FacesContext.getCurrentInstance()
+					   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Error',\r\n" + 
+						"			text: '"+e1.getMessage()+".',\r\n" + 
+						"			type: 'error'\r\n" + 
+						"		});");
 			}
+
+
 				}else {
 					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 							"			title: 'Check this ',\r\n" + 
@@ -1304,23 +1313,32 @@ public void updateCarForShipper() {
 			
 		consignee consigneeNew=consigneeFacade.getById(consigneeId);
 		selectedCar.setConsigneeId(consigneeNew);
-		carFacade.addcar(selectedCar);
-		
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your car has been updated.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
-		
-		
 		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			carFacade.addcar(selectedCar);
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your car has been updated.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
 			
+			
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Error',\r\n" + 
+						"			text: '"+e.getMessage()+".',\r\n" + 
+						"			type: 'error'\r\n" + 
+						"		});");
+			}
+				
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		}else {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
@@ -1341,22 +1359,31 @@ public void updateCarForCustomer() {
 		
 	consignee consigneeNew=consigneeFacade.getById(consigneeId);
 	selectedCar.setConsigneeId(consigneeNew);
-	carFacade.addcar(selectedCar);
-	
-	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-			"			title: 'Success',\r\n" + 
-			"			text: 'Your car has been updated.',\r\n" + 
-			"			type: 'success'\r\n" + 
-			"		});");
-	
-	
 	try {
-		FacesContext.getCurrentInstance()
-		   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		carFacade.addcar(selectedCar);
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your car has been updated.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} catch (Exception e1) {
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Error',\r\n" + 
+				"			text: '"+e1.getMessage()+".',\r\n" + 
+				"			type: 'error'\r\n" + 
+				"		});");
 	}
+	
+	
 		
 	}else {
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1397,21 +1424,30 @@ public void updateCarForCustomer() {
 		boolean isValid=checkValidForCar(selectedCar);
 		if(isValid) {
 			
-		carFacade.addcar(selectedCar);
-		
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your car has been updated.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
-		
 		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			carFacade.addcar(selectedCar);
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your car has been updated.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+			
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e1) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e1.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
+					"		});");
 		}
+		
+		
 			
 		}else {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1475,70 +1511,84 @@ public void updateCarForCustomer() {
 			boolean checkCar = checkCarIsExist(addNewCar.getUuid());
 			if(checkCar) {
 		
-		carFacade.addcar(addNewCar);
-		for(int i=0;i<images_deleted.size();i++) {
-			carimage cImage=new carimage();
-			cImage.setCarId(addNewCar);
-			cImage.setUrl(images_deleted.get(i));
-			cImage.setType(carimage.TYPE_PIC);
-			cImage.setDeleted(true);
-			carimageFacade.addcarimage(cImage);
-			addNewCar.setPhotoExist(false);
-
-		}
-		
-		for(int i=0;i<docs_deleted.size();i++) {
-			carimage cDocs=new carimage();
-			cDocs.setCarId(addNewCar);
-			cDocs.setUrl(docs_deleted.get(i));
-			cDocs.setType(carimage.TYPE_DOC);
-			cDocs.setDeleted(true);
-			carimageFacade.addcarimage(cDocs);
-			addNewCar.setDocExist(false);
-		}
-		
-		
-		
-		
-		for(int i=0;i<images.size();i++) {
-			carimage cImage=new carimage();
-			cImage.setCarId(addNewCar);
-			cImage.setUrl(images.get(i));
-			cImage.setType(carimage.TYPE_PIC);
-			carimageFacade.addcarimage(cImage);
-			addNewCar.setPhotoExist(true);
-
-		}
-		
-		for(int i=0;i<docs.size();i++) {
-			carimage cDocs=new carimage();
-			cDocs.setCarId(addNewCar);
-			cDocs.setUrl(docs.get(i));
-			cDocs.setType(carimage.TYPE_DOC);
-			carimageFacade.addcarimage(cDocs);
-			addNewCar.setDocExist(true);
-		}
-		
-	
-		
-		
-		
-		
-		carFacade.addcar(addNewCar);
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your car has been added.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
-		
 		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			carFacade.addcar(addNewCar);
+			for(int i=0;i<images_deleted.size();i++) {
+				carimage cImage=new carimage();
+				cImage.setCarId(addNewCar);
+				cImage.setUrl(images_deleted.get(i));
+				cImage.setType(carimage.TYPE_PIC);
+				cImage.setDeleted(true);
+				carimageFacade.addcarimage(cImage);
+				addNewCar.setPhotoExist(false);
+
+			}
+			
+			for(int i=0;i<docs_deleted.size();i++) {
+				carimage cDocs=new carimage();
+				cDocs.setCarId(addNewCar);
+				cDocs.setUrl(docs_deleted.get(i));
+				cDocs.setType(carimage.TYPE_DOC);
+				cDocs.setDeleted(true);
+				carimageFacade.addcarimage(cDocs);
+				addNewCar.setDocExist(false);
+			}
+			
+			
+			
+			
+			for(int i=0;i<images.size();i++) {
+				carimage cImage=new carimage();
+				cImage.setCarId(addNewCar);
+				cImage.setUrl(images.get(i));
+				cImage.setType(carimage.TYPE_PIC);
+				carimageFacade.addcarimage(cImage);
+				addNewCar.setPhotoExist(true);
+
+			}
+			
+			for(int i=0;i<docs.size();i++) {
+				carimage cDocs=new carimage();
+				cDocs.setCarId(addNewCar);
+				cDocs.setUrl(docs.get(i));
+				cDocs.setType(carimage.TYPE_DOC);
+				carimageFacade.addcarimage(cDocs);
+				addNewCar.setDocExist(true);
+			}
+			
+		
+			
+			
+			
+			
+			try {
+				carFacade.addcar(addNewCar);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your car has been added.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+			
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (Exception e2) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e2.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
+					"		});");
 		}
-			}else {
+					}else {
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Check this ',\r\n" + 
 						"			text: 'This car is already Registered',\r\n" + 
@@ -1806,72 +1856,81 @@ public void updateCarForCustomer() {
 		boolean isValid=checkValidForCar(selectedCar);
 		if(isValid) {
 		
-		carFacade.addcar(selectedCar);
-		for(int i=0;i<images_deleted.size();i++) {
-			System.out.println("Ahmed File: "+String.valueOf(images_deleted.get(i)));
-			carimage cImage=new carimage();
-			cImage.setCarId(selectedCar);
-			cImage.setUrl(images_deleted.get(i));
-			cImage.setType(carimage.TYPE_PIC);
-			cImage.setDeleted(true);
-			carimageFacade.addcarimage(cImage);
-			selectedCar.setPhotoExist(false);
-
-		}
-		
-		for(int i=0;i<docs_deleted.size();i++) {
-			carimage cDocs=new carimage();
-			cDocs.setCarId(selectedCar);
-			cDocs.setUrl(docs_deleted.get(i));
-			cDocs.setType(carimage.TYPE_DOC);
-			cDocs.setDeleted(true);
-			carimageFacade.addcarimage(cDocs);
-			selectedCar.setDocExist(false);
-		}
-		
-		
-		for(int i=0;i<images.size();i++) {
-			carimage cImage=new carimage();
-			cImage.setCarId(selectedCar);
-			cImage.setUrl(images.get(i));
-			cImage.setType(carimage.TYPE_PIC);
-			carimageFacade.addcarimage(cImage);
-			selectedCar.setPhotoExist(true);
-		}
-		
-		for(int i=0;i<docs.size();i++) {
-			carimage cDocs=new carimage();
-			cDocs.setCarId(selectedCar);
-			cDocs.setUrl(docs.get(i));
-			cDocs.setType(carimage.TYPE_DOC);
-			carimageFacade.addcarimage(cDocs);
-			selectedCar.setDocExist(true);
-		}
-		
-		
-		
-
-		
-		carFacade.addcar(selectedCar);
-			
-		
-		
-		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-				"			title: 'Success',\r\n" + 
-				"			text: 'Your car has been added.',\r\n" + 
-				"			type: 'success'\r\n" + 
-				"		});");
-
-		sendUpdateToAll(selectedCar);
-		
 		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			carFacade.addcar(selectedCar);
+			for(int i=0;i<images_deleted.size();i++) {
+				System.out.println("Ahmed File: "+String.valueOf(images_deleted.get(i)));
+				carimage cImage=new carimage();
+				cImage.setCarId(selectedCar);
+				cImage.setUrl(images_deleted.get(i));
+				cImage.setType(carimage.TYPE_PIC);
+				cImage.setDeleted(true);
+				carimageFacade.addcarimage(cImage);
+				selectedCar.setPhotoExist(false);
+
+			}
 			
+			for(int i=0;i<docs_deleted.size();i++) {
+				carimage cDocs=new carimage();
+				cDocs.setCarId(selectedCar);
+				cDocs.setUrl(docs_deleted.get(i));
+				cDocs.setType(carimage.TYPE_DOC);
+				cDocs.setDeleted(true);
+				carimageFacade.addcarimage(cDocs);
+				selectedCar.setDocExist(false);
+			}
+			
+			
+			for(int i=0;i<images.size();i++) {
+				carimage cImage=new carimage();
+				cImage.setCarId(selectedCar);
+				cImage.setUrl(images.get(i));
+				cImage.setType(carimage.TYPE_PIC);
+				carimageFacade.addcarimage(cImage);
+				selectedCar.setPhotoExist(true);
+			}
+			
+			for(int i=0;i<docs.size();i++) {
+				carimage cDocs=new carimage();
+				cDocs.setCarId(selectedCar);
+				cDocs.setUrl(docs.get(i));
+				cDocs.setType(carimage.TYPE_DOC);
+				carimageFacade.addcarimage(cDocs);
+				selectedCar.setDocExist(true);
+			}
+			
+			
+			
+
+			
+			carFacade.addcar(selectedCar);
+				
+			
+			
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your car has been added.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+
+			sendUpdateToAll(selectedCar);
+			
+			try {
+				FacesContext.getCurrentInstance()
+				   .getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (Exception e1) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e1.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
+					"		});");
+		}
+					
 		}else {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
@@ -1962,16 +2021,25 @@ public void updateCarForCustomer() {
 		 
 		 car deletedCar = carFacade.getById(carId);
 		 deletedCar.setDeleted(true);
-		 carFacade.addcar(deletedCar);
-		 
+		 try {
+			carFacade.addcar(deletedCar);
 			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Car Has Been Deleted\", \"success\");");
 			
-		 try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			 try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} catch (Exception e1) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e1.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
+					"		});");
+		}
+		 
+			
 		 
 	}
 	

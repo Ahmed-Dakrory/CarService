@@ -62,7 +62,7 @@ public interface carRepository {
 	public List<car> getAllForMainUser(int userId);
 	public List<car> getAllByStateForMainUser(int userId,int state);
 	
-	public car addcar(car data);
+	public car addcar(car data) throws Exception;
 	public car getById(int id);
 	public car getByVin(String vinId);
 	public boolean delete(car data)throws Exception;
