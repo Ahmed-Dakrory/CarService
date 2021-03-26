@@ -51,15 +51,16 @@ public interface carRepository {
 	
 	
 
-	public List<car> getAllFrightAddByCustomerFornormalUserId(int normalUserId);
-	public List<car> getAllFrightPayedByCustomerFornormalUserId(int normalUserId);
-	public List<car> getAllFrightDelieveredFornormalUserId(int normalUserId);
+	public List<car> getAllForNormalUser(int normalUserId);
+	public List<car> getAllByStateForNormalUser(int normalUserId,int state);
+	
+	public List<car> getAllBytypeOfOrderForNormalUser(int normalUserId,int typeOfOrder);
+	public List<car> getAllBytypeOfOrderAndStateForNormalUser(int normalUserId,int state,int typeOfOrder);
 	
 	
 
-	public List<car> getAllAddByCustomerForMainUser(int userId);
-	public List<car> getAllPayedByCustomerForMainUser(int userId);
-	public List<car> getAllDelieveredForMainUser(int userId);
+	public List<car> getAllForMainUser(int userId);
+	public List<car> getAllByStateForMainUser(int userId,int state);
 	
 	public car addcar(car data);
 	public car getById(int id);

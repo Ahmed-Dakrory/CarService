@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+
+	<ui:define name="title"> حسابى</ui:define>
+
+	<ui:define name="content">
+	
+	<style>
+		
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.text-secondary {
+    font-size: 14px;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+   border-radius: 12px;
+    box-shadow: 1px 1px 1px 1px grey;
+    padding: 20px;
+}
+
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+.headOfBar{
+text-align: center;
+    width: 100%;
+    color: #e70114;
+    
+}
+
+.headSmallOfBar{
+text-align: center;
+    width: 100%;
+    
+}
+
+
+	</style>
+	#{normalUserBean.refreshProfileData()}
+	<div class="container">
+    <div class="main-body gutters-sm">
+    
+          
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  	<h:graphicImage value="#{loginBean.theUserOfThisAccount.getphoto()}" alt="image_profile"  class="rounded-circle" width="150" />
+                    <div class="mt-3">
+                      <h4> ##{loginBean.theUserOfThisAccount.id} #{loginBean.theUserOfThisAccount.userName}</h4>
+                      <p class="text-secondary mb-1">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName}</p>
+                      <a class="btn btn-primary" href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">تعديل بياناتى</a>
+                      <a class="btn btn-outline-primary" href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">تعديل حسابى</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+	              
+                   	
+	               	 <div class="col-md-6">
+	               	  <div class="row">
+	                    <div class="col-md-7 text-secondary">
+	                      <h3 style="font-weight:700;"> محفظتى</h3>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  
+	                  <div class="row">
+	                   <div class="w-100 text-secondary">
+	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.depositedMoney} </div>
+	                   	  <div class="col-md-4">المودع</div>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+	                   <div class="w-100 text-secondary">
+	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.totalUsed} </div>
+	                   	  <div class="col-md-4"> المستخدم</div>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+	                   <div class="w-100 text-secondary">
+	                      <div class="col-md-8">$#{carBean.totalPrice}</div>
+	                   	  <div class="col-md-4">التكلفة الكلية</div>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+	                    <div class="w-100 text-secondary">
+	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</div>
+	                   	  <div class="col-md-4">المتاح</div>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  
+	               	</div>
+                 
+                 
+                 	   <div class="col-md-6">
+	               	  <div class="row">
+	                    <div class="col-md-7 text-secondary">
+	                      <h3 style="font-weight:700;"> عنوانى</h3>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  
+	                  <div class="row">
+		                  <div class="w-100 text-secondary">
+		                      <div class="col-md-10">#{loginBean.theUserOfThisAccount.address1} </div>
+		                   	  <div class="col-md-2 fa fa-map-marker"></div>
+		                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+		                  <div class="w-100 text-secondary">
+		                      <div class="col-md-10">#{loginBean.theUserOfThisAccount.city} </div>
+		                   	  <div class="col-md-2 fa fa-globe"></div>
+		                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+		                  <div class="w-100 text-secondary">
+		                      <div class="col-md-10">#{loginBean.theUserOfThisAccount.email}</div>
+		                   	  <div class="col-md-2 fa fa-envelope"></div>
+		                    </div>
+	                  </div>
+	                  <hr></hr>
+	                  <div class="row">
+	                    <div class="w-100 text-secondary">
+	                      <div class="col-md-10">#{loginBean.theUserOfThisAccount.phone}</div>
+	                   	  <div class="col-md-2 fa fa-phone"></div>
+	                    </div>
+	                  </div>
+	                  <hr></hr>
+	               	</div>
+                   
+                   
+	               </div>
+              </div>
+             </div>
+          </div>
+          
+          <div class="row">
+           <div class="card w-100">
+           	<div class="card-header"> طلبات الشحن</div>
+           	<div class="card-body">
+           		
+	          		<div class="row m-1">
+	          			<div class="col-md-2">
+							<div class="row">
+								<h3 class="headOfBar">سيارات</h3>
+							</div>
+							<div class="row">
+								<h5 class="headSmallOfBar">#{normalUserBean.totalNumberOfShippingOnly}</h5>
+							</div>
+						</div>
+	          			<div class="col-md-10 border rounder">
+	          			
+								
+							
+						
+								
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> وصلت</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_Ship_DeliveredByCustomer}</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_Ship_DeliveredByCustomer/normalUserBean.totalNumberOfShippingOnly}%" aria-valuenow="#{100*normalUserBean.cars_Ship_DeliveredByCustomer/normalUserBean.totalNumberOfShippingOnly}" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+						
+							
+								
+						
+	          			
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small> بانتظار الشحن</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_Ship_InShipping}</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_Ship_InShipping/normalUserBean.totalNumberOfShippingOnly}%" aria-valuenow="#{100*normalUserBean.cars_Ship_InShipping/normalUserBean.totalNumberOfShippingOnly}" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small>تم الاستلام</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_Ship_DeliveredByUs}</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_Ship_DeliveredByUs/normalUserBean.totalNumberOfShippingOnly}%" aria-valuenow="#{100*normalUserBean.cars_Ship_DeliveredByUs/normalUserBean.totalNumberOfShippingOnly}" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+							
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> مرفوض </small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_Ship_Rejected}</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_Ship_Rejected/normalUserBean.totalNumberOfShippingOnly}%" aria-valuenow="#{100*normalUserBean.cars_Ship_Rejected/normalUserBean.totalNumberOfShippingOnly}" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> المراجعة </small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_Ship_UnderReview}</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_Ship_UnderReview/normalUserBean.totalNumberOfShippingOnly}%" aria-valuenow="#{100*normalUserBean.cars_Ship_UnderReview/normalUserBean.totalNumberOfShippingOnly}" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+						
+						
+						
+						
+							
+	          			</div>
+	          		</div>
+	          		<div class="row m-1">
+	          			<div class="col-md-2">
+							<div class="row">
+								<h3 class="headOfBar">سلع أخرى</h3>
+							</div>
+							<div class="row">
+								<h5 class="headSmallOfBar">0</h5>
+							</div>
+						</div>
+	          			<div class="col-md-10 border rounder">
+	          			
+								
+							
+							
+								
+								
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> وصلت</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+							
+	          			
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small> بانتظار الشحن</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small>تم الاستلام</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+							
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> مرفوض </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> المراجعة </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+						
+						
+						
+						
+							
+	          			</div>
+	          		</div>
+	          		
+	          </div>
+           </div>
+          	
+          </div>
+            
+          <div class="row">
+           <div class="card w-100">
+           	<div class="card-header"> طلبات الشحن والشراء</div>
+           	<div class="card-body">
+           		
+	          		<div class="row m-1">
+	          			<div class="col-md-2">
+							<div class="row">
+								<h3 class="headOfBar">سيارات</h3>
+							</div>
+							<div class="row">
+								<h5 class="headSmallOfBar">25</h5>
+							</div>
+						</div>
+	          			<div class="col-md-10 border rounder">
+	          			
+								
+						   
+							
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small>مكتمل </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+								
+								<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small> بانتظار الشحن</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+								
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> تم الدفع</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+							
+							
+								
+						
+	          			
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> مرفوض </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> المراجعة </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+						
+						
+							 
+						
+							
+							
+	          			</div>
+	          		</div>
+	          		
+	          		
+	          		
+	          		
+	          		
+	          		<div class="row m-1">
+	          			<div class="col-md-2">
+							<div class="row">
+								<h3 class="headOfBar">سلع أخرى</h3>
+							</div>
+							<div class="row">
+								<h5 class="headSmallOfBar">25</h5>
+							</div>
+						</div>
+	          			<div class="col-md-10 border rounder">
+	          			
+								
+						   
+							
+							<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small>مكتمل </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+								
+								<div class="col-md-3">
+								<div class="row">
+									<div class="col-md-8"><small> بانتظار الشحن</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> تم الدفع</small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+						
+							
+								
+						
+	          			
+							<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> مرفوض </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>
+							
+							
+								
+								<div class="col-md-2">
+								<div class="row">
+									<div class="col-md-8"><small> المراجعة </small></div>
+									<div class="col-md-3"><small>0</small></div>
+								</div>
+								<div class="row">
+				                    <div class="card-body">
+				                      <div class="progress mb-3" style="height: 5px">
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                      </div>
+				                    </div>
+			                     </div>
+							</div>		
+							
+						
+						
+							 
+						
+							
+							
+	          			</div>
+	          		</div>
+	          		
+	          </div>
+           </div>
+          	
+          </div>
+        </div>
+    </div>
+		
+		
+     <script>
+
+ 	$('#menu-header-profile').toggleClass('expand');
+ 	$('#menu-profile').fadeToggle();
+ 	$('#profile-Data').toggleClass('menu-item-refunds');
+     </script>
+	  
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

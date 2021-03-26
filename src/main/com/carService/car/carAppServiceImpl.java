@@ -565,11 +565,10 @@ public class carAppServiceImpl implements IcarAppService{
 	}
 
 
-
 	@Override
-	public List<car> getAllFrightAddByCustomerFornormalUserId(int normalUserId) {
+	public List<car> getAllForNormalUser(int normalUserId) {
 		try{
-			List<car> course=carDataRepository.getAllFrightAddByCustomerFornormalUserId(normalUserId);
+			List<car> course=carDataRepository.getAllForNormalUser(normalUserId);
 			
 			return course;
 			}
@@ -583,9 +582,9 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 	@Override
-	public List<car> getAllFrightPayedByCustomerFornormalUserId(int normalUserId) {
+	public List<car> getAllByStateForNormalUser(int normalUserId, int state) {
 		try{
-			List<car> course=carDataRepository.getAllFrightPayedByCustomerFornormalUserId(normalUserId);
+			List<car> course=carDataRepository.getAllByStateForNormalUser(normalUserId,state);
 			
 			return course;
 			}
@@ -599,9 +598,9 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 	@Override
-	public List<car> getAllFrightDelieveredFornormalUserId(int normalUserId) {
+	public List<car> getAllForMainUser(int userId) {
 		try{
-			List<car> course=carDataRepository.getAllFrightDelieveredFornormalUserId(normalUserId);
+			List<car> course=carDataRepository.getAllForMainUser(userId);
 			
 			return course;
 			}
@@ -615,9 +614,9 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 	@Override
-	public List<car> getAllAddByCustomerForMainUser(int userId) {
+	public List<car> getAllByStateForMainUser(int userId, int state) {
 		try{
-			List<car> course=carDataRepository.getAllAddByCustomerForMainUser(userId);
+			List<car> course=carDataRepository.getAllByStateForMainUser(userId,state);
 			
 			return course;
 			}
@@ -631,9 +630,9 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 	@Override
-	public List<car> getAllPayedByCustomerForMainUser(int userId) {
+	public List<car> getAllBytypeOfOrderForNormalUser(int normalUserId, int typeOfOrder) {
 		try{
-			List<car> course=carDataRepository.getAllPayedByCustomerForMainUser(userId);
+			List<car> course=carDataRepository.getAllBytypeOfOrderForNormalUser(normalUserId,typeOfOrder);
 			
 			return course;
 			}
@@ -647,9 +646,9 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 	@Override
-	public List<car> getAllDelieveredForMainUser(int userId) {
+	public List<car> getAllBytypeOfOrderAndStateForNormalUser(int normalUserId, int state, int typeOfOrder) {
 		try{
-			List<car> course=carDataRepository.getAllDelieveredForMainUser(userId);
+			List<car> course=carDataRepository.getAllBytypeOfOrderAndStateForNormalUser(normalUserId,state,typeOfOrder);
 			
 			return course;
 			}
@@ -659,7 +658,10 @@ public class carAppServiceImpl implements IcarAppService{
 				return null;
 			}
 	}
-	
+
+
+
+		
 	
 }
 		

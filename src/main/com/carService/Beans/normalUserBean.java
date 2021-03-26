@@ -140,6 +140,29 @@ public class normalUserBean implements Serializable{
 	
 	private List<String> images_deleted;
 	private List<String> docs_deleted;
+
+	private int cars_Ship_UnderReview = 0;
+	private int cars_PayAndShip_UnderReview=0;
+	
+
+	private int cars_Ship_Rejected = 0;
+	private int cars_PayAndShip_Rejected=0;
+	
+
+	private int cars_Ship_DeliveredByUs = 0;
+	private int cars_PayAndShip_PayedByCustomer=0;
+	
+
+	private int cars_Ship_InShipping = 0;
+	private int cars_PayAndShip_InShipping=0;
+	
+
+	private int cars_Ship_DeliveredByCustomer = 0;
+	private int cars_PayAndShip_DeliveredByCustomer=0;
+	
+
+	private int totalNumberOfShippingOnly = 0;
+	private int totalNumberOfShippingAndBuy=0;
 	
 	
 	private float totalPrice=0;
@@ -163,6 +186,78 @@ public class normalUserBean implements Serializable{
 		selectedCarState=0;
 	}
 	
+	
+	public void refreshProfileData() {
+
+		user userNewId=loginBean.getTheUserOfThisAccount();
+		if(carFacade.getAllBytypeOfOrderForNormalUser(userNewId.getId(), car.TYPE_SHIPPING)!=null) {
+		totalNumberOfShippingOnly = carFacade.getAllBytypeOfOrderForNormalUser(userNewId.getId(), car.TYPE_SHIPPING).size();
+		}else {
+			totalNumberOfShippingOnly =0;
+		}
+		
+		if(carFacade.getAllBytypeOfOrderForNormalUser(userNewId.getId(), car.TYPE_BUY_SHIPPING)!=null) {
+		totalNumberOfShippingAndBuy = carFacade.getAllBytypeOfOrderForNormalUser(userNewId.getId(), car.TYPE_BUY_SHIPPING).size();
+		}else {
+			totalNumberOfShippingAndBuy=0;
+		}
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_AddedByCustomer_REVISE, car.TYPE_SHIPPING)!=null) {
+			cars_Ship_UnderReview =  carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_AddedByCustomer_REVISE, car.TYPE_SHIPPING).size();
+		}else {
+			cars_Ship_UnderReview=0;
+		}
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_AddedByCustomer_REVISE, car.TYPE_BUY_SHIPPING)!=null) {
+		cars_PayAndShip_UnderReview=carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_AddedByCustomer_REVISE, car.TYPE_BUY_SHIPPING).size();
+		}else {
+			cars_PayAndShip_UnderReview=0;
+		}
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_Rejected, car.TYPE_SHIPPING)!=null) {
+		cars_Ship_Rejected =  carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_Rejected, car.TYPE_SHIPPING).size();
+		}else{
+			cars_Ship_Rejected=0;
+		}
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_Rejected, car.TYPE_BUY_SHIPPING)!=null) {
+		cars_PayAndShip_Rejected=carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_Rejected, car.TYPE_BUY_SHIPPING).size();
+		}else {
+			cars_PayAndShip_Rejected=0;
+		}
+
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByUs, car.TYPE_SHIPPING)!=null) {
+		cars_Ship_DeliveredByUs =  carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByUs, car.TYPE_SHIPPING).size();
+		}else {
+			cars_Ship_DeliveredByUs=0;
+		}
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_PayedByCustomer, car.TYPE_BUY_SHIPPING)!=null) {
+		cars_PayAndShip_PayedByCustomer=carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_PayedByCustomer, car.TYPE_BUY_SHIPPING).size();
+		}else {
+			cars_PayAndShip_PayedByCustomer=0;
+		}
+		
+		
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByCustomer, car.TYPE_SHIPPING)!=null) {
+		cars_Ship_DeliveredByCustomer =  carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByCustomer, car.TYPE_SHIPPING).size();
+		}else {
+			cars_Ship_DeliveredByCustomer=0;
+		}
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByCustomer, car.TYPE_BUY_SHIPPING)!=null) {
+		cars_PayAndShip_DeliveredByCustomer=carFacade.getAllBytypeOfOrderAndStateForNormalUser(userNewId.getId(),  car.STATE_DeliveredByCustomer, car.TYPE_BUY_SHIPPING).size();
+		}else {
+			cars_PayAndShip_DeliveredByCustomer=0;
+		}
+
+	
+	}
 	public String getStringFromCalendar(Calendar calendar) {
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
 		String returnedCalendarString="";
@@ -702,7 +797,7 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==5) {
 			// getAllFrightPayedByCustomerFornormalUserId
 
-			List<car> SentMain = carFacade.getAllFrightPayedByCustomerFornormalUserId(userNewId.getId());
+			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_PayedByCustomer);
 
 			
 			if(SentMain!=null)
@@ -713,7 +808,7 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==6) {
 			// getAllFrightAddByCustomerFornormalUserId
 
-			List<car> SentMain = carFacade.getAllFrightAddByCustomerFornormalUserId(userNewId.getId());
+			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_AddedByCustomer_REVISE);
 
 			
 			if(SentMain!=null)
@@ -724,7 +819,7 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==7) {
 			// getAllFrightDelieveredFornormalUserId
 
-			List<car> SentMain = carFacade.getAllFrightDelieveredFornormalUserId(userNewId.getId());
+			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_DeliveredByCustomer);
 
 			
 			if(SentMain!=null)
@@ -735,35 +830,15 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==3) {
 			//this for all
 
-			List<car> wareHouseMain = carFacade.getAllWareHouseFornormalUserId(userNewId.getId());
-			List<car> dryCargoMain = carFacade.getAllDryCargoFornormalUserId(userNewId.getId());
-			List<car> transitMain = carFacade.getAllFrightInTransitFornormalUserId(userNewId.getId());
-			List<car> SentMain = carFacade.getAllFrightSentForPaymentFornormalUserId(userNewId.getId());
-			List<car> PayedMain = carFacade.getAllFrightPayedByCustomerFornormalUserId(userNewId.getId());
-			List<car> AddedByCustomerMain = carFacade.getAllFrightAddByCustomerFornormalUserId(userNewId.getId());
-			List<car> DeliveredtoCustomerMain = carFacade.getAllFrightDelieveredFornormalUserId(userNewId.getId());
+			allCars = carFacade.getAllForNormalUser(userNewId.getId());
 
 
-			if(AddedByCustomerMain!=null)
-				allCars.addAll(AddedByCustomerMain);
+		
 			
-			if(PayedMain!=null)
-				allCars.addAll(PayedMain);
 			
-			if(DeliveredtoCustomerMain!=null)
-				allCars.addAll(DeliveredtoCustomerMain);
 			
-			if(wareHouseMain!=null)
-				allCars.addAll(wareHouseMain);
 			
-			if(dryCargoMain!=null)
-				allCars.addAll(dryCargoMain);
 			
-			if(transitMain!=null)
-				allCars.addAll(transitMain);
-			
-			if(SentMain!=null)
-				allCars.addAll(SentMain);
 			
 
 		}
@@ -1172,6 +1247,128 @@ public float getTotalPrice() {
 
 public void setTotalPrice(float totalPrice) {
 	this.totalPrice = totalPrice;
+}
+
+
+
+
+public int getCars_Ship_UnderReview() {
+	return cars_Ship_UnderReview;
+}
+
+
+public void setCars_Ship_UnderReview(int cars_Ship_UnderReview) {
+	this.cars_Ship_UnderReview = cars_Ship_UnderReview;
+}
+
+
+public int getCars_PayAndShip_UnderReview() {
+	return cars_PayAndShip_UnderReview;
+}
+
+
+public void setCars_PayAndShip_UnderReview(int cars_PayAndShip_UnderReview) {
+	this.cars_PayAndShip_UnderReview = cars_PayAndShip_UnderReview;
+}
+
+
+public int getCars_Ship_Rejected() {
+	return cars_Ship_Rejected;
+}
+
+
+public void setCars_Ship_Rejected(int cars_Ship_Rejected) {
+	this.cars_Ship_Rejected = cars_Ship_Rejected;
+}
+
+
+public int getCars_PayAndShip_Rejected() {
+	return cars_PayAndShip_Rejected;
+}
+
+
+public void setCars_PayAndShip_Rejected(int cars_PayAndShip_Rejected) {
+	this.cars_PayAndShip_Rejected = cars_PayAndShip_Rejected;
+}
+
+
+public int getCars_Ship_DeliveredByUs() {
+	return cars_Ship_DeliveredByUs;
+}
+
+
+public void setCars_Ship_DeliveredByUs(int cars_Ship_DeliveredByUs) {
+	this.cars_Ship_DeliveredByUs = cars_Ship_DeliveredByUs;
+}
+
+
+public int getCars_PayAndShip_PayedByCustomer() {
+	return cars_PayAndShip_PayedByCustomer;
+}
+
+
+public void setCars_PayAndShip_PayedByCustomer(int cars_PayAndShip_PayedByCustomer) {
+	this.cars_PayAndShip_PayedByCustomer = cars_PayAndShip_PayedByCustomer;
+}
+
+
+public int getCars_Ship_InShipping() {
+	return cars_Ship_InShipping;
+}
+
+
+public void setCars_Ship_InShipping(int cars_Ship_InShipping) {
+	this.cars_Ship_InShipping = cars_Ship_InShipping;
+}
+
+
+public int getCars_PayAndShip_InShipping() {
+	return cars_PayAndShip_InShipping;
+}
+
+
+public void setCars_PayAndShip_InShipping(int cars_PayAndShip_InShipping) {
+	this.cars_PayAndShip_InShipping = cars_PayAndShip_InShipping;
+}
+
+
+public int getCars_Ship_DeliveredByCustomer() {
+	return cars_Ship_DeliveredByCustomer;
+}
+
+
+public void setCars_Ship_DeliveredByCustomer(int cars_Ship_DeliveredByCustomer) {
+	this.cars_Ship_DeliveredByCustomer = cars_Ship_DeliveredByCustomer;
+}
+
+
+public int getCars_PayAndShip_DeliveredByCustomer() {
+	return cars_PayAndShip_DeliveredByCustomer;
+}
+
+
+public void setCars_PayAndShip_DeliveredByCustomer(int cars_PayAndShip_DeliveredByCustomer) {
+	this.cars_PayAndShip_DeliveredByCustomer = cars_PayAndShip_DeliveredByCustomer;
+}
+
+
+public int getTotalNumberOfShippingOnly() {
+	return totalNumberOfShippingOnly;
+}
+
+
+public void setTotalNumberOfShippingOnly(int totalNumberOfShippingOnly) {
+	this.totalNumberOfShippingOnly = totalNumberOfShippingOnly;
+}
+
+
+public int getTotalNumberOfShippingAndBuy() {
+	return totalNumberOfShippingAndBuy;
+}
+
+
+public void setTotalNumberOfShippingAndBuy(int totalNumberOfShippingAndBuy) {
+	this.totalNumberOfShippingAndBuy = totalNumberOfShippingAndBuy;
 }
 
 

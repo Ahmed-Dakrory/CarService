@@ -18,9 +18,34 @@
 			</ui:define>
 
 	<ui:define name="content">
+<style>
+.hoverUploader:hover {
+position: relative;
+    width: 191px;
+    bottom: 39px;
+    height: 39px;
+    padding-top: 9px;
+    background: #d5d0d0d9!important;
+}
 
+.hoverUploader {
+position: relative;
+    background: #c7c0c0b0!important;
+    width: 191px;
+    bottom: 39px;
+    height: 39px;
+    padding-top: 9px;
+}
+
+
+.ui-panel .ui-panel-content {
+    border: 0;
+    background: 0;
+    padding: 0px;
+}
+</style>
 <div id="ajax-content">
-<h2 class="account-header">Welcome #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} Client ##{loginBean.theUserOfThisAccount.id}  </h2>
+<h2 class="account-header">مرحبا #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account">
 
@@ -31,16 +56,22 @@
             
             <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
             	<div class="row">
+            	<div class="col-md-3">
+	            		<p:panel id="imagesPanel"  style="padding: 0;    margin: 0;    width: fit-content;    text-align: center;">
+							<h:graphicImage value="#{loginBean.theUserOfThisAccount.getphoto()}" style="  max-width: 191px;" alt="image#{var}" />
+								
+							<label for="aspnetForm:FileUploaded_input" class="hoverUploader" >
+								
+								<span class="fa fa-plus"></span>
+										
+							</label>
+							
+							<p:fileUpload id="FileUploaded" auto="true" style="display:none;" fileUploadListener="#{contactInfo.previewImage}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+						</p:panel>
+            	</div>
+            	<div class="col-md-9">
             	
-            		<div class="col-md-6 mb-3">
-						<div class="form-group">
-						    <label >#رقم  الحساب</label>
-						    <h:inputText value="#{loginBean.theUserOfThisAccount.id}" class="form-control"  readonly="true" type="text"   />
-						</div>
-  
-                   </div>
-                   
-                   <div class="col-md-6 mb-3">
+            	 <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >اسم الشركة</label>
 							<h:inputText  type="text" value="#{loginBean.theUserOfThisAccount.company}"  class="form-control" />
@@ -49,6 +80,15 @@
                    </div>
                    
                    
+            		<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >#رقم  الحساب</label>
+						    <h:inputText value="#{loginBean.theUserOfThisAccount.id}" class="form-control"  readonly="true" type="text"   />
+						</div>
+  
+                   </div>
+                   
+                  
                    
                    
                    <div class="col-md-6 mb-3">
@@ -66,8 +106,17 @@
 						</div>
   
                    </div>
-                   
-                   <div class="col-md-6 mb-3">
+  
+  					
+  
+            	</div>
+                                                                                    
+            	</div>
+            	<div class="row">
+            	
+            		                 
+                                   
+                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >المحمول</label>
 							<h:inputText  type="tel" value="#{loginBean.theUserOfThisAccount.mobilePhone}"  class="form-control" />
@@ -83,8 +132,8 @@
 						</div>
   
                    </div>
-                   
-                   
+  
+  
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >الهاتف 2 </label>

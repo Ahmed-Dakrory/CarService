@@ -281,7 +281,7 @@ if(isLoggedIn) {
 					
 //				PrimeFaces.current().executeScript("location.reload();");
 								try {
-									FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/moneyBox.jsf?faces-redirect=true");
+									FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/userProfileShow.jsf?faces-redirect=true");
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

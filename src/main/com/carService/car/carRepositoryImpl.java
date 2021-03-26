@@ -474,7 +474,8 @@ public class carRepositoryImpl implements carRepository{
 
 	@Override
 	public List<car> getAllFrightSentForPaymentFornormalUserId(int normalUserId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightSentForPaymentFornormalUserId").setInteger("normalUserId",normalUserId);
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllByStateForNormalUser").setInteger("normalUserId",normalUserId)
+				.setInteger("state",car.STATE_Sent_For_Payment);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -486,8 +487,8 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllFrightAddByCustomerFornormalUserId(int normalUserId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightAddByCustomerFornormalUserId").setInteger("normalUserId",normalUserId);
+	public List<car> getAllForNormalUser(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForNormalUser").setInteger("normalUserId",normalUserId);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -499,8 +500,10 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllFrightPayedByCustomerFornormalUserId(int normalUserId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightPayedByCustomerFornormalUserId").setInteger("normalUserId",normalUserId);
+	public List<car> getAllByStateForNormalUser(int normalUserId, int state) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllByStateForNormalUser")
+				.setInteger("normalUserId",normalUserId)
+				.setInteger("state",state);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -512,8 +515,8 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllFrightDelieveredFornormalUserId(int normalUserId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightDelieveredFornormalUserId").setInteger("normalUserId",normalUserId);
+	public List<car> getAllForMainUser(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForMainUser").setInteger("userId",userId);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -525,8 +528,10 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllAddByCustomerForMainUser(int userId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllAddByCustomerForMainUser").setInteger("userId",userId);
+	public List<car> getAllByStateForMainUser(int userId, int state) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllByStateForMainUser")
+				.setInteger("userId",userId)
+				.setInteger("state",state);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -538,8 +543,10 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllPayedByCustomerForMainUser(int userId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllPayedByCustomerForMainUser").setInteger("userId",userId);
+	public List<car> getAllBytypeOfOrderForNormalUser(int normalUserId, int typeOfOrder) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllBytypeOfOrderForNormalUser")
+				.setInteger("normalUserId",normalUserId)
+				.setInteger("typeOfOrder",typeOfOrder);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -551,8 +558,11 @@ public class carRepositoryImpl implements carRepository{
 	}
 
 	@Override
-	public List<car> getAllDelieveredForMainUser(int userId) {
-		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllDelieveredForMainUser").setInteger("userId",userId);
+	public List<car> getAllBytypeOfOrderAndStateForNormalUser(int normalUserId, int state, int typeOfOrder) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllBytypeOfOrderAndStateForNormalUser")
+				.setInteger("normalUserId",normalUserId)
+				.setInteger("state",state)
+				.setInteger("typeOfOrder",typeOfOrder);
 
 		 @SuppressWarnings("unchecked")
 		List<car> results=query.list();
@@ -562,7 +572,7 @@ public class carRepositoryImpl implements carRepository{
 			 return null;
 		 }
 	}
-	
+
 
 
 }

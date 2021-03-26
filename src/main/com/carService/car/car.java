@@ -157,35 +157,32 @@ import main.com.carService.vendor.vendor;
 	query = "from car d where (d.state = 8) and consigneeId = :consigneeId and d.deleted = false"
 			)
 	,
-	@NamedQuery(name="car.getAllFrightSentForPaymentFornormalUserId",
-	query = "from car d where (d.state = 8) and normalUserId = :normalUserId and d.deleted = false"
-			)
-	,
-	@NamedQuery(name="car.getAllFrightAddByCustomerFornormalUserId",
-	query = "from car d where (d.state = 9) and normalUserId = :normalUserId and d.deleted = false"
+	@NamedQuery(name="car.getAllByStateForNormalUser",
+	query = "from car d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false"
 			)
 	
 	,
-	@NamedQuery(name="car.getAllFrightPayedByCustomerFornormalUserId",
-	query = "from car d where (d.state = 10) and normalUserId = :normalUserId and d.deleted = false"
+	@NamedQuery(name="car.getAllForNormalUser",
+	query = "from car d where  normalUserId = :normalUserId and d.deleted = false"
 			)
 	
 	,
-	@NamedQuery(name="car.getAllFrightDelieveredFornormalUserId",
-	query = "from car d where (d.state = 11) and normalUserId = :normalUserId and d.deleted = false"
+	@NamedQuery(name="car.getAllByStateForMainUser",
+	query = "from car d where (d.state = :state) and mainId = :userId and d.deleted = false"
+			)
+	,
+	@NamedQuery(name="car.getAllBytypeOfOrderForNormalUser",
+	query = "from car d where  d.typeOfOrder = :typeOfOrder and normalUserId = :normalUserId and d.deleted = false"
 			)
 	
 	,
-	@NamedQuery(name="car.getAllAddByCustomerForMainUser",
-	query = "from car d where (d.state =9 ) and mainId = :userId and d.deleted = false"
+	@NamedQuery(name="car.getAllBytypeOfOrderAndStateForNormalUser",
+	query = "from car d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.deleted = false"
 			)
+	
 	,
-	@NamedQuery(name="car.getAllPayedByCustomerForMainUser",
-	query = "from car d where (d.state =10 ) and mainId = :userId and d.deleted = false"
-			)
-	,
-	@NamedQuery(name="car.getAllDelieveredForMainUser",
-	query = "from car d where (d.state =11 ) and mainId = :userId and d.deleted = false"
+	@NamedQuery(name="car.getAllForMainUser",
+	query = "from car d where mainId = :userId and d.deleted = false"
 			)
 	,
 	@NamedQuery(name="car.getAllWithAllowSendState",
@@ -359,9 +356,11 @@ public class car {
 	public static int STATE_In_TRANSIT_1=6;
 	public static int STATE_In_TRANSIT_2=7;
 	public static int STATE_Sent_For_Payment=8;
-	public static int STATE_AddedByCustomer=9;
-	public static int STATE_PayedByCustomer=10;
-	public static int STATE_Delivered=11;
+	public static int STATE_AddedByCustomer_REVISE=9;
+	public static int STATE_Rejected=10;
+	public static int STATE_PayedByCustomer=11;
+	public static int STATE_DeliveredByUs=12;
+	public static int STATE_DeliveredByCustomer=13;
 	
 	
 	public static int Title_Missing=0;
