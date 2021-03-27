@@ -61,7 +61,7 @@
 			<sec:intercept-url pattern="/pages/secured/mainTwo/**"
 			access="ROLE_MAIN,ROLE_MAINTWO" />
 			<sec:intercept-url pattern="/pages/secured/normalUsers/**"
-			access="ROLE_MAIN,ROLE_NORMAL_USER" />
+			access="ROLE_MAIN,ROLE_SHIPPER,ROLE_VENDOR,ROLE_CUSTOMER,ROLE_MAINTWO,ROLE_NORMAL_USER" />
 			
 	<sec:custom-filter ref="profileCustomFilter" after="LAST"  />
 	
