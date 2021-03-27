@@ -1077,6 +1077,8 @@ public void refreshSelectedCarVendor() {
 
 			System.out.println("Ahmed Add  7");
 			try {
+				addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
+				addNewCar.setOrderPrice(0);
 				carFacade.addcar(addNewCar);
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Success',\r\n" + 
@@ -1512,6 +1514,8 @@ public void updateCarForCustomer() {
 			if(checkCar) {
 		
 		try {
+			addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
+			addNewCar.setOrderPrice(0);
 			carFacade.addcar(addNewCar);
 			for(int i=0;i<images_deleted.size();i++) {
 				carimage cImage=new carimage();
@@ -1562,6 +1566,8 @@ public void updateCarForCustomer() {
 			
 			
 			try {
+				addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
+				addNewCar.setOrderPrice(0);
 				carFacade.addcar(addNewCar);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
