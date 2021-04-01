@@ -26,19 +26,19 @@
 	 </style>
 		
 		
-			<div class="body-sign center-sign hidden-sm hidden-xs" style="margin-top:7%;    width: 100%;">
+			<div class="body-sign center-sign hidden-sm hidden-xs" dir="rtl" style="margin-top:7%;    width: 100%;">
 				<a href="/" class="logo pull-left">
 					<img src="/resources/Image/caromoto logo-04.png" height="54" alt="Porto Admin" />
 				</a>
 
 				<div class="panel panel-sign ">
 					<div class="panel-title-sign mt-xl text-right">
-						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> تسجيل الدخول</h2>
 					</div>
 					<div class="panel-body" style="    border: black;    border-width: 1px;    box-shadow: 0px 0px 11px 4px grey;">
 						<h:form prependId="false" id="login-form" action="https://phpoll.com/login/process" method="post" role="form" >
 							<div class="form-group mb-lg">
-								<label>Email</label>
+								<label style="    text-align: right;">البريد الالكترونى</label>
 								<div class="input-group ">
 									<p:inputText type="email" id="Mail" class="form-control " value="#{loginBean.emailOfUserLoggedIn}"/>
 									<span class="input-group-addon">
@@ -51,7 +51,7 @@
 
 							<div class="form-group mb-lg">
 								<div class="clearfix">
-									<label class="pull-left">Password</label>
+									<label style="    text-align: right;" class="pull-right">الرقم السرى</label>
 									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group ">
@@ -68,25 +68,25 @@
 								<div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
 										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
+										<label  for="RememberMe">تذكرنى</label>
 									</div>
 								</div>
 								<div class="col-sm-4 text-right">
-									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary hidden-xs">
+									<h:commandButton action="#{loginBean.login}" value="دخول" type="submit" class="btn btn-primary hidden-xs">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
-									<h:commandButton action="#{loginBean.login}" value="Sign In" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
+									<h:commandButton action="#{loginBean.login}" value="دخول" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
 								</div>
 							</div>
 
-							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>or</span>
+							<span style="    text-align: right;" class="mt-lg mb-lg line-thru text-center text-uppercase">
+								<span>أو</span>
 							</span>
 
 							
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
+							<p style="    text-align: right;" class="text-center">لا يوجد لديك حساب؟ <a href="pages-signup.html">Sign Up!</a></p>
 
 						</h:form>
 					</div>
@@ -107,7 +107,7 @@
 			
 				<h:form prependId="false" class="container mt-3" id="login-form2" action="https://phpoll.com/login/process" method="post" role="form" >
 							<div class="form-group mb-lg">
-								<label>Email</label>
+								<label style="    text-align: right;">البريد الألكترونى</label>
 								<div class="input-group ">
 									<p:inputText type="email" id="Mail2" class="form-control " value="#{loginBean.emailOfUserLoggedIn}"/>
 									<span class="input-group-addon">
@@ -120,7 +120,7 @@
 
 							<div class="form-group mb-lg">
 								<div class="clearfix">
-									<label class="pull-left">Password</label>
+									<label style="    text-align: right;" class="pull-right">الرقم السرى</label>
 									
 								</div>
 								<div class="input-group ">
@@ -137,25 +137,25 @@
 								<div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
 										<input id="RememberMe2" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
+										<label style="    text-align: right;" for="RememberMe">تذكرنى</label>
 									</div>
 								</div>
 								<div class="col-sm-4 text-right">
-									<h:commandButton action="#{loginBean.loginAfterReg}" value="Sign In" type="submit" class="btn btn-primary hidden-xs">
+									<h:commandButton action="#{loginBean.loginAfterReg}" value="دخول" type="submit" class="btn btn-primary hidden-xs">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
-									<h:commandButton action="#{loginBean.loginAfterReg}" value="Sign In" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
+									<h:commandButton action="#{loginBean.loginAfterReg}" value="دخول" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">
 									<f:ajax execute="@form" render="login-form" />
 									</h:commandButton>
 								</div>
 							</div>
 
 							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>or</span>
+								<span style="    text-align: right;">أو</span>
 							</span>
 
 							
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
+							<p class="text-center" style="    text-align: right;">لا يوجد لديك حساب؟ <a href="pages-signup.html">Sign Up!</a></p>
 
 						</h:form>
 				

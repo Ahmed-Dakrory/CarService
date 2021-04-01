@@ -255,6 +255,21 @@ public class normalUserBean implements Serializable{
 		}else {
 			cars_PayAndShip_DeliveredByCustomer=0;
 		}
+		
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndShippingStateForNormalUser(userNewId.getId(), car.TYPE_SHIPPING)!=null) {
+			cars_Ship_InShipping =  carFacade.getAllBytypeOfOrderAndShippingStateForNormalUser(userNewId.getId(), car.TYPE_SHIPPING).size();
+		}else {
+			cars_Ship_InShipping=0;
+		}
+		
+		
+		if(carFacade.getAllBytypeOfOrderAndShippingStateForNormalUser(userNewId.getId(), car.TYPE_BUY_SHIPPING)!=null) {
+			cars_PayAndShip_InShipping=carFacade.getAllBytypeOfOrderAndShippingStateForNormalUser(userNewId.getId(), car.TYPE_BUY_SHIPPING).size();
+		}else {
+			cars_PayAndShip_InShipping=0;
+		}
 
 	
 	}
@@ -486,6 +501,7 @@ public void saveNewCarDataMain() {
 		if(checkCar) {
 	
 	try {
+		addNewCar.setState(car.STATE_AddedByCustomer_REVISE);
 		carFacade.addcar(addNewCar);
 		
 		for(int i=0;i<images_deleted.size();i++) {
@@ -793,43 +809,10 @@ public void filterCarBySelectFirstTime() {
 			
 
 
-		}else if(selectedCarState==4) {
+		}else if(selectedCarState==8) {
 			// this for freight Sent
 
 			List<car> SentMain = carFacade.getAllFrightSentForPaymentFornormalUserId(userNewId.getId());
-
-			
-			if(SentMain!=null)
-				allCars.addAll(SentMain);
-			
-
-
-		}else if(selectedCarState==5) {
-			// getAllFrightPayedByCustomerFornormalUserId
-
-			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_PayedByCustomer);
-
-			
-			if(SentMain!=null)
-				allCars.addAll(SentMain);
-			
-
-
-		}else if(selectedCarState==6) {
-			// getAllFrightAddByCustomerFornormalUserId
-
-			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_AddedByCustomer_REVISE);
-
-			
-			if(SentMain!=null)
-				allCars.addAll(SentMain);
-			
-
-
-		}else if(selectedCarState==7) {
-			// getAllFrightDelieveredFornormalUserId
-
-			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),car.STATE_DeliveredByCustomer);
 
 			
 			if(SentMain!=null)
@@ -844,11 +827,13 @@ public void filterCarBySelectFirstTime() {
 
 
 		
+
+		}else {
+			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),selectedCarState);
+
 			
-			
-			
-			
-			
+			if(SentMain!=null)
+				allCars.addAll(SentMain);
 			
 
 		}

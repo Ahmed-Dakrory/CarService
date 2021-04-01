@@ -131,31 +131,92 @@ import main.com.carService.vendor.vendor;
 	@NamedQuery(name="car.getAllFrightInTransitFornormalUserId",
 	query = "from car d where (d.state = 6 or d.state = 7) and normalUserId = :normalUserId and d.deleted = false"
 			)
-	,
+,
 	
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUser",
 	query = "from car d where (d.state = 8) and mainId = :userId and d.deleted = false"
 			)
+	
+
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForMainUserTwo",
 	query = "from car d where (d.state = 8) and mainTwoId = :mainTwoId and d.deleted = false"
 			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightWithStateForMainUserTwo",
+	query = "from car d where (d.state = :state) and mainTwoId = :mainTwoId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightForMainUserTwo",
+	query = "from car d where  mainTwoId = :mainTwoId and d.deleted = false"
+			)
+	
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForVendor",
 	query = "from car d where (d.state = 8) and vendorId = :vendorId and d.deleted = false"
 			)
+	
+	
+	,
+	@NamedQuery(name="car.getAllFrightWithStateForVendor",
+	query = "from car d where (d.state = :state) and vendorId = :vendorId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightForVendor",
+	query = "from car d where  vendorId = :vendorId and d.deleted = false"
+			)
+	
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForShipper",
 	query = "from car d where (d.state = 8) and shipperId = :shipperId and d.deleted = false"
 			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightWithStateForShipper",
+	query = "from car d where (d.state = :state) and shipperId = :shipperId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightForShipper",
+	query = "from car d where shipperId = :shipperId and d.deleted = false"
+			)
+	
+	
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForCustomer",
 	query = "from car d where (d.state = 8) and customerId = :customerId and d.deleted = false"
 			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightWithStateForCustomer",
+	query = "from car d where (d.state = :state) and customerId = :customerId and d.deleted = false"
+			)
+	
+	
+	,
+	@NamedQuery(name="car.getAllFrightForCustomer",
+	query = "from car d where  customerId = :customerId and d.deleted = false"
+			)
+	
 	,
 	@NamedQuery(name="car.getAllFrightSentForPaymentForConsignee",
 	query = "from car d where (d.state = 8) and consigneeId = :consigneeId and d.deleted = false"
 			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightWithStateForConsignee",
+	query = "from car d where (d.state = :state) and consigneeId = :consigneeId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllFrightForConsignee",
+	query = "from car d where consigneeId = :consigneeId and d.deleted = false"
+			)
+	
+	
 	,
 	@NamedQuery(name="car.getAllByStateForNormalUser",
 	query = "from car d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false"
@@ -178,6 +239,11 @@ import main.com.carService.vendor.vendor;
 	,
 	@NamedQuery(name="car.getAllBytypeOfOrderAndStateForNormalUser",
 	query = "from car d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="car.getAllBytypeOfOrderAndShippingStateForNormalUser",
+	query = "from car d where d.typeOfOrder = :typeOfOrder and d.state <8 and normalUserId = :normalUserId and d.deleted = false"
 			)
 	
 	,
@@ -414,19 +480,21 @@ public class car {
 
 	
 
-	public static String stateString[]= {"Warehouse (Title uploaded, VIR uploaded, Load Request NO)",
-										 "Warehouse ( VIR and Title uploaded, Load Request YES)",
-										 "Warehouse (Title uploaded, VIR uploaded, Priority OK TO LOAD"
+	public static String stateString[]= {"شحن السلعة (Title uploaded, VIR uploaded, Load Request NO)",
+										 "شحن السلعة ( VIR and Title uploaded, Load Request YES)",
+										 "شحن السلعة (Title uploaded, VIR uploaded, Priority OK TO LOAD"
 										 + " / LOAD ASAP, Job Order Form assigned to freight)",
-										 "Warehouse (No documents uploaded (Vehicle Inspection Report, Title or both))",
+										 "شحن السلعة (No documents uploaded (Vehicle Inspection Report, Title or both))",
 										 "Dry Cargo (Load Request NO)",
 										 "Dry Cargo (Load Request YES)",
-										 "Fright In Transit ( ETA present)",
-										 "Fright In Transit  (No ETA)",
-										 "Sent For Payment",
-										 "Added By Customer",
-										 "Payed by Customer",
-										 "Delivered"};
+										 "الشحنة فى الطريق ( ETA present)",
+										 "الشحنة فى الطريق  (No ETA)",
+										 "ارسلت للدفع",
+										 "جديد",
+										 "رفض",
+										 "تم الدفع من قبل العميل",
+										 "تم استلام السيارة فى الشحن",
+										 "تم تسليم السيارة للعميل"};
 
 	public String getTitleString() {
 		String title="";

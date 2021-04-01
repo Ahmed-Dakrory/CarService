@@ -572,6 +572,166 @@ public class carRepositoryImpl implements carRepository{
 			 return null;
 		 }
 	}
+//////////////////////////////////////////////////
+	@Override
+	public List<car> getAllFrightWithStateForMainUserTwo(int state, int mainTwoId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightWithStateForMainUserTwo")
+				.setInteger("mainTwoId",mainTwoId)
+				.setInteger("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightWithStateForVendor(int state, int vendorId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightWithStateForVendor")
+				.setInteger("vendorId",vendorId)
+				.setInteger("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightWithStateForShipper(int state, int shipperId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightWithStateForShipper")
+				.setInteger("shipperId",shipperId)
+				.setInteger("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightWithStateForCustomer(int state, int custmerId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightWithStateForCustomer")
+				.setInteger("custmerId",custmerId)
+				.setInteger("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightWithStateForConsignee(int state, int consigneeId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightWithStateForConsignee")
+				.setInteger("consigneeId",consigneeId)
+				.setInteger("state",state);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightForMainUserTwo(int mainTwoId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightForMainUserTwo")
+				.setInteger("mainTwoId",mainTwoId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightForVendor(int vendorId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightForVendor")
+				.setInteger("vendorId",vendorId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightForShipper(int shipperId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightForShipper")
+				.setInteger("shipperId",shipperId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightForCustomer(int custmerId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightForCustomer")
+				.setInteger("custmerId",custmerId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllFrightForConsignee(int consigneeId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllFrightForConsignee")
+				.setInteger("consigneeId",consigneeId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<car> getAllBytypeOfOrderAndShippingStateForNormalUser(int normalUserId, int typeOfOrder) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllBytypeOfOrderAndShippingStateForNormalUser")
+				.setInteger("normalUserId",normalUserId)
+				.setInteger("typeOfOrder",typeOfOrder);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 
 
 

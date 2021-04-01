@@ -43,6 +43,8 @@ import helpers.retrofit.mainFiles.OrderOutDetails;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
+import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyBox.moneyboxConfig;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.tools.Constants;
@@ -424,6 +426,25 @@ public class carBean implements Serializable{
 		}
 	}
 	
+	public void makePaymentForACar() {
+		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+		
+		if((mB1.getDepositedMoney())-selectedCar.getOrderPrice()>=0) {
+			moneyboxConfig.makeaPayment(selectedCar.getOrderPrice(), selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Payment Done',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'No amount available',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
+	
 	
 	public void filterCarBySelectFirstTime() {
 
@@ -462,9 +483,9 @@ public class carBean implements Serializable{
 				
 				
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				
-				// this for freight in transit
+				// this for SendForPayment
 
 				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
@@ -477,24 +498,18 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
+				List<car> wareHouseMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
+								
 
+			}else {
+				List<car> wareHouseMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_SHIPPER) {
 
@@ -530,7 +545,7 @@ public class carBean implements Serializable{
 				
 
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				// this for freight sent for payment
 
 				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
@@ -544,25 +559,16 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
-
+				List<car> wareHouseMain = carFacade.getAllFrightForShipper(shipperNewId.getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
+			}else {
+				List<car> wareHouseMain = carFacade.getAllFrightWithStateForShipper(selectedCarState,shipperNewId.getId());
 				
-
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
-				
-
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
 
@@ -598,7 +604,7 @@ public class carBean implements Serializable{
 				
 
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				// this for freight sent for payment
 
 				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
@@ -612,25 +618,19 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
-
+				List<car> wareHouseMain = carFacade.getAllFrightForMainUserTwo(mainTwoId.getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
+				
 				
 
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
+			}else {
+				List<car> wareHouseMain = carFacade.getAllFrightWithStateForMainUserTwo(selectedCarState,mainTwoId.getId());
 				
-
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
 
@@ -666,7 +666,7 @@ public class carBean implements Serializable{
 				
 
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				// this for freight Sent
 
 				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
@@ -680,24 +680,18 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
-
+				List<car> wareHouseMain = carFacade.getAllFrightForVendor(vendorNewId.getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
 				
 
+			}else {
+				List<car> wareHouseMain = carFacade.getAllFrightWithStateForVendor(selectedCarState,vendorNewId.getId());
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
 
@@ -733,7 +727,7 @@ public class carBean implements Serializable{
 				
 
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				// this for freight in transit
 
 				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
@@ -747,24 +741,19 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
-
+				List<car> wareHouseMain = carFacade.getAllFrightForCustomer(customerNewId.getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
 				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
 				
 
+			}else {
+				List<car> wareHouseMain = carFacade.getAllFrightWithStateForCustomer(selectedCarState,customerNewId.getId());
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
 
@@ -801,7 +790,7 @@ public class carBean implements Serializable{
 				
 
 
-			}else if(selectedCarState==4) {
+			}else if(selectedCarState==8) {
 				// this for freight Sent
 
 				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
@@ -815,24 +804,18 @@ public class carBean implements Serializable{
 			}else if(selectedCarState==3) {
 				//this for all
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
-
+				List<car> wareHouseMain = carFacade.getAllFrightForConsignee(consigneeNewId.get(i).getId());
+				
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
 				
 
+			}else {
+				List<car> wareHouseMain = carFacade.getAllFrightWithStateForConsignee(selectedCarState,consigneeNewId.get(i).getId());
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
 			}
 			
 		}

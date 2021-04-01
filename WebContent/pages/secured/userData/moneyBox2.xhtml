@@ -93,16 +93,13 @@ color: #161208;
 			                            <h4 style="text-align: center;"><strong>$#{carBean.totalPrice}</strong></h4>                    
 			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>التكلفة الكلية</small></p>
 			                        </div><!--/col-->
-			                        <div class="col-xs-12 col-sm-4">
-			                            <h4 style="text-align: center;"><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h4>                    
-			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>المتاح</small></p>
-			                        </div>
+			                       
                             	</div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                         	<p style="font-size: 25px;font-family: serif;text-align: center;margin-top: 26px;"> حسابك #{loginBean.thisAccountMoneyBox.active?'فعال':'غير فعال'}</p>
-			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to send email to us</p>
+			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">لتفعيل حسابك برجاء ارسال ايميل لنا</p>
 	                        <div style="    text-align: center;">
 	                        	<p:graphicImage style="    width: 151px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
 		  		            </div>

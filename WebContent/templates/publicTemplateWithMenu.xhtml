@@ -591,9 +591,55 @@
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
-		              <a class="nav-link" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
+		              <a class="nav-link" href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
 		            </li>
 		            
+		            
+		               <li class="nav-item dropdown" style="display:#{loginBean.loggedIn?'block':'none'};">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          $#{loginBean.thisAccountMoneyBox.depositedMoney}
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="    width: max-content;">
+				          <div class="ml-3 mb-3 mt-2">
+				          	 <span class="pull-right label label-default mr-3" >#{loginBean.mymoneyTransactions.size()}</span>
+									عمليات الدفع
+				          </div>
+				          
+				          <div  class="dropdown-item text-wrap m-0 p-0  d-none d-sm-table-cell">
+									<div class="">
+									<ui:repeat var="var" value="#{loginBean.mymoneyTransactions}">
+										<div >
+										<div class="card m-0 p-0">
+											<div class=" card-header">
+												<span class="message pull-left">#{loginBean.getTransactionType(var.typeOfTransaction).name}</span>
+												<span class="message pull-right text-dark">نوع العملية: </span>
+											</div>
+											
+												
+											<div class="container">
+												<div class="col-md-4 p-0">
+													Last: $#{var.amountBefore}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													amount: $#{var.amount}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													 #{var.date}
+												</div>
+											</div>
+										
+											</div>
+										</div>
+										</ui:repeat>
+										
+			 
+									</div>
+								</div>
+				        </div>
+				      </li>
+		        
 		          </ul>
 		          
 		        </div>
@@ -666,7 +712,6 @@
 <li id="profile-account"><a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">حسابى</a></li>
 <li id="profile-main"><a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">تعديل بياناتى</a></li>
 <li id="profile-transaction"><a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">المحفظة </a></li>
-<li id="profile-invoice"><a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">الفواتير الخاصة بى </a></li>
 </ul>
 
 
@@ -677,6 +722,7 @@
 <li id="bid-main"><a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">السيارات الخاصة بى </a></li>
 <li id="bid-all"><a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">كل السيارات </a></li>
 <li id="bid-watchList"><a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">قأئمة المشاهدة </a></li>
+<li id="bid-invoice"><a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">الفواتير الخاصة بى </a></li>
 </ul>
 
 
@@ -687,7 +733,6 @@
 <ul  id="menu-car" class="level2" style="display: contents;">
 <li id="car-main"><a href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شحن فقط</a></li>
 <li id="car-all"><a href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">كل السيارات </a></li>
-<li id="car-watchList"><a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">قأئمة المشاهدة </a></li>
 </ul>
 
 
@@ -862,7 +907,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
-		<h:form>
+		 <h:form>
 			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
 			
@@ -871,8 +916,8 @@
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		//setInterval(refreshMainViews, 600);
-		//setInterval(refreshMainViews2, 600);
+		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
 			
 		</script>
 </h:body>

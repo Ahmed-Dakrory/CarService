@@ -330,7 +330,7 @@ if(isLoggedIn) {
 
 								try {
 									FacesContext.getCurrentInstance()
-									   .getExternalContext().redirect("/");
+									   .getExternalContext().redirect("/pages/secured/userData/userProfileShow.jsf?faces-redirect=true");
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

@@ -661,6 +661,182 @@ public class carAppServiceImpl implements IcarAppService{
 
 
 
+	@Override
+	public List<car> getAllFrightWithStateForMainUserTwo(int state, int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightWithStateForMainUserTwo(state,mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightWithStateForVendor(int state, int vendorId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightWithStateForVendor(state,vendorId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightWithStateForShipper(int state, int shipperId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightWithStateForShipper(state,shipperId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightWithStateForCustomer(int state, int custmerId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightWithStateForCustomer(state,custmerId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightWithStateForConsignee(int state, int consigneeId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightWithStateForConsignee(state,consigneeId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightForMainUserTwo(int mainTwoId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightForMainUserTwo(mainTwoId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightForVendor(int vendorId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightForVendor(vendorId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightForShipper(int shipperId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightForShipper(shipperId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightForCustomer(int custmerId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightForCustomer(custmerId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllFrightForConsignee(int consigneeId) {
+		try{
+			List<car> course=carDataRepository.getAllFrightForConsignee(consigneeId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllBytypeOfOrderAndShippingStateForNormalUser(int normalUserId, int typeOfOrder) {
+		try{
+			List<car> course=carDataRepository.getAllBytypeOfOrderAndShippingStateForNormalUser(normalUserId,typeOfOrder);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
 		
 	
 }

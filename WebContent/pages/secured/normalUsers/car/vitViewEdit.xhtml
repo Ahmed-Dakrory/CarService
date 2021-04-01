@@ -322,9 +322,9 @@ color: white
             		<div class="col-md-7 mb-3">
 						<div class="form-group">
 						    <label >نوع الطلب</label>
-						    <h:selectOneMenu id="selectOfBuy" onchange="viewBuyRow()"  type="text" value="#{normalUserBean.addNewCar.typeOfOrder}"  class="form-control">
+						    <h:selectOneMenu disabled="true" id="selectOfBuy" onchange="viewBuyRow()"  type="text" value="#{normalUserBean.addNewCar.typeOfOrder}"  class="form-control">
                               	<f:selectItem itemLabel="شحن فقط" itemValue="0"/>
-                              	<f:selectItem itemLabel="شحن وشراء" itemValue="1"/>
+                              	<f:selectItem itemLabel="شراء وشحن" itemValue="1"/>
                               </h:selectOneMenu>
 						    
 						  </div>
@@ -336,14 +336,14 @@ color: white
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >رابط السيارة</label>
-						    <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.orderLink}"   />
+						    <h:inputText disabled="true"  type="text" class="form-control" value="#{normalUserBean.addNewCar.orderLink}"   />
 						  </div>
 					</div>
 					
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >سعر السيارة</label>
-						    <h:inputText  type="number" step="0.1" class="form-control" value="#{normalUserBean.addNewCar.orderPrice}"   />
+						    <h:inputText disabled="true"  type="number" step="0.1" class="form-control" value="#{normalUserBean.addNewCar.orderPrice}"   />
 						  </div>
 					</div>
 				</div>
@@ -352,8 +352,8 @@ color: white
             	
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >Vin رقم</label>
-						    <h:inputText value="#{normalUserBean.addNewCar.uuid}" class="form-control" type="text"   />
+						    <label > الرقم التعريف</label>
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.uuid}" class="form-control" type="text"   />
                                                                                                     
                             <p:commandButton id="searchButton" value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(normalUserBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 42px;height: 37px;position: absolute;margin-left: 7px;background-position: 11px 8px;top:31px;left:7px;;background-size: 19px;background-repeat: no-repeat;"/>
                            <p:remoteCommand name="theloaderFirst" action="#{normalUserBean.theloaderFirst()}"/>
@@ -385,35 +385,35 @@ color: white
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الماركة</label>
-									     <h:inputText name="ctl00$BodyHolder$txtMake" type="text" class="form-control" value="#{normalUserBean.addNewCar.make}" id="ctl00_BodyHolder_txtMake"  />
+									     <h:inputText disabled="true" name="ctl00$BodyHolder$txtMake" type="text" class="form-control" value="#{normalUserBean.addNewCar.make}" id="ctl00_BodyHolder_txtMake"  />
 			                         </div>
 			                   </div>
 			                   
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >موديل</label>
-									     <h:inputText name="ctl00$BodyHolder$txtModel" type="text" class="form-control" value="#{normalUserBean.addNewCar.model}" id="ctl00_BodyHolder_txtModel"  />
+									     <h:inputText disabled="true" name="ctl00$BodyHolder$txtModel" type="text" class="form-control" value="#{normalUserBean.addNewCar.model}" id="ctl00_BodyHolder_txtModel"  />
 			                         </div>
 			                   </div>
 			                  
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >السنة</label>
-									        <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{normalUserBean.addNewCar.year}" class="form-control"  id="ctl00_BodyHolder_txtYear"  />
+									        <h:inputText disabled="true" name="ctl00$BodyHolder$txtYear" type="text" value="#{normalUserBean.addNewCar.year}" class="form-control"  id="ctl00_BodyHolder_txtYear"  />
 			                        </div>
 			                   </div>
 			                   
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >اللون</label>
-									    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" class="form-control" value="#{normalUserBean.addNewCar.color}" id="ctl00_BodyHolder_txtColor"  />
+									    <h:inputText disabled="true" name="ctl00$BodyHolder$txtColor" type="text" class="form-control" value="#{normalUserBean.addNewCar.color}" id="ctl00_BodyHolder_txtColor"  />
 			                       </div>
 			                   </div>
 			                   
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >هيكل الجسم</label>
-			                   			 <h:inputText name="ctl00$BodyHolder$txtBodyStyle" class="form-control" type="text" value="#{normalUserBean.addNewCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle"  />
+			                   			 <h:inputText disabled="true" name="ctl00$BodyHolder$txtBodyStyle" class="form-control" type="text" value="#{normalUserBean.addNewCar.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle"  />
 			                       </div>
 			                   </div>
 			                   
@@ -421,7 +421,7 @@ color: white
 							 <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >عدد لترات المحرك</label>
-									    <h:inputText class="form-control" name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{normalUserBean.addNewCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters"  />
+									    <h:inputText disabled="true" class="form-control" name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{normalUserBean.addNewCar.engineLiters}" id="ctl00_BodyHolder_txtEngineLiters"  />
 									 </div>
 			                   </div>
 			                   
@@ -430,7 +430,7 @@ color: white
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >نوع المحرك</label>
-										<h:inputText class="form-control" name="ctl00$BodyHolder$txtEngineType" type="text" value="#{normalUserBean.addNewCar.engineType}" id="ctl00_BodyHolder_txtEngineType"  />
+										<h:inputText disabled="true" class="form-control" name="ctl00$BodyHolder$txtEngineType" type="text" value="#{normalUserBean.addNewCar.engineType}" id="ctl00_BodyHolder_txtEngineType"  />
 			                       </div>
 			                   </div>
 								
@@ -439,8 +439,8 @@ color: white
 					
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >الوصف</label>
-						    <h:inputText value="#{normalUserBean.addNewCar.description}" class="form-control" type="text"   />
+						    <label >المواصفات</label>
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.description}" class="form-control" type="text"   />
                          </div>
                    </div>
                    
@@ -448,31 +448,31 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >DVL</label>
-						    <h:inputText value="#{normalUserBean.dvlDate}" type="text"  class="form-control timePicker"   />
+						    <h:inputText disabled="true" value="#{normalUserBean.dvlDate}" type="text"  class="form-control timePicker"   />
                          </div>
                    </div>
                    
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >استقبال الحاوية</label>
-						    <h:inputText value="#{normalUserBean.cargoRecievedDate}" class="form-control timePicker" type="text"   />
+						    <label >استلمت بتاريخ </label>
+						    <h:inputText disabled="true" value="#{normalUserBean.cargoRecievedDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
                    
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ETD</label>
-						    <h:inputText value="#{normalUserBean.etdDate}" class="form-control timePicker" type="text"   />
+						    <label >ابحار</label>
+						    <h:inputText disabled="true" value="#{normalUserBean.etdDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
 					    
 					    
 				<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >استلام الورق</label>
-						     <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{normalUserBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
+						    <label >حالة التايتل </label>
+						     <h:selectOneMenu disabled="true" name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{normalUserBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
                               	<f:selectItem itemLabel="Missing" itemValue="0"/>
                               	<f:selectItem itemLabel="Pending" itemValue="1"/>
                               	<f:selectItem itemLabel="Requested" itemValue="2"/>
@@ -487,8 +487,8 @@ color: white
 					    
 					 <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ETA</label>
-						    <h:inputText value="#{normalUserBean.etaDate}" class="form-control timePicker" type="text"   />
+						    <label >وصول</label>
+						    <h:inputText disabled="true" value="#{normalUserBean.etaDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
                    
@@ -496,15 +496,15 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >StReceived</label>
-						    <h:inputText value="#{normalUserBean.stRecievedDate}" class="form-control timePicker" type="text"   />
+						    <h:inputText disabled="true" value="#{normalUserBean.stRecievedDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
                    
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >البلدية</label>
-						    <h:selectOneMenu value="#{normalUserBean.addNewCar.state}" class="form-control">
+						    <label >مرحلة السيارة الان</label>
+						    <h:selectOneMenu disabled="true" value="#{normalUserBean.addNewCar.state}" class="form-control">
 	                           	<c:forEach items="#{normalUserBean.carStates}" var="var" varStatus="idx">
 	                           	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
 	                           	</c:forEach>
@@ -516,7 +516,7 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >رابط الصور</label>
-						    <h:inputText value="#{normalUserBean.addNewCar.imagesLink}" class="form-control" type="text"   />
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.imagesLink}" class="form-control" type="text"   />
                          </div>
                    </div>
                    
@@ -524,7 +524,7 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >نوع السيارة</label>
-						    <h:selectOneMenu name="ctl00$BodyHolder$txtMake" type="text" value="#{normalUserBean.addNewCar.type}" class="form-control" id="ctl00_BodyHolder_txttype" >
+						    <h:selectOneMenu disabled="true" name="ctl00$BodyHolder$txtMake" type="text" value="#{normalUserBean.addNewCar.type}" class="form-control" id="ctl00_BodyHolder_txttype" >
 	                           <f:selectItem itemLabel="سيارة" itemValue="0"/>
 	                           <f:selectItem itemLabel="نقل جاف" itemValue="1"/>
                            </h:selectOneMenu>
@@ -533,8 +533,8 @@ color: white
                    
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ميناء الخروج الدولة</label>
-						    <h:selectOneMenu value="#{normalUserBean.addNewCar.origin}" class="form-control" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" >
+						    <label >ميناء الخروج</label>
+						    <h:selectOneMenu disabled="true" value="#{normalUserBean.addNewCar.origin}" class="form-control" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" >
 								<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
 								<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
 								<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
@@ -549,9 +549,9 @@ color: white
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ميناء وصول الدولة</label>
+						    <label >ميناء وصول</label>
 						    
-						      <h:selectOneMenu value="#{normalUserBean.addNewCar.destination}" class="form-control" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" >
+						      <h:selectOneMenu disabled="true" value="#{normalUserBean.addNewCar.destination}" class="form-control" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" >
                                                                                                        	<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
 	<f:selectItem itemValue="1531" itemLabel="Aabenraa - Denmark - 40901"/>
 	<f:selectItem itemValue="1412" itemLabel="Aagotnes - Norway - 40311"/>
@@ -5520,7 +5520,7 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >كونتينر</label>
-						     <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.container}"   />
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserBean.addNewCar.container}"   />
                        </div>
                    </div>
                    
@@ -5528,31 +5528,26 @@ color: white
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >رابط الكونتينر </label>
-						     <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.containerLink}"   />
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserBean.addNewCar.containerLink}"   />
                        </div>
                    </div>
                    
                    
                    
-                    <div class="col-md-6 mb-3">
-						<div class="form-group">
-						    <label >رابط الكونتينر </label>
-						     <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.containerLink}"   />
-                       </div>
-                   </div>
+                  
                    
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >Seal</label>
-						     <h:inputText type="text" class="form-control" value="#{normalUserBean.addNewCar.seal}"  />
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserBean.addNewCar.seal}"  />
                        </div>
                    </div>
                    
                   
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >Inland statues</label>
-						    <h:inputText class="form-control" name="ctl00$BodyHolder$txtVessel" type="text" value="#{normalUserBean.addNewCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel"  />
+						    <label >وصلت المخزن</label>
+						    <h:inputText disabled="true" class="form-control" name="ctl00$BodyHolder$txtVessel" type="text" value="#{normalUserBean.addNewCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel"  />
 						</div>
                    </div>
                    
@@ -5561,7 +5556,7 @@ color: white
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >بداية وقت التخزين</label>
-						    <h:inputText class="form-control timePicker" name="ctl00$BodyHolder$txtDateTitlesSentToUSCustoms" type="text" value="#{normalUserBean.storageStartDate}" id="ctl00_BodyHolder_txtDateTitlesSentToUSCustoms"  />
+						    <h:inputText disabled="true" class="form-control timePicker" name="ctl00$BodyHolder$txtDateTitlesSentToUSCustoms" type="text" value="#{normalUserBean.storageStartDate}" id="ctl00_BodyHolder_txtDateTitlesSentToUSCustoms"  />
                        </div>
                    </div>
                    
@@ -5571,21 +5566,28 @@ color: white
 				 <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >نهاية وقت التخزين</label>
-						    <h:inputText name="ctl00$BodyHolder$txtNameOfRecipient"  class="form-control timePicker"  type="text" value="#{normalUserBean.storageEndDate}" id="ctl00_BodyHolder_txtNameOfRecipient"  />
+						    <h:inputText disabled="true" name="ctl00$BodyHolder$txtNameOfRecipient"  class="form-control timePicker"  type="text" value="#{normalUserBean.storageEndDate}" id="ctl00_BodyHolder_txtNameOfRecipient"  />
 						</div>
                    </div>
                    
 					    
 					    
 					
-					    
+					     <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >ملاحظة</label>
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserBean.addNewCar.orderNotesFromCustomer}"   />
+                       </div>
+                   </div>
 					    
 					 <div class="col-md-12 mb-3">
 						<div class="form-group">
-						    <label >ملاحظة</label>
-						     <h:inputText name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" class="form-control" value="#{normalUserBean.addNewCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber"  />
+						    <label >رسالة من الموقع بخصوص السيارة</label>
+						     <h:inputText disabled="true" name="ctl00$BodyHolder$txtTitleTrackNumber" type="text" class="form-control" value="#{normalUserBean.addNewCar.note}" id="ctl00_BodyHolder_txtTitleTrackNumber"  />
                        </div>
                    </div>
+                   
+                   
                    
 					    
 					  <!-- Start of Pic -->  
@@ -5616,12 +5618,7 @@ color: white
 															
 																<ui:repeat var="var" value="#{normalUserBean.images}">
 																	<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
-																	 		<div class="containerDevCloseButtonNew">
-																				<div class="devCloseButtonNew" onclick="deleteImageNum('#{var}')">
-															                                	<div href="#"  class="closeButtonNew">
-															                                	</div>
-															                           </div>
-																			</div>
+																	 		
 														                    <div class="container">
 														                        <div class="row">
 														                            <div class="col-md" align="center">
@@ -5649,16 +5646,7 @@ color: white
 														             
 														              <div class="col-md" style="border: black;padding: 14px;border-width: 1px;">
 														                    <div class="container">
-														                        <div class="row">
-														                            <div class="col-md" align="center">
-														                                <div>
-														                                     <label for="aspnetForm:FileUploaded_input">
-														                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-														                                    </label>
-														                                        
-														                                </div>
-														                            </div>
-														                        </div>
+														                       
 														                       </div>
 														                </div>
 															   
@@ -5717,12 +5705,7 @@ color: white
 												
 													<ui:repeat var="var" value="#{normalUserBean.docs}">
 														<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
-														 		<div class="containerDevCloseButtonNew">
-																	<div class="devCloseButtonNew" onclick="deleteDocsNum('#{var}')">
-												                                	<div href="#"  class="closeButtonNew">
-												                                	</div>
-												                           </div>
-																</div>
+														 		
 											                    <div class="container">
 											                        <div class="row">
 											                            <div class="col-md" align="center">
@@ -5750,16 +5733,7 @@ color: white
 											             
 											              <div class="col-md" style="border: black;padding: 14px;border-width: 1px;">
 											                    <div class="container">
-											                        <div class="row">
-											                            <div class="col-md" align="center">
-											                                <div>
-											                                    <label for="aspnetForm:docUploaded_input">
-											                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-											                                    </label>
-											                                        
-											                                </div>
-											                            </div>
-											                        </div>
+											                       
 											                       </div>
 											                </div>
 												   

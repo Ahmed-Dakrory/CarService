@@ -159,7 +159,7 @@
 						    <label >نوع الطلب</label>
 						    <h:selectOneMenu id="selectOfBuy" onchange="viewBuyRow()"  type="text" value="#{normalUserBean.addNewCar.typeOfOrder}"  class="form-control">
                               	<f:selectItem itemLabel="شحن فقط" itemValue="0"/>
-                              	<f:selectItem itemLabel="شحن وشراء" itemValue="1"/>
+                              	<f:selectItem itemLabel="شراء وشحن" itemValue="1"/>
                               </h:selectOneMenu>
 						    
 						  </div>
@@ -187,7 +187,7 @@
             	
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >Vin رقم</label>
+						    <label >رقم التعريف</label>
 						    <h:inputText value="#{normalUserBean.addNewCar.uuid}" class="form-control" type="text"   />
                                                                                                     
                             <p:commandButton id="searchButton" value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(normalUserBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 42px;height: 37px;position: absolute;margin-left: 7px;background-position: 11px 8px;top:31px;left:7px;;background-size: 19px;background-repeat: no-repeat;"/>
@@ -274,7 +274,7 @@
 					
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >الوصف</label>
+						    <label >المواصفات</label>
 						    <h:inputText value="#{normalUserBean.addNewCar.description}" class="form-control" type="text"   />
                          </div>
                    </div>
@@ -290,7 +290,7 @@
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >استقبال الحاوية</label>
+						    <label >استلمت بتاريخ </label>
 						    <h:inputText value="#{normalUserBean.cargoRecievedDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
@@ -298,7 +298,7 @@
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ETD</label>
+						    <label >ابحار</label>
 						    <h:inputText value="#{normalUserBean.etdDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
@@ -306,7 +306,7 @@
 					    
 				<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >استلام الورق</label>
+						    <label >حالة التايتل </label>
 						     <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{normalUserBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
                               	<f:selectItem itemLabel="Missing" itemValue="0"/>
                               	<f:selectItem itemLabel="Pending" itemValue="1"/>
@@ -322,7 +322,7 @@
 					    
 					 <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ETA</label>
+						    <label >وصول</label>
 						    <h:inputText value="#{normalUserBean.etaDate}" class="form-control timePicker" type="text"   />
                          </div>
                    </div>
@@ -337,14 +337,7 @@
                    
                    
                    <div class="col-md-6 mb-3">
-						<div class="form-group">
-						    <label >البلدية</label>
-						    <h:selectOneMenu value="#{normalUserBean.addNewCar.state}" class="form-control">
-	                           	<c:forEach items="#{normalUserBean.carStates}" var="var" varStatus="idx">
-	                           	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
-	                           	</c:forEach>
-                           </h:selectOneMenu>  
-                         </div>
+						
                    </div>
                    
                    
@@ -368,7 +361,7 @@
                    
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ميناء الخروج الدولة</label>
+						    <label >ميناء الخروج</label>
 						    <h:selectOneMenu value="#{normalUserBean.addNewCar.origin}" class="form-control" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" >
 								<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
 								<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
@@ -384,10 +377,16 @@
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >ميناء وصول الدولة</label>
+						    <label >ميناء الوصول</label>
 						    
-						      <h:selectOneMenu value="#{normalUserBean.addNewCar.destination}" class="form-control" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" >
+						      <h:selectOneMenu  value="#{normalUserBean.addNewCar.destination}" style="min-width: 0px;" class="form-control" name="ctl00$BodyHolder$ddlDestination" id="ctl00_BodyHolder_ddlDestination" >
                                                                                                        	<f:selectItem itemValue="1" itemLabel=" SELECT DESTINATION -  - "/>
+                                                                                                       	
+	<f:selectItem itemValue="4341" itemLabel="El Khoms - Libya - 72500"/>
+	<f:selectItem itemValue="3706" itemLabel="Benghazi - Libya - 72501"/>
+	<f:selectItem itemValue="4346" itemLabel="MISURATA - LIBYA - 72500"/>
+	<f:selectItem itemValue="3750" itemLabel="El Qoseir - Egypt - 72999"/>
+	<f:selectItem itemValue="3751" itemLabel="El Quseir - Egypt - 72999"/>
 	<f:selectItem itemValue="1531" itemLabel="Aabenraa - Denmark - 40901"/>
 	<f:selectItem itemValue="1412" itemLabel="Aagotnes - Norway - 40311"/>
 	<f:selectItem itemValue="1532" itemLabel="Aalborg - Denmark - 40903"/>
@@ -1029,7 +1028,6 @@
 	<f:selectItem itemValue="198" itemLabel="Belledune, NB - Canada - 13442"/>
 	<f:selectItem itemValue="4595" itemLabel="BELLINGHAM - United States - 3005"/>
 	<f:selectItem itemValue="1690" itemLabel="Bellport - United Kingdom - 41400"/>
-	<f:selectItem itemValue="3706" itemLabel="Benghazi - Libya - 72501"/>
 	<f:selectItem itemValue="2947" itemLabel="Bengkulu - Indonesia - 56079"/>
 	<f:selectItem itemValue="3890" itemLabel="Benguela - Angola - 76299"/>
 	<f:selectItem itemValue="3675" itemLabel="Beni Saf - Algeria - 72123"/>
@@ -1738,11 +1736,8 @@
 	<f:selectItem itemValue="3735" itemLabel="El Ismailiya - Egypt - 72925"/>
 	<f:selectItem itemValue="3638" itemLabel="El Jadida - Morocco - 71400"/>
 	<f:selectItem itemValue="3648" itemLabel="El Jorf Lasfar - Morocco - 71415"/>
-	<f:selectItem itemValue="4341" itemLabel="El Khoms - Libya - 72500"/>
 	<f:selectItem itemValue="927" itemLabel="El Palito - Venezuela - 30737"/>
 	<f:selectItem itemValue="4516" itemLabel="EL PASO - United States - 2402"/>
-	<f:selectItem itemValue="3750" itemLabel="El Qoseir - Egypt - 72999"/>
-	<f:selectItem itemValue="3751" itemLabel="El Quseir - Egypt - 72999"/>
 	<f:selectItem itemValue="548" itemLabel="El Real - Panama - 22599"/>
 	<f:selectItem itemValue="4069" itemLabel="El Salvador - El Salvador - 2110"/>
 	<f:selectItem itemValue="375" itemLabel="El Sauzal - Mexico - 20142"/>
@@ -3170,7 +3165,6 @@
 	<f:selectItem itemValue="5" itemLabel="Mississauga, ONT - Canada - 01530"/>
 	<f:selectItem itemValue="1668" itemLabel="Mistley - United Kingdom - 41398"/>
 	<f:selectItem itemValue="3369" itemLabel="Misumi - Japan - 58852"/>
-	<f:selectItem itemValue="4346" itemLabel="MISURATA - LIBYA - 72500"/>
 	<f:selectItem itemValue="3275" itemLabel="Mitajiri - Japan - 58800"/>
 	<f:selectItem itemValue="63" itemLabel="Mitchell Bay, ONT - Canada - 08530"/>
 	<f:selectItem itemValue="2394" itemLabel="Mitilini - Greece - 48462"/>
@@ -5386,7 +5380,7 @@
                   
                     <div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >Inland statues</label>
+						    <label >وصلت المخزن</label>
 						    <h:inputText class="form-control" name="ctl00$BodyHolder$txtVessel" type="text" value="#{normalUserBean.addNewCar.inlandStatus}" id="ctl00_BodyHolder_txtVessel"  />
 						</div>
                    </div>

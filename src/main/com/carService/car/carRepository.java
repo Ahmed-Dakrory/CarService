@@ -49,6 +49,21 @@ public interface carRepository {
 	public List<car> getAllFrightSentForPaymentForConsignee(int consigneeId);
 	public List<car> getAllFrightSentForPaymentFornormalUserId(int normalUserId);
 	
+
+	public List<car> getAllFrightWithStateForMainUserTwo(int state,int mainTwoId);
+	public List<car> getAllFrightWithStateForVendor(int state,int vendorId);
+	public List<car> getAllFrightWithStateForShipper(int state,int shipperId);
+	public List<car> getAllFrightWithStateForCustomer(int state,int custmerId);
+	public List<car> getAllFrightWithStateForConsignee(int state,int consigneeId);
+	
+	
+
+	public List<car> getAllFrightForMainUserTwo(int mainTwoId);
+	public List<car> getAllFrightForVendor(int vendorId);
+	public List<car> getAllFrightForShipper(int shipperId);
+	public List<car> getAllFrightForCustomer(int custmerId);
+	public List<car> getAllFrightForConsignee(int consigneeId);
+	
 	
 
 	public List<car> getAllForNormalUser(int normalUserId);
@@ -56,6 +71,7 @@ public interface carRepository {
 	
 	public List<car> getAllBytypeOfOrderForNormalUser(int normalUserId,int typeOfOrder);
 	public List<car> getAllBytypeOfOrderAndStateForNormalUser(int normalUserId,int state,int typeOfOrder);
+	public List<car> getAllBytypeOfOrderAndShippingStateForNormalUser(int normalUserId,int typeOfOrder);
 	
 	
 

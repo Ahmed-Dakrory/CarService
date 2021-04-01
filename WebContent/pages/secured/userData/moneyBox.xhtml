@@ -168,16 +168,13 @@ width: 400px;
 			                            <h2><strong>$#{carBean.totalPrice}</strong></h2>                    
 			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>Total Cars Cost</small></p>
 			                        </div><!--/col-->
-			                        <div class="col-xs-12 col-sm-4">
-			                            <h2><strong>$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</strong></h2>                    
-			                            <p class="btn btn-primary btn-block"><span class="fa fa-dollar"></span><small>The available Amount</small></p>
-			                        </div>
+			                       
                             	</div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                         	<p style="    font-size: 25px;    font-family: serif;"> Your Account is #{loginBean.thisAccountMoneyBox.active?'Active':'Not Active'}</p>
-			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">To Activate Your Account you have to send email to us</p>
+			  				<p style="  display:#{loginBean.thisAccountMoneyBox.active?'none':'contents'};   text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px #cacaca;">لتفعيل حسابك برجاء ارسال ايميل لنا</p>
 	                        <p:graphicImage style="    width: 172px;" value="/resources/imgs/#{loginBean.thisAccountMoneyBox.active?'correct':'error'}.png"></p:graphicImage>
 		  		
 		  					<!-- <p:commandButton rendered="#{!loginBean.thisAccountMoneyBox.active}" disabled="#{loginBean.thisAccountMoneyBox.active}" class="btn btn-default DTTT_button_print" value="Activate the account" action="#{loginBean.activateMyAccount}"/>

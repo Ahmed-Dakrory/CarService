@@ -144,7 +144,7 @@ margin-right: 0!important;
 							<a style="width: fit-content;border-radius: 10px;padding-right: 19%;padding-left: 19%;text-decoration: none;" href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
 								<h:form id="notifiactionPanel">
 								<div style="height: 100%;font-size: 19px;font-family: cursive;">
-									<p >$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</p>
+									<p >$#{loginBean.thisAccountMoneyBox.depositedMoney}</p>
 								</div>
 								</h:form>
 								<span class="badge" style="display:none;">0</span>
@@ -743,8 +743,8 @@ margin-right: 0!important;
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		//setInterval(refreshMainViews, 600);
-		//setInterval(refreshMainViews2, 600);
+		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
 			
 		</script>
 		</h:body>

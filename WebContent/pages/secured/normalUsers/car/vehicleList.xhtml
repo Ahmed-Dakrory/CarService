@@ -10,7 +10,7 @@
 <ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
-	<ui:define name="title"> ADAWLIAA</ui:define>
+	<ui:define name="title"> CAROMOTOLIBYA</ui:define>
 	
 
 	<ui:define name="content">
@@ -38,12 +38,16 @@
 			<h:form id="formOfSelectionCarState">
              <h:selectOneMenu value="#{normalUserBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 				<f:ajax listener="#{normalUserBean.filterCarBySelect}"/>
-				<f:selectItem itemValue="0" itemLabel="ADA WAREHOUSE"/>
+				<f:selectItem itemValue="0" itemLabel="شحن سلعة"/>
 				<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
-				<f:selectItem itemValue="2" itemLabel="Freight In Transit"/>
-				<f:selectItem itemValue="4" itemLabel="Sent For Payment"/>
-				<f:selectItem itemValue="6" itemLabel="Added by Customer"/>
-				<f:selectItem itemValue="3" itemLabel="Show All"/>
+				<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
+				<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
+				<f:selectItem itemValue="9" itemLabel="فى المراجعة "/>
+				<f:selectItem itemValue="10" itemLabel="رفضت"/>
+				<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
+				<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
+				<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
+				<f:selectItem itemValue="3" itemLabel="اظهار الكل"/>
 			</h:selectOneMenu>
 			</h:form>
 		</div>
@@ -70,10 +74,11 @@
 	<table class="table table-bordered table-striped mb-none searchList carlist" id="datatable-tabletools" data-swf-path="assets/customer/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 		<thead>
 			<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
-
+<th class="d-block d-sm-none" style="text-align: justify;width: 38px;background: white;color: black;border: none;" >البيانات</th>
 <th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السيارة</th>
-<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">المكان</th>
-<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">الوقت</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تكلفة الشحن</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">أخر تحديث</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">نوع الطلب </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">السعر</th>
 	</tr>
 </thead>
@@ -92,6 +97,42 @@ function ViewDocById(strID) {
 
 	<tr align="left" class="gradeX">
 				
+		
+<td class="d-block d-sm-none ">
+<h2 class="title" style=" margin-top: 5%;text-align: justify;">
+<a itemprop="url" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
+<div class="vin" style="display: block;text-align: initial;"><span class="name">سيريال السيارة:</span>#{data.uuid} </div>
+<div class="odometer" style="display: block;text-align: initial;">
+<span class="">الماركة:</span>#{data.make} 
+</div>
+<div class="odometer" style="display: block;text-align: initial;">
+	<span class="">	الموديل:	</span>	#{data.model}
+</div>
+
+<div class="odometer" style="display: block;text-align: initial;">
+	<span class="">	السعر:	</span>	$#{data.orderPrice}
+</div>
+
+<div class="odometer" style="display: block;text-align: initial;">
+	<span class="">	سعر الشحن:	</span>	$#{data.commision+data.fees+data.seacost+data.landcost}
+</div>
+
+<div class="location" style="text-align: justify;">
+		<span class="">	نوع الطلب:	
+		<h:panelGroup rendered="#{(data.typeOfOrder==1)?'true':'false'}"  >
+		طلب شراء وشحن
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{(data.typeOfOrder==0)?'true':'false'}"  >
+		طلب شحن
+		</h:panelGroup>
+		
+		</span>
+
+</div>
+	
+	
+</td>
 		<td class="d-none d-sm-table-cell center hidden-phone">
 			<h2 class="title" style=" margin-top: 5%;text-align: justify;">
 <a itemprop="url" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
@@ -119,16 +160,28 @@ function ViewDocById(strID) {
 <td class="d-none d-sm-table-cell center hidden-phone column1">
 
 		<div class="location" style="text-align: justify;">
-		<span class="name">Statues:</span>#{data.state} </div>
+		<span class="name">Statues:</span>$#{data.commision+data.fees+data.seacost+data.landcost} </div>
 		
 </td>
 
 
 <td class="d-none d-sm-table-cell center hidden-phone column3" >
 	<div class="location" style="text-align: justify;">
-		<span class="name">Location:</span> 11/2/2021</div>
+		<span class="name">Location:</span> #{carBean.getFormatedDate(data.lastUpdate)}</div>
 </td>
+<td class="d-none d-sm-table-cell center hidden-phone column3" >
+	<div class="location" style="text-align: justify;">
+		<span class="name">Location:</span>
+		<h:panelGroup rendered="#{(data.typeOfOrder==1)?'true':'false'}"  >
+		<div  class="documentCheck">طلب شراء وشحن</div>
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{(data.typeOfOrder==0)?'true':'false'}"  >
+		<div  class="readyforShipping">طلب شحن</div>
+		</h:panelGroup>
 
+</div>
+</td>
 <td class="d-none d-sm-table-cell center hidden-phone column5" style="text-align: justify;">
 <div class="price" style="text-align: justify;" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 	$<span>#{data.orderPrice} </span>

@@ -10,7 +10,7 @@
 <ui:composition template="/templates/dashboard2.xhtml">
 
 
-	<ui:define name="title"> ADAWLIAA</ui:define>
+	<ui:define name="title"> CAROMOTOLIBYA</ui:define>
 	
 	 <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
@@ -407,11 +407,16 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                             <h:form id="formOfSelectionCarState">
                                                                                 <h:selectOneMenu value="#{carBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 																					<f:ajax listener="#{carBean.filterCarBySelect}"/>
-																					<f:selectItem itemValue="0" itemLabel="ADA WAREHOUSE"/>
+																					<f:selectItem itemValue="0" itemLabel="شحن سلعة"/>
 																					<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
-																					<f:selectItem itemValue="2" itemLabel="Freight In Transit"/>
-																					<f:selectItem itemValue="4" itemLabel="Sent For Payment"/>
-																					<f:selectItem itemValue="3" itemLabel="Show All"/>
+																					<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
+																					<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
+																					<f:selectItem itemValue="9" itemLabel="جديد"/>
+																					<f:selectItem itemValue="10" itemLabel="رفضت"/>
+																					<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
+																					<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
+																					<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
+																					<f:selectItem itemValue="3" itemLabel="اظهار الكل"/>
 																				
 																				</h:selectOneMenu>
 																			</h:form>
@@ -437,37 +442,47 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
 									<thead>
 										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
-											<th>State</th>
-											<th>UID</th>
-											<th >Description</th>
-											<th class="hidden-phone">Year</th>
-											<th class="hidden-phone">Shipper</th>
-											<th class="hidden-phone">Vendor</th>
-											<th class="hidden-phone">Release</th>
-											<th class="hidden-phone">Container#</th>
-											<th class="hidden-phone">No. Days</th>
-											<th class="hidden-phone">Inland Status</th>
-											<th class="hidden-phone">Cargo Received</th>
-											<th class="hidden-phone">Title Received</th>
-											<th class="hidden-phone">Origin</th>
-											<th class="hidden-phone">Destination</th>
-											<th class="hidden-phone">ETD</th>
-											<th class="hidden-phone">ETA</th>
-											<th class="hidden-phone">Consignee</th>
-											<th class="hidden-phone">Land Cost</th>
-											<th class="hidden-phone">Sea Cost</th>
-											<th class="hidden-phone">Fees Cost</th>
-											<th class="hidden-phone">Commision Cost</th>
-											<th class="hidden-phone">Total Cost</th>
-											<th class="hidden-phone">AllImages</th>
-											<th class="hidden-phone">Image</th>
-											<th class="hidden-phone">Docs</th>
+											<th>نوع الطلب</th>
+											<th>حالة الطلب</th>
+											<th>رقم التعريف</th>
+											<th >المواصفات</th>
+											<th class="hidden-phone">السنة</th>
+											<th class="hidden-phone">الشاحن</th>
+											<th class="hidden-phone">التاجر</th>
+											<th class="hidden-phone">افراج</th>
+											<th class="hidden-phone">رقم الحاوية#</th>
+											<th class="hidden-phone">مدة التخزين</th>
+											<th class="hidden-phone">وصلت المخزن</th>
+											<th class="hidden-phone">استلمت بتاريخ</th>
+											<th class="hidden-phone">حالة التايتل</th>
+											<th class="hidden-phone">ميناء الخروج</th>
+											<th class="hidden-phone">ميناء الوصول</th>
+											<th class="hidden-phone">ابحار</th>
+											<th class="hidden-phone">وصول</th>
+											<th class="hidden-phone">وكالة التخليص</th>
+											<th class="hidden-phone">تكلفة النقل</th>
+											<th class="hidden-phone">تكلفة الشحن</th>
+											<th class="hidden-phone">غرامات</th>
+											<th class="hidden-phone">عمولات</th>
+											<th class="hidden-phone">مجموع المستحقات</th>
+											<th class="hidden-phone">كل الصور</th>
+											<th class="hidden-phone">صور</th>
+											<th class="hidden-phone">وثائق</th>
 											
 										</tr>
 									</thead>
 									<tbody>
 									<ui:repeat var="data" value="#{carBean.allCars}">
 										<tr class="gradeX">
+											<td>
+												<h:panelGroup rendered="#{(data.typeOfOrder==0)?'true':'false'}"  >
+												<div  class=""></div>
+												</h:panelGroup>
+												
+												<h:panelGroup rendered="#{(data.typeOfOrder==1)?'true':'false'}"  >
+												<div  class="">$</div>
+												</h:panelGroup>
+											</td>
 											<td>
 											<h:panelGroup rendered="#{(data.state==0)?'true':'false'}"  >
 											<div  class="documentCheck">Documents</div>
@@ -505,6 +520,27 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<div  class="sentForPayment">Sent For Payment</div>
 											</h:panelGroup>
 													
+											<h:panelGroup rendered="#{(data.state==9)?'true':'false'}"  >
+											<div  class="readyforShipping">New</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==10)?'true':'false'}"  >
+											<div  class="documentCheck">Rejected</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==11)?'true':'false'}"  >
+											<div  class="intransit">Payed</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==12)?'true':'false'}"  >
+											<div  class="readyforShipping">Ready</div>
+											</h:panelGroup>
+											
+											<h:panelGroup rendered="#{(data.state==13)?'true':'false'}"  >
+											<div  class="transportinProcess">Delivered</div>
+											</h:panelGroup>
+											
+											
 											</td>
 											<td>
 												<h:form>
@@ -570,7 +606,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost+data.orderPrice}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="display:#{data.imagesLink!=''?'block':'none'} ; color: #371cc3;" onclick="openThisImages('#{data.imagesLink}');">Link</a></span></td>
 											<script>
 											function openThisImages(url){

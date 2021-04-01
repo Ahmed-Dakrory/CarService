@@ -127,9 +127,53 @@
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
-		              <a class="nav-link" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
+		              <a class="nav-link" href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
 		            </li>
 		            
+		            <li class="nav-item dropdown " style="display:#{loginBean.loggedIn?'block':'none'};">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          $#{loginBean.thisAccountMoneyBox.depositedMoney}
+				        </a>
+				        <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="    width: max-content;">
+				          <div class="ml-3 ">
+				          	 <span class="pull-right label label-default" >#{loginBean.mymoneyTransactions.size()}</span>
+									عمليات الدفع
+				          </div>
+				           <div class="dropdown-divider"></div>
+				          <div  class="dropdown-item text-wrap m-0 p-0 d-none d-sm-table-cell">
+									<div class="">
+									<ui:repeat var="var" value="#{loginBean.mymoneyTransactions}">
+										<div >
+										<div class="card m-0 p-0">
+											<div class=" card-header">
+												<span class="message pull-left">#{loginBean.getTransactionType(var.typeOfTransaction).name}</span>
+												<span class="message pull-right text-dark">نوع العملية </span>
+											</div>
+											
+												
+											<div class="container">
+												<div class="col-md-4 p-0">
+													Last: $#{var.amountBefore}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													amount: $#{var.amount}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													 #{var.date}
+												</div>
+											</div>
+										
+											</div>
+										</div>
+										</ui:repeat>
+										
+			 
+									</div>
+								</div>
+				        </div>
+				      </li>
 		          </ul>
 		          
 		        </div>
@@ -243,7 +287,19 @@
 	   jQuery.noConflict();
 	   
 	   </script>
-	   
+	   <h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
+			
+			
+			
+			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
+		</h:form>
+		<script>
+		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
+			
+		</script>
 	   
 	</h:body>
 
