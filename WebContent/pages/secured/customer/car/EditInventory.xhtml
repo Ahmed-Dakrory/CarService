@@ -17,6 +17,28 @@
 			</ui:define>
 
 	<ui:define name="content">
+	    	<style>
+    input, select {
+    font-family: arial;
+    height: 29px!important;
+    padding: 1px 1px 1px 9px;
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 15px!important;
+    font-family: calibri;
+}
+
+td {
+    /* font-weight: 400; */
+    font-size: 15px;
+    font-family: calibri;
+}
+
+.tbltxt {
+    font: 16px 'calibri';
+    color: #000;
+}
+    	</style>
         <h:form name="aspnetForm" method="post" action="./AddNewInventory.jsf" id="aspnetForm">
 
             <div id="content">
@@ -5176,7 +5198,7 @@
 																										<f:selectItem itemValue="371" itemLabel="MIAMI, FL (5201)"/>
 																										<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
 																										<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
-																									
+																									<f:selectItem itemValue="391" itemLabel="Indianapolis IN (4110)"/>
 
 		</h:selectOneMenu>
 		</td>

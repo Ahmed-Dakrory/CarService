@@ -166,6 +166,9 @@ public class normalUserBean implements Serializable{
 	
 	
 	private float totalPrice=0;
+	
+	private List<user> allUsers;
+	private user selectedUser;
 	@PostConstruct
 	public void init() {
 		distinationMap=new LinkedHashMap<Integer,String>();
@@ -187,6 +190,82 @@ public class normalUserBean implements Serializable{
 	}
 	
 	
+	public void handleAllUsersForAdmin() {
+		
+		allUsers = loginBean.getUserDataFacede().getAll();
+	}
+	
+	
+	
+	public void selectUser(int idUser) {
+		selectedUser=loginBean.getUserDataFacede().getById(idUser);
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/userEdit.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	
+
+	private boolean checkValidForUser(user addNewshipper2) {
+		// TODO Auto-generated method stub
+		if(addNewshipper2.getCompany().equals("")||addNewshipper2.getCompany()==null) {
+			return false;
+		}
+		
+		if(addNewshipper2.getEmail().equals("")||addNewshipper2.getEmail()==null) {
+			return false;
+		}
+		
+		if(addNewshipper2.getFirstName().equals("")||addNewshipper2.getFirstName()==null) {
+			return false;
+		}
+		
+		if(addNewshipper2.getLastName().equals("")||addNewshipper2.getLastName()==null) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public void cancelEditUser() {
+		System.out.println("Cancel");
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/userList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateData() {
+
+		boolean isValid=checkValidForUser(selectedUser);
+		if(isValid) {
+		loginBean.getUserDataFacede().adduser(selectedUser);
+		
+
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your data has been updated.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'Check the Madatory fields',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+			
+		}
+	}
 	public void refreshProfileData() {
 
 		user userNewId=loginBean.getTheUserOfThisAccount();
@@ -388,6 +467,7 @@ public void refreshUpdatecCarData() {
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtBodyStyle");
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineType");
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineLiters");
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:description");
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:searchButton");
 }
 
@@ -402,6 +482,7 @@ public void getCarWithVinNew() {
         	addNewCar.setMake(car.Results.get(0).Make);
         	addNewCar.setModel(car.Results.get(0).Model);
         	addNewCar.setYear(car.Results.get(0).ModelYear);
+        	addNewCar.setDescription(car.Results.get(0).Make+" "+car.Results.get(0).Model+" "+car.Results.get(0).ModelYear);
         	addNewCar.setAssemlyCountry(car.Results.get(0).PlantCountry);
         	addNewCar.setBodyStyle(car.Results.get(0).DriveType);
         	addNewCar.setEngineLiters(car.Results.get(0).DisplacementL);
@@ -551,7 +632,7 @@ public void saveNewCarDataMain() {
 		
 		
 		
-		
+		selectedCarState = car.STATE_AddedByCustomer_REVISE;
 		carFacade.addcar(addNewCar);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -1364,6 +1445,26 @@ public int getTotalNumberOfShippingAndBuy() {
 
 public void setTotalNumberOfShippingAndBuy(int totalNumberOfShippingAndBuy) {
 	this.totalNumberOfShippingAndBuy = totalNumberOfShippingAndBuy;
+}
+
+
+public List<user> getAllUsers() {
+	return allUsers;
+}
+
+
+public void setAllUsers(List<user> allUsers) {
+	this.allUsers = allUsers;
+}
+
+
+public user getSelectedUser() {
+	return selectedUser;
+}
+
+
+public void setSelectedUser(user selectedUser) {
+	this.selectedUser = selectedUser;
 }
 
 

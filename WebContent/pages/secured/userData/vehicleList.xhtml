@@ -407,7 +407,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                             <h:form id="formOfSelectionCarState">
                                                                                 <h:selectOneMenu value="#{carBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 																					<f:ajax listener="#{carBean.filterCarBySelect}"/>
-																					<f:selectItem itemValue="0" itemLabel="شحن سلعة"/>
+																					<f:selectItem itemValue="0" itemLabel="شحن السيارة"/>
 																					<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
 																					<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
 																					<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
@@ -447,6 +447,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th>رقم التعريف</th>
 											<th >المواصفات</th>
 											<th class="hidden-phone">السنة</th>
+											<th class="hidden-phone">الزبون</th>
 											<th class="hidden-phone">الشاحن</th>
 											<th class="hidden-phone">التاجر</th>
 											<th class="hidden-phone">افراج</th>
@@ -454,6 +455,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<th class="hidden-phone">مدة التخزين</th>
 											<th class="hidden-phone">وصلت المخزن</th>
 											<th class="hidden-phone">استلمت بتاريخ</th>
+											<th class="hidden-phone">تاريخ الأضافة</th>
 											<th class="hidden-phone">حالة التايتل</th>
 											<th class="hidden-phone">ميناء الخروج</th>
 											<th class="hidden-phone">ميناء الوصول</th>
@@ -552,10 +554,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 													<p:commandLink rendered="#{loginBean.theUserOfThisAccount.role==4?'true':'false'}" value="#{data.uuid}" action="#{carBean.selectCarForCustomerOrConsignee(data.id)}"/>
 												</h:form>
 											</td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.description}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.year}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.shipperId.userId.firstName}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.vendorId.userId.firstName}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden;display: inline-flex;height: 15px;width: max-content;">#{data.description}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;width: max-content;">#{data.year}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;width: max-content;">#{data.normalUserId.firstName}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;width: max-content;">#{data.shipperId.userId.firstName}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;width: max-content;">#{data.vendorId.userId.firstName}</span></td>
 											
 											
 											<td class="center hidden-phone" style="display:table-cell;"><span style="overflow: hidden; display: inline-flex; height: 15px;"><img src="/resources/images/#{data.releaseOption?'check_on.gif':'check_off.gif'}"></img></span></td>
@@ -568,6 +571,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getNumberOfDays(data.storageStartDate,data.storageEndDate)}</span></td>
 											<td class="center hidden-phone" style="background:#{carBean.isLandStatuesDiffMoreThan15Day(data.storageStartDate,data.storageEndDate,data.inlandStatus)?'#ffe271':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{data.inlandStatus}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.cargoRecieved)}</span></td>
+											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">#{carBean.getFormatedDate(data.add_datetime)}</span></td>
 											<td class="center hidden-phone" style="vertical-align: middle;">
 											
 												<h:panelGroup rendered="#{(data.titleRecieved==0)?'true':'false'}">
@@ -606,7 +610,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.seacost}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.fees}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision}</span></td>
-											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost+data.orderPrice}</span></td>
+											<td class="center hidden-phone" style="background:#{carBean.isTheRemainingDays30Day(data.eta)?' linear-gradient(to bottom, #f5f5f5 4%, #d4c620 100%)':'none'};"><span style="overflow: hidden; display: inline-flex; height: 15px;">$#{data.commision+data.fees+data.seacost+data.landcost+data.orderPrice}</span></td>
 											<td class="center hidden-phone"><span style="overflow: hidden; display: inline-flex; height: 15px;"><a  style="display:#{data.imagesLink!=''?'block':'none'} ; color: #371cc3;" onclick="openThisImages('#{data.imagesLink}');">Link</a></span></td>
 											<script>
 											function openThisImages(url){

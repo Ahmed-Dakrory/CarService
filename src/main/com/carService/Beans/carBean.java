@@ -386,6 +386,7 @@ public class carBean implements Serializable{
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtBodyStyle");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineType");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtEngineLiters");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:ctl00_BodyHolder_txtCompany");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:searchButton");
 	}
 	
@@ -400,6 +401,7 @@ public class carBean implements Serializable{
 	        	addNewCar.setMake(car.Results.get(0).Make);
 	        	addNewCar.setModel(car.Results.get(0).Model);
 	        	addNewCar.setYear(car.Results.get(0).ModelYear);
+	        	addNewCar.setDescription(car.Results.get(0).Make+" "+car.Results.get(0).Model+" "+car.Results.get(0).ModelYear);
 	        	addNewCar.setAssemlyCountry(car.Results.get(0).PlantCountry);
 	        	addNewCar.setBodyStyle(car.Results.get(0).DriveType);
 	        	addNewCar.setEngineLiters(car.Results.get(0).DisplacementL);

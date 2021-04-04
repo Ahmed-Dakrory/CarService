@@ -203,7 +203,7 @@ text-align: center;
 	          		<div class="row m-1">
 	          			<div class="col-md-2">
 							<div class="row">
-								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">سيارات</a></h3>
+								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">سيارات</a></h3>
 							</div>
 							<div class="row">
 								<h5 class="headSmallOfBar">#{normalUserBean.totalNumberOfShippingOnly}</h5>
@@ -422,10 +422,10 @@ text-align: center;
 	          		<div class="row m-1">
 	          			<div class="col-md-2">
 							<div class="row">
-								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">سيارات</a></h3>
+								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">سيارات</a></h3>
 							</div>
 							<div class="row">
-								<h5 class="headSmallOfBar">25</h5>
+								<h5 class="headSmallOfBar">#{normalUserBean.totalNumberOfShippingAndBuy}</h5>
 							</div>
 						</div>
 	          			<div class="col-md-10 border rounder">
@@ -436,26 +436,26 @@ text-align: center;
 							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-8"><small>مكتمل </small></div>
-									<div class="col-md-3"><small>0</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_PayAndShip_DeliveredByCustomer}</small></div>
 								</div>
 								<div class="row">
 				                    <div class="card-body">
 				                      <div class="progress mb-3" style="height: 5px">
-				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_PayAndShip_DeliveredByCustomer/normalUserBean.totalNumberOfShippingAndBuy}%" aria-valuenow="#{100*normalUserBean.cars_PayAndShip_DeliveredByCustomer/normalUserBean.totalNumberOfShippingAndBuy}" aria-valuemin="0" aria-valuemax="100"></div>
 				                      </div>
 				                    </div>
 			                     </div>
-							</div>		
+							</div>
 								
 								<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-8"><small> بانتظار الشحن</small></div>
-									<div class="col-md-3"><small>0</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_PayAndShip_InShipping}</small></div>
 								</div>
 								<div class="row">
 				                    <div class="card-body">
 				                      <div class="progress mb-3" style="height: 5px">
-				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_PayAndShip_InShipping/normalUserBean.totalNumberOfShippingAndBuy}%" aria-valuenow="#{100*normalUserBean.cars_PayAndShip_InShipping/normalUserBean.totalNumberOfShippingAndBuy}" aria-valuemin="0" aria-valuemax="100"></div>
 				                      </div>
 				                    </div>
 			                     </div>
@@ -465,16 +465,16 @@ text-align: center;
 							<div class="col-md-2">
 								<div class="row">
 									<div class="col-md-8"><small> تم الدفع</small></div>
-									<div class="col-md-3"><small>0</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_PayAndShip_PayedByCustomer}</small></div>
 								</div>
 								<div class="row">
 				                    <div class="card-body">
 				                      <div class="progress mb-3" style="height: 5px">
-				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_PayAndShip_PayedByCustomer/normalUserBean.totalNumberOfShippingAndBuy}%" aria-valuenow="#{100*normalUserBean.cars_PayAndShip_PayedByCustomer/normalUserBean.totalNumberOfShippingAndBuy}" aria-valuemin="0" aria-valuemax="100"></div>
 				                      </div>
 				                    </div>
 			                     </div>
-							</div>
+							</div>		
 							
 							
 							
@@ -485,12 +485,12 @@ text-align: center;
 							<div class="col-md-2">
 								<div class="row">
 									<div class="col-md-8"><small> مرفوض </small></div>
-									<div class="col-md-3"><small>0</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_PayAndShip_Rejected}</small></div>
 								</div>
 								<div class="row">
 				                    <div class="card-body">
 				                      <div class="progress mb-3" style="height: 5px">
-				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_PayAndShip_Rejected/normalUserBean.totalNumberOfShippingAndBuy}%" aria-valuenow="#{100*normalUserBean.cars_PayAndShip_Rejected/normalUserBean.totalNumberOfShippingAndBuy}" aria-valuemin="0" aria-valuemax="100"></div>
 				                      </div>
 				                    </div>
 			                     </div>
@@ -501,12 +501,12 @@ text-align: center;
 								<div class="col-md-2">
 								<div class="row">
 									<div class="col-md-8"><small> المراجعة </small></div>
-									<div class="col-md-3"><small>0</small></div>
+									<div class="col-md-3"><small>#{normalUserBean.cars_PayAndShip_UnderReview}</small></div>
 								</div>
 								<div class="row">
 				                    <div class="card-body">
 				                      <div class="progress mb-3" style="height: 5px">
-				                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+				                        <div class="progress-bar bg-primary" role="progressbar" style="width: #{100*normalUserBean.cars_PayAndShip_UnderReview/normalUserBean.totalNumberOfShippingAndBuy}%" aria-valuenow="#{100*normalUserBean.cars_PayAndShip_UnderReview/normalUserBean.totalNumberOfShippingAndBuy}" aria-valuemin="0" aria-valuemax="100"></div>
 				                      </div>
 				                    </div>
 			                     </div>

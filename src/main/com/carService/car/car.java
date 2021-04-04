@@ -345,6 +345,10 @@ public class car {
 	@Column(name = "cargoRecieved")
 	private Calendar cargoRecieved;
 
+	
+	@Column(name = "add_datetime")
+	private Calendar add_datetime;
+	
 	@Column(name = "titleRecieved")
 	private Integer titleRecieved;
 	
@@ -360,9 +364,16 @@ public class car {
 
 	@Column(name = "orderLink")
 	private String orderLink;
-	
-	
 
+	@Column(name = "mainImageLink")
+	private String mainImageLink;
+	
+	
+	@Column(name = "lotNumber")
+	private String lotNumber;
+	
+	
+	
 
 	@Column(name = "orderPrice")
 	private float orderPrice;
@@ -480,11 +491,11 @@ public class car {
 
 	
 
-	public static String stateString[]= {"شحن السلعة (Title uploaded, VIR uploaded, Load Request NO)",
-										 "شحن السلعة ( VIR and Title uploaded, Load Request YES)",
-										 "شحن السلعة (Title uploaded, VIR uploaded, Priority OK TO LOAD"
+	public static String stateString[]= {"شحن السيارة (Title uploaded, VIR uploaded, Load Request NO)",
+										 "شحن السيارة ( VIR and Title uploaded, Load Request YES)",
+										 "شحن السيارة (Title uploaded, VIR uploaded, Priority OK TO LOAD"
 										 + " / LOAD ASAP, Job Order Form assigned to freight)",
-										 "شحن السلعة (No documents uploaded (Vehicle Inspection Report, Title or both))",
+										 "شحن السيارة (No documents uploaded (Vehicle Inspection Report, Title or both))",
 										 "Dry Cargo (Load Request NO)",
 										 "Dry Cargo (Load Request YES)",
 										 "الشحنة فى الطريق ( ETA present)",
@@ -1691,6 +1702,60 @@ public class car {
 
 	public void setOrderPrice(float orderPrice) {
 		this.orderPrice = orderPrice;
+	}
+
+
+
+
+
+
+	public String getMainImageLink() {
+		return mainImageLink;
+	}
+
+
+
+
+
+
+	public void setMainImageLink(String mainImageLink) {
+		this.mainImageLink = mainImageLink;
+	}
+
+
+
+
+
+
+	public Calendar getAdd_datetime() {
+		return add_datetime;
+	}
+
+
+
+
+
+
+	public void setAdd_datetime(Calendar add_datetime) {
+		this.add_datetime = add_datetime;
+	}
+
+
+
+
+
+
+	public String getLotNumber() {
+		return lotNumber;
+	}
+
+
+
+
+
+
+	public void setLotNumber(String lotNumber) {
+		this.lotNumber = lotNumber;
 	}
 	
 

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ADAWLIAA</ui:define>
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="shipperList.jsf" class="mn-sub-item-current"><b>shipper List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+     #{normalUserBean.handleAllUsersForAdmin()}
+             <h:form name="aspnetForm" method="post" action="./shipperList.jsf" id="aspnetForm">
+
+
+
+
+
+            <div id="content">
+                
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5">
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                
+                
+                
+						
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <!-- Table name block -->
+                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td class="blkname" width="100%">
+                                                        &nbsp;قائمة العملاء
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </table>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 4px">
+                                                <tr>
+                                                    <td style="height: 22px">
+                                                        &nbsp;
+                                  						<!--  <h:commandButton name="ctl00$BodyHolder$cmdAddshipper" value="Add New shipper" id="ctl00_BodyHolder_cmdAddshipper" action="#{shipperBean.goToAddNewshipper()}" class="btn btn-default" style="#{(loginBean.theUserOfThisAccount.role==1)?'display:none;':''} font-family:Verdana;font-size:10px;font-weight:bold;width:120px;"></h:commandButton> -->
+								                    </td>
+                                                    
+                                                </tr>
+                                            </table>
+                                            <!-- End of Table name block -->
+                                           <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <!-- Client DataGrid-->
+                                            
+                                            <section class="panel">
+							
+							<div class="panel-body">
+								<table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="assets/shipper/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+									<thead>
+										<tr>
+											<th>Account#</th>
+											<th>Company</th>
+											<th class="hidden-phone">Name</th>
+											<th class="hidden-phone">Phone</th>
+											<th class="hidden-phone">Mobile</th>
+											<th class="hidden-phone">Email</th>
+										<!-- 	<th class="hidden-phone">Invoice</th> -->
+										</tr>
+									</thead>
+									<tbody>
+										
+											<ui:repeat var="var" value="#{normalUserBean.allUsers}">
+											<tr align="left" class="gradeX">
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+												<h:commandLink value="#{var.id}" action="#{normalUserBean.selectUser(var.id)}"/>
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.company}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.firstName} #{var.lastName}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.phone}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													#{var.mobilePhone}
+												</td>
+												
+												<td class="center hidden-phone" style="background-color:#FAFAFA;">
+													<a href="mailto:#{var.email}" target="_blank">#{var.email}</a>
+												</td>
+												
+												<!-- <td class="center hidden-phone" style="background-color:#FAFAFA;">
+													<p:commandButton class="fa fa-money" action="#{shipperBean.invoiceDetails(var.id)}" style="padding: 5%;background: white; width: 25px;height: 25px;" value=""/>
+												</td> -->
+											</tr>
+											
+											</ui:repeat>
+											
+											
+											
+										
+									</tbody>
+								</table>
+							
+							
+							</div>
+						</section>
+                                            
+                                            
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    <!-- Buttons block -->
+                    <!--
+			<table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#CCCCCC">
+				<tr>
+					<td>
+						<table width="100%" cellspacing="0" cellpadding="5" border="0" bgcolor="#F7F7F7">
+							<tr>
+								<td>
+									<table cellspacing="0" cellpadding="0" border="0">
+										<tr>
+		 									<TD width="100%"><IMG src="#{resource['images:dumb.gif']}" width="10" height="1"/></TD>
+											<TD class="blkhdr" height="23"></TD>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			-->
+                    <!-- End of Buttons block -->
+                </td>
+            </tr>
+            <p>
+                <tr>
+                    <td colspan="2" bgcolor="white">
+                    </td>
+                </tr>
+            </p>
+        </tbody>
+    </table>
+
+            </div>  
+        </h:form>
+        
+     
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>
