@@ -110,6 +110,17 @@
 		              <a class="nav-link" href="/pages/public/contactUs.jsf?faces-redirect=true">اتصل بنا</a>
 		            </li>
 		
+					<li class="nav-item dropdown ">
+					<a class="nav-link dropdown-toggle" style="color: #e6e6e6;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          اسعار الشحن
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="/pages/public/priceList1.jsf?faces-redirect=true">أسعار النقل الداخلى</a>
+			          <a class="dropdown-item" href="/pages/public/priceList2.jsf?faces-redirect=true">أسعار الشحن البحرى</a>
+			          <a class="dropdown-item" href="/pages/public/priceList3.jsf?faces-redirect=true">أسعار الخدمات الأضافية</a>
+			        </div>
+					</li>
+					
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
 		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true">حساب جديد</a>
 		            </li>
@@ -129,6 +140,7 @@
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
 		              <a class="nav-link" href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
 		            </li>
+		            
 		            
 		            <li class="nav-item dropdown " style="display:#{loginBean.loggedIn?'block':'none'};">
 				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
