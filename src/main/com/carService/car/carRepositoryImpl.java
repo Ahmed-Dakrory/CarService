@@ -34,6 +34,9 @@ public class carRepositoryImpl implements carRepository{
 		try{
 
 			data.setLastUpdate(Calendar.getInstance());
+			if(data.getId()==null || data.getId()==0) {
+				data.setAdd_datetime(Calendar.getInstance());
+			}
 			session = sessionFactory.openSession();
 			Transaction tx1 = session.beginTransaction();
 			session.saveOrUpdate(data);
