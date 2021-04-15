@@ -859,6 +859,70 @@ public void filterCarBySelectFirstTime() {
 
 		user userNewId=loginBean.getTheUserOfThisAccount();
 		
+		
+		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
+			if(selectedCarState==0) {
+				//This for warehouse
+
+				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+				
+
+			}else if(selectedCarState==1) {
+				// this for dry cargo
+
+				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				
+				if(dryCargoMain!=null)
+					allCars.addAll(dryCargoMain);
+				
+			
+
+			}else if(selectedCarState==2) {
+				
+				// this for freight in transit
+
+				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				
+				if(transitMain!=null)
+					allCars.addAll(transitMain);
+				
+				
+
+			}else if(selectedCarState==8) {
+				
+				// this for SendForPayment
+
+				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
+
+				
+				if(SentMain!=null)
+					allCars.addAll(SentMain);
+				
+				
+
+			}else if(selectedCarState==3) {
+				//this for all
+
+				List<car> wareHouseMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+				
+								
+
+			}else {
+				List<car> wareHouseMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+				
+				if(wareHouseMain!=null)
+					allCars.addAll(wareHouseMain);
+			}
+		}else {
 		if(selectedCarState==0) {
 			//This for warehouse
 			List<car> wareHouseMain = carFacade.getAllWareHouseFornormalUserId(userNewId.getId());
@@ -919,7 +983,7 @@ public void filterCarBySelectFirstTime() {
 
 		}
 		
-	
+		}
 	}
 	
 	

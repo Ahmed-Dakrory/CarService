@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+	
+	<ui:define name="title"> طلب سلعة</ui:define>
+
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Products List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+	#{normalUserProductBean.getProductWithId()}
+	
+		
+				<style>
+		
+		.closeButtonNew:before {
+    transform: rotate(
+45deg
+);
+}
+.devCloseButtonNew:hover {
+    opacity: 1;
+}
+
+
+.closeButtonNew:hover {
+    opacity: 1;
+}
+
+
+.closeButtonNew:after {
+    transform: rotate(
+-45deg
+);
+}
+
+
+.closeButtonNew:before, .closeButtonNew:after {
+    position: absolute;
+    left: 9px;
+    content: ' ';
+    height: 15px;
+    width: 3px;
+    background-color: #333;
+    top: 11%;
+}
+		
+.closeButtonNew {
+    width: 9px;
+    height: 9px;
+}
+
+.devCloseButtonNew {
+    position: relative;
+    right: -1px;
+    width: 21px;
+    background: #b5b5bf;
+    height: 21px;
+    border-radius: 97%;
+    opacity: 0.5;
+}
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: black;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8%;
+    }
+    .ui-datepicker .ui-icon {
+    display: block;
+    text-indent: 1px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    left: .5em;
+    top: .3em;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 17px;
+}
+
+
+
+
+
+
+
+
+
+.progressbar li{
+  float: left;
+  width: 25%;
+  position: relative;
+  text-align: center;
+}
+
+
+
+.progressbar{
+  counter-reset: step;
+  list-style-type: none;
+  font: normal normal normal 20px/25px Ionicons;
+}
+.progressbar li:before{
+  content:counter(step);
+  counter-increment: step;
+  width: 61px;
+  height: 61px;
+  border: 2px solid #bebebe;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  line-height: 55px;
+  background: white;
+  color: #bebebe;
+  text-align: center;
+  font-weight: bold;
+}
+
+.progressbar li:after{
+      content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #979797;
+    top: 29px;
+    left: -50%;
+    z-index: -1;
+}
+
+
+.progressbar li:first-child:after{
+content: none;
+}
+
+.progressbar li.active + li:after{
+ background: #3aac5d;
+}
+.progressbar li.active + li:before{
+border-color: #3aac5d;
+background: #3aac5d;
+color: white
+}
+
+
+
+.progressbar li:first-child:before {
+    border-color: #3aac5d;
+    background: #3aac5d;
+    color: white;
+}
+
+
+
+
+
+.progressbar li.activeBad + li:after{
+ background: #c93119;
+}
+.progressbar li.activeBad + li:before{
+border-color: #c93119;
+background: #c93119;
+color: white
+}
+
+
+
+.progressbar li:first-child:before {
+    border-color: #3aac5d;
+    background: #3aac5d;
+    color: white;
+}
+
+
+
+					</style>
+		<!-- Vendor CSS -->
+		
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/jquerysctipttop.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/email.multiple.css']}" />
+    	
+    
+    <!-- Head Libs -->
+		  
+		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
+		
+              <h:form name="aspnetForm" id="aspnetForm">
+
+
+
+            <div id="content">
+                   <h:panelGroup id="tableRendered">
+                   
+                    <script>
+
+           
+            
+            $(function() {
+				$('.timePicker').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $(this).val(datetext);
+				    }
+				});
+				});
+					
+						
+					</script>	
+                                                                                   
+                                                                                   
+             <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
+            	
+            	<br></br>
+            	<br></br>
+            	<div class="row">
+            	
+            	    <!-- progressbar -->
+				     <div class="w-100">
+				          <ul class="progressbar" style="margin-left: 11%;">
+				            <li id="revise-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة المراجعة</div>
+									<div id="revise-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="dis-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة اتخاذ القرار</div>
+									<div id="dis-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="ship-state" class="">
+								<div class="card border-0">
+									<div class="text-success">مرحلة الشحن</div>
+									<div id="ship-comment" class="text-primary"></div>
+								</div>
+							</li>
+				            <li id="done-state" class="">
+								<div class="card border-0">
+									<div class="text-success">الاستلام</div>
+									<div id="done-comment" class="text-primary"></div>
+								</div>
+							</li>
+				           
+				          </ul>
+				      </div>
+				  
+
+
+            	</div>
+            	<hr></hr>
+            	<script>
+            		if(#{normalUserBean.addNewCar.state} &lt;= 7){
+            			$('#revise-state').toggleClass('active');
+            			$('#dis-state').toggleClass('active');
+
+            			$('#ship-comment').html('مازال فى مرحلة الشحن');
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            		}else if(#{normalUserBean.addNewCar.state} == 10){
+            			$('#revise-state').toggleClass('activeBad');
+
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('رفض');
+            		}else if(#{normalUserBean.addNewCar.state} == 11 || #{normalUserBean.addNewCar.state} == 12){
+            			$('#revise-state').toggleClass('active');
+            			
+
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            		}else if(#{normalUserBean.addNewCar.state} == 13 ){
+            			$('#revise-state').toggleClass('active');
+            			$('#dis-state').toggleClass('active');
+            			$('#ship-state').toggleClass('active');
+            			
+
+            			$('#ship-comment').html('تم');
+            			$('#revise-comment').html('تم');
+            			$('#dis-comment').html('تم');
+            			$('#done-comment').html('تم');
+            		}
+            	</script>
+            	
+            	
+            	
+            	
+            	<div class="row">
+            	
+            		<div class="col-md-7 mb-3">
+						<div class="form-group">
+						    <label >نوع الطلب</label>
+						    <h:selectOneMenu disabled="true" id="selectOfBuy" onchange="viewBuyRow()"  type="text" value="#{normalUserProductBean.addNewProduct.typeOfOrder}"  class="form-control">
+                              	<f:selectItem itemLabel="شحن فقط" itemValue="0"/>
+                              	<f:selectItem itemLabel="شراء وشحن" itemValue="1"/>
+                              </h:selectOneMenu>
+						    
+						  </div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<div class="form-group">
+							<img src="#{normalUserProductBean.addNewProduct.mainImageLink}"/>    
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="row" id="buyBar">
+            	
+            		<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رابط السلعة</label>
+						    <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.orderLink}"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >سعر السلعة</label>
+						    <h:inputText disabled="true" type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.orderPrice}"   />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >تكلفة الشحن</label>
+						    <h:inputText disabled="true" type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.shipmentFees}"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >عمولات الشركة</label>
+						    <h:inputText disabled="true" type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.fees}"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >عمولات أخرى</label>
+						    <h:inputText disabled="true" type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.commision}"   />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >تاريخ الطلب</label>
+						    <h:inputText disabled="true" type="text"  class="form-control" value="#{normalUserProductBean.added_date}"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >تاريخ الوصول</label>
+						    <h:inputText disabled="true" type="text"  class="form-control" value="#{normalUserProductBean.deliveryDate}"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >التاريخ المتوقع لوصول الشحنة</label>
+						    <h:inputText disabled="true" type="text"  class="form-control" value="#{normalUserProductBean.estimatedDateOfDelivery}"   />
+						  </div>
+					</div>
+					
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >رقم المتابعة</label>
+						    <h:inputText disabled="true" type="text"  class="form-control" value="#{normalUserProductBean.addNewProduct.trackingNumber}"   />
+						  </div>
+					</div>
+				</div>
+				
+            	<div class="row">
+            	
+            		
+
+					<div class="col-md-3"></div>
+
+					<div class="row border m-3 p-3 rounded">
+					
+								
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >الأرتفاع</label>
+									     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.heightOfProduct}" id="heightOfProduct"  />
+			                         </div>
+			                   </div>
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >العرض</label>
+									     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.widthOfProduct}" id="widthOfProduct"  />
+			                         </div>
+			                   </div>
+			                  
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >الطول</label>
+									        <h:inputText disabled="true" type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
+			                        </div>
+			                   </div>
+			                   
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >الحجم</label>
+									    <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.volumeOfProduct}" id="volumeOfProduct"  />
+			                       </div>
+			                   </div>
+			                   
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >الوزن</label>
+			                   			 <h:inputText disabled="true" class="form-control" type="text" value="#{normalUserProductBean.addNewProduct.weightOfProduct}"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+							 <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >سيتم استلامها فى</label>
+									    <h:inputText disabled="true" class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.delieverIn}" id="delieverIn"  />
+									 </div>
+			                   </div>
+			                   
+							
+							
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >العنوان</label>
+										<h:inputText disabled="true" class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >المواصفات</label>
+									    <h:inputText disabled="true" value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >رمز الشحن</label>
+									    <h:inputText disabled="true" value="#{normalUserProductBean.addNewProduct.shipmentSymbol}" id="shipmentSymbol" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+								
+					</div>
+					
+				   
+                   
+                    
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >كونتينر</label>
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.container}"   />
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   
+                    <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رابط الكونتينر </label>
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.containerLink}"   />
+                       </div>
+                   </div>
+                   
+                   
+                   
+                  
+                   
+                   
+                   
+                   
+                   
+					    
+					    
+					    
+				
+					    
+					    
+					
+					    
+					    
+					 <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >ملاحظة من العميل</label>
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.orderNotesFromCustomer}"   />
+                       </div>
+                   </div>
+                   
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >ملاحظة من شركة المزاد</label>
+						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.note}"   />
+                       </div>
+                   </div>
+                   
+					    
+					  <!-- Start of Pic -->  
+
+					     
+					    <div class="container"> 
+					    	<div>
+					 		<a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"   onclick="ChangeVisibillity('picDiv','picExpand')">
+                                  <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> صور للسلعة:</b>
+                            </a>
+					 	</div>
+					 	
+					 	<div>
+					 		   <div id="picDiv" style="display: inline; margin-left: 6px">
+                                                                                                     	<p:fileUpload id="FileUploaded" fileUploadListener="#{normalUserProductBean.previewImage}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+        
+        
+               <h:panelGroup id="imagesPanel">
+			                        	
+							                                     
+											<div class="container" style="    border: unset;">
+											   <div class="row">
+											        <div class="col-md">
+											            <div class="container" id="ctl00_BodyHolder_imageList_imageList"  style="border-collapse:collapse;border-style: ridge;">
+															<div class="row">
+														                
+															
+																<ui:repeat var="var" value="#{normalUserProductBean.images}">
+																	<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
+																	 		<div class="containerDevCloseButtonNew">
+																				
+																			</div>
+														                    <div class="container">
+														                        <div class="row">
+														                            <div class="col-md" align="center">
+														                                <div>
+														                                     <a href="#" onclick='ViewDocById("#{var}")'>
+                                        														<h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
+														                                </div>
+														                            </div>
+														                        </div>
+														                        <div class="row">
+														                            <div class="col-md">
+														                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
+														                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
+														                                
+														                            </div>
+														                        </div>
+														                       
+														                    </div>
+														                </div>
+														                
+														                
+														               
+																</ui:repeat>
+															   
+														               
+															</div>
+														</div>
+											
+											</div>
+											    </div>
+											        
+											</div>
+											
+											</h:panelGroup>
+
+                                              </div>
+                                    
+					    	</div>
+					    </div>
+					    
+			             
+                                                                                            
+                       
+					    
+					    
+					    
+					    
+					    
+					   <!-- End of Pic -->    
+					    
+					    
+					    <!-- Start of Doc -->  
+					    
+					    <div class="container"> 
+					    	<div>
+					    			<a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+	                                      onclick="ChangeVisibillity('docDiv','docExpand')">
+	                                      <img id="docExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
+	                                      <b>صور ملفات خاصة بالسلعة:</b>
+	                                </a>
+					    	</div>
+					    	<div>
+					    	  <div id="docDiv" style="display: inline; margin-left: 6px">
+			                        	<p:fileUpload id="docUploaded" fileUploadListener="#{normalUserProductBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+        
+							        
+							               <h:panelGroup id="docsPanel">
+							                                     
+											<div class="container" style="    border: unset;">
+											   <div class="row">
+											        <div class="col-md">
+											            <div class="container" id="ctl00_BodyHolder_imageList_imageList"  style="border-collapse:collapse;border-style: ridge;">
+												<div class="row">
+											                
+											                
+												
+													<ui:repeat var="var" value="#{normalUserProductBean.docs}">
+														<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
+														 		<div class="containerDevCloseButtonNew">
+																	
+																</div>
+											                    <div class="container">
+											                        <div class="row">
+											                            <div class="col-md" align="center">
+											                                <div>
+											                                    <a href="#" onclick='ViewDocById("#{var}")'>
+											                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
+											                                </div>
+											                            </div>
+											                        </div>
+											                        <div class="row">
+											                            <div class="col-md">
+											                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
+											                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
+											                                
+											                            </div>
+											                        </div>
+											                       
+											                    </div>
+											                </div>
+											                
+											                
+											               
+													</ui:repeat>
+												   
+											               
+												</div>
+											</div>
+											
+											</div>
+											    </div>
+											        
+											</div>
+											
+											</h:panelGroup>
+
+                                              </div>
+                                    
+					    	</div>
+					    </div>
+					    
+			             
+                                                                                            
+                                                                                            
+                                                                                     
+					    
+					    
+					    
+					     <!-- End of Doc -->    
+                                                     
+                                                                                          
+                                                                                                                        
+                                                                                      
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                           
+                                                                                          
+                        
+                
+                 </div>
+                 <div class="row">
+                 	<div class="col-md-3 mb-3">
+							<div class="form-group">
+							   
+							</div>
+	  
+	                   </div>
+	                   
+	                 
+                 
+                 </div>
+               </div>
+               </h:panelGroup>
+                 
+            
+    <!-- page src -->
+
+            </div> 
+           
+        
+				<script>
+				 $(document).ready(function() {
+		        	  $(window).keydown(function(event){
+		        	    if(event.keyCode == 13) {
+		        	      event.preventDefault();
+		        	      return false;
+		        	    }
+		        	  });
+		        	});
+				</script>	
+				  	<p:remoteCommand name="deleteFile" action="#{normalUserProductBean.deleteFile()}"> 
+	                                	</p:remoteCommand>
+        </h:form>
+        
+       <script>
+
+      /* function viewBuyRow(){
+    	   if($('#aspnetForm\\:selectOfBuy').val()==1){
+
+    		   $('#buyBar').fadeIn();
+    	   }else if($('#aspnetForm\\:selectOfBuy').val()==0){
+    		   
+    		   $('#buyBar').fadeOut();
+    	   }
+       }*/
+       
+       
+ 	$('#menu-header- product').toggleClass('expand');
+ 	$('#menu-product').fadeToggle();
+ 	$('#product-main').toggleClass('menu-item-refunds');
+ 	
+ 	viewBuyRow();
+     </script>
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

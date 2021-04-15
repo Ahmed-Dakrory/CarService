@@ -343,6 +343,14 @@ margin-right: 0!important;
 											</a>
 										</li>
 										
+										<li style="display:#{(loginBean.theUserOfThisAccount.role!=6)?'block':'none'};">
+											<a href="/pages/secured/userData/productList.jsf?faces-redirect=true">
+												<span class="pull-right label label-primary">#{normalUserProductBean.allProducts.size()}</span>
+												<i class="fa  fa-car" aria-hidden="true"></i>
+												<span>قائمة السلع</span>
+											</a>
+										</li>
+										
 										<li style="display:#{(loginBean.theUserOfThisAccount.role==6)?'block':'none'};">
 											<a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">
 												<i class="fa  fa-car" aria-hidden="true"></i>
@@ -620,6 +628,7 @@ margin-right: 0!important;
 
 			
 		</section>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
 		<script>
 		dialogLoader = bootbox.dialog({
@@ -750,7 +759,7 @@ margin-right: 0!important;
 		</h:form>
 		<script>
 		setInterval(refreshMainViews, 600);
-		setInterval(refreshMainViews2, 600);
+			setInterval(refreshMainViews2, 600);
 			
 		</script>
 		</h:body>

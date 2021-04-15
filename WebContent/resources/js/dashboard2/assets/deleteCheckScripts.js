@@ -79,7 +79,33 @@ function deleteDocsNum(filename){
 	                                	}	         
 	                                	
 	                                	
-	                                	
+	
+
+	
+function deleteThisProduct(productId){
+	                                		swal("Are You Sure You want To Delete this product?", {
+	                                			  buttons: {
+	                                			    cancel: "Cancel",
+	                                			    catch: {
+	                                			      text: "Yes Sure, Delete it",
+	                                			      value: "catch",
+	                                			    }
+	                                			  },
+	                                			})
+	                                			.then((value) => {
+	                                			  switch (value) {
+	                                			 
+	                                			 
+	                                			    case "catch":
+	                                			    var dataNewOfString = productId;
+	                                			    deleteProduct([{name: 'productId', value: dataNewOfString}]);
+	                                			      break;
+	                                			 
+	                                			    default:
+	                                			      
+	                                			  }
+	                                			});
+	                                	}	                                	
 	                                		       	                                	                         	
 function deleteThisCar(carId){
 	                                		swal("Are You Sure You want To Delete this car?", {

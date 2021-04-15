@@ -37,7 +37,7 @@ import main.com.carService.moneyBox.moneybox;
 			)
 	,
 	@NamedQuery(name="moneybox_transaction_details.getAllByUserMoneyBoxId",
-	query = "from moneybox_transaction_details d where d.moneyBoxId.id = :id order by d.date asc"
+	query = "from moneybox_transaction_details d where d.moneyBoxId.id = :id order by d.date desc"
 			)
 
 

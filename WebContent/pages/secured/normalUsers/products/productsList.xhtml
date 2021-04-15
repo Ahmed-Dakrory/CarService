@@ -35,22 +35,21 @@ color: #3686ff!important;
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
-			 <nobr>قائمة السيارات<span>: #{normalUserBean.allCars.size()}</span></nobr>
+		
+			 <nobr>قائمة السلع<span>: #{normalUserProductBean.allProducts.size()}</span></nobr>
 		</div>
 		<div class="col-md-6">
-			<h:form id="formOfSelectionCarState">
-             <h:selectOneMenu value="#{normalUserBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
-				<f:ajax listener="#{normalUserBean.filterCarBySelect}"/>
-				<f:selectItem itemValue="0" itemLabel="شحن السيارة"/>
-				<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
-				<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
-				<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
-				<f:selectItem itemValue="9" itemLabel="فى المراجعة "/>
-				<f:selectItem itemValue="10" itemLabel="رفضت"/>
-				<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
-				<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
-				<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
-				<f:selectItem itemValue="3" itemLabel="اظهار الكل"/>
+			<h:form id="formOfSelectionProductState">
+             <h:selectOneMenu value="#{normalUserProductBean.selectedProductState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
+				<f:ajax listener="#{normalUserProductBean.filterProductBySelect}"/>
+				<f:selectItem itemValue="0" itemLabel="شحن السلعة"/>
+				<f:selectItem itemValue="1" itemLabel="ارسلت للدفع"/>
+				<f:selectItem itemValue="2" itemLabel="فى المراجعة "/>
+				<f:selectItem itemValue="3" itemLabel="رفضت"/>
+				<f:selectItem itemValue="4" itemLabel="تم الدفع"/>
+				<f:selectItem itemValue="5" itemLabel="Productomoto تتم استلامها من"/>
+				<f:selectItem itemValue="6" itemLabel="تم استلامها من قبل العميل"/>
+				<f:selectItem itemValue="-1" itemLabel="اظهار الكل"/>
 			</h:selectOneMenu>
 			</h:form>
 		</div>
@@ -70,7 +69,7 @@ color: #3686ff!important;
              
              
              <div class="col-md-12 searchResult" >
-<h:panelGroup id="panelCarsToUpdate">
+<h:panelGroup id="panelProductsToUpdate">
 <section class="panel" >
 
 <div class="panel-body list-view" style="border-radius: 11px;box-shadow: 0px 1px 3px 1px #dbdbdbeb;padding: 17px;">
@@ -78,10 +77,11 @@ color: #3686ff!important;
 		<thead>
 			<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
 <th class="d-block d-sm-none" style="text-align: justify;width: 38px;background: white;color: black;border: none;" >البيانات</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">رابط السيارة</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السيارة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">رابط السلعة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السلعة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تكلفة الشحن</th>
-<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر السيارة</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">عمولات</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر السلعة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">التكلفة الكلية </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تواريخ </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">نوع الطلب </th>
@@ -98,7 +98,7 @@ function ViewDocById(strID) {
 </script>
 
 	
-	 <ui:repeat var="data" value="#{normalUserBean.allCars}">
+	 <ui:repeat var="data" value="#{normalUserProductBean.allProducts}">
 
 	<tr align="left" class="gradeX">
 				
@@ -110,25 +110,29 @@ function ViewDocById(strID) {
 
 		
 <h2 class="title" style=" margin-top: 5%;text-align: justify;">
-<a itemprop="url" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
-<div class="vin" style="display: block;text-align: initial;"><span class="name">سيريال السيارة:</span>#{data.uuid} </div>
+<a itemprop="url" href="/pages/secured/normalUsers/products/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">##{data.id}</span></a> </h2>
+<div class="vin" style="display: block;text-align: initial;"><span class="name">رقم التتبع:</span>#{data.trackingNumber} </div>
 <div class="odometer" style="display: block;text-align: initial;">
-<span class="">الماركة:</span>#{data.make} 
+<span class="">أبعاد:</span>#{data.widthOfProduct} * #{data.lengthOfProduct}  *#{data.heightOfProduct} 
 </div>
 <div class="odometer" style="display: block;text-align: initial;">
-	<span class="">	الموديل:	</span>	#{data.model}
-</div>
-
-<div class="odometer" style="display: block;text-align: initial;">
-	<span class="">	سعر السيارة:	</span>	$#{data.orderPrice}
+	<span class="">	الحجم:	</span>	#{data.volumeOfProduct}
 </div>
 
 <div class="odometer" style="display: block;text-align: initial;">
-	<span class="">	سعر الشحن:	</span>	$#{data.commision+data.fees+data.seacost+data.landcost}
+	<span class="">	سعر السلعة:	</span>	$#{data.orderPrice}
 </div>
 
 <div class="odometer" style="display: block;text-align: initial;">
-	<span class="">	التكلفة الكلية:	</span>	$#{data.orderPrice+data.commision+data.fees+data.seacost+data.landcost}
+	<span class="">	سعر الشحن:	</span>	$#{data.shipmentFees}
+</div>
+
+<div class="odometer" style="display: block;text-align: initial;">
+	<span class="">	عمولات:	</span>	$#{data.commision+data.fees}
+</div>
+
+<div class="odometer" style="display: block;text-align: initial;">
+	<span class="">	التكلفة الكلية:	</span>	$#{data.orderPrice+data.commision+data.fees+data.shipmentFees}
 </div>
 
 <h2 class="title" style="text-align: justify;padding: 0px;">
@@ -161,12 +165,12 @@ function ViewDocById(strID) {
 		
 		<div class="" style="background-image: linear-gradient(rgb(255 254 250 / 76%) 0px, rgb(123 122 116 / 65%) 95%, rgb(29 29 28 / 67%) 0px);width: 100%;height: 47px;position: relative;top: -6px;text-align: right;padding-top: 5%;color: #f7f7f7;font-family: auto;" >
 			<div style="overflow: hidden;" class="col-md-6">
-				<a class="button yBtn_24 linkAccess" style="    background: #f0f8ff00;    padding: 5px;" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}" >ذهاب اليها </a>
+				<a class="button yBtn_24 linkAccess" style="    background: #f0f8ff00;    padding: 5px;" href="/pages/secured/normalUsers/products/vitViewEdit.jsf?id=#{data.id}" >ذهاب اليها </a>
 				
 			</div>
 			
 			<div style="overflow: hidden;" class="col-md-6">
-				<a class="button yBtn_24 linkAccess" target="another" style="    background: #f0f8ff00;    padding: 5px;" href="#{data.orderLink}" >#{data.lotNumber} </a>
+				<a class="button yBtn_24 linkAccess" target="another" style="    background: #f0f8ff00;    padding: 5px;" href="#{data.orderLink}" >#{data.id} </a>
 				
 			</div>
 		</div>
@@ -174,24 +178,19 @@ function ViewDocById(strID) {
 		</td>
 		<td class="d-none d-sm-table-cell center hidden-phone">
 			<h2 class="title" style=" margin-top: 5%;text-align: justify;">
-<a itemprop="url" href="/pages/secured/normalUsers/car/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">#{data.year} #{data.make} #{data.model}</span></a> </h2>
+<a itemprop="url" href="/pages/secured/normalUsers/products/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">##{data.id} </span></a> </h2>
 <div class="vin" style="    text-align: initial;">
 <span class="name">
-سيريال السيارة:
+رقم التتبع:
 </span>
-#{data.uuid} </div>
+#{data.trackingNumber} </div>
 <div class="odometer" style="    text-align: initial;">
 <span class="name">
-الماركة:
+الأبعاد:
 </span>
-#{data.make} 
+#{data.widthOfProduct} * #{data.lengthOfProduct}  *#{data.heightOfProduct} 
 </div>
-<div class="odometer" style="    text-align: initial;">
-	<span class="name">
-	الموديل:
-	</span>
-	#{data.model}
-	</div>
+
 	<h2 class="title" style="text-align: justify;padding: 0px;">
 <span class="">	 الحاوية:	</span>	
 <a itemprop="url" href="#{data.containerLink}"><span itemprop="name">#{data.container}</span></a> 
@@ -202,7 +201,15 @@ function ViewDocById(strID) {
 <td class="d-none d-sm-table-cell center hidden-phone column1">
 
 		<div class="location" style="text-align: justify;">
-		<span class="name">Statues:</span>$#{data.commision+data.fees+data.seacost+data.landcost} </div>
+		<span class="name">Statues:</span>$#{data.shipmentFees}</div>
+		
+</td>
+
+
+<td class="d-none d-sm-table-cell center hidden-phone column1">
+
+		<div class="location" style="text-align: justify;">
+		<span class="name">Statues:</span> $#{data.commision+data.fees}  </div>
 		
 </td>
 
@@ -215,7 +222,7 @@ function ViewDocById(strID) {
 
 <td class="d-none d-sm-table-cell center hidden-phone column5" style="text-align: justify;">
 <div class="price" style="text-align: justify;" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-	$<span>#{data.orderPrice+data.commision+data.fees+data.seacost+data.landcost} </span>
+	$<span>#{data.orderPrice+data.commision+data.fees+data.shipmentFees} </span>
 	<span class="currency">دولار </span>
 </div>
 <div class="bidtype" style="text-align: justify;">السعر الحالى </div>
@@ -296,9 +303,9 @@ function ViewDocById(strID) {
 	
      <script>
 
- 	$('#menu-header- car').toggleClass('expand');
- 	$('#menu-car').fadeToggle();
- 	$('#car-all').toggleClass('menu-item-refunds');
+ 	$('#menu-header- product').toggleClass('expand');
+ 	$('#menu-product').fadeToggle();
+ 	$('#product-all').toggleClass('menu-item-refunds');
      </script>
      
 	
