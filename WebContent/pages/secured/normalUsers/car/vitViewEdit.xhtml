@@ -329,10 +329,18 @@ color: white
 						    
 						  </div>
 					</div>
+					<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رابط السيارة</label>
+						    <h:inputText disabled="true"  type="text" class="form-control" value="#{normalUserBean.addNewCar.orderLink}"   />
+						  </div>
+					</div>
+					
 				</div>
 				
 				
 				<div class="row">
+					
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 							<img src="#{normalUserBean.addNewCar.mainImageLink}"/>    
@@ -343,13 +351,7 @@ color: white
 				
 				<div class="row" id="buyBar">
             	
-            		<div class="col-md-6 mb-3">
-						<div class="form-group">
-						    <label >رابط السيارة</label>
-						    <h:inputText disabled="true"  type="text" class="form-control" value="#{normalUserBean.addNewCar.orderLink}"   />
-						  </div>
-					</div>
-					
+            		
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >سعر السيارة</label>
@@ -357,20 +359,22 @@ color: white
 						  </div>
 					</div>
 					
-					<div class="col-md-3 mb-3">
+					
+					
+				</div>
+            	
+            	<div class="row">
+            	
+            		<div class="col-md-3 mb-3">
 						<div class="form-group">
 						    <label >رقم ال Lot</label>
 						    <h:inputText  type="text" disabled="true" class="form-control" value="#{normalUserBean.addNewCar.lotNumber}"   />
 						  </div>
 					</div>
 					
-				</div>
-            	
-            	<div class="row">
-            	
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label > الرقم التعريف</label>
+						    <label > الرقم VIN</label>
 						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.uuid}" class="form-control" type="text"   />
                                                                                                     
                             <p:commandButton id="searchButton" value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(normalUserBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 42px;height: 37px;position: absolute;margin-left: 7px;background-position: 11px 8px;top:31px;left:7px;;background-size: 19px;background-repeat: no-repeat;"/>

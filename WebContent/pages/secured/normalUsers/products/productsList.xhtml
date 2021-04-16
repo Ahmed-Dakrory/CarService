@@ -79,6 +79,7 @@ color: #3686ff!important;
 <th class="d-block d-sm-none" style="text-align: justify;width: 38px;background: white;color: black;border: none;" >البيانات</th>
 <th class="d-none d-sm-table-cell" style="text-align: justify;">رابط السلعة</th>
 <th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السلعة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">وصف السلعة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تكلفة الشحن</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">عمولات</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر السلعة</th>
@@ -136,7 +137,7 @@ function ViewDocById(strID) {
 </div>
 
 <h2 class="title" style="text-align: justify;padding: 0px;">
-<span class="">	 الحاوية:	</span>	
+<span class="">	 الشحنة:	</span>	
 <a itemprop="url" href="#{data.containerLink}"><span itemprop="name">#{data.container}</span></a> 
 </h2>
 
@@ -169,10 +170,7 @@ function ViewDocById(strID) {
 				
 			</div>
 			
-			<div style="overflow: hidden;" class="col-md-6">
-				<a class="button yBtn_24 linkAccess" target="another" style="    background: #f0f8ff00;    padding: 5px;" href="#{data.orderLink}" >#{data.id} </a>
-				
-			</div>
+			
 		</div>
 			
 		</td>
@@ -191,11 +189,22 @@ function ViewDocById(strID) {
 #{data.widthOfProduct} * #{data.lengthOfProduct}  *#{data.heightOfProduct} 
 </div>
 
+
+
 	<h2 class="title" style="text-align: justify;padding: 0px;">
-<span class="">	 الحاوية:	</span>	
+<span class="">	 الشحنة:	</span>	
 <a itemprop="url" href="#{data.containerLink}"><span itemprop="name">#{data.container}</span></a> 
 </h2>
 			
+</td>
+
+
+
+<td class="d-none d-sm-table-cell center hidden-phone column1">
+
+		<div class="location" style="text-align: justify;">
+		<span class="name">Statues:</span>#{data.description}</div>
+		
 </td>
 
 <td class="d-none d-sm-table-cell center hidden-phone column1">
