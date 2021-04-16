@@ -198,15 +198,12 @@
 					</div>
 				</div>
 				
-            	<div class="row">
             	
             		
 
-					<div class="col-md-3"></div>
-
 					<div class="row border m-3 p-3 rounded">
 					
-								
+								<!-- 
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الأرتفاع</label>
@@ -221,12 +218,7 @@
 			                         </div>
 			                   </div>
 			                  
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >الطول</label>
-									        <h:inputText  type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
-			                        </div>
-			                   </div>
+			                  
 			                   
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
@@ -242,17 +234,24 @@
 			                       </div>
 			                   </div>
 			                   
-			                   
-							 <div class="col-md-3 mb-3">
+			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >سيتم استلامها فى</label>
 									    <h:inputText class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.delieverIn}" id="delieverIn"  />
 									 </div>
 			                   </div>
+			                    -->
 			                   
 							
-							
 			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >العدد</label>
+									        <h:inputText  type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
+			                        </div>
+			                   </div>
+							
+							
+			                    <div class="col-md-12 mb-3">
 									<div class="form-group">
 									    <label >العنوان</label>
 										<h:inputText class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
@@ -260,7 +259,7 @@
 			                   </div>
 			                   
 			                   
-			                   <div class="col-md-3 mb-3">
+			                   <div class="col-md-12 mb-3">
 									<div class="form-group">
 									    <label >المواصفات</label>
 									    <h:inputText value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
@@ -268,18 +267,21 @@
 			                   </div>
 			                   
 			                   
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >رمز الشحن</label>
-									    <h:inputText value="#{normalUserProductBean.addNewProduct.shipmentSymbol}" id="shipmentSymbol" class="form-control" type="text"   />
-			                         </div>
-			                   </div>
+			                 
 								
 					</div>
 					
 				   
                    
+                    <!-- 
                     
+                      <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >رمز الشحن</label>
+									    <h:inputText value="#{normalUserProductBean.addNewProduct.shipmentSymbol}" id="shipmentSymbol" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+			                   
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >كونتينر</label>
@@ -297,7 +299,7 @@
                        </div>
                    </div>
                    
-                   
+                    -->
                    
                   
                    
@@ -313,6 +315,7 @@
 					    
 					
 					    
+            	<div class="row">
 					    
 					 <div class="col-md-12 mb-3">
 						<div class="form-group">
@@ -321,217 +324,7 @@
                        </div>
                    </div>
                    
-					    
-					  <!-- Start of Pic -->  
-
 					     
-					    <div class="container"> 
-					    	<div>
-					 		<a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"   onclick="ChangeVisibillity('picDiv','picExpand')">
-                                  <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> صور للسلعة:</b>
-                            </a>
-					 	</div>
-					 	
-					 	<div>
-					 		   <div id="picDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	<p:fileUpload id="FileUploaded" fileUploadListener="#{normalUserProductBean.previewImage}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
-        
-        
-        
-               <h:panelGroup id="imagesPanel">
-			                        	
-							                                     
-											<div class="container" style="    border: unset;">
-											   <div class="row">
-											        <div class="col-md">
-											            <div class="container" id="ctl00_BodyHolder_imageList_imageList"  style="border-collapse:collapse;border-style: ridge;">
-															<div class="row">
-														                
-															
-																<ui:repeat var="var" value="#{normalUserProductBean.images}">
-																	<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
-																	 		<div class="containerDevCloseButtonNew">
-																				<div class="devCloseButtonNew" onclick="deleteImageNum('#{var}')">
-															                                	<div href="#"  class="closeButtonNew">
-															                                	</div>
-															                           </div>
-																			</div>
-														                    <div class="container">
-														                        <div class="row">
-														                            <div class="col-md" align="center">
-														                                <div>
-														                                     <a href="#" onclick='ViewDocById("#{var}")'>
-                                        														<h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
-														                                </div>
-														                            </div>
-														                        </div>
-														                        <div class="row">
-														                            <div class="col-md">
-														                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-														                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
-														                                
-														                            </div>
-														                        </div>
-														                       
-														                    </div>
-														                </div>
-														                
-														                
-														               
-																</ui:repeat>
-														             
-														             
-														              <div class="col-md" style="border: black;padding: 14px;border-width: 1px;">
-														                    <div class="container">
-														                        <div class="row">
-														                            <div class="col-md" align="center">
-														                                <div>
-														                                     <label for="aspnetForm:FileUploaded_input">
-														                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-														                                    </label>
-														                                        
-														                                </div>
-														                            </div>
-														                        </div>
-														                       </div>
-														                </div>
-															   
-														               
-															</div>
-														</div>
-											
-											</div>
-											    </div>
-											        
-											</div>
-											
-											</h:panelGroup>
-
-                                              </div>
-                                    
-					    	</div>
-					    </div>
-					    
-			             
-                                                                                            
-                       
-					    
-					    
-					    
-					    
-					    
-					   <!-- End of Pic -->    
-					    
-					    
-					    <!-- Start of Doc -->  
-					    
-					    <div class="container"> 
-					    	<div>
-					    			<a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
-	                                      onclick="ChangeVisibillity('docDiv','docExpand')">
-	                                      <img id="docExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
-	                                      <b>صور ملفات خاصة بالسلعة:</b>
-	                                </a>
-					    	</div>
-					    	<div>
-					    	  <div id="docDiv" style="display: inline; margin-left: 6px">
-			                        	<p:fileUpload id="docUploaded" fileUploadListener="#{normalUserProductBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
-        
-        
-							        
-							               <h:panelGroup id="docsPanel">
-							                                     
-											<div class="container" style="    border: unset;">
-											   <div class="row">
-											        <div class="col-md">
-											            <div class="container" id="ctl00_BodyHolder_imageList_imageList"  style="border-collapse:collapse;border-style: ridge;">
-												<div class="row">
-											                
-											                
-												
-													<ui:repeat var="var" value="#{normalUserProductBean.docs}">
-														<div class="col-md" style="border: black;padding: 14px;border-left-style: solid;border-width: 1px;">
-														 		<div class="containerDevCloseButtonNew">
-																	<div class="devCloseButtonNew" onclick="deleteDocsNum('#{var}')">
-												                                	<div href="#"  class="closeButtonNew">
-												                                	</div>
-												                           </div>
-																</div>
-											                    <div class="container">
-											                        <div class="row">
-											                            <div class="col-md" align="center">
-											                                <div>
-											                                    <a href="#" onclick='ViewDocById("#{var}")'>
-											                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
-											                                </div>
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-md">
-											                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-											                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
-											                                
-											                            </div>
-											                        </div>
-											                       
-											                    </div>
-											                </div>
-											                
-											                
-											               
-													</ui:repeat>
-											             
-											             
-											              <div class="col-md" style="border: black;padding: 14px;border-width: 1px;">
-											                    <div class="container">
-											                        <div class="row">
-											                            <div class="col-md" align="center">
-											                                <div>
-											                                    <label for="aspnetForm:docUploaded_input">
-											                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-											                                    </label>
-											                                        
-											                                </div>
-											                            </div>
-											                        </div>
-											                       </div>
-											                </div>
-												   
-											               
-												</div>
-											</div>
-											
-											</div>
-											    </div>
-											        
-											</div>
-											
-											</h:panelGroup>
-
-                                              </div>
-                                    
-					    	</div>
-					    </div>
-					    
-			             
-                                                                                            
-                                                                                            
-                                                                                     
-					    
-					    
-					    
-					     <!-- End of Doc -->    
-                                                     
-                                                                                          
-                                                                                                                        
-                                                                                      
-                                                                                           
-                                                                                           
-                                                                                           
-                                                                                           
-                                                                                           
-                                                                                          
-                        
                 
                  </div>
                  <div class="row">

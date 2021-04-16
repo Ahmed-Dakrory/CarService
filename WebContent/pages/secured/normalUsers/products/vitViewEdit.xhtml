@@ -409,22 +409,28 @@ color: white
 					
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
-						    <label >رقم المتابعة</label>
+						    <label >رقم الشحنة</label>
 						    <h:inputText disabled="true" type="text"  class="form-control" value="#{normalUserProductBean.addNewProduct.trackingNumber}"   />
 						  </div>
 					</div>
 				</div>
 				
-            	<div class="row">
             	
             		
 
-					<div class="col-md-3"></div>
 
 					<div class="row border m-3 p-3 rounded">
 					
 								
-			                   <div class="col-md-3 mb-3">
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >العدد</label>
+									        <h:inputText disabled="true" type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
+			                        </div>
+			                   </div>
+			                   <!-- 
+			                   
+			                     <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الأرتفاع</label>
 									     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.heightOfProduct}" id="heightOfProduct"  />
@@ -438,13 +444,8 @@ color: white
 			                         </div>
 			                   </div>
 			                  
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >الطول</label>
-									        <h:inputText disabled="true" type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
-			                        </div>
-			                   </div>
-			                   
+			                
+			                
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الحجم</label>
@@ -467,37 +468,15 @@ color: white
 									 </div>
 			                   </div>
 			                   
-							
-							
-			                    <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >العنوان</label>
-										<h:inputText disabled="true" class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
-			                       </div>
-			                   </div>
-			                   
-			                   
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >المواصفات</label>
-									    <h:inputText disabled="true" value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
-			                         </div>
-			                   </div>
-			                   
-			                   
-			                   <div class="col-md-3 mb-3">
+			                     <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >رمز الشحن</label>
 									    <h:inputText disabled="true" value="#{normalUserProductBean.addNewProduct.shipmentSymbol}" id="shipmentSymbol" class="form-control" type="text"   />
 			                         </div>
 			                   </div>
-								
-					</div>
-					
-				   
-                   
-                    
-                   <div class="col-md-6 mb-3">
+			                   
+			                   
+			                     <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >كونتينر</label>
 						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.container}"   />
@@ -513,7 +492,33 @@ color: white
 						     <h:inputText disabled="true" type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.containerLink}"   />
                        </div>
                    </div>
+                
+			                    -->
+							
+							
+			                    <div class="col-md-12 mb-3">
+									<div class="form-group">
+									    <label >العنوان</label>
+										<h:inputText disabled="true" class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-12 mb-3">
+									<div class="form-group">
+									    <label >المواصفات</label>
+									    <h:inputText disabled="true" value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+			                   
+			                   
+			                 
+								
+					</div>
+					
                    
+                    
+                    
                    
                    
                   
@@ -527,7 +532,7 @@ color: white
 					    
 				
 					    
-					    
+					    <div class="row">
 					
 					    
 					    
@@ -549,7 +554,6 @@ color: white
 					    
 					  <!-- Start of Pic -->  
 
-					     
 					    <div class="container"> 
 					    	<div>
 					 		<a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"   onclick="ChangeVisibillity('picDiv','picExpand')">
@@ -721,17 +725,7 @@ color: white
                         
                 
                  </div>
-                 <div class="row">
-                 	<div class="col-md-3 mb-3">
-							<div class="form-group">
-							   
-							</div>
-	  
-	                   </div>
-	                   
-	                 
                  
-                 </div>
                </div>
                </h:panelGroup>
                  

@@ -112,13 +112,19 @@ function ViewDocById(strID) {
 		
 <h2 class="title" style=" margin-top: 5%;text-align: justify;">
 <a itemprop="url" href="/pages/secured/normalUsers/products/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">##{data.id}</span></a> </h2>
-<div class="vin" style="display: block;text-align: initial;"><span class="name">رقم التتبع:</span>#{data.trackingNumber} </div>
-<div class="odometer" style="display: block;text-align: initial;">
+<div class="vin" style="display: block;text-align: initial;"><span class="">رقم الشحنة:</span>#{data.trackingNumber} </div>
+<!-- <div class="odometer" style="display: block;text-align: initial;">
 <span class="">أبعاد:</span>#{data.widthOfProduct} * #{data.lengthOfProduct}  *#{data.heightOfProduct} 
-</div>
+</div> 
 <div class="odometer" style="display: block;text-align: initial;">
 	<span class="">	الحجم:	</span>	#{data.volumeOfProduct}
 </div>
+
+-->
+
+<div class="odometer" style="display: block;text-align: initial;">
+<span class="">العدد:</span> #{data.lengthOfProduct} 
+</div> 
 
 <div class="odometer" style="display: block;text-align: initial;">
 	<span class="">	سعر السلعة:	</span>	$#{data.orderPrice}
@@ -135,12 +141,12 @@ function ViewDocById(strID) {
 <div class="odometer" style="display: block;text-align: initial;">
 	<span class="">	التكلفة الكلية:	</span>	$#{data.orderPrice+data.commision+data.fees+data.shipmentFees}
 </div>
-
+<!-- 
 <h2 class="title" style="text-align: justify;padding: 0px;">
 <span class="">	 الشحنة:	</span>	
 <a itemprop="url" href="#{data.containerLink}"><span itemprop="name">#{data.container}</span></a> 
 </h2>
-
+ -->
 
 <div class="location" style="text-align: justify;">
 		<span class="">	نوع الطلب:	
@@ -179,9 +185,11 @@ function ViewDocById(strID) {
 <a itemprop="url" href="/pages/secured/normalUsers/products/vitViewEdit.jsf?id=#{data.id}"><span itemprop="name">##{data.id} </span></a> </h2>
 <div class="vin" style="    text-align: initial;">
 <span class="name">
-رقم التتبع:
+رقم الشحنة:
 </span>
 #{data.trackingNumber} </div>
+
+<!-- 
 <div class="odometer" style="    text-align: initial;">
 <span class="name">
 الأبعاد:
@@ -189,12 +197,20 @@ function ViewDocById(strID) {
 #{data.widthOfProduct} * #{data.lengthOfProduct}  *#{data.heightOfProduct} 
 </div>
 
-
-
-	<h2 class="title" style="text-align: justify;padding: 0px;">
+<h2 class="title" style="text-align: justify;padding: 0px;">
 <span class="">	 الشحنة:	</span>	
 <a itemprop="url" href="#{data.containerLink}"><span itemprop="name">#{data.container}</span></a> 
 </h2>
+
+ -->
+<div class="odometer" style="    text-align: initial;">
+<span class="name">
+العدد:
+</span>
+ #{data.lengthOfProduct}
+</div>
+
+	
 			
 </td>
 
@@ -256,6 +272,13 @@ function ViewDocById(strID) {
 		تاريخ الأضافة:
 		</span>
 		#{carBean.getFormatedDate(data.add_datetime)}
+	</div>
+	
+	<div class="odometer" style="    text-align: initial;">
+		<span class="">
+		تاريخ الوصول المتوقع:
+		</span>
+		#{carBean.getFormatedDate(data.estimatedDateOfDelievery)}
 	</div>
 	</div>
 </td>

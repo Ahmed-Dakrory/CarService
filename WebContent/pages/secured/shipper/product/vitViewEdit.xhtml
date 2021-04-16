@@ -171,7 +171,7 @@
 			                   </div>
 			                   
 			                   
-            		<div class="col-md-7 mb-3">
+            		<div class="col-md-4 mb-3">
 						<div class="form-group">
 						    <label >نوع الطلب</label>
 						    <h:selectOneMenu id="selectOfBuy" onchange="viewBuyRow()"  type="text" value="#{normalUserProductBean.addNewProduct.typeOfOrder}"  class="form-control">
@@ -181,6 +181,14 @@
 						    
 						  </div>
 					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >العدد</label>
+									        <h:inputText  type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
+			                        </div>
+			                   </div>
 				</div>
 				
 				<div class="row">
@@ -269,10 +277,12 @@
 				
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
-						    <label >رقم المتابعة</label>
+						    <label >رقم الشحنة</label>
 						    <h:inputText  type="text"  class="form-control" value="#{normalUserProductBean.addNewProduct.trackingNumber}"   />
 						  </div>
 					</div>
+			                   
+			                   
 				</div>
 				
             	<div class="row">
@@ -285,7 +295,7 @@
 					
 					
 					
-					
+					<!-- 
 								
 								
 			                   <div class="col-md-3 mb-3">
@@ -301,14 +311,9 @@
 									     <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.widthOfProduct}" id="widthOfProduct"  />
 			                         </div>
 			                   </div>
-			                  
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >الطول</label>
-									        <h:inputText  type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
-			                        </div>
-			                   </div>
+			                   -->
 			                   
+			                   <!-- 
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الحجم</label>
@@ -331,36 +336,22 @@
 									 </div>
 			                   </div>
 			                   
+							 -->
 							
-							
-			                    <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >العنوان</label>
-										<h:inputText class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
-			                       </div>
-			                   </div>
 			                   
-			                   
-			                   <div class="col-md-3 mb-3">
-									<div class="form-group">
-									    <label >المواصفات</label>
-									    <h:inputText value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
-			                         </div>
-			                   </div>
-			                   
-			                   
+			                   <!-- 
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >رمز الشحن</label>
 									    <h:inputText value="#{normalUserProductBean.addNewProduct.shipmentSymbol}" id="shipmentSymbol" class="form-control" type="text"   />
 			                         </div>
 			                   </div>
-								
+								 -->
 					</div>
 					
 				   
                    
-                    
+                    <!-- 
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >كونتينر</label>
@@ -380,7 +371,7 @@
                    
                    
                    
-                  
+                   -->
                    
                    
                    
@@ -393,7 +384,21 @@
 					    
 					    
 					
-					    
+					     <div class="col-md-12 mb-3">
+									<div class="form-group">
+									    <label >العنوان</label>
+										<h:inputText class="form-control"  type="text" value="#{normalUserProductBean.addNewProduct.address}" id="address"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-12 mb-3">
+									<div class="form-group">
+									    <label >المواصفات</label>
+									    <h:inputText value="#{normalUserProductBean.addNewProduct.description}" id="description" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+			                   
 					    
 					 <div class="col-md-12 mb-3">
 						<div class="form-group">
