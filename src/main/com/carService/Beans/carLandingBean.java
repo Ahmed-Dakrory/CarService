@@ -38,7 +38,6 @@ import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.costCalc.transportfee;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
-import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
@@ -568,7 +567,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				if(id!=null){
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
-					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(Integer.valueOf(selectedCarPage.getCategory()));
+					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(selectedCarPage.getCategory());
 					carViewId=id;
 					//Here Get the images For the main 
 					/**
@@ -651,7 +650,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		}
 		
 		try{
-			Integer categories=Integer.parseInt(origRequest.getParameterValues("category")[0]);
+			String categories=String.valueOf(origRequest.getParameterValues("category")[0]);
 				if(categories!=null){
 					listOfAddedCars=carLandingFacade.getAllForCategories(categories);
 				}
@@ -1144,14 +1143,7 @@ public void calcValueOfTotalFeesCarSelected() {
 			e.printStackTrace();
 		}
 	}
-	public categoriesEnum getCategoryEnum(int type) {
-        return categoriesEnum.values()[type];
-    }
-	
-	public categoriesEnum[] getCategoriesEnum() {
-        return categoriesEnum.values();
-    }
-	
+
 	
 	public static Calendar toCalendar(Date date){ 
 		  Calendar cal = Calendar.getInstance();
@@ -1395,7 +1387,8 @@ public void calcValueOfTotalFeesCarSelected() {
 		 		if(fileUploaded.getSize()!=0) {
 		 			InputStream fileData =fileUploaded.getInputstream(); 
 		 	       System.out.println("File streamed");
-		 		listOfUploadedDataCars = parseUsersFile(fileData);
+		 	     // PrimeFaces.current().executeScript("showDialog(' and saving Cars');PF('pbAjax').start();");
+		 		 parseUsersFile(fileData);
 		 		
 
 	    		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableForm");
@@ -1404,6 +1397,8 @@ public void calcValueOfTotalFeesCarSelected() {
 					PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Cars Has Been uploaded\", \"success\");");
 
 					 PrimeFaces.current().executeScript("hideDialog()");
+					 
+					
 		 		}
 		 		}
 			} catch (Exception e) {
@@ -1456,8 +1451,7 @@ public void calcValueOfTotalFeesCarSelected() {
 		 return returnedValue;
 	 }
 	 
-	 public List<carLanding> parseUsersFile(InputStream input) {
-			List<carLanding> dataList = new ArrayList<carLanding>();
+	 public void parseUsersFile(InputStream input) {
 			try {
 				//inputStream = resource.getInputStream();
 				// Create Workbook instance holding reference to .xlsx file
@@ -1468,7 +1462,8 @@ public void calcValueOfTotalFeesCarSelected() {
 		 	      Sheet sheet = workbook.getSheetAt(0);
 				int rowsNumbers = sheet.getLastRowNum();
 		 	       System.out.println("Sheet");
-				
+
+					int listNumTotal = rowsNumbers;
 		 	       for(int i=1;i<rowsNumbers+1;i++) {
 					Row row = sheet.getRow(i);
 					// For each row, iterate through all the columns
@@ -1508,19 +1503,19 @@ public void calcValueOfTotalFeesCarSelected() {
 		                		String valueOfType= getTheValueFromCell(cell);
 		                		
 		                		if(valueOfType.equalsIgnoreCase("U")) {
-									data.setCategory(categoriesEnum.HeavyDuties.getType());
+									data.setCategory("Heavy Duties");
 		                		}else if(valueOfType.equalsIgnoreCase("V")) {
-									data.setCategory(categoriesEnum.SMALLCARS.getType());
+									data.setCategory("SMALL CARS");
 		                		}else if(valueOfType.equalsIgnoreCase("C")) {
-									data.setCategory(categoriesEnum.MotorCycle.getType());
+									data.setCategory("Motor Cycle");
 		                		}else if(valueOfType.equalsIgnoreCase("S")) {
-									data.setCategory(categoriesEnum.SnowMobile.getType());
+									data.setCategory("Snow Mobile");
 		                		}else if(valueOfType.equalsIgnoreCase("M")||valueOfType.equalsIgnoreCase("J")) {
-									data.setCategory(categoriesEnum.JetSkies.getType());
+									data.setCategory("JetSkies");
 		                		}else if(valueOfType.equalsIgnoreCase("Q")) {
-									data.setCategory(categoriesEnum.Korean.getType());
+									data.setCategory("Korean");
 		                		}else{
-									data.setCategory(categoriesEnum.SUV.getType());
+									data.setCategory("SUV");
 								}
 		                		
 							}catch (Exception ex) { //
@@ -1650,6 +1645,14 @@ public void calcValueOfTotalFeesCarSelected() {
 							}
 		                	  break;
 		                	  
+		               
+						case 33:
+							try {
+								data.setRunsDrives(getTheValueFromCell(cell));
+							}catch (Exception ex) { //
+							}
+		                	  break;
+		                	  
 		                	  
 						case 37:
 							try {
@@ -1725,6 +1728,7 @@ public void calcValueOfTotalFeesCarSelected() {
 					
 				
 					}
+					data.setAuctionType(carLanding.AUTCION_COPART);
 					data.setDeleted(false);
 					data.setPaymentDone(false);
 					data.setActive(true);
@@ -1734,40 +1738,46 @@ public void calcValueOfTotalFeesCarSelected() {
 					data.setBidingDate((bidingDate));
 					data.setEndDate((endDate));
 					data.setState(stateOfCar.BidingState.getType());
-					dataList.add(data);
+					
+					
+						carLandingFacade.addcarLanding(data);
+						double newPercent = ((100 *(i-listNumTotal))/(listNumTotal-1))+100; 
+
+						progressLoading = (int) + newPercent; 
+
+						System.out.println("Data: Done: "+i+" , "+String.valueOf(progressLoading));
+					
+					
 				}
 				input.close();
-			 dataList.remove(0);
 			
-			return dataList;
 			 
 		
 			}catch (Exception e) {
 				e.printStackTrace();
-				return null;
 			}
 		}
 
-	public void saveTheNewUploadedList() {
-		System.out.println("Data: Saving");
-		int listNumTotal = listOfUploadedDataCars.size();
-		for(int i=0;i<listOfUploadedDataCars.size();i++) {
-			carLandingFacade.addcarLanding(listOfUploadedDataCars.get(i));
-			double newPercent = ((100 *(i-listNumTotal))/(listNumTotal-1))+100; 
-
-			progressLoading = (int) + newPercent; 
-
-			System.out.println("Data: Done: "+i+" , "+String.valueOf(progressLoading));
-		}
-		try {
-			FacesContext.getCurrentInstance()
-			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Error: "+e.toString());
-		}
-	}
+//	public void saveTheNewUploadedList() {
+//		System.out.println("Data: Saving");
+//		int listNumTotal = listOfUploadedDataCars.size();
+//		for(int i=0;i<listOfUploadedDataCars.size();i++) {
+//			carLandingFacade.addcarLanding(listOfUploadedDataCars.get(i));
+//			double newPercent = ((100 *(i-listNumTotal))/(listNumTotal-1))+100; 
+//
+//			progressLoading = (int) + newPercent; 
+//
+//			System.out.println("Data: Done: "+i+" , "+String.valueOf(progressLoading));
+//		}
+//		try {
+//			FacesContext.getCurrentInstance()
+//			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("Error: "+e.toString());
+//		}
+//	}
 	public void updateCarDataMain() {
 		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		carLandingFacade.addcarLanding(selectedFreight);

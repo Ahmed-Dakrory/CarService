@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import com.google.gson.JsonObject;
+
 import main.com.carService.loginNeeds.user;
 
 
@@ -61,6 +63,11 @@ import main.com.carService.loginNeeds.user;
 			)
 	
 	,
+	@NamedQuery(name="carLanding.getAllGroupsOfCategory",
+	query = "from carLanding d where d.deleted = false and d.active = 1 group by d.category"
+			)
+	
+	,
 	@NamedQuery(name="carLanding.getAllGroupsOfModelWithMake",
 	query = "from carLanding d where d.deleted = false and d.make=:make and d.active = 1 group by d.model "
 			)
@@ -78,6 +85,7 @@ import main.com.carService.loginNeeds.user;
 	@NamedQuery(name="carLanding.getAllBidBetweenDates",
 	query = "from carLanding d where d.userMaxBidId.id > 0 and  d.bidingDate > :date1 and d.endDate < :date2 and d.deleted = false"
 			)
+	
 	
 })
 
@@ -150,9 +158,23 @@ public class carLanding {
 	@Column(name = "color")
 	private String color;
 	
-	
+
 	@Column(name = "cylinder")
 	private String cylinder;
+	
+
+	public static String AUTCION_COPART = "Copart";
+	public static String AUTCION_IAAI = "IAAI";
+	public static String AUTCION_LIBYA = "Libya";
+	public static String AUTCION_KOREA = "Korean";
+	
+	@Column(name = "auctionType")
+	private String auctionType;
+	
+	
+
+	@Column(name = "runsDrives")
+	private String runsDrives;
 	
 	
 	@Column(name = "fuel")
@@ -444,6 +466,19 @@ public class carLanding {
 
 	public void setCylinder(String cylinder) {
 		this.cylinder = cylinder;
+	}
+
+
+	
+
+	public String getRunsDrives() {
+		return runsDrives;
+	}
+
+
+
+	public void setRunsDrives(String runsDrives) {
+		this.runsDrives = runsDrives;
 	}
 
 
@@ -791,7 +826,51 @@ public class carLanding {
 	}
 
 
-
+    public JsonObject toJson() {
+    	JsonObject obj=new JsonObject();
+    	  obj.addProperty("id", String.valueOf(this.id));
+	      obj.addProperty("color", String.valueOf(this.color));
+	      obj.addProperty("mainId", String.valueOf(this.mainId.getId()));
+	      obj.addProperty("uuid", String.valueOf(this.uuid));
+	      obj.addProperty("make", String.valueOf(this.make));
+	      obj.addProperty("model", String.valueOf(this.model));
+	      obj.addProperty("year", String.valueOf(this.year));
+	      obj.addProperty("transmission", String.valueOf(this.transmission));
+	      obj.addProperty("mainImage", String.valueOf(this.mainImage));
+	      obj.addProperty("category", String.valueOf(this.category));
+	      obj.addProperty("endDate", String.valueOf(this.endDate));
+	      obj.addProperty("docType", String.valueOf(this.docType));
+	      obj.addProperty("odoMeter", String.valueOf(this.odoMeter));
+	      obj.addProperty("startDate", String.valueOf(this.startDate));
+	      obj.addProperty("bidingDate", String.valueOf(this.bidingDate));
+	      obj.addProperty("buyItNowPrice", String.valueOf(this.buyItNowPrice));
+	      obj.addProperty("runsDrives", String.valueOf(this.runsDrives));
+	      obj.addProperty("auctionType", String.valueOf(this.auctionType));
+	      
+	      if(this.userMaxBidId!=null) {
+	      obj.addProperty("userMaxBidId", String.valueOf(this.userMaxBidId.getId()));
+	      obj.addProperty("userMaxBidFirstName", String.valueOf(this.userMaxBidId.getFirstName()));
+	      obj.addProperty("userMaxBidLasttName", String.valueOf(this.userMaxBidId.getLastName()));
+	      }else {
+	    	  obj.addProperty("userMaxBidId", String.valueOf(""));
+		      obj.addProperty("userMaxBidFirstName", String.valueOf(""));
+		      obj.addProperty("userMaxBidLasttName", String.valueOf(""));
+		        
+	      }
+	      obj.addProperty("mainImage", String.valueOf(this.mainImage));
+	      obj.addProperty("odoDescription", String.valueOf(this.odoDescription));
+	      obj.addProperty("currentBid", String.valueOf(this.currentBid));
+	      obj.addProperty("active", String.valueOf(this.active));
+	      obj.addProperty("paymentDone", String.valueOf(this.paymentDone));
+	      obj.addProperty("activebuyItNow", String.valueOf(this.activebuyItNow));
+	      obj.addProperty("auctionLocation", String.valueOf(this.auctionLocation));
+	      obj.addProperty("lot", String.valueOf(this.lot));
+	      obj.addProperty("state", String.valueOf(this.state));
+	      obj.addProperty("damageDescription", String.valueOf(this.damageDescription));
+	      obj.addProperty("secondaryDamage", String.valueOf(this.secondaryDamage));
+	      return obj;
+    	
+    }
 
 
 	public enum stateOfCar {
@@ -825,6 +904,17 @@ public class carLanding {
 		}
 		
 		
+	}
+
+
+	public String getAuctionType() {
+		return auctionType;
+	}
+
+
+
+	public void setAuctionType(String auctionType) {
+		this.auctionType = auctionType;
 	}
 
 

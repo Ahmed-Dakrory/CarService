@@ -189,7 +189,7 @@ body .ui-inputfield {
                                                                                                 </td>
                                                                                                 <td width="200">
                                                                                                    <h:selectOneMenu value="#{carPageBean.selectedFreight.category}" name="ctl00$BodyHolder$ddlVendors" id="ctl00_BodyHolder_ddlVendors" style="font-size:11px;height:19px;width:200px;">
-																										<f:selectItems value="#{carPageBean.categoriesEnum}" var="var" itemLabel="#{var.name}" itemValue="#{var.type}"/>
+																										<f:selectItems value="#{carPageBean.listOfCarsGroupByCategory}" var="var" itemLabel="#{var.category}" itemValue="#{var.category}"/>
 																									</h:selectOneMenu>
                                                                                                   
                                                                                                      

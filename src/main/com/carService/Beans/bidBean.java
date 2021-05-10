@@ -31,7 +31,6 @@ import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
-import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.moneyBox.moneyBoxWithDetails;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxConfig;
@@ -372,13 +371,6 @@ public class bidBean implements Serializable{
 	
 	
 	
-	public categoriesEnum getCategoryEnum(int type) {
-        return categoriesEnum.values()[type];
-    }
-	
-	public categoriesEnum[] getCategoriesEnum() {
-        return categoriesEnum.values();
-    }
 	
 	public main.com.carService.loginNeeds.loginBean getLoginBean() {
 		return loginBean;

@@ -4,12 +4,8 @@ import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
 
-import javax.inject.Inject;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,18 +13,11 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-import com.google.gson.Gson;
-
-import flexjson.JSONSerializer;
-import main.com.carService.moneyBox.moneybox;
-import main.com.carService.moneyBox.moneyboxAppServiceImpl;
 @Controller
 @RequestMapping("/Api")
 public class stripeApi {
 
 	
-	@Inject
-	private moneyboxAppServiceImpl moneyBoxFacade;
 	
 	
 	@RequestMapping(value = "/")
@@ -43,7 +32,6 @@ public class stripeApi {
     		@RequestParam(value="amount",required=false) Integer amount,
     		@RequestParam(value="name",required=false) String name) {
 
-		Gson gson = new Gson();
 		// This is your real test secret API key.
 	    Stripe.apiKey = "sk_live_u9fOW3T0BCwIGOXGG99PV2au";
 

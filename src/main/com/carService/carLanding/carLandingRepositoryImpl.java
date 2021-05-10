@@ -3,6 +3,7 @@
  */
 package main.com.carService.carLanding;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -123,8 +124,8 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 	}
 
 	@Override
-	public List<carLanding> getAllForCategories(int categories) {
-		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForCategories").setInteger("category",categories).setMaxResults(30);
+	public List<carLanding> getAllForCategories(String categories) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllForCategories").setString("category",categories).setMaxResults(30);
 
 		 @SuppressWarnings("unchecked")
 		List<carLanding> results=query.list();
@@ -210,6 +211,196 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 	@Override
 	public List<carLanding> getAllGroupsOfModelWithMake(String make) {
 		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllGroupsOfModelWithMake").setString("make",make);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<carLanding> getAllWithPagination(int start, int number,String searchValue) {
+		
+			 
+			 try {
+					session = sessionFactory.openSession();
+					Transaction tx1 = session.beginTransaction();
+					
+					
+					Query query =null;
+					if(searchValue.equalsIgnoreCase("")) {
+						 query = session.createQuery("FROM carLanding order by dateAdd desc");
+					}else {
+					 query = session.createQuery("FROM carLanding where"
+							+ " uuid like '%"+searchValue+"%' or "
+							+ " model like '%"+searchValue+"%' or "
+							+ " make like '%"+searchValue+"%' or "
+							+ " color like '%"+searchValue+"%' or "
+							+ " year like '%"+searchValue+"%' or "
+							+ " itemNumber like '%"+searchValue+"%' or "
+							+ " transmission like '%"+searchValue+"%' or "
+							+ " damageDescription like '%"+searchValue+"%' or "
+							+ " category like '%"+searchValue+"%'"
+							+ " order by dateAdd desc");
+					}
+					
+					 query.setFirstResult(start);
+					 query.setMaxResults(number);
+					 
+					 @SuppressWarnings("unchecked")
+					List<carLanding> results=query.list();
+
+					tx1.commit();
+					session.close();
+					return results;
+				} catch (Exception ex) {
+					return new ArrayList<carLanding>();
+				}
+		
+	}
+
+	@Override
+	public long getAllCount() {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			Query query = session.createQuery("select count(*) FROM carLanding order by dateAdd desc");
+			 
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	@Override
+	public long getAllWithPaginationCount(int start, int number) {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			Query query = session.createQuery("select count(*) FROM carLanding order by dateAdd desc");
+			 query.setFirstResult(start);
+			 query.setMaxResults(number);
+			 
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	@Override
+	public List<carLanding> getAllWithPaginationSearch(int start, int number, String searchValue, String yearStart,
+			String yearEnd, String make, String model, String categorySearch) {
+		// TODO Auto-generated method stub
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			
+			
+			Query query =null;
+			if(searchValue.equalsIgnoreCase("")) {
+				 query = session.createQuery("FROM carLanding where "
+						+ " model like '%"+model+"%' and "
+						+ " make like '%"+make+"%' and "
+						+ " year < "+yearEnd+" and "
+						+ " year > "+yearStart+" and "
+						+ " category like '%"+categorySearch+"%' "
+				 		+ "order by dateAdd desc");
+			}else {
+			 query = session.createQuery("FROM carLanding where"
+					+ " model like '%"+model+"%' and "
+					+ " make like '%"+make+"%' and "
+					+ " year < "+yearEnd+" and "
+					+ " year > "+yearStart+" and "
+					+ " category like '%"+categorySearch+"%' and ( "
+					+ " uuid like '%"+searchValue+"%' or "
+					+ " model like '%"+searchValue+"%' or "
+					+ " make like '%"+searchValue+"%' or "
+					+ " color like '%"+searchValue+"%' or "
+					+ " year like '%"+searchValue+"%' or "
+					+ " itemNumber like '%"+searchValue+"%' or "
+					+ " transmission like '%"+searchValue+"%' or "
+					+ " damageDescription like '%"+searchValue+"%' or "
+					+ " category like '%"+searchValue+"%') "
+					+ " order by dateAdd desc");
+			}
+			
+			 query.setFirstResult(start);
+			 query.setMaxResults(number);
+			 
+			 @SuppressWarnings("unchecked")
+			List<carLanding> results=query.list();
+
+			tx1.commit();
+			session.close();
+			return results;
+		} catch (Exception ex) {
+			return new ArrayList<carLanding>();
+		}
+
+		
+	}
+
+	@Override
+	public long getAllCountSearch(String searchValue, String yearStart, String yearEnd, String make, String model,
+			String categorySearch) {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			
+			Query query =null;
+			if(searchValue.equalsIgnoreCase("")) {
+				 query = session.createQuery("select count(*) FROM carLanding where "
+						+ " model like '%"+model+"%' and "
+						+ " make like '%"+make+"%' and "
+						+ " year < "+yearEnd+" and "
+						+ " year > "+yearStart+" and "
+						+ " category like '%"+categorySearch+"%' "
+				 		+ "order by dateAdd desc");
+			}else {
+			 query = session.createQuery("select count(*) FROM carLanding where"
+					+ " model like '%"+model+"%' and "
+					+ " make like '%"+make+"%' and "
+					+ " year < "+yearEnd+" and "
+					+ " year > "+yearStart+" and "
+					+ " category like '%"+categorySearch+"%' and ( "
+					+ " uuid like '%"+searchValue+"%' or "
+					+ " model like '%"+searchValue+"%' or "
+					+ " make like '%"+searchValue+"%' or "
+					+ " color like '%"+searchValue+"%' or "
+					+ " year like '%"+searchValue+"%' or "
+					+ " itemNumber like '%"+searchValue+"%' or "
+					+ " transmission like '%"+searchValue+"%' or "
+					+ " damageDescription like '%"+searchValue+"%' or "
+					+ " category like '%"+searchValue+"%') "
+					+ " order by dateAdd desc");
+			}
+			
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
+		
+
+	}
+
+	@Override
+	public List<carLanding> getAllGroupsOfCategory() {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getAllGroupsOfCategory");
 
 		 @SuppressWarnings("unchecked")
 		List<carLanding> results=query.list();

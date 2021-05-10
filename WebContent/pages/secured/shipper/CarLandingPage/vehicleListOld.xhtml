@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ALMZZAD</ui:define>
+	
+	 <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+	
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
+    	<style>
+	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+    
+    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
+    content: "\f046";
+    font-family: FontAwesome;
+}
+	</style>
+        <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
+
+
+#{carPageBean.refresh()}
+            <div id="content">
+                
+    <input name="ctl00$BodyHolder$hdClient_ID" type="hidden" id="ctl00_BodyHolder_hdClient_ID" value="47089" />
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <!-- Table name block -->
+                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td class="blkname" style="width: 20%; height: 22px;">
+                                                        <nobr>&nbsp;Freight List<span id="ctl00_BodyHolder_lblCount">: #{carPageBean.listOfAddedCars.size()}</span></nobr>
+                                                    </td>
+                                                    <td style="height: 22px">
+                                                        
+                                                    </td>
+                                                    <td style="height: 22px">
+                                                        &nbsp;
+                                                    </td>
+                                                   
+                                                </tr>
+                                            </table>
+                                         
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
+                                                            <tr>
+                                                                <td>
+                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f7f7f7">
+                                                                        <tr height="25" bgcolor="#dcdcdc" >
+                                                                            <td>
+                                                                                &nbsp; <font class="tblhdr">Filter</font><a href="editlist?group=-1" class="navlink">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="2">
+                                                                            <td colspan="5" bgcolor="#ffffff">
+                                                                            </td>
+                                                                        </tr>
+                                                                       
+                                                                        
+                                                                        
+                                                                        <tr height="2">
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <!-- Client DataGrid-->
+                                            <section class="panel">
+                                            
+							<div class="panel-body">
+							   <h:form>
+									<h:commandButton value="Add New Car" action="#{carPageBean.addCarForMain()}" class="btn btn-default" ></h:commandButton>
+									<h:commandButton value="Upload Files" action="#{carLandingBean.goToCarDataUpload()}" class="btn btn-default" ></h:commandButton>
+								</h:form>
+								<h:form id="tableForm">
+								
+        	
+    						 <p:dataTable id="carsTable" var="row" value="#{carPageBean.listOfAddedCars}" widgetVar="carsTable" 
+                 rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="10,50,100,200,500,1000"
+                 selectionMode="single" selection="#{carPageBean.selectedFreight}" rowKey="#{row.lot}"
+                 emptyMessage="No cars found with given criteria" filteredValue="#{carPageBean.listOfFilteredCars}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+             <div class="container" style="margin: 0;    width: 100%;">
+	            <div class="row">
+	            	<div class="col-md-3" style="text-align: left;">
+	            	<p:outputLabel for="datetime" value="Biding Date" />
+       				<p:calendar id="datetime" value="#{carPageBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:ajax event="change" />
+       				</p:calendar>
+	            	
+	            	</div>
+	            	<div class="col-md-3" style="text-align: left;">
+	            		<p:outputLabel for="datetime2" value="End Biding Date" />
+       					<p:calendar id="datetime2" value="#{carPageBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
+       					<p:ajax event="change" />
+       					</p:calendar>
+       					
+	            	
+	            	</div> 
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton class="btn btn-default" value="Search" action="#{carPageBean.getTheAllListOfCarsWithDates()}" update="carsTable"/>
+       					
+	            	
+	            	</div> 
+	            	
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton class="btn btn-default" value="Search Bid" action="#{carPageBean.getTheBidListOfCarsWithDates()}" update="carsTable"/>
+       					
+	            	
+	            	</div> 
+	            	
+	            	
+	            	
+	            	<div class="col-md-3" style="text-align: right;">
+	            		<h:outputText value="Search all fields:" />
+	            		<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+	            	</div>
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="pi pi-align-justify" />
+       		 	<p:columnToggler datasource="carsTable" trigger="toggler" />
+	            	</div>
+	            </div>
+            </div>
+            </p:outputPanel>
+        </f:facet>
+        
+         
+    
+ 		<p:column style="font-size: 11px;    text-align: center;" width="90" id="imageId" sortBy="#{row.mainImage}" filterBy="#{row.mainImage}">
+			<h:graphicImage value="#{row.mainImage}" alt="image#{row.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
+			<f:facet name="header">	<h:outputText value="Image" /> </f:facet>
+		</p:column>
+		
+		
+		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carPageBean.selectCarRowForMain}"  />
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
+			
+			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{carPageBean.selectCarForMain(row.id)}"/>
+			
+			 -->
+			<h:outputText value="#{row.uuid}" />
+
+			<f:facet name="header">	<h:outputText value="Vin" /> </f:facet>
+		</p:column>
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="code" sortBy="#{row.damageDescription}" filterBy="#{row.damageDescription}">
+			<h:outputText value="#{row.damageDescription}" />
+			<f:facet name="header">	<h:outputText value="Damage Description" /> </f:facet>
+		</p:column>
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="transmission" sortBy="#{row.transmission}" filterBy="#{row.transmission}">
+			<h:outputText value="#{row.transmission}" />
+			<f:facet name="header">	<h:outputText value="Transmission" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="docType" sortBy="#{row.docType}" filterBy="#{row.docType}">
+			<h:outputText value="#{row.docType}" />
+			<f:facet name="header">	<h:outputText value="Doc Type" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="lot" sortBy="#{row.lot}" filterBy="#{row.lot}">
+			
+				<a   href="https://www.copart.com/lot/#{row.lot}" target="_blank">#{row.lot}</a>
+			
+
+			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="category" sortBy="#{carPageBean.getCategoryEnum(row.category).name}" filterBy="#{carPageBean.getCategoryEnum(row.category).name}">
+			<h:outputText value="#{carPageBean.getCategoryEnum(row.category).name}" />
+			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
+		</p:column>
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="model" sortBy="#{row.model}" filterBy="#{row.model}">
+			<h:outputText value="#{row.make}/#{row.model}" />
+			<f:facet name="header">	<h:outputText value="Make/Model" /> </f:facet>
+		</p:column>
+		
+		
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="endDate" sortBy="#{row.endDate}" filterBy="#{row.endDate}">
+			<h:outputText value="#{row.endDate}" />
+			<f:facet name="header">	<h:outputText value="End Date" /> </f:facet>
+		</p:column>
+		
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="year" sortBy="#{row.year}" filterBy="#{row.year}">
+			<h:outputText value="#{row.year}" />
+			<f:facet name="header">	<h:outputText value="Year" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="color" sortBy="#{row.color}" filterBy="#{row.color}">
+			<h:outputText value="#{row.color}" />
+			<f:facet name="header">	<h:outputText value="Color" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="userNameBid" sortBy="#{row.userMaxBidId.userName}" filterBy="#{row.userMaxBidId.userName}">
+			<h:outputText value="#{row.userMaxBidId.userName}" />
+			<f:facet name="header">	<h:outputText value="Max Bid User" /> </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px;    text-align: center;" width="130" id="sendData" sortBy="#{row.id}" filterBy="#{row.id}">
+			
+				<p:commandButton class="fa fa-bell" action="#{carPageBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
+												
+			<f:facet name="header">	<h:outputText value="Not For Win Cars" /> </f:facet>
+		</p:column>
+		
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="active" sortBy="#{row.active}" filterBy="#{row.active}">
+			<img src="/resources/images/#{row.active?'check_on.gif':'check_off.gif'}"></img>
+			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
+			 <f:facet name="filter">
+                <p:selectOneButton onchange="PF('carsTable').filter()" styleClass="custom-filter">
+                    <f:converter converterId="javax.faces.Boolean" />
+                    <f:selectItem itemLabel="All" itemValue="" />
+                    <f:selectItem itemLabel="Active" itemValue="true" />
+                    <f:selectItem itemLabel="In-Active" itemValue="false" />
+                </p:selectOneButton>
+            </f:facet>
+		</p:column>
+		
+		<p:column style="font-size: 11px; text-align: center;"    width="130" id="paymentDone" sortBy="#{row.paymentDone}" filterBy="#{row.paymentDone}">
+			<img src="/resources/imgs/#{row.paymentDone?'correct.png':'error.png'}" style="    width: 39px;"></img>
+			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
+			 <f:facet name="filter">
+                <p:selectOneButton onchange="PF('carsTable').filter()" styleClass="custom-filter">
+                    <f:converter converterId="javax.faces.Boolean" />
+                    <f:selectItem itemLabel="All" itemValue="" />
+                    <f:selectItem itemLabel="Paid" itemValue="true" />
+                    <f:selectItem itemLabel="Not-Paid" itemValue="false" />
+                </p:selectOneButton>
+            </f:facet>
+		</p:column>
+		
+    </p:dataTable>
+					
+				
+    <h:form id="progressBar">
+    <p:progressBar  widgetVar="pbAjax2" ajax="true" value="#{carPageBean.progressLoading}" labelTemplate="{value}%" styleClass="animated" global="false"/>
+    
+					  	<p:commandButton onclick="PF('pbAjax2').start();" class="btn btn-default" value="Deactive" action="#{carPageBean.deactiveAllListOfCarsWithDates()}" />
+    </h:form>	
+       						
+					</h:form>	
+							
+							
+							</div>
+						</section>
+                                       
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    <p>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            </div> 
+            
+        </form>
+        
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

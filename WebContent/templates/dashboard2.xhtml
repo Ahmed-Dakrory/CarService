@@ -632,7 +632,7 @@ margin-right: 0!important;
 		
 		<script>
 		dialogLoader = bootbox.dialog({
-    	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',
+    	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading ...</p>',
     	    closeButton: false,
     	    show: false
     	});
@@ -758,8 +758,8 @@ margin-right: 0!important;
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		setInterval(refreshMainViews, 600);
-			setInterval(refreshMainViews2, 600);
+		//setInterval(refreshMainViews, 600);
+		//	setInterval(refreshMainViews2, 600);
 			
 		</script>
 		</h:body>

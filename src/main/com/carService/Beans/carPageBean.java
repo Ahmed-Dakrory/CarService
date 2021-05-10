@@ -29,7 +29,6 @@ import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
-import main.com.carService.carLanding.categoriesEnum;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
@@ -90,6 +89,8 @@ public class carPageBean implements Serializable{
 
 	private carLanding selectedFreight;
 
+
+	List<carLanding> listOfCarsGroupByCategory;
 	List<carLanding> listOfCarsGroupByMake;
 	List<carLanding> listOfCarsGroupByModel;
 
@@ -134,6 +135,7 @@ public void refresh() {
 			.getExternalContext()
 			.getRequest();
 	listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
+	listOfCarsGroupByCategory = carLandingFacade.getAllGroupsOfCategory();
 	if(loginBean.getTheUserOfThisAccount()!=null) {
 		if(loginBean.getTheUserOfThisAccount().getRole()!=null) {
 				allInvoice=invoicelandingFacade.getAllByUserIdCustomer(loginBean.getTheUserOfThisAccount().getId());
@@ -142,9 +144,11 @@ public void refresh() {
 
 }
 	try{
-		Integer categories=Integer.parseInt(origRequest.getParameterValues("category")[0]);
+		String categories=String.valueOf(origRequest.getParameterValues("category")[0]);
 			if(categories!=null){
-
+				searchType = categories;
+				searchStartYear = "1960";
+				searchEndYear = "2020";
 				listOfAddedCars=new ArrayList<carLanding>();
 				listOfAddedCars=carLandingFacade.getAllForCategories(categories);
 			}
@@ -208,15 +212,27 @@ public void addCarToInvoice() {
 }
 
 
-public void sendNotificationForCustomerCopartWinning(int id) {
-	carLanding car = carLandingFacade.getById(id);
-	
+public void sendNotificationForCustomerCopartWinning() {
+
+	 FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 Integer carId = Integer.valueOf((String) map.get("carId"));
+	carLanding car = carLandingFacade.getById(carId);
+	if(car.getUserMaxBidId()!=null) {
 	sendNotificationForUser(car.getUserMaxBidId().getId(), "You have win From Copart", "/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
 	PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 			"			title: 'User Notification ',\r\n" + 
 			"			text: 'User Has Been Notified',\r\n" + 
 			"			left:\"2%\"\r\n" + 
 			"		});");
+	}else{
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'User Notification ',\r\n" + 
+				"			text: 'No User Assigned',\r\n" + 
+				"			left:\"2%\"\r\n" + 
+				"		});");
+	}
+		
 }
 
 
@@ -233,10 +249,12 @@ public void sendNotificationForUser(Integer id, String msg, String url) {
 	System.out.println("Done Ya Notification");
 	
 }
-public boolean isCarInFavourites(int num) {
-		
+public boolean isCarInFavourites() {
+	FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 String num = (String) map.get("num");
 		if(loginBean.isLoggedIn()) {
-		mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
+		mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, Integer.parseInt(num));
 		
 		if(watchListCarNew!=null) {
 			
@@ -246,10 +264,13 @@ public boolean isCarInFavourites(int num) {
 		return false;
 	}
 
-public boolean isNotCarInFavourites(int num) {
-	
+public boolean isNotCarInFavourites() {
+
+	 FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 String num = (String) map.get("num");
 	if(loginBean.isLoggedIn()) {
-	mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
+	mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, Integer.parseInt(num));
 	
 	if(watchListCarNew!=null) {
 		
@@ -259,13 +280,15 @@ public boolean isNotCarInFavourites(int num) {
 	return true;
 }
 	
-	public void setCarToWatchListNum(int num) {
-		
-		carLanding carId=carLandingFacade.getById(num);
+	public void setCarToWatchListNum() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+		 String num = (String) map.get("num");
+		carLanding carId=carLandingFacade.getById(Integer.parseInt(num));
 		if(loginBean.isLoggedIn()) {
 			System.out.println("Ahmed CarBid3");
 			//Make this car added to my watch List
-			mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, num);
+			mycars watchListCarNew=mycarsFacade.getByUserIdAndCarIdAndType(loginBean.getTheUserOfThisAccount().getId(), mycars.TYPE_WATCH_LIST, Integer.parseInt(num));
 			if(watchListCarNew==null) {
 				watchListCarNew =new mycars();
 				watchListCarNew.setCarLandingId(carId);
@@ -282,7 +305,7 @@ public boolean isNotCarInFavourites(int num) {
 				}
 			}
 			
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
+			PrimeFaces.current().executeScript("updatedWithId("+String.valueOf(num)+")");
 		}else {
 			
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -382,8 +405,13 @@ public void getCarWithVinNew() {
 }
 
 
-	public void selectCarRowForMain(SelectEvent event) {
-		selectedFreight = ((carLanding) event.getObject());
+	public void selectCarRowForMain() {
+
+		 FacesContext context = FacesContext.getCurrentInstance();
+		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+		 Integer carId = Integer.valueOf((String) map.get("carId"));
+		 selectedFreight=carLandingFacade.getById(carId);
+		 
 		System.out.println("Selected Id: "+selectedFreight.getLot());
 		PrimeFaces.current().executeScript("showDialog('car');");
 		updateImagesWithLink(selectedFreight.getAllImagesLink());
@@ -631,13 +659,6 @@ public void addCarForMain() {
 }
 
 
-	public categoriesEnum getCategoryEnum(int type) {
-        return categoriesEnum.values()[type];
-    }
-	
-	public categoriesEnum[] getCategoriesEnum() {
-        return categoriesEnum.values();
-    }
 	
 	
 	public main.com.carService.loginNeeds.loginBean getLoginBean() {
@@ -934,6 +955,16 @@ public void addCarForMain() {
 
 	public void setListOfCarsGroupByModel(List<carLanding> listOfCarsGroupByModel) {
 		this.listOfCarsGroupByModel = listOfCarsGroupByModel;
+	}
+
+
+	public List<carLanding> getListOfCarsGroupByCategory() {
+		return listOfCarsGroupByCategory;
+	}
+
+
+	public void setListOfCarsGroupByCategory(List<carLanding> listOfCarsGroupByCategory) {
+		this.listOfCarsGroupByCategory = listOfCarsGroupByCategory;
 	}
 
 	

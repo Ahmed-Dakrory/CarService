@@ -18,7 +18,9 @@
 			</ui:define>
 
 	<ui:define name="content">
-	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
 	
 	
     <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
@@ -34,6 +36,22 @@
     font-family: sans-serif;
 }
 
+ .tdStyle{
+  font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+ }
+
+
+table.dataTable tbody th, table.dataTable tbody td {
+    vertical-align: baseline;
+    border: #c5c3c3;
+    padding: 0.571em 0.857em;
+    border-style: dashed;
+    border-width: 0.1px;
+}
+
+
 body .ui-button {
     background-color: #007ad9;
     color: #ffffff;
@@ -48,6 +66,10 @@ body .ui-button {
     transition: background-color 0.3s;
 }
 
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: revert;
+}
 
 .ui-datatable .ui-datatable-header {
         text-align: right !important;
@@ -57,12 +79,36 @@ body .ui-button {
         display: none;
     }
     
+    
+    .dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: .25em;
+    padding-bottom: 0.7em;
+}
+
     body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
     content: "\f046";
     font-family: FontAwesome;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 2.5em;
+    padding: 0.9em 1.5em;
+    margin-left: 2px;
+    
+    }
+    
+    td {
+    font-weight: 700;
+    font-size: 12px;
+    font-family: arial;
+}
 	</style>
-        <form name="aspnetForm" method="post" action="./vehicleList.jsf" id="aspnetForm">
+	
+        <form name="aspnetForm" action="./vehicleList.jsf" id="aspnetForm">
 
 
 #{carPageBean.refresh()}
@@ -81,21 +127,7 @@ body .ui-button {
                                 <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
                                     <tr>
                                         <td>
-                                            <!-- Table name block -->
-                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                                                <tr>
-                                                    <td class="blkname" style="width: 20%; height: 22px;">
-                                                        <nobr>&nbsp;Freight List<span id="ctl00_BodyHolder_lblCount">: #{carPageBean.listOfAddedCars.size()}</span></nobr>
-                                                    </td>
-                                                    <td style="height: 22px">
-                                                        
-                                                    </td>
-                                                    <td style="height: 22px">
-                                                        &nbsp;
-                                                    </td>
-                                                   
-                                                </tr>
-                                            </table>
+                                           
                                          
                                             <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
                                             <table cellspacing="4" cellpadding="0" border="0" width="100%">
@@ -141,179 +173,30 @@ body .ui-button {
 									<h:commandButton value="Upload Files" action="#{carLandingBean.goToCarDataUpload()}" class="btn btn-default" ></h:commandButton>
 								</h:form>
 								<h:form id="tableForm">
-								
-        	
-    						 <p:dataTable id="carsTable" var="row" value="#{carPageBean.listOfAddedCars}" widgetVar="carsTable" 
-                 rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="10,50,100,200,500,1000"
-                 selectionMode="single" selection="#{carPageBean.selectedFreight}" rowKey="#{row.lot}"
-                 emptyMessage="No cars found with given criteria" filteredValue="#{carPageBean.listOfFilteredCars}">
- 
-        <f:facet name="header">
-            <p:outputPanel>
-             <div class="container" style="margin: 0;    width: 100%;">
-	            <div class="row">
-	            	<div class="col-md-3" style="text-align: left;">
-	            	<p:outputLabel for="datetime" value="Biding Date" />
-       				<p:calendar id="datetime" value="#{carPageBean.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss" >
-       					<p:ajax event="change" />
-       				</p:calendar>
-	            	
-	            	</div>
-	            	<div class="col-md-3" style="text-align: left;">
-	            		<p:outputLabel for="datetime2" value="End Biding Date" />
-       					<p:calendar id="datetime2" value="#{carPageBean.endDate}" pattern="yyyy-dd-MM HH:mm:ss" >
-       					<p:ajax event="change" />
-       					</p:calendar>
-       					
-	            	
-	            	</div> 
-	            	<div class="col-md-1" style="text-align: left;">
-	            		<p:commandButton class="btn btn-default" value="Search" action="#{carPageBean.getTheAllListOfCarsWithDates()}" update="carsTable"/>
-       					
-	            	
-	            	</div> 
-	            	
-	            	<div class="col-md-1" style="text-align: left;">
-	            		<p:commandButton class="btn btn-default" value="Search Bid" action="#{carPageBean.getTheBidListOfCarsWithDates()}" update="carsTable"/>
-       					
-	            	
-	            	</div> 
-	            	
-	            	
-	            	
-	            	<div class="col-md-3" style="text-align: right;">
-	            		<h:outputText value="Search all fields:" />
-	            		<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-	            	</div>
-	            	<div class="col-md-1" style="text-align: left;">
-	            		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="pi pi-align-justify" />
-       		 	<p:columnToggler datasource="carsTable" trigger="toggler" />
-	            	</div>
-	            </div>
-            </div>
-            </p:outputPanel>
-        </f:facet>
-        
-         
-    
- 		<p:column style="font-size: 11px;    text-align: center;" width="90" id="imageId" sortBy="#{row.mainImage}" filterBy="#{row.mainImage}">
-			<h:graphicImage value="#{row.mainImage}" alt="image#{row.mainImage}" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>
-			<f:facet name="header">	<h:outputText value="Image" /> </f:facet>
-		</p:column>
-		
-		
-		<p:ajax event="rowSelect" onstart="showDialog('car');" listener="#{carPageBean.selectCarRowForMain}"  />
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="uuid" sortBy="#{row.uuid}" filterBy="#{row.uuid}">
-			
-			<!-- 	<p:commandLink onclick="showDialog('car');" rendered="#{loginBean.theUserOfThisAccount.role==0?'true':'false'}" value="#{row.uuid}" action="#{carPageBean.selectCarForMain(row.id)}"/>
-			
-			 -->
-			<h:outputText value="#{row.uuid}" />
+					 <div class="table-responsive p-3 mb-3 border  rounded" style="    border-style: solid;    padding: 21px;    border-width: 1px;    border-color: gray;">
+                   <input type="hidden" id="ListType" name="ListType" value="normal"/>
+                    <table id="listTable" class="table table-striped table-hover border" style="width: 1274px;width: 100%;padding: 10px 30px  13px 7px;">
+                      <thead>
+                          <tr>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">Image</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">Vin</a></th>
+                              <th class="d-block d-sm-none" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">Damage Description</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Transimission</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> Lot Number</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Categories</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Make/Model</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> End Date</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Year</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Color</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Max Bid User</a></th>
+                              <th class="d-none d-sm-block" style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Notify</a></th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  </table>
 
-			<f:facet name="header">	<h:outputText value="Vin" /> </f:facet>
-		</p:column>
-		
-		
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="code" sortBy="#{row.damageDescription}" filterBy="#{row.damageDescription}">
-			<h:outputText value="#{row.damageDescription}" />
-			<f:facet name="header">	<h:outputText value="Damage Description" /> </f:facet>
-		</p:column>
-		
-		
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="transmission" sortBy="#{row.transmission}" filterBy="#{row.transmission}">
-			<h:outputText value="#{row.transmission}" />
-			<f:facet name="header">	<h:outputText value="Transmission" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="docType" sortBy="#{row.docType}" filterBy="#{row.docType}">
-			<h:outputText value="#{row.docType}" />
-			<f:facet name="header">	<h:outputText value="Doc Type" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="lot" sortBy="#{row.lot}" filterBy="#{row.lot}">
-			
-				<a   href="https://www.copart.com/lot/#{row.lot}" target="_blank">#{row.lot}</a>
-			
 
-			<f:facet name="header">	<h:outputText value="Lot Number" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="category" sortBy="#{carPageBean.getCategoryEnum(row.category).name}" filterBy="#{carPageBean.getCategoryEnum(row.category).name}">
-			<h:outputText value="#{carPageBean.getCategoryEnum(row.category).name}" />
-			<f:facet name="header">	<h:outputText value="Categories" /> </f:facet>
-		</p:column>
-		
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="model" sortBy="#{row.model}" filterBy="#{row.model}">
-			<h:outputText value="#{row.make}/#{row.model}" />
-			<f:facet name="header">	<h:outputText value="Make/Model" /> </f:facet>
-		</p:column>
-		
-		
-		
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="endDate" sortBy="#{row.endDate}" filterBy="#{row.endDate}">
-			<h:outputText value="#{row.endDate}" />
-			<f:facet name="header">	<h:outputText value="End Date" /> </f:facet>
-		</p:column>
-		
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="year" sortBy="#{row.year}" filterBy="#{row.year}">
-			<h:outputText value="#{row.year}" />
-			<f:facet name="header">	<h:outputText value="Year" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px; text-align: center;"    width="130" id="color" sortBy="#{row.color}" filterBy="#{row.color}">
-			<h:outputText value="#{row.color}" />
-			<f:facet name="header">	<h:outputText value="Color" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="userNameBid" sortBy="#{row.userMaxBidId.userName}" filterBy="#{row.userMaxBidId.userName}">
-			<h:outputText value="#{row.userMaxBidId.userName}" />
-			<f:facet name="header">	<h:outputText value="Max Bid User" /> </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px;    text-align: center;" width="130" id="sendData" sortBy="#{row.id}" filterBy="#{row.id}">
-			
-				<p:commandButton class="fa fa-bell" action="#{carPageBean.sendNotificationForCustomerCopartWinning(row.id)}" style="padding: 2%;background: white; width: 25px;height: 25px;" value=""/>
-												
-			<f:facet name="header">	<h:outputText value="Not For Win Cars" /> </f:facet>
-		</p:column>
-		
-		
-		<p:column style="font-size: 11px; text-align: center;"    width="130" id="active" sortBy="#{row.active}" filterBy="#{row.active}">
-			<img src="/resources/images/#{row.active?'check_on.gif':'check_off.gif'}"></img>
-			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
-			 <f:facet name="filter">
-                <p:selectOneButton onchange="PF('carsTable').filter()" styleClass="custom-filter">
-                    <f:converter converterId="javax.faces.Boolean" />
-                    <f:selectItem itemLabel="All" itemValue="" />
-                    <f:selectItem itemLabel="Active" itemValue="true" />
-                    <f:selectItem itemLabel="In-Active" itemValue="false" />
-                </p:selectOneButton>
-            </f:facet>
-		</p:column>
-		
-		<p:column style="font-size: 11px; text-align: center;"    width="130" id="paymentDone" sortBy="#{row.paymentDone}" filterBy="#{row.paymentDone}">
-			<img src="/resources/imgs/#{row.paymentDone?'correct.png':'error.png'}" style="    width: 39px;"></img>
-			<f:facet name="header">	<h:outputText value="Statue" /> </f:facet>
-			 <f:facet name="filter">
-                <p:selectOneButton onchange="PF('carsTable').filter()" styleClass="custom-filter">
-                    <f:converter converterId="javax.faces.Boolean" />
-                    <f:selectItem itemLabel="All" itemValue="" />
-                    <f:selectItem itemLabel="Paid" itemValue="true" />
-                    <f:selectItem itemLabel="Not-Paid" itemValue="false" />
-                </p:selectOneButton>
-            </f:facet>
-		</p:column>
-		
-    </p:dataTable>
-					
+                  </div>
 				
     <h:form id="progressBar">
     <p:progressBar  widgetVar="pbAjax2" ajax="true" value="#{carPageBean.progressLoading}" labelTemplate="{value}%" styleClass="animated" global="false"/>
@@ -345,8 +228,186 @@ body .ui-button {
             </div> 
             
         </form>
-        
+        <h:form>
+     <p:remoteCommand name="notifyWin" action="#{carPageBean.sendNotificationForCustomerCopartWinning()}"> 
+	                                	</p:remoteCommand>
+     <p:remoteCommand name="openThisCar" action="#{carPageBean.selectCarRowForMain()}"> 
+	                                	</p:remoteCommand>
+	         </h:form>
+       
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+     <script>
      
+     $('#listTable').DataTable({
+         processing: true,
+         serverSide: true
+         ,dom: 'lBfrtip',
+         buttons: [
+         { extend: 'copy', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'excelHtml5', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'print', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         }
+         ]
+         ,
+         lengthMenu: [
+         [ 5,10,50,100,200,-1 ],
+         [ '5','10',' 50 ', ' 100 ',' 200 ', 'Show All' ]
+         ],
+         ajax: {
+             "url": "/rest/ApiCarLanding/all",
+             "data": function ( d ) {
+             //  d.bodyiesOfWatertype = $('#dataOfWaterType').val();
+                 
+             }
+         },
+         aoColumns: [
+           {
+               className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                   
+               return '<img src="'+item.mainImage+'" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>';
+               }
+             },
+         {
+           className: "d-none d-sm-block tdStyle","mData": null, "sWidth": "25%","mRender": function (item) { 
+        	 
+               return '<a onclick="open_car('+item.id+')" href="#" >'+item.uuid+'</a>';
+             
+         }
+         }
+         
+        ,
+         {
+           className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+             
+             
+        	   return item.damageDescription;
+               
+
+             }
+         }                 
+        ,
+        {
+          className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+            
+            
+       	   return item.transmission;
+              
+
+            }
+        }              
+        ,
+        {
+          className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+            
+            
+       	   return item.lot;
+              
+
+            }
+        }              
+        ,
+        {
+          className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+           
+            
+       	   return item.category;
+              
+
+            }
+        }              
+        ,
+        {
+          className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+            
+            
+       	   return item.make+'/'+item.model;
+              
+
+            }
+        }              
+        ,
+        {
+          className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+            
+            
+       	   return item.endDate;
+              
+
+            }
+        } ,
+        {
+            className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+              
+              
+         	   return item.year;
+                
+
+              }
+          }  ,
+          {
+              className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+                
+                
+           	   return item.color;
+                  
+
+                }
+            }  ,
+            {
+                className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+                  
+                  
+             	   return item.userMaxBidFirstName+" "+item.userMaxBidLasttName;
+                    
+
+                  }
+              }  
+            , 
+            {
+                className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+                  
+                  
+             	   return '<a href="#" class="fa fa-bell" onclick="notifyThisWinCar('+item.id+')" style="padding: 2%;width: 25px;height: 25px;" ></a>';
+                    
+
+                  }
+              }  
+             
+           
+         
+     ]
+
+     } );
+
+
+     function open_car(id){
+    	 showDialog("Car with id: "+id);
+       	openThisCar([{name: 'carId', value: id}]); 
+       }
+     
+     function notifyThisWinCar(id){
+         
+    	 notifyWin([{name: 'carId', value: id}]); 
+       }
+     </script>                     	
+	                                	
 	</ui:define>
 	
 		

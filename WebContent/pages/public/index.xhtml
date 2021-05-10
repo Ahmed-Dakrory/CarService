@@ -16,6 +16,14 @@
 	</ui:define>
 
 	<ui:define name="content">
+	<style>
+	 select{
+        color:#aaa;
+    }
+    option:not(first-child) {
+        color: #000;
+    }
+	</style>
 		<section id="find-your-car">
 	    <div class="container" style="direction:rtl">
 	<div class="row">
@@ -30,8 +38,8 @@
 		            
 		            	<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="btn w-100" >
 	
-							<f:selectItem itemLabel="أى نوع" itemValue="%" />
-							<f:selectItems value="#{carPageBean.categoriesEnum}" var="data" itemLabel="#{data.name}" itemValue="#{data.type}" />
+							<f:selectItem itemLabel="أى نوع" itemValue="" class="others" />
+							<f:selectItems value="#{carPageBean.listOfCarsGroupByCategory}" class="others" var="data" itemLabel="#{data.category}" itemValue="#{data.category}" />
 						</h:selectOneMenu>
 		               
 		              </div>
@@ -42,8 +50,8 @@
 		            <div class="dropdown btn btn-secondary w-100">
 			               	<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"   class="btn w-100">
 								<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
-								<f:selectItem itemLabel="أى نوع" itemValue="%" />
-								<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+								<f:selectItem itemLabel="أى نوع" itemValue="" class="others" />
+								<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" class="others" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
 							</h:selectOneMenu>
 		              </div>
 		        </div>
@@ -52,8 +60,8 @@
 		            <div class="dropdown btn btn-secondary w-100">
 		               		<h:selectOneMenu value="#{carPageBean.searchModel}" class="btn w-100"  id="model" name="model"  >
 								
-								<f:selectItem itemLabel="أى موديل" itemValue="%" />
-								<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
+								<f:selectItem itemLabel="أى موديل" itemValue="" class="others" />
+								<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" class="others" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
 							</h:selectOneMenu>
 		                </div>
 		        </div>
@@ -64,56 +72,56 @@
 		                
 		                <h:selectOneMenu value="#{carPageBean.searchStartYear}" class="btn w-100" >
 
-							<f:selectItem itemLabel="2020" itemValue="2020"/>
-							<f:selectItem itemLabel="2019" itemValue="2019"/>
-							<f:selectItem itemLabel="2018" itemValue="2018"/>
-							<f:selectItem itemLabel="2017" itemValue="2017"/>
-							<f:selectItem itemLabel="2016" itemValue="2016"/>
-							<f:selectItem itemLabel="2015" itemValue="2015"/>
-							<f:selectItem itemLabel="2014" itemValue="2014"/>
-							<f:selectItem itemLabel="2013" itemValue="2013"/>
-							<f:selectItem itemLabel="2012" itemValue="2012"/>
-							<f:selectItem itemLabel="2011" itemValue="2011"/>
-							<f:selectItem itemLabel="2010" itemValue="2010"/>
-							<f:selectItem itemLabel="2009" itemValue="2009"/>
-							<f:selectItem itemLabel="2008" itemValue="2008"/>
-							<f:selectItem itemLabel="2007" itemValue="2007"/>
-							<f:selectItem itemLabel="2006" itemValue="2006"/>
-							<f:selectItem itemLabel="2005" itemValue="2005"/>
-							<f:selectItem itemLabel="2004" itemValue="2004"/>
-							<f:selectItem itemLabel="2003" itemValue="2003"/>
-							<f:selectItem itemLabel="2002" itemValue="2002"/>
-							<f:selectItem itemLabel="2001" itemValue="2001"/>
-							<f:selectItem itemLabel="2000" itemValue="2000"/>
-							<f:selectItem itemLabel="1999" itemValue="1999"/>
-							<f:selectItem itemLabel="1998" itemValue="1998"/>
-							<f:selectItem itemLabel="1997" itemValue="1997"/>
-							<f:selectItem itemLabel="1996" itemValue="1996"/>
-							<f:selectItem itemLabel="1995" itemValue="1995"/>
-							<f:selectItem itemLabel="1994" itemValue="1994"/>
-							<f:selectItem itemLabel="1993" itemValue="1993"/>
-							<f:selectItem itemLabel="1992" itemValue="1992"/>
-							<f:selectItem itemLabel="1991" itemValue="1991"/>
-							<f:selectItem itemLabel="1990" itemValue="1990"/>
-							<f:selectItem itemLabel="1989" itemValue="1989"/>
-							<f:selectItem itemLabel="1988" itemValue="1988"/>
-							<f:selectItem itemLabel="1987" itemValue="1987"/>
-							<f:selectItem itemLabel="1986" itemValue="1986"/>
-							<f:selectItem itemLabel="1985" itemValue="1985"/>
-							<f:selectItem itemLabel="1984" itemValue="1984"/>
-							<f:selectItem itemLabel="1983" itemValue="1983"/>
-							<f:selectItem itemLabel="1982" itemValue="1982"/>
-							<f:selectItem itemLabel="1980" itemValue="1980"/>
-							<f:selectItem itemLabel="1979" itemValue="1979"/>
-							<f:selectItem itemLabel="1978" itemValue="1978"/>
-							<f:selectItem itemLabel="1977" itemValue="1977"/>
-							<f:selectItem itemLabel="1976" itemValue="1976"/>
-							<f:selectItem itemLabel="1975" itemValue="1975"/>
-							<f:selectItem itemLabel="1973" itemValue="1973"/>
-							<f:selectItem itemLabel="1972" itemValue="1972"/>
-							<f:selectItem itemLabel="1971" itemValue="1971"/>
-							<f:selectItem itemLabel="1965" itemValue="1965"/>
-							<f:selectItem itemLabel="1960" itemValue="1960"/>
+							<f:selectItem itemLabel="2020" class="others" itemValue="2020"/>
+							<f:selectItem itemLabel="2019" class="others" itemValue="2019"/>
+							<f:selectItem itemLabel="2018" class="others" itemValue="2018"/>
+							<f:selectItem itemLabel="2017" class="others" itemValue="2017"/>
+							<f:selectItem itemLabel="2016" class="others" itemValue="2016"/>
+							<f:selectItem itemLabel="2015" class="others" itemValue="2015"/>
+							<f:selectItem itemLabel="2014" class="others" itemValue="2014"/>
+							<f:selectItem itemLabel="2013" class="others" itemValue="2013"/>
+							<f:selectItem itemLabel="2012" class="others" itemValue="2012"/>
+							<f:selectItem itemLabel="2011" class="others" itemValue="2011"/>
+							<f:selectItem itemLabel="2010" class="others" itemValue="2010"/>
+							<f:selectItem itemLabel="2009" class="others" itemValue="2009"/>
+							<f:selectItem itemLabel="2008" class="others" itemValue="2008"/>
+							<f:selectItem itemLabel="2007" class="others" itemValue="2007"/>
+							<f:selectItem itemLabel="2006" class="others" itemValue="2006"/>
+							<f:selectItem itemLabel="2005" class="others" itemValue="2005"/>
+							<f:selectItem itemLabel="2004" class="others" itemValue="2004"/>
+							<f:selectItem itemLabel="2003" class="others" itemValue="2003"/>
+							<f:selectItem itemLabel="2002" class="others" itemValue="2002"/>
+							<f:selectItem itemLabel="2001" class="others" itemValue="2001"/>
+							<f:selectItem itemLabel="2000" class="others" itemValue="2000"/>
+							<f:selectItem itemLabel="1999" class="others" itemValue="1999"/>
+							<f:selectItem itemLabel="1998" class="others" itemValue="1998"/>
+							<f:selectItem itemLabel="1997" class="others" itemValue="1997"/>
+							<f:selectItem itemLabel="1996" class="others" itemValue="1996"/>
+							<f:selectItem itemLabel="1995" class="others" itemValue="1995"/>
+							<f:selectItem itemLabel="1994" class="others" itemValue="1994"/>
+							<f:selectItem itemLabel="1993" class="others" itemValue="1993"/>
+							<f:selectItem itemLabel="1992" class="others" itemValue="1992"/>
+							<f:selectItem itemLabel="1991" class="others" itemValue="1991"/>
+							<f:selectItem itemLabel="1990" class="others" itemValue="1990"/>
+							<f:selectItem itemLabel="1989" class="others" itemValue="1989"/>
+							<f:selectItem itemLabel="1988" class="others" itemValue="1988"/>
+							<f:selectItem itemLabel="1987" class="others" itemValue="1987"/>
+							<f:selectItem itemLabel="1986" class="others" itemValue="1986"/>
+							<f:selectItem itemLabel="1985" class="others" itemValue="1985"/>
+							<f:selectItem itemLabel="1984" class="others" itemValue="1984"/>
+							<f:selectItem itemLabel="1983" class="others" itemValue="1983"/>
+							<f:selectItem itemLabel="1982" class="others" itemValue="1982"/>
+							<f:selectItem itemLabel="1980" class="others" itemValue="1980"/>
+							<f:selectItem itemLabel="1979" class="others" itemValue="1979"/>
+							<f:selectItem itemLabel="1978" class="others" itemValue="1978"/>
+							<f:selectItem itemLabel="1977" class="others" itemValue="1977"/>
+							<f:selectItem itemLabel="1976" class="others" itemValue="1976"/>
+							<f:selectItem itemLabel="1975" class="others" itemValue="1975"/>
+							<f:selectItem itemLabel="1973" class="others" itemValue="1973"/>
+							<f:selectItem itemLabel="1972" class="others" itemValue="1972"/>
+							<f:selectItem itemLabel="1971" class="others" itemValue="1971"/>
+							<f:selectItem itemLabel="1965" class="others" itemValue="1965"/>
+							<f:selectItem itemLabel="1960" class="others" itemValue="1960"/>
 
 						</h:selectOneMenu>
 
@@ -126,56 +134,56 @@
 		            	
 						<h:selectOneMenu value="#{carPageBean.searchEndYear}" class="btn w-100"  >
 						
-								<f:selectItem itemLabel="2020" itemValue="2020"/>
-								<f:selectItem itemLabel="2019" itemValue="2019"/>
-								<f:selectItem itemLabel="2018" itemValue="2018"/>
-								<f:selectItem itemLabel="2017" itemValue="2017"/>
-								<f:selectItem itemLabel="2016" itemValue="2016"/>
-								<f:selectItem itemLabel="2015" itemValue="2015"/>
-								<f:selectItem itemLabel="2014" itemValue="2014"/>
-								<f:selectItem itemLabel="2013" itemValue="2013"/>
-								<f:selectItem itemLabel="2012" itemValue="2012"/>
-								<f:selectItem itemLabel="2011" itemValue="2011"/>
-								<f:selectItem itemLabel="2010" itemValue="2010"/>
-								<f:selectItem itemLabel="2009" itemValue="2009"/>
-								<f:selectItem itemLabel="2008" itemValue="2008"/>
-								<f:selectItem itemLabel="2007" itemValue="2007"/>
-								<f:selectItem itemLabel="2006" itemValue="2006"/>
-								<f:selectItem itemLabel="2005" itemValue="2005"/>
-								<f:selectItem itemLabel="2004" itemValue="2004"/>
-								<f:selectItem itemLabel="2003" itemValue="2003"/>
-								<f:selectItem itemLabel="2002" itemValue="2002"/>
-								<f:selectItem itemLabel="2001" itemValue="2001"/>
-								<f:selectItem itemLabel="2000" itemValue="2000"/>
-								<f:selectItem itemLabel="1999" itemValue="1999"/>
-								<f:selectItem itemLabel="1998" itemValue="1998"/>
-								<f:selectItem itemLabel="1997" itemValue="1997"/>
-								<f:selectItem itemLabel="1996" itemValue="1996"/>
-								<f:selectItem itemLabel="1995" itemValue="1995"/>
-								<f:selectItem itemLabel="1994" itemValue="1994"/>
-								<f:selectItem itemLabel="1993" itemValue="1993"/>
-								<f:selectItem itemLabel="1992" itemValue="1992"/>
-								<f:selectItem itemLabel="1991" itemValue="1991"/>
-								<f:selectItem itemLabel="1990" itemValue="1990"/>
-								<f:selectItem itemLabel="1989" itemValue="1989"/>
-								<f:selectItem itemLabel="1988" itemValue="1988"/>
-								<f:selectItem itemLabel="1987" itemValue="1987"/>
-								<f:selectItem itemLabel="1986" itemValue="1986"/>
-								<f:selectItem itemLabel="1985" itemValue="1985"/>
-								<f:selectItem itemLabel="1984" itemValue="1984"/>
-								<f:selectItem itemLabel="1983" itemValue="1983"/>
-								<f:selectItem itemLabel="1982" itemValue="1982"/>
-								<f:selectItem itemLabel="1980" itemValue="1980"/>
-								<f:selectItem itemLabel="1979" itemValue="1979"/>
-								<f:selectItem itemLabel="1978" itemValue="1978"/>
-								<f:selectItem itemLabel="1977" itemValue="1977"/>
-								<f:selectItem itemLabel="1976" itemValue="1976"/>
-								<f:selectItem itemLabel="1975" itemValue="1975"/>
-								<f:selectItem itemLabel="1973" itemValue="1973"/>
-								<f:selectItem itemLabel="1972" itemValue="1972"/>
-								<f:selectItem itemLabel="1971" itemValue="1971"/>
-								<f:selectItem itemLabel="1965" itemValue="1965"/>
-								<f:selectItem itemLabel="1960" itemValue="1960"/>
+							<f:selectItem itemLabel="2020" class="others" itemValue="2020"/>
+							<f:selectItem itemLabel="2019" class="others" itemValue="2019"/>
+							<f:selectItem itemLabel="2018" class="others" itemValue="2018"/>
+							<f:selectItem itemLabel="2017" class="others" itemValue="2017"/>
+							<f:selectItem itemLabel="2016" class="others" itemValue="2016"/>
+							<f:selectItem itemLabel="2015" class="others" itemValue="2015"/>
+							<f:selectItem itemLabel="2014" class="others" itemValue="2014"/>
+							<f:selectItem itemLabel="2013" class="others" itemValue="2013"/>
+							<f:selectItem itemLabel="2012" class="others" itemValue="2012"/>
+							<f:selectItem itemLabel="2011" class="others" itemValue="2011"/>
+							<f:selectItem itemLabel="2010" class="others" itemValue="2010"/>
+							<f:selectItem itemLabel="2009" class="others" itemValue="2009"/>
+							<f:selectItem itemLabel="2008" class="others" itemValue="2008"/>
+							<f:selectItem itemLabel="2007" class="others" itemValue="2007"/>
+							<f:selectItem itemLabel="2006" class="others" itemValue="2006"/>
+							<f:selectItem itemLabel="2005" class="others" itemValue="2005"/>
+							<f:selectItem itemLabel="2004" class="others" itemValue="2004"/>
+							<f:selectItem itemLabel="2003" class="others" itemValue="2003"/>
+							<f:selectItem itemLabel="2002" class="others" itemValue="2002"/>
+							<f:selectItem itemLabel="2001" class="others" itemValue="2001"/>
+							<f:selectItem itemLabel="2000" class="others" itemValue="2000"/>
+							<f:selectItem itemLabel="1999" class="others" itemValue="1999"/>
+							<f:selectItem itemLabel="1998" class="others" itemValue="1998"/>
+							<f:selectItem itemLabel="1997" class="others" itemValue="1997"/>
+							<f:selectItem itemLabel="1996" class="others" itemValue="1996"/>
+							<f:selectItem itemLabel="1995" class="others" itemValue="1995"/>
+							<f:selectItem itemLabel="1994" class="others" itemValue="1994"/>
+							<f:selectItem itemLabel="1993" class="others" itemValue="1993"/>
+							<f:selectItem itemLabel="1992" class="others" itemValue="1992"/>
+							<f:selectItem itemLabel="1991" class="others" itemValue="1991"/>
+							<f:selectItem itemLabel="1990" class="others" itemValue="1990"/>
+							<f:selectItem itemLabel="1989" class="others" itemValue="1989"/>
+							<f:selectItem itemLabel="1988" class="others" itemValue="1988"/>
+							<f:selectItem itemLabel="1987" class="others" itemValue="1987"/>
+							<f:selectItem itemLabel="1986" class="others" itemValue="1986"/>
+							<f:selectItem itemLabel="1985" class="others" itemValue="1985"/>
+							<f:selectItem itemLabel="1984" class="others" itemValue="1984"/>
+							<f:selectItem itemLabel="1983" class="others" itemValue="1983"/>
+							<f:selectItem itemLabel="1982" class="others" itemValue="1982"/>
+							<f:selectItem itemLabel="1980" class="others" itemValue="1980"/>
+							<f:selectItem itemLabel="1979" class="others" itemValue="1979"/>
+							<f:selectItem itemLabel="1978" class="others" itemValue="1978"/>
+							<f:selectItem itemLabel="1977" class="others" itemValue="1977"/>
+							<f:selectItem itemLabel="1976" class="others" itemValue="1976"/>
+							<f:selectItem itemLabel="1975" class="others" itemValue="1975"/>
+							<f:selectItem itemLabel="1973" class="others" itemValue="1973"/>
+							<f:selectItem itemLabel="1972" class="others" itemValue="1972"/>
+							<f:selectItem itemLabel="1971" class="others" itemValue="1971"/>
+							<f:selectItem itemLabel="1965" class="others" itemValue="1965"/>
+							<f:selectItem itemLabel="1960" class="others" itemValue="1960"/>
 								
 								</h:selectOneMenu>
 		            	
@@ -254,58 +262,58 @@
 			            <div class="col-md-7 categoriesText pl-5">
 			                <h2>كل أنواع المركبات</h2>
 			                <div class="row">
-			                    <div class="col-md-1" onclick="openCategories(0);">
+			                    <div class="col-md-1" onclick="openCategories('SMALL CARS');">
 			                        <i class="fas fa-car-side"></i>
 			                    </div>
 			                    
 			                    
-			                    <div class="col-md-5" onclick="openCategories(0);">
+			                    <div class="col-md-5" onclick="openCategories('SMALL CARS');">
 			                     <h5>Small Cars</h5>
 			                     <p>The definition of compact cars are cars that are bigger than a supermini and smaller 
 			                         than a mid-sized car</p>
 			                    </div>
 			
-			                    <div class="col-md-1" onclick="openCategories(1);">
+			                    <div class="col-md-1" onclick="openCategories('SUV');">
 			                        <i class="fas fa-car"></i>
 			                       </div>
-			                    <div class="col-md-5" onclick="openCategories(1);">
+			                    <div class="col-md-5" onclick="openCategories('SUV');">
 			                     <h5>SUV Cars</h5>
 			                     <p>Sport utility vehicle (SUV) is a category of motor vehicles that combine elements
 			                          of road-going passenger cars with features from off-road vehicles</p>
 			                    </div>
 			
-			                    <div class="col-md-1" onclick="openCategories(2);">
+			                    <div class="col-md-1" onclick="openCategories('Motor Cycle');">
 			                        <i class="fas fa-motorcycle"></i>
 			                         </div>
-			                    <div class="col-md-5" onclick="openCategories(2);">
+			                    <div class="col-md-5" onclick="openCategories('Motor Cycle');">
 			                     <h5>MotorCycles</h5>
 			                     <p>A motorcycle, often called a bike, motorbike, or cycle, is a two- or three-wheeled 
 			                         motor vehicle.</p>
 			                    </div>
 			
 			
-			                    <div class="col-md-1" onclick="openCategories(3);">
+			                    <div class="col-md-1" onclick="openCategories('JetSkies');">
 			<img src="/resources/Image/5bbfb5c630ed7-da7545b194ac6c7638c803481404e64e.png" class="w-100" alt=""/>                     
 			    </div>
-			                    <div class="col-md-5" onclick="openCategories(3);">
+			                    <div class="col-md-5" onclick="openCategories('JetSkies');">
 			                     <h5>Jet Skis</h5>
 			                     <p>Jet Ski is the brand name of a personal water craft (PWC). A runabout style PWC 
 			                         typically carries 1–3 people seated in a configuration like a typical bicycle or motorcycle.</p>
 			                    </div>
 			
-			                    <div class="col-md-1" onclick="openCategories(4);">
+			                    <div class="col-md-1" onclick="openCategories('Snow Mobile');">
 			                        <img src="/resources/Image/decal-sticker-snowmobile-sport-vehicle-others-ae3279e8d06ab3661e4135d1817c569b.png" class="w-100" alt=""/>                     
 			                    </div>
-			                    <div class="col-md-5" onclick="openCategories(4);">
+			                    <div class="col-md-5" onclick="openCategories('Snow Mobile');">
 			                     <h5>Snow Mobile</h5>
 			                     <p>A snowmobile, also known as a motor sled, motor sledge, skimobile, snowscooter, 
 			                         or snowmachine, is a motorized vehicle designed for winter travel and recreation on snow.</p>
 			                    </div>
 			
-			                    <div class="col-md-1" onclick="openCategories(5);">
+			                    <div class="col-md-1" onclick="openCategories('Heavy Duties');">
 			                        <i class="fas fa-truck-moving"></i>
 			                                             </div>
-			                    <div class="col-md-5" onclick="openCategories(5);">
+			                    <div class="col-md-5" onclick="openCategories('Heavy Duties');">
 			                     <h5>Heavy Duty Vehicle</h5>
 			                     <p>Heavy-duty trucks have a gross vehicle weight of 33,000 lb (15,000 kg) or more</p>
 			                    </div>

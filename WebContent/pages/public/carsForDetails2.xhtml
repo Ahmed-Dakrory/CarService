@@ -1,0 +1,1062 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/templates/publicTemplate.xhtml">
+
+<ui:define name="tagsMeta">
+
+<meta property="og:image:height" content="370"/>
+<meta property="og:image:width" content="370"/>
+<meta property="og:url" content="http://adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="#{carLandingBean.selectedCarPage.mainImage}"/>
+
+	<meta property="og:title" content="ALMZZAD Sallabi Car Dealers"/>
+
+	<meta property="og:description" content="#{carLandingBean.selectedCarPage.year} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model} for Sale in #{carLandingBean.selectedCarPage.auctionLocation}: ##{carLandingBean.selectedCarPage.id}"/>
+
+</ui:define>	
+
+	<ui:define name="content">
+
+		
+		  <link rel="stylesheet" href="#{resource['css:public/font-awesomeNew.min.css']}" />
+	<style>
+	body .ui-widget-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 300%;
+}
+	#content h2 {
+    background: #444444;
+    font-weight: 700;
+}
+
+.ui-state-active{
+background: #c2c5c7;
+}
+
+.ui-button.ui-state-focus{
+background: #c2c5c7;
+
+}
+	</style>
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
+    
+	#{carLandingBean.refresh()}
+	
+	#{carLandingBean.reloadedParametersAndPanelRefresh()}
+	<h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{carLandingBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+		</h:form>
+		<script>
+		setInterval(refreshMainViews, 600);
+			
+		</script>
+		
+	<div class="center">
+
+<div class="container">
+
+
+<div id="content">
+<div class="lot" itemscope="" itemtype="http://schema.org/Vehicle" itemid="#vehicle">
+<h:form id="setWatchListData">
+<div class="upper">
+<a class="left-link" href="javascript:history.back()">
+<span class="hidden-md hidden-lg">&lt;</span>
+<span class="hidden-xs hidden-sm">To the previous page</span>
+</a>
+
+
+<div class="watchlist" >
+<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'none':'block'}" class="watchlist-link w-add" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
+<a onclick="setWatchList();" style="display:#{carLandingBean.carInWatchList?'block':'none'}" class="watchlist-link w-remove" id="wl-copart_35364969" rel="popover" data-trigger="hover" title="Please Register" href="#"> Watchlist</a>
+</div>
+</div>
+</h:form>
+
+<h:form>
+<p:remoteCommand name="setWatchList" actionListener="#{carLandingBean.setCarToWatchList()}"/>
+</h:form>
+<br/>
+<br/>
+<div class="title" id="lot-title">
+<h1 itemprop="name" style="    font-size: 30px;">#{carLandingBean.selectedCarPage.year} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model} for Sale in #{carLandingBean.selectedCarPage.auctionLocation}: ##{carLandingBean.selectedCarPage.id}</h1>
+</div>
+<br/>
+<h:form id="differenceTimeForm">
+<h:panelGroup id="differenceTime" style="font-size: 28px;color: #666666;font-family: serif;font-weight: 600;">
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'false':'true'}">
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}">
+Now Bid Faster to get it
+</h:panelGroup>
+<br></br>
+<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}">Total Remains: #{carLandingBean.differenceTimeDateFromBidToEnd}</h:panelGroup>
+</h:panelGroup>
+
+<h:panelGroup rendered="#{carLandingBean.diffFromStartToBid>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'true':'false'}"> Remains: #{carLandingBean.differenceTimeDateFromStartToBid} until Biding
+</h:panelGroup>
+
+</h:panelGroup>
+</h:form>
+<br/>
+<div class="row">
+
+ <style>
+   
+
+.carousel-cell {
+  width: 507px;
+  height: 350px;
+}
+
+   </style>
+
+<div class="col-md-6 col-sm-6">
+<div class="container" style="width: 103%;margin-bottom: 9%;">
+ 
+
+  <!-- Flickity HTML init -->
+<div class="carousel" style="width:103%"  data-flickity='{ "autoPlay": true , "wrapAround": true }'>
+          
+        <ui:repeat var="data" value="#{carLandingBean.images}">
+        
+          <div class="carousel-cell owl-item active center">
+          	<h:graphicImage value="#{data}" alt="image#{data}" style="width: 505px;"/>
+           
+          </div>
+        	
+        </ui:repeat>
+            </div>
+</div>
+
+
+<div class="hidden-xs">
+<div class="details details_header">
+<h2>Vehicle Details</h2>
+</div>
+<table class="detailstable vehicle-properties">
+<tbody><tr>
+<td>
+<span>Id #</span>
+</td>
+<td>#{carLandingBean.selectedCarPage.id} 
+</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Make</span>
+</span>
+</td>
+<td><span itemprop="manufacturer">#{carLandingBean.selectedCarPage.make} </span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Model</span>
+</span>
+</td>
+<td><span itemprop="model">#{carLandingBean.selectedCarPage.model} </span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Primary Damage</span>
+</span>
+</td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.damageDescription}</span></td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Secondary Damage</span>
+</span>
+</td>
+<td>
+<div style="position: relative">#{carLandingBean.selectedCarPage.secondaryDamage} </div>
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Odometer</span>
+</span>
+</td>
+<td>
+<div style="position: relative">#{carLandingBean.selectedCarPage.odoMeter} </div>
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" data-original-title="">
+<span>
+Transmission </span>
+</span>
+</td>
+<td><span itemprop="transmission">#{carLandingBean.selectedCarPage.transmission}</span></td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Item Number</span>
+</span>
+</td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.itemNumber}</span></td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc state</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docState}</span><br></br>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc Type</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docType}</span><br></br>
+
+</td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>VIN</span>
+</span>
+</td>
+<td>
+<a rel="nofollow" href="/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="_blank">
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.uuid}</span><br></br>
+</a> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Body style</span>
+</span>
+</td>
+<td><span itemprop="vehicleConfiguration">#{carLandingBean.selectedCarPage.bodyStyle}</span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Color</span>
+</span>
+</td>
+<td><span itemprop="color">#{carLandingBean.selectedCarPage.color}</span></td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Cylinder</span>
+</span>
+</td>
+<td>#{carLandingBean.selectedCarPage.cylinder}</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Fuel</span>
+</span>
+</td>
+<td><span itemprop="fuelType">#{carLandingBean.selectedCarPage.fuel}</span></td>
+</tr>
+
+</tbody></table>
+</div>
+</div>
+<h:form id="RightColumnData" class="col-md-6 col-sm-6 p-0 m-0">
+<div class="container" >
+
+
+<div id="bid-modal-cache" style="display: none">
+<div class="title">
+Confirm your Bid <span class="close-modal"></span>
+</div>
+<div class="content">
+<div class="lot-title"></div>
+<div class="lot-number">
+Lot # <span></span>
+</div>
+<div id="popup-lot-title-hidden" style="display: none">
+2015 FERRARI 458 SPIDER </div>
+<div id="popup-lot-number-hidden" style="display: none">25816049</div>
+<div class="your-bid-wrapper">
+Max Bid: <span class="your-bid"></span><span class="sh-check"></span>
+</div>
+<div class="your-bid-notice">By clicking on the "Confirm Purchase" button below, you are committing to buy this vehicle if you are the winning bidder. All bids are final.</div>
+<div class="modal-desc" style="display:none">
+*
+</div>
+<div class="notice-bid-desc" style="display:none">
+*
+</div>
+<div class="controls">
+<a href="#" class="close-modal">
+Cancel </a>
+<a href="#" class="button yBtn modal-submit">
+Confirm your Bid </a>
+</div>
+<div class="controls-cancel" style="display:none;">
+<a href="#" class="button yBtn close-modal">
+Close </a>
+</div>
+<div class="wait" style="display:none">
+<img src="../img/ajax-loader.gif" alt="Please Wait"/>
+</div>
+<div class="result" style="display:none"></div>
+</div>
+</div>
+
+
+<h:form rendered="#{carLandingBean.selectedCarPage.activebuyItNow}">
+<div  class="buy-now-block" id="buy-now-block" style="background: url(/resources/imgs/background9.jpg);">
+<table>
+<tbody><tr>
+<td>
+<div class="caption" style="    color: #ffffff;">
+Buy It Now price </div>
+<div class="price" style="    color: #f1f2f3;">
+$<span>
+#{carLandingBean.selectedCarPage.buyItNowPrice}</span>
+USD </div>
+<div class="buy-now__learn-b">
+<a class="bn-link" id="buy-now-link" style="    color: aliceblue;" onclick="PF('dlg1').show();">
+Learn more about Buy It Now </a>
+
+<p:dialog  header="Buy It Now" widgetVar="dlg1" modal="true" >
+
+<div class="content">
+<p></p><p style="    width: 395px;">
+<strong>Buy It Now</strong>
+&nbsp;allows you to purchase the vehicle immediately at a set price . Once confirmed, you will be directed to pay for the vehicle.
+you can calculate the total fees using the biding Calculator</p>
+<p></p>
+</div>
+   
+</p:dialog>
+
+
+
+</div>
+</td>
+<td class="button-column">
+<p:commandLink disabled="#{!carLandingBean.selectedCarPage.active}" class="button rBtnBig submit-proxy" onclick="buyNow();"  id="buy-now-submit" style="background: linear-gradient(rgb(232, 232, 232) 0px, rgb(140, 125, 125) 95%, rgb(122, 136, 142) 0px);color: #464343!important;border-radius: 10px;">Buy It Now</p:commandLink>
+
+
+</td>
+</tr>
+</tbody></table>
+</div>
+</h:form>
+
+
+<script>
+function buyNow(){
+	swal({
+		  title: "Are you sure?",
+		  text: "Are you sure to add this car to your Payments?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		   
+			  buyCar();
+		  } 
+		});
+}
+</script>
+<h:panelGroup class="buy-now-block" id="buy-now-block" style="">
+<table style="  margin-top: -19px; box-shadow: 3px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;">
+<tbody><tr>
+<td style="padding:0%;">
+
+<div class="buy-now__learn-b" style="
+    padding: 3%;
+    background: linear-gradient(rgb(158, 153, 153) 0px, rgb(68, 68, 68) 95%, rgb(68, 68, 68) 0px);
+">
+
+<h4 style="color: white;">Set the amount and incrementation value for your Bid</h4>
+   <div style="color:white;width:100%;text-align: -webkit-center;" id="BidingPanel">
+ 
+   Max Bid value: 
+    <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment"
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
+   
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment" value="#{carLandingBean.totalBid}" style=" width: 41%;   border-radius: 7px!important;"/>
+   
+   
+ <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment"
+    style="width:25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
+        
+   <br></br>
+   <br></br>
+   <br></br>
+   Incrementation: 
+    <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-minus" action="#{carLandingBean.decreaseBy10Dollars()}" update="increment2"
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
+   
+   <p:inputText disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" id="increment2" value="#{carLandingBean.incrementBid}" style="  width: 41%;  border-radius: 7px!important;"/>
+   
+   
+ <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="" class="fa fa-plus" action="#{carLandingBean.increaseBy10Dollars()}" update="increment2"
+    style="width: 25px;height: 25px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 21px;color: #b3aaaa;"/>
+       
+        
+        <br></br>
+        <br></br>
+        <div>
+        <p:commandButton disabled="#{carLandingBean.selectedCarPage.active?'false':'true'}" value="Bid"  action="#{carLandingBean.makeIncrementBid()}"
+    style="width: 305px;height: 60px;border-radius: 7px!important;padding: 1px;text-align: center;vertical-align: middle;font-size: 27px;color: #716d5d;font-family: serif;background: linear-gradient(to bottom, #dedede 29%, #797979 100%);font-weight: 800;"/>
+        </div>
+        
+        </div>
+    <br></br>
+<a style="display:#{carLandingBean.selectedCarPage.active?'block':'none'};" onclick="PF('dlg2').show();">Final Price Calculator</a>
+
+</div>
+
+<p:dialog id="formCalc" header="Final Price Calculator" widgetVar="dlg2" modal="true" >
+    <p:panelGrid columns="2">
+    	<p:outputLabel value="Enter the Final Bid"/>
+    	 <p:outputPanel>
+            <p:spinner  id="ajaxSpinner" value="#{carLandingBean.valueOfCarBid}">
+                <p:ajax update="ajaxSpinnerValue1" process="@this" listener="#{carLandingBean.updateAllFees()}"/>
+                
+            </p:spinner>
+            
+        </p:outputPanel>
+    </p:panelGrid>
+    <p:panelGrid id="ajaxSpinnerValue1" columns="2" style="width:100%">
+    
+    
+    	<p:outputLabel value="Copart Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.copartFees}"/>
+    	
+    	<p:outputLabel value="Our Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.ourFees}"/>
+    	
+    	<p:outputLabel value="Total Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.ourFees+carLandingBean.copartFees+carLandingBean.valueOfCarBid}"/>
+    	 
+    </p:panelGrid>
+   
+</p:dialog>  
+
+
+<div class="caption" style="font-size: 13px;margin: 3%;">
+Current Price </div>
+<h:form id="liveBidDisplay" rendered="#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd&gt;0?'true':'false'}">
+ <h:panelGroup rendered="#{carLandingBean.selectedCarPage.active}">
+<div style="color: #334354;position: absolute;top: 0%;left: 83%;width: 77px;text-align: center;font-size: 15px;height: 77px;padding-top: 3%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);font-weight: 700;">
+ <div>Remains</div><div>#{carLandingBean.timeInSecondsForLive}</div> </div>
+ </h:panelGroup>
+ 
+ <h:panelGroup rendered="#{!carLandingBean.selectedCarPage.active}">
+ <div style="color: #0f1b29;position: absolute;top: 5%;left: 91%;width: 77px;text-align: center;font-size: 15px;height: 77px;padding-top: 2%;border-radius: 50%;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(36, 94, 162) 95%, rgb(37, 95, 162) 0px);font-weight: 700;">
+ <div>Bid</div><div>Finished</div> </div>
+ </h:panelGroup>
+</h:form>
+<div style="margin: 3%;text-align: center;font-size: 35px;color: #334354;border-radius: 8px;box-shadow: 3px 0px 1px #352929, 0 0 21px #ffffff, 0 0 3px #733838;">
+<h:panelGroup style="font-size: 17px;"
+ class="price" itemprop="offers" itemscope="" id="currentPriceDisplay" itemtype="http://schema.org/Offer" >
+$<span itemprop="price" content="#{carLandingBean.selectedCarPage.currentBid}">
+#{carLandingBean.selectedCarPage.currentBid} </span>
+<meta itemprop="priceCurrency" content="USD"/>
+USD 
+
+
+
+By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName}
+
+
+<div><p style="font-size: 17px;font-weight: 300;">+ $#{carLandingBean.selectedCarPage.copartFees} Copart Fees + $#{carLandingBean.selectedCarPage.ourFees} Our Fees</p></div>
+
+</h:panelGroup>
+</div>
+<h:panelGroup  id="bidDetails" style="margin: 3%;">
+<h:panelGroup rendered="#{carLandingBean.currentBiding==null?'false':'true'}">
+<div class="caption" style="font-size: 13px;margin: 3%;">
+Your Bid Details </div>
+<div style="text-align: center;    font-size: 29px;    color: brown;">
+<h:panelGroup style="font-size: 13px;"
+ class="price" itemprop="offers" itemscope=""  itemtype="http://schema.org/Offer" >
+Your Total Bid:<span itemprop="price" content="#{carLandingBean.currentBiding.fullAmount}">
+#{carLandingBean.currentBiding.fullAmount} </span>
+<meta itemprop="priceCurrency" content="USD"/>
+USD 
+<br></br>
+Incrementation: $#{carLandingBean.currentBiding.increment} USD
+
+
+</h:panelGroup>
+</div>
+</h:panelGroup>
+</h:panelGroup>
+
+        
+ <br></br>
+<a href="/pages/public/contactUs.jsf" class="bn-link" id="buy-now-link" style="
+    margin: 2%;
+">
+For Help Email or call us </a>
+</td>
+
+</tr>
+</tbody></table>
+</h:panelGroup>
+<div id="buy-now-modal-cache" data-url="/en/lot/buy_it_now" data-auction="copart" data-lot="25816049" data-price="127000" style="display: none">
+<div class="title">
+Confirm Buy It Now <span class="close-modal"></span>
+</div>
+<div class="content">
+<div class="lot-title"></div>
+<div class="lot-number">ID # <span>#{carLandingBean.selectedCarPage.id}</span></div>
+<h:panelGroup class="your-bid-wrapper" id="CurrentPriceSmall">
+Current Price: <span class="your-bid">$#{carLandingBean.selectedCarPage.currentBid} USD</span>
+</h:panelGroup>
+<div class="your-bid-notice">
+By clicking on the "Buy It Now" button below, you are committing to buy this vehicle if you are the winning bidder. All bids are final. </div>
+<div class="controls">
+<a href="#" class="button yBtnBig modal-submit">Buy It Now</a>
+</div>
+<div class="wait" style="display:none"><img src="../img/ajax-loader.gif" alt="Please Wait"/></div>
+<div class="result" style="display:none"></div>
+</div>
+</div>
+<div style="margin-bottom:15px"></div>
+<div class="hidden-lg hidden-md hidden-sm">
+<div class="details details_header">
+<h2>Vehicle Details</h2>
+</div>
+<table class="detailstable vehicle-properties">
+<tbody><tr>
+<td>
+<span>ID #</span>
+</td>
+<td>#{carLandingBean.selectedCarPage.id}
+</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="">
+<span>Make</span>
+</span>
+</td>
+<td><span itemprop="manufacturer">#{carLandingBean.selectedCarPage.make}</span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="">
+<span>Model</span>
+</span>
+</td>
+<td><span itemprop="model">#{carLandingBean.selectedCarPage.model}</span></td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Odometer</span>
+</span>
+</td>
+<td>
+<div style="position: relative">
+#{carLandingBean.selectedCarPage.odoMeter} </div>
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" data-original-title="">
+<span>
+Transmission </span>
+</span>
+</td>
+<td><span itemprop="transmission">#{carLandingBean.selectedCarPage.transmission}</span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>primary Damage</span>
+</span>
+</td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.damageDescription}</span></td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Secondary Damage</span>
+</span>
+</td>
+<td>
+<div style="position: relative">
+#{carLandingBean.selectedCarPage.secondaryDamage} </div>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc state</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docState}</span><br></br>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Doc Type</span>
+</span>
+</td>
+<td>
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.docType}</span><br></br>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Item Number</span>
+</span>
+</td>
+<td><span itemprop="knownVehicleDamages">#{carLandingBean.selectedCarPage.itemNumber}</span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>VIN</span>
+</span>
+</td>
+<td>
+<a rel="nofollow" href="/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="_blank">
+<span itemprop="vehicleIdentificationNumber">#{carLandingBean.selectedCarPage.uuid}</span><br></br>
+</a> <a rel="nofollow" href="25816049-2015-ferrari-458_spiderfee9?vindecoder=1" target="_blank">
+
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Body style</span>
+</span>
+</td>
+<td><span itemprop="vehicleConfiguration">#{carLandingBean.selectedCarPage.bodyStyle}</span></td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Color</span>
+</span>
+</td>
+<td><span itemprop="color">#{carLandingBean.selectedCarPage.color}</span></td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Cylinder</span>
+</span>
+</td>
+<td>#{carLandingBean.selectedCarPage.cylinder}</td>
+</tr>
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+<span>Fuel</span>
+</span>
+</td>
+<td><span itemprop="fuelType">#{carLandingBean.selectedCarPage.fuel}</span></td>
+</tr>
+
+</tbody></table>
+</div>
+<div class="details details_header">
+<h2>
+Sale Information </h2>
+</div>
+<table class="detailstable" style="background:none">
+<tbody>
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >Bid Status </span>
+</td>
+<td>
+<div style="    background: #8c8787;    color: whitesmoke;    width: fit-content;    padding-right: 11%;    padding-left: 11%;">
+#{carLandingBean.currentBidStateDetails}
+</div>
+
+ </td>
+</tr>
+
+
+<tr>
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >Sale Status </span>
+</td>
+<td>
+#{carLandingBean.selectedCarPage.saleName} </td>
+</tr>
+
+
+<tr>
+<td>
+<span>
+Auction Location </span>
+</td>
+<td>
+<div style="position:relative">
+#{carLandingBean.selectedCarPage.auctionLocation}<div class="hidden-xs hidden-sm">
+
+<div class="glue-modal" id="lgm-map-modal" style="display:block;top:-3000px;">
+<div class="title">
+#{carLandingBean.selectedCarPage.auctionLocation} <span class="modal-arrow-up"></span>
+<span class="close-modal"></span>
+</div>
+<div class="content">
+<div id="map_canvas" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"></div>
+<div class="leaflet-top leaflet-right"><div class="leaflet-bar leaflet-control">
+<a class="leaflet-control-zoom-fullscreen fullscreen-icon" href="#" title="Full Screen"></a></div>
+</div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right">
+<div class="leaflet-control-zoom leaflet-bar leaflet-control">
+<a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a>
+<a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div>
+
+</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+
+<tr>
+<td>
+<span>
+Sale Date </span>
+</td>
+<td>
+#{carLandingBean.selectedCarPage.bidingDate} </td>
+</tr>
+
+<tr class="bid">
+<td>
+<span class="property-prompt" data-toggle="tooltip" data-html="true" data-placement="bottom" title="" >
+Current Bid </span>
+</td>
+<td>
+<h:panelGroup id="CurrentBidAmount">
+<b itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+$#{carLandingBean.selectedCarPage.currentBid} USD</b></h:panelGroup>
+ </td>
+</tr>
+</tbody>
+</table>
+
+<div style="margin-bottom:15px">
+<div class="calcheader icon_shipping">
+<a onclick="runMethodCalc()">Shipping Cost Calculator</a>
+
+</div>
+
+<script>
+function runMethodCalc(){
+	runCalc();
+	PF('dlg3').show();
+}
+</script>
+<h:form>
+<p:remoteCommand name="runCalc" action="#{carLandingBean.calcValueOfTotalFeesCarSelected}"></p:remoteCommand>
+</h:form>
+<p:dialog id="formShip" header="Shipping Calculator" widgetVar="dlg3" modal="true" >
+    <p:panelGrid columns="2" style="width:100%;">
+    	<p:outputLabel value="Enter the Final Bid"/>
+    	<h:inputText value="#{carLandingBean.valueOfCarBid}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
+														
+            
+    </p:panelGrid>
+    <p:panelGrid id="ajaxSpinnerValue2" columns="2" style="width:100%">
+	   
+    
+    	
+    	<div class="row">
+														<label class="col-sm-3 control-label" for="w4-first-name">Size</label>
+														<div class="col-sm-9">
+														 <h:selectOneMenu value="#{carLandingBean.carSize}" name="type" id="type" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%; margin-top: 7px; font-size: 14px;">
+																<f:selectItem itemLabel="Small" itemValue="0"/>
+																<f:selectItem itemLabel="SUV" itemValue="1"/>
+															</h:selectOneMenu>
+														
+														</div>
+													</div>
+													
+													<div class="row">
+														<label class="col-sm-3 control-label" for="w4-first-name">Location</label>
+														<div class="col-sm-9">
+														<h:selectOneMenu  value="#{carLandingBean.selectedLocation}" name="type" id="type2" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
+															<f:ajax listener="#{carLandingBean.refreshCityList()}" render="ajaxSpinnerValue2"/>
+															<f:selectItems value="#{carLandingBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
+														</h:selectOneMenu>
+														
+														</div>
+													</div>
+													
+													<div class="row">
+														<label class="col-sm-3 control-label" for="w4-first-name">City</label>
+														<div class="col-sm-9">
+														<h:selectOneMenu value="#{carLandingBean.selectedCity}" name="type" id="type3" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
+															<f:ajax listener="#{carLandingBean.refreshStateList()}" render="ajaxSpinnerValue2"/>
+															<f:selectItems value="#{carLandingBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
+														</h:selectOneMenu>
+														
+														</div>
+													</div>
+													
+													<div class="row">
+														<label class="col-sm-3 control-label" for="w4-first-name">State</label>
+														<div class="col-sm-9">
+														<h:selectOneMenu value="#{carLandingBean.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
+															
+															<f:selectItems value="#{carLandingBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
+														</h:selectOneMenu>
+														
+														</div>
+													</div>
+													
+													<div class="row">
+														<label class="col-sm-3 control-label" for="w4-first-name">Port</label>
+														<div class="col-sm-9">
+														<h:selectOneMenu  value="#{carLandingBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
+															<f:selectItem itemLabel="Newark, NJ" itemValue="0"/>
+															<f:selectItem itemLabel="Savannah, GA" itemValue="1"/>
+															<f:selectItem itemLabel="Houston, TX" itemValue="2"/>
+															<f:selectItem itemLabel="Los Angeles, CA" itemValue="3"/>
+														</h:selectOneMenu>
+														
+														</div>
+													</div>
+				<p:commandButton update="ajaxSpinnerValue2" value="Calc" action="#{carLandingBean.calcValueOfTotalFeesCarSelected}">
+				</p:commandButton>								
+    	
+    	
+    	<p:outputLabel value="Copart Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.copartFees}"/>
+    	
+    	
+    	
+    	<p:outputLabel value="Our Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.ourFees}"/>
+    	
+    	
+    	<p:outputLabel value="Online Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.onlineFees}"/>
+    	
+    	
+    	<p:outputLabel value="Sea Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.seaFees}"/>
+    	
+    	
+    	<p:outputLabel value="Land Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.landFees}"/>
+    	
+    	
+    	
+    	<p:outputLabel value="Total Fees"/>
+    	<p:outputLabel value="$#{carLandingBean.totalFees}"/>
+    	
+    	
+    	<p:outputLabel value="Total"/>
+    	<p:outputLabel value="$#{carLandingBean.totalFees+carLandingBean.valueOfCarBid}"/>
+    	 
+    </p:panelGrid>
+   
+</p:dialog>  
+
+
+<img class="spinner" src="../img/ajax-loader.gif" style="display: none;" alt="Please Wait"/> </div>
+
+<style>
+
+/* container */
+
+#share {
+	width: 100%;
+  	margin: 19px auto;
+  	text-align: center;
+}
+
+/* buttons */
+
+#share a {
+	border: #f7f1f1;
+    border-width: 3px;
+    border-style: solid;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    font-size: 27px;
+    color: #fff;
+    transition: opacity 0.15s linear;
+}
+
+#share a:hover {
+	opacity: 0.5;
+}
+
+/* icons */
+
+#share i {
+  	position: relative;
+    top: 44%;
+    transform: translateY(-49%);
+}
+
+/* colors */
+
+.facebook {
+ 	background: #3b5998;
+}
+
+.whatsup {
+  background: rgb(69, 194, 84);
+}
+
+.viber {
+  	    background: rgb(121, 80, 154);
+}
+
+
+.sharePanel{
+}
+</style>
+<div class="sharePanel">
+<div> <p style="position: relative;top: 18px;font-size: 19px;font-family: sans-serif;font-weight: 700;color: #676565;text-align: center;"> Share Now</p> </div>
+
+<div id="share">
+
+  <!-- facebook -->
+  <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank"><i class="fab fa-facebook"></i></a>
+
+  <!-- twitter -->
+  <a class="whatsup hidden-md hidden-lg hidden-xl" href="whatsapp://send?text=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" data-action="share/whatsapp/share"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- google plus -->
+  <a class="viber hidden-md hidden-lg hidden-xl" href="viber://pa?text=adainter.com/pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank"><i class="fab fa-viber"></i></a>
+
+</div>
+</div>
+
+
+
+
+</div>
+</h:form>
+</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+	
+	
+ <style>
+   
+
+#sliderCarosel .carousel-cell {
+  width: 235px;
+  height: 250px;
+}
+
+   </style>
+	<div id ="sliderCarosel" class="container">
+	<div class="row  " style="width: 94%;margin-top: 1%;margin-left: 3%;">
+<div class="col-md-12 ">
+<div class="main-title main-popular-title">
+<h2 class="main-title f-normal f-upper h2-like-h3">Related Cars</h2> </div>
+
+
+
+                      <!-- Flickity HTML init -->
+<div class="carousel" style="width:100%"  data-flickity='{ "wrapAround": true }'>
+          
+        <ui:repeat var="data" value="#{carLandingBean.listOfCarsLandingRelatedCars}">
+          <div class="carousel-cell owl-item active center">
+          	<span href="en/25177299-2018-tesla-model_3.html" >
+					 <h:graphicImage value="#{data.mainImage}" alt="image#{var}" style="padding: 0.1%;width: 100%;border-radius: 6px;" />
+					<div style="text-align: -webkit-center;font-family: serif;position: absolute;bottom: 0;text-align: center;width: 100%;"><a href="/pages/public/carsForDetails.jsf?id=#{data.id}" style="    color: #484848;">#{data.year} #{data.make}<br></br>#{data.model} <span>($#{data.currentBid})</span></a></div>
+					</span>
+           
+          </div>
+        	
+        </ui:repeat>
+            </div>
+            
+          
+          
+
+
+
+
+
+
+ </div>
+
+</div>
+	
+	</div>
+	
+	<h:form>
+
+<p:remoteCommand name="buyCar"  action="#{carLandingBean.buyCarNow()}"/>
+</h:form>
+	</ui:define>
+	
+		
+	
+	
+</ui:composition>
+</html>
