@@ -150,7 +150,7 @@ padding: 1rem 0 2rem;
 }
 #services .single-service img{
     background-size: cover;
-  height: 40%;
+    height: 15%;
 }
 
 #services .single-service .overlay{

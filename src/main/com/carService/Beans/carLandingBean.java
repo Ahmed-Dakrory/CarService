@@ -38,6 +38,8 @@ import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.costCalc.transportfee;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
+import main.com.carService.carLandingImage.carlandingimage;
+import main.com.carService.carLandingImage.carlandingimageAppServiceImpl;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
@@ -76,6 +78,11 @@ public class carLandingBean implements Serializable{
 
 	@ManagedProperty(value = "#{carLandingFacadeImpl}")
 	private carLandingAppServiceImpl carLandingFacade;
+	
+	
+
+	@ManagedProperty(value = "#{carlandingimageFacadeImpl}")
+	private carlandingimageAppServiceImpl carlandingimageFacade;
 	
 	List<carLanding> listOfAddedCars;
 
@@ -381,12 +388,20 @@ return copFees;
 		
 	}
 	
+	
+	public Date getDateTimeNow(){
+		return new Date();
+	}
 	public void refreshTheCurrentBidStatue() {
+			
+		
 		if(currentBiding==null) {
 			currentBidStateDetails="You haven't Bid";
 		}else if(currentBiding.getUserId().getId()==selectedCarPage.getUserMaxBidId().getId()) {
 			currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
 		}
+		
+		
 	}
 	public List<carLanding> completeText(String query) {
 		allCarsString =new ArrayList<carLanding>();
@@ -535,6 +550,9 @@ public boolean isNotCarInFavourites(int num) {
 		}
 	}
 	public void refresh(){
+		
+
+		System.out.println("Fine Data");
 		isfileUploaded=false;
 		if(loginBean.getTheUserOfThisAccount()!=null) {
 			
@@ -552,7 +570,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		
 }
 }
-		incrementBid=10;
+		incrementBid=25;
 		totalBid=0;
 		listOfAllCars=carLandingFacade.getAll();
 		listOfCarsLandingScroller=carLandingFacade.getAllForLanding();
@@ -564,7 +582,11 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		
 		try{
 			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
+
+			System.out.println("Done");
 				if(id!=null){
+
+	    			System.out.println("Play");
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
 					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(selectedCarPage.getCategory());
@@ -576,21 +598,25 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 
 					String lotImagesLink=selectedCarPage.getAllImagesLink();
 					 try {
+
 				        	images = new ArrayList<String>();
 				        	String newLinkUrlWithSlach = lotImagesLink.substring(0, lotImagesLink.indexOf('?'))+"/"+lotImagesLink.substring( lotImagesLink.indexOf('?'),lotImagesLink.length());
 				    		APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
 				    		  Call<copartReturnImages> call = apiInterface.getAllImagesFromCopart();
 				    		 
 				        	copartReturnImages carImages= call.execute().body();
-				        	
 				        	if(carImages != null) {
 				    			
 				        		selectedCarPage.setMainImage(carImages.lotImages.get(0).link.get(0).url);
-				    			for(int i=1;i<carImages.lotImages.size();i++) {
+				        		for(int i=1;i<carImages.lotImages.size();i++) {
 				    				images.add(carImages.lotImages.get(i).link.get(0).url);
 				    			}
-				    		}
-				    	
+				        		
+				        		
+				        	}
+
+				        	
+
 				        	
 
 				    		//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("myCarousel");
@@ -598,17 +624,31 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						} catch (IOException e1) {
 
 				        	System.out.println("ImagesLoadedError: "+e1.toString());
-							
+				        	
 						} catch (Exception e1) {
 
 				        	System.out.println("ImagesLoadedError: "+e1.toString());
-							
+				        	
 						}catch (Error e1) {
 
 				        	System.out.println("ImagesLoadedError: "+e1.toString());
-					
+				        	
 					
 						}
+					 List<carlandingimage> allImageFromDatabase = carlandingimageFacade.getAllByCarIdAndType(id, carlandingimage.TYPE_AUCTION);
+			        	
+					 System.out.println("Here One");
+			        	System.out.println("Here One: "+allImageFromDatabase.size());
+			        	for(int i=0;i<allImageFromDatabase.size();i++) {
+		    				images.add("/images/?file="+allImageFromDatabase.get(i).getUrl());
+		    			}
+		    			
+		    			
+
+		    			if(images.size()==0) {
+		    				images.add("https://almzzad.com/resources/Image/caromoto logo-04.png");
+				    		
+		    			}
 					valueOfCarBid=Float.valueOf(selectedCarPage.getCurrentBid());
 					updateAllFees();
 					//Get the userBid if applicable
@@ -630,7 +670,8 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 						if(currentBiding!=null) {
 						totalBid=currentBiding.getFullAmount();
-						incrementBid=currentBiding.getIncrement();
+//						incrementBid=currentBiding.getIncrement();
+						incrementBid=25;
 						}
 						
 					}
@@ -719,7 +760,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				if(selectedCarPage.isActive()) {
 					
 					//You are able to do it
-					if(!(incrementBid<=0)&&!(totalBid<0)) {
+					if(!(incrementBid<=0)&&!(totalBid<=0)) {
 						
 						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 						if(currentBiding==null) {
@@ -789,6 +830,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		}
 			
 		}
+
 	}
 	
 	
@@ -838,18 +880,31 @@ public void calcValueOfTotalFeesCarSelected() {
 
 			System.out.println("Dakrory: "+car.getCurrentBid());
 			boolean checkMoney = checkBidMoney(car.getCurrentBid(),allBidingMax.get(i).getFullAmount());
+			System.out.println("DakroryNewAA: "+car.getCurrentBid());
+			System.out.println("DakroryNEwRRR: "+allBidingMax.get(i).getFullAmount());
+			
 			if(checkMoney) {
 				System.out.println("Dakrory11: "+allBidingMax.get(i).getUserId().getEmail());
 				if(allowPersonToMakeBid(allBidingMax.get(i),car)) {
 					System.out.println("Dakrory0: "+allBidingMax.get(i).getUserId().getEmail());
 				
 				biding theLastManWhoBidLessThanMe = bidingFacade.getByCarIdLessThanFullAmountAndType(allBidingMax.get(i).getCarlandingId().getId(), allBidingMax.get(i).getFullAmount(),biding.TYPE_BIDING);
+				System.out.println("Dakrory883: "+allBidingMax.get(i).getUserId().getEmail());
+				float theTotalForTheManWhoLastMe = 0;
+				if(car.getCurrentBid()==null) {
+					 theTotalForTheManWhoLastMe = 0;
+				}else {
+					theTotalForTheManWhoLastMe=Float.valueOf(car.getCurrentBid());
+				}
 				
-				float theTotalForTheManWhoLastMe=Float.valueOf(car.getCurrentBid());
+				System.out.println("Dakrory09797: "+allBidingMax.get(i).getUserId().getEmail());
+				
 				if(theLastManWhoBidLessThanMe!=null) {
 
 					 theTotalForTheManWhoLastMe=theLastManWhoBidLessThanMe.getFullAmount();
 				}
+				
+				
 				System.out.println("Dakrory2: "+allBidingMax.get(i).getUserId().getEmail());
 				float theNewAmount = allBidingMax.get(i).getIncrement()+theTotalForTheManWhoLastMe;
 				if(theNewAmount>allBidingMax.get(i).getFullAmount()) {
@@ -923,7 +978,7 @@ public void calcValueOfTotalFeesCarSelected() {
 				selectedCarPage.setState(stateOfCar.ProcessState.getType());
 				carLandingFacade.addcarLanding(selectedCarPage);
 				if(selectedCarPage.getUserMaxBidId()!=null) {
-					sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+					sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Admin....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
 					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:buy-now-block");
 					PrimeFaces.current().executeScript("window.location.reload(true);");
 				}
@@ -972,7 +1027,8 @@ public void calcValueOfTotalFeesCarSelected() {
 		System.out.println("Ahmed: "+selectedCarPage.getEndDate());
 		System.out.println("Ahmed: "+timeNow.getTime());
 		System.out.println("Ahmed: "+selectedCarPage.getEndDate().getTime());
-		
+
+		System.out.println("AhmedTime: "+diffFromBidToEnd);
 		if(diffFromBidToEnd<0&&selectedCarPage.isActive()) {
 			selectedCarPage.setActive(false);
 			selectedCarPage.setState(stateOfCar.ProcessState.getType());
@@ -1007,12 +1063,13 @@ public void calcValueOfTotalFeesCarSelected() {
 			currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 			if(currentBiding!=null) {
 				totalBid=currentBiding.getFullAmount();
-				incrementBid=currentBiding.getIncrement();
+//				incrementBid=currentBiding.getIncrement();
+				incrementBid=25;
 			}
 		}
 		
-		
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("differenceTimeForm:differenceTime");
+		refreshTheCurrentBidStatue();
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:differenceTime");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:currentPriceDisplay");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentPriceSmall");
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:CurrentBidAmount");
@@ -1306,7 +1363,7 @@ public void calcValueOfTotalFeesCarSelected() {
 	
 	public void decreaseBy100DollarsMain() {
 		
-		totalBid-=100;
+		totalBid-=25;
 		if(totalBid<0) {
 			totalBid=0;
 		}
@@ -1314,7 +1371,7 @@ public void calcValueOfTotalFeesCarSelected() {
 	
 	public void increaseBy100DollarsMain() {
 		System.out.println(String.valueOf(totalBid));
-		totalBid+=100;
+		totalBid+=25;
 		
 	}
 	
@@ -2469,6 +2526,16 @@ public void calcValueOfTotalFeesCarSelected() {
 
 	public void setSearchModel(String searchModel) {
 		this.searchModel = searchModel;
+	}
+
+
+	public carlandingimageAppServiceImpl getCarlandingimageFacade() {
+		return carlandingimageFacade;
+	}
+
+
+	public void setCarlandingimageFacade(carlandingimageAppServiceImpl carlandingimageFacade) {
+		this.carlandingimageFacade = carlandingimageFacade;
 	}
 
 	

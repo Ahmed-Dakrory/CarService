@@ -91,6 +91,12 @@
     
     
     
+		<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<h:outputScript name="js/dashboard2/assets/deleteCheckScripts.js"/>
+
+	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
     
 		  <link rel="stylesheet" href="#{resource['css:public/app.css']}" />
 	  
@@ -109,8 +115,7 @@
 
 <h:body>
       <style>
-   
-
+  
 .carousel-cell {
   width: 307px;
   height: 275px;
@@ -127,7 +132,9 @@
 
 
 
-
+li:after{
+display:none;
+}
 
 
 
@@ -187,6 +194,16 @@
     border-width: 2px;
     border-color: #fdfdfd;
 }
+
+
+ body{
+   font-weight: 700;
+   font-family: calibri;
+   }
+   
+   label{
+   font-weight: 700;
+   }
 
     </style>
    
@@ -408,131 +425,10 @@
 
 
  -->
-
-
-<!-- 
-
-<div class="header" style="background: url(/resources/imgs/background9.jpg);background-repeat: no-repeat;background-size: cover;box-shadow: 8px 10px 8px rgb(236, 236, 236), 0 0px 7px rgb(66, 66, 66);">
-
-
-<div class="container" style="width:100%;">
-<div class="row">
-
-<div class="ricon text-left col-xs-2 col-sm-1 hidden-md hidden-lg" onclick="openNav()" id="responsive_menu_icon">
-<div class="mobile_menu_open">
-<div class="mobile_menu_open burger__container">
-<div class="burger-line"></div>
-<div class="burger-line"></div>
-<div class="burger-line"></div>
-</div>
-</div>
-</div>
-
-<div class="logo-big col-md-1 col-lg-1 visible-md visible-lg"></div>
-<div class="logo-big col-md-3 col-lg-3 visible-md visible-lg">
-<a href="/" class=" visible-md visible-lg" >
-<img  src="#{resource['images:logo.png']}"  alt="A international Car Auctions" style="width: 100%;height: 71px;margin-left: 15%;"/></a>
-</div>
-<div class="logo-responsive col-xs-8 col-sm-4 text-center visible-sm visible-xs">
-<a href="/"><img src="#{resource['images:logo.png']}" width="180" height="37" alt="A international Car Auctions"/></a>
-</div>
-<div class="search col-sm-4 col-md-4 col-lg-4 hidden-xs">
-
-<style>
-
-
-.s-tip2{
-color: #dcdcdc;
-    display: block;
-    height: 36px;
-    line-height: 25px;
-    position: absolute;
-    top: 33px;
-    width: 77%;
-    font-weight: 400;
-    left: 103px;
-}
-
-.inputSearch{
-padding-left: 2%!important;
-margin: 0 auto;
-    width: 100%;
-    height: 36px;
-    position: relative;
-    
-    background-color: #fff;
-    border-radius: 16px!important;
-}
-</style>
-
-
-
-<h:form>
-  <p:autoComplete class="s-input2 s-tip2" id="themes"  value="#{carLandingBean.selectedCarSearch}" completeMethod="#{carLandingBean.completeText}"
-                        var="var" itemLabel="#{carLandingBean.selectedCarSearch}" itemValue="#{var.uuid}"  placeholder="Enter vehicle VIN, make or model"
-                        inputStyleClass="inputSearch">
-                        
-                          <p:ajax event="itemSelect" listener="#{carLandingBean.onCarSelect}"  />
-            <p:column style="width:10%">
-                <h:graphicImage style="    width: 64px;    border-radius: 6px;" value="#{var.mainImage}" alt="#{var.model}" styleClass="ui-theme"/>
-            </p:column>
-             
-            <p:column>
-                <h:outputText value="#{var.make} / #{var.uuid}" />
-            </p:column>
-        </p:autoComplete>
-
-</h:form>
-
-</div>
-
-
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  
-  
-  <a href="/"> Home </a>
-<a href="/pages/public/about.jsf?faces-redirect=true">About</a>
-<a href="/pages/public/contactUs.jsf?faces-redirect=true">Contact Us</a>
-<a href="/pages/public/carCost.jsf?faces-redirect=true">Calculate Shipping Cost</a>
-<a href="/pages/public/login.jsf?faces-redirect=true">Login</a>
-<a href="/pages/public/registeration.jsf?faces-redirect=true">Register Now</a>
-
-<a style="    margin-top: 11%;display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">My DashBoard</a>
-<a style="    margin-top: 7.5%;display:#{loginBean.loggedIn?'block':'none'};" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
-        
-
-</div>
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
-</script>
-
-
-<div class="phone  col-lg-2 text-right hidden-xs hidden-sm">
-<div style="    margin-top: 7%;">ADA-United States</div>
-<div class="num" style="    font-size: 19px;"><div></div>00353899763555</div>
-
-
-
-
-
-
-</div>
-
-
-</div>
-</div>
-</div>
-
-
- -->
-
+ 
+ 
+ 
+ 
 <div id="responsive_menu_block" style="display:none">
 
 <div class="responsive_menu" id="responsive_menu"></div>
@@ -593,55 +489,6 @@ function closeNav() {
 
 
 <div class="responsive-style__overlay"></div>
-
-<!-- 
-<div class="mainmenu hidden-xs hidden-sm" style="background-repeat: no-repeat;background-size: cover;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(121, 118, 118) 95%, rgb(106, 119, 125) 0px);">
-<div class="container">
-<ul class="dropdown" id="yw0">
-
-
-<li style="
-    margin-left: 21vw;border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
- class="has-submenu has-submenu__lvl1 responsive_menu__get-started"><a style="color: white;"
- href="/pages/public/carCost.jsf?faces-redirect=true">Calculate Shipping Cost</a>
-
-</li>
-
-<li class="has-submenu has-submenu__lvl1 first-main-menu" id="menu-link-search_bid" style="border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
-><a style="color: white;" href="/"> Home </a>
-
-</li>
-<li class=" has-submenu has-submenu__lvl1 mainmenu__item-live" style="border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
-><a style="color: white;" href="/pages/public/about.jsf?faces-redirect=true">About</a>
-
-</li>
-
-
-<li style="border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
-><a style="color: white;" href="/pages/public/contactUs.jsf?faces-redirect=true">Contact Us</a></li>
-
-<li style="border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
-><a style="color: white;" href="/pages/public/carsForType.jsf?category=0">Bid now</a></li>
-
-
-
-
-<li style="border-radius: 5px;box-shadow: 3px 0px 9px #d2cdcd, 0 1px 1px #f1f1f1, 0 0 0px #b9b9b900;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(108, 109, 109) 95%, rgb(106, 119, 125) 0px);"
-><a style="color: white;" href="/pages/public/registeration.jsf?faces-redirect=true" >Register Now</a></li>
-
-
-
-<li class="  "> 
-
-</li>
-</ul>
-
-
-</div>
-</div>
- 
-
-     -->
      
      
      <header>
@@ -729,10 +576,8 @@ function closeNav() {
 		              <a class="nav-link" href="/pages/public/contactUs.jsf?faces-redirect=true">اتصل بنا</a>
 		            </li>
 		
-		
-		
 					<li class="nav-item dropdown ">
-					<a class="nav-link  dropdown-toggle" style="color: #e6e6e6;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link dropdown-toggle" style="color: #e6e6e6;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          اسعار الشحن
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -760,9 +605,55 @@ function closeNav() {
 		            </li>
 		            
 		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'block':'none'};">
-		              <a class="nav-link" href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
+		              <a class="nav-link" href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">#{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} ##{loginBean.theUserOfThisAccount.id}</a>
 		            </li>
 		            
+		            
+		               <li class="nav-item dropdown" style="display:#{loginBean.loggedIn?'block':'none'};">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          $#{loginBean.thisAccountMoneyBox.depositedMoney}
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="    width: max-content;">
+				          <div class="ml-3 mb-3 mt-2">
+				          	 <span class="pull-right label label-default mr-3" >#{loginBean.mymoneyTransactions.size()}</span>
+									عمليات الدفع
+				          </div>
+				          
+				          <div  class="dropdown-item text-wrap m-0 p-0  d-none d-sm-table-cell">
+									<div class="">
+									<ui:repeat var="var" value="#{loginBean.mymoneyTransactions}">
+										<div >
+										<div class="card m-0 p-0">
+											<div class=" card-header">
+												<span class="message pull-left">#{loginBean.getTransactionType(var.typeOfTransaction).name}</span>
+												<span class="message pull-right text-dark">نوع العملية: </span>
+											</div>
+											
+												
+											<div class="container">
+												<div class="col-md-4 p-0">
+													Last: $#{var.amountBefore}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													amount: $#{var.amount}
+												</div>
+												
+												<div class="col-md-4 p-0">
+													 #{var.date}
+												</div>
+											</div>
+										
+											</div>
+										</div>
+										</ui:repeat>
+										
+			 
+									</div>
+								</div>
+				        </div>
+				      </li>
+		        
 		          </ul>
 		          
 		        </div>
@@ -802,11 +693,114 @@ function closeNav() {
     <ui:insert name="headBack"  > 
     	
   </ui:insert>
-   <div style="width:100%;padding-left: 7%;padding-right: 7%;">
+   <div style="width:100%;padding-left: 3%;padding-right: 3%;">
    <div style="width:100%;">
-    <ui:insert name="content"  > 
-    	 <ui:include src="content.xhtml" /> 
-  </ui:insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="containerNew">
+<div class="clearfix"></div>
+
+
+<div id="content" >
+
+<div class="account-table row">
+
+
+        <div class="col-sm-12 col-md-10" style="text-align: justify;margin-right: 0px;padding-right: 0px;">
+        	<ui:insert name="content"  > 
+		    	 <ui:include src="content.xhtml" /> 
+		  </ui:insert>
+    	 		
+        
+        </div>
+
+<div class="col-sm-12 col-md-2 side-menu account-menu" style="text-align:right;margin-left: 0px;padding-left: 0px;">
+<div id="profile-side-menu" class="searchBox">
+<div class="group-title block_header responsive_header">القائمة </div>
+<div class="responsive_box">
+
+<div id="menu-header-profile" class="sublevel droparrow">حسابى</div>
+
+
+<ul id="menu-profile" class="level2" style="display: contents;">
+<li id="profile-Data"><a href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">ملفى الشخصى </a></li>
+<li id="profile-account"><a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">حسابى</a></li>
+<li id="profile-main"><a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">تعديل بياناتى</a></li>
+<li id="profile-transaction"><a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">المحفظة </a></li>
+</ul>
+
+
+<div id="menu-header-bid" class="sublevel droparrow">قائمة المزاد</div>
+
+
+<ul  id="menu-bid" class="level2" style="display: contents;">
+<li id="bid-main"><a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">السيارات الخاصة بى </a></li>
+<li id="bid-all"><a href="/pages/secured/normalUsers/vehicleListAllBids.jsf?faces-redirect=true">كل السيارات </a></li>
+<li id="bid-watchList"><a href="/pages/secured/normalUsers/vehicleListwatchList.jsf?faces-redirect=true">قأئمة المشاهدة </a></li>
+<li id="bid-invoice"><a href="/pages/secured/normalUsers/invoice/invoiceList2.jsf?faces-redirect=true">الفواتير الخاصة بى </a></li>
+</ul>
+
+
+
+<div id="menu-header-car" class="sublevel droparrow">قائمة السيارات</div>
+
+
+<ul  id="menu-car" class="level2" style="display: contents;">
+<li id="car-main"><a href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شحن فقط</a></li>
+<li id="car-all"><a href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">كل السيارات </a></li>
+</ul>
+
+
+<div id="menu-header-product" class="sublevel droparrow">قائمة السلع</div>
+
+
+<ul  id="menu-product" class="level2" style="display: contents;">
+<li id="product-main"><a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شحن فقط</a></li>
+<li id="product-all"><a href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true">كل السلع </a></li>
+</ul>
+
+
+
+<ul class="level1">
+<li>
+<a onclick="LogOutJS()" > 
+<i class="fa fa-power-off"></i> Log Out </a>
+</li>
+</ul>
+
+<h:form>
+					<p:remoteCommand name="LogOutJS" action="#{loginBean.logOut}"></p:remoteCommand>
+				</h:form>
+</div>
+</div>
+</div>
+
+
+
+     <script>
+
+  	$('#menu-profile').fadeToggle();
+ 	$('#menu-bid').fadeToggle();
+ 	$('#menu-car').fadeToggle();
+ 	$('#menu-product').fadeToggle();
+     </script>
+     
+     
+
+</div>
+<img id="ajax-loader-account" src="/img/ajax-loader.gif" alt="Please Wait"/>
+</div>
+</div>
+	
+	
+	
    </div>
    </div>
    
@@ -837,9 +831,9 @@ function closeNav() {
 		
 		
 		<h:outputScript name="js/dashboard/assets/vendor/nanoscroller/nanoscroller.js"/>
-		<h:outputScript name="js/dashboardCaroMoto/mainFunctions.js"/>
 		
 <h:outputScript  type="text/javascript" name="js/public/vendorb315.js"/>
+<h:outputScript  type="text/javascript" name="js/public/app.js"/>
 <h:outputScript  type="text/javascript" name="js/public/displayMain.js"/>
 	
 
@@ -935,10 +929,11 @@ function closeNav() {
 		
 		
 		
+		<h:outputScript name="js/dashboard/assets/vendor/pnotify/pnotify.custom.js"/>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
-		<h:form>
+		 <h:form>
 			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
 			
@@ -947,8 +942,8 @@ function closeNav() {
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		//setInterval(refreshMainViews, 600);
-		//setInterval(refreshMainViews2, 600);
+		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews2, 600);
 			
 		</script>
 </h:body>

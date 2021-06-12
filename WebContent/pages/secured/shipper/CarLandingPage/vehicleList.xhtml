@@ -281,7 +281,17 @@ body .ui-button {
            {
                className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                    
-               return '<img src="'+item.mainImage+'" style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;"/>';
+            	   if(item.selectUploadedOneOrAuction=="true"){
+              		   imageMain =  '<img style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;" src="/images/?file='+item.mainImageUpload+'" alt="image'+item.mainImage+'"/>'
+
+                	   console.log(item.selectUploadedOneOrAuction);
+              	   }else{
+              		   imageMain =  '<img style="box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;border-radius: 15%;max-width: 79px;max-height: 79px;width: auto;height: auto;margin-right: 4%;" src="'+item.mainImage+'" alt="image'+item.mainImage+'"/>'
+
+                	   console.log(item.selectUploadedOneOrAuction);
+              	   }
+            	   
+               return imageMain;
                }
              },
          {

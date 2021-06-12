@@ -20,9 +20,123 @@
 	 select{
         color:#aaa;
     }
+    
+    
     option:not(first-child) {
         color: #000;
     }
+    
+    
+   
+#Allservices {
+    text-align: center;
+    background-image:white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    top: -75px;
+}
+#Allservices .serOverlay{
+    padding: 2rem 0;
+
+}
+
+#Allservices .head-services h3{
+    font-size: 2rem;
+    color: #3b4772;
+    padding-top: 5rem;
+    font-weight: 600;
+padding: 1rem 0 2rem;
+}
+
+#Allservices .head-services h3::after{
+  
+    content: "";
+    display: block;
+    height: 5px;
+    margin: auto;
+    margin-top: 1rem;
+    right: 0;
+    width: 80px;
+    background-color: #e70013;
+    transition: all 1s;
+}
+#Allservices .head-services:hover h3::after{
+    width: 200px;
+}
+.owl-theme .owl-nav [class*=owl-]:hover{
+    background-color: rgba(238, 61, 43, 0.3);
+}
+
+#Allservices .single-service {
+   
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+
+}
+#Allservices .single-service img{
+    background-size: cover;
+    height: 15%;
+}
+
+#Allservices .single-service .overlay{
+    background-color: white;
+    position: absolute;
+    top:  0%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1.2rem 2rem;
+    opacity: 0;
+    transition: opacity 1s , transform 1s;
+
+}
+#Allservices .single-service:hover .overlay{
+    opacity: 1;
+    transform: rotate(360deg);}
+
+
+
+#Allservices .single-service h4{
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 1s;
+    color: #252525;
+}
+
+
+#Allservices .single-service a button{
+    background-color:#e70013;
+    color: white;
+    border: none;
+    border-radius: 7px;
+}
+#Allservices .single-service a:hover button{
+    background-color:#252525;
+}
+
+#Allservices .owl-prev, #Allservices .owl-next{
+    position: absolute;
+    top: 50%;
+    font-size: 2rem;
+    color: #e70013; 
+}
+#Allservices .owl-prev{
+left: -5%;
+}
+#Allservices .owl-next{
+right: -5%;
+}
+
+
+
+
 	</style>
 		<section id="find-your-car">
 	    <div class="container" style="direction:rtl">
@@ -205,6 +319,49 @@
 			
 			
 			
+			<section id="Allservices" >
+			       <div class="serOverlay">
+			    <div class="container">
+			      <div class="head-services">
+			        <h3 class="">خدماتنا</h3>
+			    </div> 
+			    
+			    <div class="container">
+			    	<div class="row">
+			    		<div class="col-md-6">
+			    			<div class="row">
+			    			<a class="w-100" href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true" style="text-align: center;color: #1d9dda;font-weight: bold;">	المزاد  وشراء سيارات </a>
+			    			</div>
+			    			<div class="row">
+			    				<img src="/resources/Image/serv1.png" style="margin-top: 67px;width: -webkit-fill-available;"/>
+			    			</div>
+			    			<div class="row">
+			    			<h:panelGroup  rendered="#{loginBean.loggedIn}">
+			    			<a class="w-100" href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true" style="text-align: center;color: #1d9dda;font-weight: bold;">	عدد السيارات التى تم شرائها: #{normalUserBean.totalNumberOfShippingOnly+normalUserBean.totalNumberOfShippingAndBuy}  </a>
+			    			</h:panelGroup>
+			    			</div>
+			    		</div>
+			    		
+			    		<div class="col-md-6">
+			    			<div class="row ">
+			    				<a class="w-100" href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true" style="text-align: center;color: #1d9dda;font-weight: bold;"> شراء سلع </a>
+			    			</div>
+			    		<div class="row">
+			    				<img src="/resources/Image/serv2.png" style="margin-left: 12%;width: -webkit-fill-available;"/>
+			    			</div>
+			    			<div class="row ">
+			    			<h:panelGroup rendered="#{loginBean.loggedIn}">
+			    				<a class="w-100" href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true" style="text-align: center;color: #1d9dda;font-weight: bold;">عدد السلع التى تم شرائها: #{normalUserProductBean.totalNumberOfShippingAndBuy+normalUserProductBean.totalNumberOfShippingOnly} </a>
+			    			</h:panelGroup>
+			    			</div>
+			    		</div>
+			    	</div>
+			    
+			    </div>
+			    </div>
+			    </div>
+			    </section>
+			
 			
 			<section id="services" >
 			       <div class="serOverlay">
@@ -220,7 +377,14 @@
           
 			            <div>
 			                <div class="single-service">
-			                  <h:graphicImage value="#{data.mainImage}" alt="image#{var}" class="img-fluid" />
+			                   <h:graphicImage value="/images/?file=#{data.mainImageUpload}" rendered="#{data.selectUploadedOneOrAuction}" alt="image#{var}" style="    width: 393px;height: 315px;" />
+					
+			                  <h:graphicImage value="#{data.mainImage}" rendered="#{!data.selectUploadedOneOrAuction}" alt="image#{var}" class="img-fluid" />
+			                  <h:panelGroup rendered="#{carLandingBean.getDateTimeNow()&gt;&equals;data.bidingDate&amp;&amp;carLandingBean.getDateTimeNow()&lt;&equals;data.endDate}">
+			                  <img onclick="" style="width: 25%;position: absolute;bottom: 5px;right: 3px;" src="/resources/Image/live.png" alt="image-Live'+item.mainImage+'"/>
+			                  </h:panelGroup>
+                		  
+                		   
 							<div class="overlay">
 			             
 			              <h4> #{data.year} #{data.make}  #{data.model} <span>($#{data.currentBid})</span></h4>

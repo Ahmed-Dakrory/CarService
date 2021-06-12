@@ -1,6 +1,7 @@
 package main.com.carService.carLanding;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -168,6 +169,10 @@ public class carLanding {
 	public static String AUTCION_LIBYA = "Libya";
 	public static String AUTCION_KOREA = "Korean";
 	
+
+	public static boolean SELECT_UPLOADED = true;
+	public static boolean SELECT_FROM_AUCTION = false;
+	
 	@Column(name = "auctionType")
 	private String auctionType;
 	
@@ -203,11 +208,18 @@ public class carLanding {
 	
 	@Column(name = "estRetailValue")
 	private String estRetailValue;
-	
+
 	@Column(name = "mainImage")
 	private String mainImage;
-
 	
+	
+
+	@Column(name = "mainImageUpload")
+	private String mainImageUpload;
+
+
+	@Column(name = "selectUploadedOneOrAuction")
+	private boolean selectUploadedOneOrAuction;
 
 	@Column(name = "category")
 	private String category;
@@ -839,6 +851,10 @@ public class carLanding {
 	      obj.addProperty("mainImage", String.valueOf(this.mainImage));
 	      obj.addProperty("category", String.valueOf(this.category));
 	      obj.addProperty("endDate", String.valueOf(this.endDate));
+	      
+	      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	      String dateString = format.format( new Date()   );
+	      obj.addProperty("DateTimeNowRealTime", String.valueOf(dateString));
 	      obj.addProperty("docType", String.valueOf(this.docType));
 	      obj.addProperty("odoMeter", String.valueOf(this.odoMeter));
 	      obj.addProperty("startDate", String.valueOf(this.startDate));
@@ -857,7 +873,9 @@ public class carLanding {
 		      obj.addProperty("userMaxBidLasttName", String.valueOf(""));
 		        
 	      }
+	      obj.addProperty("selectUploadedOneOrAuction", String.valueOf(this.selectUploadedOneOrAuction));
 	      obj.addProperty("mainImage", String.valueOf(this.mainImage));
+	      obj.addProperty("mainImageUpload", String.valueOf(this.mainImageUpload));
 	      obj.addProperty("odoDescription", String.valueOf(this.odoDescription));
 	      obj.addProperty("currentBid", String.valueOf(this.currentBid));
 	      obj.addProperty("active", String.valueOf(this.active));
@@ -876,7 +894,7 @@ public class carLanding {
 	public enum stateOfCar {
 
 		BidingState(0,"Still in Biding"),ProcessState(1,"In Process..."),
-		PapersStates(2,"In Copart Biding"),Delivered(3,"Delivered");
+		PapersStates(2,"In Main Auction"),Delivered(3,"Delivered");
 		
 		stateOfCar(int type,String name){
 			this.type=type;
@@ -915,6 +933,30 @@ public class carLanding {
 
 	public void setAuctionType(String auctionType) {
 		this.auctionType = auctionType;
+	}
+
+
+
+	public String getMainImageUpload() {
+		return mainImageUpload;
+	}
+
+
+
+	public void setMainImageUpload(String mainImageUpload) {
+		this.mainImageUpload = mainImageUpload;
+	}
+
+
+
+	public boolean isSelectUploadedOneOrAuction() {
+		return selectUploadedOneOrAuction;
+	}
+
+
+
+	public void setSelectUploadedOneOrAuction(boolean selectUploadedOneOrAuction) {
+		this.selectUploadedOneOrAuction = selectUploadedOneOrAuction;
 	}
 
 

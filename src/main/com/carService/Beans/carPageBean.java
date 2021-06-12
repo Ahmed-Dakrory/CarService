@@ -1,10 +1,20 @@
 package main.com.carService.Beans;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +23,22 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
 import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
 import helpers.retrofit.mainFiles.copartReturnImages;
+import main.com.carService.carImage.carimage;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.invoiceLanding.invoicelanding;
@@ -29,6 +46,8 @@ import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
+import main.com.carService.carLandingImage.carlandingimage;
+import main.com.carService.carLandingImage.carlandingimageAppServiceImpl;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.notification.notification;
@@ -67,7 +86,13 @@ public class carPageBean implements Serializable{
 	
 	List<carLanding> listOfAddedCars;
 
+
+	@ManagedProperty(value = "#{carlandingimageFacadeImpl}")
+	private carlandingimageAppServiceImpl carlandingimageFacade;
 	
+
+	private List<String> images_deleted;
+	private List<String> imagesLanding;
 
 	private Integer progressLoading;
 
@@ -405,6 +430,95 @@ public void getCarWithVinNew() {
 }
 
 
+
+
+public void previewImage(FileUploadEvent event) {
+	byte[] image =event.getFile().getContents();
+	String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+	imagesLanding.add(fileName);
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelpreviewImage");
+}
+
+private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
+    double boundSize = size;
+       int origWidth = bufferedImage.getWidth();
+       int origHeight = bufferedImage.getHeight();
+       double scale;
+       if (origHeight > origWidth)
+           scale = boundSize / origHeight;
+       else
+           scale = boundSize / origWidth;
+        //* Don't scale up small images.
+       if (scale > 1.0)
+           return (bufferedImage);
+       int scaledWidth = (int) (scale * origWidth);
+       int scaledHeight = (int) (scale * origHeight);
+       
+       BufferedImage after = new BufferedImage(origWidth, origHeight, BufferedImage.TYPE_INT_ARGB);
+       AffineTransform at = new AffineTransform();
+       at.scale(scale, scale);
+       AffineTransformOp scaleOp = 
+          new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+       after = scaleOp.filter(bufferedImage, after);
+       
+       BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+       Graphics2D g = scaledBI.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+       g.drawImage(after, 0, 0, null);
+       g.dispose();
+       return (scaledBI);
+}
+
+public String saveImageToDirectory(byte[] image,String directory) {
+	String fileName="";
+	try {
+		File file=File.createTempFile("img", ".jpg", new File(directory));
+	      byte [] data = image;
+	      ByteArrayInputStream bis = new ByteArrayInputStream(data);
+	      BufferedImage bImage2;
+		bImage2 = ImageIO.read(bis);
+		
+		
+		 
+	        OutputStream os = new FileOutputStream(file);
+		
+		// create a BufferedImage as the result of decoding the supplied InputStream
+        BufferedImage image2=scaleImage(bImage2, 800);
+		// get all image writers for JPG format
+        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+ 
+        float quality = 0.5f;
+        ImageWriter writer = (ImageWriter) writers.next();
+        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+        writer.setOutput(ios);
+ 
+        ImageWriteParam param = writer.getDefaultWriteParam();
+ 
+        // compress to a given quality
+        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        param.setCompressionQuality(quality);
+ 
+        // appends a complete image stream containing a single image and
+        //associated stream and image metadata and thumbnails to the output
+        writer.write(null, new IIOImage(image2, null, null), param);
+ 
+     // close all streams
+        os.close();
+        ios.close();
+        writer.dispose();
+		
+		
+		fileName=file.getName();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return fileName;
+      
+}
+
+
 	public void selectCarRowForMain() {
 
 		 FacesContext context = FacesContext.getCurrentInstance();
@@ -412,6 +526,16 @@ public void getCarWithVinNew() {
 		 Integer carId = Integer.valueOf((String) map.get("carId"));
 		 selectedFreight=carLandingFacade.getById(carId);
 		 
+
+			images_deleted=new ArrayList<String>();
+		 imagesLanding=new ArrayList<String>();
+			List<carlandingimage> allImages = carlandingimageFacade.getAllByCarIdAndType(selectedFreight.getId(),carlandingimage.TYPE_AUCTION);
+			if(allImages!=null) {
+			for(int i=0;i<allImages.size();i++) {
+				imagesLanding.add(allImages.get(i).getUrl());
+			}
+			}
+			
 		System.out.println("Selected Id: "+selectedFreight.getLot());
 		PrimeFaces.current().executeScript("showDialog('car');");
 		updateImagesWithLink(selectedFreight.getAllImagesLink());
@@ -481,7 +605,34 @@ public void getCarWithVinNew() {
 		}
 }
 	
+	public void deleteFile() {
+		 FacesContext context = FacesContext.getCurrentInstance();
+		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+		 Integer typeOfFile = Integer.valueOf((String) map.get("typeOfFile"));
+		 String fileURL = (String) map.get("fileURL");
+
+			System.out.println(fileURL);
+			System.out.println(typeOfFile);
+		if(typeOfFile==carlandingimage.TYPE_AUCTION) {
+			
+				removeFileFromImages(fileURL);
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelpreviewImage");
+			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Image Has Been Deleted\", \"success\");");
+		}
+		
+	}
+
 	
+	private void removeFileFromImages(String fileURL) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<imagesLanding.size();i++) {
+			if(imagesLanding.get(i).equalsIgnoreCase(fileURL)) {
+				imagesLanding.remove(i);
+				images_deleted.add(fileURL);
+				return;
+			}
+		}
+	}
 
 	public void invoiceDetails(int idUser) {
 
@@ -529,6 +680,24 @@ System.out.println("Data: "+String.valueOf(idUser));
 		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		carLandingFacade.addcarLanding(selectedFreight);
 		
+		for(int i=0;i<images_deleted.size();i++) {
+
+			carlandingimage cImage=new carlandingimage();
+			cImage.setCarId(selectedFreight);
+			cImage.setUrl(images_deleted.get(i));
+			cImage.setType(carlandingimage.TYPE_AUCTION);
+			cImage.setDeleted(true);
+			carlandingimageFacade.addcarlandingimage(cImage);
+
+		}
+		
+		for(int i=0;i<imagesLanding.size();i++) {
+			carlandingimage cImage=new carlandingimage();
+			cImage.setCarId(selectedFreight);
+			cImage.setUrl(imagesLanding.get(i));
+			cImage.setType(carlandingimage.TYPE_AUCTION);
+			carlandingimageFacade.addcarlandingimage(cImage);
+		}
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -537,6 +706,15 @@ System.out.println("Data: "+String.valueOf(idUser));
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	
+	
+	public void previewImageMain(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+		selectedFreight.setMainImageUpload(fileName);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMainUpload");
 	}
 	
 	
@@ -648,7 +826,9 @@ public void addCarForMain() {
 	selectedFreight=new carLanding();
 	
 	images=new ArrayList<String>();
-	
+
+	images_deleted=new ArrayList<String>();
+ imagesLanding=new ArrayList<String>();
 	try {
 		FacesContext.getCurrentInstance()
 		   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vitView.jsf?faces-redirect=true");
@@ -965,6 +1145,36 @@ public void addCarForMain() {
 
 	public void setListOfCarsGroupByCategory(List<carLanding> listOfCarsGroupByCategory) {
 		this.listOfCarsGroupByCategory = listOfCarsGroupByCategory;
+	}
+
+
+	public carlandingimageAppServiceImpl getCarlandingimageFacade() {
+		return carlandingimageFacade;
+	}
+
+
+	public void setCarlandingimageFacade(carlandingimageAppServiceImpl carlandingimageFacade) {
+		this.carlandingimageFacade = carlandingimageFacade;
+	}
+
+
+	public List<String> getImages_deleted() {
+		return images_deleted;
+	}
+
+
+	public void setImages_deleted(List<String> images_deleted) {
+		this.images_deleted = images_deleted;
+	}
+
+
+	public List<String> getImagesLanding() {
+		return imagesLanding;
+	}
+
+
+	public void setImagesLanding(List<String> imagesLanding) {
+		this.imagesLanding = imagesLanding;
 	}
 
 	

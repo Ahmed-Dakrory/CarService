@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+<ui:composition template="/templates/publicTemplateForAuction.xhtml">
 
 <ui:define name="tagsMeta">
 
@@ -24,7 +24,11 @@
 </ui:define>	
 
 	<ui:define name="content">
+	
 	<style>
+	button span{
+	display:none;
+	}
 	hr {
     margin-top: 4.1px;
     margin-bottom: 4.1px;
@@ -75,84 +79,261 @@
 input:focus-visible{
 border:none;
 }
+
+.ui-button-text-only .ui-button-text {
+    padding: 0px 0em;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor: move;
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    color: black;
+    background: black;
+    position: absolute;
+    right: .3em;
+    top: 50%;
+    width: 19px;
+    margin: -10px 0 0;
+    padding: 1px;
+    height: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 13.5px;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=25);
+    -khtml-opacity: .25;
+    -moz-opacity: .25;
+    opacity: .25;
+}
 	</style>
 		
 		
+	#{carLandingBean.refresh()}
+	
 	<div class="w-100">
-		<div class="row">
+	
+		<div class="row w-100 pr-0">
 		
-			<div class="col-md-3 p-0 pl-1 ">
-				<div class="card" dir="ltr">
+			
+			<div class="col-md-5">
+				  
+				  <div class="row">
+	
+		<h2 style="color: #2d96e0;font-size: 25px;margin-left: 23px;"> ##{carLandingBean.selectedCarPage.id} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model}</h2>
+	</div>
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				  <div class="carousel-inner">
+				  
+				    <div class="carousel-item active" data-slide-number="0">
+				      <img src="#{carLandingBean.images.get(0)}" class="d-block w-100" alt="..." data-remote="#{carLandingBean.images.get(0)}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
+				    </div>
+				    <ui:repeat var="data" varStatus="status"  offset="1" value="#{carLandingBean.images}">
+				    <div class="carousel-item" data-slide-number="#{status.index}">
+				      <img src="#{data}" class="d-block w-100" alt="..." data-remote="#{data}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
+				    </div>
+				    </ui:repeat>
+				    
+				  </div>
+				  
+				  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon"  style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+				
+				<!-- Carousel Navigation -->
+					<div>
+					  <div>
+				  
+					    <div>
+					      <div id="carousel-selector-0" class="thumb col-4 col-sm-2 px-1 py-2 selected" data-target="#myCarousel" data-slide-to="0">
+					          <img src="#{carLandingBean.images.get(0)}" class="img-fluid" alt="..."/>
+					        </div>
+					    </div>
+				    
+						<ui:repeat var="data" varStatus="status"  offset="1" value="#{carLandingBean.images}">
+					   <div >
+				        <div id="carousel-selector-#{status.index}" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="#{status.index}">
+				          <img src="#{data}" class="img-fluid" alt="..."/>
+				        </div>
+				       </div>
+				       </ui:repeat>
+				       
+				      </div>
+				    </div>
+				  
+				  
+				  <h:form>
+			<div class="card" style="width: 100%;direction: ltr;">
 					<div class="card-header text-left" style="    background-color: #4e4d4c;    color: white;">
-					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p>
+					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Full Cost Calculation</p>
 					</div>
-					<div class="card-body" style="    padding: 15px;    margin: 0;    padding-top: 1px;">
-						<div class="row">
-							<p style="width: 100%;text-align: center;background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);    font-size: 17px; font-weight: 600; padding: 16px;">REGISTER BUY</p>
+					
+					<div class="card-body">
+						     <p:panelGrid columns="2" style="width:100%;">
+		    	<p:outputLabel value="Enter the Final Bid"/>
+		    	<h:inputText value="#{carLandingBean.valueOfCarBid}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
+																
+		            
+		    </p:panelGrid>
+		    <p:panel id="ajaxSpinnerValue2"  style="width:100%">
+			   
+		    
+		    	
+		    	<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name">Size</label>
+						<div class="col-sm-9">
+					 <h:selectOneMenu  value="#{carLandingBean.carSize}" name="type" id="type" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+							<f:selectItem itemLabel="Small" itemValue="0"/>
+							<f:selectItem itemLabel="SUV" itemValue="1"/>
+						</h:selectOneMenu>
 						</div>
-						<div class="container">
-							<div class="row" dir="ltr">
-								 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p>
-							</div>
-							<div class="row mt-3" style="font-size: 13px;    font-weight: 200;">Bid status: you haven't bid</div>
-							<div class="row" style="font-size: 13px;    font-weight: 400;">Current bid</div>
-							<div class="row" style="font-size: 25px;    font-weight: 900;">$0 USD</div>
-							<hr style="padding: 0;    margin: 0px;    margin-top: 10%;    margin-right: -10%;    margin-left: -10%;"/>
-							<div class="row" style="font-size: 13px;font-weight: 300;margin-top: 11px;">Enter you Maximum Possible Bid</div>
-							<div class="row">
-								<div class="col-md-7" style="border-style: solid;    border-width: 1px;    border-color: #d4d4d4;    border-radius: 7px;    margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-									<div class="col-md-2 p-0 m-0 pt-1"><h:commandButton class="w-100" style="background: url('https://cdn0.iconfinder.com/data/icons/typicons-2/24/minus-512.png');margin-top: 0px;border-color: yellow;background-position: 1px 3px;padding: 9px;background-repeat: no-repeat;height: 19px;border-width: 3px;border-radius: 18px!important;background-size: 17px 16px;"/></div>
-									<div class="col-md-8  p-0 m-0 pt-1"><h:inputText style="border: none;text-align: center;font-size: 19px;padding-top: 0px;" class="w-100" value=""/></div>
-									<div class="col-md-2 p-0 m-0 pt-1"><h:commandButton class="w-100" style="background: url('https://upload.wikimedia.org/wikipedia/commons/c/ce/Plus_font_awesome.svg');background-position: 2.5px 0.5px;border-color: yellow;padding: 9px;background-repeat: no-repeat;height: 19px;border-width: 3px;border-radius: 18px!important;background-size: 14px 16px;"/></div>
-								</div>
-								<div class="col-md-5 p-0 m-0 pl-3">
-									<h:commandButton style="background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);height: 92%;margin-top: 2px;width: 100%;font-weight: 900;border: none;border-radius: 14px!important;" value="Bid Now"/>
-								</div>
-							</div>
-							<div class="row" style="font-size: 13px;    font-weight: 200;    margin-top: 4px;">Enter $25 or more</div>
-							<hr style="padding: 0;margin: 0px;margin-bottom: 5%;margin-top: 5%;margin-right: -10%;margin-left: -10%;"/>
-							<div class="row" >
-								<div class="col-md-5 p-0 m-0">
-									<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">if Final Bid is </p>
-								</div>
-								<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-									<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$500 USD </p>
-								</div>
-							</div>
-							
-							<div class="row" >
-								<div class="col-md-5 p-0 m-0">
-									<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Auction Fees </p>
-								</div>
-								<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-									<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$25 USD </p>
-								</div>
-							</div>
-							
-							
-							
-							<div class="row" >
-								<div class="col-md-5 p-0 m-0">
-									<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Transaction Fees </p>
-								</div>
-								<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-									<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$25 USD </p>
-								</div>
-							</div>
-							
-							
-							<div class="row" >
-								<div class="col-md-5 p-0 m-0">
-									<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Documentation Fees </p>
-								</div>
-								<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-									<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$25 USD </p>
-								</div>
-							</div>
-						</div>
+				
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name">Location</label>
+					<div class="col-sm-9">
+					<h:selectOneMenu  value="#{carLandingBean.selectedLocation}" name="type" id="type2" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						<f:ajax listener="#{carLandingBean.refreshCityList()}" render="ajaxSpinnerValue2"/>
+						<f:selectItems value="#{carLandingBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
+					</h:selectOneMenu>
+					
 					</div>
 				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name">City</label>
+					<div class="col-sm-9">
+					<h:selectOneMenu value="#{carLandingBean.selectedCity}" name="type" id="type3" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						<f:ajax listener="#{carLandingBean.refreshStateList()}" render="ajaxSpinnerValue2"/>
+						<f:selectItems value="#{carLandingBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
+					</h:selectOneMenu>
+					
+					</div>
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name">State</label>
+					<div class="col-sm-9">
+					<h:selectOneMenu value="#{carLandingBean.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						
+						<f:selectItems value="#{carLandingBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
+					</h:selectOneMenu>
+					
+					</div>
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name">Port</label>
+					<div class="col-sm-9">
+					<h:selectOneMenu  value="#{carLandingBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						<f:selectItem itemLabel="Newark, NJ" itemValue="0"/>
+						<f:selectItem itemLabel="Savannah, GA" itemValue="1"/>
+						<f:selectItem itemLabel="Houston, TX" itemValue="2"/>
+						<f:selectItem itemLabel="Los Angeles, CA" itemValue="3"/>
+					</h:selectOneMenu>
+					
+					</div>
+				</div>
+				<div class="row mt-1">
+				<p:commandButton class="w-100" update="ajaxSpinnerValue2" value="Calc" action="#{carLandingBean.calcValueOfTotalFeesCarSelected}">
+				</p:commandButton>								
+		    	</div>
+		    	
+		    	<div class="card-body">
+		    		<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Auction Fees:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.copartFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-4 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Our Fees:
+						</div>
+						<div class="col-md-8 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.ourFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Online Fees:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.onlineFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Sea Fees:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.seaFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Land Fees:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.landFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total Fees:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.totalFees}
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total:
+						</div>
+						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.totalFees+carLandingBean.valueOfCarBid}
+						</div>
+					</div>
+								
+								
+		    	</div>
+		    	
+		    	
+		    
+		    	
+		    	
+		    	
+		   
+		    	
+		    	
+		    	 </p:panel>
+		   
+					</div>
+
 			</div>
+			</h:form> 
+			</div>
+			
+			
 			
 			<div class="col-md-3 p-0" >
 				<div class="card" dir="ltr">
@@ -161,10 +342,10 @@ border:none;
 					</div>
 					<div class="card-body">
 						<div class="row divider">
-							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
 								VIN:
 							</div>
-							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							<div class="col-md-9 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
 							#{carLandingBean.selectedCarPage.uuid}
 							</div>
 						</div>
@@ -211,10 +392,10 @@ border:none;
 						
 						<hr/>
 						<div class="row divider">
-							<div class="col-md-6 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							<div class="col-md-7 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
 								Secondary Damage:
 							</div>
-							<div class="col-md-6 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
 							#{carLandingBean.selectedCarPage.secondaryDamage}
 							</div>
 						</div>
@@ -313,65 +494,281 @@ border:none;
 			
 			
 			
-			<div class="col-md-5">
-				  
-				  
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				  <div class="carousel-inner">
-				  
-				    <div class="carousel-item active" data-slide-number="0">
-				      <img src="#{carLandingBean.images.get(0)}" class="d-block w-100" alt="..." data-remote="#{carLandingBean.images.get(0)}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
-				    </div>
-				    <ui:repeat var="data" varStatus="status"  offset="1" value="#{carLandingBean.images}">
-				    <div class="carousel-item" data-slide-number="#{status.index}">
-				      <img src="#{data}" class="d-block w-100" alt="..." data-remote="#{data}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
-				    </div>
-				    </ui:repeat>
-				    
-				  </div>
-				  
-				  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-				    <span class="carousel-control-prev-icon"  style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
-				    <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-				    <span class="carousel-control-next-icon" style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
+			<h:form id="RightColumnData" class="col-md-4 p-0 pl-1 ">
+				
+				<div class="card" dir="ltr">
+					<div class="card-header" style="    background-color: #4e4d4c;    color: white;">
+					<div class="col-md-6 p-0 text-left">
+					 	<p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p> 
+					 </div>
+					<div class="col-md-6 p-0 text-right">
+						<p style="font-size: 19px;line-height: 10px;color: #e4ca0f;padding: 0px;margin: 0px;font-weight: 900;">#{carLandingBean.selectedCarPage.auctionType} Auction</p>
+					</div>
+					 
+					</div>
+					<div class="card-body" style="    padding: 15px;    margin: 0;    padding-top: 1px;">
+						
+						<h:panelGroup id="bidDetails">
+						<div class="row">
+						
+						 <h:panelGroup rendered="#{!carLandingBean.selectedCarPage.active}">
+						 <div style="color: #0f1b29;width: 100%;text-align: center;font-size: 25px;height: 59px;padding-top: 3%;margin: 1px;box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #733838;text-shadow: 1px 1px 2px #ffffff, 0 0 25px white, 0 0 5px #cacaca;background: linear-gradient(rgb(255, 255, 255) 0px, rgb(36, 94, 162) 95%, rgb(37, 95, 162) 0px);font-weight: 700;">
+						 <div>Bid Finished</div> </div>
+						 </h:panelGroup>
+						 
+						 <h:panelGroup rendered="#{carLandingBean.selectedCarPage.active&amp;&amp;carLandingBean.getDateTimeNow()&gt;&equals;carLandingBean.selectedCarPage.bidingDate&amp;&amp;carLandingBean.getDateTimeNow()&lt;&equals;carLandingBean.selectedCarPage.endDate}">
+						 <div style="width: 100%;text-align: center;margin: 8px;">
+						 	<img style="width:119px;" src="/resources/Image/live.png"/>
+						 </div>
+						 </h:panelGroup>
+							 
+							 
+						</div>
+						
+						
+						<h:panelGroup rendered="#{carLandingBean.selectedCarPage.activebuyItNow}">
+						<div class="row" >
+							<div style="text-align: center;background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);    font-size: 17px; font-weight: 600; padding: 9px;" class="w-100">
+								Buy It Now Price
+								<div class="price" style=" color: #238bf3;">
+								$<span>#{carLandingBean.selectedCarPage.buyItNowPrice}</span>
+								USD 
+								</div>
+								
+								
+								
+								
+								<div class="buy-now__learn-b">
+								<a class="bn-link" id="buy-now-link" style="    color: aliceblue;" onclick="PF('dlg1').show();">
+								Learn more about Buy It Now </a>
+								
+								<p:dialog  header="Buy It Now" widgetVar="dlg1" modal="true" style="    background: white;">
+								
+								<div class="content">
+								<p></p><p style="width: 395px;font-size: 13px;">
+								<strong>Buy It Now</strong>
+								&nbsp;allows you to purchase the vehicle immediately at a set price . Once confirmed, you will be directed to pay for the vehicle.
+								you can calculate the total fees using the biding Calculator</p>
+								<p></p>
+								</div>
+								   
+								</p:dialog>
+								
+								
+								
+								</div>
+
+								<p:commandLink disabled="#{!carLandingBean.selectedCarPage.active}" class="button rBtnBig submit-proxy" onclick="buyNow();"  id="buy-now-submit" style="background: linear-gradient(rgb(232, 232, 232) 0px, rgb(140, 125, 125) 95%, rgb(122, 136, 142) 0px);color: #464343!important;border-radius: 10px;">Buy It Now</p:commandLink>
+								
+
+
+							</div>
+						</div>
+						</h:panelGroup>
+						
+						
+						</h:panelGroup>
+						
+						<div class="container mt-3">
+							<div class="row" dir="ltr">
+								 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p>
+							</div>
+							<h:panelGroup id="currentPriceDisplay">
+							<div class="row mt-3" style="font-size: 13px;    font-weight: 200;">Bid status: #{carLandingBean.currentBidStateDetails}</div>
+							<h:panelGroup rendered="#{carLandingBean.selectedCarPage.userMaxBidId!=null}">
+							<div class="row" style="font-size: 13px;    font-weight: 400;">Current bid</div>
+							<div class="row" style="font-size: 25px;    font-weight: 900;">$#{carLandingBean.selectedCarPage.currentBid} USD</div>
+							By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName} #{carLandingBean.selectedCarPage.userMaxBidId.lastName}
+							
+							
+							
+							
+							</h:panelGroup>
+							
+							
+							 
+							</h:panelGroup>
+							<hr style="padding: 0;    margin: 0px;    margin-top: 10%;    margin-right: -10%;    margin-left: -10%;"/>
+								
+							<h:panelGroup rendered="#{carLandingBean.selectedCarPage.active}">
+								
+								
+								<div class="row" style="font-size: 13px;font-weight: 300;margin-top: 11px;">Enter you Maximum Possible Bid</div>
+								<div class="row">
+									<div class="col-md-5 row col-5" style="border-style: solid;border-width: 1px;border-color: #d4d4d4;border-radius: 7px;margin: 0px;height: 33px;padding: 1px;padding-top: 0px;">
+										<div class="col-md-3 p-0 m-md-0 pl-md-1 pr-md-1 mt-md-1 col-3 pr-2 ml-2 mt-1"><p:commandButton action="#{carLandingBean.decreaseBy100DollarsMain()}" update="increment" class="w-100 fa fa-minus" style="background: white;border-color: yellow;background-position: 1px 24px;background-repeat: no-repeat;border-width: 3px;padding-left: 2px;border-radius: 16px!important;background-size: 14px 16px;"/></div>
+										<div class="col-md-6  p-0 m-0 col-5 mt-1"><h:inputText id="increment" style="border: none;text-align: center;font-size: 17px;padding-top: 0px;" class="w-100" value="#{carLandingBean.totalBid}"/></div>
+										<div class="col-md-3 p-0 m-0 pl-md-1 pr-md-1 mt-md-1 col-1 mt-1"><p:commandButton action="#{carLandingBean.increaseBy100DollarsMain()}" update="increment" class="w-100 fa fa-plus" style="background: white;border-color: yellow;padding-right: 16px;padding-left: 2px;background-repeat: no-repeat;border-width: 3px;border-radius: 18px!important;background-size: 14px 16px;"/></div>
+									</div>
+									<div class="col-1"></div>
+									<div class="col-md-5 p-0 m-0 pl-3 col-5">
+										<p:commandButton action="#{carLandingBean.makeIncrementBid()}" style="background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);height: 92%;margin-top: 2px;width: 100%;font-weight: 900;border: none;border-radius: 14px!important;" value="Bid Now"/>
+									</div>
+								</div>
+								<div class="row" style="font-size: 13px;    font-weight: 200;    margin-top: 4px;">Enter $25 or more</div>
+								<hr style="padding: 0;margin: 0px;margin-bottom: 5%;margin-top: 5%;margin-right: -10%;margin-left: -10%;"/>
+								
+								<h:panelGroup id="CurrentPriceSmall">
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">if Final Bid is </p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid} USD </p>
+									</div>
+								</div>
+								
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Auction Fees </p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.copartFees} USD </p>
+									</div>
+								</div>
+								
+								
+								
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Additional Fees </p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.ourFees} USD </p>
+									</div>
+								</div>
+								
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Total Fees </p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid+carLandingBean.selectedCarPage.copartFees+carLandingBean.selectedCarPage.ourFees} USD </p>
+									</div>
+								</div>
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							
+						</div>
+					</div>
+				</div>
+			
+				
+				
+				
+				<h:panelGroup id="differenceTime">
+				<div class="card"  dir="ltr" style="border-color: #9e0f1c;margin-top: 9px; display:#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'block':'none'};">
+					<div class="card-header text-left" style="background-color: #9e0f1c;color: white;">
+					 <p style="font-size: 11px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Live Auction Ends after</p>
+					</div>
+					<div class="card-body" style="margin: 0px;padding: 0px;height: 37px;">
+						<div class="row">
+							<p style="width: 100%;text-align: center;font-size: 16px;font-weight: 600;margin-top: 7px;">#{carLandingBean.differenceTimeDateFromBidToEnd}</p>
+						</div>
+					</div>
 				</div>
 				
-				<!-- Carousel Navigation -->
-					<div>
-					  <div>
-				  
-					    <div>
-					      <div id="carousel-selector-0" class="thumb col-4 col-sm-2 px-1 py-2 selected" data-target="#myCarousel" data-slide-to="0">
-					          <img src="#{carLandingBean.images.get(0)}" class="img-fluid" alt="..."/>
-					        </div>
-					    </div>
-				    
-						<ui:repeat var="data" varStatus="status"  offset="1" value="#{carLandingBean.images}">
-					   <div >
-				        <div id="carousel-selector-#{status.index}" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="#{status.index}">
-				          <img src="#{data}" class="img-fluid" alt="..."/>
-				        </div>
-				       </div>
-				       </ui:repeat>
-				       
-				      </div>
-				    </div>
-				   
 				
 				
-
-			</div>
+				<div class="card"  dir="ltr" style="border-color: #9e0f1c;margin-top: 9px; display:#{carLandingBean.diffFromStartToBid>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'block':'none'};">
+					<div class="card-header text-left" style="background-color: #9e0f1c;color: white;">
+					 <p style="font-size: 11px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Live Auction Start in</p>
+					</div>
+					<div class="card-body" style="margin: 0px;padding: 0px;height: 37px;">
+						<div class="row">
+							<p style="width: 100%;text-align: center;font-size: 16px;font-weight: 600;margin-top: 7px;">#{carLandingBean.differenceTimeDateFromStartToBid}</p>
+						</div>
+					</div>
+				</div>
+				</h:panelGroup>
+				
+				<div class="card" dir="ltr" style="    margin-top: 9px;">
+					<div class="card-header text-left" style="    background-color: #4e4d4c;    color: white;">
+					 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Sale Location And Information</p>
+					</div>
+						<div class="card-body">
+						<div class="row divider">
+							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Location:
+							</div>
+							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{carLandingBean.selectedCarPage.auctionLocation}
+							</div>
+						</div>
+						<hr/>
+						<div class="row divider">
+							<div class="col-md-4 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Sale Date:
+							</div>
+							<div class="col-md-8 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{carLandingBean.selectedCarPage.bidingDate}
+							</div>
+						</div>
+						<hr/>
+						<div class="row divider">
+							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Sale Name:
+							</div>
+							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{carLandingBean.selectedCarPage.auctionType}
+							</div>
+						</div>
+						
+						
+						
+						
+						
+						
+					</div>
+				
+				</div>
+			</h:form>
 			
-		
 				  
 		</div>
 	</div>
 		
 		 
+		 
+		 
+	<h:form>
+	<p:remoteCommand name="buyCar"  action="#{carLandingBean.buyCarNow()}"/>
+	</h:form>
+
+
+	<script>
+function buyNow(){
+	swal({
+		  title: "Are you sure?",
+		  text: "Are you sure to add this car to your Payments?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		   
+			  buyCar();
+		  } 
+		});
+}
+</script>
+
+
+<h:form>
+<p:remoteCommand name="setWatchList" actionListener="#{carLandingBean.setCarToWatchList()}"/>
+</h:form>
+
+#{carLandingBean.reloadedParametersAndPanelRefresh()}
+	<h:form>
+			<p:remoteCommand name="refreshMainViews" action="#{carLandingBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
+		</h:form>
+		<script>
+		setInterval(refreshMainViews, 600);
+			
+		</script>
+
 	</ui:define>
 	
 		
