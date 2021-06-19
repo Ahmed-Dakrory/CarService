@@ -72,7 +72,7 @@
 <div class="row searchDiv">
 <div class="searchArea col-md-3">
 <div class="search-processing" id="search-processing" style="display:none">
-<div class="img-block"><img src="../../img/ajax-loader.gif" alt="Please Wait"/>
+<div class="img-block"><img src="/resources/images/img/ajax-loader.gif" alt="Please Wait"/>
 <br></br>Processing... </div>
 </div>
 <div class="searchBox" id="fixed">
@@ -85,8 +85,9 @@
 <input type="hidden" name="norobots" value="norobots"/>
 <input type="hidden" name="search_type" value="car-finder"/>
 <input type="hidden" name="per-page" value=""/>
-<label for="type">Vehicle type</label>
-<label class="select-label">
+<div class="row mt-2">
+<label for="type" class="col-md-5">Vehicle type</label>
+<label class="select-label col-md-7">
 <h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
 
 <f:selectItem itemLabel="Any Type" itemValue="%" />
@@ -95,10 +96,11 @@
 
 
 </label>
+</div>
 
-<br></br>
-<label for="make">Make</label>
-<label class="select-label">
+<div class="row mt-3">
+<label for="make" class="col-md-5">Make</label>
+<label class="select-label col-md-7">
 
 <h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
 <f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
@@ -109,10 +111,12 @@
 
  </label>
  
- <br></br>
+</div>
  
- <label for="make">Model</label>
-<label class="select-label">
+ 
+ <div class="row mt-3">
+ <label for="make" class="col-md-5">Model</label>
+<label class="select-label col-md-7">
 
 <h:selectOneMenu value="#{carPageBean.searchModel}"  id="model" name="model"  class="custom-select" style="width: 205px; display: inline-block;">
 
@@ -122,14 +126,12 @@
 
  </label>
  
- <br></br>
+</div>
  
  
-<table>
-<tbody><tr>
-<td width="50%" style="padding:0">
-<label for="yearFrom">Year from</label>
-<label class="select-label">
+ <div class="row mt-3">
+<label for="yearFrom" class="col-md-3 p-0 m-0 pl-2">Year from</label>
+<label class="select-label col-md-3 p-0 m-0 pl-2 pr-2">
 
 <h:selectOneMenu value="#{carPageBean.searchStartYear}">
 
@@ -186,11 +188,10 @@
 
 </h:selectOneMenu>
 </label>
-</td>
-<td style="padding:0">&nbsp;&nbsp;</td>
-<td width="50%" style="padding:0">
-<label for="yearTo">Year to</label>
-<label class="select-label">
+
+
+<label for="yearTo"  class="col-md-3 p-0 m-0 pl-2">Year to</label>
+<label class="select-label col-md-3 p-0 m-0 pr-2 pl-2">
 
 
 <h:selectOneMenu value="#{carPageBean.searchEndYear}">
@@ -248,13 +249,9 @@
 
 </h:selectOneMenu>
 
-
 </label>
-</td>
-</tr>
-</tbody></table>
-<br></br>
-<div class="search-container">
+</div>
+<div class="search-container row mt-2 pr-2 pl-2">
 <p:commandButton value="FIND VEHICLES " action="#{carPageBean.makeSearch()}"  class="yBtn find-vehicles-btn">
 
 </p:commandButton>
@@ -328,6 +325,7 @@
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 
+		<h:outputScript name="js/dashboardCaroMoto/mainFunctions.js"/>
  <p:remoteCommand name="setCarToWatchList" action="#{carPageBean.setCarToWatchListNum()}"> 
 	</p:remoteCommand>
 	
@@ -398,7 +396,7 @@
         	 {
                  className: "center d-table-cell d-sm-none ", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                      
-                	 if(item.selectUploadedOneOrAuction){
+                	 if(item.selectUploadedOneOrAuction=="true"){
               		   imageMain =  '<img style="width: 100%;" src="/images/?file='+item.mainImageUpload+'" alt="image'+item.mainImage+'"/>'
                          
               	   }else{
@@ -409,7 +407,14 @@
               return '<div class="preview-photo" id="pph-24311239">'
               +'<a data-auction="copart" data-lot="24311239" onclick="ViewDocById('+item.mainImage+')" class="see_photos">See Photos</a>'
               +imageMain
-              +'</div>';
+              +'</div>'
+              +'<h2 class="title mt-3">'
+				+'<a itemprop="url" href="/pages/public/carsForDetails.jsf?id='+item.id+'" style="color: #4697ea;font-size: 15px;"><span itemprop="name">'+item.year+' '+item.make+' '+item.model+'</span></a> </h2>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">VIN: </span>'+item.uuid+' </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Mileage: </span>'+item.odoMeter+ ' miles </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Damage: </span>'+item.damageDescription+ '</div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Doc Type: </span>'+item.docType+  '</div>'
+			;
                  }
                },
                
@@ -423,9 +428,9 @@
                 		   imageLive = '';
                 	   }
                 	   
+                	   console.log("Ahmed:"+item.selectUploadedOneOrAuction);
                 	   
-                	   
-                	   if(item.selectUploadedOneOrAuction){
+                	   if(item.selectUploadedOneOrAuction=="true"){
                 		   imageMain =  '<img style="width: 187px;" src="/images/?file='+item.mainImageUpload+'" alt="image'+item.mainImage+'"/>'
                            
                 	   }else{

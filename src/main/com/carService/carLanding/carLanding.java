@@ -172,9 +172,17 @@ public class carLanding {
 
 	public static boolean SELECT_UPLOADED = true;
 	public static boolean SELECT_FROM_AUCTION = false;
-	
+
 	@Column(name = "auctionType")
 	private String auctionType;
+	
+
+	@Column(name = "notes")
+	private String notes;
+	
+
+	@Column(name = "keyExist")
+	private String keyExist;
 	
 	
 
@@ -960,6 +968,32 @@ public class carLanding {
 	}
 
 
+
+	public String getNotes() {
+		return notes;
+	}
+
+
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+
+
+	public String getKeyExist() {
+		return keyExist;
+	}
+
+
+
+	public void setKeyExist(String keyExist) {
+		this.keyExist = keyExist;
+	}
+
+
+
+	
 	
 	
 }

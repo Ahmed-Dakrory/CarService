@@ -30,7 +30,7 @@ function closeDialog(){
 }
 
 
-
+/*
 $(document).ready(function(){
 	  $(".owl-carousel").owlCarousel({
 		  margin:3,
@@ -40,3 +40,4 @@ $(document).ready(function(){
 	  });
 	});
 
+*/

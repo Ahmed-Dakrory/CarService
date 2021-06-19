@@ -1637,6 +1637,13 @@ public void calcValueOfTotalFeesCarSelected() {
 							}catch (Exception ex) { //
 							}
 		                	  break;
+		                	  
+						case 21:
+							try {
+								data.setKeyExist(getTheValueFromCell(cell));
+							}catch (Exception ex) { //
+							}
+		                	  break;
 							  
 						case 23:
 							try {
@@ -1758,6 +1765,10 @@ public void calcValueOfTotalFeesCarSelected() {
 		                	  
 						case 46:
 							try {
+								
+								if(!getTheValueFromCell(cell).equals("0")) {
+									data.setActivebuyItNow(true);
+								}
 								data.setBuyItNowPrice(getTheValueFromCell(cell));
 								int level = calcBean.getLevel(Float.valueOf(getTheValueFromCell(cell)));
 								float copartFees=(float) calcBean.CalculateCopart(level, Float.valueOf(getTheValueFromCell(cell)));

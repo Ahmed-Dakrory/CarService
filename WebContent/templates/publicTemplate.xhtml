@@ -710,6 +710,12 @@ function closeNav() {
 		      
 		        <div class="navbar-collapse collapse" id="navbarSupportedContent">
 		          <ul class="navbar-nav mr-auto w-100" style="direction:rtl" >
+		          
+		          	 <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
+		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true" style="height: 48px;margin: -8px;margin-left: 18px;color: #405264;background: linear-gradient( 180deg ,#eeb32e 0,#f8ce00 95%,#bca842 0);">سجل الأن لتشترى</a>
+		            </li>
+		            
+		            
 		            <li class="nav-item active">
 		              <a class="nav-link" href="/">الرئيسية <span class="sr-only">(current)</span></a>
 		            </li>
@@ -743,9 +749,7 @@ function closeNav() {
 					</li>
 					
 					
-		            <li class="nav-item active" style="display:#{loginBean.loggedIn?'none':'block'};">
-		              <a class="nav-link" href="/pages/public/registeration.jsf?faces-redirect=true">حساب جديد</a>
-		            </li>
+		            
 		            
 		           <li class="nav-item active" style="display:#{loginBean.loggedIn &amp;&amp;loginBean.theUserOfThisAccount.role!=6?'block':'none'};">
 		              <a class="nav-link" href="/pages/secured/userData/userProfile.jsf?faces-redirect=true">وحدة التحكم</a>
@@ -884,7 +888,7 @@ function closeNav() {
 	
 			 
 			 	<script>
-		dialogLoader = bootbox.dialog({
+		/*dialogLoader = bootbox.dialog({
     	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',
     	    closeButton: false,
     	    show: false
@@ -897,6 +901,8 @@ function closeNav() {
         	});
         	
                     	}
+		*/
+		
 		
 		function ErrorDialog(){
         	dialogLoader = bootbox.dialog({

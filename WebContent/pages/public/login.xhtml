@@ -38,7 +38,9 @@
 					<div class="panel-body" style="    border: black;    border-width: 1px;    box-shadow: 0px 0px 11px 4px grey;">
 						<h:form prependId="false" id="login-form" action="https://phpoll.com/login/process" method="post" role="form" >
 							<div class="form-group mb-lg">
-								<label style="    text-align: right;">البريد الالكترونى</label>
+							<div class="clearfix">
+								<label style="    text-align: right;" class="pull-right">البريد الالكترونى</label>
+								</div>
 								<div class="input-group ">
 									<p:inputText type="email" id="Mail" class="form-control " value="#{loginBean.emailOfUserLoggedIn}"/>
 									<span class="input-group-addon">
@@ -52,7 +54,6 @@
 							<div class="form-group mb-lg">
 								<div class="clearfix">
 									<label style="    text-align: right;" class="pull-right">الرقم السرى</label>
-									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group ">
 									<p:inputText type="password" id="Password" required="true" class="form-control " value="#{loginBean.passwordOfUserLoggedIn}"/>
@@ -66,7 +67,7 @@
 
 							<div class="row">
 								<div class="col-sm-8">
-									<div class="checkbox-custom checkbox-default">
+									<div class="checkbox-custom checkbox-default pull-right">
 										<input id="RememberMe" name="rememberme" type="checkbox"/>
 										<label  for="RememberMe">تذكرنى</label>
 									</div>

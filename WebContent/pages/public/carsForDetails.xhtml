@@ -118,14 +118,11 @@ border:none;
 	<div class="w-100">
 	
 		<div class="row w-100 pr-0">
-		
+			
 			
 			<div class="col-md-5">
 				  
-				  <div class="row">
-	
-		<h2 style="color: #2d96e0;font-size: 25px;margin-left: 23px;"> ##{carLandingBean.selectedCarPage.id} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model}</h2>
-	</div>
+				
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				  <div class="carousel-inner">
 				  
@@ -151,24 +148,21 @@ border:none;
 				</div>
 				
 				<!-- Carousel Navigation -->
-					<div>
-					  <div>
+					<div class="row">
 				  
-					    <div>
 					      <div id="carousel-selector-0" class="thumb col-4 col-sm-2 px-1 py-2 selected" data-target="#myCarousel" data-slide-to="0">
 					          <img src="#{carLandingBean.images.get(0)}" class="img-fluid" alt="..."/>
 					        </div>
-					    </div>
+					 
 				    
 						<ui:repeat var="data" varStatus="status"  offset="1" value="#{carLandingBean.images}">
-					   <div >
+					
 				        <div id="carousel-selector-#{status.index}" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="#{status.index}">
 				          <img src="#{data}" class="img-fluid" alt="..."/>
 				        </div>
-				       </div>
+				   
 				       </ui:repeat>
 				       
-				      </div>
 				    </div>
 				  
 				  
@@ -486,6 +480,27 @@ border:none;
 							</div>
 							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
 							#{carLandingBean.selectedCarPage.fuel}
+							</div>
+						</div>
+						
+						<hr/>
+						<div class="row divider">
+							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Keys:
+							</div>
+							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{carLandingBean.selectedCarPage.keyExist}
+							</div>
+						</div>
+						
+						
+						<hr/>
+						<div class="row divider">
+							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Notes:
+							</div>
+							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{carLandingBean.selectedCarPage.notes}
 							</div>
 						</div>
 					</div>

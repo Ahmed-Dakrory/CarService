@@ -1,3 +1,11 @@
+
+
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 #logo {
     width: 100%;
     background-color: white;
@@ -33,79 +41,147 @@
 
 .navbar-dark .navbar-nav .nav-link {
     font-weight:600 ;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 0 0.5rem;
 }
 
 
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #ffffff;
-    background-color: #ffffff1f;
+    color:  #e70013;
+    background-color: white;
 }
 
-header .header-img
-{
-    background-image: url(/resources/Image/Bunner-01.png);
-    height: 100vh;
+.inputSearch {
+    border: none;
+    position: relative;
+    top: -5px;
     width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
-.header-img{
-}
+
+
 .carHeder{
     width: 40%;
-    position: absolute;
-bottom: -80px;
-right: 50px;
-z-index: 99999999;
+}
+#find-your-car {
+    margin: auto;
+    text-align: center;
 }
 
-#find-your-car{
-    position: relative;
-    bottom: 75px;
-}
-#find-your-car .find-car-title{
-    background-color: #3b4772;
-    color: white;
-    padding: 0.2rem 3rem;
-}
-#find-your-car .find-car-title p{
-font-size: 1.5rem;
+#find-your-car p{
+font-size: 2.5rem;
 font-weight: 600;
+padding: 1.5rem 0;
+color: black;
+margin: auto;
 }
 
-#find-your-car .find-car-title p i{
-    margin-right: 0.3rem;
+#find-your-car p i{
+    margin-left: 0.8rem;
 }
 
+.car-search{
+    color: white;
+    background: #405264;
+    border-radius: 10px;
+    border: white 1px solid;
+    padding: 1rem 1rem;
+    box-shadow: 3px 5px 7px rgb(77, 77, 77);
 
+}
 .btn-secondary {
-    color: #fff;
-    background-color: #949cb861;
-    border: solid 1px #aca1a1;
+    color: #405264 !important;
+    background-color: #fff;
+    border:solid 1px white;
+    font-size: 1.2rem;
 }
 .btn-secondary:hover{
-    color: #bcbcbc;
-    background-color: #8a8a8a70;
-    /* border:solid 1px white; */
-}
-.car-search{
-    background-color: #3b4772;
-    padding: 3rem 1rem;
+    color: white !important;
+    background-color: #405264;
+    border:solid 1px white;
 }
 
+.car-search .search{
+    background-color: #e70013;
+    color: white !important;
+}
 
+.car-search .search:hover{
+    box-shadow: 3px 3px 3px gray;
+}
 
+#buy-services{
+    margin: 0;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+#buy-services .container .row .col-md-4{
+    padding-left: 0%;
+}
+#buy-services a {
+    color: #405264;
+    font-size: 1.5rem;
+
+}
+#buy-services .card{
+    border: none;
+}
+#buy-services .mony img{
+    margin-bottom: 4rem !important;
+margin: auto;
+}
+#buy-services .mony{
+    transition: transform 1s 1s;
+}
+
+#buy-services .mony:hover img{
+    transform: scale(1.1,1.1)
+}
+#buy-services .buy-cars img{
+    margin: auto;
+    margin-bottom: 1rem !important;
+}
+
+#buy-services .buy-cars{
+    transition: transform 1s 1s;
+}
+
+#buy-services .buy-cars:hover img{
+    transform: scale(1.1,1.1)
+}
+
+#buy-services .buy-items img{
+    margin: auto;
+}
+
+#buy-services .buy-items{
+    transition: transform 1s 1s;
+}
+
+#buy-services .buy-items:hover img{
+    transform: scale(1.1,1.1)
+}
+
+.btn-primary {
+    background-color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    border-color: #405264;
+}
+
+#buy-services .card-text{
+    font-weight: bold;
+}
 
 #services {
     text-align: center;
     background-image: url(/resources/Image/ab-footer-bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    top: -75px;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
 }
 #services .serOverlay{
     background-color: rgba(128, 128, 128, 0.692);
@@ -118,7 +194,7 @@ font-weight: 600;
     color: white;
     padding-top: 5rem;
     font-weight: 600;
-padding: 1rem 0 2rem;
+    padding: 0rem 0 1rem
 }
 
 #services .head-services h3::after{
@@ -176,7 +252,7 @@ padding: 1rem 0 2rem;
 #services .single-service h4{
     font-family: 'Jost', sans-serif;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     transition: all 1s;
     color: #252525;
 }
@@ -209,11 +285,32 @@ right: -5%;
 
 
 #CATEGORIES {
-    margin: 0rem 0rem;
+    margin: 5rem 0rem;
     background-color: whitesmoke;
-    margin-top: -73px;
+    margin-top: 0;
     padding: 5rem 0;
 }
+#CATEGORIES .head-CATEGORIES h2{
+    color: #e70013;
+    padding-bottom: 1.5rem;
+    text-align: center;
+}
+#CATEGORIES .head-CATEGORIES h2::after{
+  
+    content: "";
+    display: block;
+    height: 5px;
+    margin: auto;
+    margin-top: 1rem;
+    right: 0;
+    width: 80px;
+    background-color: #e70013;
+    transition: all 1s;
+}
+#CATEGORIES .head-CATEGORIES:hover h2::after{
+    width: 200px;
+}
+
 #CATEGORIES .categoriesImg{
     margin-top: 3rem;
     background-image: url(/resources/Image/car-1.png);
@@ -221,7 +318,7 @@ right: -5%;
     background-size: contain;
 }
 #CATEGORIES .categoriesText .btn{
-   background-color: #626261;
+   background-color: #e70013;
    border: none;
    padding: 0.8rem 2rem;
    margin-left: 5rem;
@@ -229,7 +326,7 @@ right: -5%;
 }
 
 #CATEGORIES .categoriesText h2{
-    color: #083079;
+    color: #e70013;
     padding-bottom: 1.5rem;
     margin-left: 2rem;
 }
@@ -251,9 +348,11 @@ right: -5%;
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
+    margin-top: 0 !important;
 }
 #footer-contact .layout{
     background-color: rgba(19, 19, 18, 0.658);
+    margin-top: 0;
 }
 
 #footer-contact .container img{
@@ -281,43 +380,135 @@ right: -5%;
 }
 
 #footer-contact ul li a:hover{
-    color: #c0bebe;
+    color:#e70013 ;
+}
+
+@media only screen and (max-width: 992px){
+
+
+
+
+
 }
 
 
 
-.inputSearch{
-	  border: none;
-	  position: relative;
-	  top: -5px;
-	  width: 100%;
-}
 
-.ui-autocomplete-panel .ui-autocomplete-table th, .ui-autocomplete-panel .ui-autocomplete-table td {
-    border-width: 1px;
-    border-style: solid;
-    border-color: inherit;
-    padding: 4px 10px 4px 10px;
-    background: white;
+
+
+
+@media only screen and (max-width: 768px){
+
+    .col-md-4 {
+        /* flex: 0 0 33.333333%; */
+        /* max-width: 33.333333%; */
+        /* text-align: center; */
+    }
+
+    #logo p {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    #logo p i {
+        color: #e70013;
+        font-size: 1rem;
+    }
+
+    #logo .contact {
+        padding: 0 0.5rem 0 0;
+    }
+
+    #logo a img {
+        width: 60%;
+    }
+
+    header .header-img {
+        background-image: url(/resources/Image/Bunner-01.png);
+        height: 60vh;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    #find-your-car {
+        position: relative;
+        bottom: 20%;
+    }
+
+    #find-your-car .find-car-title{
+        padding: 0.5rem;
+    }
+    #find-your-car .find-car-title p {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .car-search{
+        padding-right: 0;
+        font-size: 0.5rem;
+        color: white;
+    }
+
+
+    .btn-secondary {
+        font-size: 0.9rem;
+
     }
     
-.yBtn{
-	background: linear-gradient(
-180deg
-,#334083 0,#8d8888 95%,#8a8b8b 0);
-	padding-bottom: 11px;"
+
+    #CATEGORIES .categoriesText h5 {
+        font-size: 1.2rem;
+    }
+
+    #CATEGORIES .categoriesText i {
+        font-size: 1.2rem;
+    }
+
+
 }
+
 
 
 
 @media only screen and (max-width: 576px){
-.categoriesText .w-100 {
-    width: 20%!important;
-}
+
+#logo p i {
+    color: #e70013;
+    font-size: 0.9rem;
+    margin-top: 0;
+margin-bottom: 0;
+padding-top: 0;
+padding-bottom: 0;
 }
 
+#logo p {
+    font-size: 0.8rem;
+margin: auto;
+margin-top: 0 !important;
+margin-bottom: 0;
+padding-top: 0;
+padding-bottom: 0;
+}
 
-@media only screen and (max-width: 576px){
+#logo a img {
+    width: 40%;
+    padding-top: 1.2rem;
+}
+#logo .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+#logo .contact{
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 0;
+margin-bottom: 0;
+padding-top: 0;
+padding-bottom: 0;
+}
 header .header-img {
     background-image: url(/resources/Image/Bunner-01.png);
     height: 40vh;
@@ -325,5 +516,35 @@ header .header-img {
     background-size: contain;
     background-repeat: no-repeat;
     color: white;
+}
+.categoriesText .w-100 {
+    width: 20%!important;
+}
+
+#footer-contact .container img {
+    width: 50%;
+    margin: 1rem 0 0rem;
+}
+
+#footer-contact .container h5 {
+    color: white;
+    margin: 1rem 0 0.3rem;
+}
+
+.mt-4, .my-4 {
+    margin-top: 0rem!important;
+}
+
+#footer-contact .container h5 {
+    color: white;
+    padding-bottom: 0.3rem;
+    margin: 0rem;
+    margin-left: 0 !important;
+}
+
+
+#footer-contact .container p {
+   
+    margin-left: 0 !important;
 }
 }
