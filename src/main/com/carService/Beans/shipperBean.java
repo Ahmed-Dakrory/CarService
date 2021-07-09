@@ -16,10 +16,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import main.com.carService.car.car;
 import main.com.carService.car.carAppServiceImpl;
+import main.com.carService.form_settings.form_settings;
+import main.com.carService.form_settings.form_settingsAppServiceImpl;
 import main.com.carService.invoice.invoice;
 import main.com.carService.invoice.invoiceAppServiceImpl;
 import main.com.carService.invoice.invoiceDTO;
@@ -69,6 +72,17 @@ public class shipperBean implements Serializable{
 	@ManagedProperty(value = "#{invoiceCarFacadeImpl}")
 	private invoiceCarAppServiceImpl invoiceCarFacade;
 	
+	
+	
+
+
+	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
+	private form_settingsAppServiceImpl form_settingsFacade;
+	
+
+	private List<form_settings> allform_settings;
+	private form_settings selectedformSetting;
+
 	private List<shipper> allshippers;
 	
 	private shipper selectedshipper;
@@ -102,6 +116,10 @@ public class shipperBean implements Serializable{
 		invoiceData=new invoice();
 	}
 	
+	
+	public void refreshAllSettings() {
+		allform_settings = form_settingsFacade.getAll();
+	}
 	public void getAllInvoicesBetweenDates() {
 		totalFees = 0;
 		Calendar lowDate = setCalendarFromString(dateLower);
@@ -169,6 +187,24 @@ public class shipperBean implements Serializable{
 		}
 	}
 	
+	
+	
+	 public void onRowEdit(RowEditEvent event) {
+		 
+
+		 form_settings mNewWithDetails= ((form_settings) event.getObject());
+		 form_settings mNew=mNewWithDetails;
+	        form_settingsFacade.addform_settings(mNew);
+	        PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Your data has been saved.',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+	       
+      
+ }
+	 
+	 
 	public void refresh(){
 		allshippers=shipperFacade.getAllByParentId(loginBean.getTheUserOfThisAccount().getId());
 		
@@ -624,6 +660,36 @@ public class shipperBean implements Serializable{
 
 	public void setTotalFees(float totalFees) {
 		this.totalFees = totalFees;
+	}
+
+
+	public form_settingsAppServiceImpl getForm_settingsFacade() {
+		return form_settingsFacade;
+	}
+
+
+	public void setForm_settingsFacade(form_settingsAppServiceImpl form_settingsFacade) {
+		this.form_settingsFacade = form_settingsFacade;
+	}
+
+
+	public List<form_settings> getAllform_settings() {
+		return allform_settings;
+	}
+
+
+	public void setAllform_settings(List<form_settings> allform_settings) {
+		this.allform_settings = allform_settings;
+	}
+
+
+	public form_settings getSelectedformSetting() {
+		return selectedformSetting;
+	}
+
+
+	public void setSelectedformSetting(form_settings selectedformSetting) {
+		this.selectedformSetting = selectedformSetting;
 	}
 
 	

@@ -168,13 +168,13 @@ border:none;
 				  
 				  <h:form>
 			<div class="card" style="width: 100%;direction: ltr;">
-					<div class="card-header text-left" style="    background-color: #4e4d4c;    color: white;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
 					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Full Cost Calculation</p>
 					</div>
 					
 					<div class="card-body">
 						     <p:panelGrid columns="2" style="width:100%;">
-		    	<p:outputLabel value="Enter the Final Bid"/>
+		    	<p:outputLabel value="Enter the Final Bid in $"/>
 		    	<h:inputText value="#{carLandingBean.valueOfCarBid}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
 																
 		            
@@ -231,10 +231,9 @@ border:none;
 					<label class="col-sm-3 control-label" for="w4-first-name">Port</label>
 					<div class="col-sm-9">
 					<h:selectOneMenu  value="#{carLandingBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
-						<f:selectItem itemLabel="Newark, NJ" itemValue="0"/>
-						<f:selectItem itemLabel="Savannah, GA" itemValue="1"/>
-						<f:selectItem itemLabel="Houston, TX" itemValue="2"/>
-						<f:selectItem itemLabel="Los Angeles, CA" itemValue="3"/>
+						
+						<f:selectItems value="#{carLandingBean.allLanding.entrySet().toArray()}" var="var" itemValue="#{var.key}" itemLabel="#{var.value}"/>
+					
 					</h:selectOneMenu>
 					
 					</div>
@@ -250,7 +249,7 @@ border:none;
 							Auction Fees:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.copartFees}
+						$#{carLandingBean.copartFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.copartFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -259,7 +258,7 @@ border:none;
 							Our Fees:
 						</div>
 						<div class="col-md-8 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.ourFees}
+						$#{carLandingBean.ourFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.ourFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -268,7 +267,7 @@ border:none;
 							Online Fees:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.onlineFees}
+						$#{carLandingBean.onlineFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.onlineFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -277,7 +276,7 @@ border:none;
 							Sea Fees:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.seaFees}
+						$#{carLandingBean.seaFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.seaFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -286,7 +285,7 @@ border:none;
 							Land Fees:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.landFees}
+						$#{carLandingBean.landFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.landFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -295,7 +294,7 @@ border:none;
 							Total Fees:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.totalFees}
+						$#{carLandingBean.totalFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.totalFees*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 					<hr/>
@@ -304,7 +303,7 @@ border:none;
 							Total:
 						</div>
 						<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-						$#{carLandingBean.totalFees+carLandingBean.valueOfCarBid}
+						$#{carLandingBean.totalFees+carLandingBean.valueOfCarBid} ,(#{carLandingBean.floatOfNumberWithPercent((carLandingBean.totalFees+carLandingBean.valueOfCarBid)*carLandingBean.dollarToDinar)})LYD
 						</div>
 					</div>
 								
@@ -331,7 +330,7 @@ border:none;
 			
 			<div class="col-md-3 p-0" >
 				<div class="card" dir="ltr">
-					<div class="card-header text-left" style="    background-color: #4e4d4c;    color: white;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
 					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">LOT DETAILS</p>
 					</div>
 					<div class="card-body">
@@ -400,7 +399,7 @@ border:none;
 								Est. Retail Value:
 							</div>
 							<div class="col-md-6 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-							$#{carLandingBean.selectedCarPage.estRetailValue}
+							$#{carLandingBean.selectedCarPage.estRetailValue} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.selectedCarPage.estRetailValue*carLandingBean.dollarToDinar)})LYD
 							</div>
 						</div>
 						
@@ -512,7 +511,7 @@ border:none;
 			<h:form id="RightColumnData" class="col-md-4 p-0 pl-1 ">
 				
 				<div class="card" dir="ltr">
-					<div class="card-header" style="    background-color: #4e4d4c;    color: white;">
+					<div class="card-header" style="    background-color: #405264f0;    color: white;">
 					<div class="col-md-6 p-0 text-left">
 					 	<p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p> 
 					 </div>
@@ -548,6 +547,10 @@ border:none;
 								<div class="price" style=" color: #238bf3;">
 								$<span>#{carLandingBean.selectedCarPage.buyItNowPrice}</span>
 								USD 
+								
+								
+								
+								,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.selectedCarPage.buyItNowPrice*carLandingBean.dollarToDinar)})LYD
 								</div>
 								
 								
@@ -589,11 +592,31 @@ border:none;
 								 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Bid Information</p>
 							</div>
 							<h:panelGroup id="currentPriceDisplay">
-							<div class="row mt-3" style="font-size: 13px;    font-weight: 200;">Bid status: #{carLandingBean.currentBidStateDetails}</div>
+							<h:panelGroup rendered="#{carLandingBean.showCurrentStatues}">
+							<div class="row mt-3" style="font-size: 19px;    font-weight: 500;     color: #978609;"><strong  style="    color: black;font-size: 19px; margin-right:10px;   font-weight: 700;">Bid status: </strong> #{carLandingBean.currentBidStateDetails}</div>
+							</h:panelGroup>
+							
+							
+							<h:panelGroup rendered="#{carLandingBean.showNotificationOfBidWinning}">
+								<div class="row mt-3">
+									<p style=" width: 100%; text-align: center; font-size: 25px; font-weight: 800; color: #39c30c; ">
+										YOU ARE THE WINING
+									</p>
+								</div>
+							</h:panelGroup>
+							
+							
+							<h:panelGroup rendered="#{carLandingBean.showNotificationOfBidOutBid}">
+								<div class="row mt-3">
+									<p style=" width: 100%; text-align: center; font-size: 25px; font-weight: 800; color: #db4a12; ">
+										YOU HAVE BEEN OUTBID
+									</p>
+								</div>
+							</h:panelGroup>
 							<h:panelGroup rendered="#{carLandingBean.selectedCarPage.userMaxBidId!=null}">
-							<div class="row" style="font-size: 13px;    font-weight: 400;">Current bid</div>
-							<div class="row" style="font-size: 25px;    font-weight: 900;">$#{carLandingBean.selectedCarPage.currentBid} USD</div>
-							By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName} #{carLandingBean.selectedCarPage.userMaxBidId.lastName}
+							<div class="row mt-3" style="font-size: 13px;    font-weight: 400;">Current bid</div>
+							<div class="row" style="font-size: 25px;    font-weight: 900;">$#{carLandingBean.selectedCarPage.currentBid} USD   ,(#{carLandingBean.floatOfNumberWithPercent((carLandingBean.selectedCarPage.currentBid*carLandingBean.dollarToDinar&percnt;))})LYD</div>
+							By: #{carLandingBean.selectedCarPage.userMaxBidId.firstName} #{carLandingBean.selectedCarPage.userMaxBidId.lastName}, his maximum bid is $#{carLandingBean.currentBidingMaximum.fullAmount}  ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.currentBidingMaximum.fullAmount*carLandingBean.dollarToDinar)})LYD
 							
 							
 							
@@ -620,7 +643,7 @@ border:none;
 										<p:commandButton action="#{carLandingBean.makeIncrementBid()}" style="background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);height: 92%;margin-top: 2px;width: 100%;font-weight: 900;border: none;border-radius: 14px!important;" value="Bid Now"/>
 									</div>
 								</div>
-								<div class="row" style="font-size: 13px;    font-weight: 200;    margin-top: 4px;">Enter $25 or more</div>
+								<div class="row" style="font-size: 13px;    font-weight: 200;    margin-top: 4px;">Enter $25 or more in $</div>
 								<hr style="padding: 0;margin: 0px;margin-bottom: 5%;margin-top: 5%;margin-right: -10%;margin-left: -10%;"/>
 								
 								<h:panelGroup id="CurrentPriceSmall">
@@ -629,7 +652,7 @@ border:none;
 										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">if Final Bid is </p>
 									</div>
 									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid} USD </p>
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid} USD   ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.selectedCarPage.currentBid*carLandingBean.dollarToDinar)})LYD</p>
 									</div>
 								</div>
 								
@@ -638,7 +661,7 @@ border:none;
 										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Auction Fees </p>
 									</div>
 									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.copartFees} USD </p>
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.copartFees} USD   ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.selectedCarPage.copartFees*carLandingBean.dollarToDinar)})LYD</p>
 									</div>
 								</div>
 								
@@ -649,7 +672,7 @@ border:none;
 										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Additional Fees </p>
 									</div>
 									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.ourFees} USD </p>
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.ourFees} USD    ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.selectedCarPage.ourFees*carLandingBean.dollarToDinar)})LYD</p>
 									</div>
 								</div>
 								
@@ -658,7 +681,7 @@ border:none;
 										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Total Fees </p>
 									</div>
 									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
-										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid+carLandingBean.selectedCarPage.copartFees+carLandingBean.selectedCarPage.ourFees} USD </p>
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.selectedCarPage.currentBid+carLandingBean.selectedCarPage.copartFees+carLandingBean.selectedCarPage.ourFees} USD    ,(#{carLandingBean.floatOfNumberWithPercent((carLandingBean.selectedCarPage.currentBid+carLandingBean.selectedCarPage.copartFees+carLandingBean.selectedCarPage.ourFees)*carLandingBean.dollarToDinar)})LYD</p>
 									</div>
 								</div>
 								</h:panelGroup>
@@ -671,15 +694,22 @@ border:none;
 			
 				
 				
-				
 				<h:panelGroup id="differenceTime">
-				<div class="card"  dir="ltr" style="border-color: #9e0f1c;margin-top: 9px; display:#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active==true?'block':'none'};">
+				
+				<div class="card"  dir="ltr" style="border-color: #9e0f1c;margin-top: 9px; display:#{carLandingBean.diffFromStartToBid&lt;0&amp;&amp;carLandingBean.diffFromBidToEnd>0&amp;&amp;carLandingBean.selectedCarPage.active||((carLandingBean.diffFromBidToEnd &lt; 60000 -carLandingBean.diffFromMaxToNow)&amp;&amp;carLandingBean.selectedCarPage.active)==true?'block':'none'};">
 					<div class="card-header text-left" style="background-color: #9e0f1c;color: white;">
 					 <p style="font-size: 11px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Live Auction Ends after</p>
 					</div>
 					<div class="card-body" style="margin: 0px;padding: 0px;height: 37px;">
 						<div class="row">
-							<p style="width: 100%;text-align: center;font-size: 16px;font-weight: 600;margin-top: 7px;">#{carLandingBean.differenceTimeDateFromBidToEnd}</p>
+						
+							<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd  &gt; 60000 -carLandingBean.diffFromMaxToNow}">
+								<p style="width: 100%;text-align: center;font-size: 16px;font-weight: 600;margin-top: 7px;">#{carLandingBean.differenceTimeDateFromBidToEnd}</p>
+							</h:panelGroup>
+							
+							<h:panelGroup rendered="#{carLandingBean.diffFromBidToEnd  &lt; 60000 -carLandingBean.diffFromMaxToNow}">
+								<p style="width: 100%;text-align: center;font-size: 16px;font-weight: 600;margin-top: 7px;">#{carLandingBean.timeInSecondsForLive}</p>
+							</h:panelGroup>
 						</div>
 					</div>
 				</div>
@@ -699,7 +729,7 @@ border:none;
 				</h:panelGroup>
 				
 				<div class="card" dir="ltr" style="    margin-top: 9px;">
-					<div class="card-header text-left" style="    background-color: #4e4d4c;    color: white;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
 					 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Sale Location And Information</p>
 					</div>
 						<div class="card-body">
@@ -772,7 +802,7 @@ function buyNow(){
 
 
 <h:form>
-<p:remoteCommand name="setWatchList" actionListener="#{carLandingBean.setCarToWatchList()}"/>
+<p:remoteCommand name="setWatchList"  actionListener="#{carLandingBean.setCarToWatchList()}"/>
 </h:form>
 
 #{carLandingBean.reloadedParametersAndPanelRefresh()}
@@ -780,7 +810,7 @@ function buyNow(){
 			<p:remoteCommand name="refreshMainViews" action="#{carLandingBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 		</h:form>
 		<script>
-		setInterval(refreshMainViews, 600);
+		setInterval(refreshMainViews, 5000);
 			
 		</script>
 

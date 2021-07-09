@@ -84,6 +84,7 @@ text-align: center;
 	</style>
 	#{normalUserBean.refreshProfileData()}
 	#{normalUserProductBean.refreshProfileData()}
+	#{bidBean.refresh()}
 	<div class="container">
     <div class="main-body gutters-sm">
     
@@ -195,6 +196,66 @@ text-align: center;
               </div>
              </div>
           </div>
+          
+          
+          
+          <div class="row">
+          				
+<section id="buy-services">
+    <div class="container">
+        <div class="row">
+
+
+			  <div class="col-md-4 buy-items">
+              <div class="card" style="width: 22rem; box-shadow: none;">
+                <a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء سلع</a>
+                <img src="/resources/Image/buy items.png" class="card-img-top w-75 mt-5 mb-5" alt="..."/>
+                <div class="card-body">
+                  <h:panelGroup  rendered="#{loginBean.loggedIn}">
+    				 <p class="card-text">تم شراء: #{normalUserProductBean.totalNumberOfShippingAndBuy+normalUserProductBean.totalNumberOfShippingOnly} سلعة</p>
+    			  </h:panelGroup>
+                </div>
+              </div>
+            </div>
+            
+        
+
+            <div class="col-md-4 buy-cars">
+              <div class="card" style="width: 23rem; box-shadow: none;">
+                <a href="/pages/public/carsForType.jsf?category=%">المزاد وشراء سيارات</a>
+                <img src="/resources/Image/buy cars.png" class="card-img-top w-100 mt-2" alt="..."/>
+                <div class="card-body">
+                  <h:panelGroup  rendered="#{loginBean.loggedIn}">
+    				 <p class="card-text">تم المزايدة على: #{bidBean.allCarForMyBid.size()} سيارة</p>
+    			  </h:panelGroup>
+                </div>
+              </div>
+            </div>
+
+			    			
+          
+            
+              <div class="col-md-4 mony">
+            <div class="card" style="width: 22rem; box-shadow: none;">
+              <a href="#">خدمات مالية</a>
+              <img src="/resources/Image/Mony.png" class="card-img-top w-75 mt-5 mb-5" alt="..."/>
+              <div class="card-body">
+              	<h:panelGroup  rendered="#{loginBean.loggedIn}">
+                	<p class="card-text">تم تحويل : 0 حوالة</p>
+                 </h:panelGroup>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+</section>
+
+		
+	
+          </div>
+          
+          
           
           <div class="row">
            <div class="card w-100">

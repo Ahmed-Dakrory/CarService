@@ -196,6 +196,12 @@ display:none;
 }
 
 
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+ 
+    font-family: calibri;
+}
+
+
  body{
    font-weight: 700;
    font-family: calibri;
@@ -575,7 +581,7 @@ display:none;
 		            </li>
 		
 		            <li class="nav-item active">
-		              <a class="nav-link" href="/pages/public/carsForType.jsf?category=0">ادخل المزاد</a>
+		              <a class="nav-link" href="/pages/public/carsForType.jsf?category=%">ادخل المزاد</a>
 		            </li>
 		
 		            <li class="nav-item active">
@@ -713,9 +719,9 @@ display:none;
 
 
 <div id="content" >
-<div class="pl-5 pr-5">
+<div class="pl-5 pr-5 d-none d-sm-block">
 			  <div class="row">
-				   <div class="col-md-4">
+				   <div class="col-md-5">
 					   	<div class="row">
 							<h2 style="color: #2d96e0;font-size: 35px;margin-left: 23px;"> #{carLandingBean.selectedCarPage.year} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model}</h2>
 						</div>
@@ -735,58 +741,144 @@ display:none;
 						</div>
 				   </div>
 				   
-				   <div class="col-md-3">
-				   		<h:form style="width: 100%;color:#faf8f8;height: 42px;font-style: italic;padding-top: 5px;margin-top: 35px;border-radius: 12px;background: linear-gradient( 180deg ,#17b44c 0,#287216 95%,#56a263 0);">
+				   <div class="col-md-3 pl-5 pr-5 " style="font-size: 15px;">
+				   		<h:form  id="setWatchListData" style="width: 100%;color:#faf8f8;height: 36px;font-style: italic;padding-top: 7px;margin-top: 37px;border-radius: 12px;">
+				   			<div onclick="setWatchList();"  style="display:#{carLandingBean.carInWatchList?'none':'block'};background: linear-gradient( 180deg ,#17b44c 0,#287216 95%,#56a263 0);height: 100%;border-radius: 8px;padding-top: 2px;">
 				   			<i class="fa fa-eye pl-3" style="color:#faf8f8;"></i>
-				   			<h:commandButton style="width: 296px;background: #f0f8ff00;border: none;font-size: 21px;" value="ADD TO MY WATCH LIST NOW">
+				   			<h:commandButton  style="background: #f0f8ff00;border: none;" value="ADD TO MY WATCH LIST NOW">
 				   				<f:ajax execute="@form"  />
 				   			</h:commandButton>
+				   			</div>
+				   			
+				   			<div onclick="setWatchList();"  style="display:#{carLandingBean.carInWatchList?'block':'none'}; background: linear-gradient( 180deg ,#1c9ce3 0,#1a53ba 95%,#13579e 0);height: 100%;border-radius: 8px;padding-top: 2px;">
+				   			<i class="fa fa-eye pl-3" style="color:#faf8f8;"></i>
+				   			<h:commandButton  style="background: #f0f8ff00;border: none;" value="REMOVE FROM MY WATCH LIST">
+				   				<f:ajax execute="@form"  />
+				   			</h:commandButton>
+				   			</div>
 				   		</h:form>
 				   </div>
 				   
 				   
 				   <div class="col-md-1">
 				   		<h:form style="width: 100%;color:#faf8f8;margin-top: 32px;border-radius: 34px!important;">
-				   			<p:commandButton class="fa fa-share-alt" style="font-size: 27px;color: #9e9e9e;border-radius: 5px!important;" value="">
-				   			</p:commandButton>
+				   			
+  <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://almzzad.com//pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank" style="font-size: 39px;color: #4f5f70;">
+  <i class="fab fa-facebook-square"></i></a>
 				   		</h:form>
 				   </div>
 				   
 				   
 				   
-				   <div class="col-md-1">
-				   		<h:form style="width: 100%;color: #0f6d99;margin-top: 31px;font-size: 20px;border-radius: 34px!important;">
-				   			<p:commandButton style="font-size: 13px;background: #9e9e9e00;width: 100%;position: absolute;height: 35px;border-radius: 5px!important;left: 0px;border-color: #c4c7c9;top: 39px;" >
-				   			<i class="fa fa-angle-double-left" style=" color: #0789c7; font-size: 22px; padding-top: 11px; "></i> <i>Previous</i>
+				   <div class="col-md-1 p-0 m-0">
+				   		<h:form style="width: 100%;color: #0f6d99;margin-top: 31px;font-size: 17px;border-radius: 34px!important;padding-left: 12%;">
+				   			<p:commandButton action="#{carLandingBean.goPreviousCar(carLandingBean.selectedCarPage.id)}" style="font-size: 13px;background: #9e9e9e00;width: 97%;position: absolute;height: 31px;border-radius: 5px!important;left: 0px;border-color: #c4c7c9;top: 41px;">
+				   			<i class="fa fa-angle-double-left" style="color: #0789c7;font-size: 16px;padding-top: 17px;"></i>
+				   			 <i>Previous</i>
 				   			</p:commandButton>
 				   		</h:form>
 				   </div>
 				   
-				   <div class="col-md-2">
-				   		<p style="font-size: 23px;text-align: center;color: #4e8cea;width: 100%;margin-top: 35px;border-radius: 5px!important;">Back to Results</p>
+				   <div class="col-md-1 p-0 m-0">
+				   		<p style="font-size: 13px;text-align: center;color: #4e8cea;width: 100%;margin-top: 45px;border-radius: 5px!important;">Back to Results</p>
 				   </div>
 				   
-				   <div class="col-md-1">
-				   		<h:form style="width: 100%;color: #0f6d99;margin-top: 31px;font-size: 20px;border-radius: 34px!important;">
-				   			<p:commandButton style="font-size: 13px;background: #9e9e9e00;width: 100%;position: absolute;height: 35px;border-radius: 5px!important;left: -17px;border-color: #c4c7c9;top: 37px;" value="">
-				   			 <i>Next</i> <i class="fa fa-angle-double-right" style=" color: #0789c7; font-size: 22px; padding-top: 11px; "></i>
+				   <div class="col-md-1 p-0 m-0">
+				   		<h:form class="row" style="width: 100%;color: #0f6d99;margin-top: 30px;font-size: 17px;border-radius: 34px!important;padding-left: 28%;padding-top: 13px;">
+				   			<p:commandButton action="#{carLandingBean.goNextCar(carLandingBean.selectedCarPage.id)}" style="font-size: 13px;background: #9e9e9e00;width: 97%;position: absolute;height: 31px;border-radius: 5px!important;left: 0px;border-color: #c4c7c9;top: 41px;">
+				   			 <i class="col-md-7">Next</i> 
+				   			 <i class="fa fa-angle-double-right col-md-2" style="color: #0789c7;font-size: 17px;padding-top: 5px;"></i>
 				   			</p:commandButton>
 				   		</h:form>
 				   </div>
-				   
-				   
-				   
-				   
-				   
-				   
+				    
 			  </div>
-	
-			</div>
+</div>
 			
 <div class="account-table row">
 
 
-        <div class="col-sm-12 col-md-10" style="text-align: justify;margin-right: 0px;padding-right: 0px;">
+        <div class="col-sm-12 col-md-10 order-md-1 order-2" style="text-align: justify;margin-right: 0px;padding-right: 0px;">
+        	
+        	<div class="d-block d-sm-none" style=" text-align: center; ">
+			  <div class="row">
+				   <div>
+					   	<div class="row mr-2">
+							<h2 style="color: #2d96e0;font-size: 35px;text-align: center;width: 100%;margin: 7px;"> #{carLandingBean.selectedCarPage.year} #{carLandingBean.selectedCarPage.make} #{carLandingBean.selectedCarPage.model}</h2>
+						</div>
+						<div class="row">
+						<div class="col-3 text-center ml-1">
+							<p style="font-weight: 200;font-size: 13px;"><strong style=" font-weight: 700; ">Lot # </strong>  #{carLandingBean.selectedCarPage.lot}</p>
+						</div>
+						
+						<div class="col-4 text-center ">
+							<p style="font-weight: 200;font-size: 13px;"><strong style=" font-weight: 700; ">Sale Location: </strong>  #{carLandingBean.selectedCarPage.auctionLocation}- #{carLandingBean.selectedCarPage.gridRow}</p>
+						</div>
+						
+						<div class="col-4 text-center ">
+							<p style="font-weight: 200;font-size: 13px;"><strong style=" font-weight: 700; ">Sale Date: </strong>  #{carLandingBean.selectedCarPage.startDate}</p>
+						</div>
+						    
+						</div>
+				   </div>
+				   
+				   <div class="col-9" style="font-size: 15px;">
+				   		<h:form  id="setWatchListDataMobile" style="width: 100%;color:#faf8f8;height: 36px;font-style: italic;padding-top: 7px;border-radius: 12px;">
+				   			<div onclick="setWatchList();"  style="display:#{carLandingBean.carInWatchList?'none':'block'};background: linear-gradient( 180deg ,#17b44c 0,#287216 95%,#56a263 0);height: 100%;border-radius: 8px;padding-top: 2px;">
+				   			<i class="fa fa-eye pl-3" style="color:#faf8f8;"></i>
+				   			<h:commandButton  style="background: #f0f8ff00;border: none;" value="ADD TO MY WATCH LIST NOW">
+				   				<f:ajax execute="@form"  />
+				   			</h:commandButton>
+				   			</div>
+				   			
+				   			<div onclick="setWatchList();"  style="display:#{carLandingBean.carInWatchList?'block':'none'}; background: linear-gradient( 180deg ,#1c9ce3 0,#1a53ba 95%,#13579e 0);height: 100%;border-radius: 8px;padding-top: 2px;">
+				   			<i class="fa fa-eye pl-3" style="color:#faf8f8;"></i>
+				   			<h:commandButton  style="background: #f0f8ff00;border: none;" value="REMOVE FROM MY WATCH LIST">
+				   				<f:ajax execute="@form"  />
+				   			</h:commandButton>
+				   			</div>
+				   		</h:form>
+				   </div>
+				   
+				   
+				   <div class="col-1">
+				   		<h:form style="width: 100%;color:#faf8f8;border-radius: 34px!important;">
+				   			 <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://almzzad.com//pages/public/carsForDetails.jsf?id=#{carLandingBean.selectedCarPage.id}" target="blank" style="font-size: 39px;color: #4f5f70;">
+				   			 <i class="fab fa-facebook-square"></i>
+				   			 </a>
+
+				   		</h:form>
+				   </div>
+				   
+				   
+				   
+				   <div class="col-4 p-0 m-0 ml-2 pr-3">
+				   		<h:form style="width: 100%;color: #0f6d99;font-size: 17px;border-radius: 34px!important;padding-left: 12%;">
+				   			<p:commandButton action="#{carLandingBean.goPreviousCar(carLandingBean.selectedCarPage.id)}" style="font-size: 13px;background: #9e9e9e00;width: 97%;position: absolute;height: 31px;border-radius: 5px!important;left: 0px;border-color: #c4c7c9;top:11px;">
+				   			<i class="fa fa-angle-double-left" style="color: #0789c7;font-size: 16px;padding-top: 17px;"></i>
+				   			 <i>Previous</i>
+				   			</p:commandButton>
+				   		</h:form>
+				   </div>
+				   
+				   <div class="col-3 p-0 m-0">
+				   		<p style="font-size: 13px;text-align: center;color: #4e8cea;width: 100%;margin-top: 15px;border-radius: 5px!important;">Back to Results</p>
+				   </div>
+				   
+				   <div class="col-4 p-0 m-0 ml-2 pr-3">
+				   		<h:form class="row" style="width: 100%;color: #0f6d99;font-size: 17px;border-radius: 34px!important;padding-left: 28%;padding-top: 13px;">
+				   			<p:commandButton action="#{carLandingBean.goNextCar(carLandingBean.selectedCarPage.id)}" style="font-size: 13px;background: #9e9e9e00;width: 97%;position: absolute;height: 31px;border-radius: 5px!important;left: 0px;border-color: #c4c7c9;top: 11px;">
+				   			 <i class="col-7">Next</i> 
+				   			 <i class="fa fa-angle-double-right col-3" style="color: #0789c7;font-size: 17px;padding-top: 5px;"></i>
+				   			</p:commandButton>
+				   		</h:form>
+				   </div>
+				    
+			  </div>
+</div>
+
+
+        	
         	<ui:insert name="content"  > 
 		    	 <ui:include src="content.xhtml" /> 
 		  </ui:insert>
@@ -794,20 +886,11 @@ display:none;
         
         </div>
 
-<div class="col-sm-12 col-md-2 side-menu account-menu" style="text-align:right;margin-left: 0px;padding-left: 0px;">
+<div class=" col-sm-12 col-md-2 side-menu account-menu order-md-2 order-1" style="text-align:right;margin-left: 0px;padding-left: 0px;">
 <div id="profile-side-menu" class="searchBox">
 <div class="group-title block_header responsive_header">القائمة </div>
 <div class="responsive_box">
 
-<div id="menu-header-profile" class="sublevel droparrow">حسابى</div>
-
-
-<ul id="menu-profile" class="level2" style="display: contents;">
-<li id="profile-Data"><a href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">ملفى الشخصى </a></li>
-<li id="profile-account"><a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">حسابى</a></li>
-<li id="profile-main"><a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">تعديل بياناتى</a></li>
-<li id="profile-transaction"><a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">المحفظة </a></li>
-</ul>
 
 
 <div id="menu-header-bid" class="sublevel droparrow">قائمة المزاد</div>
@@ -839,6 +922,19 @@ display:none;
 <li id="product-all"><a href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true">كل السلع </a></li>
 </ul>
 
+
+
+
+
+<div id="menu-header-profile" class="sublevel droparrow">حسابى</div>
+
+
+<ul id="menu-profile" class="level2" style="display: contents;">
+<li id="profile-Data"><a href="/pages/secured/userData/userProfileShow.jsf?faces-redirect=true">ملفى الشخصى </a></li>
+<li id="profile-account"><a href="/pages/secured/userData/userProfile2.jsf?faces-redirect=true">حسابى</a></li>
+<li id="profile-main"><a href="/pages/secured/userData/contactInfo2.jsf?faces-redirect=true">تعديل بياناتى</a></li>
+<li id="profile-transaction"><a href="/pages/secured/userData/moneyBox2.jsf?faces-redirect=true">المحفظة </a></li>
+</ul>
 
 
 <ul class="level1">
@@ -1015,8 +1111,8 @@ display:none;
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
-		setInterval(refreshMainViews, 600);
-		setInterval(refreshMainViews2, 600);
+		setInterval(refreshMainViews, 10000);
+		setInterval(refreshMainViews2, 10000);
 			
 		</script>
 </h:body>

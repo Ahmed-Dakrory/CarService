@@ -335,9 +335,13 @@ public class car {
 
 	@Column(name = "imagesLink")
 	private String imagesLink;
-	
+
 	@Column(name = "seal")
 	private String seal;
+	
+
+	@Column(name = "buyerNumber")
+	private String buyerNumber;
 	
 	@Column(name = "inlandStatus")
 	private String inlandStatus;
@@ -1756,6 +1760,24 @@ public class car {
 
 	public void setLotNumber(String lotNumber) {
 		this.lotNumber = lotNumber;
+	}
+
+
+
+
+
+
+	public String getBuyerNumber() {
+		return buyerNumber;
+	}
+
+
+
+
+
+
+	public void setBuyerNumber(String buyerNumber) {
+		this.buyerNumber = buyerNumber;
 	}
 	
 

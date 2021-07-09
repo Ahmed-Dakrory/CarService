@@ -142,6 +142,7 @@ right: -5%;
 	    <div class="container pt-3" style="direction:rtl">
 	  <p><i class="fas fa-car"></i>ابحث عن سيارتك في المزاد</p>
 		<h:form  id="searchForm">
+		#{bidBean.refresh()}
 		    <div class="row car-search">
 		        <div class="col-md-2">
 		            <div class="dropdown btn btn-secondary w-100">
@@ -335,11 +336,11 @@ right: -5%;
 
             <div class="col-md-4 buy-cars">
               <div class="card" style="width: 23rem;">
-                <a href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">المزاد وشراء سيارات</a>
+                <a href="/pages/public/carsForType.jsf?category=%">المزاد وشراء سيارات</a>
                 <img src="/resources/Image/buy cars.png" class="card-img-top w-100 mt-2" alt="..."/>
                 <div class="card-body">
                   <h:panelGroup  rendered="#{loginBean.loggedIn}">
-    				 <p class="card-text">تم شراء: #{normalUserBean.totalNumberOfShippingOnly+normalUserBean.totalNumberOfShippingAndBuy} سيارة</p>
+    				 <p class="card-text">تم المزايدة على: #{bidBean.allCarForMyBid.size()} سيارة</p>
     			  </h:panelGroup>
                 </div>
               </div>
@@ -348,7 +349,7 @@ right: -5%;
 			    			
             <div class="col-md-4 buy-items">
               <div class="card" style="width: 22rem;">
-                <a href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true">شراء سلع</a>
+                <a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء سلع</a>
                 <img src="/resources/Image/buy items.png" class="card-img-top w-75 mt-5 mb-5" alt="..."/>
                 <div class="card-body">
                   <h:panelGroup  rendered="#{loginBean.loggedIn}">
@@ -389,7 +390,7 @@ right: -5%;
                 		   
 							<div class="overlay">
 			             
-			              <h4> #{data.year} #{data.make}  #{data.model} <span>($#{data.currentBid})</span></h4>
+			              <h4> #{data.year} #{data.make}  #{data.model} <span>($#{data.currentBid}) ,(#{carLandingBean.floatOfNumberWithPercent(data.currentBid * carLandingBean.dollarToDinar)}) LYD</span></h4>
 			              
 			              <p> #{data.year} #{data.make}</p>
 			              <a href="/pages/public/carsForDetails.jsf?id=#{data.id}"><button class="btn">المزيد</button></a>

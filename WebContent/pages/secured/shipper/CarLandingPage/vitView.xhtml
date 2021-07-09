@@ -56,7 +56,29 @@
 }
 					</style>
 	
-	
+						    	<style>
+    input, select {
+    font-family: arial;
+    height: 29px!important;
+    padding: 1px 1px 1px 9px;
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 15px!important;
+    font-family: calibri;
+}
+
+td {
+    /* font-weight: 400; */
+    font-size: 15px;
+    font-family: calibri;
+}
+
+.tbltxt {
+    font: 16px 'calibri';
+    color: #000;
+    vertical-align: baseline;
+}
+    	</style>
 	
 	
     <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
@@ -763,6 +785,28 @@ body .ui-inputfield {
                                                                                                 </td>
                                                                                                 
                                                                                                 </tr>
+                                                                                                
+                                                                                                
+                                                                                                 <tr height="23">
+                                                                                            
+                                                                                                
+                                                                                                </tr>
+                                                                                                
+                                                                                                
+                                                                                                 <tr height="23">
+                                                                                            <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Notes:</div>
+                                                                                                </td>
+                                                                                                <td width="500">
+                                                                                                   <h:inputTextarea   value="#{carPageBean.selectedFreight.notes}"  style="font-size:19px;height:199px;width:100%;" />
+                                                                                                 
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                
+                                                                                                </tr>
+                                                                                                
                                                                                              <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">

@@ -7,6 +7,7 @@ package main.com.carService.carLanding;
 
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -213,7 +214,7 @@ public class carLandingAppServiceImpl implements IcarLandingAppService{
 					catch(Exception ex)
 					{
 						ex.printStackTrace();
-						return null;
+						return new ArrayList<carLanding>();
 					}
 	}
 
@@ -290,6 +291,38 @@ long course=carLandingDataRepository.getAllCountSearch( searchValue,  yearStart,
 	public List<carLanding> getAllGroupsOfCategory() {
 		try{
 			List<carLanding> course=carLandingDataRepository.getAllGroupsOfCategory();
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public carLanding getNextRecord(int id) {
+		try{
+			carLanding course=carLandingDataRepository.getNextRecord(id);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public carLanding getPreviousRecord(int id) {
+		try{
+			carLanding course=carLandingDataRepository.getPreviousRecord(id);
 			
 			return course;
 			}

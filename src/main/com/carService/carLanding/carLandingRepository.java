@@ -29,6 +29,8 @@ public interface carLandingRepository {
 	public List<carLanding> getAllForCategories(String categories);
 	public List<carLanding> getAllForUserBiding(int id);
 	public carLanding addcarLanding(carLanding data);
+	public carLanding getNextRecord(int id);
+	public carLanding getPreviousRecord(int id);
 	public carLanding getById(int id);
 	public carLanding getByVin(String vinId);
 	public boolean delete(carLanding data)throws Exception;

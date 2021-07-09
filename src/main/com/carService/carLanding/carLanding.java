@@ -86,6 +86,15 @@ import main.com.carService.loginNeeds.user;
 	@NamedQuery(name="carLanding.getAllBidBetweenDates",
 	query = "from carLanding d where d.userMaxBidId.id > 0 and  d.bidingDate > :date1 and d.endDate < :date2 and d.deleted = false"
 			)
+	,
+	@NamedQuery(name="carLanding.getNextRecord",
+	query = "from carLanding d where d.id > :id order by d.id ASC"
+			)
+	
+	,
+	@NamedQuery(name="carLanding.getPreviousRecord",
+	query = "from carLanding d where d.id < :id order by d.id DESC"
+			)
 	
 	
 })

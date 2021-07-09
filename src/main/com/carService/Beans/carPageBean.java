@@ -38,7 +38,6 @@ import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
 import helpers.retrofit.mainFiles.copartReturnImages;
-import main.com.carService.carImage.carimage;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.invoiceLanding.invoicelanding;
@@ -46,6 +45,7 @@ import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
+import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.carLandingImage.carlandingimage;
 import main.com.carService.carLandingImage.carlandingimageAppServiceImpl;
 import main.com.carService.myCars.mycars;
@@ -143,7 +143,8 @@ public class carPageBean implements Serializable{
 	@PostConstruct
 	public void init() {
 
-
+		searchStartYear = "1960";
+		searchEndYear = "2020";
 		listOfAddedCars=new ArrayList<carLanding>();
 		refresh();
 	}
@@ -169,6 +170,8 @@ public void refresh() {
 
 }
 	try{
+		searchStartYear = "1960";
+		searchEndYear = "2020";
 		String categories=String.valueOf(origRequest.getParameterValues("category")[0]);
 			if(categories!=null){
 				searchType = categories;
@@ -183,6 +186,16 @@ public void refresh() {
 	}
 	}
 
+public void refreshForBiding() {
+
+	
+	selectedFreight=new carLanding();
+	
+	images=new ArrayList<String>();
+
+	images_deleted=new ArrayList<String>();
+ imagesLanding=new ArrayList<String>();
+}
 public void goToInvoice(int id) {
 	invoiceData =new invoicelanding();
 	invoiceData = invoicelandingFacade.getById(id);
@@ -383,7 +396,7 @@ public void selectCarForMain(int selectedCarId) {
 	
 
 public void theloaderFirst() {
-	
+	System.out.println("Print NOW");
 	progress=true;
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:tableRendered");
 	
@@ -676,6 +689,9 @@ System.out.println("Data: "+String.valueOf(idUser));
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	public void updateCarDataMain() {
 		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
 		carLandingFacade.addcarLanding(selectedFreight);
@@ -702,6 +718,47 @@ System.out.println("Data: "+String.valueOf(idUser));
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/CarLandingPage/vehicleList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+	
+	
+	public void addCarToAuction() {
+		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
+		selectedFreight.setSelectUploadedOneOrAuction(true);
+
+		selectedFreight.setState(stateOfCar.BidingState.getType());
+		selectedFreight.setOurFees("100");
+//		selectedFreight.set("100");
+		carLandingFacade.addcarLanding(selectedFreight);
+		
+		
+		for(int i=0;i<images_deleted.size();i++) {
+
+			carlandingimage cImage=new carlandingimage();
+			cImage.setCarId(selectedFreight);
+			cImage.setUrl(images_deleted.get(i));
+			cImage.setType(carlandingimage.TYPE_AUCTION);
+			cImage.setDeleted(true);
+			carlandingimageFacade.addcarlandingimage(cImage);
+
+		}
+		
+		for(int i=0;i<imagesLanding.size();i++) {
+			carlandingimage cImage=new carlandingimage();
+			cImage.setCarId(selectedFreight);
+			cImage.setUrl(imagesLanding.get(i));
+			cImage.setType(carlandingimage.TYPE_AUCTION);
+			carlandingimageFacade.addcarlandingimage(cImage);
+		}
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/biding/vehicleList.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

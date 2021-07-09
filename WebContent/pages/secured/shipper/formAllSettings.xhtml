@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ALMZZAD</ui:define>
+	
+	 <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+	
+    	<style>
+    	button, input, optgroup, select, textarea {
+    color: black;
+    font: inherit;
+    margin: 0;
+}
+    	</style>
+    	
+    	<style>
+	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 13px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+    
+    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
+    content: "\f046";
+    font-family: FontAwesome;
+}
+	</style>
+        <h:form name="aspnetForm" id="aspnetForm">
+
+
+#{shipperBean.refreshAllSettings()}
+            <div id="content">
+            
+            
+    
+          
+
+      
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <!-- Table name block -->
+                                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td class="blkname" style="width: 20%; height: 22px;">
+                                                        <nobr>&nbsp;كل المعايير<span id="ctl00_BodyHolder_lblCount">: #{shipperBean.allform_settings.size()}</span></nobr>
+                                                    </td>
+                                                    <td style="height: 22px">
+                                                        
+                                                    </td>
+                                                    <td style="height: 22px">
+                                                        &nbsp;
+                                                    </td>
+                                                   
+                                                </tr>
+                                            </table>
+                                         
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
+                                                            <tr>
+                                                                <td>
+                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f7f7f7">
+                                                                        <tr height="25" bgcolor="#dcdcdc" >
+                                                                            <td>
+                                                                                &nbsp; <font class="tblhdr">Filter</font><a href="editlist?group=-1" class="navlink">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="2">
+                                                                            <td colspan="5" bgcolor="#ffffff">
+                                                                            </td>
+                                                                        </tr>
+                                                                       
+                                                                        
+                                                                        
+                                                                        <tr height="2">
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <!-- Client DataGrid-->
+                                            <section class="panel">
+                                            
+							<div class="panel-body">
+						
+
+    						
+    						
+    					<h:form id="tableForm">
+    					<h:commandButton style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" class="btn btn-default" value="XLS" >
+    						<p:dataExporter type="xls" target="dataTable" fileName="report"/>
+    					</h:commandButton>
+    					
+    					
+    					
+    					
+    						 <p:dataTable id="dataTable" var="row" value="#{shipperBean.allform_settings}" widgetVar="dataTable" 
+                 rows="50" paginator="true" resizableColumns="true" sortMode="multiple" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="10,50,100,200,500,1000"  editable="true"
+                 rowKey="#{row.id}"
+                 emptyMessage="No settings found with the given filter" filteredValue="#{shipperBean.selectedformSetting}" >
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+            <div class="container" style="margin: 0;    width: 100%;">
+	            <div class="row">
+	            	<div class="col-md-3" style="text-align: left;">
+	            	
+	            	</div>
+	            	<div class="col-md-4" style="text-align: left;">
+	            	
+	            	
+	            	</div> 
+	            	
+	            	
+	            	<div class="col-md-4" style="text-align: right;">
+	            		<h:outputText value="Search all fields:" />
+	            		<p:inputText id="globalFilter" onkeyup="PF('dataTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+	            	</div>
+	            	<div class="col-md-1" style="text-align: left;">
+	            		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="pi pi-align-justify" />
+       		 	<p:columnToggler datasource="dataTable" trigger="toggler" />
+	            	</div>
+	            </div>
+            </div>
+                
+				
+            </p:outputPanel>
+        </f:facet>
+        
+         <p:ajax event="rowEdit" listener="#{shipperBean.onRowEdit}"  />
+ 
+		
+		
+		<p:column headerText="Id" style="font-size: 13px;    text-align: center;" width="130" id="id" sortBy="#{row.id}" filterBy="#{row.id}">
+		<p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{row.id}" /></f:facet>
+                <f:facet name="input"><h:outputText value="#{row.id}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		
+		
+		<p:column headerText="Name" style="font-size: 13px;    text-align: center;" width="130" id="name" sortBy="#{row.name}" filterBy="#{row.name}">
+			<p:cellEditor>
+			<f:facet name="output"><h:outputText value="#{row.name}" /></f:facet>
+                <f:facet name="input"><h:inputText value="#{row.name}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		
+		
+		<p:column headerText="Value" style="font-size: 13px;    text-align: center;" width="130" id="value" sortBy="#{row.value}" filterBy="#{row.value}">
+			<p:cellEditor>
+			
+			<f:facet name="output"><h:outputText value="#{row.value}" /></f:facet>
+                <f:facet name="input"><h:inputText value="#{row.value}" /></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
+		
+		 <p:column exportable="false" style="width:35px">
+            <p:rowEditor />
+        </p:column>
+		
+		
+		
+		
+    </p:dataTable>
+							
+	            	
+							
+					</h:form>
+    <br /><br />
+   
+							</div>
+						</section>
+						
+                                       
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    <p>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            </div>  
+            
+            
+        </h:form>
+        
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

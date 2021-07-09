@@ -1,0 +1,689 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+	
+	<ui:define name="title">  طلب سيارة للمزاد</ui:define>
+
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Vehicle List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+	
+	
+		<style>
+		
+		.closeButtonNew:before {
+    transform: rotate(
+45deg
+);
+}
+.devCloseButtonNew:hover {
+    opacity: 1;
+}
+
+
+.closeButtonNew:hover {
+    opacity: 1;
+}
+
+
+.closeButtonNew:after {
+    transform: rotate(
+-45deg
+);
+}
+
+
+.closeButtonNew:before, .closeButtonNew:after {
+    position: absolute;
+    left: 9px;
+    content: ' ';
+    height: 15px;
+    width: 3px;
+    background-color: #333;
+    top: 11%;
+}
+		
+.closeButtonNew {
+    width: 9px;
+    height: 9px;
+}
+
+.devCloseButtonNew {
+    position: relative;
+    right: -1px;
+    width: 21px;
+    background: #b5b5bf;
+    height: 21px;
+    border-radius: 97%;
+    opacity: 0.5;
+}
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: black;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8%;
+    }
+    .ui-datepicker .ui-icon {
+    display: block;
+    text-indent: 1px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    left: .5em;
+    top: .3em;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 17px;
+}
+					</style>
+		<!-- Vendor CSS -->
+		
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/jquerysctipttop.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/mailMultiple/email.multiple.css']}" />
+    	
+    
+    <!-- Head Libs -->
+		  
+		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
+		
+              <h:form name="aspnetForm" id="aspnetForm">
+#{carPageBean.refreshForBiding()}
+
+
+            <div id="content">
+                   <h:panelGroup id="tableRendered">
+                 
+                            
+                            
+                    <script>
+
+           
+            
+            $(function() {
+				$('.timePicker').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $(this).val(datetext);
+				    }
+				});
+				});
+					
+						
+					</script>	
+                                                                                   
+                                                                                   
+             <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 14px;border-radius: 9px;text-align: right;">
+            	
+            	<div  class="row">
+            	<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >تفعيل المزاد للسيارة؟</label>
+							<h:selectBooleanCheckbox class="m-3" style="width: 25px;height: 25px;" value="#{carPageBean.selectedFreight.active}"   />
+						 </div>
+					</div>
+            	</div>
+            	<div class="row">
+            	
+            		<div class="col-md-7 mb-3">
+						<div class="form-group">
+						    <label >نوع السيارة</label>
+						  	 <h:selectOneMenu class="form-control" value="#{carPageBean.selectedFreight.category}"  >
+									<f:selectItems value="#{carPageBean.listOfCarsGroupByCategory}" var="var" itemLabel="#{var.category}" itemValue="#{var.category}"/>
+								</h:selectOneMenu>
+						  </div>
+					</div>
+					
+					
+				 <div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >مكان المزاد</label>
+						    <h:inputText  type="text"  class="form-control" value="#{carPageBean.selectedFreight.auctionLocation}"   />
+						  </div>
+					</div>
+				</div>
+				
+				<div class="row">
+					
+					<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >وصف ثانوى للمزاد</label>
+						    <h:inputText type="text"  class="form-control" value="#{carPageBean.selectedFreight.secondaryDamage}"  />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >اسم المزاد</label>
+						    <h:inputText type="text"  class="form-control" value="#{carPageBean.selectedFreight.saleName}"  />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >Estimated Retail</label>
+						    <h:inputText type="text"  class="form-control" value="#{carPageBean.selectedFreight.estRetailValue}"  />
+						  </div>
+					</div>
+					
+				</div>
+				
+				
+				<div class="row">
+					
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+						    <label >وقت بداية المزاد</label>
+						    <p:calendar  class="mr-3" value="#{carPageBean.selectedFreight.startDate}" pattern="yyyy-dd-MM HH:mm:ss"   />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+						    <label >وقت  بداية المزاد الحى</label>
+						    <p:calendar  class="mr-3" value="#{carPageBean.selectedFreight.bidingDate}" pattern="yyyy-dd-MM HH:mm:ss"   />
+						  </div>
+					</div>
+					
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+						    <label >وقت  نهاية المزاد الحى</label>
+						    <p:calendar  class="mr-3" value="#{carPageBean.selectedFreight.endDate}" pattern="yyyy-dd-MM HH:mm:ss"   />
+						  </div>
+					</div>
+					
+				</div>
+				
+				
+				
+            	<div class="row">
+            		<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >رقم ال Lot</label>
+						    <h:inputText  type="text"  class="form-control" value="#{carPageBean.selectedFreight.lot}"   />
+						  </div>
+					</div>
+            		<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >رقم VIN</label>
+						    <h:inputText value="#{carPageBean.selectedFreight.uuid}" class="form-control"   />
+                            
+                            
+                                                                                                    
+                           <p:commandButton value="" onclick="loadingOk();" style="background-image: url('/resources/images/img/#{(carPageBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 42px;height: 37px;position: absolute;margin-left: 7px;background-position: 11px 8px;top:31px;left:7px;;background-size: 19px;background-repeat: no-repeat;"/>
+                          
+                          
+                      
+                      		  <script>
+                            
+                            function loadingOk(){
+                            	theloaderFirst();
+                            	var delayInMilliseconds = 0.3; //0.5 second
+
+            					setTimeout(function() {
+            						getCarWithVinNewJs();
+            					}, delayInMilliseconds);
+            					
+                            }
+                            </script>
+                            
+                      </div>
+  
+                   </div>
+
+
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >رقم السلعة</label>
+						    <h:inputText  type="text"  class="form-control" value="#{carPageBean.selectedFreight.itemNumber}"   />
+						  </div>
+					</div>
+
+
+					<div class="row border m-3 p-3 rounded">
+					
+								
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >الماركة</label>
+									     <h:inputText name="ctl00$BodyHolder$txtMake" type="text" class="form-control" value="#{carPageBean.selectedFreight.make}" id="ctl00_BodyHolder_txtMake"  />
+			                         </div>
+			                   </div>
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >موديل</label>
+									     <h:inputText name="ctl00$BodyHolder$txtModel" type="text" class="form-control" value="#{carPageBean.selectedFreight.model}" id="ctl00_BodyHolder_txtModel"  />
+			                         </div>
+			                   </div>
+			                  
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >السنة</label>
+									        <h:inputText name="ctl00$BodyHolder$txtYear" type="text" value="#{carPageBean.selectedFreight.year}" class="form-control"  id="ctl00_BodyHolder_txtYear"  />
+			                        </div>
+			                   </div>
+			                   
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >اللون</label>
+									    <h:inputText name="ctl00$BodyHolder$txtColor" type="text" class="form-control" value="#{carPageBean.selectedFreight.color}" id="ctl00_BodyHolder_txtColor"  />
+			                       </div>
+			                   </div>
+			                   
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >هيكل الجسم</label>
+			                   			 <h:inputText name="ctl00$BodyHolder$txtBodyStyle" class="form-control" type="text" value="#{carPageBean.selectedFreight.bodyStyle}"  id="ctl00_BodyHolder_txtBodyStyle"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+							 <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >عدد لترات المحرك</label>
+									    <h:inputText class="form-control" name="ctl00$BodyHolder$txtEngineLiters" type="text" value="#{carPageBean.selectedFreight.cylinder}" id="ctl00_BodyHolder_txtEngineLiters"  />
+									 </div>
+			                   </div>
+			                   
+							
+							
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >نوع الوقود</label>
+										<h:inputText class="form-control" name="ctl00$BodyHolder$txtEngineType" type="text" value="#{carPageBean.selectedFreight.fuel}" id="ctl00_BodyHolder_txtEngineType"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >نوع المحرك</label>
+										<h:inputText class="form-control" name="engineType" type="text" value="#{carPageBean.selectedFreight.engineType}" id="engineType"  />
+			                       </div>
+			                   </div>
+			                   
+			                   
+			                   
+			                   
+			                    <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label >نوع ناقل الحركة</label>
+									    <h:inputText value="#{carPageBean.selectedFreight.transmission}" id="description" class="form-control" type="text"   />
+			                         </div>
+			                   </div>
+								
+					</div>
+					
+					
+					
+                   
+                
+                   
+			                   
+                   <div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >التكلفة المتوقعة للتصليح بالدولار</label>
+						    <h:inputText value="#{carPageBean.selectedFreight.repairEstimate}" class="form-control" type="text"   />
+                         </div>
+                   </div>
+                   
+                      <div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >Grid/Row </label>
+						    <h:inputText value="#{carPageBean.selectedFreight.gridRow}"  class="form-control" type="text"   />
+                         </div>
+                   </div>
+                   
+                   
+                     <div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >Odometer </label>
+						    <h:inputText value="#{carPageBean.selectedFreight.odoMeter}" class="form-control" type="text"   />
+                         </div>
+                   </div>
+                   
+                    <div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >Odometer وصف</label>
+						    <h:inputText value="#{carPageBean.selectedFreight.odoDescription}"  class="form-control" type="text"   />
+                         </div>
+                   </div>
+			                   
+			                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >Runs Drives</label>
+						    <h:inputText value="#{carPageBean.selectedFreight.runsDrives}" class="form-control" type="text"   />
+                         </div>
+                   </div>
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >هل تريد تفعيل خاصية البيع الفورى؟</label>
+						    <h:selectBooleanCheckbox class="m-3" style="width: 25px;height: 25px;"  value="#{carPageBean.selectedFreight.activebuyItNow}" />
+                         </div>
+                   </div>
+					    
+					    
+				<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >سعر البيع الفورى بالدولار</label>
+						    <h:inputText value="#{carPageBean.selectedFreight.buyItNowPrice}" class="form-control" type="text"   />
+                         </div>
+                   </div>
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >نوع المزاد</label>
+						    
+						     <h:selectOneMenu value="#{carPageBean.selectedFreight.auctionType}" name="ctl00$BodyHolder$ddlVendors" id="auctionType" class="form-control" >
+								<f:selectItem  itemLabel="AUTCION COPART" itemValue="Copart"/>
+								<f:selectItem  itemLabel="AUTCION IAAI" itemValue="IAAI"/>
+								<f:selectItem  itemLabel="AUTCION LIBYA" itemValue="Libya"/>
+								<f:selectItem  itemLabel="AUTCION KOREA" itemValue="Korean"/>
+							</h:selectOneMenu>
+						 </div>
+                   </div>
+					    
+				<div class="col-md-6 mb-3">
+						<div class="form-group">
+						    <label >حالة التايتل </label>
+						     <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{normalUserBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
+                              	<f:selectItem itemLabel="Missing" itemValue="0"/>
+                              	<f:selectItem itemLabel="Pending" itemValue="1"/>
+                              	<f:selectItem itemLabel="Requested" itemValue="2"/>
+                              	<f:selectItem itemLabel="Ok" itemValue="3"/>
+                              	<f:selectItem itemLabel="In Lien" itemValue="4"/>
+                              	<f:selectItem itemLabel="Paid" itemValue="5"/>
+                              </h:selectOneMenu>
+                         </div>
+                   </div>
+					    
+					    
+					    
+					
+                   
+                   
+                 
+                   
+                   
+                   <div class="col-md-6 mb-3">
+						
+                   </div>
+                   
+                   
+                 </div>
+                 
+                 
+                                    
+                    <div class="row">
+                    <div class="col-md-12">
+						<div class="form-group">
+						    <label >ملاحظات</label>
+						      <h:inputTextarea   value="#{carPageBean.selectedFreight.notes}"  class="form-control " />
+                         </div>
+                         </div>
+                   </div>
+					  <!-- Start of Pic -->  
+
+					   	
+   																							<!-- Image Main with Upload -->
+   																							
+   																							
+   																							
+   																							
+                                                                                            
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    	<br></br>
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDivMainUpload','picExpandMainUpload')">
+                                                                                                            <img id="picExpandMain" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Main
+                                                                                                                Picture Upload:</b></a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                           <div class="row">
+                                                                                                <div class="col-md-12" id="ctl00_BodyHolder_picTableCell" >
+                                                                                                     <div id="picDivMainUpload" style="display: inline; margin-left: 6px">
+                                                                                                     	
+                                                                                                     	 <h:panelGroup id="imagesPanelMainUpload">
+																	                                 <p:fileUpload id="FileUploadedMainUpload" fileUploadListener="#{carPageBean.previewImageMain}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+																	                                    <label for="aspnetForm:FileUploadedMainUpload_input">
+																	                                    
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carPageBean.selectedFreight.mainImageUpload!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;margin: 13px;max-width: 195px;height: auto;max-height: 67px;" />
+																	                                    <h:graphicImage value="/images/?file=#{carPageBean.selectedFreight.mainImageUpload}" rendered="#{carPageBean.selectedFreight.mainImageUpload!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    </label>
+																	                                     </h:panelGroup>   
+                                                                                                     	
+                                                                                                     	</div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                                  
+                                                                                            
+                                                                                           
+                                                                                           
+                                                                                           <!-- Image Main With upload -->
+   																							<!-- Image New Add for all types of Auction -->
+   																							
+                                                                                           <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    <br></br>
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDivpreviewImage','picExpandpreviewImage')">
+                                                                                                            <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Uploaded
+                                                                                                                Pictures:</b></a></div>
+                                                                                               </div>
+                                                                                           </div>
+                                                                                            
+                                                                                           <div class="row">
+                                                                                                
+                                                                                                <div class="col-md-12" id="ctl00_BodyHolder_picTableCell">
+                                                                                                    <div id="picDivpreviewImage" style="display: inline; margin-left: 6px">
+                                                                                                     	<p:fileUpload id="FileUploaded" fileUploadListener="#{carPageBean.previewImage}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+        
+        
+               <h:panelGroup id="imagesPanelpreviewImage">
+                                     
+<div class="container">
+         
+	 <div class="row">
+		<ui:repeat var="var" value="#{carPageBean.imagesLanding}">
+			<div class="col-md-3" style="border: black;padding: 14px;text-align: center;border-style: solid;border-width: 1px;">
+					<div class="containerDevCloseButtonNew">
+						<div class="devCloseButtonNew" onclick="deleteImageNum('#{var}')">
+	                                	<div href="#"  class="closeButtonNew">
+	                                	</div>
+	                    </div>
+					</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="w-100" align="center">
+                                <div>
+                                    <a href="#" onclick='ViewDocById("#{var}")'>
+                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="w-100">
+                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
+                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">#{var}</span></a>
+                                
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                
+      </ui:repeat>
+             
+             
+              <div class="col-md-3" style="border: black;padding: 14px;text-align: center;border-style: solid;border-width: 1px;">
+                    
+                     <div class="container">
+                        <div class="row">
+                            <div class="w-100" align="center">
+                                <div>
+                                    <label for="aspnetForm:FileUploaded_input">
+                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
+                                    </label>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="row" align="center">
+                            <div class="w-100" >
+                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
+                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">click to select Image</span></a>
+                                
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+	   
+          </div>
+</div>
+
+        
+</h:panelGroup>
+
+                                                                                                    </div>
+                                                                                               </div>
+
+                                                                                               
+                                                                                            </div>
+                                                                                           
+                                                                                           
+                                                                                           <!-- Image New Add for all types of Auction -->
+   													
+					    
+					     <!-- End of Doc -->    
+                                                     
+                                                                                          
+                                                                                                                        
+                                                                                      
+                                                                                           
+                                                                                           
+                      
+                      
+                 <div class="row">
+                 	<div class="col-md-3 mb-3">
+							<div class="form-group">
+							    <h:commandButton  actionListener="#{carPageBean.addCarToAuction()}" class="btn btn-primary" value="حفظ"  style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px;color:white!important;" >
+							    <f:ajax execute="@form" render="@form" />
+							    </h:commandButton>
+							</div>
+	  
+	                   </div>
+	                   
+	                 
+                 
+                 </div>
+               </div>
+               </h:panelGroup>
+                 
+            
+    <!-- page src -->
+
+            </div> 
+           
+        
+				<script>
+				 $(document).ready(function() {
+		        	  $(window).keydown(function(event){
+		        	    if(event.keyCode == 13) {
+		        	      event.preventDefault();
+		        	      return false;
+		        	    }
+		        	  });
+		        	});
+				</script>	
+				
+				 <p:remoteCommand name="theloaderFirst" action="#{carPageBean.theloaderFirst()}"/>
+                           <p:remoteCommand name="getCarWithVinNewJs" action="#{carPageBean.getCarWithVinNew()}"/>
+                      
+				  	  	<p:remoteCommand name="deleteFile" action="#{carPageBean.deleteFile()}"> 
+	                                	</p:remoteCommand>
+	                                	<p:remoteCommand name="deleteCar" action="#{carPageBean.deleteCar()}"> 
+	                                	</p:remoteCommand>
+        </h:form>
+        
+       <script>
+
+       function viewBuyRow(){
+    	   if($('#aspnetForm\\:selectOfBuy').val()==1){
+
+    		   $('#buyBar').fadeIn();
+    	   }else if($('#aspnetForm\\:selectOfBuy').val()==0){
+    		   
+    		   $('#buyBar').fadeOut();
+    	   }
+       }
+       
+       
+ 	$('#menu-header- bid').toggleClass('expand');
+ 	$('#menu-bid').fadeToggle();
+ 	$('#bid-add').toggleClass('menu-item-refunds');
+ 	
+ 	viewBuyRow();
+     </script>
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

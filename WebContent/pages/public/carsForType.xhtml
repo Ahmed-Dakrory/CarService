@@ -508,12 +508,27 @@
         {
             className: "center d-none d-sm-table-cell ", "mData": null, "sWidth": "15%","mRender": function (item) { 
               
+
+          	  imageName = '';
               if(item.runsDrives=='null'){
             	  runsDrives = "No Availble Data";
+            	  imageName = 'checkEngineRed.png';
               }else{
             	  runsDrives=item.runsDrives;
+            	  if(runsDrives=="Vehicle Starts"){
+            		  console.log(imageName);
+            		  imageName = 'checkEngineBlue.png';
+            	  }else if(runsDrives=="DEFAULT"){
+            		  
+            		  imageName = 'checkEngineRed.png';
+            	  }else{
+            		  imageName = 'checkEngineGreen.png';
+            	  }
               }
-            	 return '<div class="odometer" style="    text-align: initial;"><div><img style="width: 41px;position: relative;top: 27px;" src="/resources/images/checkEngine.png"/></div><div class="name w-100" style="text-align: center;margin-left: 21px;" >Start Code </div><p style="text-align: center;margin-left: 61px;">'+runsDrives+  '</p></div>';  
+              console.log(runsDrives);
+            	 return '<div class="odometer" style="    text-align: initial;"><div>'+
+            	 		'<img style="width: 41px;position: relative;top: 27px;" src="/resources/images/'+imageName+'"/>'+
+            	 		'</div><div class="name w-100" style="text-align: center;margin-left: 21px;" >Start Code </div><p style="text-align: center;margin-left: 61px;">'+runsDrives+  '</p></div>';  
   
 
               }

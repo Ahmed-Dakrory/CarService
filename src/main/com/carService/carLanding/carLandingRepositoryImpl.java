@@ -204,7 +204,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 		 if(results.size()!=0){
 			 return results;
 		 }else{
-			 return null;
+			 return new ArrayList<carLanding>();
 		 }
 	}
 
@@ -406,6 +406,32 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 		List<carLanding> results=query.list();
 		 if(results.size()!=0){
 			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public carLanding getNextRecord(int id) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getNextRecord").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results.get(0);
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public carLanding getPreviousRecord(int id) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("carLanding.getPreviousRecord").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<carLanding> results=query.list();
+		 if(results.size()!=0){
+			 return results.get(0);
 		 }else{
 			 return null;
 		 }

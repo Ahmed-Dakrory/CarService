@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,6 +38,7 @@ import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLanding.stateOfCar;
 import main.com.carService.costCalc.transportfee;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
+import main.com.carService.form_settings.form_settingsAppServiceImpl;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.carLandingImage.carlandingimage;
 import main.com.carService.carLandingImage.carlandingimageAppServiceImpl;
@@ -84,6 +86,10 @@ public class carLandingBean implements Serializable{
 	@ManagedProperty(value = "#{carlandingimageFacadeImpl}")
 	private carlandingimageAppServiceImpl carlandingimageFacade;
 	
+
+	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
+	private form_settingsAppServiceImpl form_settingsFacade;
+	
 	List<carLanding> listOfAddedCars;
 
 	List<carLanding> listOfCarsLandingScroller;
@@ -93,6 +99,8 @@ public class carLandingBean implements Serializable{
 	
 	carLanding selectedFreight;
 	private boolean progress=false;
+	private boolean showNotificationOfBidWinning=false;
+	private boolean showNotificationOfBidOutBid=false;
 	
 
 	private Date startDate;
@@ -100,6 +108,9 @@ public class carLandingBean implements Serializable{
 	private  Date endDate;
 	
 
+	
+	private float dollarToDinar = 0;
+	
 	private List<String> images;
 	
 	private carLanding selectedCarPage;
@@ -141,9 +152,12 @@ public class carLandingBean implements Serializable{
 	private List<carLanding> allCarsString;
 	private String selectedCarSearch;
 	private biding currentBiding;
+	private biding currentBidingMaximum ;
+	private boolean showCurrentStatues;
 	
 	private Long diffFromBidToEnd;
 	private Long diffFromStartToBid;
+	private Long diffFromMaxToNow;
 	
 
 	private List<biding> allCurrentBidCars;
@@ -178,6 +192,7 @@ public class carLandingBean implements Serializable{
 	private List<transportfee> allLocation;
 	private List<transportfee> allCity;
 	private List<transportfee> allState;
+	private Map<Integer,String> allLanding;
 	
 	private transportfee selectedTansportFees;
 
@@ -381,7 +396,7 @@ return copFees;
 	public void init() {
 
 		listOfAddedCars=new ArrayList<carLanding>();
-		
+		currentBidingMaximum=new biding();
 		
 		refresh();
 		
@@ -393,13 +408,61 @@ return copFees;
 		return new Date();
 	}
 	public void refreshTheCurrentBidStatue() {
+		currentBidingMaximum = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId(),biding.TYPE_BIDING);
+		showCurrentStatues=true;
+		if(loginBean.isLoggedIn()) {
+			if(selectedCarPage.isActive()) {
+				currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
+				
+			}else {
+				if(currentBiding!=null) {
+					if(currentBiding.getUserId().getId().equals(selectedCarPage.getUserMaxBidId().getId())) {
+						currentBidStateDetails = "YOU WIN THE BIDING";
+					}else {
+						currentBidStateDetails = "YOU LOSS THE BIDING";
+					}
+				}else {
+					currentBidStateDetails = "YOU LOSS THE BIDING";
+				}
+			}
 			
-		
-		if(currentBiding==null) {
-			currentBidStateDetails="You haven't Bid";
-		}else if(currentBiding.getUserId().getId()==selectedCarPage.getUserMaxBidId().getId()) {
-			currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
+		}else {
+			if(selectedCarPage.getUserMaxBidId()==null) {
+				
+				currentBidStateDetails="No One Bid";
+				showCurrentStatues=true;
+			}else {
+				showCurrentStatues=false;
+			}
 		}
+		
+		
+		
+		
+		
+//		if(currentBiding==null) {
+//			if(selectedCarPage.isActive()) {
+//				if(selectedCarPage.getUserMaxBidId()==null) {
+//					currentBidStateDetails="No One Bid";
+//				}
+//			}
+//			else {
+//				
+//				currentBidStateDetails="";
+//			}
+//		}else if(currentBiding.getUserId().getId()==selectedCarPage.getUserMaxBidId().getId()) {
+//			if(selectedCarPage.isActive()) {
+//				currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
+//			}else {
+//				currentBidStateDetails = "YOU WIN THE BIDING";
+//			}
+//		}else {
+//			if(selectedCarPage.isActive()) {
+//				currentBidStateDetails=stateOfCar.values()[selectedCarPage.getState()].getName();
+//			}else {
+//				currentBidStateDetails = "YOU LOSS THE BIDING";
+//			}
+//		}
 		
 		
 	}
@@ -506,7 +569,8 @@ public boolean isNotCarInFavourites(int num) {
 			}
 			
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
-		}else {
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListDataMobile");
+			}else {
 			
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Problem',\r\n" + 
@@ -540,6 +604,7 @@ public boolean isNotCarInFavourites(int num) {
 			}
 			
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListDataMobile");
 		}else {
 			
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -549,9 +614,21 @@ public boolean isNotCarInFavourites(int num) {
 					"		});");
 		}
 	}
+	
+	public String floatOfNumberWithPercent(float number) {
+		
+		
+		return String.format("%.2f", number);
+	}
 	public void refresh(){
 		
+		try {
+		
+		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
 
+		}catch(NullPointerException exp) {
+			
+		}
 		System.out.println("Fine Data");
 		isfileUploaded=false;
 		if(loginBean.getTheUserOfThisAccount()!=null) {
@@ -589,6 +666,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 	    			System.out.println("Play");
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
+					refreshTheCurrentBidStatue();
 					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(selectedCarPage.getCategory());
 					carViewId=id;
 					//Here Get the images For the main 
@@ -603,12 +681,15 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				        	String newLinkUrlWithSlach = lotImagesLink.substring(0, lotImagesLink.indexOf('?'))+"/"+lotImagesLink.substring( lotImagesLink.indexOf('?'),lotImagesLink.length());
 				    		APIInterface apiInterface = APIClient.getClientForCopartImages(newLinkUrlWithSlach).create(APIInterface.class);
 				    		  Call<copartReturnImages> call = apiInterface.getAllImagesFromCopart();
-				    		 
+
+				    			System.out.println("Ahmed handle Try");
 				        	copartReturnImages carImages= call.execute().body();
 				        	if(carImages != null) {
-				    			
+				    			System.out.println("Ahmed handled:");
 				        		selectedCarPage.setMainImage(carImages.lotImages.get(0).link.get(0).url);
 				        		for(int i=1;i<carImages.lotImages.size();i++) {
+
+					    			System.out.println("Ahmed handled:"+String.valueOf(carImages.lotImages.get(i).link.get(0).url));
 				    				images.add(carImages.lotImages.get(i).link.get(0).url);
 				    			}
 				        		
@@ -638,17 +719,23 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					 List<carlandingimage> allImageFromDatabase = carlandingimageFacade.getAllByCarIdAndType(id, carlandingimage.TYPE_AUCTION);
 			        	
 					 System.out.println("Here One");
-			        	System.out.println("Here One: "+allImageFromDatabase.size());
+					
+					 if(allImageFromDatabase!=null) {
 			        	for(int i=0;i<allImageFromDatabase.size();i++) {
 		    				images.add("/images/?file="+allImageFromDatabase.get(i).getUrl());
 		    			}
-		    			
+					 }
 		    			
 
 		    			if(images.size()==0) {
 		    				images.add("https://almzzad.com/resources/Image/caromoto logo-04.png");
 				    		
 		    			}
+		    			
+		    			
+
+			        	System.out.println("Images Loaded Error: "+String.valueOf(images.size()));
+			        	
 					valueOfCarBid=Float.valueOf(selectedCarPage.getCurrentBid());
 					updateAllFees();
 					//Get the userBid if applicable
@@ -665,13 +752,15 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						}
 
 						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
-						
+						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListDataMobile");
 						
 						currentBiding=bidingFacade.getByCarIdAnduserIdAndType(selectedCarPage.getId(), loginBean.getTheUserOfThisAccount().getId(),biding.TYPE_BIDING);
 						if(currentBiding!=null) {
 						totalBid=currentBiding.getFullAmount();
 //						incrementBid=currentBiding.getIncrement();
 						incrementBid=25;
+						currentBidingMaximum = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId() ,biding.TYPE_BIDING);
+						
 						}
 						
 					}
@@ -701,7 +790,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		}
 		
 		
-		refreshTheCurrentBidStatue();
+
 		
 		
 		allLocation = transportfeeFacade.getAllGroupsOfLocation();
@@ -720,14 +809,36 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 
 		allCity = transportfeeFacade.getAllGroupsOfCityWithLocation(selectedLocation);
 		if(allCity!=null) {
-				allState = transportfeeFacade.getAllGroupsOfstateWithCity(allCity.get(0).getCity());
+			selectedCity=allCity.get(0).getCity();
+			refreshStateList();
 		}
 	}
 	
 	public void refreshStateList() {
 
 		allState = transportfeeFacade.getAllGroupsOfstateWithCity(selectedCity);
-
+		if(allState!=null) {
+			if(allState.size()>0) {
+				allLanding =new HashedMap<>();
+				
+				if(allState.get(0).getNjPortCost()!=0) {
+					allLanding.put(0, "Newark, NJ");					
+				}
+				
+				if(allState.get(0).getGaPortCost()!=0) {
+					allLanding.put(1, "Savannah, GA");					
+				}
+				
+				if(allState.get(0).getTxPortCost()!=0) {
+					allLanding.put(2, "Houston, TX");					
+				}
+				
+				if(allState.get(0).getCaPortCost()!=0) {
+					allLanding.put(3, "Los Angeles, CA");					
+				}
+				
+			}
+		}
 	}
 	
 	
@@ -742,6 +853,34 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/public/carsForDetails.jsf?id="+selectedFreight2.getCarLandingId().getId()+"&faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void goNextCar(int id) {
+
+		carLanding car = carLandingFacade.getNextRecord(id);
+			
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/carsForDetails.jsf?id="+car.getId()+"&faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void goPreviousCar(int id) {
+
+		carLanding car = carLandingFacade.getPreviousRecord(id);
+			
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/carsForDetails.jsf?id="+car.getId()+"&faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -772,6 +911,8 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 						currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
 						currentBiding.setCarlandingId(selectedCarPage);
 						bidingFacade.addbiding(currentBiding);
+						currentBidingMaximum = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId() ,biding.TYPE_BIDING);
+						
 						arrangeBidingForThisCar(selectedCarPage);
 
 						updateAllFees();
@@ -786,6 +927,8 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 							currentBiding.setUserId(loginBean.getTheUserOfThisAccount());
 							currentBiding.setCarlandingId(selectedCarPage);
 							bidingFacade.addbiding(currentBiding);
+							currentBidingMaximum = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId() ,biding.TYPE_BIDING);
+							
 							arrangeBidingForThisCar(selectedCarPage);
 
 							updateAllFees();
@@ -966,14 +1109,19 @@ public void calcValueOfTotalFeesCarSelected() {
 			biding bidingMax = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId(),biding.TYPE_BIDING);
 			if(bidingMax!=null) {
 			Date timeNow = Calendar.getInstance().getTime();
-			Long diffFromMaxToNow = timeNow.getTime()-bidingMax.getLastDateBid().getTime();
-			
+			diffFromMaxToNow = timeNow.getTime()-bidingMax.getLastDateBid().getTime();
+			System.out.println("Ahmed NowNow 1:"+String.valueOf(timeNow));
 			long diffSecondsFromMaxToNow = diffFromMaxToNow / 1000 % 60;
 			long diffMinutesFromMaxToNow = diffFromMaxToNow / (60 * 1000) % 60;
 			
 			timeInSecondsForLive = String.valueOf(timeLiveEnd-1 - diffMinutesFromMaxToNow)+" : "+String.valueOf(60 - diffSecondsFromMaxToNow);
-			
-			if(diffMinutesFromMaxToNow >= timeLiveEnd) {
+
+			System.out.println("Ahmed DakroryNew: "+timeInSecondsForLive);
+			System.out.println("Ahmed DakroryNew: "+diffMinutesFromMaxToNow);
+			System.out.println("Ahmed DakroryNew: "+String.valueOf(timeLiveEnd-1 - diffMinutesFromMaxToNow));
+
+			diffFromBidToEnd = selectedCarPage.getEndDate().getTime()+bias-timeNow.getTime();
+			if(diffMinutesFromMaxToNow >= timeLiveEnd && diffFromBidToEnd<0 ) {
 				selectedCarPage.setActive(false);
 				selectedCarPage.setState(stateOfCar.ProcessState.getType());
 				carLandingFacade.addcarLanding(selectedCarPage);
@@ -985,13 +1133,35 @@ public void calcValueOfTotalFeesCarSelected() {
 			}
 			
 		}else {
-			timeInSecondsForLive = "N ...";
+
+			Date timeNow = Calendar.getInstance().getTime();
+			diffFromBidToEnd = selectedCarPage.getEndDate().getTime()+bias-timeNow.getTime();
+			
+			long diffSecondsFromMaxToNow = diffFromBidToEnd / 1000 % 60;
+			long diffMinutesFromMaxToNow = diffFromBidToEnd / (60 * 1000) % 60;
+			
+			timeInSecondsForLive = String.valueOf(timeLiveEnd-1 - diffMinutesFromMaxToNow)+" : "+String.valueOf(60 - diffSecondsFromMaxToNow);
+
+			diffFromMaxToNow = (long) 0;
+			if(diffFromBidToEnd<0) {
+				selectedCarPage.setActive(false);
+				selectedCarPage.setState(stateOfCar.ProcessState.getType());
+				carLandingFacade.addcarLanding(selectedCarPage);
+				if(selectedCarPage.getUserMaxBidId()!=null) {
+					sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+		
+				}
+				}
+			
 		}
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RightColumnData:liveBidDisplay");
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("buy-now-block");
 		}
 		
 	}
+	
+	public int bias = -(3600000+3360000+180000+60000);
+	
 	public void reloadedParametersAndPanelRefresh() {
 		System.out.println(String.valueOf(selectedCarPage.getId()));
 		selectedCarPage=carLandingFacade.getById(selectedCarPage.getId());
@@ -999,24 +1169,28 @@ public void calcValueOfTotalFeesCarSelected() {
 		Date timeNow=new Date();
 		timeNow.setTime(nowTime.getTimeInMillis());
 		
+
 		
-		Calendar TimeOfFreight = Calendar.getInstance();
-		TimeOfFreight.setTime(selectedCarPage.getEndDate());
-		diffFromBidToEnd = selectedCarPage.getEndDate().getTime()-timeNow.getTime();
-		diffFromStartToBid = selectedCarPage.getBidingDate().getTime()-timeNow.getTime();
-		if(selectedCarPage.isActive()) {
-		if(diffFromStartToBid<0) {
-			if(diffFromBidToEnd>0) {
-				//Live Mode
-				
-				reloadLiveBidingParamenters(true);
-			}
-		}
-		}
+		diffFromBidToEnd = selectedCarPage.getEndDate().getTime()+bias-timeNow.getTime();
+		diffFromStartToBid = selectedCarPage.getBidingDate().getTime()+bias-timeNow.getTime();
+		
+		
+
+		System.out.println("Ahmed NowNow 31:"+String.valueOf(nowTime.get(Calendar.HOUR_OF_DAY)));
+		System.out.println("Ahmed NowNow 32:"+String.valueOf(nowTime));
+		System.out.println("Ahmed NowNow 33:"+String.valueOf(timeNow));
+		System.out.println("Ahmed NowNow 33:"+String.valueOf(diffFromBidToEnd));
+		
+		
 		long diffSecondsFromBidToEnd = diffFromBidToEnd / 1000 % 60;
 		long diffMinutesFromBidToEnd = diffFromBidToEnd / (60 * 1000) % 60;
 		long diffHoursFromBidToEnd = diffFromBidToEnd / (60 * 60 * 1000) % 24;
 		long diffDaysFromBidToEnd = diffFromBidToEnd / (24 * 60 * 60 * 1000);
+		
+		
+
+		System.out.println("Ahmed NowNow 34:"+String.valueOf(diffHoursFromBidToEnd));
+		
 		
 		long diffSecondsFromStartToBid = diffFromStartToBid / 1000 % 60;
 		long diffMinutesFromStartToBid = diffFromStartToBid / (60 * 1000) % 60;
@@ -1029,16 +1203,29 @@ public void calcValueOfTotalFeesCarSelected() {
 		System.out.println("Ahmed: "+selectedCarPage.getEndDate().getTime());
 
 		System.out.println("AhmedTime: "+diffFromBidToEnd);
-		if(diffFromBidToEnd<0&&selectedCarPage.isActive()) {
-			selectedCarPage.setActive(false);
-			selectedCarPage.setState(stateOfCar.ProcessState.getType());
-			carLandingFacade.addcarLanding(selectedCarPage);
-			if(selectedCarPage.getUserMaxBidId()!=null) {
-				sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
-	
-			}
-			}
 		
+		
+		if(selectedCarPage.isActive()) {
+//			if(diffFromStartToBid<0) {
+//				if(diffFromBidToEnd>0) {
+					//Live Mode
+					
+					reloadLiveBidingParamenters(true);
+//				}
+//			}
+		}
+		
+		
+//		if(diffFromBidToEnd<0) {
+//			selectedCarPage.setActive(false);
+//			selectedCarPage.setState(stateOfCar.ProcessState.getType());
+//			carLandingFacade.addcarLanding(selectedCarPage);
+//			if(selectedCarPage.getUserMaxBidId()!=null) {
+//				sendNotificationForUser(selectedCarPage.getUserMaxBidId().getId(),"You have win the Biding Waiting the Copart....","/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true");
+//	
+//			}
+//			}
+//		
 		
 
 		differenceTimeDateFromBidToEnd=String.valueOf(diffDaysFromBidToEnd)+"D: "+
@@ -1065,7 +1252,22 @@ public void calcValueOfTotalFeesCarSelected() {
 				totalBid=currentBiding.getFullAmount();
 //				incrementBid=currentBiding.getIncrement();
 				incrementBid=25;
+				currentBidingMaximum = bidingFacade.getByCarIdandMaxAmountAndType(selectedCarPage.getId() ,biding.TYPE_BIDING);
+				
+				if(currentBiding.getUserId().getId().equals(selectedCarPage.getUserMaxBidId().getId())) {
+					showNotificationOfBidOutBid=false;
+					showNotificationOfBidWinning=true;
+				}else {
+					showNotificationOfBidOutBid=true;
+					showNotificationOfBidWinning=false;
+				}
+			}else {
+				showNotificationOfBidOutBid=false;
+				showNotificationOfBidWinning=false;
 			}
+		}else {
+			showNotificationOfBidOutBid=false;
+			showNotificationOfBidWinning=false;
 		}
 		
 		refreshTheCurrentBidStatue();
@@ -2547,6 +2749,96 @@ public void calcValueOfTotalFeesCarSelected() {
 
 	public void setCarlandingimageFacade(carlandingimageAppServiceImpl carlandingimageFacade) {
 		this.carlandingimageFacade = carlandingimageFacade;
+	}
+
+
+	public Map<Integer, String> getAllLanding() {
+		return allLanding;
+	}
+
+
+	public void setAllLanding(Map<Integer, String> allLanding) {
+		this.allLanding = allLanding;
+	}
+
+
+	public Long getDiffFromMaxToNow() {
+		return diffFromMaxToNow;
+	}
+
+
+	public void setDiffFromMaxToNow(Long diffFromMaxToNow) {
+		this.diffFromMaxToNow = diffFromMaxToNow;
+	}
+
+
+	public boolean isShowCurrentStatues() {
+		return showCurrentStatues;
+	}
+
+
+	public void setShowCurrentStatues(boolean showCurrentStatues) {
+		this.showCurrentStatues = showCurrentStatues;
+	}
+
+
+	public biding getCurrentBidingMaximum() {
+		return currentBidingMaximum;
+	}
+
+
+	public void setCurrentBidingMaximum(biding currentBidingMaximum) {
+		this.currentBidingMaximum = currentBidingMaximum;
+	}
+
+
+	public int getBias() {
+		return bias;
+	}
+
+
+	public void setBias(int bias) {
+		this.bias = bias;
+	}
+
+
+	public boolean isShowNotificationOfBidWinning() {
+		return showNotificationOfBidWinning;
+	}
+
+
+	public void setShowNotificationOfBidWinning(boolean showNotificationOfBidWinning) {
+		this.showNotificationOfBidWinning = showNotificationOfBidWinning;
+	}
+
+
+	public boolean isShowNotificationOfBidOutBid() {
+		return showNotificationOfBidOutBid;
+	}
+
+
+	public void setShowNotificationOfBidOutBid(boolean showNotificationOfBidOutBid) {
+		this.showNotificationOfBidOutBid = showNotificationOfBidOutBid;
+	}
+
+
+	public form_settingsAppServiceImpl getForm_settingsFacade() {
+		return form_settingsFacade;
+	}
+
+
+	public void setForm_settingsFacade(form_settingsAppServiceImpl form_settingsFacade) {
+		this.form_settingsFacade = form_settingsFacade;
+	}
+
+
+	public float getDollarToDinar() {
+		return dollarToDinar;
+	}
+
+
+	public void setDollarToDinar(float dollarToDinar) {
+		this.dollarToDinar = dollarToDinar;
 	}
 
 	
