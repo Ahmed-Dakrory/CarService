@@ -520,6 +520,15 @@ margin-right: 0!important;
 											
 										</li>
 										
+										
+										<li  style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+											<a href="/pages/secured/shipper/productPage/productList.jsf?faces-redirect=true">
+												<i class="fa fa-external-link" aria-hidden="true"></i>
+												<span>قائمة سلع العرض</span>
+											</a>
+											
+										</li>
+										
 										<li  style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
 											<a href="/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true">
 												<i class="fa fa-calendar-o" aria-hidden="true"></i>
@@ -629,15 +638,44 @@ margin-right: 0!important;
 					
   <ui:insert name="content"> 
     	 <ui:include src="content.xhtml"/> 
+    	 
+    	 
   </ui:insert>
 					
+				
 					<!-- end: page -->
-					
+				
 				</section>
+				
+				
+				
+					
+				
 			</div>
+
 
 			
 		</section>
+		
+		
+		
+			
+					<nav class="footerui-bg-overlay bg-transparent opacity-75 " >
+      <div class="container d-flex flex-wrap justify-content-between text-center pb-3" style="margin-left: 45%;width: 55%;font-size: 16px;line-height: 2;">
+    
+        <div>
+          
+        </div>
+    
+        <div class="pt-3">
+          <a href="#" class="footer-text font-weight-bolder text-dark text-lightest1" style="font-family: 'Poppins', sans-serif;font-weight: bolder!important;">ALMZZAD LLC</a> ©
+          <span class="footer-text text-dark text-lightest1" style="font-family: 'Poppins', sans-serif;font-weight: 400;">Developed by</span> 
+        <a class="footer-text text-dark text-lightest1" target="smartopal" href="https://www.smartopal.com" style="font-family: 'Poppins', sans-serif;font-weight: 400;"> <i>Smart Opal</i> </a>
+        </div>
+      </div>
+    </nav>
+    
+    
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
 		<script>

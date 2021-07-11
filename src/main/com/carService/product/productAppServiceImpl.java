@@ -198,6 +198,65 @@ public class productAppServiceImpl implements IproductAppService{
 
 
 
+	@Override
+	public long getAllCount() {
+		// TODO Auto-generated method stub
+		return productDataRepository.getAllCount();
+		
+	}
+
+
+
+	@Override
+	public List<product> getAllWithPagination(int start, int number, String searchValue) {
+		try{
+			List<product> course=productDataRepository.getAllWithPagination(start,number,searchValue);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public product getNextRecord(int id) {
+		// TODO Auto-generated method stub
+		try{
+			product so=productDataRepository.getNextRecord(id);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public product getPreviousRecord(int id) {
+		// TODO Auto-generated method stub
+				try{
+					product so=productDataRepository.getPreviousRecord(id);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
+
+
+
 		
 	
 }

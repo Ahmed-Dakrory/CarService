@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<ui:composition template="/templates/publicTemplate.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 	
 
@@ -59,207 +59,13 @@
 <div class="container">
 </div>
 <div class="" >
-<div class="clearfix"></div>
-<h1> Vehicles Types </h1>
 
 
-<div class="row">
-<div class="col-md-12">
-</div>
-</div>
+
 <div id="content">
 
 <div class="row searchDiv">
-<div class="searchArea col-md-3">
-<div class="search-processing" id="search-processing" style="display:none">
-<div class="img-block"><img src="/resources/images/img/ajax-loader.gif" alt="Please Wait"/>
-<br></br>Processing... </div>
-</div>
-<div class="searchBox" id="fixed">
-<div class="block_header  overall">
-<div class="block_header_h2 hidden-xs hidden-sm"><h2 style="    background: #f0f8ff00;">Find a Vehicle</h2></div>
-<div class="block_header_h2 hidden-md hidden-lg"><h2>Modify a Search</h2></div>
-</div>
-<div class="block_box responsive_box">
-<h:form id="search-form">
-<input type="hidden" name="norobots" value="norobots"/>
-<input type="hidden" name="search_type" value="car-finder"/>
-<input type="hidden" name="per-page" value=""/>
-<div class="row mt-2">
-<label for="type" class="col-md-5">Vehicle type</label>
-<label class="select-label col-md-7">
-<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
 
-<f:selectItem itemLabel="Any Type" itemValue="%" />
-<f:selectItems value="#{carPageBean.listOfCarsGroupByCategory}" var="data" itemLabel="#{data.category}" itemValue="#{data.category}" />
-</h:selectOneMenu>
-
-
-</label>
-</div>
-
-<div class="row mt-3">
-<label for="make" class="col-md-5">Make</label>
-<label class="select-label col-md-7">
-
-<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
-<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
-															
-<f:selectItem itemLabel="Any Make" itemValue="%" />
-<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
-</h:selectOneMenu>
-
- </label>
- 
-</div>
- 
- 
- <div class="row mt-3">
- <label for="make" class="col-md-5">Model</label>
-<label class="select-label col-md-7">
-
-<h:selectOneMenu value="#{carPageBean.searchModel}"  id="model" name="model"  class="custom-select" style="width: 205px; display: inline-block;">
-
-<f:selectItem itemLabel="Any Model" itemValue="%" />
-<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
-</h:selectOneMenu>
-
- </label>
- 
-</div>
- 
- 
- <div class="row mt-3">
-<label for="yearFrom" class="col-md-3 p-0 m-0 pl-2">Year from</label>
-<label class="select-label col-md-3 p-0 m-0 pl-2 pr-2">
-
-<h:selectOneMenu value="#{carPageBean.searchStartYear}">
-
-<f:selectItem itemLabel="2020" itemValue="2020"/>
-<f:selectItem itemLabel="2019" itemValue="2019"/>
-<f:selectItem itemLabel="2018" itemValue="2018"/>
-<f:selectItem itemLabel="2017" itemValue="2017"/>
-<f:selectItem itemLabel="2016" itemValue="2016"/>
-<f:selectItem itemLabel="2015" itemValue="2015"/>
-<f:selectItem itemLabel="2014" itemValue="2014"/>
-<f:selectItem itemLabel="2013" itemValue="2013"/>
-<f:selectItem itemLabel="2012" itemValue="2012"/>
-<f:selectItem itemLabel="2011" itemValue="2011"/>
-<f:selectItem itemLabel="2010" itemValue="2010"/>
-<f:selectItem itemLabel="2009" itemValue="2009"/>
-<f:selectItem itemLabel="2008" itemValue="2008"/>
-<f:selectItem itemLabel="2007" itemValue="2007"/>
-<f:selectItem itemLabel="2006" itemValue="2006"/>
-<f:selectItem itemLabel="2005" itemValue="2005"/>
-<f:selectItem itemLabel="2004" itemValue="2004"/>
-<f:selectItem itemLabel="2003" itemValue="2003"/>
-<f:selectItem itemLabel="2002" itemValue="2002"/>
-<f:selectItem itemLabel="2001" itemValue="2001"/>
-<f:selectItem itemLabel="2000" itemValue="2000"/>
-<f:selectItem itemLabel="1999" itemValue="1999"/>
-<f:selectItem itemLabel="1998" itemValue="1998"/>
-<f:selectItem itemLabel="1997" itemValue="1997"/>
-<f:selectItem itemLabel="1996" itemValue="1996"/>
-<f:selectItem itemLabel="1995" itemValue="1995"/>
-<f:selectItem itemLabel="1994" itemValue="1994"/>
-<f:selectItem itemLabel="1993" itemValue="1993"/>
-<f:selectItem itemLabel="1992" itemValue="1992"/>
-<f:selectItem itemLabel="1991" itemValue="1991"/>
-<f:selectItem itemLabel="1990" itemValue="1990"/>
-<f:selectItem itemLabel="1989" itemValue="1989"/>
-<f:selectItem itemLabel="1988" itemValue="1988"/>
-<f:selectItem itemLabel="1987" itemValue="1987"/>
-<f:selectItem itemLabel="1986" itemValue="1986"/>
-<f:selectItem itemLabel="1985" itemValue="1985"/>
-<f:selectItem itemLabel="1984" itemValue="1984"/>
-<f:selectItem itemLabel="1983" itemValue="1983"/>
-<f:selectItem itemLabel="1982" itemValue="1982"/>
-<f:selectItem itemLabel="1980" itemValue="1980"/>
-<f:selectItem itemLabel="1979" itemValue="1979"/>
-<f:selectItem itemLabel="1978" itemValue="1978"/>
-<f:selectItem itemLabel="1977" itemValue="1977"/>
-<f:selectItem itemLabel="1976" itemValue="1976"/>
-<f:selectItem itemLabel="1975" itemValue="1975"/>
-<f:selectItem itemLabel="1973" itemValue="1973"/>
-<f:selectItem itemLabel="1972" itemValue="1972"/>
-<f:selectItem itemLabel="1971" itemValue="1971"/>
-<f:selectItem itemLabel="1965" itemValue="1965"/>
-<f:selectItem itemLabel="1960" itemValue="1960"/>
-
-</h:selectOneMenu>
-</label>
-
-
-<label for="yearTo"  class="col-md-3 p-0 m-0 pl-2">Year to</label>
-<label class="select-label col-md-3 p-0 m-0 pr-2 pl-2">
-
-
-<h:selectOneMenu value="#{carPageBean.searchEndYear}">
-
-<f:selectItem itemLabel="2020" itemValue="2020"/>
-<f:selectItem itemLabel="2019" itemValue="2019"/>
-<f:selectItem itemLabel="2018" itemValue="2018"/>
-<f:selectItem itemLabel="2017" itemValue="2017"/>
-<f:selectItem itemLabel="2016" itemValue="2016"/>
-<f:selectItem itemLabel="2015" itemValue="2015"/>
-<f:selectItem itemLabel="2014" itemValue="2014"/>
-<f:selectItem itemLabel="2013" itemValue="2013"/>
-<f:selectItem itemLabel="2012" itemValue="2012"/>
-<f:selectItem itemLabel="2011" itemValue="2011"/>
-<f:selectItem itemLabel="2010" itemValue="2010"/>
-<f:selectItem itemLabel="2009" itemValue="2009"/>
-<f:selectItem itemLabel="2008" itemValue="2008"/>
-<f:selectItem itemLabel="2007" itemValue="2007"/>
-<f:selectItem itemLabel="2006" itemValue="2006"/>
-<f:selectItem itemLabel="2005" itemValue="2005"/>
-<f:selectItem itemLabel="2004" itemValue="2004"/>
-<f:selectItem itemLabel="2003" itemValue="2003"/>
-<f:selectItem itemLabel="2002" itemValue="2002"/>
-<f:selectItem itemLabel="2001" itemValue="2001"/>
-<f:selectItem itemLabel="2000" itemValue="2000"/>
-<f:selectItem itemLabel="1999" itemValue="1999"/>
-<f:selectItem itemLabel="1998" itemValue="1998"/>
-<f:selectItem itemLabel="1997" itemValue="1997"/>
-<f:selectItem itemLabel="1996" itemValue="1996"/>
-<f:selectItem itemLabel="1995" itemValue="1995"/>
-<f:selectItem itemLabel="1994" itemValue="1994"/>
-<f:selectItem itemLabel="1993" itemValue="1993"/>
-<f:selectItem itemLabel="1992" itemValue="1992"/>
-<f:selectItem itemLabel="1991" itemValue="1991"/>
-<f:selectItem itemLabel="1990" itemValue="1990"/>
-<f:selectItem itemLabel="1989" itemValue="1989"/>
-<f:selectItem itemLabel="1988" itemValue="1988"/>
-<f:selectItem itemLabel="1987" itemValue="1987"/>
-<f:selectItem itemLabel="1986" itemValue="1986"/>
-<f:selectItem itemLabel="1985" itemValue="1985"/>
-<f:selectItem itemLabel="1984" itemValue="1984"/>
-<f:selectItem itemLabel="1983" itemValue="1983"/>
-<f:selectItem itemLabel="1982" itemValue="1982"/>
-<f:selectItem itemLabel="1980" itemValue="1980"/>
-<f:selectItem itemLabel="1979" itemValue="1979"/>
-<f:selectItem itemLabel="1978" itemValue="1978"/>
-<f:selectItem itemLabel="1977" itemValue="1977"/>
-<f:selectItem itemLabel="1976" itemValue="1976"/>
-<f:selectItem itemLabel="1975" itemValue="1975"/>
-<f:selectItem itemLabel="1973" itemValue="1973"/>
-<f:selectItem itemLabel="1972" itemValue="1972"/>
-<f:selectItem itemLabel="1971" itemValue="1971"/>
-<f:selectItem itemLabel="1965" itemValue="1965"/>
-<f:selectItem itemLabel="1960" itemValue="1960"/>
-
-</h:selectOneMenu>
-
-</label>
-</div>
-<div class="search-container row mt-2 pr-2 pl-2">
-<p:commandButton value="FIND VEHICLES " action="#{carPageBean.makeSearch()}"  class="yBtn find-vehicles-btn">
-
-</p:commandButton>
-</div>
-
-</h:form>
-</div>
-</div> </div>
 
 
 
@@ -279,7 +85,7 @@
 
 
 
-<div class="col-md-9 searchResult" style="    margin-top: -6%;">
+<div class="col-md-12 searchResult" style="    margin-top: -3%;">
 <div class="container mt-5" style="width:100%">
 <div class="row">
 <div class="col-md-4">
@@ -389,7 +195,7 @@
                  d.type = "#{carPageBean.searchType}";
                  d.yearStart = "#{carPageBean.searchStartYear}";
                  d.yearEnd = "#{carPageBean.searchEndYear}";
-                 d.auctionType = "";
+                 d.auctionType = "IAAI";
                  
              }
          },
@@ -405,8 +211,16 @@
                          
               	   }
               	   
+                	 
+                	 if(item.selectUploadedOneOrAuction=="true"){
+              		   imageMainToView =  "'/images/?file="+item.mainImageUpload+"'";
+                         
+              	   }else{
+              		   imageMainToView = "'"+item.mainImage+"'";
+                         
+              	   }
               return '<div class="preview-photo" id="pph-24311239">'
-              +'<a data-auction="copart" data-lot="24311239" onclick="ViewDocById('+item.mainImage+')" class="see_photos">See Photos</a>'
+              +'<a data-auction="copart" data-lot="24311239" onclick="ViewDoc('+imageMainToView+')" class="see_photos">See Photos</a>'
               +imageMain
               +'</div>'
               +'<h2 class="title mt-3">'
@@ -438,8 +252,18 @@
                 		   imageMain =  '<img style="width: 187px;" src="'+item.mainImage+'" alt="image'+item.mainImage+'"/>'
                            
                 	   }
+                	   
+                	   
+                	   if(item.selectUploadedOneOrAuction=="true"){
+                  		   imageMainToView =  "'/images/?file="+item.mainImageUpload+"'";
+                             
+                  	   }else{
+                  		   imageMainToView = "'"+item.mainImage+"'";
+                             
+                  	   }
+                	   
                 return '<div class="preview-photo" id="pph-24311239">'
-                +'<a data-auction="copart" data-lot="24311239" onclick="ViewDocById('+item.mainImage+')" class="see_photos">See Photos</a>'
+                +'<a data-auction="copart" data-lot="24311239" onclick="ViewDoc('+imageMainToView+')" class="see_photos">See Photos</a>'
                 +imageMain
                 + imageLive
                 +'</div>';
@@ -528,8 +352,8 @@
               }
               console.log(runsDrives);
             	 return '<div class="odometer" style="    text-align: initial;"><div>'+
-            	 		'<img style="width: 41px;position: relative;top: 27px;" src="/resources/images/'+imageName+'"/>'+
-            	 		'</div><div class="name w-100" style="text-align: center;margin-left: 21px;" >Start Code </div><p style="text-align: center;margin-left: 61px;">'+runsDrives+  '</p></div>';  
+            	 		'<img style="width: 41px;position: relative;top: 96px;right: 33%;" src="/resources/images/'+imageName+'"/>'+
+            	 		'</div><div class="name w-100" style="text-align: center;margin-left: 21px;" >Start Code </div><p style="text-align: center;">'+runsDrives+  '</p></div>';  
   
 
               }
@@ -655,7 +479,17 @@
   	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
   	
   	
-	
+	  <script>
+ function ViewDoc(strID){
+	 
+	 if (strID != '-1') {
+	    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+	    }
+ }
+ 	$('#menu-header-bid').toggleClass('expand');
+ 	$('#menu-bid').fadeToggle();
+ 	$('#bid-auction2').toggleClass('menu-item-refunds');
+     </script>
 	</ui:define>
 	
 </ui:composition>

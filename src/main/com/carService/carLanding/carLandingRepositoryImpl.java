@@ -300,7 +300,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 
 	@Override
 	public List<carLanding> getAllWithPaginationSearch(int start, int number, String searchValue, String yearStart,
-			String yearEnd, String make, String model, String categorySearch) {
+			String yearEnd, String make, String model, String categorySearch,String auctionType) {
 		// TODO Auto-generated method stub
 		try {
 			session = sessionFactory.openSession();
@@ -312,6 +312,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 				 query = session.createQuery("FROM carLanding where "
 						+ " model like '%"+model+"%' and "
 						+ " make like '%"+make+"%' and "
+						+ " auctionType like '%"+auctionType+"%' and "
 						+ " year < "+yearEnd+" and "
 						+ " year > "+yearStart+" and "
 						+ " category like '%"+categorySearch+"%' "
@@ -320,6 +321,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 			 query = session.createQuery("FROM carLanding where"
 					+ " model like '%"+model+"%' and "
 					+ " make like '%"+make+"%' and "
+					+ " auctionType like '%"+auctionType+"%' and "
 					+ " year < "+yearEnd+" and "
 					+ " year > "+yearStart+" and "
 					+ " category like '%"+categorySearch+"%' and ( "
@@ -353,7 +355,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 
 	@Override
 	public long getAllCountSearch(String searchValue, String yearStart, String yearEnd, String make, String model,
-			String categorySearch) {
+			String categorySearch,String auctionType) {
 		try {
 			session = sessionFactory.openSession();
 			Transaction tx1 = session.beginTransaction();
@@ -363,6 +365,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 				 query = session.createQuery("select count(*) FROM carLanding where "
 						+ " model like '%"+model+"%' and "
 						+ " make like '%"+make+"%' and "
+						+ " auctionType like '%"+auctionType+"%' and "
 						+ " year < "+yearEnd+" and "
 						+ " year > "+yearStart+" and "
 						+ " category like '%"+categorySearch+"%' "
@@ -371,6 +374,7 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 			 query = session.createQuery("select count(*) FROM carLanding where"
 					+ " model like '%"+model+"%' and "
 					+ " make like '%"+make+"%' and "
+					+ " auctionType like '%"+auctionType+"%' and "
 					+ " year < "+yearEnd+" and "
 					+ " year > "+yearStart+" and "
 					+ " category like '%"+categorySearch+"%' and ( "
@@ -435,6 +439,64 @@ public class carLandingRepositoryImpl implements carLandingRepository{
 		 }else{
 			 return null;
 		 }
+	}
+
+	@Override
+	public List<carLanding> getAllWithPaginationWithId(int start, int number, String searchValue, int id) {
+		 
+		 try {
+				session = sessionFactory.openSession();
+				Transaction tx1 = session.beginTransaction();
+				
+				
+				Query query =null;
+				if(searchValue.equalsIgnoreCase("")) {
+					 query = session.createQuery("FROM carLanding where owner="+String.valueOf(id)+" order by dateAdd desc");
+				}else {
+				 query = session.createQuery("FROM carLanding where"
+						+ " uuid like '%"+searchValue+"%' or "
+						+ " model like '%"+searchValue+"%' or "
+						+ " make like '%"+searchValue+"%' or "
+						+ " color like '%"+searchValue+"%' or "
+						+ " year like '%"+searchValue+"%' or "
+						+ " itemNumber like '%"+searchValue+"%' or "
+						+ " transmission like '%"+searchValue+"%' or "
+						+ " damageDescription like '%"+searchValue+"%' or "
+						+ " category like '%"+searchValue+"%'"
+						+ " order by dateAdd desc");
+				}
+				
+				 query.setFirstResult(start);
+				 query.setMaxResults(number);
+				 
+				 @SuppressWarnings("unchecked")
+				List<carLanding> results=query.list();
+
+				tx1.commit();
+				session.close();
+				return results;
+			} catch (Exception ex) {
+				return new ArrayList<carLanding>();
+			}
+	
+
+	}
+
+	@Override
+	public long getAllCount(int id) {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			Query query = session.createQuery("select count(*) FROM carLanding where owner="+String.valueOf(id)+" order by dateAdd desc");
+			 
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
 	}
 
 

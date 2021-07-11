@@ -3,6 +3,7 @@
  */
 package main.com.carService.product;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+
 
 /**
  * @author A7med Al-Dakrory
@@ -194,6 +197,85 @@ public class productRepositoryImpl implements productRepository{
 		List<product> results=query.list();
 		 if(results.size()!=0){
 			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public long getAllCount() {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			Query query = session.createQuery("select count(*) FROM product where landingCheck = true order by add_datetime desc");
+			 
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	@Override
+	public List<product> getAllWithPagination(int start, int number, String searchValue) {
+		 
+		 try {
+				session = sessionFactory.openSession();
+				Transaction tx1 = session.beginTransaction();
+				
+				
+				Query query =null;
+				if(searchValue.equalsIgnoreCase("")) {
+					 query = session.createQuery("FROM product where  landingCheck = true order by add_datetime desc");
+				}else {
+				 query = session.createQuery("FROM product where landingCheck = true "
+						+ " trackingNumber like '%"+searchValue+"%' or "
+						+ " address like '%"+searchValue+"%' or "
+						+ " description like '%"+searchValue+"%' or "
+						+ " lengthOfProduct like '%"+searchValue+"%'  "
+						+ " order by add_datetime desc");
+				}
+				
+				 query.setFirstResult(start);
+				 query.setMaxResults(number);
+				 
+				 @SuppressWarnings("unchecked")
+				List<product> results=query.list();
+
+				tx1.commit();
+				session.close();
+				return results;
+			} catch (Exception ex) {
+				return new ArrayList<product>();
+			}
+	
+
+	}
+
+	@Override
+	public product getNextRecord(int id) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("product.getNextRecord").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<product> results=query.list();
+		 if(results.size()!=0){
+			 return results.get(0);
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public product getPreviousRecord(int id) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("product.getPreviousRecord").setInteger("id",id);
+
+		 @SuppressWarnings("unchecked")
+		List<product> results=query.list();
+		 if(results.size()!=0){
+			 return results.get(0);
 		 }else{
 			 return null;
 		 }

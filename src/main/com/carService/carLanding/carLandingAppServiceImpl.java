@@ -267,9 +267,9 @@ long course=carLandingDataRepository.getAllWithPaginationCount( start,  number);
 
 	@Override
 	public List<carLanding> getAllWithPaginationSearch(int start, int number, String searchValue, String yearStart,
-			String yearEnd, String make, String model, String category) {
+			String yearEnd, String make, String model, String category,String auctionType) {
 		List<carLanding> course=carLandingDataRepository.getAllWithPaginationSearch(start,number,searchValue,yearStart,
-				 yearEnd,  make,  model,  category);
+				 yearEnd,  make,  model,  category,auctionType);
 		
 		return course;
 	}
@@ -278,9 +278,9 @@ long course=carLandingDataRepository.getAllWithPaginationCount( start,  number);
 
 	@Override
 	public long getAllCountSearch(String searchValue, String yearStart, String yearEnd, String make, String model,
-			String category) {
+			String category,String auctionType) {
 long course=carLandingDataRepository.getAllCountSearch( searchValue,  yearStart,  yearEnd,  make,  model,
-		 category);
+		 category,auctionType);
 		
 		return course;
 	}
@@ -331,6 +331,24 @@ long course=carLandingDataRepository.getAllCountSearch( searchValue,  yearStart,
 				ex.printStackTrace();
 				return null;
 			}
+	}
+
+
+
+	@Override
+	public List<carLanding> getAllWithPaginationWithId(int start, int number, String searchValue, int id) {
+		List<carLanding> course=carLandingDataRepository.getAllWithPaginationWithId(start,number,searchValue,id);
+		
+		return course;
+	}
+
+
+
+	@Override
+	public long getAllCount(int id) {
+long course=carLandingDataRepository.getAllCount(id);
+		
+		return course;
 	}
 	
 	

@@ -20,6 +20,8 @@ import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
+import main.com.carService.product.product;
+import main.com.carService.product.productAppServiceImpl;
 @Controller
 @RequestMapping("/ApiCarLanding")
 public class carLandingApiClass {
@@ -27,6 +29,10 @@ public class carLandingApiClass {
 
 	@Inject
 	private carLandingAppServiceImpl carLandingFacade;
+	
+
+	@Inject
+	private productAppServiceImpl productFacade;
 	
 
 	@Inject
@@ -39,6 +45,37 @@ public class carLandingApiClass {
     public ResponseEntity<String> getLogin() {
       return new ResponseEntity<>("",HttpStatus.OK);
     }
+	
+	
+	
+
+	@RequestMapping(value = "/allProduct" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> allProduct(@RequestParam(value="start",required=false) Integer start,
+    		@RequestParam(value="length",required=false) Integer length,
+    		@RequestParam(value="draw",required=false) Integer draw,
+    		@RequestParam(value="search[value]",required=false) String search_value) {
+
+		Gson gson = new Gson();
+//			int pageNumber = (start/length + 1);
+			List<product> list = productFacade.getAllWithPagination(start, length,search_value);
+		
+	      JsonArray allCars = new JsonArray();
+	      for(int i=0;i<list.size();i++) {
+	    	  allCars.add(list.get(i).toJson());
+	      }
+	      
+	      
+	      JsonObject obj =new JsonObject();
+	      obj.add("data", allCars);
+	      obj.addProperty("draw", draw);
+	      obj.addProperty("recordsTotal", productFacade.getAllCount());
+	      obj.addProperty("recordsFiltered", productFacade.getAllCount());
+	    	return new ResponseEntity<>(gson.toJson(obj), HttpStatus.CREATED); 
+	
+
+     
+    }
+	
 	
 	
 	@RequestMapping(value = "/all" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,6 +106,36 @@ public class carLandingApiClass {
     }
 	
 	
+
+	@RequestMapping(value = "/allForId" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> allForId(@RequestParam(value="start",required=false) Integer start,
+    		@RequestParam(value="length",required=false) Integer length,
+    		@RequestParam(value="draw",required=false) Integer draw,
+    		@RequestParam(value="id",required=false) Integer id,
+    		@RequestParam(value="search[value]",required=false) String search_value) {
+
+		Gson gson = new Gson();
+//			int pageNumber = (start/length + 1);
+			List<carLanding> list = carLandingFacade.getAllWithPaginationWithId(start, length,search_value,id);
+		
+	      JsonArray allCars = new JsonArray();
+	      for(int i=0;i<list.size();i++) {
+	    	  allCars.add(list.get(i).toJson());
+	      }
+	      
+	      
+	      JsonObject obj =new JsonObject();
+	      obj.add("data", allCars);
+	      obj.addProperty("draw", draw);
+	      obj.addProperty("recordsTotal", carLandingFacade.getAllCount(id));
+	      obj.addProperty("recordsFiltered", carLandingFacade.getAllCount(id));
+	    	return new ResponseEntity<>(gson.toJson(obj), HttpStatus.CREATED); 
+	
+
+     
+    }
+	
+	
 	
 	@RequestMapping(value = "/allSearch" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> allSearch(@RequestParam(value="start",required=false) Integer start,
@@ -79,12 +146,13 @@ public class carLandingApiClass {
     		@RequestParam(value="model",required=false) String model,
     		@RequestParam(value="yearStart",required=false) String yearStart,
     		@RequestParam(value="yearEnd",required=false) String yearEnd,
+    		@RequestParam(value="auctionType",required=false) String auctionType,
     		@RequestParam(value="search[value]",required=false) String search_value) {
 
 		Gson gson = new Gson();
 //			int pageNumber = (start/length + 1);
 			List<carLanding> list = carLandingFacade.getAllWithPaginationSearch(start,length,search_value,yearStart,
-					 yearEnd,  make,  model,  type);
+					 yearEnd,  make,  model,  type,auctionType);
 		
 	      JsonArray allCars = new JsonArray();
 	      for(int i=0;i<list.size();i++) {
@@ -96,9 +164,9 @@ public class carLandingApiClass {
 	      obj.add("data", allCars);
 	      obj.addProperty("draw", draw);
 	      obj.addProperty("recordsTotal", carLandingFacade.getAllCountSearch( search_value,  yearStart,  yearEnd,  make,  model,
-	    			 type));
+	    			 type,auctionType));
 	      obj.addProperty("recordsFiltered",  carLandingFacade.getAllCountSearch( search_value,  yearStart,  yearEnd,  make,  model,
-	    			 type));
+	    			 type,auctionType));
 	    	return new ResponseEntity<>(gson.toJson(obj), HttpStatus.CREATED); 
 	
 

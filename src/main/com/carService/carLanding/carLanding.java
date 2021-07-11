@@ -114,6 +114,11 @@ public class carLanding {
 	private user mainId;
 	
 	
+	@ManyToOne
+	@JoinColumn(name = "owner")
+	private user owner;
+	
+	
 	@Column(name = "uuid")
 	private String uuid;
 	
@@ -854,12 +859,31 @@ public class carLanding {
 		this.docState = docState;
 	}
 
+	
 
-    public JsonObject toJson() {
+    public user getOwner() {
+		return owner;
+	}
+
+
+
+	public void setOwner(user owner) {
+		this.owner = owner;
+	}
+
+
+
+	public JsonObject toJson() {
     	JsonObject obj=new JsonObject();
     	  obj.addProperty("id", String.valueOf(this.id));
 	      obj.addProperty("color", String.valueOf(this.color));
 	      obj.addProperty("mainId", String.valueOf(this.mainId.getId()));
+	      if(this.owner==null) {
+	    	  obj.addProperty("owner", "");
+	      }else {
+	    	  obj.addProperty("owner", String.valueOf(this.owner.getId()));
+		        
+	      }
 	      obj.addProperty("uuid", String.valueOf(this.uuid));
 	      obj.addProperty("make", String.valueOf(this.make));
 	      obj.addProperty("model", String.valueOf(this.model));

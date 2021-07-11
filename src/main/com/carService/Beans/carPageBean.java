@@ -169,6 +169,35 @@ public void refresh() {
 		}
 
 }
+	
+	
+	
+	try{
+		Integer idOfCarLanding=Integer.valueOf(origRequest.getParameterValues("idOfCarLanding")[0]);
+			if(idOfCarLanding!=null){
+				selectedFreight=carLandingFacade.getById(idOfCarLanding);
+				images_deleted=new ArrayList<String>();
+				 imagesLanding=new ArrayList<String>();
+					List<carlandingimage> allImages = carlandingimageFacade.getAllByCarIdAndType(selectedFreight.getId(),carlandingimage.TYPE_AUCTION);
+					if(allImages!=null) {
+					for(int i=0;i<allImages.size();i++) {
+						imagesLanding.add(allImages.get(i).getUrl());
+					}
+					}
+					
+
+				
+					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+					
+
+			}
+		}
+	catch(Exception ex){
+		 
+	}
+	
+	
+	
 	try{
 		searchStartYear = "1960";
 		searchEndYear = "2020";
@@ -728,7 +757,10 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 	
 	public void addCarToAuction() {
-		selectedFreight.setMainId(loginBean.getTheUserOfThisAccount());
+		user main = loginBean.getUserDataFacede().getById(1);
+		selectedFreight.setMainId(main);
+
+		selectedFreight.setOwner(loginBean.getTheUserOfThisAccount());
 		selectedFreight.setSelectUploadedOneOrAuction(true);
 
 		selectedFreight.setState(stateOfCar.BidingState.getType());

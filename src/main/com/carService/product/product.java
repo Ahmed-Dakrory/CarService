@@ -1,7 +1,9 @@
 package main.com.carService.product;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+
+import com.google.gson.JsonObject;
 
 import main.com.carService.loginNeeds.user;
 
@@ -28,7 +32,7 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="product.getAll",
-		     query="SELECT c FROM product c where c.deleted = false"
+		     query="SELECT c FROM product c where c.deleted = false and c.landingCheck = false"
 		     )
 	,
 	@NamedQuery(name="product.getById",
@@ -36,35 +40,45 @@ import main.com.carService.loginNeeds.user;
 			)
 	,
 	@NamedQuery(name="product.getAllByState",
-	query = "from product d where (d.state = :state) and d.deleted = false"
+	query = "from product d where (d.state = :state) and d.deleted = false and d.landingCheck = false"
 			)
 
 	,
 	@NamedQuery(name="product.getAllForMainUser",
-	query = "from product d where mainId = :userId and d.deleted = false"
+	query = "from product d where mainId = :userId and d.deleted = false and d.landingCheck = false"
 			)
 	,
 	@NamedQuery(name="product.getAllByStateForMainUser",
-	query = "from product d where (d.state = :state) and mainId = :userId and d.deleted = false"
+	query = "from product d where (d.state = :state) and mainId = :userId and d.deleted = false and d.landingCheck = false"
 			)
 	
 	,
 	@NamedQuery(name="product.getAllForNormalUser",
-	query = "from product d where  normalUserId = :normalUserId and d.deleted = false"
+	query = "from product d where  normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
 			)
 	,
 	@NamedQuery(name="product.getAllByStateForNormalUser",
-	query = "from product d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false"
+	query = "from product d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
 			)
 
 	,
 	@NamedQuery(name="product.getAllBytypeOfOrderForNormalUser",
-	query = "from product d where  d.typeOfOrder = :typeOfOrder and normalUserId = :normalUserId and d.deleted = false"
+	query = "from product d where  d.typeOfOrder = :typeOfOrder and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
 			)
 	
 	,
 	@NamedQuery(name="product.getAllBytypeOfOrderAndStateForNormalUser",
-	query = "from product d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.deleted = false"
+	query = "from product d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.landingCheck = false and d.deleted = false"
+			)
+	
+	,
+	@NamedQuery(name="product.getNextRecord",
+	query = "from product d where d.id > :id order by d.id ASC"
+			)
+	
+	,
+	@NamedQuery(name="product.getPreviousRecord",
+	query = "from product d where d.id < :id order by d.id DESC"
 			)
 	
 	
@@ -199,9 +213,14 @@ public class product {
 	
 	@Column(name = "photoExist")
 	private boolean photoExist;
-	
+
 	@Column(name = "docExist")
 	private boolean docExist;
+	
+	
+
+	@Column(name = "landingCheck")
+	private boolean landingCheck;
 	
 
 	
@@ -381,6 +400,18 @@ public class product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+
+	public boolean isLandingCheck() {
+		return landingCheck;
+	}
+
+
+
+	public void setLandingCheck(boolean landingCheck) {
+		this.landingCheck = landingCheck;
 	}
 
 
@@ -625,6 +656,28 @@ public class product {
 
 	
 
+
+
+	public JsonObject toJson() {
+    	JsonObject obj=new JsonObject();
+    	  obj.addProperty("id", String.valueOf(this.id));
+	      obj.addProperty("normalUserId", String.valueOf(this.normalUserId.getId()));
+	      obj.addProperty("mainId", String.valueOf(this.mainId.getId()));
+	      obj.addProperty("add_datetime", String.valueOf(this.add_datetime));
+	      
+	      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	      String dateString = format.format( new Date()   );
+	      obj.addProperty("DateTimeNowRealTime", String.valueOf(dateString));
+	      obj.addProperty("lengthOfProduct", String.valueOf(this.lengthOfProduct));
+	      obj.addProperty("description", String.valueOf(this.description));
+	      obj.addProperty("trackingNumber", String.valueOf(this.trackingNumber));
+	      obj.addProperty("mainImageLink", String.valueOf(this.mainImageLink));
+	      obj.addProperty("orderPrice", String.valueOf(this.orderPrice));
+	      obj.addProperty("note", String.valueOf(this.note));
+	      
+	      return obj;
+    	
+    }
 
 
 

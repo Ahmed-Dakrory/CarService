@@ -16,7 +16,14 @@
 		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/bootstrap.min.css']}" />
 		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/owl.carousel.min.css']}" />
 		<link rel="stylesheet" href="#{resource['css:dashboardCaroMoto/index_style.css']}" />
-		
+			<title>
+			<ui:insert name="title"> 
+					   
+		   		ALMZZAD
+			</ui:insert>
+		</title>
+	
+		<link rel="icon" type="image/png" href="#{resource['images:logo.png']}"/>
 	</h:head>
 	
 	<h:body>
@@ -32,14 +39,7 @@
 	
 			    
 		<header>
-		<title>
-			<ui:insert name="title"> 
-					   
-		   		ALMZZAD
-			</ui:insert>
-		</title>
 	
-		<link rel="icon" type="image/png" href="#{resource['images:logo.png']}"/>
 		
 		    <section id="logo">
 		        <div class="w-95 mt-3 mb-1 mr-5 ml-5">
@@ -70,15 +70,15 @@
 		                        <img src="/resources/Image/caromoto logo-04.png" alt="logo" /></a>
 		            
 		                </div>
-		                <div class="col-md-4 ">
+		                <div class="col-md-3 text-center mt-3">
 		                    <p class="mt-4"><i class="fas fa-map-marker-alt mr-2"></i> 2817 Tremont Rd. Savannah, GA 31405</p>
 		
 		                </div>
-		                <div class="col-md-3 ">
+		                <div class="col-md-3 text-center mt-3">
 		                    <p class="mt-4"> <i class="fas fa-phone-alt mr-2"></i>00353894435368</p>
 		                </div>
 		                
-		                <div class="col-md-2 text-center">
+		                <div class="col-md-3 text-center">
 		                    <a class="logo" href="index.html">
 		                        <img src="/resources/Image/eldawlia.jpeg" alt="logo"/></a>
 		            
@@ -366,6 +366,21 @@
 					
 
 		
+  	
+		   <nav class="footerui-bg-overlay bg-transparent opacity-75">
+      <div class="container d-flex flex-wrap justify-content-between text-center pb-3" style="margin-left: 39%;width: 55%;">
+    
+        <div>
+          
+        </div>
+    
+        <div class="pt-3">
+          <a href="#" class="footer-text font-weight-bolder text-dark text-lightest1" style="font-family: 'Poppins', sans-serif;font-size: 1rem;font-weight: bolder!important;line-height: 1.5;">ALMZZAD LLC</a> ©
+          <span class="footer-text text-dark text-lightest1" style="font-family: 'Poppins', sans-serif;font-size: 1rem;font-weight: 400;line-height: 1.5;">Developed by</span> 
+        <a class="footer-text text-dark text-lightest1" target="smartopal" href="https://www.smartopal.com" style="font-family: 'Poppins', sans-serif;font-size: 1rem;font-weight: 400;line-height: 1.5;"> <i>Smart Opal</i> </a>
+        </div>
+      </div>
+    </nav>
   	
 		
 		<h:outputScript name="js/dashboardCaroMoto/jquery-3.4.1.slim.min.js"/>

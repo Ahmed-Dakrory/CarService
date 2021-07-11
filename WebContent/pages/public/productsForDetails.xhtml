@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/templates/publicTemplateForproduct.xhtml">
+
+<ui:define name="tagsMeta">
+
+<meta property="og:image:height" content="370"/>
+<meta property="og:image:width" content="370"/>
+<meta property="og:url" content="http://adainter.com/pages/public/productsForDetails.jsf?id=#{normalUserProductBean.selectedProduct.id}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="#{normalUserProductBean.selectedProduct.mainImageLink}"/>
+
+	<meta property="og:title" content="ALMZZAD Sallabi Car Dealers"/>
+
+	<meta property="og:description" content="#{normalUserProductBean.selectedProduct.description} "/>
+
+</ui:define>	
+
+	<ui:define name="content">
+	
+	<style>
+	button span{
+	display:none;
+	}
+	hr {
+    margin-top: 4.1px;
+    margin-bottom: 4.1px;
+    }
+    
+.carousel {
+  position: relative;
+}
+.carousel-item img {
+  object-fit: cover;
+}
+#carousel-thumbs {
+  background: rgba(255,255,255,.3);
+  bottom: 0;
+  left: 0;
+  padding: 0 50px;
+  right: 0;
+}
+#carousel-thumbs img {
+  border: 5px solid transparent;
+  cursor: pointer;
+}
+#carousel-thumbs img:hover {
+  border-color: rgba(255,255,255,.3);
+}
+#carousel-thumbs .selected img {
+  border-color: #fff;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+}
+@media all and (max-width: 767px) {
+  .carousel-container #carousel-thumbs img {
+    border-width: 3px;
+  }
+}
+@media all and (min-width: 576px) {
+  .carousel-container #carousel-thumbs {
+    position: absolute;
+  }
+}
+@media all and (max-width: 576px) {
+  .carousel-container #carousel-thumbs {
+    background: #ccccce;
+  }
+}
+input:focus-visible{
+border:none;
+}
+
+.ui-button-text-only .ui-button-text {
+    padding: 0px 0em;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor: move;
+    font-size: 15px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    color: black;
+    background: black;
+    position: absolute;
+    right: .3em;
+    top: 50%;
+    width: 19px;
+    margin: -10px 0 0;
+    padding: 1px;
+    height: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 13.5px;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=25);
+    -khtml-opacity: .25;
+    -moz-opacity: .25;
+    opacity: .25;
+}
+	</style>
+		
+		
+	#{normalUserProductBean.refreshForProduct()}
+	
+	<div class="w-100">
+	
+		<div class="row w-100 pr-0">
+			
+			
+			<div class="col-md-5">
+				  
+				
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				  <div class="carousel-inner">
+				  
+				    <div class="carousel-item active" data-slide-number="0">
+				      <img src="#{normalUserProductBean.images.get(0)}" class="d-block w-100" alt="..." data-remote="#{normalUserProductBean.images.get(0)}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
+				    </div>
+				    <ui:repeat var="data" varStatus="status"  offset="1" value="#{normalUserProductBean.images}">
+				    <div class="carousel-item" data-slide-number="#{status.index}">
+				      <img src="#{data}" class="d-block w-100" alt="..." data-remote="#{data}" data-type="image" data-toggle="lightbox" data-gallery="example-gallery"/>
+				    </div>
+				    </ui:repeat>
+				    
+				  </div>
+				  
+				  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon"  style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" style="width: 38px;height: 61px;background-color: #1c1d1dc2;" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+				
+				<!-- Carousel Navigation -->
+					<div class="row">
+				  
+					      <div id="carousel-selector-0" class="thumb col-4 col-sm-2 px-1 py-2 selected" data-target="#myCarousel" data-slide-to="0">
+					          <img src="#{normalUserProductBean.images.get(0)}" class="img-fluid" alt="..."/>
+					        </div>
+					 
+				    
+						<ui:repeat var="data" varStatus="status"  offset="1" value="#{normalUserProductBean.images}">
+					
+				        <div id="carousel-selector-#{status.index}" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="#{status.index}">
+				          <img src="#{data}" class="img-fluid" alt="..."/>
+				        </div>
+				   
+				       </ui:repeat>
+				       
+				    </div>
+				  
+				  
+				  <h:form>
+			<!--  <div class="card" style="width: 100%;direction: ltr;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
+					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Full Cost Calculation</p>
+					</div>
+					
+					<div class="card-body">
+						     <p:panelGrid columns="2" style="width:100%;">
+		    	<p:outputLabel value="Enter the product Price in $"/>
+		    	<h:inputText value="#{normalUserProductBean.selectedProduct.orderPrice}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
+																
+		            
+		    </p:panelGrid>
+		   
+					</div>
+
+			</div>-->
+			</h:form> 
+			</div>
+			
+			
+			
+			<div class="col-md-3 p-0" >
+				<div class="card" dir="ltr">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
+					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Product DETAILS</p>
+					</div>
+					<div class="card-body">
+						<div class="row divider">
+							<div class="col-md-4 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Description:
+							</div>
+							<div class="col-md-8 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{normalUserProductBean.selectedProduct.description}
+							</div>
+						</div>
+						<hr/>
+						
+						<div class="row divider">
+							<div class="col-md-6 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Fees:
+							</div>
+							<div class="col-md-6 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{normalUserProductBean.selectedProduct.fees}
+							</div>
+						</div>
+						
+						
+									
+						
+						<hr/>
+						<div class="row divider">
+							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								Available Items:
+							</div>
+							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+							#{normalUserProductBean.selectedProduct.lengthOfProduct}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<h:form id="RightColumnData" class="col-md-4 p-0 pl-1 ">
+				
+				<div class="card" dir="ltr">
+					<div class="card-header" style="    background-color: #405264f0;    color: white;">
+					<div class="col-md-6 p-0 text-left">
+					 	<p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Price Information</p> 
+					 </div>
+					<div class="col-md-6 p-0 text-right">
+						<p style="font-size: 19px;line-height: 10px;color: #e4ca0f;padding: 0px;margin: 0px;font-weight: 900;"></p>
+					</div>
+					 
+					</div>
+					<div class="card-body" style="    padding: 15px;    margin: 0;    padding-top: 1px;">
+						
+						<h:panelGroup id="bidDetails">
+						<div class="row">
+						
+						
+						
+							 
+							 
+						</div>
+						
+						
+						
+						
+						</h:panelGroup>
+						
+						<div class="container mt-3">
+							<div class="row" dir="ltr">
+								 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Price Information</p>
+							</div>
+							<h:panelGroup id="currentPriceDisplay">
+							
+						
+							
+						
+						
+							
+							 
+							</h:panelGroup>
+							<hr style="padding: 0;    margin: 0px;    margin-top: 10%;    margin-right: -10%;    margin-left: -10%;"/>
+								
+							<h:panelGroup rendered="true">
+								
+								
+								<div class="row" style="font-size: 13px;font-weight: 300;margin-top: 11px;">Product Price</div>
+								<div class="row">
+									<div class="col-md-5 row col-5" style="border-style: solid;border-width: 1px;border-color: #d4d4d4;border-radius: 7px;margin: 0px;height: 33px;padding: 1px;padding-top: 0px;">
+										<div class="col-md-3 p-0 m-md-0 pl-md-1 pr-md-1 mt-md-1 col-3 pr-2 ml-2 mt-1"><!-- <p:commandButton  update="increment" class="w-100 fa fa-minus" style="background: white;border-color: yellow;background-position: 1px 24px;background-repeat: no-repeat;border-width: 3px;padding-left: 2px;border-radius: 16px!important;background-size: 14px 16px;"/> --></div>
+										<div class="col-md-6  p-0 m-0 col-5 mt-1"><h:inputText id="increment" style="border: none;text-align: center;font-size: 17px;padding-top: 0px;" class="w-100" value="#{normalUserProductBean.selectedProduct.orderPrice}"/></div>
+										<div class="col-md-3 p-0 m-0 pl-md-1 pr-md-1 mt-md-1 col-1 mt-1"><!--<p:commandButton  update="increment" class="w-100 fa fa-plus" style="background: white;border-color: yellow;padding-right: 16px;padding-left: 2px;background-repeat: no-repeat;border-width: 3px;border-radius: 18px!important;background-size: 14px 16px;"/>--></div>
+									</div>
+									<div class="col-1"></div>
+									<div class="col-md-5 p-0 m-0 pl-3 col-5">
+										<div  style="text-align: center;background: linear-gradient( 180deg ,#fbe0a2 0,#fdd304 95%,#eccf3c 0);height: 92%;padding: 3px;width: 100%;font-weight: 900;border: none;border-radius: 14px!important;">
+										<a href="mailto:libya@caromoto.com">Buy Now</a>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="row" style="font-size: 13px;    font-weight: 200;    margin-top: 4px;">Enter $25 or more in $</div> -->
+								<hr style="padding: 0;margin: 0px;margin-bottom: 5%;margin-top: 5%;margin-right: -10%;margin-left: -10%;"/>
+								
+								<h:panelGroup id="CurrentPriceSmall">
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Price</p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{normalUserProductBean.selectedProduct.orderPrice} USD   ,(#{carLandingBean.floatOfNumberWithPercent(normalUserProductBean.selectedProduct.orderPrice*normalUserProductBean.dollarToDinar)})LYD</p>
+									</div>
+								</div>
+								
+								
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Fees</p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{normalUserProductBean.selectedProduct.fees} USD   ,(#{carLandingBean.floatOfNumberWithPercent(normalUserProductBean.selectedProduct.fees*normalUserProductBean.dollarToDinar)})LYD</p>
+									</div>
+								</div>
+								
+								
+								<div class="row" >
+									<div class="col-md-5 p-0 m-0">
+										<p style="text-align: left;width: 100%;font-weight: 100;font-size: 13px;padding: 0px;margin: 0px;">Total</p>
+									</div>
+									<div class="col-md-7 p-0 m-0" style="margin: 0px;    padding: 3px;    padding-top: 0px;    padding-bottom: 0px;">
+										<p style="text-align: right;width: 100%;font-weight: 900;font-size: 15px;padding: 0px;margin: 0px;">$#{carLandingBean.floatOfNumberWithPercent(normalUserProductBean.selectedProduct.orderPrice+normalUserProductBean.selectedProduct.fees)} USD   ,(#{carLandingBean.floatOfNumberWithPercent((normalUserProductBean.selectedProduct.orderPrice+normalUserProductBean.selectedProduct.fees)*normalUserProductBean.dollarToDinar)})LYD</p>
+									</div>
+								</div>
+								
+							
+								
+								
+								
+								
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							
+						</div>
+					</div>
+				</div>
+			
+				
+				
+				<div class="card" dir="ltr" style="    margin-top: 9px;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
+					 <p style="font-size: 17px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Notes</p>
+					</div>
+						<div class="card-body">
+						<div class="row divider">
+							<div class="col-md-12 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+								#{normalUserProductBean.selectedProduct.note}
+							</div>
+							
+						</div>
+						
+						
+						
+						
+						
+						
+					</div>
+				
+				</div>
+			</h:form>
+			
+				  
+		</div>
+	</div>
+		
+		 
+		 
+
+
+
+		
+
+	</ui:define>
+	
+		
+		
+		<ui:define name="script">
+		  <script>
+ 
+ 	$('#menu-header-bid').toggleClass('expand');
+ 	$('#menu-bid').fadeToggle();
+ 	$('#bid-product').toggleClass('menu-item-refunds');
+     </script>
+
+
+	<script>
+function buyNow(){
+	swal({
+		  title: "Are you sure?",
+		  text: "Are you sure to add this car to your Payments?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		   
+			  buyCar();
+		  } 
+		});
+}
+</script>
+		</ui:define>
+	
+	
+</ui:composition>
+</html>

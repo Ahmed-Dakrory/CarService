@@ -39,15 +39,9 @@ import main.com.carService.product.product;
 import main.com.carService.product.productAppServiceImpl;
 import main.com.carService.productImage.productimage;
 import main.com.carService.productImage.productimageAppServiceImpl;
-import main.com.carService.shipper.shipper;
 import main.com.carService.tools.Constants;
-import main.com.carService.vendor.vendor;
-import main.com.carService.product.product;
-import main.com.carService.productImage.productimage;
-import main.com.carService.consignee.consignee;
-import main.com.carService.customer.customer;
+import main.com.carService.form_settings.form_settingsAppServiceImpl;
 import main.com.carService.loginNeeds.user;
-import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxConfig;
 
@@ -118,6 +112,13 @@ public class normalUserProductBean implements Serializable{
 	private int products_PayAndShip_InShipping=0;
 	
 
+	private float dollarToDinar = 0;
+	
+
+
+	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
+	private form_settingsAppServiceImpl form_settingsFacade;
+
 	private int products_Ship_DeliveredByCustomer = 0;
 	private int products_PayAndShip_DeliveredByCustomer=0;
 	
@@ -148,6 +149,124 @@ public class normalUserProductBean implements Serializable{
 	}
 	
 	
+	
+	
+public void refreshForProduct(){
+		
+		try {
+		
+		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
+
+		}catch(NullPointerException exp) {
+			
+		}
+	
+		
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getRequest();
+		
+		try{
+			Integer id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
+
+			System.out.println("Done");
+				if(id!=null){
+
+	    			System.out.println("Play");
+					images=new ArrayList<String>();
+					selectedProduct=productFacade.getById(id);
+					//Here Get the images For the main 
+					/**
+					 * 
+					 */
+
+					 try {
+
+				        	images = new ArrayList<String>();
+				        	
+
+				        	images.add(selectedProduct.getMainImageLink());
+
+				        	
+
+				    		//FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("myCarousel");
+				          	  
+						} catch (Exception e1) {
+
+				        	System.out.println("ImagesLoadedError: "+e1.toString());
+				        	
+						}catch (Error e1) {
+
+				        	System.out.println("ImagesLoadedError: "+e1.toString());
+				        	
+					
+						}
+					 List<productimage> allImageFromDatabase = productimageFacade.getAllByproductIdAndType(id, productimage.TYPE_PIC);
+			        	
+						
+					 if(allImageFromDatabase!=null) {
+			        	for(int i=0;i<allImageFromDatabase.size();i++) {
+		    				images.add("/images/?file="+allImageFromDatabase.get(i).getUrl());
+		    			}
+					 }
+					 
+					 
+					 allImageFromDatabase = productimageFacade.getAllByproductIdAndType(id, productimage.TYPE_DOC);
+			        	
+						
+					 if(allImageFromDatabase!=null) {
+			        	for(int i=0;i<allImageFromDatabase.size();i++) {
+		    				images.add("/images/?file="+allImageFromDatabase.get(i).getUrl());
+		    			}
+					 }
+		    			
+
+		    			if(images.size()==0) {
+		    				images.add("https://almzzad.com/resources/Image/caromoto logo-04.png");
+				    		
+		    			}
+		    			
+		    			
+
+			        	System.out.println("Images Loaded Error: "+String.valueOf(images.size()));
+			        	
+					//Get the userBid if applicable
+					if(loginBean.isLoggedIn()) {
+
+						
+						System.out.println("Ahmed CarBid3");
+						//Make this car added to my watch List
+						
+
+						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListData");
+						FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("setWatchListDataMobile");
+						
+					
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+			}
+		catch(Exception ex){
+			 
+		}
+		
+	
+		
+		
+
+	}
+	
+	
+
 	public void handleAllUsersForAdmin() {
 		
 		allUsers = loginBean.getUserDataFacede().getAll();
@@ -201,6 +320,37 @@ public class normalUserProductBean implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public void goNextproduct(int id) {
+
+		product product = productFacade.getNextRecord(id);
+			
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/productsForDetails.jsf?id="+product.getId()+"&faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void goPreviousproduct(int id) {
+
+		product product = productFacade.getPreviousRecord(id);
+			
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/public/productsForDetails.jsf?id="+product.getId()+"&faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 	public void updateData() {
 
@@ -467,6 +617,7 @@ public void updateDataMain() {
 	if(isValid) {
 	
 	try {
+		addNewProduct.setLandingCheck(false);
 		productFacade.addproduct(addNewProduct);
 		for(int i=0;i<images_deleted.size();i++) {
 			System.out.println("Ahmed File: "+String.valueOf(images_deleted.get(i)));
@@ -512,6 +663,7 @@ public void updateDataMain() {
 		
 		
 
+		addNewProduct.setLandingCheck(false);
 		
 		productFacade.addproduct(addNewProduct);
 			
@@ -595,6 +747,8 @@ public void deleteProduct() {
 	 product deletedCar = productFacade.getById(productId);
 	 deletedCar.setDeleted(true);
 	 try {
+
+			addNewProduct.setLandingCheck(false);
 		productFacade.addproduct(deletedCar);
 		PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Product Has Been Deleted\", \"success\");");
 		
@@ -617,7 +771,73 @@ public void deleteProduct() {
 }
 
 
-public void saveNewProductDataMain() {
+
+public void addProductForMain() {
+	
+	
+	addNewProduct=new product();
+	
+	images=new ArrayList<String>();
+
+	images_deleted=new ArrayList<String>();
+	 docs=new ArrayList<String>();
+	 docs_deleted=new ArrayList<String>();
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/shipper/productPage/vitView.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+
+public void selectproductRowForMain() {
+
+	 FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 Integer productId = Integer.valueOf((String) map.get("productId"));
+	
+	 
+	 addNewProduct=productFacade.getById(productId);
+	 
+		images_deleted=new ArrayList<String>();
+	 images=new ArrayList<String>();
+	 List<productimage> allImages = productimageFacade.getAllByproductIdAndType(addNewProduct.getId(),productimage.TYPE_PIC);
+		
+	 System.out.println("Done");
+	 
+	 if(allImages!=null) {
+		for(int i=0;i<allImages.size();i++) {
+			images.add(allImages.get(i).getUrl());
+		}
+		}
+		
+		
+		List<productimage> allDoc = productimageFacade.getAllByproductIdAndType(addNewProduct.getId(),productimage.TYPE_DOC);
+		if(allDoc!=null) {
+		for(int i=0;i<allDoc.size();i++) {
+			docs.add(allDoc.get(i).getUrl());
+		}
+		}
+		
+	PrimeFaces.current().executeScript("showDialog('Product');");
+
+	
+	try {
+		FacesContext.getCurrentInstance()
+		   .getExternalContext().redirect("/pages/secured/shipper/productPage/vitViewEdit.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+
+
+public void saveNewProductDataMainForLanding() {
 	loginBean.getTheUserOfThisAccount();
 	
 	addNewProduct.setEstimatedDateOfDelievery(setCalendarFromString(estimatedDateOfDelivery));
@@ -635,6 +855,8 @@ public void saveNewProductDataMain() {
 		addNewProduct.setState(product.STATE_AddedByCustomer_REVISE);
 		addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1));
 		selectedProductState = -1;
+
+		addNewProduct.setLandingCheck(true);
 		productFacade.addproduct(addNewProduct);
 		
 		for(int i=0;i<images_deleted.size();i++) {
@@ -685,6 +907,118 @@ public void saveNewProductDataMain() {
 		
 		
 		selectedProductState = product.STATE_AddedByCustomer_REVISE;
+
+		addNewProduct.setLandingCheck(true);
+		productFacade.addproduct(addNewProduct);
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Your product has been added.',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/shipper/productPage/productList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	} catch (Exception e1) {
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Error',\r\n" + 
+				"			text: '"+e1.getMessage()+".',\r\n" + 
+				"			type: 'error'\r\n" + 
+				"		});");
+	}
+			}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'This product is already Registered',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}else {
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Check this ',\r\n" + 
+				"			text: 'Check the Madatory fields',\r\n" + 
+				"			left:\"2%\"\r\n" + 
+				"		});");
+	}
+}
+
+public void saveNewProductDataMain() {
+	loginBean.getTheUserOfThisAccount();
+	
+	addNewProduct.setEstimatedDateOfDelievery(setCalendarFromString(estimatedDateOfDelivery));
+	addNewProduct.setDeliveryDate(setCalendarFromString(deliveryDate));
+	
+	
+	
+	
+	boolean isValid=true;
+	if(isValid) {
+		
+		if(true) {
+	
+	try {
+		addNewProduct.setState(product.STATE_AddedByCustomer_REVISE);
+		addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1));
+		selectedProductState = -1;
+
+		addNewProduct.setLandingCheck(false);
+		productFacade.addproduct(addNewProduct);
+		
+		for(int i=0;i<images_deleted.size();i++) {
+			productimage cImage=new productimage();
+			cImage.setProductId(addNewProduct);
+			cImage.setUrl(images_deleted.get(i));
+			cImage.setType(productimage.TYPE_PIC);
+			cImage.setDeleted(true);
+			productimageFacade.addproductimage(cImage);
+			addNewProduct.setPhotoExist(false);
+
+		}
+		
+		for(int i=0;i<docs_deleted.size();i++) {
+			productimage cDocs=new productimage();
+			cDocs.setProductId(addNewProduct);
+			cDocs.setUrl(docs_deleted.get(i));
+			cDocs.setType(productimage.TYPE_DOC);
+			cDocs.setDeleted(true);
+			productimageFacade.addproductimage(cDocs);
+			addNewProduct.setDocExist(false);
+		}
+		
+		
+		
+		
+		for(int i=0;i<images.size();i++) {
+			productimage cImage=new productimage();
+			cImage.setProductId(addNewProduct);
+			cImage.setUrl(images.get(i));
+			cImage.setType(productimage.TYPE_PIC);
+			productimageFacade.addproductimage(cImage);
+			addNewProduct.setPhotoExist(true);
+
+		}
+		
+		for(int i=0;i<docs.size();i++) {
+			productimage cDocs=new productimage();
+			cDocs.setProductId(addNewProduct);
+			cDocs.setUrl(docs.get(i));
+			cDocs.setType(productimage.TYPE_DOC);
+			productimageFacade.addproductimage(cDocs);
+			addNewProduct.setDocExist(true);
+		}
+		
+
+		
+		
+		
+		selectedProductState = product.STATE_AddedByCustomer_REVISE;
+
+		addNewProduct.setLandingCheck(false);
 		productFacade.addproduct(addNewProduct);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
@@ -926,6 +1260,7 @@ public void filterProductBySelectFirstTime() {
 	allProducts=new ArrayList<product>();
 
 		user userNewId=loginBean.getTheUserOfThisAccount();
+		if(userNewId.getId()!=null) {
 		if(userNewId.getRole() == user.ROLE_MAIN ) {
 			if(selectedProductState==-1) {
 				//this for all
@@ -950,7 +1285,7 @@ public void filterProductBySelectFirstTime() {
 				}
 		}
 
-		
+		}
 	
 	}
 	
@@ -1271,6 +1606,34 @@ public void setLastupdate_date(String lastupdate_date) {
 
 public static long getSerialversionuid() {
 	return serialVersionUID;
+}
+
+
+
+
+public float getDollarToDinar() {
+	return dollarToDinar;
+}
+
+
+
+
+public void setDollarToDinar(float dollarToDinar) {
+	this.dollarToDinar = dollarToDinar;
+}
+
+
+
+
+public form_settingsAppServiceImpl getForm_settingsFacade() {
+	return form_settingsFacade;
+}
+
+
+
+
+public void setForm_settingsFacade(form_settingsAppServiceImpl form_settingsFacade) {
+	this.form_settingsFacade = form_settingsFacade;
 }
 
 

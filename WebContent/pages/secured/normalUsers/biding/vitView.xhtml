@@ -161,6 +161,23 @@
 							<h:selectBooleanCheckbox class="m-3" style="width: 25px;height: 25px;" value="#{carPageBean.selectedFreight.active}"   />
 						 </div>
 					</div>
+					
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >اسم اعلى مزايد</label>
+						    <h:inputText type="text"  class="form-control" disabled="true" value="#{carPageBean.selectedFreight.userMaxBidId.firstName}  #{carPageBean.selectedFreight.userMaxBidId.lastName}"  />
+						  </div>
+					</div>
+					
+					
+					<div class="col-md-3 mb-3">
+						<div class="form-group">
+						    <label >أعلى سعر</label>
+						    <h:inputText type="text"  class="form-control" value="#{carPageBean.selectedFreight.currentBid}" disabled="true" />
+						  </div>
+					</div>
             	</div>
             	<div class="row">
             	
@@ -432,14 +449,10 @@
 					    
 				<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >حالة التايتل </label>
-						     <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{normalUserBean.titleRecievedSelected}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
-                              	<f:selectItem itemLabel="Missing" itemValue="0"/>
-                              	<f:selectItem itemLabel="Pending" itemValue="1"/>
-                              	<f:selectItem itemLabel="Requested" itemValue="2"/>
-                              	<f:selectItem itemLabel="Ok" itemValue="3"/>
-                              	<f:selectItem itemLabel="In Lien" itemValue="4"/>
-                              	<f:selectItem itemLabel="Paid" itemValue="5"/>
+						    <label > نوع الورق </label>
+						     <h:selectOneMenu name="ctl00$BodyHolder$txtTitleReceived" type="text" value="#{carPageBean.selectedFreight.docType}" id="ctl00_BodyHolder_txtTitleReceived" class="form-control">
+                              	<f:selectItems value="#{carLandingBean.allPapers.entrySet().toArray()}" var="var" itemLabel="#{var.value}"  itemValue="#{var.value}"/>
+                              	
                               </h:selectOneMenu>
                          </div>
                    </div>

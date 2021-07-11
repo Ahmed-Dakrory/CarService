@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+	
+
+	<ui:define name="content">
+
+	<style>
+	
+	.yBtnBlack{
+    background: linear-gradient( 
+180deg
+ ,#e3e2dc 0,#1a1918 95%,#1d1d1c 0);
+}
+
+
+.yBtnYellow{
+    background: -webkit-linear-gradient(top,#f8f1a1,#ffa900 95%,#e38b00 0);
+    color:black!important;   
+    font-weight: 900;
+}
+
+.yBtn {
+    background: linear-gradient( 
+180deg
+ ,#f3ba3a 0,#f8d52a 95%,#8a8b8b 0);
+    padding-bottom: 11px;
+    ": ;
+}
+	</style>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
+	
+	#{carPageBean.refresh()}
+	<div class="center">
+	
+<div class="container breadcontainer hidden-sm hidden-xs" style="    width: 75%;">
+<div class="row">
+<div class="col-md-12">
+<!-- 
+<div class="breadcrumbs">
+<strong>&gt;</strong>&nbsp;&nbsp;&nbsp;<span>Vehicles (V)</span></div> 
+ -->
+
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+
+<div class="clearfix"></div>
+<div class="container">
+</div>
+<div class="" >
+
+
+
+<div id="content">
+
+<div class="row searchDiv">
+
+
+
+
+<style>
+.panel-body {
+    background: #f9f9f966;
+    
+    }
+.imageStyleTable{
+	width: 130px!important;
+}
+.watchlist-link:hover{
+    cursor: pointer;
+}
+</style>
+
+
+
+
+<div class="col-md-12 searchResult" style="    margin-top: -3%;">
+<div class="container mt-5" style="width:100%">
+<div class="row">
+<div class="col-md-4">
+
+</div>
+
+
+
+</div>
+</div>
+<h:panelGroup id="panelCarsToUpdate">
+<h:form class="panel">
+					
+							
+							
+							<div class="panel-body list-view table-responsive p-3 mb-3 border  rounded">
+								<table id="listTable" class="table table-bordered table-striped mb-none searchList carlist"  style="width:100%">
+									<thead>
+										<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
+											<th class="d-table-cell d-sm-none"><a>Details</a></th>
+											<th class=" d-none d-sm-table-cell" ><a>Product</a></th>
+											<th class="d-none d-sm-table-cell" ><a>Details</a></th>
+											<th class="d-none d-sm-table-cell"><a>Description</a></th>
+											<th class="d-none d-sm-table-cell"><a>Price</a></th>
+										</tr>
+									</thead>
+								<tbody></tbody>
+								</table>
+							
+							
+							</div>
+							
+							
+							
+							  
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+
+		<h:outputScript name="js/dashboardCaroMoto/mainFunctions.js"/>
+ <p:remoteCommand name="setCarToWatchList" action="#{carPageBean.setCarToWatchListNum()}"> 
+	</p:remoteCommand>
+	
+	
+ <script>
+ function setCarToFavourite(id){
+	 setCarToWatchList([{name: 'num', value: id}]); 
+ }
+ 
+ 
+ function updatedWithId(id){
+	 $.get("/rest/ApiCarLanding/isCarInFav",
+	  		   {
+	  		     userId: "#{loginBean.theUserOfThisAccount.id}",
+	  		     carId: id
+	  		   },
+	  		   function(data, status){
+	  		    if(data.isExist){
+	  		    	$('#startWithId'+id).removeClass('w-add');
+	  		    	$('#startWithId'+id).addClass('w-remove');
+	  		    }else{
+	  		    	$('#startWithId'+id).removeClass('w-remove');
+	  		    	$('#startWithId'+id).addClass('w-add');
+	  		    }
+	  		   });
+ }
+ 
+
+	
+     $('#listTable').DataTable({
+         processing: true,
+         serverSide: true
+         ,dom: 'lBfrtip',
+         buttons: [
+         { extend: 'copy', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'excelHtml5', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'print', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         }
+         ]
+         ,
+         lengthMenu: [
+         [ 5,10,50,100,200,-1 ],
+         [ '5','10',' 50 ', ' 100 ',' 200 ', 'Show All' ]
+         ],
+         ajax: {
+             "url": "/rest/ApiCarLanding/allProduct",
+             "data": function ( d ) {
+                /* d.make = "#{carPageBean.searchMake}";
+                 d.model = "#{carPageBean.searchModel}";
+                 d.type = "#{carPageBean.searchType}";
+                 d.yearStart = "#{carPageBean.searchStartYear}";
+                 d.yearEnd = "#{carPageBean.searchEndYear}";
+                 d.auctionType = "Libya";*/
+                 
+             }
+         },
+         aoColumns: [
+        	 {
+                 className: "center d-table-cell d-sm-none ", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                     
+                
+              		   imageMain =  '<img style="width: 100%;" src="'+item.mainImageLink+'" alt="image'+item.mainImageLink+'"/>'
+                         
+              	   
+              	   
+                	 
+              		   imageMainToView = "'"+item.mainImageLink+"'";
+                         
+              	   
+              return '<div class="preview-photo" id="pph-24311239">'
+              +'<a data-auction="copart" data-lot="24311239" onclick="ViewDoc('+imageMainToView+')" class="see_photos">See Photos</a>'
+              +imageMain
+              +'</div>'
+              +'<h2 class="title mt-3">'
+				+'<a itemprop="url" href="/pages/public/productsForDetails.jsf?id='+item.id+'" style="color: #4697ea;font-size: 15px;"><span itemprop="name">'+item.id+'</span></a> </h2>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Tracking Number: </span>'+item.trackingNumber+' </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Available Items: </span>'+item.lengthOfProduct+ ' miles </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Description: </span>'+item.description+ '</div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Note: </span>'+item.note+  '</div>'
+			;
+                 }
+               },
+               
+               
+               {
+                   className: " center d-none d-sm-table-cell ", "orderable": false, "mData": null, "sWidth": "15%","mRender": function (item) {
+                	   
+                	   
+                	    
+                	
+                		   imageMain =  '<img style="width: 187px;" src="'+item.mainImageLink+'" alt="image'+item.mainImage+'"/>'
+                           
+                	   
+                	   
+                	  
+                  		   imageMainToView = "'"+item.mainImageLink+"'";
+                             
+                  	
+                	   
+                return '<div class="preview-photo" id="pph-24311239">'
+                +'<a data-auction="copart" data-lot="24311239" onclick="ViewDoc('+imageMainToView+')" class="see_photos">See Photos</a>'
+                +imageMain
+                +'</div>';
+                   }
+                 },
+                 
+                 {
+                   className: "d-none d-sm-table-cell","mData": null, "sWidth": "30%","mRender": function (item) { 
+                	  
+
+                	  
+                	   
+                       return '<h2 class="title mt-3">'
+         				+'<div class="odometer" style="    text-align: initial;"><a itemprop="url" href="/pages/public/productsForDetails.jsf?id='+item.id+'" style="color: #4697ea;font-size: 15px;"><span itemprop="name">Go to Product</span></a> </div></h2>'
+         				+'<div class="odometer" style="    text-align: initial;"><span class="name">Note: </span>'+item.note+ '  </div>'
+        				+'<div class="odometer" style="    text-align: initial;"><span class="name">Tracking Number: </span>'+item.trackingNumber+ '</div>'
+        				+'<div class="odometer" style="    text-align: initial;"><span class="name">Number Of items Available: </span>'+item.lengthOfProduct+  '</div>'
+        			;
+                     
+                 }
+                 }
+                 
+
+        		,
+                
+                {
+                  className: "d-none d-sm-table-cell","mData": null, "sWidth": "30%","mRender": function (item) { 
+               	  
+
+               	  
+               	   
+                      return '<div class="vin" style="    text-align: initial;">'+item.description+' </div>';
+                    
+                }
+                }
+                
+       		,
+
+        		{
+          className: "center d-none d-sm-table-cell ", "mData": null, "sWidth": "25%","mRender": function (item) { 
+            
+            
+            if(item.orderPrice!='null'){
+            	
+            	orderPrice = '<div class="price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">'
+        			+'$<span itemprop="price" content="'+item.orderPrice+'"> '+item.orderPrice+' </span>'
+        			+'<span class="currency"> USD </span><meta itemprop="priceCurrency" content="USD"/>'
+        			+'</div>';
+            }else{
+            	orderPrice = '';
+            }
+            
+            
+       	   return orderPrice;
+	       	
+            }
+        }              
+       
+             
+           
+         
+     ]
+
+     } );
+
+     </script>        
+						</h:form>
+</h:panelGroup>                                            
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+	
+
+	</ui:define>
+	
+		
+	
+	<ui:define name="script">
+  			
+  			
+  			
+  			
+  			
+  			 	<!-- Vendor -->
+  		   
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/magnific-popup/magnific-popup.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"/>
+  			
+  			<script>
+  			   jQuery.noConflict();
+  			 </script>
+  			
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-validation/jquery.validate.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"/>
+  			<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  			
+  			
+  			<!-- Theme Base, Components and Settings -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
+  			
+  			<!-- Theme Custom -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.custom.js"/>
+  			
+  			<!-- Theme Initialization Files -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+  			
+  			<!-- Examples -->
+  			
+  	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  	
+  	
+	  <script>
+ function ViewDoc(strID){
+	 
+	 if (strID != '-1') {
+	    	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');
+	    }
+ }
+ 	$('#menu-header-bid').toggleClass('expand');
+ 	$('#menu-bid').fadeToggle();
+ 	$('#bid-product').toggleClass('menu-item-refunds');
+     </script>
+	</ui:define>
+	
+</ui:composition>
+</html>
