@@ -37,6 +37,11 @@ import main.com.carService.loginNeeds.user;
 	query = "from biding d where d.id = :id"
 			)
 	,
+	@NamedQuery(name="biding.getAllByCarId",
+	query = "from biding d where d.carlandingId.id = :idcar "
+			)
+	
+	,
 	@NamedQuery(name="biding.getByCarIdAnduserIdAndType",
 	query = "from biding d where d.carlandingId.id = :idcar and d.userId.id = :idUser and d.type = :type"
 			)

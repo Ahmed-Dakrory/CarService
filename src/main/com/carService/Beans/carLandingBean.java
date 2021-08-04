@@ -91,8 +91,9 @@ public class carLandingBean implements Serializable{
 	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
 	private form_settingsAppServiceImpl form_settingsFacade;
 	
-	
+
 	public HashMap<String, String>allPapers;
+	public HashMap<String, Integer>allPapersCodes;
 	List<carLanding> listOfAddedCars;
 
 	List<carLanding> listOfCarsLandingScroller;
@@ -402,6 +403,7 @@ return copFees;
 		currentBidingMaximum=new biding();
 		
 		allPapers = new HashMap<>();
+		allPapersCodes = new HashMap();
 		fillAllPapers();
 		refresh();
 		
@@ -2866,6 +2868,18 @@ public void calcValueOfTotalFeesCarSelected() {
 	}
 
 
+	
+	
+	public HashMap<String, Integer> getAllPapersCodes() {
+		return allPapersCodes;
+	}
+
+
+	public void setAllPapersCodes(HashMap<String, Integer> allPapersCodes) {
+		this.allPapersCodes = allPapersCodes;
+	}
+
+
 	public void fillAllPapers() {
 		allPapers.put("1R","BOS - NONREPAIRABLE");
 		allPapers.put("1S","BOS - ACTIVE");
@@ -3055,6 +3069,201 @@ public void calcValueOfTotalFeesCarSelected() {
 		allPapers.put("WF","SALVAGE CERT-WATER/FLOOD DAMAG");
 		allPapers.put("WS","WILDLIFE CERT OF OWNSHP SALV");
 		allPapers.put("WT","WATERCRAFT CERT OF TITLE");
+		
+		
+		
+		allPapersCodes.put("BOS - NONREPAIRABLE",0);
+		allPapersCodes.put("BOS - ACTIVE",0);
+		allPapersCodes.put("ACQ BOS - POST SALE - SALVAGE",0);
+		allPapersCodes.put("ABANDONMENT-CERT OF SALES",0);
+		allPapersCodes.put("AFFIDAVIT IN LIEU OF TITLE",0);
+		allPapersCodes.put("AUCUNE MENTION",0);
+		allPapersCodes.put("NON-REVIVABLE ACQUISITION",0);
+		allPapersCodes.put("SALVAGE ACQUISITION BILLOFSALE",0);
+		allPapersCodes.put("AUCTION SALES RECEIPT - NONREP",0);
+		allPapersCodes.put("AFF IN LIEU OF TITLE - REBUILT",0);
+		allPapersCodes.put("DERELICT BOS/PARTS ONLY",0);
+		allPapersCodes.put("CERT OF TITLE-MANUFCTR BUYBACK",0);
+		allPapersCodes.put("CERT OF TTL-SLVG MANUFCTR BYBK",0);
+		allPapersCodes.put("BILL OF SALE - ABANDONED",0);
+		allPapersCodes.put("BOAT CERT OF TITLE-SALVAGE",1);
+		allPapersCodes.put("BILL OF SALE - DESTRUCTION",1);
+		allPapersCodes.put("CERT OF TITLE-MANUF BUY BACK",1);
+		allPapersCodes.put("CERT OF SALVAGE-W=FLOOD VEH",1);
+		allPapersCodes.put("BILL OF SALE",1);
+		allPapersCodes.put("BILL OF SALE-PARTS ONLY/SCRAP",0);
+		allPapersCodes.put("BOS - REBUILT",0);
+		allPapersCodes.put("BOAT MOTOR TITLE",1);
+		allPapersCodes.put("BILL OF SALE - PARTS ONLY",0);
+		allPapersCodes.put("BOS - NONREPAIRABLE",0);
+		allPapersCodes.put("BILL OF SALE",0);
+		allPapersCodes.put("CERT OF TITLE TO A BOAT",0);
+		allPapersCodes.put("BOS - SALVAGE",0);
+		allPapersCodes.put("CT CLEAN TITLE PUBLIC ELIG",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE COURT OR",0);
+		allPapersCodes.put("CERT OF SALV-R=RECONSTRUCTED",1);
+		allPapersCodes.put("CERT OF TITLE-COURT ORDER",1);
+		allPapersCodes.put("CERTIFICATE OF DESTRUCTION",1);
+		allPapersCodes.put("CLEAN TITLE-OVER 25% DAMAGE",1);
+		allPapersCodes.put("DLR ONLY CERT OF DESTRUCTION",1);
+		allPapersCodes.put("CLEAN TITLE WITH THEFT HISTORY",1);
+		allPapersCodes.put("CERTIFICAT-VEH. A INSPECTER",0);
+		allPapersCodes.put("CERT TO OBTAIN TTL-NON-HIGHWAY",0);
+		allPapersCodes.put("CERT OF TITLE W/LEMON LAW HIST",1);
+		allPapersCodes.put("CERTIFICATE OF ORIGIN",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE HISTORY",1);
+		allPapersCodes.put("CERT OF TITLE OR SALVAGE ACQ",1);
+		allPapersCodes.put("CERT OF TITLE-CORRECTED",1);
+		allPapersCodes.put("CERT OF TITLE FOR A SNOWMOBILE",1);
+		allPapersCodes.put("CERTIFICATE OF TITLE",1);
+		allPapersCodes.put("VESSEL-CERTIFICATE OF TITLE",1);
+		allPapersCodes.put("CERT OF TITLE-RECOVERED THEFT",1);
+		allPapersCodes.put("CLEAN TITLE EXPORT ONLY",1);
+		allPapersCodes.put("DEALER ONLY CLEAN TITLE",1);
+		allPapersCodes.put("DLR ONLY SALVAGE CERTIFICATE",1);
+		allPapersCodes.put("NC DLR ONLY SLVG REBUILT",1);
+		allPapersCodes.put("DLR ONLY-CLEAN/OVER 25% DAMAGE",1);
+		allPapersCodes.put("DLR ONLY - CLN TTL EXCEEDS 25%",1);
+		allPapersCodes.put("DIS/DLR/EXP ONLY LIEN PAPERS",0);
+		allPapersCodes.put("PERMIT TO DISMANTLE",0);
+		allPapersCodes.put("DNR REGISTRATION",0);
+		allPapersCodes.put("DLR ONLY, CLEAN W/ SALV HIST",1);
+		allPapersCodes.put("DUPLICATE TITLE",1);
+		allPapersCodes.put("APP FOR DUP CLEAN OR AC",0);
+		allPapersCodes.put("DLR ONLY SALVAGE TITLE",1);
+		allPapersCodes.put("APP FOR DUP SALVAGE OR AC",0);
+		allPapersCodes.put("MV907A W/UNSATISFIED LIEN",0);
+		allPapersCodes.put("DIS/DLR/EXP ONLY CLEAN TITLE",1);
+		allPapersCodes.put("DIS/DLR/EXP ONLY CLEAN TITLE",1);
+		allPapersCodes.put("DIS/DLR/EXP ONLY SALVAGE CERT",1);
+		allPapersCodes.put("ELECTRONIC CERT OF TITLE",1);
+		allPapersCodes.put("CERT OF TITLE-STOLEN",1);
+		allPapersCodes.put("EXPORT ONLY",0);
+		allPapersCodes.put("ELECTRONIC CERT OF TITLE",1);
+		allPapersCodes.put("E-TITLE STOLEN/UNRECOVERED VEH",0);
+		allPapersCodes.put("SCRAP CERT OF TITLE-FLOOD VEH",0);
+		allPapersCodes.put("CERT OF TITLE-FLOOD VEHICLE",0);
+		allPapersCodes.put("FBI JUNK",0);
+		allPapersCodes.put("CERT OF TITLE-FLOOD DAMAGED",0);
+		allPapersCodes.put("NON-REPAIRABLE CERT-FLOOD",0);
+		allPapersCodes.put("SALVAGE/FIRE DAMAGE",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE FIRE",0);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE FLOOD",0);
+		allPapersCodes.put("SALVAGE TITLE-FLOOD DAMAGE",1);
+		allPapersCodes.put("FOREIGN OWNERSHIP DOCUMENTS",0);
+		allPapersCodes.put("GOVERNMENT PARTS ONLY-SALVAGE",0);
+		allPapersCodes.put("GOVERNMENT SALVAGE",0);
+		allPapersCodes.put("GOVERNMENT TITLE",0);
+		allPapersCodes.put("CERT OF TITLE-HAIL DAMAGED",1);
+		allPapersCodes.put("CERT OF TITLE - HAIL SALVAGE",1);
+		allPapersCodes.put("CERT OF TITLE-CLAIM PAID",1);
+		allPapersCodes.put("CERT OF TITLE-FLOOD/REBUILT",1);
+		allPapersCodes.put("IRRECUPERABLE",0);
+		allPapersCodes.put("PERMIT IRREPAIRABLE",1);
+		allPapersCodes.put("SCRAP-BILL OF SALE",0);
+		allPapersCodes.put("JUNKING CERTIFICATE",0);
+		allPapersCodes.put("CERTIFICATE OF TITLE - JUNK",0);
+		allPapersCodes.put("JUNKING CERTIFICATE",0);
+		allPapersCodes.put("JUNK RECEIPT",0);
+		allPapersCodes.put("CERTIFICATE OF TITLE-JUNKED",0);
+		allPapersCodes.put("CASH FOR CLUNKERS",0);
+		allPapersCodes.put("CERT OF TITLE - REBUILT - RED",0);
+		allPapersCodes.put("NONREPAIRABLE TITLE-FLOOD",0);
+		allPapersCodes.put("DIS/DLR/EXP ONLY LEMON LAW",1);
+		allPapersCodes.put("LETTER OF DESTRUCTION",0);
+		allPapersCodes.put("CERT OF TITLE-LEMON LAW HISTOR",0);
+		allPapersCodes.put("CERT OF TITLE-LEMON LAW BUYBAC",0);
+		allPapersCodes.put("T-42 POSSESSORY LIEN SALE",0);
+		allPapersCodes.put("LIEN PAPERS-CLEAN OR AC",0);
+		allPapersCodes.put("CERT OF SLVG-LEMON LAW REPURCH",1);
+		allPapersCodes.put("DIS/DLR/EXP LIEN PAPERS-SALV",0);
+		allPapersCodes.put("LIEN PAPERS-SALVAGE OR AC",0);
+		allPapersCodes.put("CERT OF TITLE-MANUFACTURER BUY",1);
+		allPapersCodes.put("CLEAN - MULTIPLE BRANDS",1);
+		allPapersCodes.put("DLR ONLY MUNICIPAL CERT OF TTL",1);
+		allPapersCodes.put("MV-51",0);
+		allPapersCodes.put("LIEN PAPERS",0);
+		allPapersCodes.put("MV-51B/STMT OF OWNERSHIP",0);
+		allPapersCodes.put("MARINE CERTIFICATE OF TITLE",1);
+		allPapersCodes.put("CERT OF TITLE-MUNICIPAL",1);
+		allPapersCodes.put("NOT ACTUAL MILES",1);
+		allPapersCodes.put("NON-REB & REM SALVAGE TITLE",1);
+		allPapersCodes.put("NONREPAIR-CERT OF AUTHORITY",0);
+		allPapersCodes.put("PERMIT NO BRAND - FIT",1);
+		allPapersCodes.put("CERT OF TITLE-NON HIGHWAY",1);
+		allPapersCodes.put("VEHICLE PERMIT",1);
+		allPapersCodes.put("MV-907A - NO PUBLIC VIN",0);
+		allPapersCodes.put("DEALER ONLY NON-REPAIRABLE",0);
+		allPapersCodes.put("NON-REPAIRABLE CERTIFICATE",0);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE NON-REM",1);
+		allPapersCodes.put("PARTS ONLY-NO TITLE LETTER",0);
+		allPapersCodes.put("PERMIT NO BRAND - UNFIT",0);
+		allPapersCodes.put("NONREPAIRABLE TITLE",0);
+		allPapersCodes.put("CERT OF TITLE-OHV SALVAGE",1);
+		allPapersCodes.put("SALVAGE CERTIFICATE",1);
+		allPapersCodes.put("CERT OF TITLE-POLICE",1);
+		allPapersCodes.put("PREVIOUS FLOOD CLEAN",0);
+		allPapersCodes.put("MV907A-PARTS ONLY W/LIENHOLDER",0);
+		allPapersCodes.put("PUBLIC - NONREPAIRABLE",0);
+		allPapersCodes.put("SCRAP CERTIFICATE OF TITLE",0);
+		allPapersCodes.put("POUR PIECE SEULEMENT",0);
+		allPapersCodes.put("CLEAN TITLE",1);
+		allPapersCodes.put("PUBLIC - SALVAGE TITLE",1);
+		allPapersCodes.put("PUBLIC - SALVAGE TITLE",1);
+		allPapersCodes.put("PERMIT TO SELL-SALVAGE VEHICLE",0);
+		allPapersCodes.put("NON PUBLIC CLEAN TITLE",1);
+		allPapersCodes.put("CERT OF TITLE-SLVG REBLD FLOOD",0);
+		allPapersCodes.put("CERT OF TITLE-REBLT SLVG FLOOD",0);
+		allPapersCodes.put("BOAT/ATV/SNOWMOBILE REG CERT",1);
+		allPapersCodes.put("CERT OF TITLE SLVG REBUILDABLE",1);
+		allPapersCodes.put("RECONSTRUCTED CLEAN",1);
+		allPapersCodes.put("DLR ONLY REPOSSESSION",1);
+		allPapersCodes.put("ERT OF TITLE-W&R=FLOOD&RECNST",0);
+		allPapersCodes.put("REGISTRATION DOCUMENT CARD",1);
+		allPapersCodes.put("CERT OF TITLE-REBUILDABLE SLVG",1);
+		allPapersCodes.put("CERT OF TITLE-REPOSSESSED",1);
+		allPapersCodes.put("CERT OF TTL-REBUILT&SLVG RBLD",1);
+		allPapersCodes.put("CERT OF TITLE-RECONSTRCTD COLL",1);
+		allPapersCodes.put("CERT OF TITLE-REBUILT VEHICLE",1);
+		allPapersCodes.put("PERMIT REBUILT - UNFIT",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE",1);
+		allPapersCodes.put("CERT OF SALVAGE < 75% DAMAGE",1);
+		allPapersCodes.put("SALVAGE BILL OF SALE",0);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE VEHICLE",1);
+		allPapersCodes.put("DIS/DLR/EXP ONLY SALVAGE TITLE",1);
+		allPapersCodes.put("CERT OF TITLE W/SALVAGE HISTOR",1);
+		allPapersCodes.put("SALVAGE CERT-LEMON LAW BUYBACK",1);
+		allPapersCodes.put("MV-907A SALVAGE CERTIFICATE",1);
+		allPapersCodes.put("CERT OF TTL-SLVG SNOWMOBILE",1);
+		allPapersCodes.put("CERT OF TITLE-SALVG PARTS ONLY",0);
+		allPapersCodes.put("DEALER ONLY SALVAGE TITLE",1);
+		allPapersCodes.put("GRAVEMENT ACCIDENTE",1);
+		allPapersCodes.put("CERT OF SALVAGE-RECOVERED STOL",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE",1);
+		allPapersCodes.put("SALVAGE VEHICLE TITLE",1);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE WATER",0);
+		allPapersCodes.put("CERT OF TITLE ALL-TERRAIN VEH",1);
+		allPapersCodes.put("CERT OF TITLE-INDIAN TRIBAL",1);
+		allPapersCodes.put("CERT OF TITLE - TAXI",1);
+		allPapersCodes.put("TR52 - ABANDONMENT",0);
+		allPapersCodes.put("CERT OF TITLE-SALVAGE REC THFT",1);
+		allPapersCodes.put("TRAILER REGISTRATION",1);
+		allPapersCodes.put("CERT OF TTL-SLVG ALL-TERRAIN V",1);
+		allPapersCodes.put("CERT OF TITLE W/UNSATISFD LIEN",0);
+		allPapersCodes.put("CERT OF TITLE-STOLEN/UNRECOVRD",0);
+		allPapersCodes.put("VEH REGISTRATION-NO BRAND",1);
+		allPapersCodes.put("CERT OF DESTRUCT-NO VIN PLATE",1);
+		allPapersCodes.put("VEH REGISTRATION-NON-REPAIRABL",0);
+		allPapersCodes.put("VR-112",0);
+		allPapersCodes.put("VEH REGISTRATION-SALVAGE",1);
+		allPapersCodes.put("SALVAGE CERT-WATER/FLOOD DAMAG",0);
+		allPapersCodes.put("WILDLIFE CERT OF OWNSHP SALV",0);
+		allPapersCodes.put("WATERCRAFT CERT OF TITLE",1);
+
+		
+		
+		
 	}
 	
 }

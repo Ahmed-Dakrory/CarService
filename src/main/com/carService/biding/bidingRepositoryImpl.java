@@ -162,6 +162,19 @@ public class bidingRepositoryImpl implements bidingRepository{
 		 }
 	}
 
+	@Override
+	public List<biding> getAllByCarId(int idcar) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("biding.getAllByCarId").setInteger("idcar",idcar);
+
+				 @SuppressWarnings("unchecked")
+				List<biding> results=query.list();
+				 if(results.size()!=0){
+					 return results;
+				 }else{
+					 return null;
+				 }
+			}
 
 
 	

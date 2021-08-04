@@ -344,11 +344,11 @@ border:none;
 						</div>
 						<hr/>
 						<div class="row divider">
-							<div class="col-md-5 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							<div class="col-md-3 text-left m-0 p-0 ml-3" style="font-size: 13px;color: gray;font-weight: 300;">
 								Doc Type:
 							</div>
-							<div class="col-md-7 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
-							#{carLandingBean.selectedCarPage.docType}
+							<div class="col-md-8 text-right p-0" style="font-size: 13px;color: #{carLandingBean.allPapersCodes.get(carLandingBean.selectedCarPage.docType)==0?'#e41414':'#41ad49'};font-weight: 900;" >
+							   <img src="/resources/imgs/#{carLandingBean.allPapersCodes.get(carLandingBean.selectedCarPage.docType)==0?'error.png':'correct.png'}" alt="icon" style=" width: 20px; " /> #{carLandingBean.selectedCarPage.docType} 
 							</div>
 						</div>
 						<hr/>
@@ -603,6 +603,27 @@ border:none;
 										YOU ARE THE WINING
 									</p>
 								</div>
+								
+								<div class="buy-now__learn-b">
+								<a class="bn-link"  style="    color: #2d7ed3;" onclick="PF('dlgResale').show();">
+								Learn more about Resale the car </a>
+								
+								<p:dialog  header="Resale" widgetVar="dlgResale" modal="true" style="    background: white;">
+								
+								<div class="content">
+								<p></p><p style="width: 395px;font-size: 13px;">
+								<strong>To Resale</strong>
+								 the car just send us by <a style="color:blue;" href="mailto:libya@caromoto.com">email</a> to to allow you resale it, as we need to check some data</p>
+								<p></p>
+								</div>
+								   
+								</p:dialog>
+								
+								
+								
+								</div>
+								
+								
 							</h:panelGroup>
 							
 							

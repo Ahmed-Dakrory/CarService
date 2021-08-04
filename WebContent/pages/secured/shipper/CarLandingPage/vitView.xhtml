@@ -213,8 +213,13 @@ body .ui-inputfield {
                                                                                                 <td width="200">
                                                                                                     <h:inputText  disabled="true" type="text" value="#{carPageBean.selectedFreight.owner.firstName} #{carPageBean.selectedFreight.owner.lastName}"  style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
-                                                                                               
-                                                                                                <td width="200">
+                                                                                               <td width="200">
+                                                                                               </td>
+                                                                                                <td width="400">
+	                                                                                                <div class="form-group">
+																									    <p:commandButton update="@form"  actionListener="#{carPageBean.makeOwnerForThisCar()}" class="btn btn-primary" value="Move to the Owner"  style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:200px;color:white!important;" >
+																									    </p:commandButton>
+																									</div>
                                                                                                 </td>
                                                                                                
                                                                                               

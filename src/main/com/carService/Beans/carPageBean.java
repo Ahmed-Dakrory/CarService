@@ -38,6 +38,8 @@ import helpers.retrofit.mainFiles.APIClient;
 import helpers.retrofit.mainFiles.APIInterface;
 import helpers.retrofit.mainFiles.OrderOutDetails;
 import helpers.retrofit.mainFiles.copartReturnImages;
+import main.com.carService.biding.biding;
+import main.com.carService.biding.bidingAppServiceImpl;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.invoiceLanding.invoicelanding;
@@ -79,6 +81,8 @@ public class carPageBean implements Serializable{
 	private main.com.carService.loginNeeds.loginBean loginBean; 
 	
 
+	@ManagedProperty(value = "#{bidingFacadeImpl}")
+	private bidingAppServiceImpl bidingFacade;
 
 
 	@ManagedProperty(value = "#{carLandingFacadeImpl}")
@@ -755,7 +759,7 @@ System.out.println("Data: "+String.valueOf(idUser));
 	
 
 	
-	
+
 	public void addCarToAuction() {
 		user main = loginBean.getUserDataFacede().getById(1);
 		selectedFreight.setMainId(main);
@@ -787,6 +791,54 @@ System.out.println("Data: "+String.valueOf(idUser));
 			cImage.setType(carlandingimage.TYPE_AUCTION);
 			carlandingimageFacade.addcarlandingimage(cImage);
 		}
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/biding/vehicleList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void makeOwnerForThisCar() {
+		if(selectedFreight.getUserMaxBidId()==null) {
+			PrimeFaces.current().executeScript("swal(\"Problem\", \"There is no Bider for this car\", \"warning\");");
+			
+		}else {
+
+			selectedFreight.setOwner(selectedFreight.getUserMaxBidId());
+			List<biding>allcarBiding =  bidingFacade.getAllByCarId(selectedFreight.getId());
+			if(allcarBiding!=null) {
+			for(int i=0;i<allcarBiding.size();i++) {
+				try {
+					bidingFacade.delete(allcarBiding.get(i));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			}
+			selectedFreight.setUserMaxBidId(null);
+			selectedFreight.setActive(true);
+			selectedFreight.setCurrentBid(null);
+			carLandingFacade.addcarLanding(selectedFreight);
+			PrimeFaces.current().executeScript("swal(\"Done\", \"The car owner now is"+selectedFreight.getOwner().getFirstName()+"\", \"success\");");
+			
+		}
+	}
+	
+	
+	public void updateCarToAuction() {
+		
+		carLandingFacade.addcarLanding(selectedFreight);
+		
+		
+		
+		
+		
 		
 		try {
 			FacesContext.getCurrentInstance()
@@ -1264,6 +1316,16 @@ public void addCarForMain() {
 
 	public void setImagesLanding(List<String> imagesLanding) {
 		this.imagesLanding = imagesLanding;
+	}
+
+
+	public bidingAppServiceImpl getBidingFacade() {
+		return bidingFacade;
+	}
+
+
+	public void setBidingFacade(bidingAppServiceImpl bidingFacade) {
+		this.bidingFacade = bidingFacade;
 	}
 
 	
