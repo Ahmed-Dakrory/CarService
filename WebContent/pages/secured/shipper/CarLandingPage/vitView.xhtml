@@ -250,12 +250,47 @@ body .ui-inputfield {
                                                                                                         current Bid:</div>
                                                                                                 </td>
                                                                                                 <td width="200">
-                                                                                                    <h:inputText  disabled="true" type="text" value="#{carPageBean.selectedFreight.currentBid}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText  type="text" value="#{carPageBean.selectedFreight.currentBid}"  style="font-size:11px;height:19px;width:200px;" />
                                                                                                 </td>
                                                                                                
                                                                                                 
                                                                                             </tr>
-                                                                                            
+                                                                                         
+
+
+
+																							<tr height="23">
+                                                        
+                                                                                                                                                                                               
+                                                                                               
+                                                                                                
+                                                                                                <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        State:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+																									<h:selectOneMenu value="#{carPageBean.selectedFreight.state}">
+		                                                                                            	<f:selectItem itemLabel="Still in Biding" itemValue="0"/>
+		                                                                                            	<f:selectItem itemLabel="In Process..." itemValue="1"/>
+		                                                                                            	<f:selectItem itemLabel="In Main Auction" itemValue="2"/>
+		                                                                                            	<f:selectItem itemLabel="Delivered" itemValue="3"/>
+		                                                                                            </h:selectOneMenu>   
+                                                                                                </td>
+                                                                                               
+                                                                                                <td width="200">
+                                                                                                </td>
+                                                                                               
+                                                                                                 <td class="tbltxt" width="130">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        isKeyExist:</div>
+                                                                                                </td>
+                                                                                                <td width="200">
+                                                                                                    <h:inputText  disabled="true" type="text" value="#{carPageBean.selectedFreight.keyExist}"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                               
+                                                                                                
+                                                                                            </tr>
+                                                                                         
                                                                                             
                                                                                             <tr height="23">
                                                         
@@ -886,7 +921,7 @@ body .ui-inputfield {
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                      <div id="picDivMain" style="display: inline; margin-left: 6px">
                                                                                                      	 <h:panelGroup id="imagesPanelMain">
-																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carPageBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/membership-choice__premier-step-1.png" rendered="#{carPageBean.selectedFreight.mainImage!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
 																	                                    <h:graphicImage value="#{carPageBean.selectedFreight.mainImage}" rendered="#{carPageBean.selectedFreight.mainImage!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
 																	                                    
 																	                                     </h:panelGroup>   
@@ -1056,8 +1091,8 @@ body .ui-inputfield {
                         </tr>
                         <tr>
                             <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">#{var}</span></a>
+                                <a style="color: Black;" href="void:javascript();" >
+                                    <span onclick='ViewDocById("#{var}")' id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">#{var}</span></a>
                                 
                             </td>
                         </tr>
@@ -1086,9 +1121,7 @@ body .ui-inputfield {
                         </tr>
                         <tr>
                             <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocById("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_imageList_ctl00_docName">click to select Image</span></a>
-                                
+                               
                             </td>
                         </tr>
                         <tr>
@@ -1190,116 +1223,7 @@ function deleteThisCar(carId){
 	                                			});
 	                                	}	
 </script>
-  <!--
-  
-                                                                                            <tr height="23">
-                                                                                                <td colspan="6" class="tbltxt">
-                                                                                                    <div style="margin-left: 6px">
-                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
-                                                                                                            onclick="ChangeVisibillity('docDiv','docExpand')">
-                                                                                                            <img id="docExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" />
-                                                                                                            <b>Enclosed Documents:</b></a></div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr height="23">
-                                                                                                <td>
-                                                                                                </td>
-                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
-                                                                                                    <div id="docDiv" style="display: inline; margin-left: 6px">
-                                                                                                     	<p:fileUpload id="docUploaded" fileUploadListener="#{carPageBean.previewFile}"  dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
-        
-        
-        
-               <h:panelGroup id="docsPanel">
-                                     
-<table border="1" style="    border: unset;">
-   <tr>
-        <td colspan="2">
-            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
-	<tr>
-                
-                
-	
-		<ui:repeat var="var" value="#{carPageBean.docs}">
-			<td style="border: black;padding: 14px;border-right-style: solid;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <a href="#" onclick='ViewDocByIdOutSide("#{var}")'>
-                                        <h:graphicImage value="/images/?file=#{var}" alt="image#{var}" style="border-width:0px; width:50px;" /></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocByIdOutSide("#{var}")'>
-                                    <span id="ctl00_BodyHolder_imageList_fileList_ctl00_docName">#{var}</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-                
-                
-               
-		</ui:repeat>
-             
-             
-              <td style="border: black;padding: 14px;border-width: 1px;">
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <div>
-                                    <label for="aspnetForm:docUploaded_input">
-                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" alt="image#{var}" style="border-width:0px;    width: 50px;" />
-                                    </label>
-                                        
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a style="color: Black;" href="#" onclick='ViewDocByIdOutSide(5955963)'>
-                                    <span id="ctl00_BodyHolder_imageList_picList_ctl00_docName">click to select File</span></a>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                    </table>
-                </td>
-	   
-               
-	</tr>
-</table>
-
-</td>
-    </tr>
-    <tr>
-    </tr>
-        
-</table>
-
-</h:panelGroup>
-
-                                                                                                    </div>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                             -->
-                                                                                            
+                                                                                             
                                                                                             
                                                                                             
                                                                                             

@@ -49,12 +49,13 @@ public class carLandingApiClass {
 	
 	
 
-	@RequestMapping(value = "/allProduct" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/allProduct" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> allProduct(@RequestParam(value="start",required=false) Integer start,
     		@RequestParam(value="length",required=false) Integer length,
     		@RequestParam(value="draw",required=false) Integer draw,
     		@RequestParam(value="search[value]",required=false) String search_value) {
 
+		
 		Gson gson = new Gson();
 //			int pageNumber = (start/length + 1);
 			List<product> list = productFacade.getAllWithPagination(start, length,search_value);
@@ -78,7 +79,7 @@ public class carLandingApiClass {
 	
 	
 	
-	@RequestMapping(value = "/all" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/all" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> all(@RequestParam(value="start",required=false) Integer start,
     		@RequestParam(value="length",required=false) Integer length,
     		@RequestParam(value="draw",required=false) Integer draw,
@@ -107,7 +108,7 @@ public class carLandingApiClass {
 	
 	
 
-	@RequestMapping(value = "/allForId" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/allForId" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> allForId(@RequestParam(value="start",required=false) Integer start,
     		@RequestParam(value="length",required=false) Integer length,
     		@RequestParam(value="draw",required=false) Integer draw,
@@ -137,7 +138,7 @@ public class carLandingApiClass {
 	
 	
 	
-	@RequestMapping(value = "/allSearch" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/allSearch" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> allSearch(@RequestParam(value="start",required=false) Integer start,
     		@RequestParam(value="length",required=false) Integer length,
     		@RequestParam(value="draw",required=false) Integer draw,
@@ -174,7 +175,7 @@ public class carLandingApiClass {
     }
 	
 	
-	@RequestMapping(value = "/isCarInFav" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/isCarInFav" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> allSearch(@RequestParam(value="userId",required=false) Integer userId,
     		@RequestParam(value="carId",required=false) Integer carId) {
 

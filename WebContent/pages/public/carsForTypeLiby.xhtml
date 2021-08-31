@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/publicTemplate.xhtml">
+
+	
+
+	<ui:define name="content">
+
+	<style>
+	
+	.yBtnBlack{
+    background: linear-gradient( 
+180deg
+ ,#e3e2dc 0,#1a1918 95%,#1d1d1c 0);
+}
+
+
+.yBtnYellow{
+    background: -webkit-linear-gradient(top,#f8f1a1,#ffa900 95%,#e38b00 0);
+    color:black!important;   
+    font-weight: 900;
+}
+
+.yBtn {
+    background: linear-gradient( 
+180deg
+ ,#f3ba3a 0,#f8d52a 95%,#8a8b8b 0);
+    padding-bottom: 11px;
+    ": ;
+}
+	</style>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
+	
+	#{carPageBean.refresh()}
+	<div class="center">
+	
+<div class="container breadcontainer hidden-sm hidden-xs" style="    width: 75%;">
+<div class="row">
+<div class="col-md-12">
+<!-- 
+<div class="breadcrumbs">
+<strong>&gt;</strong>&nbsp;&nbsp;&nbsp;<span>Vehicles (V)</span></div> 
+ -->
+
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+
+<div class="clearfix"></div>
+<div class="container">
+</div>
+<div class="" >
+<div class="clearfix"></div>
+<h1> قائمة المزاد الليبى </h1>
+
+
+<div class="row">
+<div class="col-md-12">
+</div>
+</div>
+<div id="content">
+
+<div class="row searchDiv">
+<div class="searchArea col-md-3">
+<div class="search-processing" id="search-processing" style="display:none">
+<div class="img-block"><img src="/resources/images/img/ajax-loader.gif" alt="Please Wait"/>
+<br></br>Processing... </div>
+</div>
+<div class="searchBox" id="fixed">
+<div class="block_header  overall">
+<div class="block_header_h2 hidden-xs hidden-sm"><h2 style="    background: #f0f8ff00;">Find a Vehicle</h2></div>
+<div class="block_header_h2 hidden-md hidden-lg"><h2>Modify a Search</h2></div>
+</div>
+<div class="block_box responsive_box">
+<h:form id="search-form">
+<input type="hidden" name="norobots" value="norobots"/>
+<input type="hidden" name="search_type" value="car-finder"/>
+<input type="hidden" name="per-page" value=""/>
+<div class="row mt-2">
+<label for="type" class="col-md-5">Vehicle type</label>
+<label class="select-label col-md-7">
+<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="custom-select" style="width: 205px; display: inline-block;">
+
+<f:selectItem itemLabel="Any Type" itemValue="%" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByCategory}" var="data" itemLabel="#{data.category}" itemValue="#{data.category}" />
+</h:selectOneMenu>
+
+
+</label>
+</div>
+
+<div class="row mt-3">
+<label for="make" class="col-md-5">Make</label>
+<label class="select-label col-md-7">
+
+<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"  class="custom-select" style="width: 205px; display: inline-block;">
+<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
+															
+<f:selectItem itemLabel="Any Make" itemValue="%" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByMake}" var="data" itemLabel="#{data.make}" itemValue="#{data.make}" />
+</h:selectOneMenu>
+
+ </label>
+ 
+</div>
+ 
+ 
+ <div class="row mt-3">
+ <label for="make" class="col-md-5">Model</label>
+<label class="select-label col-md-7">
+
+<h:selectOneMenu value="#{carPageBean.searchModel}"  id="model" name="model"  class="custom-select" style="width: 205px; display: inline-block;">
+
+<f:selectItem itemLabel="Any Model" itemValue="%" />
+<f:selectItems value="#{carPageBean.listOfCarsGroupByModel}" var="data" itemLabel="#{data.model}" itemValue="#{data.model}" />
+</h:selectOneMenu>
+
+ </label>
+ 
+</div>
+ 
+ 
+ <div class="row mt-3">
+<label for="yearFrom" class="col-md-3 p-0 m-0 pl-2">Year from</label>
+<label class="select-label col-md-3 p-0 m-0 pl-2 pr-2">
+
+<h:selectOneMenu value="#{carPageBean.searchStartYear}">
+
+<f:selectItem itemLabel="2020" itemValue="2020"/>
+<f:selectItem itemLabel="2019" itemValue="2019"/>
+<f:selectItem itemLabel="2018" itemValue="2018"/>
+<f:selectItem itemLabel="2017" itemValue="2017"/>
+<f:selectItem itemLabel="2016" itemValue="2016"/>
+<f:selectItem itemLabel="2015" itemValue="2015"/>
+<f:selectItem itemLabel="2014" itemValue="2014"/>
+<f:selectItem itemLabel="2013" itemValue="2013"/>
+<f:selectItem itemLabel="2012" itemValue="2012"/>
+<f:selectItem itemLabel="2011" itemValue="2011"/>
+<f:selectItem itemLabel="2010" itemValue="2010"/>
+<f:selectItem itemLabel="2009" itemValue="2009"/>
+<f:selectItem itemLabel="2008" itemValue="2008"/>
+<f:selectItem itemLabel="2007" itemValue="2007"/>
+<f:selectItem itemLabel="2006" itemValue="2006"/>
+<f:selectItem itemLabel="2005" itemValue="2005"/>
+<f:selectItem itemLabel="2004" itemValue="2004"/>
+<f:selectItem itemLabel="2003" itemValue="2003"/>
+<f:selectItem itemLabel="2002" itemValue="2002"/>
+<f:selectItem itemLabel="2001" itemValue="2001"/>
+<f:selectItem itemLabel="2000" itemValue="2000"/>
+<f:selectItem itemLabel="1999" itemValue="1999"/>
+<f:selectItem itemLabel="1998" itemValue="1998"/>
+<f:selectItem itemLabel="1997" itemValue="1997"/>
+<f:selectItem itemLabel="1996" itemValue="1996"/>
+<f:selectItem itemLabel="1995" itemValue="1995"/>
+<f:selectItem itemLabel="1994" itemValue="1994"/>
+<f:selectItem itemLabel="1993" itemValue="1993"/>
+<f:selectItem itemLabel="1992" itemValue="1992"/>
+<f:selectItem itemLabel="1991" itemValue="1991"/>
+<f:selectItem itemLabel="1990" itemValue="1990"/>
+<f:selectItem itemLabel="1989" itemValue="1989"/>
+<f:selectItem itemLabel="1988" itemValue="1988"/>
+<f:selectItem itemLabel="1987" itemValue="1987"/>
+<f:selectItem itemLabel="1986" itemValue="1986"/>
+<f:selectItem itemLabel="1985" itemValue="1985"/>
+<f:selectItem itemLabel="1984" itemValue="1984"/>
+<f:selectItem itemLabel="1983" itemValue="1983"/>
+<f:selectItem itemLabel="1982" itemValue="1982"/>
+<f:selectItem itemLabel="1980" itemValue="1980"/>
+<f:selectItem itemLabel="1979" itemValue="1979"/>
+<f:selectItem itemLabel="1978" itemValue="1978"/>
+<f:selectItem itemLabel="1977" itemValue="1977"/>
+<f:selectItem itemLabel="1976" itemValue="1976"/>
+<f:selectItem itemLabel="1975" itemValue="1975"/>
+<f:selectItem itemLabel="1973" itemValue="1973"/>
+<f:selectItem itemLabel="1972" itemValue="1972"/>
+<f:selectItem itemLabel="1971" itemValue="1971"/>
+<f:selectItem itemLabel="1965" itemValue="1965"/>
+<f:selectItem itemLabel="1960" itemValue="1960"/>
+
+</h:selectOneMenu>
+</label>
+
+
+<label for="yearTo"  class="col-md-3 p-0 m-0 pl-2">Year to</label>
+<label class="select-label col-md-3 p-0 m-0 pr-2 pl-2">
+
+
+<h:selectOneMenu value="#{carPageBean.searchEndYear}">
+
+<f:selectItem itemLabel="2020" itemValue="2020"/>
+<f:selectItem itemLabel="2019" itemValue="2019"/>
+<f:selectItem itemLabel="2018" itemValue="2018"/>
+<f:selectItem itemLabel="2017" itemValue="2017"/>
+<f:selectItem itemLabel="2016" itemValue="2016"/>
+<f:selectItem itemLabel="2015" itemValue="2015"/>
+<f:selectItem itemLabel="2014" itemValue="2014"/>
+<f:selectItem itemLabel="2013" itemValue="2013"/>
+<f:selectItem itemLabel="2012" itemValue="2012"/>
+<f:selectItem itemLabel="2011" itemValue="2011"/>
+<f:selectItem itemLabel="2010" itemValue="2010"/>
+<f:selectItem itemLabel="2009" itemValue="2009"/>
+<f:selectItem itemLabel="2008" itemValue="2008"/>
+<f:selectItem itemLabel="2007" itemValue="2007"/>
+<f:selectItem itemLabel="2006" itemValue="2006"/>
+<f:selectItem itemLabel="2005" itemValue="2005"/>
+<f:selectItem itemLabel="2004" itemValue="2004"/>
+<f:selectItem itemLabel="2003" itemValue="2003"/>
+<f:selectItem itemLabel="2002" itemValue="2002"/>
+<f:selectItem itemLabel="2001" itemValue="2001"/>
+<f:selectItem itemLabel="2000" itemValue="2000"/>
+<f:selectItem itemLabel="1999" itemValue="1999"/>
+<f:selectItem itemLabel="1998" itemValue="1998"/>
+<f:selectItem itemLabel="1997" itemValue="1997"/>
+<f:selectItem itemLabel="1996" itemValue="1996"/>
+<f:selectItem itemLabel="1995" itemValue="1995"/>
+<f:selectItem itemLabel="1994" itemValue="1994"/>
+<f:selectItem itemLabel="1993" itemValue="1993"/>
+<f:selectItem itemLabel="1992" itemValue="1992"/>
+<f:selectItem itemLabel="1991" itemValue="1991"/>
+<f:selectItem itemLabel="1990" itemValue="1990"/>
+<f:selectItem itemLabel="1989" itemValue="1989"/>
+<f:selectItem itemLabel="1988" itemValue="1988"/>
+<f:selectItem itemLabel="1987" itemValue="1987"/>
+<f:selectItem itemLabel="1986" itemValue="1986"/>
+<f:selectItem itemLabel="1985" itemValue="1985"/>
+<f:selectItem itemLabel="1984" itemValue="1984"/>
+<f:selectItem itemLabel="1983" itemValue="1983"/>
+<f:selectItem itemLabel="1982" itemValue="1982"/>
+<f:selectItem itemLabel="1980" itemValue="1980"/>
+<f:selectItem itemLabel="1979" itemValue="1979"/>
+<f:selectItem itemLabel="1978" itemValue="1978"/>
+<f:selectItem itemLabel="1977" itemValue="1977"/>
+<f:selectItem itemLabel="1976" itemValue="1976"/>
+<f:selectItem itemLabel="1975" itemValue="1975"/>
+<f:selectItem itemLabel="1973" itemValue="1973"/>
+<f:selectItem itemLabel="1972" itemValue="1972"/>
+<f:selectItem itemLabel="1971" itemValue="1971"/>
+<f:selectItem itemLabel="1965" itemValue="1965"/>
+<f:selectItem itemLabel="1960" itemValue="1960"/>
+
+</h:selectOneMenu>
+
+</label>
+</div>
+<div class="search-container row mt-2 pr-2 pl-2">
+<p:commandButton value="FIND VEHICLES " action="#{carPageBean.makeSearch()}"  class="yBtn find-vehicles-btn">
+
+</p:commandButton>
+</div>
+
+</h:form>
+</div>
+</div> </div>
+
+
+
+<style>
+.panel-body {
+    background: #f9f9f966;
+    
+    }
+.imageStyleTable{
+	width: 130px!important;
+}
+.watchlist-link:hover{
+    cursor: pointer;
+}
+</style>
+
+
+
+
+<div class="col-md-9 searchResult" style="    margin-top: -6%;">
+<div class="container mt-5" style="width:100%">
+<div class="row">
+<div class="col-md-4">
+
+</div>
+
+
+
+</div>
+</div>
+<h:panelGroup id="panelCarsToUpdate">
+<h:form class="panel">
+					
+							
+							
+							<div class="panel-body list-view table-responsive p-3 mb-3 border  rounded">
+								<table id="listTable" class="table table-bordered table-striped mb-none searchList carlist"  style="width:100%">
+									<thead>
+										<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
+											<th class="d-table-cell d-sm-none"><a>Details</a></th>
+											<th class=" d-none d-sm-table-cell" ><a>Car</a></th>
+											<th class="d-none d-sm-table-cell" ><a>Details</a></th>
+											<th class="d-none d-sm-table-cell"><a>Location</a></th>
+											<th class="d-none d-sm-table-cell"><a>Date</a></th>
+											<th class="d-none d-sm-table-cell"><a>Start Code</a></th>
+											<th class="d-none d-sm-table-cell"><a>Bid</a></th>
+										</tr>
+									</thead>
+								<tbody></tbody>
+								</table>
+							
+							
+							</div>
+							
+							
+							
+							  
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+
+		<h:outputScript name="js/dashboardCaroMoto/mainFunctions.js"/>
+ <p:remoteCommand name="setCarToWatchList" action="#{carPageBean.setCarToWatchListNum()}"> 
+	</p:remoteCommand>
+	
+	
+ <script>
+ function setCarToFavourite(id){
+	 setCarToWatchList([{name: 'num', value: id}]); 
+ }
+ 
+ 
+ function updatedWithId(id){
+	 $.get("/rest/ApiCarLanding/isCarInFav",
+	  		   {
+	  		     userId: "#{loginBean.theUserOfThisAccount.id}",
+	  		     carId: id
+	  		   },
+	  		   function(data, status){
+	  		    if(data.isExist){
+	  		    	$('#startWithId'+id).removeClass('w-add');
+	  		    	$('#startWithId'+id).addClass('w-remove');
+	  		    }else{
+	  		    	$('#startWithId'+id).removeClass('w-remove');
+	  		    	$('#startWithId'+id).addClass('w-add');
+	  		    }
+	  		   });
+ }
+ 
+
+	
+     $('#listTable').DataTable({
+         processing: true,
+         serverSide: true
+         ,dom: 'lBfrtip',
+         buttons: [
+         { extend: 'copy', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'excelHtml5', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'print', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         }
+         ]
+         ,
+         lengthMenu: [
+         [ 5,10,50,100,200,-1 ],
+         [ '5','10',' 50 ', ' 100 ',' 200 ', 'Show All' ]
+         ],
+         ajax: {
+             "url": "/rest/ApiCarLanding/allSearch",
+             "data": function ( d ) {
+                 d.make = "#{carPageBean.searchMake}";
+                 d.model = "#{carPageBean.searchModel}";
+                 d.type = "#{carPageBean.searchType}";
+                 d.yearStart = "#{carPageBean.searchStartYear}";
+                 d.yearEnd = "#{carPageBean.searchEndYear}";
+                 d.auctionType = "Libya";
+                 
+             }
+         },
+         aoColumns: [
+        	 {
+                 className: "center d-table-cell d-sm-none ", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                     
+                	 if(item.selectUploadedOneOrAuction=="true"){
+              		   imageMain =  '<img style="width: 100%;" src="/images/?file='+item.mainImageUpload+'" alt="image'+item.mainImage+'"/>'
+                         
+              	   }else{
+              		   imageMain =  '<img style="width: 100%;" src="'+item.mainImage+'" alt="image'+item.mainImage+'"/>'
+                         
+              	   }
+              	   
+              return '<div class="preview-photo" id="pph-24311239">'
+              +'<a data-auction="copart" data-lot="24311239" onclick="ViewDocById('+item.mainImage+')" class="see_photos">See Photos</a>'
+              +imageMain
+              +'</div>'
+              +'<h2 class="title mt-3">'
+				+'<a itemprop="url" href="/pages/public/carsForDetails.jsf?id='+item.id+'" style="color: #4697ea;font-size: 15px;"><span itemprop="name">'+item.year+' '+item.make+' '+item.model+'</span></a> </h2>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">VIN: </span>'+item.uuid+' </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Mileage: </span>'+item.odoMeter+ ' miles </div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Damage: </span>'+item.damageDescription+ '</div>'
+				+'<div class="container row" style="    text-align: initial;"><span class="">Doc Type: </span>'+item.docType+  '</div>'
+			;
+                 }
+               },
+               
+               
+               {
+                   className: " center d-none d-sm-table-cell ", "orderable": false, "mData": null, "sWidth": "15%","mRender": function (item) {
+                	   if(compareDateBetweenTwoDates(new Date(item.bidingDate),new Date(item.DateTimeNowRealTime),new Date(item.endDate))){
+                		   imageLive = '<img style="width: 27%;position: absolute;bottom: 5px;right: 3px;" src="/resources/Image/live.png" alt="image-Live'+item.mainImage+'"/>';
+                		   
+                	   }else{
+                		   imageLive = '';
+                	   }
+                	   
+                	   console.log("Ahmed:"+item.selectUploadedOneOrAuction);
+                	   
+                	   if(item.selectUploadedOneOrAuction=="true"){
+                		   imageMain =  '<img style="width: 187px;" src="/images/?file='+item.mainImageUpload+'" alt="image'+item.mainImage+'"/>'
+                           
+                	   }else{
+                		   imageMain =  '<img style="width: 187px;" src="'+item.mainImage+'" alt="image'+item.mainImage+'"/>'
+                           
+                	   }
+                return '<div class="preview-photo" id="pph-24311239">'
+                +'<a data-auction="copart" data-lot="24311239" onclick="ViewDocById('+item.mainImage+')" class="see_photos">See Photos</a>'
+                +imageMain
+                + imageLive
+                +'</div>';
+                   }
+                 },
+                 
+         {
+           className: "d-none d-sm-table-cell","mData": null, "sWidth": "30%","mRender": function (item) { 
+        	  
+
+        	   $.get("/rest/ApiCarLanding/isCarInFav",
+        	  		   {
+        	  		     userId: "#{loginBean.theUserOfThisAccount.id}",
+        	  		     carId: item.id
+        	  		   },
+        	  		   function(data, status){
+        	  		    if(data.isExist){
+        	  		    	$('#startWithId'+item.id).removeClass('w-add');
+        	  		    	$('#startWithId'+item.id).addClass('w-remove');
+        	  		    }else{
+        	  		    	$('#startWithId'+item.id).removeClass('w-remove');
+        	  		    	$('#startWithId'+item.id).addClass('w-add');
+        	  		    }
+        	  		   });
+        	  
+        	   
+               return '<h2 class="title">'
+				+'<a itemprop="url" href="/pages/public/carsForDetails.jsf?id='+item.id+'" style="color: #4697ea;font-size: 15px;"><span itemprop="name">'+item.year+' '+item.make+' '+item.model+'</span></a> </h2>'
+				+'<div class="vin" style="    text-align: initial;"><span class="name">VIN: </span>'+item.uuid+' </div>'
+				+'<div class="odometer" style="    text-align: initial;"><span class="name">Mileage: </span>'+item.odoMeter+ ' miles </div>'
+				+'<div class="odometer" style="    text-align: initial;"><span class="name">Damage: </span>'+item.damageDescription+ '</div>'
+				+'<div class="odometer" style="    text-align: initial;"><span class="name">Doc Type: </span>'+item.docType+  '</div>'
+				
+				+'<div class="odometer" style="    text-align: initial;">'
+				+''
+				+'<div class="lot" itemscope="" itemtype="http://schema.org/Vehicle" itemid="#vehicle" style="    margin-left: -7px;">'
+
+				+'	<div style="border: 0;font-size: 15px;margin: 0;" class="upper watchlist" >'
+				+'		<a id="startWithId'+item.id+'"  onclick="setCarToFavourite('+item.id+')" style=" color: #5a8dea;"  class="watchlist-link"  rel="popover" data-trigger="hover" title="Please Register" > Watchlist</a>'
+				
+				+'	</div>'
+				+'</div>'
+				+''
+				+'</div>';
+             
+         }
+         }
+         
+        ,
+         {
+           className: "center d-none d-sm-table-cell ", "mData": null, "sWidth": "10%","mRender": function (item) { 
+             
+             
+        	   return '<div class="location"><span class="name">Location:</span> '+item.auctionLocation+'</div>';
+               
+
+             }
+         }                 
+        ,
+        {
+          className: "center d-none d-sm-table-cell", "mData": null, "sWidth": "15%","mRender": function (item) { 
+            
+            return '<div class="odometer" style="    text-align: initial;"><span class="name w-100">Live Auction Starts in </span><p style="text-align: center;">'+item.bidingDate+  '</p></div>';  
+
+            }
+        } ,
+        {
+            className: "center d-none d-sm-table-cell ", "mData": null, "sWidth": "15%","mRender": function (item) { 
+              
+
+          	  imageName = '';
+              if(item.runsDrives=='null'){
+            	  runsDrives = "No Availble Data";
+            	  imageName = 'checkEngineRed.png';
+              }else{
+            	  runsDrives=item.runsDrives;
+            	  if(runsDrives=="Vehicle Starts"){
+            		  console.log(imageName);
+            		  imageName = 'checkEngineBlue.png';
+            	  }else if(runsDrives=="DEFAULT"){
+            		  
+            		  imageName = 'checkEngineRed.png';
+            	  }else{
+            		  imageName = 'checkEngineGreen.png';
+            	  }
+              }
+              console.log(runsDrives);
+            	 return '<div class="odometer" style="    text-align: initial;"><div>'+
+            	 		'<img style="width: 41px;position: relative;top: 27px;" src="/resources/images/'+imageName+'"/>'+
+            	 		'</div><div class="name w-100" style="text-align: center;margin-left: 21px;" >Start Code </div><p style="text-align: center;margin-left: 61px;">'+runsDrives+  '</p></div>';  
+  
+
+              }
+          }              
+        ,
+        {
+          className: "center d-none d-sm-table-cell ", "mData": null, "sWidth": "25%","mRender": function (item) { 
+            if(item.activebuyItNow=="true"){
+            	console.log(item.activebuyItNow);
+            	buyItNow = '<a style="width: 100%;text-align: center;height: 27px;padding-top: 1%;color: #f7f7f7;font-family: auto;margin-top: 5%;"  href="/pages/public/carsForDetails.jsf?id='+item.id+'" class="button yBtnYellow">Buy it Now </a>'; 
+
+            	
+            	buyItNowPrice = '<div class="price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">'
+        			+'$<span itemprop="price" content="'+item.buyItNowPrice+'"> '+item.buyItNowPrice+' </span>'
+        			+'<span class="currency"> USD </span><meta itemprop="priceCurrency" content="USD"/>'
+        			+'</div>'
+        			+'<div class="bidtype">Buy it now Price </div>';
+            }else{
+            	buyItNow = '';
+            	buyItNowPrice = '';
+            }
+            
+            
+            
+            
+            if(item.currentBid!='null'){
+            	
+            	currentBid = '<div class="price" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">'
+        			+'$<span itemprop="price" content="'+item.currentBid+'"> '+item.currentBid+' </span>'
+        			+'<span class="currency"> USD </span><meta itemprop="priceCurrency" content="USD"/>'
+        			+'</div>'
+        			+'<div class="bidtype">Current bid </div>';
+            }else{
+            	currentBid = '';
+            }
+            
+            
+       	   return currentBid+buyItNowPrice
+			
+			+'<a style="width: 100%;text-align: center;height: 27px;padding-top: 1%;color: #f7f7f7;font-family: auto;margin-top: 5%;" href="/pages/public/carsForDetails.jsf?id='+item.id+'" class="button yBtnBlack">Bid </a>' 
+		    +buyItNow;
+	       	
+            }
+        }              
+       
+             
+           
+         
+     ]
+
+     } );
+
+     </script>        
+						</h:form>
+</h:panelGroup>                                            
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+	
+
+	</ui:define>
+	
+		
+	
+	<ui:define name="script">
+  			
+  			
+  			
+  			
+  			
+  			 	<!-- Vendor -->
+  		   
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/magnific-popup/magnific-popup.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-placeholder/jquery.placeholder.js"/>
+  			
+  			<script>
+  			   jQuery.noConflict();
+  			 </script>
+  			
+  			<h:outputScript name="js/dashboard/assets/vendor/jquery-validation/jquery.validate.js"/>
+  			<h:outputScript name="js/dashboard/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"/>
+  			<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  			
+  			
+  			<!-- Theme Base, Components and Settings -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.js"/>
+  			
+  			<!-- Theme Custom -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.custom.js"/>
+  			
+  			<!-- Theme Initialization Files -->
+  			<h:outputScript name="js/dashboard/assets/javascripts/theme.init.js"/>
+  			
+  			<!-- Examples -->
+  			
+  	    	<h:outputScript name="js/dashboard/assets/javascripts/forms/examples.wizard.js"/>
+  	
+  	
+	
+	</ui:define>
+	
+</ui:composition>
+</html>

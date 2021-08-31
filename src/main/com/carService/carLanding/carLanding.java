@@ -927,6 +927,8 @@ public class carLanding {
 	      obj.addProperty("state", String.valueOf(this.state));
 	      obj.addProperty("damageDescription", String.valueOf(this.damageDescription));
 	      obj.addProperty("secondaryDamage", String.valueOf(this.secondaryDamage));
+	      System.out.println(String.valueOf("Ahmed:"));
+	      System.out.println(String.valueOf(this.damageDescription));
 	      return obj;
     	
     }
