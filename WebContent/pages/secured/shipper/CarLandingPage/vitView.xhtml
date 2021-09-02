@@ -198,7 +198,7 @@ body .ui-inputfield {
                                                                                 <h:panelGroup id="tableRendered">
                                                                                 
                                                                                   
-                                                                                    <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#f7f7f7" border="0">
+                                                                                    <table cellspacing="0" cellpadding="0" width="100" bgcolor="#f7f7f7" border="0">
                                                                                         <tbody>
                                                                                         
                                                                                          <tr height="23">
@@ -935,6 +935,37 @@ body .ui-inputfield {
                                                                                                 
                                                                                                 </tr>
                                                                                                 
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
+																								
                                                                                              <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -969,6 +1000,24 @@ body .ui-inputfield {
                                                                                             
                                                                                            
                                                                                           
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
+																						  
                                                                                          
                                                                                           
                                                                                                                                                                                     
@@ -985,47 +1034,30 @@ body .ui-inputfield {
                                                                                            
                                                                                             <tr height="23">
                                                                                             
-                                                                                                <td>
-                                                                                                </td>
                                                                                                 <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
                                                                                                     <div id="picDiv" style="display: inline; margin-left: 6px">
                                                                                                      	
         
         
                <h:panelGroup id="imagesPanel">
-                                     
-<table border="1" style="    border: unset;">
-   <tr>
-        <td colspan="2">
-            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
-	<tr>
+
                 
+				<div class="row" id="ctl00_BodyHolder_imageList_imageList">
                 
-	<p:panelGrid columns="1"   >
 		<ui:repeat var="var" varStatus="status" value="#{carPageBean.images}">
-			
+			<div class="col-md-2">
                                         <p:graphicImage onclick='ViewDocByIdOutSide("#{var}")' value="#{var}" alt="image#{var}" style="border-width: 1px;width:100px;border-style: inset;margin: 1px;" >
                                      
                                         </p:graphicImage>
                                         
+										</div>
                     
 		</ui:repeat>
 		
-			</p:panelGrid>
+			</div>
              
              
-            
-	   
-               
-	</tr>
-</table>
-
-</td>
-    </tr>
-    <tr>
-    </tr>
         
-</table>
 
 </h:panelGroup>
 
@@ -1039,9 +1071,15 @@ body .ui-inputfield {
    																							
    																							
    																							
-   																							
-   																							
-   																							
+																							
+																							
+																							
+																							
+																							
+																							
+																							
+																							
+																								
    																							<!-- Image Main with Upload -->
    																							
    																							
@@ -1103,7 +1141,7 @@ body .ui-inputfield {
 <table border="1" style="    border: unset;">
    <tr>
         <td colspan="2">
-            <table id="ctl00_BodyHolder_imageList_imageList" cellspacing="0" border="0" style="border-collapse:collapse;">
+            <table id="ctl00_BodyHolder_imageList_imageListPreview" cellspacing="0" border="0" style="border-collapse:collapse;">
 	<tr>
                 
                 
@@ -1305,6 +1343,9 @@ function deleteThisCar(carId){
                                                                                             </tr>
                                                                                        
                                                                                        
+   																							
+   																							
+   																						
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </h:panelGroup>
