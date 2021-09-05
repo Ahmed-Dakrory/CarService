@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -1638,7 +1639,7 @@ public void calcValueOfTotalFeesCarSelected() {
 	}
 	
 	 public void parseFile(FileUploadEvent event) {
-	       if(isDateValidated()) {
+	       //if(isDateValidated()) {
 	       UploadedFile fileUploaded = event.getFile();
 		 	try {
 		 		if(fileUploaded!=null) {
@@ -1668,7 +1669,9 @@ public void calcValueOfTotalFeesCarSelected() {
 				System.out.println(e.toString());
 				 PrimeFaces.current().executeScript("hideDialog()");
 			}
-	       }else {
+	       }
+	 
+	 /*else {
 				 PrimeFaces.current().executeScript("hideDialog()");
 		 	PrimeFaces.current().executeScript("swal({\n" + 
 		 			"    								  title: \"Problem\",\n" + 
@@ -1681,7 +1684,7 @@ public void calcValueOfTotalFeesCarSelected() {
 		 			"    										  } \n" + 
 		 			"    										});");
 	       }
-	    }
+	    }*/
 	 
 	 public String getTheValueFromCell(Cell cell) {
 		 String returnedValue="";
@@ -1709,6 +1712,56 @@ public void calcValueOfTotalFeesCarSelected() {
 		 return returnedValue;
 	 }
 	 
+	 //-2-3
+	 
+//	 public TimeZone getTypeOfTime(String type) {
+//			if(type.equalsIgnoreCase("CDT")) {//
+//				return TimeZone.getTimeZone("GMT-10:00");
+//			}else if(type.equalsIgnoreCase("ADT")) {//
+//				return TimeZone.getTimeZone("GMT-08:00");
+//			}else if(type.equalsIgnoreCase("PDT")) {//
+//				return TimeZone.getTimeZone("GMT-12:00");
+//			}else if(type.equalsIgnoreCase("EDT")) {//
+//				return TimeZone.getTimeZone("GMT-07:00");
+//			}else if(type.equalsIgnoreCase("AKDT")) {
+//				return TimeZone.getTimeZone("GMT-13:00");
+//			}else if(type.equalsIgnoreCase("HST")) {
+//				return TimeZone.getTimeZone("GMT-15:00");
+//			}else if(type.equalsIgnoreCase("MDT")) {
+//				TimeZone.getTimeZone("GMT-11:00");
+//			}else if(type.equalsIgnoreCase("PST")) {
+//				return TimeZone.getTimeZone("GMT-12:00");
+//			}else{
+//				return TimeZone.getDefault();
+//			}
+//			return TimeZone.getDefault();
+//		}
+	 
+	 
+	 public TimeZone getTypeOfTime(String type) {
+			if(type.equalsIgnoreCase("CDT")) {//
+				return TimeZone.getTimeZone("GMT-8:00");
+			}else if(type.equalsIgnoreCase("ADT")) {//
+				return TimeZone.getTimeZone("GMT-06:00");
+			}else if(type.equalsIgnoreCase("PDT")) {//
+				return TimeZone.getTimeZone("GMT-10:00");
+			}else if(type.equalsIgnoreCase("EDT")) {//
+				return TimeZone.getTimeZone("GMT-07:00");
+			}else if(type.equalsIgnoreCase("AKDT")) {
+				return TimeZone.getTimeZone("GMT-11:00");
+			}else if(type.equalsIgnoreCase("HST")) {
+				return TimeZone.getTimeZone("GMT-13:00");
+			}else if(type.equalsIgnoreCase("MDT")) {
+				TimeZone.getTimeZone("GMT-10:00");
+			}else if(type.equalsIgnoreCase("PST")) {
+				return TimeZone.getTimeZone("GMT-10:00");
+			}else{
+				return TimeZone.getDefault();
+			}
+			return TimeZone.getDefault();
+		}
+	 
+	 
 	 public void parseUsersFile(InputStream input) {
 			try {
 				//inputStream = resource.getInputStream();
@@ -1726,6 +1779,9 @@ public void calcValueOfTotalFeesCarSelected() {
 					Row row = sheet.getRow(i);
 					// For each row, iterate through all the columns
 					carLanding data=new carLanding();
+					String timezone = "";
+					String dateMain = "";
+					String timeMain = "";
 					for (int count=0;count<row.getLastCellNum();count++) {
 						Cell cell = row.getCell(count);
 						
@@ -1739,6 +1795,36 @@ public void calcValueOfTotalFeesCarSelected() {
 							}catch (Exception ex) { //
 							}
 		                	  break;
+		                	  
+		                
+		                	  
+	                  case 4:
+		                	try {
+		                		
+								dateMain = getTheValueFromCell(cell);
+							} catch (Exception ex) { //
+								
+							}
+		                	  break;
+		                	  
+	                  case 6:
+		                	try {
+		                		
+								timeMain = getTheValueFromCell(cell);
+							} catch (Exception ex) { //
+								
+							}
+		                	  break;
+		                	  
+	                  case 7:
+		                	try {
+		                		
+								timezone = getTheValueFromCell(cell);
+							} catch (Exception ex) { //
+								
+							}
+		                	  break;
+		                	  
 		                	  
 		                case 8:
 		                	try {
@@ -1999,19 +2085,44 @@ public void calcValueOfTotalFeesCarSelected() {
 					
 				
 					}
-					data.setAuctionType(carLanding.AUTCION_COPART);
-					data.setDeleted(false);
-					data.setPaymentDone(false);
-					data.setActive(true);
-					data.setMainId(loginBean.getTheUserOfThisAccount());
-					data.setShowenInLanding(false);
-					data.setStartDate(startDate);
-					data.setBidingDate((bidingDate));
-					data.setEndDate((endDate));
-					data.setState(stateOfCar.BidingState.getType());
 					
+					if(!timeMain.equalsIgnoreCase("") && !dateMain.equalsIgnoreCase("") && ! timezone.equalsIgnoreCase("")) {
+						String timeFormat = dateMain+timeMain;
+//						System.out.println(data.getUuid()+"  :  "+timeFormat+":"+timezone);
+						SimpleDateFormat isoFormat = new SimpleDateFormat("yyyyMMddHHmm");
+//						TimeZone.setDefault(TimeZone.getTimeZone("GMT+02:00"));
+						
+						isoFormat.setTimeZone(getTypeOfTime(timezone));
+						Date date = isoFormat.parse(timeFormat);
+						Calendar calbiding=Calendar.getInstance();
+						Calendar calEnd=Calendar.getInstance();
+
+						
+						calbiding.setTime(date);
+						calbiding.set(Calendar.HOUR_OF_DAY, calbiding.get(Calendar.HOUR_OF_DAY)-6);
+						
+						
+						calEnd.setTime(date);
+						calEnd.set(Calendar.HOUR_OF_DAY, calEnd.get(Calendar.HOUR_OF_DAY)-3);
+						
+
+						data.setStartDate(new Date());
+						data.setBidingDate(calbiding.getTime());
+						data.setEndDate(calEnd.getTime());
+						
+						data.setAuctionType(carLanding.AUTCION_COPART);
+						data.setDeleted(false);
+						data.setPaymentDone(false);
+						data.setActive(true);
+						data.setMainId(loginBean.getTheUserOfThisAccount());
+						data.setShowenInLanding(false);
+						data.setState(stateOfCar.BidingState.getType());
+						
+						
+							carLandingFacade.addcarLanding(data);
+					}
+
 					
-						carLandingFacade.addcarLanding(data);
 						double newPercent = ((100 *(i-listNumTotal))/(listNumTotal-1))+100; 
 
 						progressLoading = (int) + newPercent; 
