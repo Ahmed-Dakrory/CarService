@@ -211,7 +211,7 @@ public void refresh() {
 				searchStartYear = "1960";
 				searchEndYear = "2020";
 				listOfAddedCars=new ArrayList<carLanding>();
-				listOfAddedCars=carLandingFacade.getAllForCategories(categories);
+//				listOfAddedCars=carLandingFacade.getAllForCategories(categories);
 			}
 		}
 	catch(Exception ex){
@@ -391,16 +391,16 @@ public boolean isNotCarInFavourites() {
 	
 		public void makeSearch() {
 
-			listOfAddedCars=new ArrayList<carLanding>();
+			/*listOfAddedCars=new ArrayList<carLanding>();
 		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
-
+*/
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("panelCarsToUpdate");
 	}
 	
 	public void makeSearchOutSide() {
 
 		listOfAddedCars=new ArrayList<carLanding>();
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
+		//listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/public/carsForType.jsf?faces-redirect=true");
@@ -570,8 +570,11 @@ public String saveImageToDirectory(byte[] image,String directory) {
 		 FacesContext context = FacesContext.getCurrentInstance();
 		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
 		 Integer carId = Integer.valueOf((String) map.get("carId"));
+//			PrimeFaces.current().executeScript("showDialog('car');");
+			
 		 selectedFreight=carLandingFacade.getById(carId);
-		 
+
+			System.out.println("Selected Id: "+selectedFreight.getLot());
 
 			images_deleted=new ArrayList<String>();
 		 imagesLanding=new ArrayList<String>();
@@ -582,8 +585,7 @@ public String saveImageToDirectory(byte[] image,String directory) {
 			}
 			}
 			
-		System.out.println("Selected Id: "+selectedFreight.getLot());
-		PrimeFaces.current().executeScript("showDialog('car');");
+
 		updateImagesWithLink(selectedFreight.getAllImagesLink());
 
 		
@@ -859,16 +861,16 @@ System.out.println("Data: "+String.valueOf(idUser));
 	}
 	
 	
-	public void getTheAllListOfCarsWithDates() {
-		
-		listOfAddedCars=new ArrayList<carLanding>();
-		listOfAddedCars = carLandingFacade.getAllBetweenDates(toCalendar(bidingDate), toCalendar(endDate));
-
-	}
+//	public void getTheAllListOfCarsWithDates() {
+//		
+//		listOfAddedCars=new ArrayList<carLanding>();
+//		listOfAddedCars = carLandingFacade.getAllBetweenDates(toCalendar(bidingDate), toCalendar(endDate));
+//
+//	}
 	
 	public void deactiveAllListOfCarsWithDates() {
 		listOfAddedCars=new ArrayList<carLanding>();
-		listOfAddedCars = carLandingFacade.getAllBetweenDates(toCalendar(bidingDate), toCalendar(endDate));
+		/*listOfAddedCars = carLandingFacade.getAllBetweenDates(toCalendar(bidingDate), toCalendar(endDate));
 
 		int listNumTotal = listOfAddedCars.size();
 		for(int i=0;i<listOfAddedCars.size();i++) {
@@ -879,7 +881,7 @@ System.out.println("Data: "+String.valueOf(idUser));
 
 			progressLoading = (int) + newPercent; 
 		}
-		progressLoading = 0;
+		progressLoading = 0;*/
 		PrimeFaces.current().executeScript("location.reload();");
 
 

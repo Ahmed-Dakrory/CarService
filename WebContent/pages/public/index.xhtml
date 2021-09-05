@@ -144,7 +144,7 @@ right: -5%;
 		<h:form  id="searchForm">
 		#{bidBean.refresh()}
 		    <div class="row car-search">
-		        <div class="col-md-2">
+		        <div class="col-md-2 m-md-0 m-1">
 		            <div class="dropdown btn btn-secondary w-100">
 		            
 		            	<h:selectOneMenu value="#{carPageBean.searchType}"  name="type" id="type" class="btn w-100" >
@@ -157,7 +157,7 @@ right: -5%;
 		        </div>
 		
 		
-		        <div class="col-md-2 ">
+		        <div class="col-md-2 m-md-0 m-1">
 		            <div class="dropdown btn btn-secondary w-100">
 			               	<h:selectOneMenu value="#{carPageBean.searchMake}"  id="make" name="make"   class="btn w-100">
 								<f:ajax listener="#{carPageBean.getAllModelsByMakes()}" render="model"/>
@@ -167,7 +167,7 @@ right: -5%;
 		              </div>
 		        </div>
 		
-		        <div class="col-md-2">
+		        <div class="col-md-2 m-md-0 m-1">
 		            <div class="dropdown btn btn-secondary w-100">
 		               		<h:selectOneMenu value="#{carPageBean.searchModel}" class="btn w-100"  id="model" name="model"  >
 								
@@ -178,7 +178,7 @@ right: -5%;
 		        </div>
 		        
 		        
-		        <div class="col-md-2">
+		        <div class="col-md-2 m-md-0 m-1">
 		            <div class="dropdown btn btn-secondary w-100">
 		                
 		                <h:selectOneMenu value="#{carPageBean.searchStartYear}" class="btn w-100" >
@@ -240,7 +240,7 @@ right: -5%;
 		        </div>
 		
 		
-				 <div class="col-md-2">
+				 <div class="col-md-2 m-md-0 m-1">
 		            <div class="dropdown btn btn-secondary dropdown w-100">
 		            	
 						<h:selectOneMenu value="#{carPageBean.searchEndYear}" class="btn w-100"  >
@@ -302,7 +302,7 @@ right: -5%;
 		            
 		         </div>
 		        
-		        <div class="col-md-2 w-100">
+		        <div class="col-md-2 m-md-0 m-1">
 					
 					<p:commandButton value="بحث" class="btn btn-secondary w-100  yBtn" name="yBtn" onclick="search()"/>
 					<p:remoteCommand name="search" action="#{carPageBean.makeSearchOutSide()}"/>
@@ -380,7 +380,7 @@ right: -5%;
           
 			            <div>
 			                <div class="single-service shadow-sm">
-			                   <h:graphicImage value="/images/?file=#{data.mainImageUpload}" rendered="#{data.selectUploadedOneOrAuction}" alt="image#{var}" style="    width: 393px;height: 315px;" />
+			                   <h:graphicImage value="/images/?file=#{data.mainImageUpload}" rendered="#{data.selectUploadedOneOrAuction}" alt="image#{var}" style="    width: 393px;height: 205px;" />
 					
 			                  <h:graphicImage value="#{data.mainImage}" rendered="#{!data.selectUploadedOneOrAuction}" alt="image#{var}" class="img-fluid" />
 			                  <h:panelGroup rendered="#{carLandingBean.getDateTimeNow()&gt;&equals;data.bidingDate&amp;&amp;carLandingBean.getDateTimeNow()&lt;&equals;data.endDate}">

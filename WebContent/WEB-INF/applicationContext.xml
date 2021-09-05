@@ -104,9 +104,9 @@
 		<beans:property name="username" value="${database.username}" />
 		<beans:property name="password" value="${database.password}" />
 		<beans:property name="initialSize" value="5" />
-		<beans:property name="maxActive" value="100" />
+		<beans:property name="maxActive" value="1000" />
 		<beans:property name="maxIdle" value="30" />
-		<beans:property name="maxWait" value="10000" />
+		<beans:property name="maxWait" value="100000" />
 		<beans:property name="validationQuery" value="Select 1" />
 	</beans:bean>
 

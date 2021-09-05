@@ -2,9 +2,7 @@ package main.com.carService.tools;
 
 import java.util.List;
 
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 import main.com.carService.car.car;
 import main.com.carService.car.carRepository;
@@ -20,7 +18,7 @@ import main.com.carService.vendor.vendor;
 import main.com.carService.vendor.vendorRepository;
 
 @Component
-public class SampleJob extends SchedulerFactoryBean
+public class SampleJob 
 {
 	
 
@@ -71,17 +69,7 @@ public class SampleJob extends SchedulerFactoryBean
 	   }
 	
 	
-	@Override
-	public void destroy() throws SchedulerException {
-		// TODO Auto-generated method stub
-		super.destroy();
-		
-		try {
-			Thread.sleep(1000);
-		}catch(InterruptedException e) {
-			
-		}
-	}
+	
 	
 private void sendUpdateToAll(car selectedCar2) {
 		

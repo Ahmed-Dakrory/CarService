@@ -97,7 +97,6 @@ public class carLandingBean implements Serializable{
 	List<carLanding> listOfAddedCars;
 
 	List<carLanding> listOfCarsLandingScroller;
-	List<carLanding> listOfCarsLandingRelatedCars;
 	
 	List<carLanding> listOfCarsGroupByMake;
 	
@@ -140,7 +139,6 @@ public class carLandingBean implements Serializable{
 
 	private List<carLanding> listOfUploadedDataCars;
 	private List<carLanding> listOfFilteredCars;
-	private List<carLanding> listOfAllCars;
 
 	private UploadedFile fileExcel;
 	
@@ -475,15 +473,10 @@ return copFees;
 		
 	}
 	public List<carLanding> completeText(String query) {
+		
 		allCarsString =new ArrayList<carLanding>();
-		for(int i=0;i<listOfAllCars.size();i++) {
-			if((listOfAllCars.get(i).getMake().toLowerCase()).contains(query.toLowerCase())||
-					(listOfAllCars.get(i).getYear().toLowerCase()).contains(query.toLowerCase())||
-					(listOfAllCars.get(i).getModel().toLowerCase()).contains(query.toLowerCase())||
-					(listOfAllCars.get(i).getLot().toLowerCase()).contains(query.toLowerCase())) {
-				allCarsString.add(listOfAllCars.get(i));
-			}
-		}
+
+		allCarsString = carLandingFacade.getAllWithPagination(0, 7, query);
 		
         return allCarsString;
     }
@@ -657,7 +650,6 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 }
 		incrementBid=25;
 		totalBid=0;
-		listOfAllCars=carLandingFacade.getAll();
 		listOfCarsLandingScroller=carLandingFacade.getAllForLanding();
 		listOfCarsGroupByMake=carLandingFacade.getAllGroupsOfMake();
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
@@ -675,7 +667,6 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					images=new ArrayList<String>();
 					selectedCarPage=carLandingFacade.getById(id);
 					refreshTheCurrentBidStatue();
-					listOfCarsLandingRelatedCars = carLandingFacade.getAllForCategories(selectedCarPage.getCategory());
 					carViewId=id;
 					//Here Get the images For the main 
 					/**
@@ -790,7 +781,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		try{
 			String categories=String.valueOf(origRequest.getParameterValues("category")[0]);
 				if(categories!=null){
-					listOfAddedCars=carLandingFacade.getAllForCategories(categories);
+//					listOfAddedCars=carLandingFacade.getAllForCategories(categories);
 				}
 			}
 		catch(Exception ex){
@@ -1395,13 +1386,13 @@ public void calcValueOfTotalFeesCarSelected() {
 
 	}
 	public void makeSearch() {
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
+		//listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("panelCarsToUpdate");
 	}
 	
 	public void makeSearchOutSide() {
-		listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
+		//listOfAddedCars=carLandingFacade.getAllForSearch(searchStartYear, searchEndYear, searchMake,searchModel, searchType);
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/public/carsForType.jsf?faces-redirect=true");
@@ -2351,13 +2342,7 @@ public void calcValueOfTotalFeesCarSelected() {
 	}
 
 
-	public List<carLanding> getListOfAllCars() {
-		return listOfAllCars;
-	}
-
-	public void setListOfAllCars(List<carLanding> listOfAllCars) {
-		this.listOfAllCars = listOfAllCars;
-	}
+	
 
 	public List<carLanding> getAllCarsString() {
 		return allCarsString;
@@ -2491,13 +2476,7 @@ public void calcValueOfTotalFeesCarSelected() {
 		this.listOfFilteredCars3 = listOfFilteredCars3;
 	}
 
-	public List<carLanding> getListOfCarsLandingRelatedCars() {
-		return listOfCarsLandingRelatedCars;
-	}
-
-	public void setListOfCarsLandingRelatedCars(List<carLanding> listOfCarsLandingRelatedCars) {
-		this.listOfCarsLandingRelatedCars = listOfCarsLandingRelatedCars;
-	}
+	
 
 	public int getCarViewId() {
 		return carViewId;
