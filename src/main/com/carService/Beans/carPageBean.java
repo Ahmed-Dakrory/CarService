@@ -142,7 +142,8 @@ public class carPageBean implements Serializable{
 
 	@ManagedProperty(value = "#{invoicelandingFacadeImpl}")
 	private invoicelandingAppServiceImpl invoicelandingFacade;
-	
+
+	private String docTypeForCalc;
 	
 	@PostConstruct
 	public void init() {
@@ -564,6 +565,9 @@ public String saveImageToDirectory(byte[] image,String directory) {
       
 }
 
+public void refreshTitleData() {
+	System.out.println(docTypeForCalc);
+}
 
 	public void selectCarRowForMain() {
 
@@ -1328,6 +1332,16 @@ public void addCarForMain() {
 
 	public void setBidingFacade(bidingAppServiceImpl bidingFacade) {
 		this.bidingFacade = bidingFacade;
+	}
+
+
+	public String getDocTypeForCalc() {
+		return docTypeForCalc;
+	}
+
+
+	public void setDocTypeForCalc(String docTypeForCalc) {
+		this.docTypeForCalc = docTypeForCalc;
 	}
 
 	

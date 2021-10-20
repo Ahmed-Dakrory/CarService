@@ -70,149 +70,238 @@
 
 <div class="col-md-9 ">
 							<div class="col-xs-12">
+							
+							<div class="container">
+							<div class="row">
+								<h1 style=" font-size: 28px; font-weight: 700; color: #1e66af; width: 100%; text-align: center; margin-top: 5%; ">CALCULATOR AND TITLES CHECKER</h1>
+								</div>
+								
+								
+								<div class="row">
+								<h1 style=" font-size: 28px; font-weight: 700; color: #1e66af; width: 100%; text-align: center; ">اله لحساب تكاليف السيارات وفحص اوراقها</h1>
+								</div>
+							</div>
 								<section class="panel form-wizard" id="w4">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
-											<a href="#" class="fa fa-times"></a>
-										</div>
-						
-										
-<h1>Car Shipping Fees Calculator</h1>
-<p>
-Please indicate vehicle details, its location and the shipping destination to calculate the estimated shipping price.</p>
-									</header>
-									<div class="panel-body" >
-										<div class="wizard-progress wizard-progress-lg hidden-sm hidden-xs">
-											<div class="steps-progress ">
-												<div class="progress-indicator"></div>
-											</div>
-											<ul class="wizard-steps">
-												<li class="active">
-													<a href="#w4-account" data-toggle="tab"><span>1</span>Car Info</a>
-												</li>
-												<li>
-													<a href="#w4-profile" data-toggle="tab"><span>2</span>Location to ship from</a>
-												</li>
-												<li>
-													<a href="#w4-billing" data-toggle="tab"><span>3</span>Billing Info</a>
-												</li>
-											</ul>
-										</div>
-						
-										<h:form id="mainForm" class="form-horizontal" >
-											<div class="tab-content" >
-											
-												<div id="w4-account" class="tab-pane active">
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-username">Size</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.carSize}" name="type" id="type" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%; margin-top: 7px; font-size: 14px;">
-															<f:selectItem itemLabel="Small" itemValue="0"/>
-															<f:selectItem itemLabel="SUV" itemValue="1"/>
-														</h:selectOneMenu>
-														</div>
-													</div>
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-password">Car Price</label>
-														<div class="col-sm-9">
-															<h:inputText value="#{calcBean.carPrice}" inputStyleClass="form-control hasCustomSelect valid" name="price" id="w4-price" style="width: 39%;font-size: 14px;margin-top: 7px;" placeholder="The price in $"/>
-														</div>
-													</div>
+								<h:form id="formtitle">		
+											<div class="container mt-5 mb-3">
+											<div class="row">
+											<div class="col-md-3"><label style="font-weight: 800;color: #134f8b;font-size: 19px;"> TITLE TYPE </label></div>
+												<div class="col-md-6">
+											 
+						     <h:selectOneMenu  name="ctl00$BodyHolder$txtTitleReceived"  type="text" value="#{carPageBean.docTypeForCalc}" id="ctl00_BodyHolder_txtTitleReceived" style="font-weight:700;border-radius: 5px!important;" class="form-control">
+                              	<f:selectItems value="#{carLandingBean.allPapers.entrySet().toArray()}" var="var" itemLabel="#{var.value}"  itemValue="#{var.value}"/>
+                              	<f:ajax listener="#{carPageBean.refreshTitleData()}" render=":formtitle"/>
+                              </h:selectOneMenu>
+                             
 												</div>
-											
-												<div id="w4-profile" class="tab-pane">
-													<h:panelGroup id="panelForm">
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">Location</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu  value="#{calcBean.selectedLocation}" name="type" id="type2" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:ajax listener="#{calcBean.refreshCityList()}" render="mainForm:panelForm"/>
-															<f:selectItems value="#{calcBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">City</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.selectedCity}" name="type" id="type3" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:ajax listener="#{calcBean.refreshStateList()}" render="mainForm:panelForm"/>
-															<f:selectItems value="#{calcBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">State</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu value="#{calcBean.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															
-															<f:selectItems value="#{calcBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-first-name">Port</label>
-														<div class="col-sm-9">
-														<h:selectOneMenu  value="#{calcBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button; padding-top: 1%;  font-size: 14px;">
-															<f:selectItem itemLabel="Newark, NJ" itemValue="0"/>
-															<f:selectItem itemLabel="Savannah, GA" itemValue="1"/>
-															<f:selectItem itemLabel="Houston, TX" itemValue="2"/>
-															<f:selectItem itemLabel="Los Angeles, CA" itemValue="3"/>
-														</h:selectOneMenu>
-														
-														</div>
-													</div>
-													</h:panelGroup>
-												</div>
-											
-												<div id="w4-billing" class="tab-pane">
+												<div class="col-md-3"><label style="font-weight: 800;color: #134f8b;font-size: 19px;" > نوع التايتل </label></div>
 												
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-cc">Gate Fees</label>
-														<div class="col-sm-9">
-															<p:outputLabel style="background-color: beige;width: 33%;"  type="text" class="form-control" value="#{calcBean.gateFees}"/>
-														</div>
-													</div>
-													
-													
-													
-													<div class="row">
-														<label class="col-sm-3 control-label" for="w4-cc">Our Fees</label>
-														<div class="col-sm-9">
-															<p:outputLabel style="background-color: beige;width: 33%;"  type="text" class="form-control" value="#{calcBean.ourFees}"/>
-														</div>
-													</div>
-													
-													
-													
-												</div>
-											
-												
-											
 											</div>
-											<p:remoteCommand name="calcTheFees" action="#{calcBean.calcValueOfTotalFees()}"/>
+											
+											
+											<div class="row mt-3">
+											<div class="col-md-2"></div>
+												<div class="col-md-1">
+													<img src="/resources/imgs/#{carLandingBean.allPapersCodes.get(carPageBean.docTypeForCalc)==0?'error.png':'correct.png'}" alt="icon" style=" width: 55px; " />
+												</div>
+												<div class="col-md-8 text-center p-0" style="font-size: 17px;color: #{carLandingBean.allPapersCodes.get(carPageBean.docTypeForCalc)==0?'#e41414':'#41ad49'};font-weight: 900;padding-top: 21px!important;" >
+												   #{carPageBean.docTypeForCalc} 
+												</div>
+											</div>
+											</div>
+											 </h:form>
+											  
+				  <h:form>
+			<div class="card" style="width: 100%;direction: ltr;">
+					<div class="card-header text-left" style="    background-color: #405264f0;    color: white;">
+					 <p style="font-size: 19px;line-height: 10px;padding: 0px;margin: 0px;font-weight: 900;">Full Cost Calculation</p>
+					</div>
+					
+					<div class="card-body">
+						     <p:panelGrid columns="3" style="width:100%;">
+		    	<p:outputLabel value="Enter the Final Bid in $" style="font-weight:700;"/>
+		    	<h:inputText value="#{carLandingBean.valueOfCarBid}"  name="price" id="w4-price" style="font-size: 14px;" placeholder="The price in $"/>
+				<p:outputLabel value="ادخل قيمة المزايدة" style="font-weight:700;"/>
+		    													
+		            
+		    </p:panelGrid>
+		    <p:panel id="ajaxSpinnerValue2"  style="width:100%">
+			   
+		    
+		    	
+		    	<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">Size</label>
+						<div class="col-sm-6">
+					 <h:selectOneMenu  value="#{carLandingBean.carSize}" name="type" id="type" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+							<f:selectItem itemLabel="Small" itemValue="0"/>
+							<f:selectItem itemLabel="SUV" itemValue="1"/>
+						</h:selectOneMenu>
+						</div>
+				<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">حجم السيارة</label>
+					
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">Location</label>
+					<div class="col-sm-6">
+					<h:selectOneMenu  value="#{carLandingBean.selectedLocation}" name="type" id="type2" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						<f:ajax listener="#{carLandingBean.refreshCityList()}" render="ajaxSpinnerValue2"/>
+						<f:selectItems value="#{carLandingBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
+					</h:selectOneMenu>
+					
+					</div>
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">موقع السيارة</label>
+				
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">City</label>
+					<div class="col-sm-6">
+					<h:selectOneMenu value="#{carLandingBean.selectedCity}" name="type" id="type3" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						<f:ajax listener="#{carLandingBean.refreshStateList()}" render="ajaxSpinnerValue2"/>
+						<f:selectItems value="#{carLandingBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
+					</h:selectOneMenu>
+					
+					</div>
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">من مدينة</label>
+				
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">State</label>
+					<div class="col-sm-6">
+					<h:selectOneMenu value="#{carLandingBean.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
 						
-										</h:form>
-									</div>
-									<div class="panel-footer">
-										<ul class="pager">
-											<li class="previous disabled">
-												<a><i class="fa fa-angle-left"></i> Previous</a>
-											</li>
-											<li class="finish hidden pull-right">
-												<a>Finish</a>
-											</li>
-											<li class="next">
-												<a>Next <i class="fa fa-angle-right"></i></a>
-											</li>
-										</ul>
-									</div>
+						<f:selectItems value="#{carLandingBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
+					</h:selectOneMenu>
+					
+					</div>
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">من ولاية</label>
+				</div>
+				
+				<div class="row mt-1">
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">Port</label>
+					<div class="col-sm-6">
+					<h:selectOneMenu  value="#{carLandingBean.portType}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						
+						<f:selectItems value="#{carLandingBean.allLanding.entrySet().toArray()}" var="var" itemValue="#{var.key}" itemLabel="#{var.value}"/>
+					
+					</h:selectOneMenu>
+					
+					</div>
+					<label class="col-sm-3 control-label" for="w4-first-name" style="font-weight:700;">ميناء الخروج</label>
+				</div>
+				<div class="row mt-1">
+				<p:commandButton class="w-100" update="ajaxSpinnerValue2" value="Calc             اضغط لمعرفة التكلفة الشاملة" style="font-weight:700;" action="#{carLandingBean.calcValueOfTotalFeesCarSelected}">
+				</p:commandButton>								
+		    	</div>
+		    	
+		    	<div class="card-body">
+		    		<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Auction Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.copartFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.copartFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولة المزاد
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Our Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.ourFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.ourFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولتنا
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Online Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.onlineFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.onlineFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولة المزايدة على النت
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Sea Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.seaFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.seaFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة الشحن البحرى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Land Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.landFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.landFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة النقل الداخلى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.totalFees} ,(#{carLandingBean.floatOfNumberWithPercent(carLandingBean.totalFees*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{carLandingBean.totalFees+carLandingBean.valueOfCarBid} ,(#{carLandingBean.floatOfNumberWithPercent((carLandingBean.totalFees+carLandingBean.valueOfCarBid)*carLandingBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع النهائى
+						</div>
+					</div>
+								
+								
+		    	</div>
+		    	
+		    	
+		    
+		    	
+		    	
+		    	
+		   
+		    	
+		    	
+		    	 </p:panel>
+		   
+					</div>
+
+			</div>
+			</h:form> 
+		
+								
+								
+								
 								</section>
 							</div>
 						</div>
