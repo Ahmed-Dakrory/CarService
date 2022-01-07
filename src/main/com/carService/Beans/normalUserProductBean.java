@@ -126,8 +126,9 @@ public class normalUserProductBean implements Serializable{
 	private int totalNumberOfShippingOnly = 0;
 	private int totalNumberOfShippingAndBuy=0;
 	
-	
+
 	private float totalPrice=0;
+	private float cbm_constant=0;
 	
 	private List<user> allUsers;
 	private user selectedUser;
@@ -156,7 +157,7 @@ public void refreshForProduct(){
 		try {
 		
 		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
-
+		cbm_constant = Float.valueOf(form_settingsFacade.getById(2).getValue());
 		}catch(NullPointerException exp) {
 			
 		}
@@ -474,6 +475,8 @@ public void refreshForProduct(){
 
 		
 
+		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
+		cbm_constant = Float.valueOf(form_settingsFacade.getById(2).getValue());
 		
 		
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
@@ -528,12 +531,23 @@ public void refreshForProduct(){
 					deliveryDate=getStringFromCalendar(addNewProduct.getDeliveryDate());
 					lastupdate_date=getStringFromCalendar(addNewProduct.getLastUpdate());
 					added_date=getStringFromCalendar(addNewProduct.getAdd_datetime());
-					
+					if(addNewProduct.getTypeOfOrder().equals(product.TYPE_BUY_SHIPPING)) {
+						float number = 0;
+						
+						try {
+							number = Float.parseFloat(addNewProduct.getLengthOfProduct());
+						}catch(Exception ex) {
+							
+						}
 					totalPrice = addNewProduct.getCommision()
 							+addNewProduct.getFees()
 							+addNewProduct.getShipmentFees()
-							+addNewProduct.getOrderPrice();
-							
+							+(addNewProduct.getOrderPrice()*number);
+					}else {
+						totalPrice = addNewProduct.getCommision()
+								+addNewProduct.getFees()
+								+addNewProduct.getShipmentFees();
+					}
 
 					System.out.println("Ahmed Load3");
 					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
@@ -544,7 +558,7 @@ public void refreshForProduct(){
 	
 public void refresh(){
 		
-		
+
 		releaseVariablesForMain();
 			
 		
@@ -842,8 +856,34 @@ public void saveNewProductDataMainForLanding() {
 	
 	addNewProduct.setEstimatedDateOfDelievery(setCalendarFromString(estimatedDateOfDelivery));
 	addNewProduct.setDeliveryDate(setCalendarFromString(deliveryDate));
+
+	float height = 0;
+	float width = 0;
+	float depth = 0;
+	float number = 0;
 	
+	try {
+		height = Float.parseFloat(addNewProduct.getHeightOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		width = Float.parseFloat(addNewProduct.getWidthOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		depth = Float.parseFloat(addNewProduct.getDepthOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		number = Float.parseFloat(addNewProduct.getLengthOfProduct());
+	}catch(Exception ex) {
+		
+	}
 	
+	addNewProduct.setShipmentFees(cbm_constant*height*width*depth*number);
 	
 	
 	boolean isValid=true;
@@ -853,7 +893,19 @@ public void saveNewProductDataMainForLanding() {
 	
 	try {
 		addNewProduct.setState(product.STATE_AddedByCustomer_REVISE);
-		addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1));
+		
+		
+		if(addNewProduct.getTypeOfOrder().equals(product.TYPE_BUY_SHIPPING)) {
+			try {
+				number = Float.parseFloat(addNewProduct.getLengthOfProduct());
+			}catch(Exception ex) {
+				
+			}
+			addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1*number));
+			}else {
+
+				addNewProduct.setFees((float) (0));
+			}
 		selectedProductState = -1;
 
 		addNewProduct.setLandingCheck(true);
@@ -955,6 +1007,33 @@ public void saveNewProductDataMain() {
 	
 	
 	
+	float height = 0;
+	float width = 0;
+	float depth = 0;
+	float number = 0;
+	
+	try {
+		height = Float.parseFloat(addNewProduct.getHeightOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		width = Float.parseFloat(addNewProduct.getWidthOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		depth = Float.parseFloat(addNewProduct.getDepthOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	try {
+		number = Float.parseFloat(addNewProduct.getLengthOfProduct());
+	}catch(Exception ex) {
+		
+	}
+	
+	addNewProduct.setShipmentFees(cbm_constant*height*width*depth*number);
 	
 	boolean isValid=true;
 	if(isValid) {
@@ -963,7 +1042,17 @@ public void saveNewProductDataMain() {
 	
 	try {
 		addNewProduct.setState(product.STATE_AddedByCustomer_REVISE);
-		addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1));
+		if(addNewProduct.getTypeOfOrder().equals(product.TYPE_BUY_SHIPPING)) {
+		try {
+			number = Float.parseFloat(addNewProduct.getLengthOfProduct());
+		}catch(Exception ex) {
+			
+		}
+		addNewProduct.setFees((float) (addNewProduct.getOrderPrice()*0.1*number));
+		}else {
+
+			addNewProduct.setFees((float) (0));
+		}
 		selectedProductState = -1;
 
 		addNewProduct.setLandingCheck(false);
@@ -1606,6 +1695,20 @@ public void setLastupdate_date(String lastupdate_date) {
 
 public static long getSerialversionuid() {
 	return serialVersionUID;
+}
+
+
+
+
+public float getCbm_constant() {
+	return cbm_constant;
+}
+
+
+
+
+public void setCbm_constant(float cbm_constant) {
+	this.cbm_constant = cbm_constant;
 }
 
 

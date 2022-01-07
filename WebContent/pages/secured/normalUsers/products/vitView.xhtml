@@ -111,7 +111,7 @@
     <!-- Head Libs -->
 		  
 		<h:outputScript name="js/dashboard/mailMultiple/jquery.email.multiple.js"/>
-		
+		#{normalUserProductBean.refreshForProduct()}
 	#{normalUserProductBean.refresh()}
               <h:form name="aspnetForm" id="aspnetForm">
 
@@ -186,7 +186,7 @@
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
 						    <label >سعر السلعة</label>
-						    <h:inputText  type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.orderPrice}"   />
+						    <h:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.orderPrice}"   />
 						  </div>
 					</div>
 					
@@ -203,34 +203,41 @@
 
 					<div class="row border m-3 p-3 rounded">
 					
-								<!-- 
+								
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
-									    <label >الأرتفاع</label>
-									     <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.heightOfProduct}" id="heightOfProduct"  />
+									    <label >الأرتفاع بالمتر</label>
+									     <h:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"  type="number" class="form-control" value="#{normalUserProductBean.addNewProduct.heightOfProduct}" id="heightOfProduct"  />
 			                         </div>
 			                   </div>
 			                   
 			                   <div class="col-md-3 mb-3">
 									<div class="form-group">
-									    <label >العرض</label>
-									     <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.widthOfProduct}" id="widthOfProduct"  />
+									    <label > العرض بالمتر </label>
+									     <h:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="number" class="form-control" value="#{normalUserProductBean.addNewProduct.widthOfProduct}" id="widthOfProduct"  />
+			                         </div>
+			                   </div>
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label > العمق  بالمتر </label>
+									     <h:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="number" class="form-control" value="#{normalUserProductBean.addNewProduct.depthOfProduct}" id="depthOfProduct"  />
 			                         </div>
 			                   </div>
 			                  
-			                  
+			                  <!-- 
 			                   
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
-									    <label >الحجم</label>
-									    <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.volumeOfProduct}" id="volumeOfProduct"  />
+									    <label >الحجم بالمتر</label>
+									    <h:inputText id="item" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="number" class="form-control" value="#{normalUserProductBean.addNewProduct.volumeOfProduct}" id="volumeOfProduct"  />
 			                       </div>
 			                   </div>
 			                   
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
-									    <label >الوزن</label>
-			                   			 <h:inputText  class="form-control" type="text" value="#{normalUserProductBean.addNewProduct.weightOfProduct}"  />
+									    <label >الوزن بالكيلو</label>
+			                   			 <h:inputText onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" class="form-control" type="number" value="#{normalUserProductBean.addNewProduct.weightOfProduct}"  />
 			                       </div>
 			                   </div>
 			                   
@@ -246,10 +253,54 @@
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >العدد</label>
-									        <h:inputText  type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
+									        <h:inputText  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
 			                        </div>
 			                   </div>
+			                   
+			                   <div class="col-md-3 mb-3">
+									<div class="form-group">
+									   <button type="button" onclick="update_price()" class="form-control btn btn-success mt-4"> احسب التكلفة</button></div>
+			                   </div>
+							<script>
+							function update_price(){
+								heightOfProduct = $('#aspnetForm\\:heightOfProduct').val();
+								widthOfProduct = $('#aspnetForm\\:widthOfProduct').val();
+								depthOfProduct = $('#aspnetForm\\:depthOfProduct').val();
+								lengthOfProduct = $('#aspnetForm\\:lengthOfProduct').val();
+								
+								cpm = #{normalUserProductBean.cbm_constant};
+								console.log(cpm*heightOfProduct);
+								$('#cbm_per_item').html(heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cbm_total').html(lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cost_totaldollar').html(cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cost_totaldinar').html(#{normalUserProductBean.dollarToDinar}*cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+							}
+							</script>
 							
+							<div class="col-md-12 mb-3">
+									<div class="form-group" style=" border-style: solid; font-size: 25px; padding: 2%; line-height: 50px; font-family: inherit; border-radius: 15px; border-width: 1px; ">
+										
+										<div id="cbm_cost" style=" text-align: center; box-shadow: 1px 1px 1px 1px gray; border-radius: 5px; "> #{normalUserProductBean.cbm_constant} = CBM  </div>
+										
+										<span>عدد ال CBM لكل وحدة:</span>
+										<span id="cbm_per_item"> </span>
+										
+										<br></br>
+										<span>عدد ال CBM لكل الطلب: </span>
+										<span id="cbm_total"> </span>
+										
+										
+										
+										<br></br>
+										<span>تكلفة الشحن بالدولار :</span>
+										<span id="cost_totaldollar"> </span>
+										
+										<br></br>
+										<span>تكلفة الشحن بالدينار الليبى :</span>
+										<span id="cost_totaldinar"> </span>
+									</div>
+									
+									</div>
 							
 			                    <div class="col-md-12 mb-3">
 									<div class="form-group">

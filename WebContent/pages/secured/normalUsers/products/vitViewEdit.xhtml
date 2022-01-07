@@ -428,7 +428,7 @@ color: white
 									        <h:inputText disabled="true" type="text" value="#{normalUserProductBean.addNewProduct.lengthOfProduct}" class="form-control"  id="lengthOfProduct"  />
 			                        </div>
 			                   </div>
-			                   <!-- 
+			                   
 			                   
 			                     <div class="col-md-3 mb-3">
 									<div class="form-group">
@@ -444,8 +444,57 @@ color: white
 			                         </div>
 			                   </div>
 			                  
-			                
-			                
+			                <div class="col-md-3 mb-3">
+									<div class="form-group">
+									    <label > العمق  بالمتر </label>
+									     <h:inputText disabled="true" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" type="number" class="form-control" value="#{normalUserProductBean.addNewProduct.depthOfProduct}" id="depthOfProduct"  />
+			                         </div>
+			                   </div>
+			                   
+			                   
+			                   <div class="col-md-12 mb-3">
+									<div class="form-group" style=" border-style: solid; font-size: 25px; padding: 2%; line-height: 50px; font-family: inherit; border-radius: 15px; border-width: 1px; ">
+										
+										<div id="cbm_cost" style=" text-align: center; box-shadow: 1px 1px 1px 1px gray; border-radius: 5px; "> #{normalUserProductBean.cbm_constant} = CBM  </div>
+										
+										<span>عدد ال CBM لكل وحدة:</span>
+										<span id="cbm_per_item"> </span>
+										
+										<br></br>
+										<span>عدد ال CBM لكل الطلب: </span>
+										<span id="cbm_total"> </span>
+										
+										
+										
+										<br></br>
+										<span>تكلفة الشحن بالدولار :</span>
+										<span id="cost_totaldollar"> </span>
+										
+										<br></br>
+										<span>تكلفة الشحن بالدينار الليبى :</span>
+										<span id="cost_totaldinar"> </span>
+									</div>
+									
+									</div>
+			                   
+			                   <script>
+							function update_price(){
+								heightOfProduct = $('#aspnetForm\\:heightOfProduct').val();
+								widthOfProduct = $('#aspnetForm\\:widthOfProduct').val();
+								depthOfProduct = $('#aspnetForm\\:depthOfProduct').val();
+								lengthOfProduct = $('#aspnetForm\\:lengthOfProduct').val();
+								
+								cpm = #{normalUserProductBean.cbm_constant};
+								console.log(cpm*heightOfProduct);
+								$('#cbm_per_item').html(heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cbm_total').html(lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cost_totaldollar').html(cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cost_totaldinar').html(#{normalUserProductBean.dollarToDinar}*cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+							}
+							update_price();
+							</script>
+							
+			                <!-- 
 			                    <div class="col-md-3 mb-3">
 									<div class="form-group">
 									    <label >الحجم</label>

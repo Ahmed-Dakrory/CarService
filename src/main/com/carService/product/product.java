@@ -116,6 +116,9 @@ public class product {
 	
 	@Column(name = "widthOfProduct")
 	private String widthOfProduct;
+	
+	@Column(name = "depthOfProduct")
+	private String depthOfProduct;
 
 	@Column(name = "lengthOfProduct")
 	private String lengthOfProduct;
@@ -400,6 +403,19 @@ public class product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	
+
+	public String getDepthOfProduct() {
+		return depthOfProduct;
+	}
+
+
+
+	public void setDepthOfProduct(String depthOfProduct) {
+		this.depthOfProduct = depthOfProduct;
 	}
 
 
