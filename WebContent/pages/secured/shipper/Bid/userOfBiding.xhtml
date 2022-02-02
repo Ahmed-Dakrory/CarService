@@ -200,8 +200,8 @@ body .ui-button {
 		
 		<p:column headerText="Id" style="font-size: 13px;    text-align: center;" width="130" id="id" sortBy="#{row.moneyBoxItem.id}" filterBy="#{row.moneyBoxItem.id}">
 		<p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{row.moneyBoxItem.id}" /></f:facet>
-                <f:facet name="input"><h:outputText value="#{row.moneyBoxItem.id}" /></f:facet>
+                <f:facet name="output"><h:outputText value="ADA-#{row.moneyBoxItem.userId.id}-3277" /></f:facet>
+                <f:facet name="input"><h:outputText value="ADA-#{row.moneyBoxItem.userId.id}-3277" /></f:facet>
 			</p:cellEditor>
 		</p:column>
 		

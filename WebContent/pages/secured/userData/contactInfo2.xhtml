@@ -45,7 +45,7 @@ position: relative;
 }
 </style>
 <div id="ajax-content">
-<h2 class="account-header">مرحبا #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم ##{loginBean.theUserOfThisAccount.id}  </h2>
+<h2 class="account-header">مرحبا #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم ADA-#{loginBean.theUserOfThisAccount.id}-3277  </h2>
 
 <div class="sort-boxes-account">
 
@@ -83,7 +83,7 @@ position: relative;
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >#رقم  الحساب</label>
-						    <h:inputText value="#{loginBean.theUserOfThisAccount.id}" class="form-control"  readonly="true" type="text"   />
+						    <h:outputText value="ADA-#{loginBean.theUserOfThisAccount.id}-3277" class="form-control"  readonly="true" type="text"   />
 						</div>
   
                    </div>

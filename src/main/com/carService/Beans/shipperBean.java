@@ -138,6 +138,7 @@ public class shipperBean implements Serializable{
 		for(int i=0;i<allInvoicesForThisMainAccount.size();i++) {
 			int totalFeesForInvoice = 0;
 			List<invoiceCar> allCarsForThisInvoice = invoiceCarFacade.getAllByinvoiceId(allInvoicesForThisMainAccount.get(i).getId());
+			try {
 			for(int j=0;j<allCarsForThisInvoice.size();j++) {
 				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
 				float landCost=0;
@@ -166,6 +167,9 @@ public class shipperBean implements Serializable{
 					trFees=allInvoicesForThisMainAccount.get(i).getTransferFees();
 				}
 				totalFees = totalFees + totalForCar + (totalForCar/100*trFees);
+			}
+			}catch(Error er) {
+				
 			}
 			
 			invoiceDTO invoicedto =new invoiceDTO();
@@ -299,10 +303,33 @@ public class shipperBean implements Serializable{
 			carinvoice.setInvoiceId(invoiceData);
 			
 			invoiceCarFacade.addinvoiceCar(carinvoice);
-			float landCost=carsForInvoice.get(i).getLandcost();
-			float Seacost=carsForInvoice.get(i).getSeacost();
-			float Commision=carsForInvoice.get(i).getCommision();
-			float Fees=carsForInvoice.get(i).getFees();
+			float landCost = 0;
+			float Seacost = 0;
+			float Commision = 0;
+			float Fees = 0;
+			try {
+				 landCost=carsForInvoice.get(i).getLandcost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Seacost=carsForInvoice.get(i).getSeacost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Commision=carsForInvoice.get(i).getCommision();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Fees=carsForInvoice.get(i).getFees();
+				}catch(Exception er) {
+					
+				}
 					
 			float totalForCar=(float) (landCost+Seacost
 					+Commision+Fees);

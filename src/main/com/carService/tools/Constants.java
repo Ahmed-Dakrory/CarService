@@ -29,7 +29,7 @@ public class Constants {
 	public static void sendEmailNotificationForThisEmailWithMessage(car selectedCar2, String message,String mail) {
 		
         String[] to = {mail }; // list of recipient email addresses 
-        String subject = "ADA International "+selectedCar2.getUuid();
+        String subject = "AL MAZAD "+selectedCar2.getUuid();
         String htmlText = getMessageforEmailWithMessage(selectedCar2, message);
 
         System.out.println("Email Sent To: "+message+" With Mail: "+mail);
@@ -628,7 +628,7 @@ public class Constants {
 	public static void sendEmailUpdateFormatCar(car selectedCar2, String name,String mail, String string) {
 			
 	        String[] to = {mail }; // list of recipient email addresses 
-	        String subject = "Al MZAD "+selectedCar2.getUuid()+" Update";
+	        String subject = "Al MAZAD "+selectedCar2.getUuid()+" Update";
 	        String htmlText = getMessageUpdateCar(selectedCar2);
 	
 	        System.out.println("Email Sent To: "+name+" With Mail: "+mail);
@@ -640,7 +640,7 @@ public class Constants {
 		public static void sendEmailUpdateFormatProduct(product selectedCar2, String name,String mail, String string) {
 			
 		    String[] to = {mail }; // list of recipient email addresses 
-		    String subject = "Al MZAD "+selectedCar2.getId()+" Update";
+		    String subject = "Al MAZAD "+selectedCar2.getId()+" Update";
 		    String htmlText = getMessageUpdateProduct(selectedCar2);
 		
 		    System.out.println("Email Sent To: "+name+" With Mail: "+mail);
@@ -1726,7 +1726,7 @@ public class Constants {
 				"          	<table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n" + 
 				"          		<tbody><tr>\r\n" + 
 				"          			<td class=\"logo\" style=\"text-align: center;\">\r\n" + 
-				"			            <h1><a href=\"#\">ADA International</a></h1>\r\n" + 
+				"			            <h1><a href=\"#\">AL MAZAD</a></h1>\r\n" + 
 				"			          </td>\r\n" + 
 				"          		</tr>\r\n" + 
 				"          	</tbody></table>\r\n" + 
@@ -1746,11 +1746,11 @@ public class Constants {
 				"\r\n" + 
 				"<p style=\"\r\n" + 
 				"    font-size: 26px;\r\n" + 
-				"    color: white;\r\n" + 
+				"    color: #554e4e;\r\n" + 
 				"    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;\r\n" + 
-				"\">Please Check the Update to Car With Vin <p style=\"\r\n" + 
+				"\">برجاء الاطلاع على التحديث الخاص بسيارتك والتى توجد بالرقم <p style=\"\r\n" + 
 				"    font-size: 26px;\r\n" + 
-				"    color: white;\r\n" + 
+				"    color: #554e4e;\r\n" + 
 				"    text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px #cacaca;\r\n" + 
 				"\"> "+selectedCar.getUuid()+"</p></p>\r\n" + 
 				"\r\n" + 
@@ -1767,7 +1767,7 @@ public class Constants {
 				"          <td class=\"bg_dark email-section\" style=\"text-align:center;\">\r\n" + 
 				"          	<div class=\"heading-section heading-section-white\">\r\n" + 
 				"          		<span class=\"subheading\">Welcome</span>\r\n" + 
-				"            	<h2>ADA International</h2>\r\n" + 
+				"            	<h2>AL MAZAD</h2>\r\n" + 
 				"            	\r\n" + 
 				"          	</div>\r\n" + 
 				"          </td>\r\n" + 
@@ -1825,7 +1825,7 @@ public class Constants {
 	public static void sendEmailUpdateFormat(String name,String mail, String string) {
 		
 	        String[] to = {mail }; // list of recipient email addresses 
-	        String subject = "ADA International";
+	        String subject = "AL MAZAD ";
 	        String htmlText = getMessageUpdate();
 
 	        System.out.println("Email Sent To: "+name+" With Mail: "+mail);
@@ -3037,7 +3037,7 @@ public class Constants {
 			            message.setSubject(subject);
 			            message.setText(body);
 
-			    		message.setContent(body, "text/html; charset=ISO-8859-1");
+			    		message.setContent(body, "text/html; charset=utf-8");
 			            Transport transport = session.getTransport("smtp");
 			            transport.connect(host, from, pass);
 			            transport.sendMessage(message, message.getAllRecipients());
