@@ -486,10 +486,10 @@ color: white
 								
 								cpm = #{normalUserProductBean.cbm_constant};
 								console.log(cpm*heightOfProduct);
-								$('#cbm_per_item').html(heightOfProduct*widthOfProduct*depthOfProduct);
-								$('#cbm_total').html(lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
-								$('#cost_totaldollar').html(cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
-								$('#cost_totaldinar').html(#{normalUserProductBean.dollarToDinar}*cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct);
+								$('#cbm_per_item').html((heightOfProduct*widthOfProduct*depthOfProduct).toFixed(2));
+								$('#cbm_total').html((lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct).toFixed(2));
+								$('#cost_totaldollar').html((cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct).toFixed(2));
+								$('#cost_totaldinar').html((#{normalUserProductBean.dollarToDinar}*cpm*lengthOfProduct*heightOfProduct*widthOfProduct*depthOfProduct).toFixed(2));
 							}
 							update_price();
 							</script>
