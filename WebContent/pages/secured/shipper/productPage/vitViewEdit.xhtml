@@ -11,7 +11,7 @@
 <ui:composition template="/templates/dashboard2.xhtml">
 
 	
-	<ui:define name="title"> طلب سلعة</ui:define>
+	<ui:define name="title"> طلب بضاعة</ui:define>
 
  <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Products List</b></a></li></ul>
@@ -195,7 +195,7 @@
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >رابط صورة السلعة</label>
+						    <label >رابط صورة البضاعة</label>
 						    <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.mainImageLink}"   />
 						  </div>
 					</div>
@@ -204,14 +204,14 @@
             	
             		<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >رابط السلعة</label>
+						    <label >رابط البضاعة</label>
 						    <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.orderLink}"   />
 						  </div>
 					</div>
 					
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
-						    <label >سعر السلعة</label>
+						    <label >سعر البضاعة</label>
 						    <h:inputText   type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.orderPrice}"   />
 						  </div>
 					</div>
@@ -356,7 +356,7 @@
                 <div class="row">
                  	<div class="col-md-3 mb-3">
 							<div class="form-group">
-							    <h:commandButton  actionListener="#{normalUserProductBean.saveNewProductDataMainForLanding()}" class="btn btn-primary" value="حفظ"  style="font-family:Verdana;font-size:10px;font-weight:bold;height:31px;width:100px;color:white!important;" >
+							    <h:commandButton  actionListener="#{normalUserProductBean.saveNewProductDataMainForLanding()}" class="btn btn-primary" value="حفظ"  style="font-family:Verdana;font-size: 20px;font-weight:bold;height: 43px;width:100px;color:white!important;" >
 							    <f:ajax execute="@form" render="@form" />
 							    </h:commandButton>
 							</div>

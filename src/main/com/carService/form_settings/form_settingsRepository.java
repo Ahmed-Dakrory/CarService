@@ -16,6 +16,7 @@ public interface form_settingsRepository {
 
 
 	public List<form_settings> getAll();
+	public List<form_settings> getAllByType(int type);
 	public form_settings getByName(String name);
 	public form_settings addform_settings(form_settings data);
 	public form_settings getById(int id);

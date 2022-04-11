@@ -33,6 +33,10 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(name="form_settings.getByName",
 	query = "from form_settings d where d.name = :name"
 			)
+	,
+	@NamedQuery(name="form_settings.getAllByType",
+	query = "from form_settings d where d.type = :type"
+			)
 
 	
 })
@@ -50,10 +54,17 @@ public class form_settings {
 	@Column(name = "name")
 	private String name;
 	
-	
+
 	@Column(name = "value")
 	private String value;
+	
 
+	@Column(name = "value1")
+	private String value1;
+
+	
+	@Column(name = "type")
+	private int type;
 
 	public Integer getId() {
 		return id;
@@ -83,6 +94,27 @@ public class form_settings {
 	public void setValue(String value) {
 		this.value = value;
 	}
+
+
+	public int getType() {
+		return type;
+	}
+
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+
+	public String getValue1() {
+		return value1;
+	}
+
+
+	public void setValue1(String value1) {
+		this.value1 = value1;
+	}
+	
 	
 	
 	

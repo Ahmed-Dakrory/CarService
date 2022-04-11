@@ -18,6 +18,7 @@ import org.hibernate.annotations.NamedQuery;
 
 import com.google.gson.JsonObject;
 
+import main.com.carService.form_settings.form_settings;
 import main.com.carService.loginNeeds.user;
 
 
@@ -106,10 +107,17 @@ public class product {
 	@JoinColumn(name = "mainId")
 	private user mainId;
 	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "normalUserId")
 	private user normalUserId;
+	
+	
+	
+
+	@ManyToOne
+	@JoinColumn(name = "countryFromId")
+	private form_settings countryFromId;
 	
 	@Column(name = "heightOfProduct")
 	private String heightOfProduct;
@@ -241,13 +249,13 @@ public class product {
 	
 	
 
-	public static String stateString[]= {"شحن السلعة",
+	public static String stateString[]= {"شحن البضاعة",
 										 "ارسلت للدفع",
 										 "جديد",
 										 "رفض",
 										 "تم الدفع من قبل العميل",
-										 "تم استلام السلعة فى الشحن",
-										 "تم تسليم السلعة للعميل"};
+										 "تم استلام البضاعة فى الشحن",
+										 "تم تسليم البضاعة للعميل"};
 
 
 
@@ -695,6 +703,21 @@ public class product {
     	
     }
 
+
+
+	public form_settings getCountryFromId() {
+		return countryFromId;
+	}
+
+
+
+	public void setCountryFromId(form_settings countryFromId) {
+		this.countryFromId = countryFromId;
+	}
+
+
+
+	
 
 
 //	private int getDaysDifference(Calendar end, Calendar start) {

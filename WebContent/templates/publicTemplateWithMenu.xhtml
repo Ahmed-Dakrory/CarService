@@ -27,6 +27,7 @@
 		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/magnific-popup/magnific-popup.css']}" />
 		  <link rel="stylesheet" href="#{resource['css:dashboard/assets/vendor/bootstrap-datepicker/css/datepicker3.css']}" />
 		
+<link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'/>
 		
 	<!-- Skin CSS -->
     <link rel="stylesheet" href="#{resource['css:public/vendorb315.css']}" />
@@ -125,6 +126,9 @@
   height: 275px;
 }
 
+body {
+    font-family: 'Cairo'!important;
+}
    </style>
    
 <div class="main-wrapper">
@@ -198,15 +202,13 @@
 }
 
 
-.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
 
-    font-family: calibri;
+	body {
+    font-family: 'Cairo';
 }
-
 
  body{
    font-weight: 700;
-   font-family: calibri;
    }
    
    label{
@@ -747,7 +749,7 @@
 <li id="bid-auction2"><a href="/pages/public/carsForType2.jsf?faces-redirect=true">IAAI المزاد الأمريكى</a></li>
 <li id="bid-auction3"><a href="/pages/public/carsForType3.jsf?faces-redirect=true">المزاد الكورى</a></li>
 <li id="bid-auction4"><a href="/pages/public/carsForType4.jsf?faces-redirect=true">المزاد الليبى</a></li>
-<li id="bid-product"><a href="/pages/public/allProducts.jsf?faces-redirect=true">سوق السلع</a></li>
+<li id="bid-product"><a href="/pages/public/allProducts.jsf?faces-redirect=true">سوق البضاعة</a></li>
 <li id="bid-add"><a href="/pages/secured/normalUsers/biding/vitView.jsf?faces-redirect=true">اضافة سيارة للمزاد</a></li>
 <li id="bid-addAll"><a href="/pages/secured/normalUsers/biding/vehicleList.jsf?faces-redirect=true">سيارات المزاد التى تمت اضافتها</a></li>
 <li id="bid-main"><a href="/pages/secured/normalUsers/vehicleList.jsf?faces-redirect=true">السيارات الخاصة بى </a></li>
@@ -767,12 +769,12 @@
 </ul>
 
 
-<div id="menu-header-product" class="sublevel droparrow">قائمة السلع</div>
+<div id="menu-header-product" class="sublevel droparrow">قائمة البضاعة</div>
 
 
 <ul  id="menu-product" class="level2" style="display: contents;">
 <li id="product-main"><a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شحن فقط</a></li>
-<li id="product-all"><a href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true">كل السلع </a></li>
+<li id="product-all"><a href="/pages/secured/normalUsers/products/productsList.jsf?faces-redirect=true">كل البضاعة </a></li>
 </ul>
 
 

@@ -36,13 +36,13 @@ color: #3686ff!important;
 	<div class="row">
 		<div class="col-md-3">
 		
-			 <nobr>قائمة السلع<span>: #{normalUserProductBean.allProducts.size()}</span></nobr>
+			 <nobr>قائمة البضاعة<span>: #{normalUserProductBean.allProducts.size()}</span></nobr>
 		</div>
 		<div class="col-md-6">
 			<h:form id="formOfSelectionProductState">
              <h:selectOneMenu value="#{normalUserProductBean.selectedProductState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 				<f:ajax listener="#{normalUserProductBean.filterProductBySelect}"/>
-				<f:selectItem itemValue="0" itemLabel="شحن السلعة"/>
+				<f:selectItem itemValue="0" itemLabel="شحن البضاعة"/>
 				<f:selectItem itemValue="1" itemLabel="ارسلت للدفع"/>
 				<f:selectItem itemValue="2" itemLabel="فى المراجعة "/>
 				<f:selectItem itemValue="3" itemLabel="رفضت"/>
@@ -77,12 +77,12 @@ color: #3686ff!important;
 		<thead>
 			<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
 <th class="d-block d-sm-none" style="text-align: justify;width: 38px;background: white;color: black;border: none;" >البيانات</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">رابط السلعة</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السلعة</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">وصف السلعة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">رابط البضاعة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات البضاعة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;">وصف البضاعة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تكلفة الشحن</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">عمولات</th>
-<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر السلعة</th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر البضاعة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">التكلفة الكلية </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تواريخ </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">نوع الطلب </th>
@@ -127,7 +127,7 @@ function ViewDocById(strID) {
 </div> 
 
 <div class="odometer" style="display: block;text-align: initial;">
-	<span class="">	سعر السلعة:	</span>	$#{data.orderPrice}
+	<span class="">	سعر البضاعة:	</span>	$#{data.orderPrice}
 </div>
 
 <div class="odometer" style="display: block;text-align: initial;">

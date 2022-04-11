@@ -11,7 +11,7 @@
 <ui:composition template="/templates/dashboard2.xhtml">
 
 	
-	<ui:define name="title"> طلب سلعة</ui:define>
+	<ui:define name="title"> طلب بضاعة</ui:define>
 
  <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="vitView.jsf" class="mn-sub-item-current"><b>Products List</b></a></li></ul>
@@ -157,11 +157,30 @@
                                                                                    
                                                                                    
              <div class="container content-table" style="margin-top: 15px;border-style: solid;border-width: 1px;padding: 19px;border-radius: 9px;text-align: right;direction: rtl;">
+            	
+            	<div class="row rounded">
+						<div class="form-group w-100" style="padding: 15px;">
+						    <label >الشحن من </label>
+						    <h:selectOneMenu panelStyle="width:180px" effect="fade" style="height: 65px;font-size: 25px;"
+                                filter="true" filterMatchMode="startsWith" disabled="true"  type="text" value="#{normalUserProductBean.deliverFrom}"  class="form-control">
+                              	<p:ajax event="change" update="panel_to_update" listener="#{normalUserProductBean.updateCbmData()}" />
+                              	<f:selectItems value="#{normalUserProductBean.allCBM}" var="var" itemLabel="#{var.name}" itemValue="#{var.id}"/>
+                              	
+                              	
+			
+			                    
+                              
+                              </h:selectOneMenu>
+						    
+						  </div>
+					</div>
+					
+            	
             	<div class="row">
             	
 								<div class="col-md-5 mb-3">
 									<div class="form-group">
-						    			<label >مرحلة السلعة  الان</label>
+						    			<label >مرحلة البضاعة  الان</label>
 										<h:selectOneMenu  class="form-control" value="#{normalUserProductBean.addNewProduct.state}">
                                        	<c:forEach items="#{normalUserProductBean.productStates}" var="var" varStatus="idx">
                                        	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
@@ -194,13 +213,13 @@
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >رابط السلعة</label>
+						    <label >رابط البضاعة</label>
 						    <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.orderLink}"   />
 						  </div>
 					</div>
 					<div class="col-md-6 mb-3">
 						<div class="form-group">
-						    <label >رابط صورة السلعة</label>
+						    <label >رابط صورة البضاعة</label>
 						    <h:inputText  type="text" class="form-control" value="#{normalUserProductBean.addNewProduct.mainImageLink}"   />
 						  </div>
 					</div>
@@ -211,7 +230,7 @@
 					
 					<div class="col-md-3 mb-3">
 						<div class="form-group">
-						    <label >سعر السلعة</label>
+						    <label >سعر البضاعة</label>
 						    <h:inputText  type="number" step="0.1" class="form-control" value="#{normalUserProductBean.addNewProduct.orderPrice}"   />
 						  </div>
 					</div>
@@ -459,7 +478,7 @@
                                                                                                     <div style="margin-left: 6px">
                                                                                                     <br></br>
                                                                                                         <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
-                                                                                                            onclick="ChangeVisibillity('picDiv','picExpand')"><b> صور السلعة:</b>
+                                                                                                            onclick="ChangeVisibillity('picDiv','picExpand')"><b> صور البضاعة:</b>
                                                                                                             <img id="picExpand" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /></a></div>
                                                                                                 </td>
                                                                                             </tr>
@@ -694,7 +713,7 @@
 	                   
 	                   <div class="col-md-3 mb-3">
 							<div class="form-group">
-							    <a onclick="deleteThisProduct('#{normalUserProductBean.addNewProduct.id}')"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default "  > مسح هذه السلعة</a>
+							    <a onclick="deleteThisProduct('#{normalUserProductBean.addNewProduct.id}')"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-default "  > مسح هذه البضاعة</a>
                                                                                                
 							</div>
 	  

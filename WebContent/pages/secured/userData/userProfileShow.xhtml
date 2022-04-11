@@ -156,29 +156,29 @@ text-align: center;
 	                  
 	                  <div class="row">
 	                   <div class="w-100 text-secondary">
-	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.depositedMoney} </div>
-	                   	  <div class="col-md-4">المودع</div>
+	                      <div class="col-md-6">$#{loginBean.thisAccountMoneyBox.depositedMoney} </div>
+	                   	  <div class="col-md-6">المودع</div>
 	                    </div>
 	                  </div>
 	                  <hr></hr>
 	                  <div class="row">
 	                   <div class="w-100 text-secondary">
-	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.totalUsed} </div>
-	                   	  <div class="col-md-4"> المستخدم</div>
+	                      <div class="col-md-6">$#{loginBean.thisAccountMoneyBox.totalUsed} </div>
+	                   	  <div class="col-md-6"> المستخدم</div>
 	                    </div>
 	                  </div>
 	                  <hr></hr>
 	                  <div class="row">
 	                   <div class="w-100 text-secondary">
-	                      <div class="col-md-8">$#{carBean.totalPrice}</div>
-	                   	  <div class="col-md-4">التكلفة الكلية</div>
+	                      <div class="col-md-6">$#{carBean.totalPrice}</div>
+	                   	  <div class="col-md-6">التكلفة الكلية</div>
 	                    </div>
 	                  </div>
 	                  <hr></hr>
 	                  <div class="row">
 	                    <div class="w-100 text-secondary">
-	                      <div class="col-md-8">$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</div>
-	                   	  <div class="col-md-4">المتاح</div>
+	                      <div class="col-md-6">$#{loginBean.thisAccountMoneyBox.depositedMoney-loginBean.thisAccountMoneyBox.totalUsed}</div>
+	                   	  <div class="col-md-6">المتاح</div>
 	                    </div>
 	                  </div>
 	                  <hr></hr>
@@ -241,11 +241,11 @@ text-align: center;
 
 			  <div class="col-md-4 buy-items">
               <div class="card" style="width: 22rem; box-shadow: none;">
-                <a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء سلع</a>
+                <a href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">طلب شراء بضاعة</a>
                 <img src="/resources/Image/buy items.png" class="card-img-top w-75 mt-5 mb-5" alt="..."/>
                 <div class="card-body">
                   <h:panelGroup  rendered="#{loginBean.loggedIn}">
-    				 <p class="card-text">تم شراء: #{normalUserProductBean.totalNumberOfShippingAndBuy+normalUserProductBean.totalNumberOfShippingOnly} سلعة</p>
+    				 <p class="card-text">تم شراء: #{normalUserProductBean.totalNumberOfShippingAndBuy+normalUserProductBean.totalNumberOfShippingOnly} بضاعة</p>
     			  </h:panelGroup>
                 </div>
               </div>
@@ -403,7 +403,7 @@ text-align: center;
 	          		<div class="row m-1">
 	          			<div class="col-md-2">
 							<div class="row">
-								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">سلع أخرى</a></h3>
+								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">بضاعة أخرى</a></h3>
 							</div>
 							<div class="row">
 								<h5 class="headSmallOfBar">#{normalUserProductBean.totalNumberOfShippingOnly}</h5>
@@ -624,7 +624,7 @@ text-align: center;
 	          		<div class="row m-1">
 	          			<div class="col-md-2">
 							<div class="row">
-								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">سلع أخرى</a></h3>
+								<h3 class="headOfBar"><a style="color: #e70114;" href="/pages/secured/normalUsers/products/vitView.jsf?faces-redirect=true">بضاعة أخرى</a></h3>
 							</div>
 							<div class="row">
 								<h5 class="headSmallOfBar">#{normalUserProductBean.totalNumberOfShippingAndBuy}</h5>

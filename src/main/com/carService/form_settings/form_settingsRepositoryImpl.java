@@ -103,6 +103,19 @@ public class form_settingsRepositoryImpl implements form_settingsRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public List<form_settings> getAllByType(int type) {
+		 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("form_settings.getAllByType").setInteger("type",type);
+
+		 @SuppressWarnings("unchecked")
+		List<form_settings> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 	
 
 

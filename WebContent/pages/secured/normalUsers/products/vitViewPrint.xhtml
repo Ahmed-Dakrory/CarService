@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<head>
+  <title>ALMZZAD</title>
+  <link rel="icon" type="image/png" href="/javax.faces.resource/logo.png.jsf?ln=images"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+		<h:outputScript name="js/dashboardCaroMoto/qrcode.min.js"/>
+</head>
+<body dir="rtl">
+
+
+#{normalUserProductBean.getProductWithId()}
+		
+              <h:form name="aspnetForm" id="aspnetForm">
+
+
+			<div class="container">
+				<div class="row">
+					<div class="col-5 border">
+					<div class="row">
+						<p>
+						الوقت
+						</p>
+					</div>
+					<div class="row">
+						<p>
+							<h:outputText value="#{normalUserProductBean.addNewProduct.add_datetime.time}">
+							    <f:convertDateTime type="date" dateStyle="long" />
+							</h:outputText>
+						</p>
+					</div>
+					</div>
+					
+					
+					<div class="col-7 border">
+						<div class="row">
+							<svg class="barcode"
+							  jsbarcode-format="CODE128"
+							  jsbarcode-value="#{normalUserProductBean.addNewProduct.id}-#{normalUserProductBean.addNewProduct.normalUserId.id}-#{normalUserProductBean.addNewProduct.countryFromId.id}-#{normalUserProductBean.addNewProduct.trackingNumber}"
+							  jsbarcode-textmargin="0"
+							  jsbarcode-fontoptions="bold">
+							</svg>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row border pt-2 pb-3">
+					<div class="col-1">
+						<div class="row">
+							<p>
+							المرسل
+							</p>
+						</div>
+					</div>
+					
+					<div class="col-3 ">
+						<div class="row">
+							<p>
+							معرض المزاد الدولى للتجارة والشحن
+							</p>
+						</div>
+					</div>
+					
+					<div class="col-4 ">
+						<div class="row">
+							<p>
+							http://www.almzzad.com
+							</p>
+						</div>
+					</div>
+					
+					
+					
+					
+					<div class="col-2 ">
+						<div class="row">
+							<div id="qrcode"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="row border">
+					<div class="col-1">
+						الى 
+					</div>
+					
+					<div class="col-11">
+							<div class="row p-2 d-table">
+								<span class="h5"> اسم الزبون/</span>
+								#{normalUserProductBean.addNewProduct.normalUserId.firstName} #{normalUserProductBean.addNewProduct.normalUserId.lastName} 
+							</div>
+							
+							<div class="row p-2 d-table">
+								<span class="h5 "> كود الزبون/</span>
+								ADA-#{normalUserProductBean.addNewProduct.normalUserId.id}-3277 
+							</div>
+							
+							
+							<div class="row p-2 d-table">
+								<span class="h5"> رقم هاتف الزبون/</span>
+								#{normalUserProductBean.addNewProduct.normalUserId.phone} 
+							</div>
+							
+							<div class="row p-2 d-table">
+								<span class="h5 col-2"> العنوان/</span>
+								#{normalUserProductBean.addNewProduct.normalUserId.address1}
+							</div>
+							
+							
+					</div>
+					
+				</div>
+				
+				<div class="row border ">
+					<div class="col-4 border p-3">
+						<div class="row h4">
+							السعر
+						</div>
+						
+						<div class="row h4">
+							#{normalUserProductBean.totalPrice} $
+						</div>
+					</div>
+					
+					<div class="col-4 border p-3">
+						<div class="row h4">
+							نوع الخدمة 
+						</div>
+						
+						<div class="row h4">
+							شحن من #{normalUserProductBean.addNewProduct.countryFromId.name}
+						</div>
+					</div>
+					
+				</div>
+				
+				
+				<div class="row border ">
+					<div class="col-12  p-3 d-table">
+						<span class="h4 ">
+							ملاحظة:
+						</span>
+						
+						<span class="">
+							ننوه ربائننا الكرام انه يجب التأكد من البضائع قبل المغادرة المكتب أو قبل مغادرة السائق لمكان التسليم
+						</span>
+					</div>
+					
+				</div>
+				
+				
+				<div class="row border ">
+					<div class="col-12  p-3 d-table d-flex  justify-content-md-center">
+						<img src="/resources/Image/eldawlia.jpeg" alt="logo"/>
+					</div>
+					
+				</div>
+				
+				
+				<div class="row border ">
+					<div style="font-size: 79px;" class="col-12 h1  p-5 d-table d-flex  justify-content-md-center">
+						مساحة اعلانية مدفوعة
+					</div>
+					
+				</div>
+						
+			</div>
+           <script>
+           JsBarcode(".barcode").init();
+           
+           
+           var qrcode = new QRCode(document.getElementById("qrcode"), {
+        	    text: 'http://www.almzzad.com/',
+        	    width: 128,
+        	    height: 128,
+        	    colorDark : "#000000",
+        	    colorLight : "#ffffff",
+        	    correctLevel : QRCode.CorrectLevel.H
+        	});
+           </script>
+        </h:form>
+        
+        
+
+</body>
+</html>

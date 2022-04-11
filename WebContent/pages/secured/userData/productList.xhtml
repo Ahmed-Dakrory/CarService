@@ -367,7 +367,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                                                 <tr>
                                                     <td class="blkname" style="width: 20%; height: 22px;">
-                                                        <nobr>&nbsp;قائمة السلع<span id="ctl00_BodyHolder_lblCount">: #{normalUserProductBean.allProducts.size()}</span></nobr>
+                                                        <nobr>&nbsp;قائمة البضاعة<span id="ctl00_BodyHolder_lblCount">: #{normalUserProductBean.allProducts.size()}</span></nobr>
                                                     </td>
                                                     <td style="height: 22px">
                                                         
@@ -407,7 +407,7 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                             <h:form id="formOfSelectionCarState">
                                                                                 <h:selectOneMenu value="#{normalUserProductBean.selectedProductState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 																					<f:ajax listener="#{normalUserProductBean.filterProductBySelectForAdmin}"/>
-																					<f:selectItem itemValue="0" itemLabel="شحن السلعة"/>
+																					<f:selectItem itemValue="0" itemLabel="شحن البضاعة"/>
 																					<f:selectItem itemValue="1" itemLabel="ارسلت للدفع"/>
 																					<f:selectItem itemValue="2" itemLabel="فى المراجعة "/>
 																					<f:selectItem itemValue="3" itemLabel="رفضت"/>
@@ -493,11 +493,11 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
 											</h:panelGroup>
 											
 											<h:panelGroup rendered="#{(data.state==5)?'true':'false'}"  >
-											<div  class="arrivingSoon">تم استلام السلعة فى الشحن</div>
+											<div  class="arrivingSoon">تم استلام البضاعة فى الشحن</div>
 											</h:panelGroup>
 											
 											<h:panelGroup rendered="#{(data.state==6)?'true':'false'}"  >
-											<div  class="transportinProcess">تم تسليم السلعة للعميل</div>
+											<div  class="transportinProcess">تم تسليم البضاعة للعميل</div>
 											</h:panelGroup>
 											
 											

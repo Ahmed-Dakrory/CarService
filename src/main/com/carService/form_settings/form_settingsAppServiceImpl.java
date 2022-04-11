@@ -96,6 +96,22 @@ public class form_settingsAppServiceImpl implements Iform_settingsAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<form_settings> getAllByType(int type) {
+		try{
+			List<form_settings> course=form_settingsDataRepository.getAllByType(type);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

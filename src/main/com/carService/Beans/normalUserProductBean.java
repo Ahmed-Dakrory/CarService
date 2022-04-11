@@ -40,6 +40,7 @@ import main.com.carService.product.productAppServiceImpl;
 import main.com.carService.productImage.productimage;
 import main.com.carService.productImage.productimageAppServiceImpl;
 import main.com.carService.tools.Constants;
+import main.com.carService.form_settings.form_settings;
 import main.com.carService.form_settings.form_settingsAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
@@ -128,8 +129,10 @@ public class normalUserProductBean implements Serializable{
 	
 
 	private float totalPrice=0;
-	private float cbm_constant=0;
-	
+	private String cbm_constant="0";
+	private List<form_settings> allCBM;
+	private int deliverFrom;
+
 	private List<user> allUsers;
 	private user selectedUser;
 	@PostConstruct
@@ -157,7 +160,7 @@ public void refreshForProduct(){
 		try {
 		
 		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
-		cbm_constant = Float.valueOf(form_settingsFacade.getById(2).getValue());
+		cbm_constant = form_settingsFacade.getById(2).getValue();
 		}catch(NullPointerException exp) {
 			
 		}
@@ -177,6 +180,11 @@ public void refreshForProduct(){
 	    			System.out.println("Play");
 					images=new ArrayList<String>();
 					selectedProduct=productFacade.getById(id);
+					
+					
+					deliverFrom=selectedProduct.getCountryFromId().getId();
+					
+					cbm_constant = selectedProduct.getCountryFromId().getValue();
 					//Here Get the images For the main 
 					/**
 					 * 
@@ -476,7 +484,7 @@ public void refreshForProduct(){
 		
 
 		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
-		cbm_constant = Float.valueOf(form_settingsFacade.getById(2).getValue());
+		cbm_constant = form_settingsFacade.getById(2).getValue();
 		
 		
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
@@ -510,6 +518,13 @@ public void refreshForProduct(){
 					addNewProduct=new product();
 					
 					addNewProduct=productFacade.getById(id);
+
+//					System.out.println("Ahmed Dakrory: "+String.valueOf(id));
+//					System.out.println("Ahmed DakroryUser: "+String.valueOf(addNewProduct.getNormalUserId().getId()));
+//					System.out.println("Ahmed Dakrory: "+String.valueOf(addNewProduct.getCountryFromId().getId()));
+					deliverFrom=addNewProduct.getCountryFromId().getId();
+					
+					cbm_constant = addNewProduct.getCountryFromId().getValue();
 					List<productimage> imagesPics = productimageFacade.getAllByproductIdAndType(id, productimage.TYPE_PIC);
 					if(imagesPics!=null) {
 					for(int i=0;i<imagesPics.size();i++) {
@@ -560,6 +575,9 @@ public void refresh(){
 		
 
 		releaseVariablesForMain();
+		
+		
+		allCBM = form_settingsFacade.getAllByType(1);
 			
 		
 	}
@@ -849,6 +867,11 @@ public void selectproductRowForMain() {
 }
 
 
+public void updateCbmData() {
+form_settings df = form_settingsFacade.getById(deliverFrom);
+	
+	cbm_constant=df.getValue();
+}
 
 
 public void saveNewProductDataMainForLanding() {
@@ -857,6 +880,14 @@ public void saveNewProductDataMainForLanding() {
 	addNewProduct.setEstimatedDateOfDelievery(setCalendarFromString(estimatedDateOfDelivery));
 	addNewProduct.setDeliveryDate(setCalendarFromString(deliveryDate));
 
+	
+	form_settings df = form_settingsFacade.getById(deliverFrom);
+	
+	
+	System.out.println("AhmedDakrory: "+df.getName());
+	addNewProduct.setCountryFromId(df);
+	
+	
 	float height = 0;
 	float width = 0;
 	float depth = 0;
@@ -883,7 +914,9 @@ public void saveNewProductDataMainForLanding() {
 		
 	}
 	
-	addNewProduct.setShipmentFees(cbm_constant*height*width*depth*number);
+	addNewProduct.setShipmentFees(Float.valueOf(cbm_constant)*height*width*depth*number);
+	
+	
 	
 	
 	boolean isValid=true;
@@ -960,6 +993,9 @@ public void saveNewProductDataMainForLanding() {
 		
 		selectedProductState = product.STATE_AddedByCustomer_REVISE;
 
+		
+		
+		
 		addNewProduct.setLandingCheck(true);
 		productFacade.addproduct(addNewProduct);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1033,7 +1069,7 @@ public void saveNewProductDataMain() {
 		
 	}
 	
-	addNewProduct.setShipmentFees(cbm_constant*height*width*depth*number);
+	addNewProduct.setShipmentFees(Float.valueOf(cbm_constant)*height*width*depth*number);
 	
 	boolean isValid=true;
 	if(isValid) {
@@ -1102,7 +1138,11 @@ public void saveNewProductDataMain() {
 		}
 		
 
+		form_settings df = form_settingsFacade.getById(deliverFrom);
 		
+		
+		System.out.println("AhmedDakrory: "+df.getName());
+		addNewProduct.setCountryFromId(df);
 		
 		
 		selectedProductState = product.STATE_AddedByCustomer_REVISE;
@@ -1700,15 +1740,31 @@ public static long getSerialversionuid() {
 
 
 
-public float getCbm_constant() {
+
+
+public String getCbm_constant() {
 	return cbm_constant;
 }
 
 
 
 
-public void setCbm_constant(float cbm_constant) {
+public void setCbm_constant(String cbm_constant) {
 	this.cbm_constant = cbm_constant;
+}
+
+
+
+
+public List<form_settings> getAllCBM() {
+	return allCBM;
+}
+
+
+
+
+public void setAllCBM(List<form_settings> allCBM) {
+	this.allCBM = allCBM;
 }
 
 
@@ -1737,6 +1793,20 @@ public form_settingsAppServiceImpl getForm_settingsFacade() {
 
 public void setForm_settingsFacade(form_settingsAppServiceImpl form_settingsFacade) {
 	this.form_settingsFacade = form_settingsFacade;
+}
+
+
+
+
+public int getDeliverFrom() {
+	return deliverFrom;
+}
+
+
+
+
+public void setDeliverFrom(int deliverFrom) {
+	this.deliverFrom = deliverFrom;
 }
 
 
