@@ -18,7 +18,36 @@
 		<h:outputScript name="js/dashboardCaroMoto/qrcode.min.js"/>
 </head>
 <body dir="rtl">
+	<style>
+	
+	p {
+   display:inline-block;
+   text-align:right;
+}
 
+.h5{
+    font-size: 12px;
+}
+
+.p-2{
+padding:5px!important;
+}
+
+.data_address>div{
+
+font-size:12px;
+}
+
+hr{
+padding:0px;
+margin:0px;
+}
+
+.h4{
+font-size:large;
+}
+
+	</style>
 
 #{normalUserProductBean.getProductWithId()}
 		
@@ -28,6 +57,18 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-5 border">
+					<div class="row border ">
+						<div class="col-12  p-3 d-table d-flex  justify-content-md-center">
+							<img src="/resources/Image/eldawlia.jpeg" alt="logo" style="width: 51%;"/>
+						</div>
+						<div class="row">
+							<p>
+							http://www.almzzad.com
+							</p>
+						</div>
+						
+					</div>
+					
 					<div class="row">
 						<p>
 						الوقت
@@ -40,12 +81,15 @@
 							</h:outputText>
 						</p>
 					</div>
+					
 					</div>
 					
 					
 					<div class="col-7 border">
 						<div class="row">
 							<svg class="barcode"
+							  jsbarcode-height="70"
+							  jsbarcode-width="1"
 							  jsbarcode-format="CODE128"
 							  jsbarcode-value="#{normalUserProductBean.addNewProduct.id}-#{normalUserProductBean.addNewProduct.normalUserId.id}-#{normalUserProductBean.addNewProduct.countryFromId.id}-#{normalUserProductBean.addNewProduct.trackingNumber}"
 							  jsbarcode-textmargin="0"
@@ -66,7 +110,7 @@
 						</div>
 					</div>
 					
-					<div class="col-3 ">
+					<div class="col-6 ">
 						<div class="row">
 							<p>
 							معرض المزاد الدولى للتجارة والشحن
@@ -74,18 +118,12 @@
 						</div>
 					</div>
 					
-					<div class="col-4 ">
-						<div class="row">
-							<p>
-							http://www.almzzad.com
-							</p>
-						</div>
-					</div>
 					
 					
 					
 					
-					<div class="col-2 ">
+					
+					<div class="col-1 ">
 						<div class="row">
 							<div id="qrcode"></div>
 						</div>
@@ -125,7 +163,7 @@
 					
 				</div>
 				
-				<div class="row border ">
+				<div class="row border data_address ">
 					<div class="col-4 border p-3">
 						<div class="row h4">
 							السعر
@@ -146,6 +184,24 @@
 						</div>
 					</div>
 					
+					<div class="col-4 border p-3">
+						<div class="row p-2 d-table">
+								<span class="h5"> مكان الشحن من #{normalUserProductBean.addNewProduct.countryFromId.name} </span>
+								#{normalUserProductBean.addNewProduct.countryFromId.value1}
+							</div>
+						<hr/>
+						<div class="row p-2 d-table">
+								<span class="h5"> هاتف الشحن من #{normalUserProductBean.addNewProduct.countryFromId.name} </span>
+								#{normalUserProductBean.addNewProduct.countryFromId.value2}
+							</div>
+						
+						<hr/>
+						<div class="row p-2 d-table">
+								<span class="h5"> بريد الشحن من #{normalUserProductBean.addNewProduct.countryFromId.name} </span>
+								#{normalUserProductBean.addNewProduct.countryFromId.value3}
+							</div>
+					</div>
+					
 				</div>
 				
 				
@@ -158,21 +214,20 @@
 						<span class="">
 							ننوه ربائننا الكرام انه يجب التأكد من البضائع قبل المغادرة المكتب أو قبل مغادرة السائق لمكان التسليم
 						</span>
+						
+						
+						
+						
 					</div>
 					
 				</div>
 				
 				
-				<div class="row border ">
-					<div class="col-12  p-3 d-table d-flex  justify-content-md-center">
-						<img src="/resources/Image/eldawlia.jpeg" alt="logo"/>
-					</div>
-					
-				</div>
+				
 				
 				
 				<div class="row border ">
-					<div style="font-size: 79px;" class="col-12 h1  p-5 d-table d-flex  justify-content-md-center">
+					<div style="font-size: 39px;" class="col-12 h1  p-5 d-table d-flex  justify-content-md-center">
 						مساحة اعلانية مدفوعة
 					</div>
 					
@@ -185,12 +240,17 @@
            
            var qrcode = new QRCode(document.getElementById("qrcode"), {
         	    text: 'http://www.almzzad.com/',
-        	    width: 128,
-        	    height: 128,
+        	    width: 80,
+        	    height: 80,
         	    colorDark : "#000000",
         	    colorLight : "#ffffff",
         	    correctLevel : QRCode.CorrectLevel.H
         	});
+           </script>
+           
+           
+           <script>
+           window.print();
            </script>
         </h:form>
         

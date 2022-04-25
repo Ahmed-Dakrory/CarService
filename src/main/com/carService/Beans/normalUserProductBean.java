@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+
 import main.com.carService.product.product;
 import main.com.carService.product.productAppServiceImpl;
 import main.com.carService.productImage.productimage;
@@ -46,6 +49,8 @@ import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxConfig;
 
+
+import static java.util.Comparator.comparing;
 @ManagedBean(name = "normalUserProductBean")
 @SessionScoped
 public class normalUserProductBean implements Serializable{
@@ -994,8 +999,9 @@ public void saveNewProductDataMainForLanding() {
 		selectedProductState = product.STATE_AddedByCustomer_REVISE;
 
 		
-		
-		
+
+		selectedProductState = product.STATE_AddedByCustomer_REVISE;
+		filterProductBySelectFirstTime();
 		addNewProduct.setLandingCheck(true);
 		productFacade.addproduct(addNewProduct);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1146,7 +1152,7 @@ public void saveNewProductDataMain() {
 		
 		
 		selectedProductState = product.STATE_AddedByCustomer_REVISE;
-
+		filterProductBySelectFirstTime();
 		addNewProduct.setLandingCheck(false);
 		productFacade.addproduct(addNewProduct);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1416,6 +1422,9 @@ public void filterProductBySelectFirstTime() {
 
 		}
 	
+		if(allProducts!=null) {
+		allProducts.sort(Comparator.comparingInt(product::getId).reversed());
+		}
 	}
 	
 	

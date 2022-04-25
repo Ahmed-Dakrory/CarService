@@ -33,7 +33,7 @@ import main.com.carService.loginNeeds.user;
 	
 	
 	@NamedQuery(name="product.getAll",
-		     query="SELECT c FROM product c where c.deleted = false and c.landingCheck = false"
+		     query="SELECT c FROM product c where c.deleted = false and c.landingCheck = false order by c.id DESC"
 		     )
 	,
 	@NamedQuery(name="product.getById",
@@ -41,35 +41,35 @@ import main.com.carService.loginNeeds.user;
 			)
 	,
 	@NamedQuery(name="product.getAllByState",
-	query = "from product d where (d.state = :state) and d.deleted = false and d.landingCheck = false"
+	query = "from product d where (d.state = :state) and d.deleted = false and d.landingCheck = false order by d.id DESC"
 			)
 
 	,
 	@NamedQuery(name="product.getAllForMainUser",
-	query = "from product d where mainId = :userId and d.deleted = false and d.landingCheck = false"
+	query = "from product d where mainId = :userId and d.deleted = false and d.landingCheck = false order by d.id DESC"
 			)
 	,
 	@NamedQuery(name="product.getAllByStateForMainUser",
-	query = "from product d where (d.state = :state) and mainId = :userId and d.deleted = false and d.landingCheck = false"
+	query = "from product d where (d.state = :state) and mainId = :userId and d.deleted = false and d.landingCheck = false order by d.id DESC"
 			)
 	
 	,
 	@NamedQuery(name="product.getAllForNormalUser",
-	query = "from product d where  normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
+	query = "from product d where  normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false order by d.id DESC"
 			)
 	,
 	@NamedQuery(name="product.getAllByStateForNormalUser",
-	query = "from product d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
+	query = "from product d where (d.state = :state) and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false  order by d.id DESC"
 			)
 
 	,
 	@NamedQuery(name="product.getAllBytypeOfOrderForNormalUser",
-	query = "from product d where  d.typeOfOrder = :typeOfOrder and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false"
+	query = "from product d where  d.typeOfOrder = :typeOfOrder and normalUserId = :normalUserId and d.deleted = false and d.landingCheck = false  order by d.id DESC"
 			)
 	
 	,
 	@NamedQuery(name="product.getAllBytypeOfOrderAndStateForNormalUser",
-	query = "from product d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.landingCheck = false and d.deleted = false"
+	query = "from product d where d.typeOfOrder = :typeOfOrder and d.state = :state and normalUserId = :normalUserId and d.landingCheck = false and d.deleted = false  order by d.id DESC"
 			)
 	
 	,
