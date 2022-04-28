@@ -1246,6 +1246,7 @@ private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
 }
 
 public String saveImageToDirectory(byte[] image,String directory) {
+	System.out.println("Dir:"+directory);
 	String fileName="";
 	try {
 		File file=File.createTempFile("img", ".jpg", new File(directory));
@@ -1297,6 +1298,7 @@ public String saveImageToDirectory(byte[] image,String directory) {
 
 public void previewImage(FileUploadEvent event) {
 	byte[] image =event.getFile().getContents();
+	System.out.println("SaveFile");
 	String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
 	images.add(fileName);
 	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanel");

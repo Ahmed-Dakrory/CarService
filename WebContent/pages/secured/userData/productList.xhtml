@@ -5,6 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/dashboard2.xhtml">
@@ -403,17 +404,13 @@ moz-box-shadow: inset 0px 1px 0px 0px #ffa3a3;
                                                                                 <div style="margin-left: 6px">
                                                                                     Location:</div>
                                                                             </td>
-                                                                            <td >
+                                                                            <td > 
                                                                             <h:form id="formOfSelectionCarState">
                                                                                 <h:selectOneMenu value="#{normalUserProductBean.selectedProductState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 																					<f:ajax listener="#{normalUserProductBean.filterProductBySelectForAdmin}"/>
-																					<f:selectItem itemValue="0" itemLabel="شحن البضاعة"/>
-																					<f:selectItem itemValue="1" itemLabel="ارسلت للدفع"/>
-																					<f:selectItem itemValue="2" itemLabel="فى المراجعة "/>
-																					<f:selectItem itemValue="3" itemLabel="رفضت"/>
-																					<f:selectItem itemValue="4" itemLabel="تم الدفع"/>
-																					<f:selectItem itemValue="5" itemLabel="Productomoto تتم استلامها من"/>
-																					<f:selectItem itemValue="6" itemLabel="تم استلامها من قبل العميل"/>
+																						<c:forEach items="#{normalUserProductBean.productStates}" var="var" varStatus="idx">
+												                                       	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
+												                                       	</c:forEach>
 																					<f:selectItem itemValue="-1" itemLabel="اظهار الكل"/>
 																				
 																				</h:selectOneMenu>
