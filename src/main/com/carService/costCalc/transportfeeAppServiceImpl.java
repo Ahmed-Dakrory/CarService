@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
  * @author Dakrory
  *
@@ -158,6 +159,30 @@ public class transportfeeAppServiceImpl implements ItransportfeeAppService{
 				ex.printStackTrace();
 				return null;
 			}
+	}
+
+
+
+	@Override
+	public List<transportfee> getAllWithPagination(int start, int number, String searchValue) {
+		try{
+			List<transportfee> course=transportfeeDataRepository.getAllWithPagination(start,number,searchValue);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public long getAllCount(String searchValue) {
+		// TODO Auto-generated method stub
+		return transportfeeDataRepository.getAllCount(searchValue);
 	}
 	
 	

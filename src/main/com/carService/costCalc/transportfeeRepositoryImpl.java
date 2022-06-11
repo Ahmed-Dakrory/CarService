@@ -3,6 +3,7 @@
  */
 package main.com.carService.costCalc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -12,6 +13,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * @author A7med Al-Dakrory
@@ -152,6 +154,81 @@ public class transportfeeRepositoryImpl implements transportfeeRepository{
 		 }else{
 			 return null;
 		 }
+	}
+
+	@Override
+	public List<transportfee> getAllWithPagination(int start, int number, String searchValue) {
+		 try {
+				session = sessionFactory.openSession();
+				Transaction tx1 = session.beginTransaction();
+				
+				
+				Query query =null;
+				if(searchValue.equalsIgnoreCase("")) {
+					 query = session.createQuery("FROM transportfee order by id desc");
+				}else {
+				 query = session.createQuery("FROM transportfee where "
+						+ " lower(location) like lower('%"+searchValue+"%') or "
+						+ " lower(city) like lower('%"+searchValue+"%') or "
+						+ " lower(state) like lower('%"+searchValue+"%') or "
+						+ " lower(njPortCost) like lower('%"+searchValue+"%') or "
+						+ " lower(gaPortCost) like lower('%"+searchValue+"%') or "
+						+ " lower(txPortCost) like lower('%"+searchValue+"%') or "
+						+ " lower(caPortCost) like lower('%"+searchValue+"%') or "
+						+ " lower(lowCost) like lower('%"+searchValue+"%') or "
+						+ " lower(highCost) like lower('%"+searchValue+"%') "
+						+ " order by id desc");
+				}
+				
+				 query.setFirstResult(start);
+				 query.setMaxResults(number);
+				 
+				 @SuppressWarnings("unchecked")
+				List<transportfee> results=query.list();
+
+				tx1.commit();
+				session.close();
+				return results;
+			} catch (Exception ex) {
+				return new ArrayList<transportfee>();
+			}
+
+	}
+
+	@Override
+	public long getAllCount(String searchValue) {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			 
+
+			Query query =null;
+			
+			if(searchValue.equalsIgnoreCase("")) {
+				 query = session.createQuery("select count(*) FROM transportfee order by id desc");
+			}else {
+			 query = session.createQuery("select count(*) FROM transportfee where "
+					+ " lower(location) like lower('%"+searchValue+"%') or "
+					+ " lower(city) like lower('%"+searchValue+"%') or "
+					+ " lower(state) like lower('%"+searchValue+"%') or "
+					+ " lower(njPortCost) like lower('%"+searchValue+"%') or "
+					+ " lower(gaPortCost) like lower('%"+searchValue+"%') or "
+					+ " lower(txPortCost) like lower('%"+searchValue+"%') or "
+					+ " lower(caPortCost) like lower('%"+searchValue+"%') or "
+					+ " lower(lowCost) like lower('%"+searchValue+"%') or "
+					+ " lower(highCost) like lower('%"+searchValue+"%') "
+					+ " order by id desc");
+			}
+
+			
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
 	}
 	
 

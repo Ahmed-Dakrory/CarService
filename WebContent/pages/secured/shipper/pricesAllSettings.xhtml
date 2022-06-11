@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/dashboard2.xhtml">
+
+
+	<ui:define name="title"> ALMZZAD</ui:define>
+	
+	 <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Freight List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+    <link rel="stylesheet" href="#{resource['css:dashboard/primeicons.css']}" />
+    
+    	<style>
+	
+	.table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+	vertical-align: middle;
+    border: 1px solid #dddddd;
+    font-size: 11px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+ .tdStyle{
+  font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+ }
+
+
+table.dataTable tbody th, table.dataTable tbody td {
+    vertical-align: baseline;
+    border: #c5c3c3;
+    padding: 0.571em 0.857em;
+    border-style: dashed;
+    border-width: 0.1px;
+}
+
+
+body .ui-button {
+    background-color: #007ad9;
+    color: #ffffff;
+    border: 1px solid #007ad9;
+    font-size: 14px;
+    margin: 0;
+    margin-right: .1em;
+    outline: 0 none;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: revert;
+}
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+    
+    
+    .dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: .25em;
+    padding-bottom: 0.7em;
+}
+
+    body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check:before {
+    content: "\f046";
+    font-family: FontAwesome;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 2.5em;
+    padding: 0.9em 1.5em;
+    margin-left: 2px;
+    
+    }
+    
+    td {
+    font-weight: 700;
+    font-size: 12px;
+    font-family: arial;
+}
+	</style>
+	
+        <form name="aspnetForm" action="./vehicleList.jsf" id="aspnetForm">
+
+
+            <div id="content">
+                
+    <input name="ctl00$BodyHolder$hdClient_ID" type="hidden" id="ctl00_BodyHolder_hdClient_ID" value="47089" />
+    <!-- page src -->
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" >
+        <tbody>
+            <tr valign="top">
+                <td width="100%">
+                    <!-- Table 1 -->
+                    <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#003399">
+                        <tr>
+                            <td>
+                                <table width="100%" cellspacing="0" cellpadding="8" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                           
+                                         
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <table cellspacing="4" cellpadding="0" border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <table width="100%" cellspacing="0" cellpadding="1" border="0" bgcolor="#cccccc">
+                                                            <tr>
+                                                                <td>
+                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f7f7f7">
+                                                                        <tr height="25" bgcolor="#dcdcdc" >
+                                                                            <td>
+                                                                                &nbsp; <font class="tblhdr">Filter</font><a href="editlist?group=-1" class="navlink">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr height="2">
+                                                                            <td colspan="5" bgcolor="#ffffff">
+                                                                            </td>
+                                                                        </tr>
+                                                                       
+                                                                        
+                                                                        
+                                                                        <tr height="2">
+                                                                            <td colspan="4">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                                            <!-- Client DataGrid-->
+                                            <section class="panel">
+                                            
+							<div class="panel-body">
+							  
+								<h:form id="tableForm">
+					 <div class="table-responsive p-3 mb-3 border  rounded" style="    border-style: solid;    padding: 21px;    border-width: 1px;    border-color: gray;">
+                   <input type="hidden" id="ListType" name="ListType" value="normal"/>
+                    <table id="listTable" class="table table-striped table-hover border" style="width: 1274px;width: 100%;padding: 10px 30px  13px 7px;">
+                      <thead>
+                          <tr>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">ID</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">Location</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#">City</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Statue</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> nj Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> ga Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> tx Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> ca Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Low Landing Cost</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> High Landing Cost</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Modfiy</a></th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  </table>
+
+
+                  </div>
+				
+    <h:form id="progressBar">
+    <p:progressBar  widgetVar="pbAjax2" ajax="true" value="#{carPageBean.progressLoading}" labelTemplate="{value}%" styleClass="animated" global="false"/>
+    
+				<!-- 	  	<p:commandButton onclick="PF('pbAjax2').start();" class="btn btn-default" value="Deactive" action="#{carPageBean.deactiveAllListOfCarsWithDates()}" />
+				
+				 -->
+    </h:form>	
+       						
+					</h:form>	
+							
+							
+							</div>
+						</section>
+                                       
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- End of Table 1 -->
+                    <img src="#{resource['images:dumb.gif']}" width="1" height="3"/><br></br>
+                    <p>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+            </div> 
+            
+        </form>
+        <h:form>
+     <p:remoteCommand name="priceChange" action="#{carPageBean.modifyThePrice()}"> 
+	                                	</p:remoteCommand>
+     <p:remoteCommand name="openThisCar" action="#{carPageBean.selectCarRowForMain()}"> 
+	                                	</p:remoteCommand>
+	         </h:form>
+       
+       
+       
+       
+       
+       <p:dialog  header="Price Details" widgetVar="dlg2" minHeight="700"  width="1000" showEffect="fade" modal="true" >
+       
+       	<h:form class="container" id="formOfDialog" style=" width: 100%; ">
+       		<div class="row">
+       		
+       		<div class="form-group col-md-4">
+						<label>Price ID</label>
+						<br></br>
+						<h:inputText class="inputDialog" disabled="true" value="#{carPageBean.transportfeeObject.id}"/>
+					</div>
+					
+					
+       			<div class="form-group col-md-4">
+						<label>Location</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.location}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>City</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.city}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>Statue</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.state}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>nj Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.njPortCost}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>tx Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.txPortCost}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>ga Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.gaPortCost}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>ca Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.caPortCost}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>Low landing Price</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.lowCost}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>High landing Price</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.highCost}"/>
+					</div>
+					
+					</div>
+					
+					<div class="row">
+					<div class="col-md-6">
+						
+					</div>
+					
+					
+					<div class="col-md-3">
+						<p:commandButton value="Cancel" onclick="PF('dlg2').hide();" style=" width: 100%; height: 39px; font-weight: 700;font-size: 19px; background: #aeaeae; border-radius: 8px; color: white!important; "/>
+					</div>
+					<div class="col-md-3">
+						<p:commandButton value="Ok" action="#{carPageBean.setPriceDetails()}"  style="width: 100%;height: 39px;font-weight: 700;font-size: 19px;background: #5fbc6a;border-radius: 8px;color: white!important;"/>
+					</div>
+				</div>
+					
+       	</h:form>
+       </p:dialog>
+       
+       
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+     <script>
+     
+     $('#listTable').DataTable({
+         processing: true,
+         serverSide: true
+         ,dom: 'lBfrtip',
+         buttons: [
+         { extend: 'copy', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'excelHtml5', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         },
+         { extend: 'print', exportOptions: { 
+                 columns: ':visible',
+                 modifier: { order : 'index', page: 'all', search: 'none' }
+              } 
+         }
+         ]
+         ,
+         lengthMenu: [
+         [ 20,30,50,100,200,-1 ],
+         [ '20','30',' 50 ', ' 100 ',' 200 ', 'Show All' ]
+         ],
+         ajax: {
+             "url": "/rest/ApiPrice/allPrices",
+             "data": function ( d ) {
+             //  d.bodyiesOfWatertype = $('#dataOfWaterType').val();
+                 
+             }
+         },
+         aoColumns: [
+        	 {
+                 className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                     
+              	  
+                 return item.id;
+                 }
+               },
+               {
+                   className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                       
+                	  
+                   return item.location;
+                   }
+                 },
+                 {
+                     className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                         
+                  	  
+                     return item.city;
+                     }
+                   },
+                   {
+                       className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                           
+                    	  
+                       return item.state;
+                       }
+                     },
+                     
+                     {
+                         className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                             
+                      	  
+                         return item.njPortCost;
+                         }
+                       },
+                       
+                       
+                       {
+                           className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                               
+                        	  
+                           return item.gaPortCost;
+                           }
+                         },
+                         
+                         {
+                             className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                 
+                          	  
+                             return item.caPortCost;
+                             }
+                           },
+                           
+                           {
+                               className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                   
+                            	  
+                               return item.txPortCost;
+                               }
+                             },
+                             
+                             {
+                                 className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                     
+                              	  
+                                 return item.lowCost;
+                                 }
+                               },
+                               
+                               {
+                                   className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                       
+                                	  
+                                   return item.highCost;
+                                   }
+                                 },
+            {
+                className: "d-none d-sm-block tdStyle", "mData": null, "sWidth": "12.5%","mRender": function (item) { 
+                  
+                  
+             	   return '<a href="#" class="fa fa-gear" onclick="notifyThisWinCar('+item.id+')" style="padding: 2%;width: 25px;height: 25px;" ></a>';
+                    
+
+                  }
+              }  
+             
+           
+         
+     ]
+
+     } );
+
+
+     function open_car(id){
+    	 showDialog("Car with id: "+id);
+       	openThisCar([{name: 'carId', value: id}]); 
+       }
+     
+     function notifyThisWinCar(id){
+         
+    	 priceChange([{name: 'priceId', value: id}]); 
+       }
+     </script>                     	
+	          
+	          
+	          
+	          
+	          <script>
+		
+		$('.ui-icon-closethick').removeClass().addClass('fa fa-times');
+		
+		function runFromBackEndToReloadDialog(){
+			PF('dlg2').show();
+			
+		}
+		
+		
+		function reloadDatatable(){
+			PF('dlg2').hide();
+			var table = $('#listTable').DataTable();
+			table.ajax.reload();
+			
+			
+		}
+		</script>	                      	
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

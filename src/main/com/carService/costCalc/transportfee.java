@@ -1,6 +1,7 @@
 package main.com.carService.costCalc;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+
+import com.google.gson.JsonObject;
 
 
 
@@ -192,5 +195,29 @@ public class transportfee {
 	
 	
 
+	
+	
+
+
+
+	public JsonObject toJson() {
+    	JsonObject obj=new JsonObject();
+    	  obj.addProperty("id", String.valueOf(this.id));
+	      
+	      obj.addProperty("lowCost", String.valueOf(this.lowCost));
+	      obj.addProperty("highCost", String.valueOf(this.highCost));
+	      obj.addProperty("location", String.valueOf(this.location));
+	      obj.addProperty("city", String.valueOf(this.city));
+	      obj.addProperty("state", String.valueOf(this.state));
+	      obj.addProperty("njPortCost", String.valueOf(this.njPortCost));
+	      obj.addProperty("gaPortCost", String.valueOf(this.gaPortCost));
+	      obj.addProperty("caPortCost", String.valueOf(this.caPortCost));
+	      obj.addProperty("txPortCost", String.valueOf(this.txPortCost));
+	      
+	      return obj;
+    	
+    }
+
+	
 	
 }

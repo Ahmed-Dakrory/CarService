@@ -41,6 +41,7 @@ import helpers.retrofit.mainFiles.copartReturnImages;
 import main.com.carService.biding.biding;
 import main.com.carService.biding.bidingAppServiceImpl;
 import main.com.carService.carLanding.carLanding;
+import main.com.carService.costCalc.transportfee;
 import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.invoiceLanding.invoicelanding;
 import main.com.carService.invoiceLanding.invoicelandingAppServiceImpl;
@@ -102,9 +103,16 @@ public class carPageBean implements Serializable{
 
 	@ManagedProperty(value = "#{mycarsFacadeImpl}")
 	private mycarsAppServiceImpl mycarsFacade;
-	
+
 	@ManagedProperty(value = "#{notificationFacadeImpl}")
 	private notificationAppServiceImpl notificationFacade;
+	
+	
+
+	
+
+	
+	private transportfee transportfeeObject;
 	
 	private List<carLanding> listOfFilteredCars;
 	
@@ -282,6 +290,39 @@ public void addCarToInvoice() {
 		e.printStackTrace();
 	}
 }
+
+public void setPriceDetails() {
+	transportfeeFacade.addtransportfee(transportfeeObject);
+	
+
+	 PrimeFaces.current().executeScript("reloadDatatable();");
+	
+	PrimeFaces.current().executeScript("new PNotify({\r\n" +
+			"           type: 'success'        ,\r\n" + 
+			"			title: 'Price Update ',\r\n" + 
+			"			text: 'Price has been updated',\r\n" + 
+			"			left:\"2%\"\r\n" + 
+			"		});");
+}
+
+
+public void modifyThePrice() {
+
+	 FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 Integer priceId = Integer.valueOf((String) map.get("priceId"));
+	transportfeeObject = transportfeeFacade.getById(priceId);
+	
+	
+	
+	
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formOfDialog");
+	
+	 PrimeFaces.current().executeScript("runFromBackEndToReloadDialog();");
+	
+		
+}
+
 
 
 public void sendNotificationForCustomerCopartWinning() {
@@ -1344,6 +1385,17 @@ public void addCarForMain() {
 		this.docTypeForCalc = docTypeForCalc;
 	}
 
+	public transportfee getTransportfeeObject() {
+		return transportfeeObject;
+	}
+
+
+	public void setTransportfeeObject(transportfee transportfeeObject) {
+		this.transportfeeObject = transportfeeObject;
+	}
+
+	
+	
 	
 	
 	
