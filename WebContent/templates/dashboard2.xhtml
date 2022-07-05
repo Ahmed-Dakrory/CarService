@@ -338,7 +338,7 @@ margin-right: 0!important;
 										</li>
 										<li style="display:#{(loginBean.theUserOfThisAccount.role!=6)?'block':'none'};">
 											<a href="/pages/secured/userData/vehicleList.jsf?faces-redirect=true">
-												<span class="pull-right label label-primary">#{carBean.allCars.size()}</span>
+												<span class="pull-right label label-primary"></span>
 												<i class="fa  fa-car" aria-hidden="true"></i>
 												<span>قائمة السيارات</span>
 											</a>
@@ -689,11 +689,12 @@ margin-right: 0!important;
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
 		<script>
+		<!--
 		dialogLoader = bootbox.dialog({
     	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading ...</p>',
     	    closeButton: false,
     	    show: false
-    	});
+    	});-->
 		function showDialog(data){
         	dialogLoader = bootbox.dialog({
         	    message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> Loading '+data+'...</p>',
@@ -816,10 +817,18 @@ margin-right: 0!important;
 			<p:remoteCommand name="readNotification" action="#{bidBean.readNotification}"></p:remoteCommand>
 		</h:form>
 		<script>
+
+		 
+		  
 		//setInterval(refreshMainViews, 600);
 		//	setInterval(refreshMainViews2, 600);
 			
 		</script>
+		
+		 <ui:insert name="endOfContent"> 
+		    	
+		    	
+		  </ui:insert>
 		</h:body>
 
 </html>

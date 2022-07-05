@@ -1,6 +1,8 @@
 package main.com.carService.car;
 
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -15,6 +17,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import com.google.gson.JsonObject;
+
+import main.com.carService.Beans.carBean;
 import main.com.carService.consignee.consignee;
 import main.com.carService.customer.customer;
 import main.com.carService.loginNeeds.user;
@@ -301,6 +306,12 @@ public class car {
 	@Column(name = "model")
 	private String model;
 	
+	
+
+	
+
+	@Column(name = "mainUrl")
+	private String mainUrl;
 
 	@Column(name = "assemlyCountry")
 	private String assemlyCountry;
@@ -1781,6 +1792,107 @@ public class car {
 	}
 	
 
+	
+	
+	
+
+
+
+	public String getMainUrl() {
+		return mainUrl;
+	}
+
+
+
+
+
+
+	public void setMainUrl(String mainUrl) {
+		this.mainUrl = mainUrl;
+	}
+
+
+
+
+
+
+	public String getFormatedDate(Calendar c) {
+		String dateTime="";
+		if(c!=null) {
+			String[] monthNames = {"Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Octo", "Nov", "Dec"};
+		    
+		dateTime = String.valueOf(c.get(Calendar.DAY_OF_MONTH)) +"/"+
+				   String.valueOf(monthNames[c.get(Calendar.MONTH)]) +"/"+
+				   String.valueOf(c.get(Calendar.YEAR));
+		}
+		return dateTime;
+	}
+	
+	
+	
+	
+
+	public int getNumberOfDays(Calendar storeStart,Calendar storeEnd) {
+		int difference= 0;
+		if(storeStart!=null) {
+		if(storeEnd!=null) {
+			LocalDate datebefore=LocalDate.of(storeStart.get(Calendar.YEAR), storeStart.get(Calendar.MONTH)+1, storeStart.get(Calendar.DAY_OF_MONTH));
+			LocalDate dateAfter=LocalDate.of(storeEnd.get(Calendar.YEAR), storeEnd.get(Calendar.MONTH)+1, storeEnd.get(Calendar.DAY_OF_MONTH));
+			difference =(int) ChronoUnit.DAYS.between(datebefore, dateAfter);
+		}else {
+			Calendar nowCal=Calendar.getInstance();
+			LocalDate datebefore=LocalDate.of(storeStart.get(Calendar.YEAR), storeStart.get(Calendar.MONTH)+1, storeStart.get(Calendar.DAY_OF_MONTH));
+			LocalDate dateAfter=LocalDate.of(nowCal.get(Calendar.YEAR), nowCal.get(Calendar.MONTH)+1, nowCal.get(Calendar.DAY_OF_MONTH));
+			difference =(int) ChronoUnit.DAYS.between(datebefore, dateAfter);
+		}
+		}
+		return difference;
+	}
+
+
+	
+	 public JsonObject toJson() {
+	    	JsonObject obj=new JsonObject();
+	    	  obj.addProperty("id", String.valueOf(this.id));
+		      obj.addProperty("color", String.valueOf(this.color));
+		      if(this.mainId!=null) {
+			      obj.addProperty("mainId", String.valueOf(this.mainId.getId()));
+			      }else {
+				      obj.addProperty("mainId", String.valueOf("null"));
+			    	  
+			      }
+		      
+		      if(this.getVendorId()!=null) {
+			      obj.addProperty("vendorCompanyName", String.valueOf(this.getVendorId().getUserId().getCompany()));
+			      }else {
+				      obj.addProperty("vendorCompanyName", String.valueOf("null"));
+			    	  
+			      }
+		      
+		      if(this.getShipperId()!=null) {
+			      obj.addProperty("shipperCompanyName", String.valueOf(this.getShipperId().getUserId().getCompany()));
+			      }else {
+				      obj.addProperty("shipperCompanyName", String.valueOf("null"));
+			    	  
+			      }
+		      obj.addProperty("uuid", String.valueOf(this.uuid));
+		      obj.addProperty("make", String.valueOf(this.make));
+		      obj.addProperty("model", String.valueOf(this.model));
+		      obj.addProperty("year", String.valueOf(this.year));
+		      obj.addProperty("mainImage", String.valueOf(this.mainUrl));
+		      obj.addProperty("containerLink", String.valueOf(this.containerLink));
+		      obj.addProperty("container", String.valueOf(this.container));
+		      obj.addProperty("numberOfDays", String.valueOf(getNumberOfDays(this.storageStartDate,this.storageEndDate)));
+		      obj.addProperty("formatedDate", String.valueOf(getFormatedDate(this.cargoRecieved)));
+		      
+		      
+		      obj.addProperty("titleRecieved", String.valueOf(this.titleRecieved));
+		      obj.addProperty("origin", String.valueOf(new carBean().getTheOrigin2(this.origin)));
+		      obj.addProperty("docExist", String.valueOf(this.docExist));
+		      obj.addProperty("photoExist", String.valueOf(this.photoExist));
+		      return obj;
+	    	
+	    }
 	
 	
 	

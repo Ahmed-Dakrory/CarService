@@ -5878,6 +5878,45 @@ td {
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                             <tr height="23">
+                                                                                                <td colspan="6" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    <br></br>
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDivMain','picExpandMain')">
+                                                                                                            <img id="picExpandMain" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> Main
+                                                                                                                Pictures:</b></a></div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                              <tr height="23">
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td id="ctl00_BodyHolder_picTableCell" colspan="4" class="tbltxt" valign="top">
+                                                                                                     <div id="picDivMain" style="display: inline; margin-left: 6px">
+                                                                                                     	
+                                                                                                     	 <h:panelGroup id="imagesPanelMain">
+																	                                 <p:fileUpload id="FileUploadedMain" fileUploadListener="#{carBean.addImageMain}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+																	                                    <label for="aspnetForm:FileUploadedMain_input">
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{carBean.addNewCar.mainUrl!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 61px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="/images/?file=#{carBean.addNewCar.mainUrl}" rendered="#{carBean.addNewCar.mainUrl!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    </label>
+																	                                     </h:panelGroup>   
+                                                                                                     	
+                                                                                                     	</div>
+                                                                                                </td>
+                                                                                              </tr>
+                                                                                                  
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
                                                                                             <tr height="23">
                                                                                                 <td colspan="6" class="tbltxt">
                                                                                                     <div style="margin-left: 6px">

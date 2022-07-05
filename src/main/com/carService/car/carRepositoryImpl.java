@@ -3,6 +3,7 @@
  */
 package main.com.carService.car;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import main.com.carService.loginNeeds.user;
 /**
  * @author A7med Al-Dakrory
  *
@@ -736,6 +738,190 @@ public class carRepositoryImpl implements carRepository{
 		 }
 	}
 
+	@Override
+	public long getAllCountSearch(int start, int number,String searchValue,int role,int state,int useridAny ,int col_order_number, String col_ordering) {
+		try {
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			
+			Query query =null;
+			String stateQuery = "";
+			if(state==0) {
+				stateQuery = " (vehicle.state = 0 or vehicle.state = 1 or vehicle.state = 2 or vehicle.state = 3 ) ";
+			}else if(state==1) {
+				stateQuery = " (vehicle.state = 4 or vehicle.state = 5) ";
+			}else if(state==2) {
+				stateQuery = " (vehicle.state = 6 or vehicle.state = 7) ";
+			}else if(state==4) {
+				stateQuery = " ( vehicle.state = 8) ";
+			}else if(state==3) {
+				stateQuery = " vehicle.id != 0 ";
+			}
+			String searchQuery = "";
+			searchQuery = " ( vehicle.uuid like '%"+searchValue+"%' or "
+					+ " vehicle.model like '%"+searchValue+"%' or "
+					+ " vehicle.make like '%"+searchValue+"%' or "
+					+ " vehicle.color like '%"+searchValue+"%' or "
+					+ " userShipper.company like '%"+searchValue+"%' or "
+					+ " userVendor.company like '%"+searchValue+"%' or "
+					+ " vehicle.year like '%"+searchValue+"%' ) ";
+			
+			
+			String ordering_Quer="";
+			if(col_order_number==5) {
+				//Year
+				ordering_Quer = "  order by vehicle.year "+col_ordering;
+			}else if(col_order_number==12) {
+				// Cargo Received
+				ordering_Quer = "  order by vehicle.cargoRecieved "+col_ordering;
+				
+			}else {
+				ordering_Quer = "  order by vehicle.cargoRecieved desc";
+				
+			}
+			
+			if(searchValue.equalsIgnoreCase("")) {
+				if(role==user.ROLE_MAIN) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.mainId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_MAIN2) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.mainTwoId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_SHIPPER) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.shipperId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_VENDOR) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.vendorId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_CONGSIGNEE) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.consigneeId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_CUSTOMER) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where vehicle.customerId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}
+			}else {
+				if(role==user.ROLE_MAIN) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.mainId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_SHIPPER) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.shipperId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_MAIN2) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.mainTwoId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_VENDOR) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.vendorId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_CONGSIGNEE) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.consigneeId = "+String.valueOf(useridAny)+" and "+stateQuery+"and vehicle.deleted = false"+ordering_Quer);
+				}else if(role==user.ROLE_CUSTOMER) {
+					 query = session.createQuery("select count(*) FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor  where "+searchQuery+" and vehicle.customerId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+				}
+			}
+			System.out.println("-----------------------------------");
+			System.out.println(query.getQueryString());
+			
+
+			
+			Number results=(Number) (query).uniqueResult();
+
+			tx1.commit();
+			session.close();
+			return (long) results;
+		} catch (Exception ex) {
+			return 0;
+		}
+		
+
+	}
+
+	
+	
+
+	@Override
+	public List<car> getAllWithPagination(int start, int number,String searchValue,int role,int state,int useridAny ,int col_order_number, String col_ordering) {
+		
+			 
+			 try {
+					session = sessionFactory.openSession();
+					Transaction tx1 = session.beginTransaction();
+					
+					
+					Query query =null;
+					String stateQuery = "";
+					if(state==0) {
+						stateQuery = " (vehicle.state = 0 or vehicle.state = 1 or vehicle.state = 2 or vehicle.state = 3 ) ";
+					}else if(state==1) {
+						stateQuery = " (vehicle.state = 4 or vehicle.state = 5) ";
+					}else if(state==2) {
+						stateQuery = " (vehicle.state = 6 or vehicle.state = 7) ";
+					}else if(state==4) {
+						stateQuery = " ( vehicle.state = 8) ";
+					}else if(state==3) {
+						stateQuery = " vehicle.id != 0 ";
+					}
+					String searchQuery = "";
+					searchQuery = " ( vehicle.uuid like '%"+searchValue+"%' or "
+							+ " vehicle.model like '%"+searchValue+"%' or "
+							+ " vehicle.make like '%"+searchValue+"%' or "
+							+ " vehicle.color like '%"+searchValue+"%' or "
+							+ " userShipper.company like '%"+searchValue+"%' or "
+							+ " userVendor.company like '%"+searchValue+"%' or "
+							+ " vehicle.year like '%"+searchValue+"%' ) ";
+					
+					
+					String ordering_Quer="";
+					if(col_order_number==5) {
+						//Year
+						ordering_Quer = "  order by vehicle.year "+col_ordering;
+					}else if(col_order_number==12) {
+						// Cargo Received
+						ordering_Quer = "  order by vehicle.cargoRecieved "+col_ordering;
+						
+					}else {
+						ordering_Quer = "  order by vehicle.cargoRecieved desc";
+						
+					}
+					System.out.println(stateQuery);
+					if(searchValue.equalsIgnoreCase("")) {
+						if(role==user.ROLE_MAIN) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.mainId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_MAIN2) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.mainTwoId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_SHIPPER) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.shipperId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_VENDOR) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.vendorId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_CONGSIGNEE) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.consigneeId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_CUSTOMER) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where vehicle.customerId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}
+					}else {
+						if(role==user.ROLE_MAIN) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.mainId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_MAIN2) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.mainTwoId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_SHIPPER) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.shipperId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_VENDOR) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.vendorId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_CONGSIGNEE) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.consigneeId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}else if(role==user.ROLE_CUSTOMER) {
+							 query = session.createQuery("select vehicle FROM car vehicle  left JOIN vehicle.shipperId shipper left JOIN shipper.userId userShipper left JOIN vehicle.vendorId vendor  left JOIN vendor.userId userVendor   where "+searchQuery+" and vehicle.customerId = "+String.valueOf(useridAny)+" and "+stateQuery+" and vehicle.deleted = false"+ordering_Quer);
+						}
+					}
+					System.out.println("-----------------------------------");
+					System.out.println(query.getQueryString());
+					
+					 query.setFirstResult(start);
+					 query.setMaxResults(number);
+					 
+					 @SuppressWarnings("unchecked")
+					List<car> results=query.list();
+
+					tx1.commit();
+					session.close();
+					return results;
+				} catch (Exception ex) {
+					return new ArrayList<car>();
+				}
+		
+	}
+
+	
 
 
 }

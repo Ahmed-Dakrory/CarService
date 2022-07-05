@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
@@ -126,6 +127,8 @@ public class carBean implements Serializable{
 	private List<String> carStates;
 	
 
+	private List<String> visibilityOptions;
+
 	private  String cargoRecievedDate;
 	private  String dvlDate;
 	private  String stRecievedDate;
@@ -155,12 +158,30 @@ public class carBean implements Serializable{
 	private List<String> docs_deleted;
 	
 	
+
+	private List<car> allCarsToContainer;
+	private String containerName;
+	private String containerLink;
+	private String countryForContainer;
+	private String portForContainer;
+	private String stateForContainer;
+	private Integer shipperIdOFContainer;
+	
+	private int numberOfAny = 0;
+	
+	
 	private float totalPrice=0;
 	@PostConstruct
 	public void init() {
 		distinationMap=new LinkedHashMap<Integer,String>();
 		origineMap=new LinkedHashMap<Integer,String>();
 		fillMap();
+
+		visibilityOptions = new ArrayList<String>();
+		
+		for(int i=0;i<14;i++) {
+			visibilityOptions.add("true");
+		}
 		
 		
 		carStates = new ArrayList<String>();
@@ -174,6 +195,67 @@ public class carBean implements Serializable{
 		selectedCarState=0;
 	}
 	
+	
+
+public void openUUID() {
+	FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 int id = Integer.parseInt((String) map.get("carUUID"));
+	 
+	 
+	 if(loginBean.getTheUserOfThisAccount().getRole().equals(0)) {
+		 selectCarForMain(id);
+	 }else if(loginBean.getTheUserOfThisAccount().getRole().equals(5)) {
+		 selectCarForMainTwo(id);
+	 }else if(loginBean.getTheUserOfThisAccount().getRole().equals(1)) {
+		 selectCarForShipper(id);
+	 }else if(loginBean.getTheUserOfThisAccount().getRole().equals(2)) {
+		 selectCarForVendor(id);
+	 }else if(loginBean.getTheUserOfThisAccount().getRole().equals(3)) {
+		 selectCarForCustomerOrConsignee(id);
+	 }else if(loginBean.getTheUserOfThisAccount().getRole().equals(4)) {
+		 selectCarForCustomerOrConsignee(id);
+	 }
+	 
+	 
+}
+
+public void openDialogForVins() {
+	FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 String carsId = (String) map.get("carsId");
+	 String[] carsIdArray = carsId.split(",");
+	 allCarsToContainer =new ArrayList<car>();
+	 containerName="";
+	 containerLink="";
+	 shipperIdOFContainer=-1;
+	 countryForContainer="";
+	 stateForContainer="";
+	 for (String a : carsIdArray) {
+		 System.out.println(a);
+		 car newCar = carFacade.getById(Integer.valueOf(a));
+		 allCarsToContainer.add(newCar);
+		 
+		 
+		 
+	 }
+	 FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formOfDialog");
+		
+	 PrimeFaces.current().executeScript("runFromBackEndToReloadDialog();");
+		
+	 
+}
+
+
+public void visiblityShowing() {
+	FacesContext context = FacesContext.getCurrentInstance();
+	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+	 String key = (String) map.get("key");
+	 String value = (String) map.get("value");
+	 visibilityOptions.set(Integer.valueOf(key),value);
+}
+
+
 	public void releaseVariablesForMain() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
@@ -448,377 +530,576 @@ public class carBean implements Serializable{
 	}
 	
 	
+//	public void filterCarBySelectFirstTime() {
+//
+//		allCars=new ArrayList<car>();
+//		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//			
+//
+//			}else if(selectedCarState==2) {
+//				
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//				
+//
+//			}else if(selectedCarState==8) {
+//				
+//				// this for SendForPayment
+//
+//				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
+//
+//				
+//				if(SentMain!=null)
+//					allCars.addAll(SentMain);
+//				
+//				
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//								
+//
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_SHIPPER) {
+//
+//			shipper shipperNewId=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//				
+//				
+//			}else if(selectedCarState==2) {
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//
+//
+//			}else if(selectedCarState==8) {
+//				// this for freight sent for payment
+//
+//				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
+//
+//				
+//				if(sentShipper!=null)
+//					allCars.addAll(sentShipper);
+//				
+//
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllFrightForShipper(shipperNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllFrightWithStateForShipper(selectedCarState,shipperNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
+//
+//			mainTwo mainTwoId=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//				
+//				
+//			}else if(selectedCarState==2) {
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//
+//
+//			}else if(selectedCarState==8) {
+//				// this for freight sent for payment
+//
+//				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
+//
+//				
+//				if(sentShipper!=null)
+//					allCars.addAll(sentShipper);
+//				
+//
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllFrightForMainUserTwo(mainTwoId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//				
+//
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllFrightWithStateForMainUserTwo(selectedCarState,mainTwoId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
+//
+//			vendor vendorNewId=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//				
+//				
+//			}else if(selectedCarState==2) {
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//
+//
+//			}else if(selectedCarState==8) {
+//				// this for freight Sent
+//
+//				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
+//
+//				
+//				if(SentMain!=null)
+//					allCars.addAll(SentMain);
+//				
+//
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllFrightForVendor(vendorNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllFrightWithStateForVendor(selectedCarState,vendorNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
+//
+//			customer customerNewId=customerFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//				
+//				
+//			}else if(selectedCarState==2) {
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//
+//
+//			}else if(selectedCarState==8) {
+//				// this for freight in transit
+//
+//				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
+//
+//				
+//				if(SentMain!=null)
+//					allCars.addAll(SentMain);
+//				
+//
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllFrightForCustomer(customerNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//				
+//
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllFrightWithStateForCustomer(selectedCarState,customerNewId.getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
+//
+//			List<consignee> consigneeNewId=consigneeFacade.getAllByUserId(loginBean.getTheUserOfThisAccount().getId());
+//			for(int i=0;i<consigneeNewId.size();i++ ) {
+//			if(selectedCarState==0) {
+//				//This for warehouse
+//				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
+//
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else if(selectedCarState==1) {
+//				// this for dry cargo
+//
+//				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
+//
+//				
+//				if(dryCargoMain!=null)
+//					allCars.addAll(dryCargoMain);
+//				
+//				
+//				
+//			}else if(selectedCarState==2) {
+//				// this for freight in transit
+//
+//				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
+//
+//				
+//				if(transitMain!=null)
+//					allCars.addAll(transitMain);
+//				
+//
+//
+//			}else if(selectedCarState==8) {
+//				// this for freight Sent
+//
+//				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
+//
+//				
+//				if(SentMain!=null)
+//					allCars.addAll(SentMain);
+//				
+//
+//
+//			}else if(selectedCarState==3) {
+//				//this for all
+//
+//				List<car> wareHouseMain = carFacade.getAllFrightForConsignee(consigneeNewId.get(i).getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//				
+//				
+//
+//			}else {
+//				List<car> wareHouseMain = carFacade.getAllFrightWithStateForConsignee(selectedCarState,consigneeNewId.get(i).getId());
+//				
+//				if(wareHouseMain!=null)
+//					allCars.addAll(wareHouseMain);
+//			}
+//			
+//		}
+//		}
+//		
+//		
+//		
+//		
+//		
+//	}
+//	
+//	
+//	
+	
+
+public void setCarsContainerDetails() {
+	shipper shipper=shipperFacade.getById(Integer.valueOf(shipperIdOFContainer));
+	
+	for(car car: allCarsToContainer) {
+		car.setContainer(containerName);
+		car.setContainerLink(containerLink);
+		car.setDestination(Integer.valueOf(countryForContainer));
+		car.setShipperId(shipper);
+		car.setState(Integer.valueOf(stateForContainer));
+		try {
+			carFacade.addcar(car);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Cars Has Been Modified\", \"success\");");
+	
+	 try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/vehicleList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+}
+	
 	public void filterCarBySelectFirstTime() {
 
 		allCars=new ArrayList<car>();
 		if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN) {
-			if(selectedCarState==0) {
+			numberOfAny = loginBean.getTheUserOfThisAccount().getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
 				
-
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
+				allCars = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
 				
 			
-
 			}else if(selectedCarState==2) {
 				
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
+				allCars = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
 				
-
-			}else if(selectedCarState==8) {
 				
-				// this for SendForPayment
-
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
-
+			}else if(selectedCarState==4) {
 				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
+				// this for freight in transit
+				allCars = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
 				
-
+				
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				allCars = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
 				
-								
-
-			}else {
-				List<car> wareHouseMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_SHIPPER) {
 
 			shipper shipperNewId=shipperFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
-			if(selectedCarState==0) {
+			numberOfAny = shipperNewId.getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllWareHouseForShipper(shipperNewId.getId());
 				
 				
-
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
-
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
+				allCars = carFacade.getAllDryCargoForShipper(shipperNewId.getId());
 				
 				
 				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
-			}else if(selectedCarState==8) {
+				allCars = carFacade.getAllFrightInTransitForShipper(shipperNewId.getId());
+			}else if(selectedCarState==4) {
 				// this for freight sent for payment
-
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
-
+				allCars = carFacade.getAllFrightSentForPaymentForShipper(shipperNewId.getId());
 				
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
-				
-
-
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllFrightForShipper(shipperNewId.getId());
+				allCars = carFacade.getAllForShipper(shipperNewId.getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-			}else {
-				List<car> wareHouseMain = carFacade.getAllFrightWithStateForShipper(selectedCarState,shipperNewId.getId());
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_MAIN2) {
 
 			mainTwo mainTwoId=mainTwoFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
-			if(selectedCarState==0) {
+			numberOfAny = mainTwoId.getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
+				allCars = carFacade.getAllWareHouseForMainUserTwo(mainTwoId.getId());
 				
-				
-
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
-
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
+				allCars = carFacade.getAllDryCargoForMainUserTwo(mainTwoId.getId());
 				
 			}else if(selectedCarState==2) {
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
-
+				allCars = carFacade.getAllFrightInTransitForMainUserTwo(mainTwoId.getId());
 				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
-			}else if(selectedCarState==8) {
+			}else if(selectedCarState==4) {
 				// this for freight sent for payment
-
-				List<car> sentShipper = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
-
+				allCars = carFacade.getAllFrightSentForPaymentForMainUserTwo(mainTwoId.getId());
 				
-				if(sentShipper!=null)
-					allCars.addAll(sentShipper);
 				
-
-
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllFrightForMainUserTwo(mainTwoId.getId());
+				allCars = carFacade.getAllForMainUserTwo(mainTwoId.getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-				
-
-			}else {
-				List<car> wareHouseMain = carFacade.getAllFrightWithStateForMainUserTwo(selectedCarState,mainTwoId.getId());
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_VENDOR) {
 
 			vendor vendorNewId=vendorFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
-			if(selectedCarState==0) {
+			numberOfAny = vendorNewId.getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
+				allCars = carFacade.getAllWareHouseForVendor(vendorNewId.getId());
+			
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
-
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
+				allCars = carFacade.getAllDryCargoForVendor(vendorNewId.getId());
 			}else if(selectedCarState==2) {
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
-			}else if(selectedCarState==8) {
+				allCars = carFacade.getAllFrightInTransitForVendor(vendorNewId.getId());
+			}else if(selectedCarState==4) {
 				// this for freight Sent
-
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
-
+				allCars = carFacade.getAllFrightSentForPaymentForVendor(vendorNewId.getId());
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllFrightForVendor(vendorNewId.getId());
+				allCars = carFacade.getAllForVendor(vendorNewId.getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
-			}else {
-				List<car> wareHouseMain = carFacade.getAllFrightWithStateForVendor(selectedCarState,vendorNewId.getId());
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CUSTOMER) {
 
 			customer customerNewId=customerFacade.getByUserId(loginBean.getTheUserOfThisAccount().getId());
-			if(selectedCarState==0) {
+			numberOfAny = customerNewId.getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
+				allCars = carFacade.getAllWareHouseForCustomer(customerNewId.getId());
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
-
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
+				allCars = carFacade.getAllDryCargoForCustomer(customerNewId.getId());
 			}else if(selectedCarState==2) {
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
-			}else if(selectedCarState==8) {
+				allCars = carFacade.getAllFrightInTransitForCustomer(customerNewId.getId());
+			}else if(selectedCarState==4) {
 				// this for freight in transit
-
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
-
+				allCars = carFacade.getAllFrightSentForPaymentForCustomer(customerNewId.getId());
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllFrightForCustomer(customerNewId.getId());
+				allCars = carFacade.getAllForCustomer(customerNewId.getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-				
-
-			}else {
-				List<car> wareHouseMain = carFacade.getAllFrightWithStateForCustomer(selectedCarState,customerNewId.getId());
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 		}else if(loginBean.getTheUserOfThisAccount().getRole()==user.ROLE_CONGSIGNEE) {
 
 			List<consignee> consigneeNewId=consigneeFacade.getAllByUserId(loginBean.getTheUserOfThisAccount().getId());
+			
+			
 			for(int i=0;i<consigneeNewId.size();i++ ) {
-			if(selectedCarState==0) {
+				numberOfAny = consigneeNewId.get(i).getId();
+			/*if(selectedCarState==0) {
 				//This for warehouse
-				List<car> wareHouseMain = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
-
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
+				allCars = carFacade.getAllWareHouseForConsignee(consigneeNewId.get(i).getId());
 			}else if(selectedCarState==1) {
 				// this for dry cargo
-
-				List<car> dryCargoMain = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
-
-				
-				if(dryCargoMain!=null)
-					allCars.addAll(dryCargoMain);
-				
-				
-				
+				allCars = carFacade.getAllDryCargoForConsignee(consigneeNewId.get(i).getId());
 			}else if(selectedCarState==2) {
 				// this for freight in transit
-
-				List<car> transitMain = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
-
-				
-				if(transitMain!=null)
-					allCars.addAll(transitMain);
-				
-
-
-			}else if(selectedCarState==8) {
+				allCars = carFacade.getAllFrightInTransitForConsignee(consigneeNewId.get(i).getId());
+			}else if(selectedCarState==4) {
 				// this for freight Sent
-
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
-
-				
-				if(SentMain!=null)
-					allCars.addAll(SentMain);
-				
-
-
+				allCars = carFacade.getAllFrightSentForPaymentForConsignee(consigneeNewId.get(i).getId());
 			}else if(selectedCarState==3) {
 				//this for all
-
-				List<car> wareHouseMain = carFacade.getAllFrightForConsignee(consigneeNewId.get(i).getId());
+				allCars = carFacade.getAllForConsignee(consigneeNewId.get(i).getId());
 				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-				
-				
-
-			}else {
-				List<car> wareHouseMain = carFacade.getAllFrightWithStateForConsignee(selectedCarState,consigneeNewId.get(i).getId());
-				
-				if(wareHouseMain!=null)
-					allCars.addAll(wareHouseMain);
-			}
+			}*/
 			
 		}
 		}
@@ -828,9 +1109,6 @@ public class carBean implements Serializable{
 		
 		
 	}
-	
-	
-	
 	
 	public void filterCarToGetTotalMoneyBox() {
 		selectedCarState = 0;
@@ -929,6 +1207,76 @@ public class carBean implements Serializable{
 					landcost;
 		}
 		
+	}
+	
+	
+	
+
+
+	public void openImageLink() {
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getRequest();
+		
+		try{
+			Integer id=Integer.parseInt(origRequest.getParameterValues("imagesOfCarId")[0]);
+				if(id!=null){
+					selectedCar=carFacade.getById(id);
+					
+
+					images=new ArrayList<String>();
+					docs=new ArrayList<String>();
+
+					images_deleted=new ArrayList<String>();
+					docs_deleted=new ArrayList<String>();
+					
+					List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
+					List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+					
+					
+					if(imagesOfCar!=null) {
+						for(int i=0;i<imagesOfCar.size();i++) {
+							images.add(imagesOfCar.get(i).getUrl());
+						}
+					}
+					if(docsOfCar!=null){
+						for(int i=0;i<docsOfCar.size();i++) {
+							docs.add(docsOfCar.get(i).getUrl());
+						}
+					}
+					
+					
+					
+					
+					
+					
+
+					
+					FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("mainPanel");
+					
+				}
+			}
+		catch(Exception ex){
+			 
+		}
+		
+	}
+	
+	public void addImageMain(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+		addNewCar.setMainUrl(fileName);
+		addNewCar.setPhotoExist(true);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
+	}
+	
+	public void previewImageMain(FileUploadEvent event) {
+		byte[] image =event.getFile().getContents();
+		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+		selectedCar.setMainUrl(fileName);
+		selectedCar.setPhotoExist(true);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
 	}
 	
 	
@@ -2004,6 +2352,22 @@ public void updateCarForCustomer() {
 		return dateTime;
 	}
 	
+
+private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
+	public String getTheOrigin2(Integer codeCountry) {
+		origineMap2.put(-1, "----");
+		origineMap2.put(381, "TX");
+		origineMap2.put(117, "CA");
+		origineMap2.put(371, "FL");
+		origineMap2.put(1, "NY");
+		origineMap2.put(39, "GA");
+		origineMap2.put(391, "IN");
+		
+		String country=origineMap2.get(codeCountry);
+		
+		return country;
+		
+	}
 	
 	public void deleteCar() {
 		 FacesContext context = FacesContext.getCurrentInstance();
@@ -2204,6 +2568,22 @@ public void updateCarForCustomer() {
 
 	
 
+	public List<String> getVisibilityOptions() {
+		return visibilityOptions;
+	}
+
+	public void setVisibilityOptions(List<String> visibilityOptions) {
+		this.visibilityOptions = visibilityOptions;
+	}
+
+	public Map<Integer, String> getOrigineMap2() {
+		return origineMap2;
+	}
+
+	public void setOrigineMap2(Map<Integer, String> origineMap2) {
+		this.origineMap2 = origineMap2;
+	}
+
 	public Integer getTitleRecievedSelected() {
 		return titleRecievedSelected;
 	}
@@ -2329,6 +2709,118 @@ public void updateCarForCustomer() {
 	
 	
 	
+	public List<car> getAllCarsToContainer() {
+		return allCarsToContainer;
+	}
+
+
+
+
+	public void setAllCarsToContainer(List<car> allCarsToContainer) {
+		this.allCarsToContainer = allCarsToContainer;
+	}
+
+
+
+
+	public String getContainerName() {
+		return containerName;
+	}
+
+
+
+
+	public void setContainerName(String containerName) {
+		this.containerName = containerName;
+	}
+
+
+
+
+	public String getContainerLink() {
+		return containerLink;
+	}
+
+
+
+
+	public void setContainerLink(String containerLink) {
+		this.containerLink = containerLink;
+	}
+
+
+
+
+	public String getCountryForContainer() {
+		return countryForContainer;
+	}
+
+
+
+
+	public void setCountryForContainer(String countryForContainer) {
+		this.countryForContainer = countryForContainer;
+	}
+
+
+
+
+	public String getPortForContainer() {
+		return portForContainer;
+	}
+
+
+
+
+	public void setPortForContainer(String portForContainer) {
+		this.portForContainer = portForContainer;
+	}
+
+
+
+
+	public String getStateForContainer() {
+		return stateForContainer;
+	}
+
+
+
+
+	public void setStateForContainer(String stateForContainer) {
+		this.stateForContainer = stateForContainer;
+	}
+
+
+
+
+	public Integer getShipperIdOFContainer() {
+		return shipperIdOFContainer;
+	}
+
+
+
+
+	public void setShipperIdOFContainer(Integer shipperIdOFContainer) {
+		this.shipperIdOFContainer = shipperIdOFContainer;
+	}
+
+
+
+
+	public int getNumberOfAny() {
+		return numberOfAny;
+	}
+
+
+
+
+	public void setNumberOfAny(int numberOfAny) {
+		this.numberOfAny = numberOfAny;
+	}
+
+
+
+
 	public mainTwoAppServiceImpl getMainTwoFacade() {
 		return mainTwoFacade;
 	}
