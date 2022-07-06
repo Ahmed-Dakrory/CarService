@@ -11,7 +11,7 @@
 <ui:composition template="/templates/dashboard2.xhtml">
 
 
-	<ui:define name="title"> Prime International Shipping LLC</ui:define>
+	<ui:define name="title"> ALMZZAD</ui:define>
 	
 	 <ui:define name="mainHead"> 
 			       <ul class="mn-sub"><li class="mn-sub-item mn-item-freight"><a href="vehicleList.jsf" class="mn-sub-item-current"><b>Inventory List</b></a></li></ul>
@@ -55,6 +55,23 @@
 		.table-striped > tbody > tr:nth-child(odd) {
     background-color: #d4d4d4;
 }
+
+
+.linkClassUUID{
+color: #2377d9;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+.linkClassUUID:hover{
+color: #8da3d7;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 
 table.dataTable tbody th, table.dataTable tbody td {
     padding: 3px 5px;
@@ -693,11 +710,23 @@ vertical-align: middle;
                                                                             <h:form id="formOfSelectionCarState" >
                                                                                 <h:selectOneMenu value="#{carBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size: 17px;margin-top: 5px;padding: 3px;">
 																					<f:ajax listener="#{carBean.filterCarBySelect}"/>
-																					<f:selectItem itemValue="0" itemLabel="Prime International Shipping LLC WAREHOUSE"/>
-																					<f:selectItem itemValue="1" itemLabel="READY TO LOAD"/>
-																					<f:selectItem itemValue="2" itemLabel="Freight In Transit"/>
-																					<f:selectItem itemValue="4" itemLabel="Sent For Payment"/>
-																					<f:selectItem itemValue="3" itemLabel="Show All"/>
+																					
+																					<c:forEach items="#{normalUserBean.carStates}" var="var" varStatus="idx">
+														                           	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
+														                           	</c:forEach>
+	                           	<!-- 
+																					<f:selectItem itemValue="0" itemLabel="شحن السيارة"/>
+																					<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
+																					<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
+																					<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
+																					<f:selectItem itemValue="9" itemLabel="جديد"/>
+																					<f:selectItem itemValue="10" itemLabel="رفضت"/>
+																					<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
+																					<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
+																					<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
+																					 -->
+																					<f:selectItem itemValue="-1" itemLabel="اظهار الكل"/>
+																					
 																				
 																				</h:selectOneMenu>
 																			</h:form>
@@ -706,7 +735,7 @@ vertical-align: middle;
                                                                             
                                                                             <td colspan="4">
                                                                             
-                                                                            <button type="button" id="btnSelectedRows" style=" display:#{loginBean.theUserOfThisAccount.role==0?'block':'none'}; height: 30px; font-size: 13px; font-weight: 600; margin-top: 12px; background: #34495e; color: white!important; border-radius: 5px; ">
+                                                                            <button type="button" id="btnSelectedRows" style=" display:#{loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==5?'block':'none'}; height: 30px; font-size: 13px; font-weight: 600; margin-top: 12px; background: #34495e; color: white!important; border-radius: 5px; ">
 																			  Assign Container Details
 																			</button>
 																			
@@ -872,7 +901,7 @@ vertical-align: middle;
                 {
                     className: "styleUuid", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                         
-                    return '<a onclick="opencarUUID('+item.id+')">'+item.uuid+'</a><br></br>'+
+                    return '<a class="linkClassUUID" onclick="opencarUUID('+item.id+')">'+item.uuid+'</a><br></br>'+
 					'';
                     }
                   },

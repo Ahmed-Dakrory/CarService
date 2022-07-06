@@ -54,6 +54,25 @@ public class carRepositoryImpl implements carRepository{
 			}
 	}
 
+	
+	
+	@Override
+	public car addcar_no(car data)  {
+		
+			data.setLastUpdate(Calendar.getInstance());
+			if(data.getId()==null || data.getId()==0) {
+				data.setAdd_datetime(Calendar.getInstance());
+			}
+			session = sessionFactory.openSession();
+			Transaction tx1 = session.beginTransaction();
+			session.saveOrUpdate(data);
+			tx1.commit();
+			session.close(); 
+			return data; 
+			
+	}
+
+	
 	@Override
 	public List<car> getAll() {
 				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAll");
@@ -746,25 +765,34 @@ public class carRepositoryImpl implements carRepository{
 			
 			Query query =null;
 			String stateQuery = "";
-			if(state==0) {
-				stateQuery = " (vehicle.state = 0 or vehicle.state = 1 or vehicle.state = 2 or vehicle.state = 3 ) ";
-			}else if(state==1) {
-				stateQuery = " (vehicle.state = 4 or vehicle.state = 5) ";
-			}else if(state==2) {
-				stateQuery = " (vehicle.state = 6 or vehicle.state = 7) ";
-			}else if(state==4) {
-				stateQuery = " ( vehicle.state = 8) ";
-			}else if(state==3) {
+//			if(state==0) {
+//				stateQuery = " (vehicle.state = 0 or vehicle.state = 1 or vehicle.state = 2 or vehicle.state = 3 ) ";
+//			}else if(state==1) {
+//				stateQuery = " (vehicle.state = 4 or vehicle.state = 5) ";
+//			}else if(state==2) {
+//				stateQuery = " (vehicle.state = 6 or vehicle.state = 7) ";
+//			}else if(state==4) {
+//				stateQuery = " ( vehicle.state = 8) ";
+//			}else if(state==3) {
+//				stateQuery = " vehicle.id != 0 ";
+//			}
+			
+			
+			
+			if(state==-1) {
 				stateQuery = " vehicle.id != 0 ";
+			}else {
+				stateQuery = " (vehicle.state = "+String.valueOf(state)+") ";
 			}
+			
 			String searchQuery = "";
-			searchQuery = " ( vehicle.uuid like '%"+searchValue+"%' or "
-					+ " vehicle.model like '%"+searchValue+"%' or "
-					+ " vehicle.make like '%"+searchValue+"%' or "
-					+ " vehicle.color like '%"+searchValue+"%' or "
-					+ " userShipper.company like '%"+searchValue+"%' or "
-					+ " userVendor.company like '%"+searchValue+"%' or "
-					+ " vehicle.year like '%"+searchValue+"%' ) ";
+			searchQuery = " ( lower(vehicle.uuid) like lower('%"+searchValue+"%') or "
+					+ " lower(vehicle.model) like lower('%"+searchValue+"%') or "
+					+ " lower(vehicle.make) like lower('%"+searchValue+"%') or "
+					+ " lower(vehicle.color) like lower('%"+searchValue+"%') or "
+					+ " lower(userShipper.company) like lower('%"+searchValue+"%') or "
+					+ " lower(userVendor.company) like lower('%"+searchValue+"%') or "
+					+ " lower(vehicle.year) like lower('%"+searchValue+"%') ) ";
 			
 			
 			String ordering_Quer="";
@@ -840,25 +868,21 @@ public class carRepositoryImpl implements carRepository{
 					
 					Query query =null;
 					String stateQuery = "";
-					if(state==0) {
-						stateQuery = " (vehicle.state = 0 or vehicle.state = 1 or vehicle.state = 2 or vehicle.state = 3 ) ";
-					}else if(state==1) {
-						stateQuery = " (vehicle.state = 4 or vehicle.state = 5) ";
-					}else if(state==2) {
-						stateQuery = " (vehicle.state = 6 or vehicle.state = 7) ";
-					}else if(state==4) {
-						stateQuery = " ( vehicle.state = 8) ";
-					}else if(state==3) {
+					if(state==-1) {
 						stateQuery = " vehicle.id != 0 ";
+					}else {
+						stateQuery = " (vehicle.state = "+String.valueOf(state)+") ";
 					}
+					
+					
 					String searchQuery = "";
-					searchQuery = " ( vehicle.uuid like '%"+searchValue+"%' or "
-							+ " vehicle.model like '%"+searchValue+"%' or "
-							+ " vehicle.make like '%"+searchValue+"%' or "
-							+ " vehicle.color like '%"+searchValue+"%' or "
-							+ " userShipper.company like '%"+searchValue+"%' or "
-							+ " userVendor.company like '%"+searchValue+"%' or "
-							+ " vehicle.year like '%"+searchValue+"%' ) ";
+					searchQuery = " ( lower(vehicle.uuid) like lower('%"+searchValue+"%') or "
+							+ " lower(vehicle.model) like lower('%"+searchValue+"%') or "
+							+ " lower(vehicle.make) like lower('%"+searchValue+"%') or "
+							+ " lower(vehicle.color) like lower('%"+searchValue+"%') or "
+							+ " lower(userShipper.company) like lower('%"+searchValue+"%') or "
+							+ " lower(userVendor.company) like lower('%"+searchValue+"%') or "
+							+ " lower(vehicle.year) like lower('%"+searchValue+"%') ) ";
 					
 					
 					String ordering_Quer="";

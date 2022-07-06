@@ -60,6 +60,8 @@ import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
 import main.com.carService.customer.customer;
 import main.com.carService.customer.customerAppServiceImpl;
+import main.com.carService.log_info.log_info;
+import main.com.carService.log_info.log_infoAppServiceImpl;
 
 
 @ManagedBean(name = "carBean")
@@ -100,6 +102,11 @@ public class carBean implements Serializable{
 
 	@ManagedProperty(value = "#{carFacadeImpl}")
 	private carAppServiceImpl carFacade;
+	
+
+	@ManagedProperty(value = "#{log_infoFacadeImpl}")
+	private log_infoAppServiceImpl log_infoFacade;
+	
 	
 
 	@ManagedProperty(value = "#{vendorFacadeImpl}")
@@ -926,6 +933,8 @@ public void setCarsContainerDetails() {
 		car.setState(Integer.valueOf(stateForContainer));
 		try {
 			carFacade.addcar(car);
+			
+			addCarActionForLog(car);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -944,6 +953,37 @@ public void setCarsContainerDetails() {
 	
 }
 	
+	private void addCarActionForLog(car car) {
+	// TODO Auto-generated method stub
+
+		log_info data_info =new log_info();
+//		System.out.println(new Date());
+//		System.out.println(car.getId());
+		
+		
+//		System.out.println(loginBean.getTheUserOfThisAccount().getId());
+//		System.out.println(loginBean.getTheUserOfThisAccount().getEmail());
+		data_info.setCarId(car);
+
+//		System.out.println("--------------------Ahmed 1------------");
+		data_info.setData("Car Action Done");
+//		System.out.println("--------------------Ahmed 2------------");
+		data_info.setUserId(loginBean.getTheUserOfThisAccount());
+//		System.out.println("--------------------Ahmed 3------------");
+		data_info.setDate(new Date());
+//		System.out.println("--------------------Ahmed 4------------");
+		data_info.setObject("car");
+//		System.out.println("--------------------Ahmed 5------------");
+		data_info.setObject_id(String.valueOf(car.getId()));
+
+//		System.out.println(car.getId());
+//		System.out.println("--------------------Ahmed 6------------");
+		log_infoFacade.addlog_info(data_info);
+//		System.out.println("--------------------Ahmed 7------------");
+}
+
+
+
 	public void filterCarBySelectFirstTime() {
 
 		allCars=new ArrayList<car>();
@@ -1197,10 +1237,10 @@ public void setCarsContainerDetails() {
 			float fees = 0;
 			float seaCost = 0;
 			float landcost = 0;
-			if(allCars.get(i).getCommision()!=null) commission =  allCars.get(i).getCommision();
-			if(allCars.get(i).getFees()!=null) fees =  allCars.get(i).getFees();
-			if(allCars.get(i).getSeacost()!=null) seaCost =  allCars.get(i).getSeacost();
-			if(allCars.get(i).getLandcost()!=null) landcost =  allCars.get(i).getLandcost();
+			if(allCars.get(i).getCommision()!=0) commission =  allCars.get(i).getCommision();
+			if(allCars.get(i).getFees()!=0) fees =  allCars.get(i).getFees();
+			if(allCars.get(i).getSeacost()!=0) seaCost =  allCars.get(i).getSeacost();
+			if(allCars.get(i).getLandcost()!=0) landcost =  allCars.get(i).getLandcost();
 			totalPrice +=commission+
 					fees+
 					seaCost+
@@ -1413,6 +1453,7 @@ public void refreshSelectedCarVendor() {
 				addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
 				addNewCar.setOrderPrice(0);
 				carFacade.addcar(addNewCar);
+				addCarActionForLog(addNewCar);
 				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 						"			title: 'Success',\r\n" + 
 						"			text: 'Your car has been added.',\r\n" + 
@@ -1650,6 +1691,7 @@ public void updateCarForShipper() {
 		selectedCar.setConsigneeId(consigneeNew);
 		try {
 			carFacade.addcar(selectedCar);
+			addCarActionForLog(selectedCar);
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Success',\r\n" + 
 					"			text: 'Your car has been updated.',\r\n" + 
@@ -1696,6 +1738,7 @@ public void updateCarForCustomer() {
 	selectedCar.setConsigneeId(consigneeNew);
 	try {
 		carFacade.addcar(selectedCar);
+		addCarActionForLog(selectedCar);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Your car has been updated.',\r\n" + 
@@ -1761,6 +1804,7 @@ public void updateCarForCustomer() {
 			
 		try {
 			carFacade.addcar(selectedCar);
+			addCarActionForLog(selectedCar);
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Success',\r\n" + 
 					"			text: 'Your car has been updated.',\r\n" + 
@@ -1850,6 +1894,7 @@ public void updateCarForCustomer() {
 			addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
 			addNewCar.setOrderPrice(0);
 			carFacade.addcar(addNewCar);
+//			addCarActionForLog(addNewCar);
 			for(int i=0;i<images_deleted.size();i++) {
 				carimage cImage=new carimage();
 				cImage.setCarId(addNewCar);
@@ -1902,6 +1947,7 @@ public void updateCarForCustomer() {
 				addNewCar.setTypeOfOrder(car.TYPE_SHIPPING);
 				addNewCar.setOrderPrice(0);
 				carFacade.addcar(addNewCar);
+				addCarActionForLog(addNewCar);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -2196,7 +2242,14 @@ public void updateCarForCustomer() {
 		if(isValid) {
 		
 		try {
+			
+			
+			
+			
 			carFacade.addcar(selectedCar);
+//			addCarActionForLog(selectedCar);
+			
+			
 			for(int i=0;i<images_deleted.size();i++) {
 				System.out.println("Ahmed File: "+String.valueOf(images_deleted.get(i)));
 				carimage cImage=new carimage();
@@ -2243,6 +2296,7 @@ public void updateCarForCustomer() {
 
 			
 			carFacade.addcar(selectedCar);
+			addCarActionForLog(selectedCar);
 				
 			
 			
@@ -2265,7 +2319,7 @@ public void updateCarForCustomer() {
 		} catch (Exception e1) {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Error',\r\n" + 
-					"			text: '"+e1.getMessage()+".',\r\n" + 
+					"			text: '"+e1.toString()+".',\r\n" + 
 					"			type: 'error'\r\n" + 
 					"		});");
 		}
@@ -2378,6 +2432,7 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 		 deletedCar.setDeleted(true);
 		 try {
 			carFacade.addcar(deletedCar);
+			addCarActionForLog(deletedCar);
 			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Car Has Been Deleted\", \"success\");");
 			
 			 try {
@@ -2508,6 +2563,20 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 
 	
 	
+
+
+	public log_infoAppServiceImpl getLog_infoFacade() {
+		return log_infoFacade;
+	}
+
+
+
+	public void setLog_infoFacade(log_infoAppServiceImpl log_infoFacade) {
+		this.log_infoFacade = log_infoFacade;
+	}
+
+
+
 	public List<mainTwo> getAllMainTwo() {
 		return allMainTwo;
 	}

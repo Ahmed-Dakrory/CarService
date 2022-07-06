@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import main.com.carService.log_info.log_infoRepository;
+
 /**
  * @author Dakrory
  *
@@ -22,6 +24,9 @@ public class carAppServiceImpl implements IcarAppService{
 	@Autowired
 	carRepository carDataRepository;
 	
+
+	@Autowired
+	log_infoRepository log_infoDataRepository;
 	
 	@Override
 	public List<car> getAll() {
@@ -42,6 +47,7 @@ public class carAppServiceImpl implements IcarAppService{
 	@Override
 	public car addcar(car data)throws Exception {
 		try{
+			
 			car data2=carDataRepository.addcar(data);
 			return data2;
 			}
@@ -51,6 +57,8 @@ public class carAppServiceImpl implements IcarAppService{
 				throw ex;
 			}
 	}
+	
+	
 
 
 	@Override
@@ -868,6 +876,17 @@ public class carAppServiceImpl implements IcarAppService{
 				ex.printStackTrace();
 				return 0;
 			}
+	}
+
+
+
+	public car addcar_no(car data) {
+			
+				
+				car data2=carDataRepository.addcar_no(data);
+				return data2;
+				
+		
 	}
 
 

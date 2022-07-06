@@ -245,10 +245,10 @@ public class bidBean implements Serializable{
 			float fees = 0;
 			float seaCost = 0;
 			float landcost = 0;
-			if(allCars.get(i).getCommision()!=null) commission =  allCars.get(i).getCommision();
-			if(allCars.get(i).getFees()!=null) fees =  allCars.get(i).getFees();
-			if(allCars.get(i).getSeacost()!=null) seaCost =  allCars.get(i).getSeacost();
-			if(allCars.get(i).getLandcost()!=null) landcost =  allCars.get(i).getLandcost();
+			if(allCars.get(i).getCommision()!=0) commission =  allCars.get(i).getCommision();
+			if(allCars.get(i).getFees()!=0) fees =  allCars.get(i).getFees();
+			if(allCars.get(i).getSeacost()!=0) seaCost =  allCars.get(i).getSeacost();
+			if(allCars.get(i).getLandcost()!=0) landcost =  allCars.get(i).getLandcost();
 			totalPrice +=commission+
 					fees+
 					seaCost+

@@ -33,6 +33,7 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
@@ -45,8 +46,11 @@ import main.com.carService.carImage.carimage;
 import main.com.carService.carImage.carimageAppServiceImpl;
 import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
+import main.com.carService.costCalc.transportfee;
+import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.customer.customer;
 import main.com.carService.customer.customerAppServiceImpl;
+import main.com.carService.form_settings.form_settingsAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
@@ -90,13 +94,28 @@ public class normalUserBean implements Serializable{
 
 	@ManagedProperty(value = "#{vendorFacadeImpl}")
 	private vendorAppServiceImpl vendorFacade;
-	
+
+	@ManagedProperty(value = "#{transportfeeFacadeImpl}")
+	private transportfeeAppServiceImpl transportfeeFacade;
 
 	@ManagedProperty(value = "#{customerFacadeImpl}")
 	private customerAppServiceImpl customerFacade;
 	
 	@ManagedProperty(value = "#{carimageFacadeImpl}")
 	private carimageAppServiceImpl carimageFacade;
+	
+
+	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
+	private form_settingsAppServiceImpl form_settingsFacade;
+	
+
+	private List<transportfee> allLocation;
+	private List<transportfee> allCity;
+	private List<transportfee> allState;
+	private Map<Integer,String> allLanding;
+	
+	private transportfee selectedTansportFees;
+	
 	
 	private int selectedCarState=0; 
 	private List<car> allCars;
@@ -169,12 +188,118 @@ public class normalUserBean implements Serializable{
 	
 	private List<user> allUsers;
 	private user selectedUser;
+	
+	
+
+	private double onlineFees;
+	private double GateFees=59;
+	private double seaFees;
+	private double landFees;
+	private double totalFees;
+	
+
+	private double copartFees;
+	private double ourFees;
+	
+	
+
+	private float dollarToDinar = 0;
+	
+	
+
+	public static double onlineBid[]= {	39,  39,  39,  39,  49,  49,  49,  49,  49,  49,
+			69,  69,  69,  69,  79,  79,  79,  79,  89,  89,
+			89,  89,  99,  99,  99,  99, 119, 129, 129,   0,
+			 0,   0,   0,   0,	 0};
+
+
+
+	public static int getLevel(double price) {
+	
+	int level = 0;
+	if(price >= 1.00 && price <= 349.99) {
+	level = 0;
+	}else if(price >= 350.00 && price <= 399.99) {
+	level = 1;
+	}else if(price >= 400.00 && price <= 449.99) {
+	level = 2;
+	}else if(price >= 450.00 && price <= 499.99) {
+	level = 3;
+	}else if(price >= 500.00 && price <= 549.99) {
+	level = 4;
+	}else if(price >= 550.00 && price <= 599.99) {
+	level = 5;
+	}else if(price >= 600.00 && price <= 699.99) {
+	level = 6;
+	}else if(price >= 700.00 && price <= 799.99) {
+	level = 7;
+	}else if(price >= 800.00 && price <= 899.99) {
+	level = 8;
+	}else if(price >= 900.00 && price <= 999.99) {
+	level = 9;
+	}else if(price >= 1000.00 && price <= 1199.99) {
+	level = 10;
+	}else if(price >= 1200.00 && price <= 1299.99) {
+	level = 11;
+	}else if(price >= 1300.00 && price <= 1399.99) {
+	level = 12;
+	}else if(price >= 1400.00 && price <= 1499.99) {
+	level = 13;
+	}else if(price >= 1500.00 && price <= 1599.99) {
+	level = 14;
+	}else if(price >= 1600.00 && price <= 1699.99) {
+	level = 15;
+	}else if(price >= 1700.00 && price <= 1799.99) {
+	level = 16;
+	}else if(price >= 1800.00 && price <= 1999.99) {
+	level = 17;
+	}else if(price >= 2000.00 && price <= 2399.99) {
+	level = 18;
+	}else if(price >= 2400.00 && price <= 2499.99) {
+	level = 19;
+	}else if(price >= 2500.00 && price <= 2999.99) {
+	level = 20;
+	}else if(price >= 3000.00 && price <= 3499.99) {
+	level = 21;
+	}else if(price >= 3500.00 && price <= 3999.99) {
+	level = 22;
+	}else if(price >= 4000.00 && price <= 4499.99) {
+	level = 23;
+	}else if(price >= 4500.00 && price <= 4999.99) {
+	level = 24;
+	}else if(price >= 5000.00 && price <= 5999.99) {
+	level = 25;
+	}else if(price >= 6000.00 && price <= 7499.99) {
+	level = 26;
+	}else if(price >= 7500.00 && price <= 9999.99) {
+	level = 27;
+	}else if(price >= 10000.00 && price <= 14999.99) {
+	level = 28;
+	}else if(price >= 15000.00 && price <= 19999.99) {
+	level = 29;
+	}else if(price >= 20000.00 && price <= 24999.99) {
+	level = 30;
+	}else if(price >= 25000.00 && price <= 29999.99) {
+	level = 31;
+	}else if(price >= 30000.00 && price <= 34999.99) {
+	level = 32;
+	}else if(price >= 35000.00 && price <= 10000000.00) {
+	level = 33;
+	}else if(price == -1) {
+	level = 34;
+	}
+
+	return level;
+	}
+
+
+	
 	@PostConstruct
 	public void init() {
 		distinationMap=new LinkedHashMap<Integer,String>();
 		origineMap=new LinkedHashMap<Integer,String>();
 		
-		
+		addNewCar = new car();
 		carStates = new ArrayList<String>();
 		for(int i=0;i<car.stateString.length;i++) {
 			carStates.add(car.stateString[i]);
@@ -266,6 +391,7 @@ public class normalUserBean implements Serializable{
 			
 		}
 	}
+	
 	public void refreshProfileData() {
 
 		user userNewId=loginBean.getTheUserOfThisAccount();
@@ -352,6 +478,92 @@ public class normalUserBean implements Serializable{
 
 	
 	}
+	
+
+public void calcValueOfTotalFeesCarSelected() {
+		
+
+		updateAllFees();
+		selectedTansportFees=transportfeeFacade.getWithSpecs(addNewCar.getSelectedLocation(), addNewCar.getSelectedCity(), addNewCar.getSelectedState());
+
+		if(selectedTansportFees!=null) {
+			double price=addNewCar.getOrderPrice();
+			int level=getLevel(price);
+			onlineFees=onlineBid[level];
+			seaFees=0;
+			if(addNewCar.getCarSize().equalsIgnoreCase("0")) {
+				seaFees=selectedTansportFees.getLowCost();
+			}else {
+				seaFees=selectedTansportFees.getHighCost();
+			}
+			
+			landFees=0;
+			
+			if(addNewCar.getOrigin()==1) {
+				landFees=selectedTansportFees.getNjPortCost();
+			}else if(addNewCar.getOrigin()==39) {
+				landFees=selectedTansportFees.getGaPortCost();
+			}else if(addNewCar.getOrigin()==381) {
+				landFees=selectedTansportFees.getTxPortCost();
+			}else if(addNewCar.getOrigin()==117) {
+				landFees=selectedTansportFees.getCaPortCost();
+			}
+
+			totalFees=copartFees+GateFees+seaFees+landFees+ourFees;
+			
+
+			
+		}
+		
+		
+		
+	}
+
+
+
+
+
+public void calcValueOfTotalFeesCarSelected_after() {
+		
+
+		updateAllFees();
+		selectedTansportFees=transportfeeFacade.getWithSpecs(addNewCar.getSelectedLocation(), addNewCar.getSelectedCity(), addNewCar.getSelectedState());
+
+		if(selectedTansportFees!=null) {
+			double price=addNewCar.getOrderPrice();
+			int level=getLevel(price);
+			onlineFees=onlineBid[level];
+			seaFees=0;
+			if(addNewCar.getCarSize().equalsIgnoreCase("0")) {
+				seaFees=selectedTansportFees.getLowCost();
+			}else {
+				seaFees=selectedTansportFees.getHighCost();
+			}
+			
+			landFees=0;
+			
+			if(addNewCar.getOrigin()==1) {
+				landFees=selectedTansportFees.getNjPortCost();
+			}else if(addNewCar.getOrigin()==39) {
+				landFees=selectedTansportFees.getGaPortCost();
+			}else if(addNewCar.getOrigin()==381) {
+				landFees=selectedTansportFees.getTxPortCost();
+			}else if(addNewCar.getOrigin()==117) {
+				landFees=selectedTansportFees.getCaPortCost();
+			}
+
+			totalFees=copartFees+GateFees+seaFees+landFees+addNewCar.getFees();
+			
+
+			
+		}
+		
+		
+		
+	}
+
+
+
 	public String getStringFromCalendar(Calendar calendar) {
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-dd-MM HH:mm:ss"); 
 		String returnedCalendarString="";
@@ -401,6 +613,8 @@ public class normalUserBean implements Serializable{
 					addNewCar=new car();
 					
 					addNewCar=carFacade.getById(id);
+					
+					calcValueOfTotalFeesCarSelected_after();
 					List<carimage> imagesPics = carimageFacade.getAllByCarIdAndType(id, carimage.TYPE_PIC);
 					if(imagesPics!=null) {
 					for(int i=0;i<imagesPics.size();i++) {
@@ -436,8 +650,26 @@ public class normalUserBean implements Serializable{
 		
 	}
 	
+	
+	
+public String floatOfNumberWithPercent(float number) {
+		
+		
+		return String.format("%.2f", number);
+	}
+
+
 public void refresh(){
 		
+	
+try {
+		
+		dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
+
+		}catch(NullPointerException exp) {
+			
+		}
+
 		mainTwoSelectedId=-1;
 		shipperSelectedId=-1;
 		vendorSelectedId=-1;
@@ -447,9 +679,28 @@ public void refresh(){
 		releaseVariablesForMain();
 			
 		
+		
+		allLocation = transportfeeFacade.getAllGroupsOfLocation();
+		allCity=new ArrayList<transportfee>();
+		allState=new ArrayList<transportfee>();
+		
+		addNewCar.setSelectedLocation(allLocation.get(0).getLocation());
+		
+		refreshCityList();
+		addNewCar.setSelectedCity(allCity.get(0).getCity());		
+		refreshStateList();
+		
 	}
 	
 
+public void updateAllFees() {
+	int level = calcBean.getLevel(addNewCar.getOrderPrice());
+	 copartFees = calcBean.CalculateCopart(level, addNewCar.getOrderPrice());
+	 ourFees= 100;
+	 System.out.println("Ahmed Dakrory Done");
+	 
+	 
+}
 public void theloaderFirst() {
 	
 	progress=true;
@@ -561,6 +812,57 @@ private boolean checkValidForCar(car addNewCar) {
 	return true;
 }
 
+
+
+public void addImageMain(FileUploadEvent event) {
+	byte[] image =event.getFile().getContents();
+	String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");
+	addNewCar.setMainUrl(fileName);
+	addNewCar.setPhotoExist(true);
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:imagesPanelMain");
+}
+
+
+
+
+public void refreshCityList() {
+
+	allCity = transportfeeFacade.getAllGroupsOfCityWithLocation(addNewCar.getSelectedLocation());
+	if(allCity!=null) {
+		addNewCar.setSelectedCity(allCity.get(0).getCity());
+		refreshStateList();
+	}
+}
+
+public void refreshStateList() {
+
+	allState = transportfeeFacade.getAllGroupsOfstateWithCity(addNewCar.getSelectedCity());
+	if(allState!=null) {
+		if(allState.size()>0) {
+			allLanding =new HashedMap<>();
+			
+			if(allState.get(0).getNjPortCost()!=0) {
+				allLanding.put(1, "NEW YORK, NY (1001)");					
+			}
+			
+			if(allState.get(0).getGaPortCost()!=0) {
+				allLanding.put(39, "SAVANNAH, GA (1703)");					
+			}
+			
+			if(allState.get(0).getTxPortCost()!=0) {
+				allLanding.put(381, "HOUSTON, TX (5301)");					
+			}
+			
+			if(allState.get(0).getCaPortCost()!=0) {
+				allLanding.put(117, "LOS ANGELES, CA (2704)");					
+			}
+			
+		}
+	}
+}
+
+
+
 public void saveNewCarDataMain() {
 	loginBean.getTheUserOfThisAccount();
 	
@@ -583,6 +885,14 @@ public void saveNewCarDataMain() {
 	
 	try {
 		addNewCar.setState(car.STATE_AddedByCustomer_REVISE);
+		
+
+		addNewCar.setLandcost((float) landFees);
+		addNewCar.setSeacost((float) seaFees);
+		addNewCar.setFees((float) ( ourFees));
+		addNewCar.setCommision((float) (copartFees+GateFees));
+		
+		
 		carFacade.addcar(addNewCar);
 		
 		for(int i=0;i<images_deleted.size();i++) {
@@ -864,7 +1174,8 @@ public void filterCarBySelectFirstTime() {
 			if(selectedCarState==0) {
 				//This for warehouse
 
-				List<car> wareHouseMain = carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				List<car> wareHouseMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+//				carFacade.getAllWareHouseForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				if(wareHouseMain!=null)
 					allCars.addAll(wareHouseMain);
@@ -874,7 +1185,8 @@ public void filterCarBySelectFirstTime() {
 			}else if(selectedCarState==1) {
 				// this for dry cargo
 
-				List<car> dryCargoMain = carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				List<car> dryCargoMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+//				carFacade.getAllDryCargoForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
 				if(dryCargoMain!=null)
@@ -886,7 +1198,8 @@ public void filterCarBySelectFirstTime() {
 				
 				// this for freight in transit
 
-				List<car> transitMain = carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				List<car> transitMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+//				carFacade.getAllFrightInTransitForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
 				if(transitMain!=null)
@@ -898,7 +1211,8 @@ public void filterCarBySelectFirstTime() {
 				
 				// this for SendForPayment
 
-				List<car> SentMain = carFacade.getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
+				List<car> SentMain = carFacade.getAllByStateForMainUser(loginBean.getTheUserOfThisAccount().getId(),selectedCarState);
+//				getAllFrightSentForPaymentForMainUser(loginBean.getTheUserOfThisAccount().getId());
 
 				
 				if(SentMain!=null)
@@ -906,7 +1220,7 @@ public void filterCarBySelectFirstTime() {
 				
 				
 
-			}else if(selectedCarState==3) {
+			}else if(selectedCarState==-1) {
 				//this for all
 
 				List<car> wareHouseMain = carFacade.getAllForMainUser(loginBean.getTheUserOfThisAccount().getId());
@@ -925,7 +1239,8 @@ public void filterCarBySelectFirstTime() {
 		}else {
 		if(selectedCarState==0) {
 			//This for warehouse
-			List<car> wareHouseMain = carFacade.getAllWareHouseFornormalUserId(userNewId.getId());
+			List<car> wareHouseMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),selectedCarState);
+//carFacade.getAllWareHouseFornormalUserId(userNewId.getId());
 
 			if(wareHouseMain!=null)
 				allCars.addAll(wareHouseMain);
@@ -935,7 +1250,8 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==1) {
 			// this for dry cargo
 
-			List<car> dryCargoMain = carFacade.getAllDryCargoFornormalUserId(userNewId.getId());
+			List<car> dryCargoMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),selectedCarState);
+//carFacade.getAllDryCargoFornormalUserId(userNewId.getId());
 
 			
 			if(dryCargoMain!=null)
@@ -946,7 +1262,8 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==2) {
 			// this for freight in transit
 
-			List<car> transitMain = carFacade.getAllFrightInTransitFornormalUserId(userNewId.getId());
+			List<car> transitMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),selectedCarState);
+//carFacade.getAllFrightInTransitFornormalUserId(userNewId.getId());
 
 			
 			if(transitMain!=null)
@@ -957,7 +1274,9 @@ public void filterCarBySelectFirstTime() {
 		}else if(selectedCarState==8) {
 			// this for freight Sent
 
-			List<car> SentMain = carFacade.getAllFrightSentForPaymentFornormalUserId(userNewId.getId());
+			List<car> SentMain = carFacade.getAllByStateForNormalUser(userNewId.getId(),selectedCarState);
+
+//					carFacade.getAllFrightSentForPaymentFornormalUserId(userNewId.getId());
 
 			
 			if(SentMain!=null)
@@ -965,7 +1284,7 @@ public void filterCarBySelectFirstTime() {
 			
 
 
-		}else if(selectedCarState==3) {
+		}else if(selectedCarState==-1) {
 			//this for all
 
 			allCars = carFacade.getAllForNormalUser(userNewId.getId());
@@ -1360,6 +1679,68 @@ public void setProgress(boolean progress) {
 }
 
 
+
+
+public transportfeeAppServiceImpl getTransportfeeFacade() {
+	return transportfeeFacade;
+}
+
+
+public void setTransportfeeFacade(transportfeeAppServiceImpl transportfeeFacade) {
+	this.transportfeeFacade = transportfeeFacade;
+}
+
+
+public List<transportfee> getAllLocation() {
+	return allLocation;
+}
+
+
+public void setAllLocation(List<transportfee> allLocation) {
+	this.allLocation = allLocation;
+}
+
+
+public List<transportfee> getAllCity() {
+	return allCity;
+}
+
+
+public void setAllCity(List<transportfee> allCity) {
+	this.allCity = allCity;
+}
+
+
+public List<transportfee> getAllState() {
+	return allState;
+}
+
+
+public void setAllState(List<transportfee> allState) {
+	this.allState = allState;
+}
+
+
+public Map<Integer, String> getAllLanding() {
+	return allLanding;
+}
+
+
+public void setAllLanding(Map<Integer, String> allLanding) {
+	this.allLanding = allLanding;
+}
+
+
+public transportfee getSelectedTansportFees() {
+	return selectedTansportFees;
+}
+
+
+public void setSelectedTansportFees(transportfee selectedTansportFees) {
+	this.selectedTansportFees = selectedTansportFees;
+}
+
+
 public List<String> getImages_deleted() {
 	return images_deleted;
 }
@@ -1535,6 +1916,112 @@ public void setSelectedUser(user selectedUser) {
 public static long getSerialversionuid() {
 	return serialVersionUID;
 }
+
+
+public double getOnlineFees() {
+	return onlineFees;
+}
+
+
+public void setOnlineFees(double onlineFees) {
+	this.onlineFees = onlineFees;
+}
+
+
+public double getGateFees() {
+	return GateFees;
+}
+
+
+public void setGateFees(double gateFees) {
+	GateFees = gateFees;
+}
+
+
+public double getSeaFees() {
+	return seaFees;
+}
+
+
+public void setSeaFees(double seaFees) {
+	this.seaFees = seaFees;
+}
+
+
+public double getLandFees() {
+	return landFees;
+}
+
+
+public void setLandFees(double landFees) {
+	this.landFees = landFees;
+}
+
+
+public double getTotalFees() {
+	return totalFees;
+}
+
+
+public void setTotalFees(double totalFees) {
+	this.totalFees = totalFees;
+}
+
+
+public double getCopartFees() {
+	return copartFees;
+}
+
+
+public void setCopartFees(double copartFees) {
+	this.copartFees = copartFees;
+}
+
+
+public double getOurFees() {
+	return ourFees;
+}
+
+
+public void setOurFees(double ourFees) {
+	this.ourFees = ourFees;
+}
+
+
+public form_settingsAppServiceImpl getForm_settingsFacade() {
+	return form_settingsFacade;
+}
+
+
+public void setForm_settingsFacade(form_settingsAppServiceImpl form_settingsFacade) {
+	this.form_settingsFacade = form_settingsFacade;
+}
+
+
+public float getDollarToDinar() {
+	return dollarToDinar;
+}
+
+
+public void setDollarToDinar(float dollarToDinar) {
+	this.dollarToDinar = dollarToDinar;
+}
+
+
+
+
+
+public static double[] getOnlineBid() {
+	return onlineBid;
+}
+
+
+
+public static void setOnlineBid(double[] onlineBid) {
+	normalUserBean.onlineBid = onlineBid;
+}
+
+
 
 
 

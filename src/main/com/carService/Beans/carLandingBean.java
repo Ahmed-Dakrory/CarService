@@ -822,19 +822,19 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 				allLanding =new HashedMap<>();
 				
 				if(allState.get(0).getNjPortCost()!=0) {
-					allLanding.put(0, "Newark, NJ");					
+					allLanding.put(1, "NEW YORK, NY (1001)");					
 				}
 				
 				if(allState.get(0).getGaPortCost()!=0) {
-					allLanding.put(1, "Savannah, GA");					
+					allLanding.put(39, "SAVANNAH, GA (1703)");					
 				}
 				
 				if(allState.get(0).getTxPortCost()!=0) {
-					allLanding.put(2, "Houston, TX");					
+					allLanding.put(381, "HOUSTON, TX (5301)");					
 				}
 				
 				if(allState.get(0).getCaPortCost()!=0) {
-					allLanding.put(3, "Los Angeles, CA");					
+					allLanding.put(117, "LOS ANGELES, CA (2704)");					
 				}
 				
 			}
@@ -996,13 +996,13 @@ public void calcValueOfTotalFeesCarSelected() {
 			
 			landFees=0;
 			
-			if(portType==0) {
+			if(portType==1) {
 				landFees=selectedTansportFees.getNjPortCost();
-			}else if(portType==1) {
+			}else if(portType==39) {
 				landFees=selectedTansportFees.getGaPortCost();
-			}else if(portType==2) {
+			}else if(portType==381) {
 				landFees=selectedTansportFees.getTxPortCost();
-			}else if(portType==3) {
+			}else if(portType==117) {
 				landFees=selectedTansportFees.getCaPortCost();
 			}
 

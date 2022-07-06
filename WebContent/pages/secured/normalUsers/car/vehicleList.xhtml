@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
@@ -41,16 +42,24 @@ color: #3686ff!important;
 			<h:form id="formOfSelectionCarState">
              <h:selectOneMenu value="#{normalUserBean.selectedCarState}" name="ctl00$BodyHolder$ddlLoadStatus" id="ctl00_BodyHolder_ddlLoadStatus"  style="font-size:11px;height:19px;width:180px;">
 				<f:ajax listener="#{normalUserBean.filterCarBySelect}"/>
-				<f:selectItem itemValue="0" itemLabel="شحن السيارة"/>
-				<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
-				<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
-				<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
-				<f:selectItem itemValue="9" itemLabel="فى المراجعة "/>
-				<f:selectItem itemValue="10" itemLabel="رفضت"/>
-				<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
-				<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
-				<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
-				<f:selectItem itemValue="3" itemLabel="اظهار الكل"/>
+				
+				<c:forEach items="#{normalUserBean.carStates}" var="var" varStatus="idx">
+														                           	<f:selectItem itemLabel="#{var}" itemValue="#{idx.index}"/>
+														                           	</c:forEach>
+	                           	<!-- 
+																					<f:selectItem itemValue="0" itemLabel="شحن السيارة"/>
+																					<f:selectItem itemValue="1" itemLabel="Dry Cargo"/>
+																					<f:selectItem itemValue="2" itemLabel="الشحنة فى الطريق"/>
+																					<f:selectItem itemValue="8" itemLabel="ارسلت للدفع"/>
+																					<f:selectItem itemValue="9" itemLabel="جديد"/>
+																					<f:selectItem itemValue="10" itemLabel="رفضت"/>
+																					<f:selectItem itemValue="11" itemLabel="تم الدفع"/>
+																					<f:selectItem itemValue="12" itemLabel="Caromoto تتم استلامها من"/>
+																					<f:selectItem itemValue="13" itemLabel="تم استلامها من قبل العميل"/>
+																					 -->
+																					<f:selectItem itemValue="-1" itemLabel="اظهار الكل"/>
+																					
+				
 			</h:selectOneMenu>
 			</h:form>
 		</div>
@@ -105,7 +114,7 @@ function ViewDocById(strID) {
 		
 <td class="d-block d-sm-none ">
 <div style="    width: 100%;">
-<img src="#{data.mainImageLink}" style="    margin-left: auto;    margin-right: auto;    width: inherit;"/>
+<img src="/images/?file=#{data.mainUrl}" style="    margin-left: auto;    margin-right: auto;    width: inherit;"/>
 </div>
 
 		
@@ -157,7 +166,7 @@ function ViewDocById(strID) {
 
 		<td class="d-none d-sm-table-cell center hidden-phone">
 		
-		<img src="#{data.mainImageLink}" width="157px" style="    margin-bottom: -39px;"/>
+		<img src="/images/?file=#{data.mainUrl}" height="157px" style="    margin-bottom: -39px;"/>
 		
 		<div class="" style="background-image: linear-gradient(rgb(255 254 250 / 76%) 0px, rgb(123 122 116 / 65%) 95%, rgb(29 29 28 / 67%) 0px);width: 100%;height: 47px;position: relative;top: -6px;text-align: right;padding-top: 5%;color: #f7f7f7;font-family: auto;" >
 			<div style="overflow: hidden;" class="col-md-6">

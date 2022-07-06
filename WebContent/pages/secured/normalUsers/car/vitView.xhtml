@@ -23,6 +23,22 @@
 	
 		<style>
 		
+		
+		.ui-fileupload-buttonbar{
+		border:none;
+		}
+		
+		
+		.image_border{
+		
+		
+    border: 1px solid gray;
+    margin-right: 7px;
+    border-radius: 8px;
+    padding: 19px;
+		
+		
+		}
 		.closeButtonNew:before {
     transform: rotate(
 45deg
@@ -167,13 +183,42 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-md-6 mb-3">
-						<div class="form-group">
-						    <label >رابط صورة السيارة</label>
-						    <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.mainImageLink}"   />
-						  </div>
+					<div class="col-md-6 mb-3 image_border">
+					
+					  
+                                                                                             <div class="row" height="23">
+                                                                                                <div colspan="6" class="col">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                    
+                                                                                                        <a onmouseover="this.style.cursor='hand'" onmouseout="this.style.cursor='default'"
+                                                                                                            onclick="ChangeVisibillity('picDivMain','picExpandMain')">
+                                                                                                            <img id="picExpandMain" width="19px" height="19px" src="/resources/images/img/accordeon_open.png" /><b> صورة السيارة:</b></a></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                              <div class="row" height="23">
+                                                                                                <div id="ctl00_BodyHolder_picTableCell"  class="col tbltxt" valign="top">
+                                                                                                     <div id="picDivMain" style="display: inline; margin-left: 6px">
+                                                                                                     	
+                                                                                                     	 <h:panelGroup id="imagesPanelMain">
+																	                                 <p:fileUpload id="FileUploadedMain" fileUploadListener="#{normalUserBean.addImageMain}" dragDropSupport="true" sizeLimit="99999999" fileLimit="20" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"></p:fileUpload>
+        
+																	                                    <label for="aspnetForm:FileUploadedMain_input">
+																	                                    <h:graphicImage value="/resources/images/public/img/membership-choice-step/addNew.png" rendered="#{normalUserBean.addNewCar.mainUrl!=null?'false':'true'}" alt="imageMain3" style="border-width:0px;width: auto;max-width: 61px;height: auto;max-height: 195px;" />
+																	                                    <h:graphicImage value="/images/?file=#{normalUserBean.addNewCar.mainUrl}" rendered="#{normalUserBean.addNewCar.mainUrl!=null?'true':'false'}" alt="imageMain" style="border-width:0px;width: auto;max-width: 195px;height: auto;max-height: 195px;" />
+																	                                    </label>
+																	                                     </h:panelGroup>   
+                                                                                                     	
+                                                                                                     	</div>
+                                                                                                </div>
+                                                                                              </div>
+                                                                                                  
+                                                                                            
+                                                                                            
+                            
+                            
+						
 					</div>
-					<div class="col-md-6 mb-3">
+					<div class="col-md-5 mb-3">
 						<div class="form-group">
 						    <label >رابط السيارة</label>
 						    <h:inputText  type="text" class="form-control" value="#{normalUserBean.addNewCar.orderLink}"   />
@@ -384,23 +429,166 @@
                            </h:selectOneMenu>
                          </div>
                    </div>
+                   </div>
                    
-                    <div class="col-md-6 mb-3">
+                   <div class="row">
+                   <p:panel id="ajaxSpinnerValue2"  style="width:100%">
+                   <div class="col-md-12 mb-3">
 						<div class="form-group">
-						    <label >ميناء الخروج</label>
-						    <h:selectOneMenu value="#{normalUserBean.addNewCar.origin}" class="form-control" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" >
-								<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
-								<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
-								<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
-								<f:selectItem itemValue="371" itemLabel="MIAMI, FL (5201)"/>
-								<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
-								<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
-								<f:selectItem itemValue="391" itemLabel="Indianapolis IN (4110)"/>
+						    <label >حجم السيارة</label>
+						    <h:selectOneMenu value="#{normalUserBean.addNewCar.carSize}" class="form-control"   >
+								<f:selectItem itemLabel="Small" itemValue="0"/>
+								<f:selectItem itemLabel="SUV" itemValue="1"/>
 							</h:selectOneMenu>
                        </div>
                    </div>
                    
                    
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >موقع السيارة</label>
+						    <h:selectOneMenu value="#{normalUserBean.addNewCar.selectedLocation}" class="form-control" >
+								<f:ajax listener="#{normalUserBean.refreshCityList()}" render="ajaxSpinnerValue2"/>
+								<f:selectItems value="#{normalUserBean.allLocation}" var="var" itemLabel="#{var.location}" itemValue="#{var.location}"/>
+							</h:selectOneMenu>
+							
+                       </div>
+                   </div>
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >من مدينة</label>
+						    <h:selectOneMenu value="#{normalUserBean.addNewCar.selectedCity}" class="form-control" >
+								<f:ajax listener="#{normalUserBean.refreshStateList()}" render="ajaxSpinnerValue2"/>
+								<f:selectItems value="#{normalUserBean.allCity}" var="var" itemLabel="#{var.city}" itemValue="#{var.city}"/>
+							</h:selectOneMenu>
+							
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >من ولاية</label>
+						    
+						    <h:selectOneMenu value="#{normalUserBean.addNewCar.selectedState}" name="type" id="type4" styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						
+								<f:selectItems value="#{normalUserBean.allState}" var="var" itemLabel="#{var.state}" itemValue="#{var.state}"/>
+							</h:selectOneMenu>
+					
+					
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >ميناء الخروج</label>
+						    
+						    <h:selectOneMenu  value="#{normalUserBean.addNewCar.origin}"  styleClass="form-control hasCustomSelect valid" style="-webkit-appearance: menulist-button;font-size: 14px;">
+						
+								<f:selectItems value="#{normalUserBean.allLanding.entrySet().toArray()}" var="var" itemValue="#{var.key}" itemLabel="#{var.value}"/>
+							
+							</h:selectOneMenu>
+					
+					
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   
+                   <div class="col-md-12 mb-3">
+                   <p:commandButton class="w-100" update="ajaxSpinnerValue2" value="Calc             اضغط لمعرفة التكلفة الشاملة" style="font-weight:700;" action="#{normalUserBean.calcValueOfTotalFeesCarSelected}">
+				</p:commandButton>	
+                   </div>
+                   
+                   
+                   <div class="card-body">
+		    		<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Auction Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.copartFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.copartFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولة المزاد
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Our Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.ourFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.ourFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولتنا
+						</div>
+					</div>
+					<hr/>
+					
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Sea Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.seaFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.seaFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة الشحن البحرى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Land Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.landFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.landFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة النقل الداخلى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.totalFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.totalFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.totalFees+normalUserBean.addNewCar.orderPrice} ,(#{normalUserBean.floatOfNumberWithPercent((normalUserBean.totalFees+normalUserBean.addNewCar.orderPrice)*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع النهائى
+						</div>
+					</div>
+								
+								
+		    	</div>
+		    	
+		    	
+		    
+		    
+		    
+                   </p:panel>
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >ميناء الوصول</label>

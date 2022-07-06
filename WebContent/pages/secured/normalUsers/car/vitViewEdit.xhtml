@@ -550,6 +550,8 @@ color: white
                    <div class="col-md-6 mb-3">
 						<div class="form-group">
 						    <label >نوع السيارة</label>
+						    
+						    
 						    <h:selectOneMenu disabled="true" name="ctl00$BodyHolder$txtMake" type="text" value="#{normalUserBean.addNewCar.type}" class="form-control" id="ctl00_BodyHolder_txttype" >
 	                           <f:selectItem itemLabel="سيارة" itemValue="0"/>
 	                           <f:selectItem itemLabel="نقل جاف" itemValue="1"/>
@@ -557,21 +559,162 @@ color: white
                          </div>
                    </div>
                    
-                    <div class="col-md-6 mb-3">
+                   </div>
+                   
+                   <div class="row">
+                   
+                   
+                    <p:panel id="ajaxSpinnerValue2"  style="width:100%">
+                   <div class="col-md-12 mb-3">
 						<div class="form-group">
-						    <label >ميناء الخروج</label>
-						    <h:selectOneMenu disabled="true" value="#{normalUserBean.addNewCar.origin}" class="form-control" name="ctl00$BodyHolder$ddlOrigin" id="ctl00_BodyHolder_ddlOrigin" >
-								<f:selectItem itemValue="-1" itemLabel="--SELECT--"/>
-								<f:selectItem itemValue="381" itemLabel="HOUSTON, TX (5301)"/>
-								<f:selectItem itemValue="117" itemLabel="LOS ANGELES, CA (2704)"/>
-								<f:selectItem itemValue="371" itemLabel="MIAMI, FL (5201)"/>
-								<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
-								<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
-								<f:selectItem itemValue="391" itemLabel="Indianapolis IN (4110)"/>
-							</h:selectOneMenu>
+						    <label >حجم السيارة</label>
+						    
+						   <h:inputText disabled="true" value="#{normalUserBean.addNewCar.carSize==0?'Small':'SUV'}" class="form-control" type="text"   />
+						    
+						  
                        </div>
                    </div>
                    
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >موقع السيارة</label>
+						    
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.selectedLocation}" class="form-control" type="text"   />
+						   
+							
+                       </div>
+                   </div>
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >من مدينة</label>
+						    
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.selectedCity}" class="form-control" type="text"   />
+						   
+						   
+							
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >من ولاية</label>
+						    <h:inputText disabled="true" value="#{normalUserBean.addNewCar.selectedState}" class="form-control" type="text"   />
+						   
+						 
+					
+					
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   <div class="col-md-12 mb-3">
+						<div class="form-group">
+						    <label >ميناء الخروج</label>
+						    <h:inputText disabled="true" value="#{carBean.getTheOrigin(normalUserBean.addNewCar.origin)}" class="form-control" type="text"   />
+						   
+					
+					
+                       </div>
+                   </div>
+                   
+                   
+                   
+                   
+                  
+                   
+                   
+                   <div class="card-body">
+		    		<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Auction Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.copartFees+normalUserBean.gateFees} ,(#{normalUserBean.floatOfNumberWithPercent((normalUserBean.copartFees+normalUserBean.gateFees)*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولة المزاد
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Our Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.addNewCar.fees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.addNewCar.fees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							عمولتنا
+						</div>
+					</div>
+					<hr/>
+					
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Sea Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.seaFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.seaFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة الشحن البحرى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Land Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.landFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.landFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							تكلفة النقل الداخلى
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total Fees:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.totalFees} ,(#{normalUserBean.floatOfNumberWithPercent(normalUserBean.totalFees*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع
+						</div>
+					</div>
+					<hr/>
+					<div class="row divider">
+						<div class="col-md-3 text-left" style="font-size: 13px;color: gray;font-weight: 300;">
+							Total:
+						</div>
+						<div class="col-md-5 text-right" style="font-size: 13px;color: #5d5454;font-weight: 900;" >
+						$#{normalUserBean.totalFees+normalUserBean.addNewCar.orderPrice} ,(#{normalUserBean.floatOfNumberWithPercent((normalUserBean.totalFees+normalUserBean.addNewCar.orderPrice)*normalUserBean.dollarToDinar)})LYD
+						</div>
+						<div class="col-md-3 text-right" style="font-size: 13px;color: gray;font-weight: 300;">
+							المجموع النهائى
+						</div>
+					</div>
+								
+								
+		    	</div>
+		    	
+		    	
+		    
+		    
+		    
+                   </p:panel>
+                   
+                   </div>
+                   
+                   <div class="row">
                    
                    <div class="col-md-6 mb-3">
 						<div class="form-group">

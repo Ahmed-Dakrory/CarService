@@ -306,8 +306,27 @@ public class car {
 	@Column(name = "model")
 	private String model;
 	
+
+	@Column(name = "carSize")
+	private String carSize;
 	
 
+	@Column(name = "selectedLocation")
+	private String selectedLocation;
+	
+
+	@Column(name = "selectedCity")
+	private String selectedCity;
+	
+
+	@Column(name = "selectedState")
+	private String selectedState;
+	
+	
+	
+	
+	
+	
 	
 
 	@Column(name = "mainUrl")
@@ -467,16 +486,16 @@ public class car {
 	private Integer state;
 
 	@Column(name = "landcost")
-	private Integer landcost;
+	private float landcost;
 
 	@Column(name = "seacost")
-	private Integer seacost;
+	private float seacost;
 
 	@Column(name = "fees")
-	private Integer fees;
+	private float fees;
 
 	@Column(name = "commision")
-	private Integer commision;
+	private float commision;
 	
 
 	@Column(name = "lastUpdate")
@@ -1061,7 +1080,7 @@ public class car {
 
 
 
-	public Integer getLandcost() {
+	public float getLandcost() {
 		return landcost;
 	}
 
@@ -1072,7 +1091,7 @@ public class car {
 
 
 
-	public void setLandcost(Integer landcost) {
+	public void setLandcost(float landcost) {
 		this.landcost = landcost;
 	}
 
@@ -1083,7 +1102,7 @@ public class car {
 
 
 
-	public Integer getSeacost() {
+	public float getSeacost() {
 		return seacost;
 	}
 
@@ -1094,7 +1113,7 @@ public class car {
 
 
 
-	public void setSeacost(Integer seacost) {
+	public void setSeacost(float seacost) {
 		this.seacost = seacost;
 	}
 
@@ -1105,7 +1124,7 @@ public class car {
 
 
 
-	public Integer getFees() {
+	public float getFees() {
 		return fees;
 	}
 
@@ -1116,7 +1135,7 @@ public class car {
 
 
 
-	public void setFees(Integer fees) {
+	public void setFees(float fees) {
 		this.fees = fees;
 	}
 
@@ -1127,7 +1146,7 @@ public class car {
 
 
 
-	public Integer getCommision() {
+	public float getCommision() {
 		return commision;
 	}
 
@@ -1138,7 +1157,7 @@ public class car {
 
 
 
-	public void setCommision(Integer commision) {
+	public void setCommision(float commision) {
 		this.commision = commision;
 	}
 
@@ -1626,6 +1645,82 @@ public class car {
 
 	public void setImagesLink(String imagesLink) {
 		this.imagesLink = imagesLink;
+	}
+
+
+
+	
+	
+	
+	
+
+
+
+	public String getCarSize() {
+		return carSize;
+	}
+
+
+
+
+
+
+	public void setCarSize(String carSize) {
+		this.carSize = carSize;
+	}
+
+
+
+
+
+
+	public String getSelectedLocation() {
+		return selectedLocation;
+	}
+
+
+
+
+
+
+	public void setSelectedLocation(String selectedLocation) {
+		this.selectedLocation = selectedLocation;
+	}
+
+
+
+
+
+
+	public String getSelectedCity() {
+		return selectedCity;
+	}
+
+
+
+
+
+
+	public void setSelectedCity(String selectedCity) {
+		this.selectedCity = selectedCity;
+	}
+
+
+
+
+
+
+	public String getSelectedState() {
+		return selectedState;
+	}
+
+
+
+
+
+
+	public void setSelectedState(String selectedState) {
+		this.selectedState = selectedState;
 	}
 
 

@@ -20,6 +20,8 @@ import main.com.carService.car.car;
 import main.com.carService.car.carAppServiceImpl;
 import main.com.carService.carLanding.carLanding;
 import main.com.carService.carLanding.carLandingAppServiceImpl;
+import main.com.carService.log_info.log_info;
+import main.com.carService.log_info.log_infoAppServiceImpl;
 import main.com.carService.myCars.mycars;
 import main.com.carService.myCars.mycarsAppServiceImpl;
 import main.com.carService.product.product;
@@ -40,6 +42,10 @@ public class carLandingApiClass {
 
 	@Inject
 	private carAppServiceImpl carFacade;
+	
+
+	@Inject
+	private log_infoAppServiceImpl log_infoFacade;
 	
 	
 	@Inject
@@ -179,6 +185,40 @@ public class carLandingApiClass {
     }
 	
 	
+	
+	@RequestMapping(value = "/allLog_infoDependsOnStateAndRole" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> allLog_infoDependsOnStateAndRole(@RequestParam(value="start",required=false) Integer start,
+	    		@RequestParam(value="length",required=false) Integer length,
+	    		@RequestParam(value="draw",required=false) Integer draw,
+	    		@RequestParam(value="state",required=false) Integer state,
+	    		@RequestParam(value="role",required=false) Integer role,
+	    		@RequestParam(value="useridAny",required=false) Integer useridAny,
+	    		@RequestParam(value="search[value]",required=false) String search_value,
+	    		@RequestParam(value="order[0][column]",required=false) int col_order_number,
+	    		@RequestParam(value="order[0][dir]",required=false) String col_ordering) {
+
+			Gson gson = new Gson();
+//				int pageNumber = (start/length + 1);
+				List<log_info> list = log_infoFacade.getAllWithPagination(start, length,search_value,role,state,useridAny,col_order_number,col_ordering);
+			
+		      JsonArray alldata = new JsonArray();
+		      for(int i=0;i<list.size();i++) {
+		    	  alldata.add(list.get(i).toJson());
+		      }
+		      
+		      long numberOfCarsTotal =  log_infoFacade.getAllCountSearch(start, length,search_value,role,state,useridAny,col_order_number,col_ordering);
+		      JsonObject obj =new JsonObject();
+		      obj.add("data", alldata);
+		      obj.addProperty("draw", draw);
+		      obj.addProperty("recordsTotal",numberOfCarsTotal);
+		      obj.addProperty("recordsFiltered", numberOfCarsTotal);
+		    	return new ResponseEntity<>(gson.toJson(obj), HttpStatus.CREATED); 
+		
+
+	     
+	    }
+		
+		
 	@RequestMapping(value = "/allSearch" ,method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> allSearch(@RequestParam(value="start",required=false) Integer start,
     		@RequestParam(value="length",required=false) Integer length,
