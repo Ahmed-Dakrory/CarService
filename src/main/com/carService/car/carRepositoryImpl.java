@@ -945,6 +945,40 @@ public class carRepositoryImpl implements carRepository{
 		
 	}
 
+
+
+	@Override
+	public List<car> getAllForNormalUserAndContainer(int normalUserId, String container) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForNormalUserAndContainer")
+				.setInteger("normalUserId",normalUserId)
+				.setString("container",container);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+
+
+	@Override
+	public List<car> getAllForNormalUserGroupBy(int normalUserId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("car.getAllForNormalUserGroupBy")
+				.setInteger("normalUserId",normalUserId);
+
+		 @SuppressWarnings("unchecked")
+		List<car> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+
+	}
+
 	
 
 

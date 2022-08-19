@@ -5646,7 +5646,7 @@ td {
                                                                                                         Our Fees:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.selectedCar.fees}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText disabled="#{carBean.selectedCar.invoice_for_normalUser}" name="ctl00$BodyHolder$txtReleaseDate" type="text" id="ctl00_BodyHolder_txtReleaseDate" value="#{carBean.selectedCar.fees}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                                 <td style="width: 250px" class="tbltxt">
@@ -5693,7 +5693,7 @@ td {
                                                                                                         Car Price:</div>
                                                                                                 </td>
                                                                                                 <td style="width: 250px" align="left">
-                                                                                                    <h:inputText  type="text"  value="#{carBean.selectedCar.orderPrice}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    <h:inputText disabled="#{carBean.selectedCar.invoice_for_normalUser}" type="text"  value="#{carBean.selectedCar.orderPrice}" style="font-size:11px;height:19px;width:200px;" />
                                                                                                     
                                                                                                 </td>
                                                                                                 <td style="width: 250px" class="tbltxt">

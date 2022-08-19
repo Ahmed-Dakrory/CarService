@@ -28,6 +28,8 @@ import main.com.carService.invoice.invoiceAppServiceImpl;
 import main.com.carService.invoice.invoiceDTO;
 import main.com.carService.invoiceCars.invoiceCar;
 import main.com.carService.invoiceCars.invoiceCarAppServiceImpl;
+import main.com.carService.log_info.log_info;
+import main.com.carService.log_info.log_infoAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.shipper.shipper;
@@ -53,7 +55,9 @@ public class shipperBean implements Serializable{
 	
 	
  
-	
+
+	@ManagedProperty(value = "#{log_infoFacadeImpl}")
+	private log_infoAppServiceImpl log_infoFacade;
 
 	@ManagedProperty(value = "#{loginBean}")
 	private main.com.carService.loginNeeds.loginBean loginBean; 
@@ -88,12 +92,17 @@ public class shipperBean implements Serializable{
 	private shipper selectedshipper;
 	
 	private shipper addNewshipper;
-	
+	private user userForInvoice;
 	private shipper shipperForInvoice;
 	private invoice invoiceData;
 	private List<car> carsForthisAccount;
 	private List<car> carsForInvoice;
 	private Integer selectedCarIdToBeAddedInInvoice;
+	
+	private List<car> carsForContainer;
+	private List<car> containers_for_user;
+	private String selectedContainerToBeAddedInInvoice;
+	
 	private Float carFeesInvoice;
 	
 	private List<invoiceDTO> allInvoice;
@@ -117,9 +126,43 @@ public class shipperBean implements Serializable{
 	}
 	
 	
+	private void addCarActionForLog(car car,String sttt) {
+	// TODO Auto-generated method stub
+
+		log_info data_info =new log_info();
+//		System.out.println(new Date());
+//		System.out.println(car.getId());
+		
+		
+//		System.out.println(loginBean.getTheUserOfThisAccount().getId());
+//		System.out.println(loginBean.getTheUserOfThisAccount().getEmail());
+		data_info.setCarId(car);
+
+//		System.out.println("--------------------Ahmed 1------------");
+		data_info.setData(sttt);
+//		System.out.println("--------------------Ahmed 2------------");
+		data_info.setUserId(loginBean.getTheUserOfThisAccount());
+//		System.out.println("--------------------Ahmed 3------------");
+		data_info.setDate(new Date());
+//		System.out.println("--------------------Ahmed 4------------");
+		data_info.setObject("car");
+//		System.out.println("--------------------Ahmed 5------------");
+		data_info.setObject_id(String.valueOf(car.getId()));
+
+//		System.out.println(car.getId());
+//		System.out.println("--------------------Ahmed 6------------");
+		log_infoFacade.addlog_info(data_info);
+//		System.out.println("--------------------Ahmed 7------------");
+}
+
+	
 	public void refreshAllSettings() {
 		allform_settings = form_settingsFacade.getAll();
 	}
+	
+	
+	
+	
 	public void getAllInvoicesBetweenDates() {
 		totalFees = 0;
 		Calendar lowDate = setCalendarFromString(dateLower);
@@ -185,6 +228,79 @@ public class shipperBean implements Serializable{
 		try {
 			FacesContext.getCurrentInstance()
 			   .getExternalContext().redirect("/pages/secured/shipper/invoice/invoiceList.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void getAllInvoicesBetweenDates_user() {
+		totalFees = 0;
+		Calendar lowDate = setCalendarFromString(dateLower);
+		Calendar highDate = setCalendarFromString(dateHigh);
+		
+		allInvoice =new ArrayList<invoiceDTO>();
+		List<invoice> allInvoicesForThisMainAccount =new ArrayList<invoice>();
+		if(lowDate == null || highDate ==null) {
+			allInvoicesForThisMainAccount = invoiceFacade.getAllByCustomerId(loginBean.getTheUserOfThisAccount().getId());
+			
+		}else {
+		allInvoicesForThisMainAccount = invoiceFacade.getAllByCustomerIdBetweenDates(loginBean.getTheUserOfThisAccount().getId(),lowDate,highDate);
+		}
+		if(allInvoicesForThisMainAccount!=null) {
+		if(allInvoicesForThisMainAccount.size()>0) {
+		for(int i=0;i<allInvoicesForThisMainAccount.size();i++) {
+			int totalFeesForInvoice = 0;
+			List<invoiceCar> allCarsForThisInvoice = invoiceCarFacade.getAllByinvoiceId(allInvoicesForThisMainAccount.get(i).getId());
+			try {
+			for(int j=0;j<allCarsForThisInvoice.size();j++) {
+				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
+				float landCost=0;
+				float Seacost=0;
+				float Commision=0;
+				float Fees=0;
+				
+				
+				if(selectedCar.getLandcost()!=0) landCost=selectedCar.getLandcost();
+				if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
+				if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
+				if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
+						
+				float totalForCar=(float) (landCost+Seacost
+						+Commision+Fees);
+				
+				
+				//This for total Fees Without Transfer
+				totalFeesForInvoice+=totalForCar;
+				
+				
+				//This for the total Fees With Transfer
+
+				float trFees = 0;
+				if(allInvoicesForThisMainAccount.get(i).getTransferFees()!=null) {
+					trFees=allInvoicesForThisMainAccount.get(i).getTransferFees();
+				}
+				totalFees = totalFees + totalForCar + (totalForCar/100*trFees);
+			}
+			}catch(Error er) {
+				
+			}
+			
+			invoiceDTO invoicedto =new invoiceDTO();
+			invoicedto.setCarsForInvoice(allCarsForThisInvoice);
+			invoicedto.setInvoice(allInvoicesForThisMainAccount.get(i));
+			invoicedto.setTotalPrice(totalFeesForInvoice);
+			invoicedto.setNumberOfCars(allCarsForThisInvoice.size());
+			
+			allInvoice.add(invoicedto);
+		}
+		}
+		}
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoiceList_normal.jsf?faces-redirect=true");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -262,8 +378,66 @@ public class shipperBean implements Serializable{
 		return dateTime;
 	}
 	
+	
+	
+	
+	public void addContainerToInvoice_requester() {
+		List<car> selectedCarsToBeAddedInInvoice= carFacade.getAllForNormalUserAndContainer(userForInvoice.getId(),selectedContainerToBeAddedInInvoice);
+		for(int i=0;i<selectedCarsToBeAddedInInvoice.size();i++) {
+			car carObject = selectedCarsToBeAddedInInvoice.get(i);
+			if(!carsForInvoice.contains(carObject)) {
+				if(carObject.isPayed_done() & !carObject.isInvoice_for_normalUser()) {
+
+				carsForInvoice.add(carObject);
+				}
+			}
+		}
+
+		try {
+
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoiceAdd.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void addCarToInvoice_requester() {
+		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInInvoice);
+		System.out.println("CarNew");
+		if(selectedCarToBeAddedInInvoice.isPayed_done() & !selectedCarToBeAddedInInvoice.isInvoice_for_normalUser()) {
+
+			System.out.println("Not");
+		carsForInvoice.add(selectedCarToBeAddedInInvoice);
+		
+		
+
+		try {
+
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoiceAdd.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}else {
+
+			System.out.println("Not all Dakrory");
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'Car Cannot Be added because it is not be payed or is already has invoice',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
+		
+
+	
 	public void addCarToInvoice() {
 		car selectedCarToBeAddedInInvoice= carFacade.getById(selectedCarIdToBeAddedInInvoice);
+		if(selectedCarToBeAddedInInvoice.isPayed_done() & !selectedCarToBeAddedInInvoice.isInvoice_for_normalUser()) {
+
 		carsForInvoice.add(selectedCarToBeAddedInInvoice);
 
 		try {
@@ -273,6 +447,13 @@ public class shipperBean implements Serializable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'Car Cannot Be added because it is not be payed or is already has invoice',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
 		}
 	}
 	
@@ -288,10 +469,23 @@ public class shipperBean implements Serializable{
 		}
 	}
 	
+	public void deleteCarInInvoice_requester(int indexInList) {
+		carsForInvoice.remove(indexInList);
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoiceAdd.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	public void saveInvoiceData() {
+	
+	
+	
+	public void saveInvoiceData_requester() {
 
-		invoiceData.setUserIdCustomer(shipperForInvoice.getUserId());
+		invoiceData.setUserIdCustomer(userForInvoice);
 		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
 		invoiceData.setDate(Calendar.getInstance());
 		
@@ -299,7 +493,22 @@ public class shipperBean implements Serializable{
 		carFeesInvoice=(float) 0;
 		for(int i=0;i<carsForInvoice.size();i++) {
 			invoiceCar carinvoice=new invoiceCar();
+			car carObject = carsForInvoice.get(i);
+			carObject.setInvoice_for_normalUser(true);
+			try {
+				carFacade.addcar(carObject);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Error',\r\n" + 
+						"			text: '"+e.getMessage()+".',\r\n" + 
+						"			type: 'error'\r\n" + 
+						"		});");
+			}
 			carinvoice.setCarId(carsForInvoice.get(i));
+
+			addCarActionForLog(carsForInvoice.get(i),"Invoice Generated to this car");
 			carinvoice.setInvoiceId(invoiceData);
 			
 			invoiceCarFacade.addinvoiceCar(carinvoice);
@@ -307,6 +516,85 @@ public class shipperBean implements Serializable{
 			float Seacost = 0;
 			float Commision = 0;
 			float Fees = 0;
+			float orderPrice = 0;
+			try {
+				 landCost=carsForInvoice.get(i).getLandcost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Seacost=carsForInvoice.get(i).getSeacost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Commision=carsForInvoice.get(i).getCommision();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Fees=carsForInvoice.get(i).getFees();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				orderPrice=carsForInvoice.get(i).getOrderPrice();
+				}catch(Exception er) {
+					
+				}
+			
+			
+					
+			float totalForCar=(float) (orderPrice+landCost+Seacost
+					+Commision+Fees);
+			
+			carFeesInvoice+=totalForCar;
+		}
+		
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoice.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	public void showTheInvoice_dashboard(int id) {
+//		System.out.println("Ahmed: Data");
+		invoiceData = invoiceFacade.getById(id);
+		List<invoiceCar> cars_for_invoice = invoiceCarFacade.getAllByinvoiceId(invoiceData.getId());
+
+		carsForInvoice =new ArrayList<car>();
+		for(int i=0;i<cars_for_invoice.size();i++) {
+			
+				carsForInvoice.add(cars_for_invoice.get(i).getCarId());
+			
+		}
+		 
+//		System.out.println("Ahmed: Data2");
+
+		
+		
+		carFeesInvoice=(float) 0;
+		for(int i=0;i<carsForInvoice.size();i++) {
+			invoiceCar carinvoice=new invoiceCar();
+			carinvoice.setCarId(carsForInvoice.get(i));
+			carinvoice.setInvoiceId(invoiceData);
+			
+			float landCost = 0;
+			float Seacost = 0;
+			float Commision = 0;
+			float Fees = 0;
+			float orderPrice=0;
 			try {
 				 landCost=carsForInvoice.get(i).getLandcost();
 				}catch(Exception er) {
@@ -331,7 +619,157 @@ public class shipperBean implements Serializable{
 					
 				}
 					
-			float totalForCar=(float) (landCost+Seacost
+			try {
+				orderPrice=carsForInvoice.get(i).getOrderPrice();
+				}catch(Exception er) {
+					
+				}
+			
+			
+					
+			float totalForCar=(float) (orderPrice+landCost+Seacost
+					+Commision+Fees);
+			
+			carFeesInvoice+=totalForCar;
+		}
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoice.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	public void showTheInvoice_user(int id) {
+//		System.out.println("Ahmed: Data");
+		invoiceData = invoiceFacade.getById(id);
+		List<invoiceCar> cars_for_invoice = invoiceCarFacade.getAllByinvoiceId(invoiceData.getId());
+
+		carsForInvoice =new ArrayList<car>();
+		for(int i=0;i<cars_for_invoice.size();i++) {
+			
+				carsForInvoice.add(cars_for_invoice.get(i).getCarId());
+			
+		}
+		 
+//		System.out.println("Ahmed: Data2");
+
+		
+		
+		carFeesInvoice=(float) 0;
+		for(int i=0;i<carsForInvoice.size();i++) {
+			invoiceCar carinvoice=new invoiceCar();
+			carinvoice.setCarId(carsForInvoice.get(i));
+			carinvoice.setInvoiceId(invoiceData);
+			
+			float landCost = 0;
+			float Seacost = 0;
+			float Commision = 0;
+			float Fees = 0;
+			float orderPrice=0;
+			try {
+				 landCost=carsForInvoice.get(i).getLandcost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Seacost=carsForInvoice.get(i).getSeacost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Commision=carsForInvoice.get(i).getCommision();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				orderPrice=carsForInvoice.get(i).getOrderPrice();
+				}catch(Exception er) {
+					
+				}
+			
+			
+					
+			float totalForCar=(float) (orderPrice+landCost+Seacost
+					+Commision+Fees);
+
+			carFeesInvoice+=totalForCar;
+		}
+		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoice_user.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	public void saveInvoiceData() {
+
+		invoiceData.setUserIdCustomer(shipperForInvoice.getUserId());
+		invoiceData.setUserIdIssuer(loginBean.getTheUserOfThisAccount());
+		invoiceData.setDate(Calendar.getInstance());
+		
+		invoiceFacade.addinvoice(invoiceData);
+		carFeesInvoice=(float) 0;
+		for(int i=0;i<carsForInvoice.size();i++) {
+			invoiceCar carinvoice=new invoiceCar();
+			carinvoice.setCarId(carsForInvoice.get(i));
+			addCarActionForLog(carsForInvoice.get(i),"Invoice Generated to this car");
+			carinvoice.setInvoiceId(invoiceData);
+			
+			invoiceCarFacade.addinvoiceCar(carinvoice);
+			float landCost = 0;
+			float Seacost = 0;
+			float Commision = 0;
+			float Fees = 0;
+			float orderPrice=0;
+			try {
+				 landCost=carsForInvoice.get(i).getLandcost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Seacost=carsForInvoice.get(i).getSeacost();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Commision=carsForInvoice.get(i).getCommision();
+				}catch(Exception er) {
+					
+				}
+			
+			try {
+				Fees=carsForInvoice.get(i).getFees();
+				}catch(Exception er) {
+					
+				}
+					
+			try {
+				orderPrice=carsForInvoice.get(i).getOrderPrice();
+				}catch(Exception er) {
+					
+				}
+			
+			
+					
+			float totalForCar=(float) (orderPrice+landCost+Seacost
 					+Commision+Fees);
 			
 			carFeesInvoice+=totalForCar;
@@ -373,6 +811,31 @@ public class shipperBean implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+	
+	
+	
+	public void invoiceDetailsFor_requester(int idBuyer) {
+		invoiceData=new invoice();
+		userForInvoice = loginBean.getUserDataFacede().getById(idBuyer);
+
+		containers_for_user = carFacade.getAllForNormalUserGroupBy(idBuyer);
+
+		System.out.println("AhmedDAkrory____________");
+		System.out.println(String.valueOf(containers_for_user.size()));
+		
+		carsForthisAccount = new ArrayList<car>();
+		
+		carsForthisAccount = carFacade.getAllForNormalUser(idBuyer);		
+		try {
+			FacesContext.getCurrentInstance()
+			   .getExternalContext().redirect("/pages/secured/normalUsers/invoice_main/invoiceAdd.jsf?faces-redirect=true");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 	
@@ -557,6 +1020,19 @@ public class shipperBean implements Serializable{
 		this.allshippers = allshippers;
 	}
 
+	
+	
+	
+	public log_infoAppServiceImpl getLog_infoFacade() {
+		return log_infoFacade;
+	}
+
+
+	public void setLog_infoFacade(log_infoAppServiceImpl log_infoFacade) {
+		this.log_infoFacade = log_infoFacade;
+	}
+
+
 	public shipper getSelectedshipper() {
 		return selectedshipper;
 	}
@@ -717,6 +1193,46 @@ public class shipperBean implements Serializable{
 
 	public void setSelectedformSetting(form_settings selectedformSetting) {
 		this.selectedformSetting = selectedformSetting;
+	}
+
+
+	public user getUserForInvoice() {
+		return userForInvoice;
+	}
+
+
+	public void setUserForInvoice(user userForInvoice) {
+		this.userForInvoice = userForInvoice;
+	}
+
+
+	public List<car> getCarsForContainer() {
+		return carsForContainer;
+	}
+
+
+	public void setCarsForContainer(List<car> carsForContainer) {
+		this.carsForContainer = carsForContainer;
+	}
+
+
+	public List<car> getContainers_for_user() {
+		return containers_for_user;
+	}
+
+
+	public void setContainers_for_user(List<car> containers_for_user) {
+		this.containers_for_user = containers_for_user;
+	}
+
+
+	public String getSelectedContainerToBeAddedInInvoice() {
+		return selectedContainerToBeAddedInInvoice;
+	}
+
+
+	public void setSelectedContainerToBeAddedInInvoice(String selectedContainerToBeAddedInInvoice) {
+		this.selectedContainerToBeAddedInInvoice = selectedContainerToBeAddedInInvoice;
 	}
 
 	

@@ -440,7 +440,7 @@ margin-right: 0!important;
 													</a>
 												</li>
 												
-												<li style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+												<li style="display:#{(loginBean.theUserOfThisAccount.role==0||loginBean.theUserOfThisAccount.role==5)?'block':'none'};">
 													<a href="/pages/secured/normalUsers/userList.jsf?faces-redirect=true">
 														 قائمة كل العملاء
 													</a>
@@ -498,7 +498,7 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li  style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
+										<li  style="display:none;">
 											<a href="/pages/secured/admin/car/AddNewInventory.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>اضافة سيارة</span>
@@ -506,7 +506,7 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li  style="display:#{(loginBean.theUserOfThisAccount.role==0)?'block':'none'};">
+										<li  style="display:none;">
 											<a href="/pages/secured/shipper/car/vitView.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>اضافة سيارة</span>
@@ -514,7 +514,7 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li style="display:#{(loginBean.theUserOfThisAccount.role==5)?'block':'none'};">
+										<li style="display:none;">
 											<a href="/pages/secured/mainTwo/car/vitView.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>اضافة سيارة</span>

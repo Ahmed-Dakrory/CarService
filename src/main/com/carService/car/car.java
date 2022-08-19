@@ -231,6 +231,17 @@ import main.com.carService.vendor.vendor;
 	@NamedQuery(name="car.getAllForNormalUser",
 	query = "from car d where  normalUserId = :normalUserId and d.deleted = false"
 			)
+
+	,
+	@NamedQuery(name="car.getAllForNormalUserAndContainer",
+	query = "from car d where  normalUserId = :normalUserId and container = :container and d.deleted = false"
+			)
+	
+
+	,
+	@NamedQuery(name="car.getAllForNormalUserGroupBy",
+	query = "from car d where  normalUserId = :normalUserId and d.deleted = false group by container"
+			)
 	
 	,
 	@NamedQuery(name="car.getAllByStateForMainUser",
@@ -446,6 +457,14 @@ public class car {
 	@Column(name = "allowSendEmail")
 	private boolean allowSendEmail;
 	
+
+	@Column(name = "payed_done")
+	private boolean payed_done;
+	
+
+	@Column(name = "amount_of_payment")
+	private float amount_of_payment;
+	
 	
 
 	@Column(name = "emailToSendComment")
@@ -481,6 +500,9 @@ public class car {
 	public static int Title_InLien=4;
 	public static int Title_Paid=4;
 	
+
+	@Column(name = "invoice_for_normalUser")
+	private boolean invoice_for_normalUser;
 	
 	@Column(name = "state")
 	private Integer state;
@@ -1904,6 +1926,61 @@ public class car {
 
 	public void setMainUrl(String mainUrl) {
 		this.mainUrl = mainUrl;
+	}
+
+
+
+	
+
+
+
+	public boolean isInvoice_for_normalUser() {
+		return invoice_for_normalUser;
+	}
+
+
+
+
+
+
+	public void setInvoice_for_normalUser(boolean invoice_for_normalUser) {
+		this.invoice_for_normalUser = invoice_for_normalUser;
+	}
+
+
+
+
+
+
+	public boolean isPayed_done() {
+		return payed_done;
+	}
+
+
+
+
+
+
+	public void setPayed_done(boolean payed_done) {
+		this.payed_done = payed_done;
+	}
+
+
+
+
+
+
+	public float getAmount_of_payment() {
+		return amount_of_payment;
+	}
+
+
+
+
+
+
+	public void setAmount_of_payment(float amount_of_payment) {
+		this.amount_of_payment = amount_of_payment;
 	}
 
 

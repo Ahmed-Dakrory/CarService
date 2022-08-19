@@ -517,16 +517,110 @@ public void visiblityShowing() {
 		}
 	}
 	
-	public void makePaymentForACar() {
+	
+	
+	
+	public void makePaymentForACarFromMain2() {
 		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
-		
-		if((mB1.getDepositedMoney())-selectedCar.getOrderPrice()>=0) {
-			moneyboxConfig.makeaPayment(selectedCar.getOrderPrice(), selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
+		float allPrice = selectedCar.getOrderPrice()
+				+selectedCar.getFees()
+				+selectedCar.getSeacost()
+				+selectedCar.getLandcost()
+				+selectedCar.getCommision();
+		if((mB1.getDepositedMoney())-allPrice>=0) {
+			moneyboxConfig.makeaPayment(allPrice, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Success',\r\n" + 
 					"			text: 'Payment Done',\r\n" + 
 					"			type: 'success'\r\n" + 
 					"		});");
+			selectedCar.setPayed_done(true);
+			addCarActionForLog(selectedCar,"Payment Done for this Car by amount: "+String.valueOf(allPrice));
+			selectedCar.setAmount_of_payment(allPrice);
+			
+			try {
+				carFacade.addcar(selectedCar);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Error',\r\n" + 
+						"			text: '"+e.getMessage()+".',\r\n" + 
+						"			type: 'error'\r\n" + 
+						"		});");
+			}
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'No amount available',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+	}
+	
+	private void addCarActionForLog(car car,String sttt) {
+		// TODO Auto-generated method stub
+
+			log_info data_info =new log_info();
+//			System.out.println(new Date());
+//			System.out.println(car.getId());
+			
+			
+//			System.out.println(loginBean.getTheUserOfThisAccount().getId());
+//			System.out.println(loginBean.getTheUserOfThisAccount().getEmail());
+			data_info.setCarId(car);
+
+//			System.out.println("--------------------Ahmed 1------------");
+			data_info.setData(sttt);
+//			System.out.println("--------------------Ahmed 2------------");
+			data_info.setUserId(loginBean.getTheUserOfThisAccount());
+//			System.out.println("--------------------Ahmed 3------------");
+			data_info.setDate(new Date());
+//			System.out.println("--------------------Ahmed 4------------");
+			data_info.setObject("car");
+//			System.out.println("--------------------Ahmed 5------------");
+			data_info.setObject_id(String.valueOf(car.getId()));
+
+//			System.out.println(car.getId());
+//			System.out.println("--------------------Ahmed 6------------");
+			log_infoFacade.addlog_info(data_info);
+//			System.out.println("--------------------Ahmed 7------------");
+	}
+
+	
+	
+	public void makePaymentForACar() {
+		float allPrice = selectedCar.getOrderPrice()
+				+selectedCar.getFees()
+				+selectedCar.getSeacost()
+				+selectedCar.getLandcost()
+				+selectedCar.getCommision();
+		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+		
+		if((mB1.getDepositedMoney())-allPrice>=0) {
+			moneyboxConfig.makeaPayment(allPrice, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Success',\r\n" + 
+					"			text: 'Payment Done',\r\n" + 
+					"			type: 'success'\r\n" + 
+					"		});");
+			
+			
+			selectedCar.setPayed_done(true);
+			addCarActionForLog(selectedCar,"Payment Done for this Car by amount: "+String.valueOf(allPrice));
+			selectedCar.setAmount_of_payment(selectedCar.getOrderPrice());
+			
+			try {
+				carFacade.addcar(selectedCar);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Error',\r\n" + 
+						"			text: '"+e.getMessage()+".',\r\n" + 
+						"			type: 'error'\r\n" + 
+						"		});");
+			}
 		}else {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 

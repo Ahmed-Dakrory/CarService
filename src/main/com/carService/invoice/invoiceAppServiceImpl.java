@@ -134,6 +134,39 @@ public class invoiceAppServiceImpl implements IinvoiceAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public List<invoice> getAllByCustomerId(int userId) {
+		try{
+			List<invoice> course=invoiceDataRepository.getAllByCustomerId(userId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+
+	}
+
+
+
+	@Override
+	public List<invoice> getAllByCustomerIdBetweenDates(int userId, Calendar dateLower, Calendar dateHigh) {
+		try{
+			List<invoice> course=invoiceDataRepository.getAllByCustomerIdBetweenDates(userId,dateLower, dateHigh);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

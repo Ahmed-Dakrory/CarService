@@ -725,6 +725,7 @@ vertical-align: middle;
 											<th>Username</th>
 											<th>Role</th>
 											<th>UUID</th>
+											<th>Description</th>
 											<th>Date</th>
 											
 
@@ -813,6 +814,13 @@ vertical-align: middle;
                       	 return item.uuid;
                         }
                       },
+
+                      {
+                          className: "", "orderable": false, "mData": null,"mRender": function (item) {
+                              
+                        	 return item.data_content;
+                          }
+                        },
 
                       {
                           className: "", "orderable": false, "mData": null,"mRender": function (item) {

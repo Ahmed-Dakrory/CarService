@@ -196,6 +196,12 @@ public class log_info {
 			      }
 		      
 		      
+		     
+				      obj.addProperty("data_content", String.valueOf(this.data));
+			    	  
+			      
+		      
+		      
 		      if(this.carId!=null) {
 			      obj.addProperty("uuid", String.valueOf(this.getCarId().getUuid()));
 			      }else {

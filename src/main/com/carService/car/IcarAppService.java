@@ -69,8 +69,10 @@ public interface IcarAppService {
 	public List<car> getAllFrightForShipper(int shipperId);
 	public List<car> getAllFrightForCustomer(int custmerId);
 	public List<car> getAllFrightForConsignee(int consigneeId);
-	
+
 	public List<car> getAllForNormalUser(int normalUserId);
+	public List<car> getAllForNormalUserGroupBy(int normalUserId);
+	public List<car> getAllForNormalUserAndContainer(int normalUserId,String container);
 	public List<car> getAllByStateForNormalUser(int normalUserId,int state);
 	
 	

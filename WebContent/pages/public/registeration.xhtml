@@ -52,7 +52,7 @@
 					<div class="panel-title-sign mt-xl text-right">
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> تسجيل</h2>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" style=" background: #f3f3f3; ">
 						<h:form  id="login-form"  >
 							
 							<p:inputText placeholder="* اسم المستخدم" value="#{loginBean.theUserOfThisAccount.userName}" class="textEdit" required="true"/>
@@ -62,12 +62,21 @@
 							<p:inputText placeholder="* الرقم السرى" value="#{loginBean.passwordOfUserLoggedIn}" class="textEdit" required="true"/>
 							<p:inputText placeholder="* برجاء ادخال الرقم السرى مجددا" value="#{loginBean.passwordConfirm}" class="textEdit" required="true"/>
 							
-							
-							
-							<p:commandButton value="تسجيل" action="#{loginBean.createNewUser(6)}" update="login-form"/>
+									
 							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>أو</span>
+								<span></span>
 							</span>
+							<br></br>
+							<div class="checkbox-custom checkbox-default pull-right">
+							<a href="/pages/public/policy.jsf" target="policy">سياسة الخصوصية</a>
+							</div>
+							<div class="checkbox-custom checkbox-default pull-left">
+										<input onchange="checkbox_change()" id="approve" name="approve" type="checkbox"/>
+										<label  for="approve">أوافق على سياسة الموقع</label>
+									</div>
+									
+							<p:commandButton style="width:100%" disabled="true" id="checkButton" value="تسجيل" action="#{loginBean.createNewUser(6)}" update="login-form"/>
+							
 
 
 						</h:form>
@@ -84,8 +93,21 @@
 	
 		
 	<ui:define name="script">
+  	<script>
   	
-
+	function checkbox_change(){
+		//console.log("Asdasdasd")
+		//console.log($('#approve').val())
+		if(	$('#approve').is(':checked')){
+			$('#login-form\\:checkButton').removeClass('ui-state-disabled');
+			$('#login-form\\:checkButton').attr('disabled',false);
+		}else{
+			$('#login-form\\:checkButton').addClass('ui-state-disabled');
+			$('#login-form\\:checkButton').attr('disabled',true);
+			
+		}
+	}
+  	</script>
   	
   	</ui:define>
 	

@@ -890,6 +890,38 @@ public class carAppServiceImpl implements IcarAppService{
 	}
 
 
+
+	@Override
+	public List<car> getAllForNormalUserAndContainer(int normalUserId, String container) {
+		try{
+			List<car> course=carDataRepository.getAllForNormalUserAndContainer( normalUserId,  container);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<car> getAllForNormalUserGroupBy(int normalUserId) {
+		try{
+			List<car> course=carDataRepository.getAllForNormalUserGroupBy( normalUserId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
 		
 	
 }

@@ -131,6 +131,33 @@ public class invoiceRepositoryImpl implements invoiceRepository{
 			 return null;
 		 }
 	}
+
+	@Override
+	public List<invoice> getAllByCustomerId(int userId) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("invoice.getAllByCustomerId").setInteger("id",userId);
+
+		 @SuppressWarnings("unchecked")
+		List<invoice> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
+
+	@Override
+	public List<invoice> getAllByCustomerIdBetweenDates(int userId, Calendar dateLower, Calendar dateHigh) {
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("invoice.getAllByCustomerIdBetweenDates")
+				 .setInteger("id",userId).setCalendar("dateLower", dateLower).setCalendar("dateHigher", dateHigh);
+
+		 @SuppressWarnings("unchecked")
+		List<invoice> results=query.list();
+		 if(results.size()!=0){
+			 return results;
+		 }else{
+			 return null;
+		 }
+	}
 	
 
 

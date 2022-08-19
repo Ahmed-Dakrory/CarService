@@ -73,6 +73,8 @@ public interface carRepository {
 	
 
 	public List<car> getAllForNormalUser(int normalUserId);
+	public List<car> getAllForNormalUserGroupBy(int normalUserId);
+	public List<car> getAllForNormalUserAndContainer(int normalUserId,String container);
 	public List<car> getAllByStateForNormalUser(int normalUserId,int state);
 	
 	public List<car> getAllBytypeOfOrderForNormalUser(int normalUserId,int typeOfOrder);

@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<ui:composition template="/templates/dashboard2.xhtml">
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
 
 
 	<ui:define name="title"> ALMZZAD</ui:define>
@@ -18,7 +18,6 @@
 			</ui:define>
 
 	<ui:define name="content">
-     #{shipperBean.refresh()}
 <style>
 					.ui-fileupload-choose {
 						    position: relative;
@@ -68,7 +67,7 @@ width: -webkit-fill-available;
 
             <div id="content">
     <!-- page src -->
-    <table border="0" class="content-table" cellspacing="0" cellpadding="5">
+    <table border="0" class="content-table" cellspacing="0" cellpadding="5" style=" background-color: #f4f4f4; border-radius: 19px; ">
         <tbody>
             <tr valign="top">
                 <td width="100%">
@@ -86,8 +85,8 @@ width: -webkit-fill-available;
                                             <!-- Table name block -->
                                             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                                                 <tr>
-                                                    <td class="blkname" width="100%">
-                                                        &nbsp;Invoices
+                                                    <td class="blkname text-right" width="100%">
+                                                        &nbsp;الفواتير
                                                     </td>
                                                     
                                                 </tr>
@@ -99,13 +98,12 @@ width: -webkit-fill-available;
                                                
                                                 <tr style="height: 22px">
                                                 
-                                                <td style=" width: 9%;">
-                                                </td>
-                                                <td style=" width: 7%;">
-                                                <h:outputText  value="Select the Start Date"></h:outputText>
+                                                
+                                                <td style="width: 17%;">
+                                                <h:outputText  value="الرجاء إختيار وقت قبل إصدار الفاتورة"></h:outputText>
                                                 </td>
                                                 
-                                                <td style=" width: 25%;">
+                                                <td style=" width: 17%;">
                                                
                  <h:inputText id="datestart" name="dateStart" type="text"  value="#{shipperBean.dateLower}" style="font-size:11px;height:19px;width:200px;"></h:inputText>
                   <script>
@@ -138,11 +136,11 @@ width: -webkit-fill-available;
                                               
                                               
                                               
-                                               <td style=" width: 7%;">
-                                                <h:outputText  value="Select the End Date"></h:outputText>
+                                               <td style=" width: 17%;">
+                                                <h:outputText  value="الرجاء إختيار  وقت بعد الفاتورة"></h:outputText>
                                                 </td>
                                                 
-                                                <td style=" width: 7%;">
+                                                <td style=" width: 17%;">
                                                
                  <h:inputText id="dateEnd" name="dateEnd" type="text"  value="#{shipperBean.dateHigh}" style="font-size:11px;height:19px;width:200px;"></h:inputText>
                   <script>
@@ -173,10 +171,10 @@ width: -webkit-fill-available;
                                                
                                                 </td>
                                               
-                                               <td style="height: 22px">
+                                               <td style="">
                                                         &nbsp;
                                   					
-                                          <p:commandButton action="#{shipperBean.getAllInvoicesBetweenDates()}" value="" style="background-image: url('/resources/images/img/#{(carBean.progress==true)?'ajax-loader.gif':'zoom-magnifier.png'}'); width: 19px;height: 19px;position: absolute;margin-left: 7px;background-position: 0px 0px;background-size: contain;background-repeat: no-repeat;"/>
+                                          <p:commandButton action="#{shipperBean.getAllInvoicesBetweenDates_user()}" value="بحث عن الفواتير الصادرة"  class="btn btn-default p-0 m-0"/>
                                                                                                     
                                        </td>
 								                    
@@ -219,7 +217,7 @@ width: -webkit-fill-available;
 											<tr align="left" class="gradeX">
 												
 												<td class="center hidden-phone" style="background-color:#FAFAFA;">
-													<h:commandLink value="#{var.invoice.id}"  actionListener="#{shipperBean.showTheInvoice_dashboard(var.invoice.id)}"/>
+													<h:commandLink value="#{var.invoice.id}"  actionListener="#{shipperBean.showTheInvoice_user(var.invoice.id)}"/>
 												</td>
 												
 											
@@ -350,7 +348,12 @@ width: -webkit-fill-available;
         </h:form>
         
         
-     
+     <script>
+
+  	$('#menu-header- car').toggleClass('expand');
+  	$('#menu-car').fadeToggle();
+  	$('#invoices-all').toggleClass('menu-item-refunds');
+     </script>
      
 	</ui:define>
 	
