@@ -5705,6 +5705,59 @@ td {
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
+                                                                                            
+                                                                                             <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                <p style=" font-size: 23px; padding: 1px 13px; font-weight: 700; ">البنود الاضافية</p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                            	<td colspan="6">
+                                                                                            	<h:panelGroup id="item_group">
+                                                                                            		<table style="margin: 4px 3px;width: 63%;">
+                                                                                            					<tr style=" border: 1px gray solid; background: beige; ">
+				                                                                                                <td style=" border: 1px gray solid;text-align: center; " class="tbltxt">
+				                                                                                               وصف البند
+				                                                                                                </td>
+				                                                                                                
+				                                                                                                 <td style=" border: 1px gray solid;text-align: center;" class="tbltxt">
+				                                                                                                    قيمة البند
+				                                                                                                </td>
+				                                                                                                
+				                                                                                                <td style=" border: 1px gray solid;text-align: center;" class="tbltxt">
+				                                                                                                	<p:commandButton class="btn btn-default" value="+" actionListener="#{carBean.addNewItem()}"/>
+				                                                                                                </td>
+				                                                                                             </tr>
+                                                                                            			 <ui:repeat var="item_price" varStatus="status" value="#{carBean.selectedCar.item_price}">
+				                                                                                            <tr>
+				                                                                                                <td style=" text-align: center; " class="tbltxt">
+				                                                                                               
+				                                                                                                 <h:inputText  type="text"  value="#{item_price.description}" style="font-size:11px;height:19px;width:100%;" />
+                   																								</td>
+				                                                                                                
+				                                                                                                 <td style=" text-align: center; " class="tbltxt">
+				                                                                                                    <h:inputText  type="text"  value="#{item_price.value}" style="font-size:11px;height:19px;width:100%;" />
+                   
+				                                                                                                </td>
+				                            																	
+				                            																	<td style=" text-align: center; " class="tbltxt">
+				                                                                                                   
+				                                                                                                   <p:commandButton class="btn btn-default" value="حذف" actionListener="#{carBean.removeItem(status.index)}"/> 
+				                                                                                                </td>
+				                                                                                                
+				                                                                                             </tr>
+				                                                                                           </ui:repeat>
+                                                                                            		</table>
+                                                                                            	</h:panelGroup>
+                                                                                            	</td>
+                                                                                            </tr>
+                                                                                           
+                                                                                           
                                                                                              <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>

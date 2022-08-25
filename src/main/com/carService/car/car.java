@@ -5,13 +5,17 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
@@ -22,6 +26,7 @@ import com.google.gson.JsonObject;
 import main.com.carService.Beans.carBean;
 import main.com.carService.consignee.consignee;
 import main.com.carService.customer.customer;
+import main.com.carService.item.item;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.shipper.shipper;
@@ -473,6 +478,11 @@ public class car {
 
 	@Column(name = "deleted")
 	private boolean deleted;
+	
+	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carId")
+	@OneToMany(fetch = FetchType.EAGER,orphanRemoval=true, mappedBy = "carId", cascade = CascadeType.ALL)
+    private List<item> item_price;
 	
 	@Column(name = "commentToSend")
 	private String commentToSend;
@@ -1931,6 +1941,24 @@ public class car {
 
 
 	
+
+
+
+	public List<item> getItem_price() {
+		return item_price;
+	}
+
+
+
+
+
+
+	public void setItem_price(List<item> item_price) {
+		this.item_price = item_price;
+	}
+
+
+
 
 
 

@@ -194,9 +194,14 @@ public class shipperBean implements Serializable{
 				if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
 				if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
 				if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
-						
+				
+				
+				float additionalFees = 0;
+				for(int o=0;o<selectedCar.getItem_price().size();o++) {
+					additionalFees = additionalFees+ Float.valueOf(selectedCar.getItem_price().get(i).getValue());
+				}
 				float totalForCar=(float) (landCost+Seacost
-						+Commision+Fees);
+						+Commision+Fees+additionalFees);
 				
 				
 				//This for total Fees Without Transfer

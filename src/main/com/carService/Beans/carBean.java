@@ -60,6 +60,7 @@ import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
 import main.com.carService.customer.customer;
 import main.com.carService.customer.customerAppServiceImpl;
+import main.com.carService.item.item;
 import main.com.carService.log_info.log_info;
 import main.com.carService.log_info.log_infoAppServiceImpl;
 
@@ -1610,9 +1611,28 @@ public void refreshSelectedCarVendor() {
 			
 			return false;
 		}
+		public void addNewItem() {
+			
+			item i_object = new item();
+			i_object.setCarId(selectedCar);
+			i_object.setType(item.TYPE_PRICE);
+			selectedCar.getItem_price().add(i_object);
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+			
+		}
+		
+		
+		public void removeItem(int i) {
+			
+			selectedCar.getItem_price().remove(i);
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+			
+		}
+		
 		public void selectCarForMain(int idcar) {
 			refresh();
 			selectedCar=carFacade.getById(idcar);
+			
 			refreshSelectedCarMain();
 			try {
 				FacesContext.getCurrentInstance()
