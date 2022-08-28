@@ -149,6 +149,8 @@ public class carBean implements Serializable{
 	private int shipperSelectedId;
 	private int vendorSelectedId;
 	private int customerSelectedId;
+	
+	private float amount_to_pay;
 
 	private List<String> images;
 	private List<String> docs;
@@ -156,6 +158,7 @@ public class carBean implements Serializable{
 	private Map<Integer, String> distinationMap;
 	private Map<Integer, String> origineMap;
 	
+	private String wire_transfer_number;
 	private int consigneeId;
 	private consignee selectedConsignee;
 
@@ -523,40 +526,61 @@ public void visiblityShowing() {
 	
 	public void makePaymentForACarFromMain2() {
 		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
-		float allPrice = selectedCar.getOrderPrice()
-				+selectedCar.getFees()
-				+selectedCar.getSeacost()
-				+selectedCar.getLandcost()
-				+selectedCar.getCommision();
-		if((mB1.getDepositedMoney())-allPrice>=0) {
-			moneyboxConfig.makeaPayment(allPrice, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
-			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-					"			title: 'Success',\r\n" + 
-					"			text: 'Payment Done',\r\n" + 
-					"			type: 'success'\r\n" + 
-					"		});");
-			selectedCar.setPayed_done(true);
-			addCarActionForLog(selectedCar,"Payment Done for this Car by amount: "+String.valueOf(allPrice));
-			selectedCar.setAmount_of_payment(allPrice);
-			
-			try {
-				carFacade.addcar(selectedCar);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-						"			title: 'Error',\r\n" + 
-						"			text: '"+e.getMessage()+".',\r\n" + 
-						"			type: 'error'\r\n" + 
-						"		});");
-			}
-		}else {
+		float allPrice = selectedCar.getAmount_of_payment()+amount_to_pay;
+		float selectedCar_total_value = selectedCar.getTotal_amount_for_this_car();
+		
+		if(allPrice>selectedCar_total_value) {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
-					"			text: 'No amount available',\r\n" + 
+					"			text: 'The total amount after this payment will be higher than the need',\r\n" + 
 					"			left:\"2%\"\r\n" + 
 					"		});");
+		}else {
+			moneyboxConfig.depositeMoney(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+					wire_transfer_number,selectedCar);
+			System.out.println("-----------------");
+			System.out.println(amount_to_pay);
+			System.out.println(mB1.getDepositedMoney());
+			mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+			if((mB1.getDepositedMoney())-amount_to_pay>=0) {
+				moneyboxConfig.makeaPayment(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+						wire_transfer_number,selectedCar);
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Payment Done',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+				if(allPrice>=selectedCar_total_value) {
+				selectedCar.setPayed_done(true);
+				}
+				addCarActionForLog(selectedCar,"Payment Done for this Car by part amount: "+String.valueOf(amount_to_pay));
+				selectedCar.setAmount_of_payment(allPrice);
+				
+				try {
+					carFacade.addcar(selectedCar);
+					PrimeFaces.current().executeScript("PF('dlg2').hide();");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+							"			title: 'Error',\r\n" + 
+							"			text: '"+e.getMessage()+".',\r\n" + 
+							"			type: 'error'\r\n" + 
+							"		});");
+				}
+			}else {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Check this ',\r\n" + 
+						"			text: 'No amount available',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
 		}
+		
 	}
 	
 	private void addCarActionForLog(car car,String sttt) {
@@ -589,46 +613,110 @@ public void visiblityShowing() {
 	}
 
 	
+
+//	public void makePaymentForACar() {
+//		float allPrice = selectedCar.getOrderPrice()
+//				+selectedCar.getFees()
+//				+selectedCar.getSeacost()
+//				+selectedCar.getLandcost()
+//				+selectedCar.getCommision();
+//		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+//		
+//		if((mB1.getDepositedMoney())-allPrice>=0) {
+//			moneyboxConfig.makeaPayment(allPrice, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
+//			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+//					"			title: 'Success',\r\n" + 
+//					"			text: 'Payment Done',\r\n" + 
+//					"			type: 'success'\r\n" + 
+//					"		});");
+//			
+//			
+//			selectedCar.setPayed_done(true);
+//			addCarActionForLog(selectedCar,"Payment Done for this Car by amount: "+String.valueOf(allPrice));
+//			selectedCar.setAmount_of_payment(selectedCar.getOrderPrice());
+//			
+//			try {
+//				carFacade.addcar(selectedCar);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+//						"			title: 'Error',\r\n" + 
+//						"			text: '"+e.getMessage()+".',\r\n" + 
+//						"			type: 'error'\r\n" + 
+//						"		});");
+//			}
+//		}else {
+//			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+//					"			title: 'Check this ',\r\n" + 
+//					"			text: 'No amount available',\r\n" + 
+//					"			left:\"2%\"\r\n" + 
+//					"		});");
+//		}
+//	}
+//	
 	
+	
+
 	public void makePaymentForACar() {
-		float allPrice = selectedCar.getOrderPrice()
-				+selectedCar.getFees()
-				+selectedCar.getSeacost()
-				+selectedCar.getLandcost()
-				+selectedCar.getCommision();
-		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
 		
-		if((mB1.getDepositedMoney())-allPrice>=0) {
-			moneyboxConfig.makeaPayment(allPrice, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
-			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-					"			title: 'Success',\r\n" + 
-					"			text: 'Payment Done',\r\n" + 
-					"			type: 'success'\r\n" + 
-					"		});");
-			
-			
-			selectedCar.setPayed_done(true);
-			addCarActionForLog(selectedCar,"Payment Done for this Car by amount: "+String.valueOf(allPrice));
-			selectedCar.setAmount_of_payment(selectedCar.getOrderPrice());
-			
-			try {
-				carFacade.addcar(selectedCar);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-						"			title: 'Error',\r\n" + 
-						"			text: '"+e.getMessage()+".',\r\n" + 
-						"			type: 'error'\r\n" + 
-						"		});");
-			}
-		}else {
+		
+		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+		float allPrice = selectedCar.getAmount_of_payment()+amount_to_pay;
+		float selectedCar_total_value = selectedCar.getTotal_amount_for_this_car();
+		
+		if(allPrice>selectedCar_total_value) {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
-					"			text: 'No amount available',\r\n" + 
+					"			text: 'The total amount after this payment will be higher than the need',\r\n" + 
 					"			left:\"2%\"\r\n" + 
 					"		});");
+		}else {
+			moneyboxConfig.depositeMoney(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+					wire_transfer_number,selectedCar);
+			System.out.println("-----------------");
+			System.out.println(amount_to_pay);
+			System.out.println(mB1.getDepositedMoney());
+			mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+			if((mB1.getDepositedMoney())-amount_to_pay>=0) {
+				moneyboxConfig.makeaPayment(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+						wire_transfer_number,selectedCar);
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Payment Done',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+				if(allPrice>=selectedCar_total_value) {
+				selectedCar.setPayed_done(true);
+				}
+				addCarActionForLog(selectedCar,"Payment Done for this Car by part amount: "+String.valueOf(amount_to_pay));
+				selectedCar.setAmount_of_payment(allPrice);
+				
+				try {
+					carFacade.addcar(selectedCar);
+					PrimeFaces.current().executeScript("PF('dlg2').hide();");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+							"			title: 'Error',\r\n" + 
+							"			text: '"+e.getMessage()+".',\r\n" + 
+							"			type: 'error'\r\n" + 
+							"		});");
+				}
+			}else {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Check this ',\r\n" + 
+						"			text: 'No amount available',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
 		}
+		
 	}
 	
 	
@@ -2758,6 +2846,20 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 	public void setVisibilityOptions(List<String> visibilityOptions) {
 		this.visibilityOptions = visibilityOptions;
 	}
+	
+	
+
+	public float getAmount_to_pay() {
+		return amount_to_pay;
+	}
+
+
+
+	public void setAmount_to_pay(float amount_to_pay) {
+		this.amount_to_pay = amount_to_pay;
+	}
+
+
 
 	public Map<Integer, String> getOrigineMap2() {
 		return origineMap2;
@@ -2872,6 +2974,21 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 	public void setDocs(List<String> docs) {
 		this.docs = docs;
 	}
+
+	
+	
+	
+	public String getWire_transfer_number() {
+		return wire_transfer_number;
+	}
+
+
+
+	public void setWire_transfer_number(String wire_transfer_number) {
+		this.wire_transfer_number = wire_transfer_number;
+	}
+
+
 
 	public carimageAppServiceImpl getCarimageFacade() {
 		return carimageFacade;

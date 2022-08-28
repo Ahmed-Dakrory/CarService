@@ -142,9 +142,9 @@ public class consigneeBean implements Serializable{
 
 		loginBean.thisAccountMoneyBox = new moneybox();
 		loginBean.thisAccountMoneyBox.setActive(true);
-		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setDepositedMoney((float) 0.0);
 		loginBean.thisAccountMoneyBox.setUserId(userNew);
-		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.thisAccountMoneyBox.setTotalUsed((float) 0.0);
 		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 

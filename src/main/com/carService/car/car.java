@@ -1336,6 +1336,55 @@ public class car {
 
 
 
+	public float getTotal_amount_for_this_car() {
+		car selectedCar = this;
+		float landCost=0;
+		float Seacost=0;
+		float Commision=0;
+		float Fees=0;
+		float orderPrice = 0;
+		
+		try {
+		if(selectedCar.getLandcost()!=0) landCost=selectedCar.getLandcost();
+		}catch(Exception exc) {
+			
+		}
+		try {
+			if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
+		}catch(Exception exc) {
+			
+		}
+		
+		try {
+			if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
+		}catch(Exception exc) {
+			
+		}
+		
+		try {
+			if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
+		}catch(Exception exc) {
+			
+		}
+		
+		try {
+			if(selectedCar.getOrderPrice()!=0) orderPrice=selectedCar.getOrderPrice();
+		}catch(Exception exc) {
+			
+		}
+		
+		float additionalFees = 0;
+		for(int o=0;o<selectedCar.getItem_price().size();o++) {
+			additionalFees = additionalFees+ Float.valueOf(selectedCar.getItem_price().get(o).getValue());
+		}
+		float totalForCar=(float) (landCost+Seacost
+				+Commision+Fees+orderPrice+additionalFees);
+		
+		
+		
+		
+		return totalForCar;
+	}
 
 
 

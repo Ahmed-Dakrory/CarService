@@ -14,7 +14,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import main.com.carService.carLanding.carLanding;
 import main.com.carService.moneyBox.moneybox;
+import main.com.carService.product.product;
 
 
 
@@ -39,8 +41,23 @@ import main.com.carService.moneyBox.moneybox;
 	@NamedQuery(name="moneybox_transaction_details.getAllByUserMoneyBoxId",
 	query = "from moneybox_transaction_details d where d.moneyBoxId.id = :id order by d.date desc"
 			)
+	,
+	@NamedQuery(name="moneybox_transaction_details.getAllByCarId",
+	query = "from moneybox_transaction_details d where d.carId.id = :id order by d.date desc"
+			)
+	,
+	@NamedQuery(name="moneybox_transaction_details.getAllBy_wire_transfer_number",
+	query = "from moneybox_transaction_details d where d.wire_transfer_number = :wire_transfer_number order by d.date desc"
+			)
 
-
+	,
+	@NamedQuery(name="moneybox_transaction_details.getAllByCarIdAndMoneyBoxId",
+	query = "from moneybox_transaction_details d where d.carId.id = :id and d.moneyBoxId.id = :moneyBoxId order by d.date desc"
+			)
+	,
+	@NamedQuery(name="moneybox_transaction_details.getAllBy_wire_transfer_numberAndMoneyBoxId",
+	query = "from moneybox_transaction_details d where d.wire_transfer_number = :wire_transfer_number and d.moneyBoxId.id = :moneyBoxId order by d.date desc"
+			)
 })
 
 @Entity
@@ -64,6 +81,27 @@ public class moneybox_transaction_details {
 	
 	@Column(name = "amountBefore")
 	private float amountBefore;
+	
+
+
+	@Column(name = "wire_transfer_number")
+	private String wire_transfer_number;
+	
+	
+
+	@ManyToOne
+	@JoinColumn(name = "carId")
+	private main.com.carService.car.car carId;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "carlandingId")
+	private carLanding carlandingId;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "productId")
+	private product productId;
 	
 	
 	@Column(name = "date")
@@ -179,6 +217,54 @@ public class moneybox_transaction_details {
 
 	public void setAmountBefore(float amountBefore) {
 		this.amountBefore = amountBefore;
+	}
+
+
+
+	public String getWire_transfer_number() {
+		return wire_transfer_number;
+	}
+
+
+
+	public void setWire_transfer_number(String wire_transfer_number) {
+		this.wire_transfer_number = wire_transfer_number;
+	}
+
+
+
+	public main.com.carService.car.car getCarId() {
+		return carId;
+	}
+
+
+
+	public void setCarId(main.com.carService.car.car carId) {
+		this.carId = carId;
+	}
+
+
+
+	public carLanding getCarlandingId() {
+		return carlandingId;
+	}
+
+
+
+	public void setCarlandingId(carLanding carlandingId) {
+		this.carlandingId = carlandingId;
+	}
+
+
+
+	public product getProductId() {
+		return productId;
+	}
+
+
+
+	public void setProductId(product productId) {
+		this.productId = productId;
 	}
 	
 

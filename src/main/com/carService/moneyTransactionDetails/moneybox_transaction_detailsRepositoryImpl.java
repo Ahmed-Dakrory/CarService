@@ -116,6 +116,49 @@ public class moneybox_transaction_detailsRepositoryImpl implements moneybox_tran
 		
 	}
 
+	@Override
+	public List<moneybox_transaction_details> getAllByCarId(int carId) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("moneybox_transaction_details.getAllByCarId").setInteger("carId",carId);
+
+				 @SuppressWarnings("unchecked")
+				 List<moneybox_transaction_details> results=query.list();
+				  return results;
+				
+	}
+
+	@Override
+	public List<moneybox_transaction_details> getAllBy_wire_transfer_number(String wire_transfer_number) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("moneybox_transaction_details.getAllBy_wire_transfer_number").setString("wire_transfer_number",wire_transfer_number);
+
+				 @SuppressWarnings("unchecked")
+				 List<moneybox_transaction_details> results=query.list();
+				  return results;
+				
+	}
+
+	@Override
+	public List<moneybox_transaction_details> getAllByCarIdAndMoneyBoxId(int moneyBoxId, int carId) {
+		// TODO Auto-generated method stub
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("moneybox_transaction_details.getAllByCarIdAndMoneyBoxId").setInteger("moneyBoxId", moneyBoxId).setInteger("carId",carId);
+
+		 @SuppressWarnings("unchecked")
+		 List<moneybox_transaction_details> results=query.list();
+		  return results;
+	}
+
+	@Override
+	public List<moneybox_transaction_details> getAllBy_wire_transfer_numberAndMoneyBoxId(int moneyBoxId,
+			String wire_transfer_number) {
+		// TODO Auto-generated method stub
+		Query query 	=sessionFactory.getCurrentSession().getNamedQuery("moneybox_transaction_details.getAllBy_wire_transfer_numberAndMoneyBoxId").setInteger("moneyBoxId", moneyBoxId).setString("wire_transfer_number",wire_transfer_number);
+
+		 @SuppressWarnings("unchecked")
+		 List<moneybox_transaction_details> results=query.list();
+		  return results;
+	}
+
 	
 	
 

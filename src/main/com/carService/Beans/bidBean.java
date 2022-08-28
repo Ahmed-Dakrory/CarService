@@ -289,7 +289,7 @@ public class bidBean implements Serializable{
 		float totalAmount = Float.valueOf(selectedFreight.getCurrentBid())+Float.valueOf(selectedFreight.getCopartFees())+Float.valueOf(selectedFreight.getOurFees());
 		if(loginBean.getThisAccountMoneyBox()!=null) {
 			if(loginBean.getThisAccountMoneyBox().getDepositedMoney()>=totalAmount) {
-				moneyboxConfig.makeaPayment(totalAmount, selectedFreight.getUserMaxBidId(), loginBean.getUserDataFacede(), loginBean.getMoneyboxDataFacede(), loginBean.getMoneybox_transaction_detailsDataFacede());
+				moneyboxConfig.makeaPayment(totalAmount, selectedFreight.getUserMaxBidId(), loginBean.getUserDataFacede(), loginBean.getMoneyboxDataFacede(), loginBean.getMoneybox_transaction_detailsDataFacede(),"WIRE_BIDING",selectedFreight);
 				selectedFreight.setPaymentDone(true);
 				
 				carLandingFacade.addcarLanding(selectedFreight);

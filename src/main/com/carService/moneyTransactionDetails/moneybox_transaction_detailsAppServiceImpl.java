@@ -118,6 +118,74 @@ public class moneybox_transaction_detailsAppServiceImpl implements Imoneybox_tra
 
 
 
+	@Override
+	public List<moneybox_transaction_details> getAllByCarId(int carId) {
+		try{
+			List<moneybox_transaction_details> course=moneybox_transaction_detailsDataRepository.getAllByCarId(carId);
+			
+			return course;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<moneybox_transaction_details> getAllBy_wire_transfer_number(String wire_transfer_number) {
+		// TODO Auto-generated method stub
+				try{
+					List<moneybox_transaction_details> so=moneybox_transaction_detailsDataRepository.getAllBy_wire_transfer_number(wire_transfer_number);
+					
+					return so;
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						return null;
+					}
+	}
+
+
+
+	@Override
+	public List<moneybox_transaction_details> getAllByCarIdAndMoneyBoxId(int moneyBoxId, int carId) {
+		// TODO Auto-generated method stub
+		try{
+			List<moneybox_transaction_details> so=moneybox_transaction_detailsDataRepository.getAllByCarIdAndMoneyBoxId(moneyBoxId,carId);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
+	@Override
+	public List<moneybox_transaction_details> getAllBy_wire_transfer_numberAndMoneyBoxId(int moneyBoxId,
+			String wire_transfer_number) {
+		// TODO Auto-generated method stub
+		try{
+			List<moneybox_transaction_details> so=moneybox_transaction_detailsDataRepository.getAllBy_wire_transfer_numberAndMoneyBoxId(moneyBoxId,wire_transfer_number);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
+
+
+
 	
 	
 }

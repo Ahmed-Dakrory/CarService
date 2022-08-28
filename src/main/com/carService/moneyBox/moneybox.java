@@ -58,11 +58,11 @@ public class moneybox {
 
 	
 	@Column(name = "depositedMoney")
-	private float depositedMoney;
+	private Float depositedMoney;
 	
 	
 	@Column(name = "totalUsed")
-	private float totalUsed;
+	private Float totalUsed;
 	
 	@Column(name = "bankAccountNumber")
 	private String bankAccountNumber;
@@ -106,22 +106,22 @@ public class moneybox {
 	
 
 
-	public float getDepositedMoney() {
+	public Float getDepositedMoney() {
 		return depositedMoney;
 	}
 
 
-	public void setDepositedMoney(float depositedMoney) {
+	public void setDepositedMoney(Float depositedMoney) {
 		this.depositedMoney = depositedMoney;
 	}
 
 
-	public float getTotalUsed() {
+	public Float getTotalUsed() {
 		return totalUsed;
 	}
 
 
-	public void setTotalUsed(float totalUsed) {
+	public void setTotalUsed(Float totalUsed) {
 		this.totalUsed = totalUsed;
 	}
 

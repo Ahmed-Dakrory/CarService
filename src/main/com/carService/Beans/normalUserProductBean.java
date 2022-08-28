@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import main.com.carService.product.product;
 import main.com.carService.product.productAppServiceImpl;
@@ -50,7 +49,6 @@ import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxConfig;
 
 
-import static java.util.Comparator.comparing;
 @ManagedBean(name = "normalUserProductBean")
 @SessionScoped
 public class normalUserProductBean implements Serializable{
@@ -1198,7 +1196,8 @@ public void makePaymentForAProduct() {
 	moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(addNewProduct.getNormalUserId().getId());
 	
 	if((mB1.getDepositedMoney())-totalPrice>=0) {
-		moneyboxConfig.makeaPayment(totalPrice, addNewProduct.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede());
+		moneyboxConfig.makeaPayment(totalPrice, addNewProduct.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+				"WIRE_PRODUCT",addNewProduct);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 
 				"			text: 'Payment Done',\r\n" + 

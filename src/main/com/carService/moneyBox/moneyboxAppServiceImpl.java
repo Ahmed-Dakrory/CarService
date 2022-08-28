@@ -48,6 +48,9 @@ public class moneyboxAppServiceImpl implements ImoneyboxAppService{
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
+
+				System.out.println("---@-7----------");
+				System.out.println(ex);
 				return null;
 			}
 	}

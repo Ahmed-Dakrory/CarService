@@ -181,20 +181,7 @@ public class vendorBean implements Serializable{
 			for(int j=0;j<allCarsForThisInvoice.size();j++) {
 				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
 				
-				float landCost=0;
-				float Seacost=0;
-				float Commision=0;
-				float Fees=0;
-				
-				
-				if(selectedCar.getLandcost()!=0) landCost=selectedCar.getLandcost();
-				if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
-				if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
-				if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
-				
-						
-				float totalForCar=(float) (landCost+Seacost
-						+Commision+Fees);
+				float totalForCar= selectedCar.getTotal_amount_for_this_car();
 				
 				
 				//This for total Fees Without Transfer
@@ -303,13 +290,8 @@ public class vendorBean implements Serializable{
 			carinvoice.setInvoiceId(invoiceData);
 			
 			invoiceCarFacade.addinvoiceCar(carinvoice);
-			float landCost=carsForInvoice.get(i).getLandcost();
-			float Seacost=carsForInvoice.get(i).getSeacost();
-			float Commision=carsForInvoice.get(i).getCommision();
-			float Fees=carsForInvoice.get(i).getFees();
-					
-			float totalForCar=(float) (landCost+Seacost
-					+Commision+Fees);
+			car selectedCar = carsForInvoice.get(i);
+			float totalForCar= selectedCar.getTotal_amount_for_this_car();
 			
 			carFeesInvoice+=totalForCar;
 		}
@@ -408,9 +390,9 @@ public class vendorBean implements Serializable{
 
 		loginBean.thisAccountMoneyBox = new moneybox();
 		loginBean.thisAccountMoneyBox.setActive(true);
-		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setDepositedMoney((float) 0.0);
 		loginBean.thisAccountMoneyBox.setUserId(userNew);
-		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.thisAccountMoneyBox.setTotalUsed((float) 0.0);
 		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 

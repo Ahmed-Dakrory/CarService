@@ -184,24 +184,8 @@ public class shipperBean implements Serializable{
 			try {
 			for(int j=0;j<allCarsForThisInvoice.size();j++) {
 				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
-				float landCost=0;
-				float Seacost=0;
-				float Commision=0;
-				float Fees=0;
 				
-				
-				if(selectedCar.getLandcost()!=0) landCost=selectedCar.getLandcost();
-				if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
-				if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
-				if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
-				
-				
-				float additionalFees = 0;
-				for(int o=0;o<selectedCar.getItem_price().size();o++) {
-					additionalFees = additionalFees+ Float.valueOf(selectedCar.getItem_price().get(i).getValue());
-				}
-				float totalForCar=(float) (landCost+Seacost
-						+Commision+Fees+additionalFees);
+				float totalForCar= selectedCar.getTotal_amount_for_this_car();
 				
 				
 				//This for total Fees Without Transfer
@@ -262,19 +246,7 @@ public class shipperBean implements Serializable{
 			try {
 			for(int j=0;j<allCarsForThisInvoice.size();j++) {
 				car selectedCar = allCarsForThisInvoice.get(j).getCarId();
-				float landCost=0;
-				float Seacost=0;
-				float Commision=0;
-				float Fees=0;
-				
-				
-				if(selectedCar.getLandcost()!=0) landCost=selectedCar.getLandcost();
-				if(selectedCar.getSeacost()!=0) Seacost=selectedCar.getSeacost();
-				if(selectedCar.getCommision()!=0) Commision=selectedCar.getCommision();
-				if(selectedCar.getFees()!=0) Fees=selectedCar.getFees();
-						
-				float totalForCar=(float) (landCost+Seacost
-						+Commision+Fees);
+				float totalForCar= selectedCar.getTotal_amount_for_this_car();
 				
 				
 				//This for total Fees Without Transfer
@@ -517,45 +489,8 @@ public class shipperBean implements Serializable{
 			carinvoice.setInvoiceId(invoiceData);
 			
 			invoiceCarFacade.addinvoiceCar(carinvoice);
-			float landCost = 0;
-			float Seacost = 0;
-			float Commision = 0;
-			float Fees = 0;
-			float orderPrice = 0;
-			try {
-				 landCost=carsForInvoice.get(i).getLandcost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Seacost=carsForInvoice.get(i).getSeacost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Commision=carsForInvoice.get(i).getCommision();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Fees=carsForInvoice.get(i).getFees();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				orderPrice=carsForInvoice.get(i).getOrderPrice();
-				}catch(Exception er) {
-					
-				}
-			
-			
-					
-			float totalForCar=(float) (orderPrice+landCost+Seacost
-					+Commision+Fees);
+			car selectedCar = carsForInvoice.get(i);
+			float totalForCar= selectedCar.getTotal_amount_for_this_car();
 			
 			carFeesInvoice+=totalForCar;
 		}
@@ -595,45 +530,8 @@ public class shipperBean implements Serializable{
 			carinvoice.setCarId(carsForInvoice.get(i));
 			carinvoice.setInvoiceId(invoiceData);
 			
-			float landCost = 0;
-			float Seacost = 0;
-			float Commision = 0;
-			float Fees = 0;
-			float orderPrice=0;
-			try {
-				 landCost=carsForInvoice.get(i).getLandcost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Seacost=carsForInvoice.get(i).getSeacost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Commision=carsForInvoice.get(i).getCommision();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Fees=carsForInvoice.get(i).getFees();
-				}catch(Exception er) {
-					
-				}
-					
-			try {
-				orderPrice=carsForInvoice.get(i).getOrderPrice();
-				}catch(Exception er) {
-					
-				}
-			
-			
-					
-			float totalForCar=(float) (orderPrice+landCost+Seacost
-					+Commision+Fees);
+			car selectedCar = carsForInvoice.get(i);
+			float totalForCar= selectedCar.getTotal_amount_for_this_car();
 			
 			carFeesInvoice+=totalForCar;
 		}
@@ -673,39 +571,8 @@ public class shipperBean implements Serializable{
 			carinvoice.setCarId(carsForInvoice.get(i));
 			carinvoice.setInvoiceId(invoiceData);
 			
-			float landCost = 0;
-			float Seacost = 0;
-			float Commision = 0;
-			float Fees = 0;
-			float orderPrice=0;
-			try {
-				 landCost=carsForInvoice.get(i).getLandcost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Seacost=carsForInvoice.get(i).getSeacost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Commision=carsForInvoice.get(i).getCommision();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				orderPrice=carsForInvoice.get(i).getOrderPrice();
-				}catch(Exception er) {
-					
-				}
-			
-			
-					
-			float totalForCar=(float) (orderPrice+landCost+Seacost
-					+Commision+Fees);
+			car selectedCar = carsForInvoice.get(i);
+			float totalForCar= selectedCar.getTotal_amount_for_this_car();
 
 			carFeesInvoice+=totalForCar;
 		}
@@ -737,45 +604,8 @@ public class shipperBean implements Serializable{
 			carinvoice.setInvoiceId(invoiceData);
 			
 			invoiceCarFacade.addinvoiceCar(carinvoice);
-			float landCost = 0;
-			float Seacost = 0;
-			float Commision = 0;
-			float Fees = 0;
-			float orderPrice=0;
-			try {
-				 landCost=carsForInvoice.get(i).getLandcost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Seacost=carsForInvoice.get(i).getSeacost();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Commision=carsForInvoice.get(i).getCommision();
-				}catch(Exception er) {
-					
-				}
-			
-			try {
-				Fees=carsForInvoice.get(i).getFees();
-				}catch(Exception er) {
-					
-				}
-					
-			try {
-				orderPrice=carsForInvoice.get(i).getOrderPrice();
-				}catch(Exception er) {
-					
-				}
-			
-			
-					
-			float totalForCar=(float) (orderPrice+landCost+Seacost
-					+Commision+Fees);
+			car selectedCar = carsForInvoice.get(i);
+			float totalForCar= selectedCar.getTotal_amount_for_this_car();
 			
 			carFeesInvoice+=totalForCar;
 		}
@@ -897,9 +727,9 @@ public class shipperBean implements Serializable{
 
 		loginBean.thisAccountMoneyBox = new moneybox();
 		loginBean.thisAccountMoneyBox.setActive(true);
-		loginBean.thisAccountMoneyBox.setDepositedMoney(0);
+		loginBean.thisAccountMoneyBox.setDepositedMoney((float) 0.0);
 		loginBean.thisAccountMoneyBox.setUserId(userNew);
-		loginBean.thisAccountMoneyBox.setTotalUsed(0);
+		loginBean.thisAccountMoneyBox.setTotalUsed((float) 0.0);
 		loginBean.moneyboxDataFacede.addmoneybox(loginBean.thisAccountMoneyBox);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 				"			title: 'Success',\r\n" + 

@@ -5699,7 +5699,29 @@ td {
                                                                                                    
                                                                                                 </td>
                                                                                             </tr>
-                                                                                           
+                                                                                             <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                            <tr>
+                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Total Payed Amount:</div>
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                    <h:inputText id="total_payed" disabled="true" type="text"  value="#{carBean.selectedCar.amount_of_payment}" style="font-size:11px;height:19px;width:200px;" />
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td style="width: 250px" class="tbltxt">
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td style="width: 250px" align="left">
+                                                                                                   
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
                                                                                             <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
@@ -5730,7 +5752,7 @@ td {
 				                                                                                                </td>
 				                                                                                                
 				                                                                                                <td style=" border: 1px gray solid;text-align: center;" class="tbltxt">
-				                                                                                                	<p:commandButton class="btn btn-default" value="+" actionListener="#{carBean.addNewItem()}"/>
+				                                                                                                	<p:commandButton rendered="#{!carBean.selectedCar.payed_done}" class="btn btn-default" value="+" actionListener="#{carBean.addNewItem()}"/>
 				                                                                                                </td>
 				                                                                                             </tr>
                                                                                             			 <ui:repeat var="item_price" varStatus="status" value="#{carBean.selectedCar.item_price}">
@@ -5747,7 +5769,7 @@ td {
 				                            																	
 				                            																	<td style=" text-align: center; " class="tbltxt">
 				                                                                                                   
-				                                                                                                   <p:commandButton class="btn btn-default" value="حذف" actionListener="#{carBean.removeItem(status.index)}"/> 
+				                                                                                                   <p:commandButton rendered="#{!carBean.selectedCar.payed_done}" class="btn btn-default" value="حذف" actionListener="#{carBean.removeItem(status.index)}"/> 
 				                                                                                                </td>
 				                                                                                                
 				                                                                                             </tr>
@@ -5765,8 +5787,25 @@ td {
                                                                                              <tr height="2">
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 
-                                                                                                <p:commandButton class="btn btn-default" action="#{carBean.makePaymentForACarFromMain2()}"  value="Make Payment"  style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
+                                                                                                <p:commandButton class="btn btn-default" onclick="runFromBackEndToReloadDialog()"   value="Make Payment"  style=" font-family:Verdana;font-size:10px;font-weight:bold;width:120px;" />
                                                                                                 
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
+                                                                                             <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                
+                                                                                                <p:panel id="total_payed_display" style="display:#{carBean.selectedCar.payed_done?'block':'none'}">
+                                                                                                <div style=" font-size: 31px; background: GREEN; color: white; padding: 7px 37px; ">
+                                                                                                	Car Is totaly payed with amount $#{carBean.selectedCar.amount_of_payment}
+                                                                                                	</div>
+                                                                                                </p:panel>
+                                                                                                <p:panel id="total_payed_display2" style="display:#{!carBean.selectedCar.payed_done?'block':'none'}">
+                                                                                                <div style=" font-size: 31px; background: red; color: white; padding: 7px 37px; ">
+                                                                                                	Remaining amount $#{carBean.selectedCar.total_amount_for_this_car - carBean.selectedCar.amount_of_payment}
+                                                                                               </div>
+                                                                                                </p:panel>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             
@@ -6554,6 +6593,80 @@ td {
 	</ui:define>
 	
 		
+		
+		
+	<ui:define name="endOfContent">
+		
+		
+		
+			<p:dialog  header="Payment for car" widgetVar="dlg2" minHeight="700"  width="1300" showEffect="fade" modal="true" >
+    
+			<h:form class="container" id="formOfDialog" style=" width: 100%; ">
+				<div class="row" >
+					<div class="form-group col-md-4">
+						<label>Wire transfer number</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carBean.wire_transfer_number}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>Amount to transfer for this car</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carBean.amount_to_pay}"/>
+					</div>
+					
+				
+			
+				
+				</div>
+				
+				
+				
+				<br></br>
+				<br></br>
+						
+						
+				<div class="row">
+					<div class="col-md-6">
+						
+					</div>
+					
+					
+					<div class="col-md-3">
+						<p:commandButton value="Cancel" onclick="PF('dlg2').hide();" style=" width: 100%; height: 39px; font-weight: 700;font-size: 19px; background: #aeaeae; border-radius: 8px; color: white!important; "/>
+					</div>
+					<div class="col-md-3">
+						<p:commandButton value="Ok" action="#{carBean.makePaymentForACarFromMain2()}"  style="width: 100%;height: 39px;font-weight: 700;font-size: 19px;background: #5fbc6a;border-radius: 8px;color: white!important;"/>
+					</div>
+				</div>
+				
+				
+				
+				
+			</h:form>
+			
+			
+			
+			
+			
+			</p:dialog>
+			
+			
+			
+			
+			
+		<script>
+		
+		$('.ui-icon-closethick').removeClass().addClass('fa fa-times');
+		
+		function runFromBackEndToReloadDialog(){
+			PF('dlg2').show();
+			
+		}
+		</script>	
+			
+		</ui:define>
+	
 	
 </ui:composition>
 </html>

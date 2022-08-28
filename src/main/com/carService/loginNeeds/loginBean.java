@@ -86,7 +86,7 @@ public class loginBean implements Serializable{
 					try{
 						Integer amount=Integer.parseInt(origRequest.getParameterValues("amount")[0]);
 							if(amount!=null){
-								moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede);
+								moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede,"Self_deposite");
 								 
 								 reloadedParametersAndPanelRefresh();
 
@@ -222,7 +222,7 @@ if(isLoggedIn) {
 		 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
 		 Integer amount = Integer.valueOf((String) map.get("paymentAmount"));
 		 
-		 moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede);
+		 moneyboxConfig.depositeMoney(amount, theUserOfThisAccount, userDataFacede, moneyboxDataFacede, moneybox_transaction_detailsDataFacede,"Self_deposite");
 		 
 		 reloadedParametersAndPanelRefresh();
 
@@ -357,9 +357,9 @@ if(isLoggedIn) {
 			
 			thisAccountMoneyBox = new moneybox();
 			thisAccountMoneyBox.setActive(false);
-			thisAccountMoneyBox.setDepositedMoney(0);
+			thisAccountMoneyBox.setDepositedMoney((float) 0.0);
 			thisAccountMoneyBox.setUserId(theUserOfThisAccount);
-			thisAccountMoneyBox.setTotalUsed(0);
+			thisAccountMoneyBox.setTotalUsed((float) 0.0);
 			moneyboxDataFacede.addmoneybox(thisAccountMoneyBox);
 			
 			
