@@ -234,6 +234,65 @@ text-align: center;
           
           <div class="row">
           				
+          				
+          				
+          				<div class="container">
+                            	<div class="row">
+                            		 <div class="col-xs-12 col-sm-4">
+			                            <h4 style="text-align: center;"><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h4>                    
+			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>المودع</small></p>
+			                        </div><!--/col-->
+			                        <div class="col-xs-12 col-sm-4">
+			                            <h4 style="text-align: center;"><strong>$#{loginBean.thisAccountMoneyBox.totalUsed}</strong></h4>                    
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>المستخدم</small></p>
+			                        </div><!--/col-->
+			                        <div class="col-xs-12 col-sm-4">
+			                            <h4 style="text-align: center;"><strong>$#{carBean.totalPrice}</strong></h4>                    
+			                            <p class="btn btn-info btn-block"><span class="fa fa-dollar"></span><small>التكلفة الكلية</small></p>
+			                        </div><!--/col-->
+			                       
+                            	</div>
+                            </div>
+                            
+                            <div class="container-fluid mt-3">
+                            	<div class="row mt-3 mb-3"><h3 style=" color: #0b54e4; text-align: center; width: 100%; ">أخر خمس عمليات تحويل لشراء سيارات</h3></div>
+                            	<div class="row border">
+                            		<table class="w-100 table">
+                            			<thead>
+                            				<tr style=" background: beige; ">
+                            					<th> رقم العملية</th>
+                            					<th> تاريخ العملية</th>
+                            					<th> قيمة العملية</th>
+                            					<th> نوع العملية</th>
+                            					<th> السيارة </th>
+                            					<th> الفاتورة الخاصة بتلك السيارة </th>
+                            				</tr>
+                            			</thead>
+                            			
+                            			<tbody>
+                            			
+           									<ui:repeat var="var" value="#{normalUserBean.summery_allmoneybox_transaction_details}">
+                            				<tr>
+                            					<td> #{var.wire_transfer_number} </td>
+                            					<td> #{var.date} </td>
+                            					<td> #{var.amount} </td>
+                            					<td> 
+													#{var.typeOfTransaction==0?'إيداع':''}
+	           				#{var.typeOfTransaction==1?'دفع':''}
+	           				#{var.typeOfTransaction==2?'سحب':''}
+	           				#{var.typeOfTransaction==3?'تحويل':''}
+												</td>
+                            					<td> #{var.carId.uuid} </td>
+                            					<td>
+	           				
+						           				<p:commandButton value="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id}"  actionListener="#{shipperBean.showTheInvoice_user(normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id)}"/>
+						           				</td>
+                            				</tr>
+                            				</ui:repeat>
+                            			</tbody>
+                            		</table>
+                            	</div>
+                            </div>
 <section id="buy-services">
     <div class="container">
         <div class="row">

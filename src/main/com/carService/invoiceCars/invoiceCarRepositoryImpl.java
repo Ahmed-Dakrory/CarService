@@ -101,6 +101,19 @@ public class invoiceCarRepositoryImpl implements invoiceCarRepository{
 			 return results;
 		
 	}
+
+	@Override
+	public invoiceCar getByCarId(int id) {
+		// TODO Auto-generated method stub
+				 Query query 	=sessionFactory.getCurrentSession().getNamedQuery("invoiceCar.getByCarId").setInteger("id",id);
+
+				 @SuppressWarnings("unchecked")
+				List<invoiceCar> results=query.list();
+				 if(results.size()!=0){
+					 return results.get(0);
+				 }else{
+					 return null;
+				 }}
 	
 
 

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<ui:composition template="/templates/publicTemplateWithMenu.xhtml">
+
+
+	<ui:define name="title"> ALMZZAD</ui:define>
+ <ui:define name="mainHead"> 
+			       <ul class="mn-sub"><li class="mn-sub-item mn-item-vendors"><a href="invoiceList.jsf" class="mn-sub-item-current"><b>Invoice List</b></a></li></ul>
+           
+			</ui:define>
+
+	<ui:define name="content">
+<style>
+					.ui-fileupload-choose {
+						    position: relative;
+						    overflow: hidden;
+						    outline: 0;
+						    display: none;
+						}
+						
+						.ui-button-icon-only {
+    width: 19px;
+    background: url(/resources/images/public/img/gr-error.png) no-repeat;
+    height: 19px;
+}
+
+.ui-datepicker {
+   border: #cec2c2;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3%;
+    width: 15%;
+    }
+    .ui-datepicker .ui-icon {
+      display: contents!important;
+}
+.ui-datepicker-header{
+    width: -webkit-fill-available;
+}
+.ui-datepicker .ui-datepicker-next {
+       position: absolute;
+    right: 5%;
+}
+.ui-datepicker-calendar{
+    width: -webkit-fill-available;
+    padding: 5%;
+    margin: 1%;
+}
+.ui-datepicker-title{
+width: -webkit-fill-available;
+    text-align: -webkit-center;
+
+}
+
+#datatable-tabletools_paginate{
+direction:ltr;
+}
+					</style>
+	
+	
+	
+    <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+#{normalUserBean.get_all_moneybox_transactions()}
+ <h:form id="aspnetForm">
+           <div class="container-fluid">
+           
+           	<div class="row">
+           		<div class="col-1">Filter:</div>
+         		</div>
+         		
+           	<div class="row">
+           		<div class="col-3">
+           				<label class="pl-3">تحديد بالسيارة</label>
+						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.carIdOfTransaction}"  style="width:230px">
+								
+								<f:selectItem  itemLabel="All" itemValue="-1"/>													
+								<f:selectItems value="#{normalUserBean.allCarsAsUser}" var="var" itemLabel="#{var.uuid}" itemValue="#{var.id}"/>
+	
+						</p:selectOneMenu>
+				</div>
+				
+				<div class="col-3">
+           				<label class="pl-3">تحديد بالكونتينر</label>
+						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.containerOfTransaction}"  style="width:230px">
+								
+								<f:selectItem  itemLabel="All" itemValue="-1"/>													
+								<f:selectItems value="#{normalUserBean.allCarsAsUserContainer}" var="var" itemLabel="#{var.container}" itemValue="#{var.container}"/>
+	
+						</p:selectOneMenu>
+				</div>
+				
+				
+				<div class="col-3">
+           		
+           				<label class="pl-3">  تحديد بالعملية  </label>
+						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.typeOfTransaction}"  style="width:230px">
+								
+								<f:selectItem  itemLabel="All" itemValue="-1"/>	
+								<f:selectItem  itemLabel="إيداع" itemValue="0"/>	
+								<f:selectItem  itemLabel="مدفوعات" itemValue="1"/>	
+								<f:selectItem  itemLabel="مرتجع" itemValue="2"/>	
+								<f:selectItem  itemLabel="تحويل" itemValue="3"/>													
+								
+						</p:selectOneMenu>
+				</div>
+				
+				
+				
+				<div class="col-3">
+           		
+           				<label class="pl-3">  رقم العملية  </label>
+           				<p:inputText value="#{normalUserBean.wireTransferOfTransaction}" style="width:230px"/>
+         		</div>
+				
+           	</div>
+           	<div class="row">
+           	<div class="col-3">
+           		
+						<p:commandButton class="btn btn-default p-0 m-0" action="#{normalUserBean.get_all_moneybox_transactions()}"  value="بحث"  />
+
+				</div>
+           	</div>
+           	<div class="row mt-3">
+           		<table class="w-100 table border">
+           			<thead>
+           				<tr style=" border-bottom: solid; ">
+           					<th>تاريخ التحويلة </th>
+           					<th>نوع التحويلة</th>
+           					<th>رقم التحويلة</th>
+           					<th>سيارة </th>
+           					<th>رقم الفاتورة</th>
+           					<th>محتويات فاتورة السيارة </th>
+           				</tr>
+           			</thead>
+           			<tbody>
+           			<ui:repeat var="var" value="#{normalUserBean.allmoneybox_transaction_details}">
+           				
+	           			<tr>
+	           				<td>#{var.date}</td>
+	           				<td>#{var.typeOfTransaction==0?'إيداع':''}
+	           				#{var.typeOfTransaction==1?'دفع':''}
+	           				#{var.typeOfTransaction==2?'سحب':''}
+	           				#{var.typeOfTransaction==3?'تحويل':''}</td>
+	           				<td>#{var.wire_transfer_number}</td>
+	           				<td>#{var.carId.uuid}</td>
+	           				<td>
+	           				
+	           				<h:commandLink value="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id}"  actionListener="#{shipperBean.showTheInvoice_user(normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id)}"/>
+	           				</td>
+	           				
+	           				<td>
+	           					<table class="#{var.carId==null?'d-none':''}">
+	           						<thead>
+		           						<tr style=" border-bottom: solid; ">
+				           					<th>اسم البند</th>
+				           					<th>قيمة البند </th>
+				           				</tr>
+			           				</thead>
+			           				
+			           				<tbody>
+											<tr style=" background: aliceblue; ">
+												<td class="text-center">تكلفة الشحن الارضى</td>
+												<td class="text-center">$#{var.carId.landcost}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-center">تكلفة الشحن البحرى</td>
+												<td class="text-center">$#{var.carId.seacost}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-center">تكلفة المزايدة والبوابات </td>
+												<td class="text-center">$#{var.carId.commision}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-center">تكلفة العمولات </td>
+												<td class="text-center">$#{var.carId.fees}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-center">تكلفة الشراء </td>
+												<td class="text-center">$#{var.carId.orderPrice}</td>
+											</tr>
+											
+											
+											<ui:repeat var="var_item" value="#{var.carId.item_price}">
+											<tr>
+												<td class="text-center">#{var_item.description}</td>
+												<td class="text-center">#{var_item.value}</td>
+											</tr>
+											</ui:repeat>
+		
+			           				</tbody>
+	           					</table>
+	           				
+	           				</td>
+	           			</tr>
+           				<tr style=" background: #e7e7e7; border-bottom: solid; ">
+	           				<td> </td>
+	           				<td>قيمة التحويلة</td>
+	           				<td>#{var.amount}</td>
+	           				<td><span class="#{var.carId==null?'d-none':''}"> قيمة اجمالى السيارة </span></td>
+	           				<td><span class="#{var.carId==null?'d-none':''}"> #{var.carId.getTotal_amount_for_this_car()} </span></td>
+           				</tr>
+           			</ui:repeat>
+           			
+           			</tbody>
+           		</table>
+           	</div>
+           </div> 
+        </h:form>
+        
+        
+        
+     <script>
+
+  	$('#menu-header- car').toggleClass('expand');
+  	$('#menu-car').fadeToggle();
+  	$('#summery-all').toggleClass('menu-item-refunds');
+     </script>
+     
+	</ui:define>
+	
+		
+	
+</ui:composition>
+</html>

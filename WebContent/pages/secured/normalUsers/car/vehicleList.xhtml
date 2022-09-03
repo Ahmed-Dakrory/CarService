@@ -27,13 +27,17 @@
 .linkAccess:hover{
 color: #3686ff!important;
 }
+
+#datatable-tabletools_paginate{
+direction:ltr;
+}
 	</style>
 	<div id="ajax-content">
 <h2 class="account-header">مرحبا  #{loginBean.theUserOfThisAccount.firstName} #{loginBean.theUserOfThisAccount.lastName} عميل رقم  ##{loginBean.theUserOfThisAccount.id}  </h2>
 
 <div class="sort-boxes-account" style=" border-radius: 11px;box-shadow: 1px 1px 1px 1px grey;  padding: 17px;">
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
 			 <nobr>قائمة السيارات<span>: #{normalUserBean.allCars.size()}</span></nobr>
@@ -87,13 +91,14 @@ color: #3686ff!important;
 		<thead>
 			<tr style="    background: #555555;    color: white;    font-size: 16px;    font-family: none;">
 <th class="d-block d-sm-none" style="text-align: justify;width: 38px;background: white;color: black;border: none;" >البيانات</th>
-<th class="d-none d-sm-table-cell" style="text-align: justify;">رابط السيارة</th>
+<th class="d-none d-sm-table-cell" style="text-align: justify;"> السيارة</th>
 <th class="d-none d-sm-table-cell" style="text-align: justify;">بيانات السيارة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تكلفة الشحن</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">سعر السيارة</th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">التكلفة الكلية </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">تواريخ </th>
 <th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">نوع الطلب </th>
+<th class="d-none d-sm-table-cell hidden-phone" style="text-align: justify;">فاتورة مبدئية  </th>
 	</tr>
 </thead>
 <tbody>
@@ -166,7 +171,7 @@ function ViewDocById(strID) {
 
 		<td class="d-none d-sm-table-cell center hidden-phone">
 		
-		<img src="/images/?file=#{data.mainUrl}" height="157px" style="    margin-bottom: -39px;"/>
+		<img src="/images/?file=#{data.mainUrl}" height="157px" style="margin-bottom: -39px;width: 100%;"/>
 		
 		<div class="" style="background-image: linear-gradient(rgb(255 254 250 / 76%) 0px, rgb(123 122 116 / 65%) 95%, rgb(29 29 28 / 67%) 0px);width: 100%;height: 47px;position: relative;top: -6px;text-align: right;padding-top: 5%;color: #f7f7f7;font-family: auto;" >
 			<div style="overflow: hidden;" class="col-md-6">
@@ -224,7 +229,7 @@ function ViewDocById(strID) {
 
 <td class="d-none d-sm-table-cell center hidden-phone column5" style="text-align: justify;">
 <div class="price" style="text-align: justify;" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
-	$<span>#{data.orderPrice+data.commision+data.fees+data.seacost+data.landcost} </span>
+	$<span>#{data.getTotal_amount_for_this_car()} </span>
 	<span class="currency">دولار </span>
 </div>
 <div class="bidtype" style="text-align: justify;">السعر الحالى </div>
@@ -265,6 +270,17 @@ function ViewDocById(strID) {
 
 </div>
 </td>
+
+
+<td class="d-none d-sm-table-cell center hidden-phone">
+			
+<a itemprop="url" class="btn btn-success" href="/pages/secured/normalUsers/car/vitViewPrint.jsf?id=#{data.id}">
+
+ملخص
+</a> 
+			
+</td>
+
 
 												
 												
@@ -310,8 +326,6 @@ function ViewDocById(strID) {
  	$('#car-all').toggleClass('menu-item-refunds');
      </script>
      
-	
-        
         
      
 	</ui:define>

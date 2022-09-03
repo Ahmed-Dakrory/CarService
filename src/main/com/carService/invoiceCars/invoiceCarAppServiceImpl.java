@@ -101,6 +101,22 @@ public class invoiceCarAppServiceImpl implements IinvoiceCarAppService{
 				return null;
 			}
 	}
+
+
+
+	@Override
+	public invoiceCar getByCarId(int id) {
+		try{
+			invoiceCar so=invoiceCarDataRepository.getByCarId(id);
+			
+			return so;
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				return null;
+			}
+	}
 	
 	
 }

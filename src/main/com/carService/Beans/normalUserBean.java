@@ -51,9 +51,15 @@ import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.customer.customer;
 import main.com.carService.customer.customerAppServiceImpl;
 import main.com.carService.form_settings.form_settingsAppServiceImpl;
+import main.com.carService.invoiceCars.invoiceCar;
+import main.com.carService.invoiceCars.invoiceCarAppServiceImpl;
 import main.com.carService.loginNeeds.user;
 import main.com.carService.mainTwo.mainTwo;
 import main.com.carService.mainTwo.mainTwoAppServiceImpl;
+import main.com.carService.moneyBox.moneybox;
+import main.com.carService.moneyBox.moneyboxAppServiceImpl;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
+import main.com.carService.moneyTransactionDetails.moneybox_transaction_detailsAppServiceImpl;
 import main.com.carService.shipper.shipper;
 import main.com.carService.shipper.shipperAppServiceImpl;
 import main.com.carService.vendor.vendor;
@@ -88,6 +94,11 @@ public class normalUserBean implements Serializable{
 	private mainTwoAppServiceImpl mainTwoFacade;
 	
 
+	@ManagedProperty(value = "#{invoiceCarFacadeImpl}")
+	private invoiceCarAppServiceImpl invoiceCarFacade;
+	
+	
+
 	@ManagedProperty(value = "#{carFacadeImpl}")
 	private carAppServiceImpl carFacade;
 	
@@ -107,6 +118,18 @@ public class normalUserBean implements Serializable{
 
 	@ManagedProperty(value = "#{form_settingsFacadeImpl}")
 	private form_settingsAppServiceImpl form_settingsFacade;
+
+	@ManagedProperty(value = "#{moneybox_transaction_detailsFacadeImpl}")
+	private moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsFacade;
+	
+
+	@ManagedProperty(value = "#{moneyboxFacadeImpl}")
+	private moneyboxAppServiceImpl moneyboxFacade;
+	
+	
+	private moneybox car_user_normalmoneybox;
+	private List<moneybox_transaction_details> allmoneybox_transaction_details;
+	private List<moneybox_transaction_details> summery_allmoneybox_transaction_details;
 	
 
 	private List<transportfee> allLocation;
@@ -128,7 +151,15 @@ public class normalUserBean implements Serializable{
 	private car selectedCar;
 	private car addNewCar;
 	
-	
+////////////////////////////////////////////////////////
+	private int typeOfTransaction=-1;
+	private int carIdOfTransaction=-1;
+	private String wireTransferOfTransaction="";
+	private String containerOfTransaction="";
+
+	private List<car> allCarsAsUser;
+	private List<car> allCarsAsUserContainer;
+	///////////////////////////////////////////////////////////////////
 	private List<String> carStates;
 	
 
@@ -310,11 +341,34 @@ public class normalUserBean implements Serializable{
 		refresh();
 		
 		
+		fillDashboard();
+		
 
 		selectedCarState=0;
 	}
 	
 	
+	private void fillDashboard() {
+		// TODO Auto-generated method stub
+		
+		
+		summery_allmoneybox_transaction_details = new ArrayList<moneybox_transaction_details>();
+		List<moneybox_transaction_details> allDetails = moneybox_transaction_detailsFacade.getAllByUserMoneyBoxId(loginBean.thisAccountMoneyBox.getId());
+		for(int i=0;i<10;i++) {
+			
+				
+			summery_allmoneybox_transaction_details.add(allDetails.get(i));
+				
+		
+			
+		}
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+		
+	}
+
+
+
 	public void handleAllUsersForAdmin() {
 		
 		allUsers = loginBean.getUserDataFacede().getAll();
@@ -509,6 +563,7 @@ public void calcValueOfTotalFeesCarSelected() {
 				landFees=selectedTansportFees.getCaPortCost();
 			}
 
+			
 			totalFees=copartFees+GateFees+seaFees+landFees+ourFees;
 			
 
@@ -695,7 +750,12 @@ try {
 
 public void updateAllFees() {
 	int level = calcBean.getLevel(addNewCar.getOrderPrice());
-	 copartFees = calcBean.CalculateCopart(level, addNewCar.getOrderPrice());
+	 if(addNewCar.getTypeOfOrder().equals(0)) {
+		 copartFees=0; 
+	 }else {
+		 copartFees = calcBean.CalculateCopart(level, addNewCar.getOrderPrice());
+		 
+	 }
 	 ourFees= 100;
 	 System.out.println("Ahmed Dakrory Done");
 	 
@@ -862,6 +922,92 @@ public void refreshStateList() {
 }
 
 
+public void getCarSummeryWithId() {
+
+	
+
+	dollarToDinar = Float.valueOf(form_settingsFacade.getById(1).getValue());
+	
+	
+	HttpServletRequest origRequest = (HttpServletRequest)FacesContext
+			.getCurrentInstance()
+			.getExternalContext()
+			.getRequest();
+	Integer id = null;
+	try{
+		id=Integer.parseInt(origRequest.getParameterValues("id")[0]);
+		
+	}catch (Exception e) {
+		// TODO: handle exception
+		
+		System.out.println("Ahmed old: "+String.valueOf(e));
+	}
+	
+	System.out.println("Ahmed Load");
+
+	System.out.println(String.valueOf(id));
+			if(id!=null){
+				
+				
+				selectedCar=carFacade.getById(id);
+				selectedCar.getNormalUserId().getId();
+				car_user_normalmoneybox = moneyboxFacade.getByUserId(selectedCar.getNormalUserId().getId());
+				
+				allmoneybox_transaction_details = moneybox_transaction_detailsFacade.getAllByCarIdAndMoneyBoxId(car_user_normalmoneybox.getId(), selectedCar.getId());
+
+								System.out.println("Ahmed Load3");
+				FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+				
+			}
+	
+}
+
+public void get_all_moneybox_transactions() {
+	allCarsAsUserContainer = carFacade.getAllForNormalUserGroupBy(loginBean.getTheUserOfThisAccount().getId());
+	allCarsAsUser = carFacade.getAllForNormalUser(loginBean.getTheUserOfThisAccount().getId());
+	
+	
+	allmoneybox_transaction_details = new ArrayList<moneybox_transaction_details>();
+	List<moneybox_transaction_details> allDetails = moneybox_transaction_detailsFacade.getAllByUserMoneyBoxId(loginBean.thisAccountMoneyBox.getId());
+	for(int i=0;i<allDetails.size();i++) {
+		if(allDetails.get(i).getCarId()!=null) {
+			if(carIdOfTransaction==(allDetails.get(i).getCarId().getId()) || carIdOfTransaction==-1) {
+				if(allDetails.get(i).getCarId().getContainer().contains(containerOfTransaction) || containerOfTransaction=="") {
+					if(allDetails.get(i).getWire_transfer_number().contains(wireTransferOfTransaction) || wireTransferOfTransaction.equals("")) {
+						if(typeOfTransaction==(allDetails.get(i).getTypeOfTransaction()) || typeOfTransaction==-1) {
+							
+							allmoneybox_transaction_details.add(allDetails.get(i));
+						}
+					}
+				}
+			}
+		}else if(allDetails.get(i).getWire_transfer_number()!=null) {
+				
+				if(allDetails.get(i).getWire_transfer_number().contains(wireTransferOfTransaction) || wireTransferOfTransaction.equals("")) {
+					if(typeOfTransaction==(allDetails.get(i).getTypeOfTransaction()) || typeOfTransaction==-1) {
+
+						allmoneybox_transaction_details.add(allDetails.get(i));
+					}
+				}
+		}else  {
+			if(typeOfTransaction==(allDetails.get(i).getTypeOfTransaction()) || typeOfTransaction==-1) {
+
+				allmoneybox_transaction_details.add(allDetails.get(i));
+			}
+		}
+		
+	}
+	
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+	
+}
+
+
+public invoiceCar getInvoiceForThisCar(int id) {
+	
+	invoiceCar inObj = invoiceCarFacade.getByCarId(id);
+	return inObj;
+}
 
 public void saveNewCarDataMain() {
 	loginBean.getTheUserOfThisAccount();
@@ -885,7 +1031,7 @@ public void saveNewCarDataMain() {
 	
 	try {
 		addNewCar.setState(car.STATE_AddedByCustomer_REVISE);
-		
+		updateAllFees();
 
 		addNewCar.setLandcost((float) landFees);
 		addNewCar.setSeacost((float) seaFees);
@@ -2019,6 +2165,152 @@ public static double[] getOnlineBid() {
 
 public static void setOnlineBid(double[] onlineBid) {
 	normalUserBean.onlineBid = onlineBid;
+}
+
+
+
+public moneybox_transaction_detailsAppServiceImpl getMoneybox_transaction_detailsFacade() {
+	return moneybox_transaction_detailsFacade;
+}
+
+
+
+public void setMoneybox_transaction_detailsFacade(
+		moneybox_transaction_detailsAppServiceImpl moneybox_transaction_detailsFacade) {
+	this.moneybox_transaction_detailsFacade = moneybox_transaction_detailsFacade;
+}
+
+
+
+public moneyboxAppServiceImpl getMoneyboxFacade() {
+	return moneyboxFacade;
+}
+
+
+
+public void setMoneyboxFacade(moneyboxAppServiceImpl moneyboxFacade) {
+	this.moneyboxFacade = moneyboxFacade;
+}
+
+
+
+public moneybox getCar_user_normalmoneybox() {
+	return car_user_normalmoneybox;
+}
+
+
+
+public void setCar_user_normalmoneybox(moneybox car_user_normalmoneybox) {
+	this.car_user_normalmoneybox = car_user_normalmoneybox;
+}
+
+
+
+public List<moneybox_transaction_details> getAllmoneybox_transaction_details() {
+	return allmoneybox_transaction_details;
+}
+
+
+
+public void setAllmoneybox_transaction_details(List<moneybox_transaction_details> allmoneybox_transaction_details) {
+	this.allmoneybox_transaction_details = allmoneybox_transaction_details;
+}
+
+
+
+public invoiceCarAppServiceImpl getInvoiceCarFacade() {
+	return invoiceCarFacade;
+}
+
+
+
+public void setInvoiceCarFacade(invoiceCarAppServiceImpl invoiceCarFacade) {
+	this.invoiceCarFacade = invoiceCarFacade;
+}
+
+
+
+public int getTypeOfTransaction() {
+	return typeOfTransaction;
+}
+
+
+
+public void setTypeOfTransaction(int typeOfTransaction) {
+	this.typeOfTransaction = typeOfTransaction;
+}
+
+
+
+public int getCarIdOfTransaction() {
+	return carIdOfTransaction;
+}
+
+
+
+public void setCarIdOfTransaction(int carIdOfTransaction) {
+	this.carIdOfTransaction = carIdOfTransaction;
+}
+
+
+
+public String getWireTransferOfTransaction() {
+	return wireTransferOfTransaction;
+}
+
+
+
+public void setWireTransferOfTransaction(String wireTransferOfTransaction) {
+	this.wireTransferOfTransaction = wireTransferOfTransaction;
+}
+
+
+
+public List<car> getAllCarsAsUser() {
+	return allCarsAsUser;
+}
+
+
+
+public void setAllCarsAsUser(List<car> allCarsAsUser) {
+	this.allCarsAsUser = allCarsAsUser;
+}
+
+
+
+public List<car> getAllCarsAsUserContainer() {
+	return allCarsAsUserContainer;
+}
+
+
+
+public void setAllCarsAsUserContainer(List<car> allCarsAsUserContainer) {
+	this.allCarsAsUserContainer = allCarsAsUserContainer;
+}
+
+
+
+public String getContainerOfTransaction() {
+	return containerOfTransaction;
+}
+
+
+
+public void setContainerOfTransaction(String containerOfTransaction) {
+	this.containerOfTransaction = containerOfTransaction;
+}
+
+
+
+public List<moneybox_transaction_details> getSummery_allmoneybox_transaction_details() {
+	return summery_allmoneybox_transaction_details;
+}
+
+
+
+public void setSummery_allmoneybox_transaction_details(
+		List<moneybox_transaction_details> summery_allmoneybox_transaction_details) {
+	this.summery_allmoneybox_transaction_details = summery_allmoneybox_transaction_details;
 }
 
 

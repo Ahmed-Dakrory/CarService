@@ -38,6 +38,11 @@ import main.com.carService.invoice.invoice;
 	@NamedQuery(name="invoiceCar.getAllByinvoiceId",
 	query = "from invoiceCar d where d.invoiceId.id = :id"
 			)
+	
+	,
+	@NamedQuery(name="invoiceCar.getByCarId",
+	query = "from invoiceCar d where d.carId.id = :id"
+			)
 
 })
 

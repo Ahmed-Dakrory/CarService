@@ -16,5 +16,7 @@ public interface IinvoiceCarAppService {
 	public List<invoiceCar> getAllByinvoiceId(int id);
 	public invoiceCar addinvoiceCar(invoiceCar data);
 	public invoiceCar getById(int id);
+	public invoiceCar getByCarId(int id);
+	
 	public boolean delete(invoiceCar data)throws Exception;
 }

@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="#{resource['css:dashboard/assets/stylesheets/invoice-print.css']}" />
 	</head>
 	<body>
+	<style>
+	
+	@media print {
+   body {-webkit-print-color-adjust: exact;}
+
+}
+
+	</style>
 		<div class="invoice">
 			<header class="clearfix">
 				<div class="row">
@@ -90,29 +98,53 @@
 									<table class="table invoice-items">
 										<thead>
 											<tr class="h4 text-dark">
-												<th id="cell-id"     class="text-semibold">#</th>
-												<th id="cell-item"   class="text-semibold">Vin</th>
-												<th id="cell-desc"   class="text-semibold">Description</th>
-												<th id="cell-price"  class="text-center text-semibold">Land Cost</th>
-												<th id="cell-qty"    class="text-center text-semibold">Sea Cost</th>
-												<th id="cell-qty"    class="text-center text-semibold">Fees Cost</th>
-												<th id="cell-qty"    class="text-center text-semibold">Commision Cost</th>
-												<th id="cell-total"  class="text-center text-semibold">Total Cost</th>
+												<th id="cell-item"   class="text-semibold">سيارة</th>
+												<th id="cell-desc"   class="text-semibold">وصف</th>
+												<th id="cell-price"  class="text-center text-semibold">تكلفة</th>
 											</tr>
 										</thead>
 										<tbody>
 											<ui:repeat var="var" value="#{shipperBean.carsForInvoice}">
 											
-											<tr>
-												<td>#{var.id}</td>
-												<td class="text-semibold text-dark">#{var.uuid}</td>
-												<td>#{var.description}</td>
+											<tr style=" background: aliceblue; ">
+												<td class="text-center text-semibold text-dark">#{var.uuid}</td>
+												<td class="text-center">تكلفة الشحن الارضى</td>
 												<td class="text-center">$#{var.landcost}</td>
-												<td class="text-center">$#{var.seacost}</td>
-												<td class="text-center">$#{var.fees}</td>
-												<td class="text-center">$#{var.commision}</td>
-												<td class="text-center">$#{var.landcost+var.seacost+var.fees+var.commision}</td>
 											</tr>
+											
+											<tr>
+												<td class="text-center text-semibold text-dark"></td>
+												<td class="text-center">تكلفة الشحن البحرى</td>
+												<td class="text-center">$#{var.seacost}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-semibold text-dark"></td>
+												<td class="text-center">تكلفة المزايدة والبوابات </td>
+												<td class="text-center">$#{var.commision}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-semibold text-dark"></td>
+												<td class="text-center">تكلفة العمولات </td>
+												<td class="text-center">$#{var.fees}</td>
+											</tr>
+											
+											<tr>
+												<td class="text-semibold text-dark"></td>
+												<td class="text-center">تكلفة الشراء </td>
+												<td class="text-center">$#{var.orderPrice}</td>
+											</tr>
+											
+											
+											<ui:repeat var="var_item" value="#{var.item_price}">
+											<tr>
+												<td class="text-semibold text-dark"></td>
+												<td class="text-center">#{var_item.description}</td>
+												<td class="text-center">#{var_item.value}</td>
+											</tr>
+											</ui:repeat>
+							
 											
 											</ui:repeat>
 											
@@ -126,7 +158,7 @@
 											<table class="table h5 text-dark">
 												<tbody>
 													<tr class="b-top-none">
-														<td colspan="2">Total Car Shipping Cost Fees</td>
+														<td colspan="2">Total Car Cost Fees</td>
 														<td class="text-left">$#{shipperBean.carFeesInvoice}</td>
 													</tr>
 													
