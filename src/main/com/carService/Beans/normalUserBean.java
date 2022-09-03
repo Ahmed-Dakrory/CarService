@@ -137,6 +137,9 @@ public class normalUserBean implements Serializable{
 	private List<transportfee> allState;
 	private Map<Integer,String> allLanding;
 	
+	
+
+	private float amountRemainToPayForAllCars=0;
 	private transportfee selectedTansportFees;
 	
 	
@@ -156,6 +159,7 @@ public class normalUserBean implements Serializable{
 	private int carIdOfTransaction=-1;
 	private String wireTransferOfTransaction="";
 	private String containerOfTransaction="";
+	private int userOfTransaction = -1;
 
 	private List<car> allCarsAsUser;
 	private List<car> allCarsAsUserContainer;
@@ -354,7 +358,13 @@ public class normalUserBean implements Serializable{
 		
 		summery_allmoneybox_transaction_details = new ArrayList<moneybox_transaction_details>();
 		List<moneybox_transaction_details> allDetails = moneybox_transaction_detailsFacade.getAllByUserMoneyBoxId(loginBean.thisAccountMoneyBox.getId());
-		for(int i=0;i<10;i++) {
+		int len=0;
+		if(allDetails.size()>=10) {
+			len=10;
+		}else {
+			len = allDetails.size();
+		}
+		for(int i=0;i<len;i++) {
 			
 				
 			summery_allmoneybox_transaction_details.add(allDetails.get(i));
@@ -368,6 +378,22 @@ public class normalUserBean implements Serializable{
 	}
 
 
+	public void reload_howManyCarAmount_remain() {
+			if(loginBean.isLoggedIn()) {
+				
+				
+				amountRemainToPayForAllCars=0;
+				List<car> allCars = carFacade.getAllForNormalUser(loginBean.getTheUserOfThisAccount().getId());
+				for(int i=0;i<allCars.size();i++) {
+					if(!allCars.get(i).isPayed_done()) {
+						amountRemainToPayForAllCars = amountRemainToPayForAllCars + (allCars.get(i).getTotal_amount_for_this_car()-allCars.get(i).getAmount_of_payment());
+					}
+				}
+						
+			}
+		
+
+	}
 
 	public void handleAllUsersForAdmin() {
 		
@@ -821,11 +847,23 @@ public void getCarWithVinNew() {
 }
 
 
+
 public void filterCarBySelect() {
 	filterCarBySelectFirstTime();
 	
 	try {
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+public void filterCarBySelect2() {
+	filterCarBySelectFirstTime();
+	
+	try {
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/normalUsers/car/vehicleList2.jsf?faces-redirect=true");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -972,11 +1010,15 @@ public void get_all_moneybox_transactions() {
 	for(int i=0;i<allDetails.size();i++) {
 		if(allDetails.get(i).getCarId()!=null) {
 			if(carIdOfTransaction==(allDetails.get(i).getCarId().getId()) || carIdOfTransaction==-1) {
-				if(allDetails.get(i).getCarId().getContainer().contains(containerOfTransaction) || containerOfTransaction=="") {
-					if(allDetails.get(i).getWire_transfer_number().contains(wireTransferOfTransaction) || wireTransferOfTransaction.equals("")) {
-						if(typeOfTransaction==(allDetails.get(i).getTypeOfTransaction()) || typeOfTransaction==-1) {
-							
-							allmoneybox_transaction_details.add(allDetails.get(i));
+				if(userOfTransaction==(allDetails.get(i).getCarId().getNormalUserId().getId()) || userOfTransaction==-1) {
+				
+				
+					if(allDetails.get(i).getCarId().getContainer().contains(containerOfTransaction) || containerOfTransaction=="") {
+						if(allDetails.get(i).getWire_transfer_number().contains(wireTransferOfTransaction) || wireTransferOfTransaction.equals("")) {
+							if(typeOfTransaction==(allDetails.get(i).getTypeOfTransaction()) || typeOfTransaction==-1) {
+								
+								allmoneybox_transaction_details.add(allDetails.get(i));
+							}
 						}
 					}
 				}
@@ -2311,6 +2353,30 @@ public List<moneybox_transaction_details> getSummery_allmoneybox_transaction_det
 public void setSummery_allmoneybox_transaction_details(
 		List<moneybox_transaction_details> summery_allmoneybox_transaction_details) {
 	this.summery_allmoneybox_transaction_details = summery_allmoneybox_transaction_details;
+}
+
+
+
+public int getUserOfTransaction() {
+	return userOfTransaction;
+}
+
+
+
+public void setUserOfTransaction(int userOfTransaction) {
+	this.userOfTransaction = userOfTransaction;
+}
+
+
+
+public float getAmountRemainToPayForAllCars() {
+	return amountRemainToPayForAllCars;
+}
+
+
+
+public void setAmountRemainToPayForAllCars(float amountRemainToPayForAllCars) {
+	this.amountRemainToPayForAllCars = amountRemainToPayForAllCars;
 }
 
 

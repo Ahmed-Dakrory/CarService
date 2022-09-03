@@ -69,7 +69,10 @@ direction:ltr;
 	
 	
     <link rel="stylesheet" href="#{resource['css:dashboard/primifaces.css']}" />
+#{normalUserBean.handleAllUsersForAdmin()}
 #{normalUserBean.get_all_moneybox_transactions()}
+
+
  <h:form id="aspnetForm">
            <div class="container-fluid">
            
@@ -78,7 +81,7 @@ direction:ltr;
          		</div>
          		
            	<div class="row">
-           		<div class="col-3">
+           		<div class="col-2">
            				<label class="pl-3">تحديد بالسيارة</label>
 						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.carIdOfTransaction}"  style="width:230px">
 								
@@ -88,7 +91,7 @@ direction:ltr;
 						</p:selectOneMenu>
 				</div>
 				
-				<div class="col-3">
+				<div class="col-2">
            				<label class="pl-3">تحديد بالكونتينر</label>
 						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.containerOfTransaction}"  style="width:230px">
 								
@@ -98,10 +101,20 @@ direction:ltr;
 						</p:selectOneMenu>
 				</div>
 				
+				<div class="col-2">
+           				<label class="pl-3">تحديد بالعميل</label>
+						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.userOfTransaction}"  style="width:230px">
+								
+								<f:selectItem  itemLabel="All" itemValue="-1"/>													
+								<f:selectItems value="#{normalUserBean.allUsers}" var="var" itemLabel="#{var.firstName} #{var.lastName}" itemValue="#{var.id}"/>
+	
+						</p:selectOneMenu>
+				</div>
 				
-				<div class="col-3">
+				
+				<div class="col-2">
            		
-           				<label class="pl-3">  تحديد بالعملية  </label>
+           				<label class="pl-3">  تحديد  بنوع العملية  </label>
 						<p:selectOneMenu  effect="fade" filter="true" filterMatchMode="startsWith"   value="#{normalUserBean.typeOfTransaction}"  style="width:230px">
 								
 								<f:selectItem  itemLabel="All" itemValue="-1"/>	
@@ -117,7 +130,7 @@ direction:ltr;
 				
 				<div class="col-3">
            		
-           				<label class="pl-3">  رقم العملية  </label>
+           				<label class="pl-3">  تحديد برقم العملية  </label>
            				<p:inputText value="#{normalUserBean.wireTransferOfTransaction}" style="width:230px"/>
          		</div>
 				
@@ -136,7 +149,9 @@ direction:ltr;
            					<th>تاريخ التحويلة </th>
            					<th>نوع التحويلة</th>
            					<th>رقم التحويلة</th>
+           					<th>العميل </th>
            					<th>سيارة </th>
+           					<th>مدفوعة بشكل كلى </th>
            					<th>رقم الفاتورة</th>
            					<th>محتويات فاتورة السيارة </th>
            				</tr>
@@ -150,8 +165,19 @@ direction:ltr;
 	           				#{var.typeOfTransaction==1?'دفع':''}
 	           				#{var.typeOfTransaction==2?'سحب':''}
 	           				#{var.typeOfTransaction==3?'تحويل':''}</td>
+	           				<td>#{var.moneyBoxId.userId.firstName} #{var.moneyBoxId.userId.lastName}</td>
 	           				<td>#{var.wire_transfer_number}</td>
-	           				<td>#{var.carId.uuid}</td>
+	           				<td>#{var.carId.make} #{var.carId.model} #{var.carId.year} /(#{var.carId.uuid})</td>
+	           				
+	           				<td>
+								<p:panel style=" background: #f44343; text-align: center; color: white; " rendered="#{!var.carId.payed_done}">
+									متبقى $ #{var.carId.getTotal_amount_for_this_car()-var.carId.amount_of_payment} 
+									</p:panel>
+									
+									<p:panel style=" background: #5cf443; text-align: center; " rendered="#{var.carId.payed_done}">
+									مدفوعة بشكل كامل
+									</p:panel>
+							</td>
 	           				<td>
 	           				
 	           				<h:commandLink value="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id}"  actionListener="#{shipperBean.showTheInvoice_user(normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id)}"/>
@@ -209,6 +235,9 @@ direction:ltr;
 	           				<td> </td>
 	           				<td>قيمة التحويلة</td>
 	           				<td>#{var.amount}</td>
+	           				<td></td>
+	           				<td></td>
+	           				<td></td>
 	           				<td><span class="#{var.carId==null?'d-none':''}"> قيمة اجمالى السيارة </span></td>
 	           				<td><span class="#{var.carId==null?'d-none':''}"> #{var.carId.getTotal_amount_for_this_car()} </span></td>
            				</tr>
@@ -224,8 +253,9 @@ direction:ltr;
         
      <script>
 
-  	$('#menu-header- car').toggleClass('expand');
-  	$('#menu-car').fadeToggle();
+
+  	$('#menu-header-payment').toggleClass('expand');
+  	$('#menu-payment').fadeToggle();
   	$('#summery-all').toggleClass('menu-item-refunds');
      </script>
      

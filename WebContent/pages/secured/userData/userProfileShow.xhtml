@@ -88,6 +88,7 @@ text-align: center;
 
 
 	</style>
+	#{normalUserBean.reload_howManyCarAmount_remain()}
 	#{normalUserBean.refreshProfileData()}
 	#{normalUserProductBean.refreshProfileData()}
 	#{bidBean.refresh()}
@@ -237,7 +238,19 @@ text-align: center;
           				
           				
           				<div class="container">
-                            	<div class="row">
+          				
+          				
+          				
+          						<div class="row">
+                            		 <div class="col-xs-12 col-sm-12">
+			                            <h4 style="text-align: center;"><strong> $#{normalUserBean.amountRemainToPayForAllCars} </strong></h4>                    
+			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>ما عليك من مبلغ قيمة سياراتك</small></p>
+			                        </div><!--/col-->
+			                       
+			                       
+                            	</div>
+                            	
+                            	<div class="row mt-3">
                             		 <div class="col-xs-12 col-sm-4">
 			                            <h4 style="text-align: center;"><strong> $#{loginBean.thisAccountMoneyBox.depositedMoney} </strong></h4>                    
 			                            <p class="btn btn-success btn-block"><span class="fa fa-dollar"></span><small>المودع</small></p>
@@ -284,8 +297,7 @@ text-align: center;
 												</td>
                             					<td> #{var.carId.uuid} </td>
                             					<td>
-	           				
-						           				<p:commandButton value="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id}"  actionListener="#{shipperBean.showTheInvoice_user(normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id)}"/>
+						           				<p:commandButton rendered="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId!=null}" value="#{normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id}"  actionListener="#{shipperBean.showTheInvoice_user(normalUserBean.getInvoiceForThisCar(var.carId.id).invoiceId.id)}"/>
 						           				</td>
                             				</tr>
                             				</ui:repeat>

@@ -59,7 +59,6 @@ public class loginBean implements Serializable{
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
 	
-	
 	public moneybox thisAccountMoneyBox;
 	private List<moneybox_transaction_details> mymoneyTransactions;
 	
@@ -160,6 +159,7 @@ public class loginBean implements Serializable{
 		}
 	}
 	
+
 	
 	public void reloadedParametersAndPanelRefresh() {
 if(isLoggedIn) {

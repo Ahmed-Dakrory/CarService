@@ -100,6 +100,7 @@ public class moneyboxConfig {
 	}
 	
 	
+
 	public static void makeaPayment(float amount
 			,user fromMe
 			,userAppServiceImpl userFasced,moneyboxAppServiceImpl moneyfascede
@@ -145,6 +146,57 @@ public class moneyboxConfig {
 		transactionMain.setMoneyBoxId(mainAccountMoneyBox);
 		transactionMain.setWire_transfer_number(wire_transfer_number);
 		transactionMain.setCarId(carId);
+				
+		moneyBoxtransactionFasced.addmoneybox_transaction_details(transactionMain);
+		
+	}
+	
+	
+	
+	
+	public static void makeaPaymentOutlet(float amount
+			,userAppServiceImpl userFasced,moneyboxAppServiceImpl moneyfascede
+			,moneybox_transaction_detailsAppServiceImpl moneyBoxtransactionFasced
+			,String wire_transfer_number
+			) {
+		
+		moneybox myMoneyBox = moneyfascede.getByUserId(1);
+		float totalDeposited = myMoneyBox.getDepositedMoney();
+//		float totalSpend = myMoneyBox.getTotalUsed();
+		
+		//Set the new amount
+		myMoneyBox.setDepositedMoney(totalDeposited-amount);
+//		myMoneyBox.setTotalUsed(totalSpend+amount);
+		moneyfascede.addmoneybox(myMoneyBox);
+		
+		//add new transaction
+		moneybox_transaction_details transaction=new moneybox_transaction_details();
+		transaction.setAmount(amount);
+		transaction.setAmountBefore(totalDeposited);
+		transaction.setTypeOfTransaction(moneybox_transaction_details.depositeTypes.Payment.getType());
+		transaction.setDate(Calendar.getInstance().getTime());
+		transaction.setMoneyBoxId(myMoneyBox);
+		transaction.setWire_transfer_number(wire_transfer_number);
+		
+		
+		moneyBoxtransactionFasced.addmoneybox_transaction_details(transaction);
+		
+		//AddMoneyToTheMainUser
+		user theMainAccount = userFasced.getById(231);
+		moneybox mainAccountMoneyBox = moneyfascede.getByUserId(theMainAccount.getId());
+		float totalDepositedMainAccount = mainAccountMoneyBox.getDepositedMoney();
+		mainAccountMoneyBox.setDepositedMoney(totalDepositedMainAccount+amount);
+		moneyfascede.addmoneybox(mainAccountMoneyBox);
+		
+		
+		//add new transaction for MainAccount
+		moneybox_transaction_details transactionMain=new moneybox_transaction_details();
+		transactionMain.setAmount(amount);
+		transactionMain.setAmountBefore(totalDepositedMainAccount);
+		transactionMain.setTypeOfTransaction(moneybox_transaction_details.depositeTypes.Inserted.getType());
+		transactionMain.setDate(Calendar.getInstance().getTime());
+		transactionMain.setMoneyBoxId(mainAccountMoneyBox);
+		transactionMain.setWire_transfer_number(wire_transfer_number);
 				
 		moneyBoxtransactionFasced.addmoneybox_transaction_details(transactionMain);
 		

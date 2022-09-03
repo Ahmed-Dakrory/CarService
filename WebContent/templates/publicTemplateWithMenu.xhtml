@@ -115,6 +115,8 @@
 
 
 <h:body>
+
+
       <style>
    .responsive_box a{
   
@@ -435,7 +437,6 @@ body {
 
 
  -->
- 
  
  
  
@@ -766,8 +767,17 @@ body {
 <ul  id="menu-car" class="level2" style="display: contents;">
 <li id="car-main"><a href="/pages/secured/normalUsers/car/vitView.jsf?faces-redirect=true">طلب شراء وشحن او شحن فقط</a></li>
 <li id="car-all"><a href="/pages/secured/normalUsers/car/vehicleList.jsf?faces-redirect=true">كل السيارات </a></li>
+</ul>
+
+
+
+<div id="menu-header-payment" class="sublevel droparrow">كشف الحساب </div>
+
+
+<ul  id="menu-payment" class="level2" style="display: contents;">
+<li id="payment-all"><a href="/pages/secured/normalUsers/car/vehicleList2.jsf?faces-redirect=true">الفواتير المبدئية  </a></li>
 <li id="summery-all"><a href="/pages/secured/normalUsers/invoice_main/summeryList_normal.jsf?faces-redirect=true">ملخص عمليات الدفع </a></li>
-<li id="invoices-all"><a href="/pages/secured/normalUsers/invoice_main/invoiceList_normal.jsf?faces-redirect=true">كل الفواتير </a></li>
+<li id="invoices-all"><a href="/pages/secured/normalUsers/invoice_main/invoiceList_normal.jsf?faces-redirect=true">الفواتير النهائية</a></li>
 </ul>
 
 
@@ -816,6 +826,7 @@ body {
  	$('#menu-bid').fadeToggle();
  	$('#menu-car').fadeToggle();
  	$('#menu-product').fadeToggle();
+ 	$('#menu-payment').fadeToggle();
      </script>
      
      
@@ -966,6 +977,8 @@ body {
 
 	<script src="/javax.faces.resource/Scripts/bootbox.all.js.xhtml"></script>
 		 <h:form>
+		 #{loginBean.reloadedParametersAndPanelRefresh()}
+		 #{bidBean.refreshNotification()}
 			<p:remoteCommand name="refreshMainViews" action="#{loginBean.reloadedParametersAndPanelRefresh}"></p:remoteCommand>
 			<p:remoteCommand name="refreshMainViews2" action="#{bidBean.refreshNotification}"></p:remoteCommand>
 			

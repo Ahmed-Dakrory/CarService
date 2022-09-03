@@ -145,6 +145,11 @@ public class carBean implements Serializable{
 	private  String storageStartDate;
 	private  String storageEndDate;
 
+	
+	private int userOfTransaction;
+	
+	
+	
 	private int mainTwoSelectedId;
 	private int shipperSelectedId;
 	private int vendorSelectedId;
@@ -527,8 +532,9 @@ public void visiblityShowing() {
 	public void makePaymentForACarFromMain2() {
 		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
 		float allPrice = selectedCar.getAmount_of_payment()+amount_to_pay;
+		float depositeAmount = mB1.getDepositedMoney();
 		float selectedCar_total_value = selectedCar.getTotal_amount_for_this_car();
-		
+		if(depositeAmount>=amount_to_pay) {
 		if(allPrice>selectedCar_total_value) {
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
 					"			title: 'Check this ',\r\n" + 
@@ -536,11 +542,7 @@ public void visiblityShowing() {
 					"			left:\"2%\"\r\n" + 
 					"		});");
 		}else {
-			moneyboxConfig.depositeMoney(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
-					wire_transfer_number,selectedCar);
-			System.out.println("-----------------");
-			System.out.println(amount_to_pay);
-			System.out.println(mB1.getDepositedMoney());
+			
 			mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
 			if((mB1.getDepositedMoney())-amount_to_pay>=0) {
 				moneyboxConfig.makeaPayment(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
@@ -575,13 +577,94 @@ public void visiblityShowing() {
 						"			left:\"2%\"\r\n" + 
 						"		});");
 			}
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+		}
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'You Dont have enough money in your moneybox',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
 		}
 		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+	
 	}
+	
+	
+	
+
+	public void makePaymentForACar() {
+		
+		
+		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+		float allPrice = selectedCar.getAmount_of_payment()+amount_to_pay;
+		float depositeAmount = mB1.getDepositedMoney();
+		float selectedCar_total_value = selectedCar.getTotal_amount_for_this_car();
+		if(depositeAmount>=amount_to_pay) {
+		if(allPrice>selectedCar_total_value) {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'The total amount after this payment will be higher than the need',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}else {
+			
+			mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
+			if((mB1.getDepositedMoney())-amount_to_pay>=0) {
+				moneyboxConfig.makeaPayment(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+						wire_transfer_number,selectedCar);
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Success',\r\n" + 
+						"			text: 'Payment Done',\r\n" + 
+						"			type: 'success'\r\n" + 
+						"		});");
+				if(allPrice>=selectedCar_total_value) {
+				selectedCar.setPayed_done(true);
+				}
+				addCarActionForLog(selectedCar,"Payment Done for this Car by part amount: "+String.valueOf(amount_to_pay));
+				selectedCar.setAmount_of_payment(allPrice);
+				
+				try {
+					carFacade.addcar(selectedCar);
+					PrimeFaces.current().executeScript("PF('dlg2').hide();");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+							"			title: 'Error',\r\n" + 
+							"			text: '"+e.getMessage()+".',\r\n" + 
+							"			type: 'error'\r\n" + 
+							"		});");
+				}
+			}else {
+				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+						"			title: 'Check this ',\r\n" + 
+						"			text: 'No amount available',\r\n" + 
+						"			left:\"2%\"\r\n" + 
+						"		});");
+			}
+			}
+		}else {
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Check this ',\r\n" + 
+					"			text: 'You Dont have enough money in your moneybox',\r\n" + 
+					"			left:\"2%\"\r\n" + 
+					"		});");
+		}
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+	
+		
+	}
+	
+	
+	
 	
 	private void addCarActionForLog(car car,String sttt) {
 		// TODO Auto-generated method stub
@@ -658,64 +741,78 @@ public void visiblityShowing() {
 	
 	
 
-	public void makePaymentForACar() {
+	public void makeDepositeForAccount() {
+		
+		user usObj = loginBean.getUserDataFacede().getById(userOfTransaction);
 		
 		
-		moneybox mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
-		float allPrice = selectedCar.getAmount_of_payment()+amount_to_pay;
-		float selectedCar_total_value = selectedCar.getTotal_amount_for_this_car();
 		
-		if(allPrice>selectedCar_total_value) {
+		moneyboxConfig.depositeMoney(amount_to_pay, usObj, loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+				wire_transfer_number);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Payment Done',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+	
+		try {
+			PrimeFaces.current().executeScript("PF('dlg2').hide();");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-					"			title: 'Check this ',\r\n" + 
-					"			text: 'The total amount after this payment will be higher than the need',\r\n" + 
-					"			left:\"2%\"\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
 					"		});");
-		}else {
-			moneyboxConfig.depositeMoney(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
-					wire_transfer_number,selectedCar);
-			System.out.println("-----------------");
-			System.out.println(amount_to_pay);
-			System.out.println(mB1.getDepositedMoney());
-			mB1 = loginBean.moneyboxDataFacede.getByUserId(selectedCar.getNormalUserId().getId());
-			if((mB1.getDepositedMoney())-amount_to_pay>=0) {
-				moneyboxConfig.makeaPayment(amount_to_pay, selectedCar.getNormalUserId(), loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
-						wire_transfer_number,selectedCar);
-				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-						"			title: 'Success',\r\n" + 
-						"			text: 'Payment Done',\r\n" + 
-						"			type: 'success'\r\n" + 
-						"		});");
-				if(allPrice>=selectedCar_total_value) {
-				selectedCar.setPayed_done(true);
-				}
-				addCarActionForLog(selectedCar,"Payment Done for this Car by part amount: "+String.valueOf(amount_to_pay));
-				selectedCar.setAmount_of_payment(allPrice);
-				
-				try {
-					carFacade.addcar(selectedCar);
-					PrimeFaces.current().executeScript("PF('dlg2').hide();");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-							"			title: 'Error',\r\n" + 
-							"			text: '"+e.getMessage()+".',\r\n" + 
-							"			type: 'error'\r\n" + 
-							"		});");
-				}
-			}else {
-				PrimeFaces.current().executeScript("new PNotify({\r\n" + 
-						"			title: 'Check this ',\r\n" + 
-						"			text: 'No amount available',\r\n" + 
-						"			left:\"2%\"\r\n" + 
-						"		});");
-			}
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
-			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
 		}
+		
+		
+		
+	}
+	
+	
+	
+	
+
+
+	public void makeDepositeForOutLet() {
+		
+		
+		moneyboxConfig.makeaPaymentOutlet(amount_to_pay, loginBean.getUserDataFacede(), loginBean.moneyboxDataFacede, loginBean.getMoneybox_transaction_detailsDataFacede(),
+				wire_transfer_number);
+		
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Success',\r\n" + 
+				"			text: 'Payment Done',\r\n" + 
+				"			type: 'success'\r\n" + 
+				"		});");
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:total_payed_display2");
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");
+	
+		try {
+			
+			PrimeFaces.current().executeScript("PF('dlg3').hide();");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+					"			title: 'Error',\r\n" + 
+					"			text: '"+e.getMessage()+".',\r\n" + 
+					"			type: 'error'\r\n" + 
+					"		});");
+		}
+		
+		
 		
 	}
 	
@@ -3128,6 +3225,20 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 	public void setMainTwoFacade(mainTwoAppServiceImpl mainTwoFacade) {
 		this.mainTwoFacade = mainTwoFacade;
 	}
+
+	
+	
+	public int getUserOfTransaction() {
+		return userOfTransaction;
+	}
+
+
+
+	public void setUserOfTransaction(int userOfTransaction) {
+		this.userOfTransaction = userOfTransaction;
+	}
+
+
 
 	public boolean isProgress() {
 		return progress;
