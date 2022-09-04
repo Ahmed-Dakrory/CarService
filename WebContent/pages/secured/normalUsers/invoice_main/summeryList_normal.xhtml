@@ -151,14 +151,23 @@ direction:ltr;
            					<th>رقم التحويلة</th>
            					<th>العميل </th>
            					<th>سيارة </th>
-           					<th>مدفوعة بشكل كلى </th>
+           					<th>حالة الدفع </th>
            					<th>رقم الفاتورة</th>
            					<th>محتويات فاتورة السيارة </th>
            				</tr>
            			</thead>
            			<tbody>
            			<ui:repeat var="var" value="#{normalUserBean.allmoneybox_transaction_details}">
-           				
+           				<tr style=" border-bottom: solid; ">
+           					<th>تاريخ التحويلة </th>
+           					<th>نوع التحويلة</th>
+           					<th>رقم التحويلة</th>
+           					<th>العميل </th>
+           					<th>سيارة </th>
+           					<th>حالة الدفع </th>
+           					<th>رقم الفاتورة</th>
+           					<th>محتويات فاتورة السيارة </th>
+           				</tr>
 	           			<tr>
 	           				<td>#{var.date}</td>
 	           				<td>#{var.typeOfTransaction==0?'إيداع':''}
@@ -169,14 +178,14 @@ direction:ltr;
 	           				<td>#{var.moneyBoxId.userId.firstName} #{var.moneyBoxId.userId.lastName}</td>
 	           				<td>#{var.carId.make} #{var.carId.model} #{var.carId.year} /(#{var.carId.uuid})</td>
 	           				
-	           				<td>
-								<p:panel style=" background: #f44343; text-align: center; color: white; " rendered="#{!var.carId.payed_done}">
-									متبقى $ #{var.carId.getTotal_amount_for_this_car()-var.carId.amount_of_payment} 
-									</p:panel>
+	           				<td style=" padding-top: 25px; ">
+								<h:panelGroup style=" background: #f44343; text-align: center; color: white; padding: 6px;border-radius: 11px;" rendered="#{!var.carId.payed_done}">
+									متبقى  #{var.carId.getTotal_amount_for_this_car()-var.carId.amount_of_payment} $
+									</h:panelGroup>
 									
-									<p:panel style=" background: #5cf443; text-align: center; " rendered="#{var.carId.payed_done}">
+									<h:panelGroup style=" background: #5cf443; text-align: center; padding: 6px;border-radius: 11px;" rendered="#{var.carId.payed_done}">
 									مدفوعة بشكل كامل
-									</p:panel>
+									</h:panelGroup>
 							</td>
 	           				<td>
 	           				
