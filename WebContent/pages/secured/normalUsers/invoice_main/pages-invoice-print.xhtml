@@ -107,7 +107,7 @@
 											<ui:repeat var="var" value="#{shipperBean.carsForInvoice}">
 											
 											<tr style=" background: aliceblue; ">
-												<td class="text-center text-semibold text-dark">#{var.uuid}</td>
+												<td class="text-center text-semibold text-dark">#{var.make} #{var.model} #{var.year} (#{var.uuid})</td>
 												<td class="text-center">تكلفة الشحن الارضى</td>
 												<td class="text-center">$#{var.landcost}</td>
 											</tr>
