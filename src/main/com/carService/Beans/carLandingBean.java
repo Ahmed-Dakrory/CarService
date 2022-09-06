@@ -1006,7 +1006,7 @@ public void calcValueOfTotalFeesCarSelected() {
 				landFees=selectedTansportFees.getCaPortCost();
 			}
 
-			totalFees=copartFees+onlineFees+GateFees+seaFees+landFees+ourFees;
+			totalFees=copartFees+GateFees+seaFees+landFees+ourFees;
 			
 		}
 		
