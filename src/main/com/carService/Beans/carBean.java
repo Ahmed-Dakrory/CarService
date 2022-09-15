@@ -1800,6 +1800,7 @@ public void refreshSelectedCarVendor() {
 			
 			item i_object = new item();
 			i_object.setCarId(selectedCar);
+			i_object.setValue("0");
 			i_object.setType(item.TYPE_PRICE);
 			selectedCar.getItem_price().add(i_object);
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:item_group");

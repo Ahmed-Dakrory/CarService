@@ -84,6 +84,18 @@ public class transportfee {
 	private Integer caPortCost;
 	
 
+	@Column(name = "floridaPortCost")
+	private Float floridaPortCost;
+	
+
+	@Column(name = "paltimorPortCost")
+	private Float paltimorPortCost;
+	
+
+	@Column(name = "indianaPortCost")
+	private Float indianaPortCost;
+	
+
 	@Column(name = "lowCost")
 	private Integer lowCost;
 	
@@ -169,6 +181,38 @@ public class transportfee {
 
 	public void setCaPortCost(Integer caPortCost) {
 		this.caPortCost = caPortCost;
+	}
+
+
+	
+	
+	public Float getFloridaPortCost() {
+		return floridaPortCost;
+	}
+
+
+	public void setFloridaPortCost(Float floridaPortCost) {
+		this.floridaPortCost = floridaPortCost;
+	}
+
+
+	public Float getPaltimorPortCost() {
+		return paltimorPortCost;
+	}
+
+
+	public void setPaltimorPortCost(Float paltimorPortCost) {
+		this.paltimorPortCost = paltimorPortCost;
+	}
+
+
+	public Float getIndianaPortCost() {
+		return indianaPortCost;
+	}
+
+
+	public void setIndianaPortCost(Float indianaPortCost) {
+		this.indianaPortCost = indianaPortCost;
 	}
 
 

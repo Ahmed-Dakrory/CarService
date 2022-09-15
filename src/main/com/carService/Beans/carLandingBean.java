@@ -837,6 +837,18 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 					allLanding.put(117, "LOS ANGELES, CA (2704)");					
 				}
 				
+				if(allState.get(0).getIndianaPortCost()!=0) {
+					allLanding.put(391, "Indianapolis IN (4110)");					
+				}
+				
+				if(allState.get(0).getFloridaPortCost()!=0) {
+					allLanding.put(371, "MIAMI, FL (5201)");					
+				}
+				
+				if(allState.get(0).getPaltimorPortCost()!=0) {
+					allLanding.put(410, "Baltimore, BL (1303)");					
+				}
+				
 			}
 		}
 	}
@@ -1004,8 +1016,15 @@ public void calcValueOfTotalFeesCarSelected() {
 				landFees=selectedTansportFees.getTxPortCost();
 			}else if(portType==117) {
 				landFees=selectedTansportFees.getCaPortCost();
+			}else if(portType==391) {
+				landFees=selectedTansportFees.getIndianaPortCost();
+			}else if(portType==371) {
+				landFees=selectedTansportFees.getFloridaPortCost();
+			}else if(portType==410) {
+				landFees=selectedTansportFees.getPaltimorPortCost();
 			}
-
+			
+			
 			totalFees=copartFees+GateFees+seaFees+landFees+ourFees;
 			
 		}
