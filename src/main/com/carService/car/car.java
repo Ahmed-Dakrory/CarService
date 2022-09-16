@@ -2118,6 +2118,21 @@ public class car {
 			    	  
 			      }
 		      
+		      if(this.getNormalUserId()!=null) {
+			      obj.addProperty("normalUserName", String.valueOf(this.getNormalUserId().getCompany()));
+			      }else {
+				      obj.addProperty("normalUserName", String.valueOf("null"));
+			    	  
+			      }
+		      
+		      
+		      if(this.getBuyerNumber()!=null) {
+			      obj.addProperty("buyNumber", String.valueOf(this.getBuyerNumber()));
+			      }else {
+				      obj.addProperty("buyNumber", String.valueOf("null"));
+			    	  
+			      }
+		       
 		      if(this.getShipperId()!=null) {
 			      obj.addProperty("shipperCompanyName", String.valueOf(this.getShipperId().getUserId().getCompany()));
 			      }else {

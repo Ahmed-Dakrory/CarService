@@ -58,6 +58,8 @@ import main.com.carService.carImage.carimage;
 import main.com.carService.carImage.carimageAppServiceImpl;
 import main.com.carService.consignee.consignee;
 import main.com.carService.consignee.consigneeAppServiceImpl;
+import main.com.carService.costCalc.transportfee;
+import main.com.carService.costCalc.transportfeeAppServiceImpl;
 import main.com.carService.customer.customer;
 import main.com.carService.customer.customerAppServiceImpl;
 import main.com.carService.item.item;
@@ -131,6 +133,12 @@ public class carBean implements Serializable{
 	private car selectedCar;
 	private car addNewCar;
 	
+
+	@ManagedProperty(value = "#{transportfeeFacadeImpl}")
+	private transportfeeAppServiceImpl transportfeeFacade;
+	
+
+	private transportfee selectedTansportFees;
 	
 	private List<String> carStates;
 	
@@ -149,6 +157,15 @@ public class carBean implements Serializable{
 	private int userOfTransaction;
 	
 	
+	private double onlineFees;
+	private double GateFees=0;
+	private double seaFees;
+	private double landFees;
+	private double totalFees;
+	
+
+	private double copartFees;
+	private double ourFees;
 	
 	private int mainTwoSelectedId;
 	private int shipperSelectedId;
@@ -195,7 +212,7 @@ public class carBean implements Serializable{
 
 		visibilityOptions = new ArrayList<String>();
 		
-		for(int i=0;i<14;i++) {
+		for(int i=0;i<15;i++) {
 			visibilityOptions.add("true");
 		}
 		
@@ -212,12 +229,89 @@ public class carBean implements Serializable{
 	}
 	
 	
+public void updateCarPrice(int id) {
+	
+	selectedCar=carFacade.getById(id);
+	 int level = calcBean.getLevel(selectedCar.getOrderPrice());
+	
+	 if(selectedCar.getTypeOfOrder().equals(0)) {
+		 copartFees=0; 
+	 }else {
+		 copartFees = calcBean.CalculateCopart(level, selectedCar.getOrderPrice());
+		 
+	 }
+	 ourFees= 100;
+	 
+	 
+	selectedTansportFees=transportfeeFacade.getWithSpecs(selectedCar.getSelectedLocation(), selectedCar.getSelectedCity(), selectedCar.getSelectedState());
 
+	if(selectedTansportFees!=null) {
+		double price=selectedCar.getOrderPrice();
+		level=calcBean.getLevel(price);
+		onlineFees=calcBean.onlineBid[level];
+		seaFees=0;
+		if(selectedCar.getCarSize().equalsIgnoreCase("0")) {
+			seaFees=selectedTansportFees.getLowCost();
+		}else {
+			seaFees=selectedTansportFees.getHighCost();
+		}
+		
+		landFees=0;
+		
+		
+		
+		
+		if(selectedCar.getOrigin()==1) {
+			landFees=selectedTansportFees.getNjPortCost();
+		}else if(selectedCar.getOrigin()==39) {
+			landFees=selectedTansportFees.getGaPortCost();
+		}else if(selectedCar.getOrigin()==381) {
+			landFees=selectedTansportFees.getTxPortCost();
+		}else if(selectedCar.getOrigin()==117) {
+			landFees=selectedTansportFees.getCaPortCost();
+		}else if(selectedCar.getOrigin()==391) {
+			landFees=selectedTansportFees.getIndianaPortCost();
+		}else if(selectedCar.getOrigin()==371) {
+			landFees=selectedTansportFees.getFloridaPortCost();
+		}else if(selectedCar.getOrigin()==410) {
+			landFees=selectedTansportFees.getPaltimorPortCost();
+		}
+
+		
+		totalFees=copartFees+GateFees+seaFees+landFees+ourFees;
+		
+
+		
+	}
+	
+	
+	selectedCar.setLandcost((float) landFees);
+	selectedCar.setSeacost((float) seaFees);
+	selectedCar.setFees((float) ( ourFees));
+	selectedCar.setCommision((float) (copartFees+GateFees));
+	
+	
+	try {
+		carFacade.addcar(selectedCar);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
+				"			title: 'Error',\r\n" + 
+				"			text: '"+e.getMessage()+".',\r\n" + 
+				"			type: 'error'\r\n" + 
+				"		});");
+	}
+	
+	
+
+}
 public void openUUID() {
 	FacesContext context = FacesContext.getCurrentInstance();
 	 Map<String, String> map = context.getExternalContext().getRequestParameterMap();
 	 int id = Integer.parseInt((String) map.get("carUUID"));
 	 
+	 updateCarPrice(id);
 	 
 	 if(loginBean.getTheUserOfThisAccount().getRole().equals(0)) {
 		 selectCarForMain(id);
@@ -2716,6 +2810,7 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 		origineMap2.put(1, "NY");
 		origineMap2.put(39, "GA");
 		origineMap2.put(391, "IN");
+		origineMap2.put(410, "BL");
 		
 		String country=origineMap2.get(codeCountry);
 		
@@ -2957,6 +3052,97 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 		this.amount_to_pay = amount_to_pay;
 	}
 
+
+	
+
+	public transportfeeAppServiceImpl getTransportfeeFacade() {
+		return transportfeeFacade;
+	}
+
+
+	public void setTransportfeeFacade(transportfeeAppServiceImpl transportfeeFacade) {
+		this.transportfeeFacade = transportfeeFacade;
+	}
+
+
+	public transportfee getSelectedTansportFees() {
+		return selectedTansportFees;
+	}
+
+
+	public void setSelectedTansportFees(transportfee selectedTansportFees) {
+		this.selectedTansportFees = selectedTansportFees;
+	}
+
+
+	public double getOnlineFees() {
+		return onlineFees;
+	}
+
+
+	public void setOnlineFees(double onlineFees) {
+		this.onlineFees = onlineFees;
+	}
+
+
+	public double getGateFees() {
+		return GateFees;
+	}
+
+
+	public void setGateFees(double gateFees) {
+		GateFees = gateFees;
+	}
+
+
+	public double getSeaFees() {
+		return seaFees;
+	}
+
+
+	public void setSeaFees(double seaFees) {
+		this.seaFees = seaFees;
+	}
+
+
+	public double getLandFees() {
+		return landFees;
+	}
+
+
+	public void setLandFees(double landFees) {
+		this.landFees = landFees;
+	}
+
+
+	public double getTotalFees() {
+		return totalFees;
+	}
+
+
+	public void setTotalFees(double totalFees) {
+		this.totalFees = totalFees;
+	}
+
+
+	public double getCopartFees() {
+		return copartFees;
+	}
+
+
+	public void setCopartFees(double copartFees) {
+		this.copartFees = copartFees;
+	}
+
+
+	public double getOurFees() {
+		return ourFees;
+	}
+
+
+	public void setOurFees(double ourFees) {
+		this.ourFees = ourFees;
+	}
 
 
 	public Map<Integer, String> getOrigineMap2() {
@@ -3307,6 +3493,7 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 		origineMap.put(1, "NY");
 		origineMap.put(39, "GA");
 		origineMap.put(391, "IN");
+		origineMap.put(410, "BL");
 	}
 	void fillMap1() {
 		distinationMap.put(1, "Not Selected DESTINATION");   	

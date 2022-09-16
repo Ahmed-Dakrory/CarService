@@ -773,6 +773,7 @@ vertical-align: middle;
 											<th class="hidden-phone">Color</th>
 											<th class="hidden-phone">Shipper</th>
 											<th class="hidden-phone">Buyer</th>
+											<th class="hidden-phone">Buyer Number</th>
 											<th class="hidden-phone" style="display:#{carBean.selectedCarState==2?'table-cell':'none'};">Container#</th>
 											<th class="hidden-phone">No. Days</th>
 											<th class="hidden-phone" style="width: 5%!important;">Cargo Received</th>
@@ -939,9 +940,16 @@ vertical-align: middle;
                           {
                               className: "center hidden-phone", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                                   
-                            	  return '<span style="overflow: hidden; display: inline-flex;width: max-content; ">'+item.vendorCompanyName+'</span>';
+                            	  return '<span style="overflow: hidden; display: inline-flex;width: max-content; ">'+item.normalUserName+'</span>';
                                   }
                             },
+                            
+                            {
+                                className: "center hidden-phone", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                    
+                              	  return '<span style="overflow: hidden; display: inline-flex;width: max-content; ">'+item.buyNumber+'</span>';
+                                    }
+                              },
                               
                               {
                                   className: "center hidden-phone displayState", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {

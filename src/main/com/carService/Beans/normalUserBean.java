@@ -227,7 +227,7 @@ public class normalUserBean implements Serializable{
 	
 
 	private double onlineFees;
-	private double GateFees=59;
+	private double GateFees=0;
 	private double seaFees;
 	private double landFees;
 	private double totalFees;
@@ -579,6 +579,9 @@ public void calcValueOfTotalFeesCarSelected() {
 			
 			landFees=0;
 			
+			
+			
+			
 			if(addNewCar.getOrigin()==1) {
 				landFees=selectedTansportFees.getNjPortCost();
 			}else if(addNewCar.getOrigin()==39) {
@@ -587,6 +590,12 @@ public void calcValueOfTotalFeesCarSelected() {
 				landFees=selectedTansportFees.getTxPortCost();
 			}else if(addNewCar.getOrigin()==117) {
 				landFees=selectedTansportFees.getCaPortCost();
+			}else if(addNewCar.getOrigin()==391) {
+				landFees=selectedTansportFees.getIndianaPortCost();
+			}else if(addNewCar.getOrigin()==371) {
+				landFees=selectedTansportFees.getFloridaPortCost();
+			}else if(addNewCar.getOrigin()==410) {
+				landFees=selectedTansportFees.getPaltimorPortCost();
 			}
 
 			
@@ -623,6 +632,9 @@ public void calcValueOfTotalFeesCarSelected_after() {
 			
 			landFees=0;
 			
+			
+			
+			
 			if(addNewCar.getOrigin()==1) {
 				landFees=selectedTansportFees.getNjPortCost();
 			}else if(addNewCar.getOrigin()==39) {
@@ -631,6 +643,12 @@ public void calcValueOfTotalFeesCarSelected_after() {
 				landFees=selectedTansportFees.getTxPortCost();
 			}else if(addNewCar.getOrigin()==117) {
 				landFees=selectedTansportFees.getCaPortCost();
+			}else if(addNewCar.getOrigin()==391) {
+				landFees=selectedTansportFees.getIndianaPortCost();
+			}else if(addNewCar.getOrigin()==371) {
+				landFees=selectedTansportFees.getFloridaPortCost();
+			}else if(addNewCar.getOrigin()==410) {
+				landFees=selectedTansportFees.getPaltimorPortCost();
 			}
 
 			totalFees=copartFees+GateFees+seaFees+landFees+addNewCar.getFees();
@@ -942,17 +960,29 @@ public void refreshStateList() {
 			if(allState.get(0).getNjPortCost()!=0) {
 				allLanding.put(1, "NEW YORK, NY (1001)");					
 			}
-			
+
 			if(allState.get(0).getGaPortCost()!=0) {
 				allLanding.put(39, "SAVANNAH, GA (1703)");					
 			}
-			
+
 			if(allState.get(0).getTxPortCost()!=0) {
 				allLanding.put(381, "HOUSTON, TX (5301)");					
 			}
-			
+
 			if(allState.get(0).getCaPortCost()!=0) {
 				allLanding.put(117, "LOS ANGELES, CA (2704)");					
+			}
+
+			if(allState.get(0).getIndianaPortCost()!=0) {
+				allLanding.put(391, "Indianapolis IN (4110)");					
+			}
+
+			if(allState.get(0).getFloridaPortCost()!=0) {
+				allLanding.put(371, "MIAMI, FL (5201)");					
+			}
+
+			if(allState.get(0).getPaltimorPortCost()!=0) {
+				allLanding.put(410, "Baltimore, BL (1303)");					
 			}
 			
 		}

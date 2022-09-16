@@ -209,7 +209,7 @@ public class carLandingBean implements Serializable{
 	private int portType;
 	
 	private double onlineFees;
-	private double GateFees=59;
+	private double GateFees=0;
 	private double seaFees;
 	private double landFees;
 	private double totalFees;

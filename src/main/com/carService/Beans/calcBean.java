@@ -62,7 +62,7 @@ public class calcBean implements Serializable{
 	
 	private double copartFees;
 	private double onlineFees;
-	private double GateFees=59;
+	private double GateFees=0;
 	private double ourFees=100;
 	private double seaFees;
 	private double landFees;
