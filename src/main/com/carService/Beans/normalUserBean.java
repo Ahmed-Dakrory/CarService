@@ -352,15 +352,15 @@ public class normalUserBean implements Serializable{
 	}
 	
 	
-	private void fillDashboard() {
+	public void fillDashboard() {
 		// TODO Auto-generated method stub
 		
 		
 		summery_allmoneybox_transaction_details = new ArrayList<moneybox_transaction_details>();
 		List<moneybox_transaction_details> allDetails = moneybox_transaction_detailsFacade.getAllByUserMoneyBoxId(loginBean.thisAccountMoneyBox.getId());
 		int len=0;
-		if(allDetails.size()>=10) {
-			len=10;
+		if(allDetails.size()>=5) {
+			len=5;
 		}else {
 			len = allDetails.size();
 		}
@@ -384,10 +384,12 @@ public class normalUserBean implements Serializable{
 				
 				amountRemainToPayForAllCars=0;
 				List<car> allCars = carFacade.getAllForNormalUser(loginBean.getTheUserOfThisAccount().getId());
+				if(allCars!=null) {
 				for(int i=0;i<allCars.size();i++) {
 					if(!allCars.get(i).isPayed_done()) {
 						amountRemainToPayForAllCars = amountRemainToPayForAllCars + (allCars.get(i).getTotal_amount_for_this_car()-allCars.get(i).getAmount_of_payment());
 					}
+				}
 				}
 						
 			}
@@ -1159,7 +1161,6 @@ public void saveNewCarDataMain() {
 
 		
 		
-		
 		selectedCarState = car.STATE_AddedByCustomer_REVISE;
 		carFacade.addcar(addNewCar);
 		PrimeFaces.current().executeScript("new PNotify({\r\n" + 
@@ -1380,6 +1381,12 @@ public void releaseVariablesForMain() {
 }
 	
 
+public void refresh_list() {
+	filterCarBySelectFirstTime();
+
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm");
+	FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formOfSelectionCarState");
+}
 
 public void filterCarBySelectFirstTime() {
 

@@ -182,6 +182,9 @@ body .ui-button {
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> ga Port Sea Fees</a></th>
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> tx Port Sea Fees</a></th>
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> ca Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> Indiana Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> Florida Port Sea Fees</a></th>
+                              <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;" ><a href="#"> Baltimore Port Sea Fees</a></th>
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Low Landing Cost</a></th>
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> High Landing Cost</a></th>
                               <th  style="border: #a9a5a5;border-style: solid;border-width: 0.5px;"><a href="#"> Modfiy</a></th>
@@ -292,6 +295,25 @@ body .ui-button {
 						<label>ca Port Sea</label>
 						<br></br>
 						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.caPortCost}"/>
+					</div>
+					
+					
+					<div class="form-group col-md-4">
+						<label>Indiana Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.indianaPortCost}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>Florida Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.floridaPortCost}"/>
+					</div>
+					
+					<div class="form-group col-md-4">
+						<label>Baltimore Port Sea</label>
+						<br></br>
+						<h:inputText class="inputDialog" value="#{carPageBean.transportfeeObject.paltimorPortCost}"/>
 					</div>
 					
 					
@@ -415,7 +437,15 @@ body .ui-button {
                            return item.gaPortCost;
                            }
                          },
+
                          
+                         {
+                             className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                 
+                          	  
+                             return item.txPortCost;
+                             }
+                           },
                          {
                              className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                                  
@@ -428,9 +458,29 @@ body .ui-button {
                                className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                                    
                             	  
-                               return item.txPortCost;
+                               return item.indianaPortCost;
                                }
                              },
+                             
+
+                             
+                             {
+                                 className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                     
+                              	  
+                                 return item.floridaPortCost;
+                                 }
+                               },
+                               
+
+                               
+                               {
+                                   className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                       
+                                	  
+                                   return item.paltimorPortCost;
+                                   }
+                                 },
                              
                              {
                                  className: " tdStyle", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {

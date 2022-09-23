@@ -95,7 +95,6 @@ public class transportfee {
 	@Column(name = "indianaPortCost")
 	private Float indianaPortCost;
 	
-
 	@Column(name = "lowCost")
 	private Integer lowCost;
 	
@@ -255,9 +254,17 @@ public class transportfee {
 	      obj.addProperty("state", String.valueOf(this.state));
 	      obj.addProperty("njPortCost", String.valueOf(this.njPortCost));
 	      obj.addProperty("gaPortCost", String.valueOf(this.gaPortCost));
-	      obj.addProperty("caPortCost", String.valueOf(this.caPortCost));
 	      obj.addProperty("txPortCost", String.valueOf(this.txPortCost));
+	      obj.addProperty("caPortCost", String.valueOf(this.caPortCost));
+	      obj.addProperty("floridaPortCost", String.valueOf(this.floridaPortCost));
+	      obj.addProperty("paltimorPortCost", String.valueOf(this.paltimorPortCost));
+	      obj.addProperty("indianaPortCost", String.valueOf(this.indianaPortCost));
 	      
+	      
+
+	  	
+	  	
+	  	
 	      return obj;
     	
     }

@@ -15,7 +15,7 @@
 	<ui:define name="content">
 	
 	<style>
-		
+		#{normalUserBean.fillDashboard()}
 .main-body {
     padding: 15px;
 }
@@ -92,6 +92,7 @@ text-align: center;
 	#{normalUserBean.refreshProfileData()}
 	#{normalUserProductBean.refreshProfileData()}
 	#{bidBean.refresh()}
+	<h:form id="aspnetForm">
 	<div class="container">
     <div class="main-body gutters-sm">
     
@@ -803,7 +804,7 @@ text-align: center;
           </div>
         </div>
     </div>
-		
+		</h:form>
 		
      <script>
 

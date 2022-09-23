@@ -41,6 +41,8 @@ public class loginBean implements Serializable{
 	private user theUserOfThisAccount;
 	private int type;
 	
+	
+	private boolean register_checked=false;
 	private Integer amountToPayThroughPayPal = 0;
 	
 
@@ -587,6 +589,16 @@ public void updateDataOfUser() {
 	public void setAmountToPayThroughPayPal(Integer amountToPayThroughPayPal) {
 		this.amountToPayThroughPayPal = amountToPayThroughPayPal;
 	}
+
+	public boolean isRegister_checked() {
+		return register_checked;
+	}
+
+	public void setRegister_checked(boolean register_checked) {
+		this.register_checked = register_checked;
+	}
+	
+	
 	
 	
 	
