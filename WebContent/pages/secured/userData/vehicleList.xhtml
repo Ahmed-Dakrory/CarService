@@ -766,6 +766,7 @@ vertical-align: middle;
 										<tr style="    box-shadow: 2px 0px 1px #b9b9b9, 0 0 21px #ffffff, 0 0 3px #504d4d;">
 											<th></th>
 											<th style="display:none;">ID</th>
+											<th>Status</th>
 											<th>Image</th>
 											<th>UID/Bill Of Lading</th>
 											<th>Car_Type</th>
@@ -884,6 +885,42 @@ vertical-align: middle;
                   return item.id;
                   }
                 },
+                
+                {
+              	  className: "", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                         
+              		  if(item.state==0){
+              			  	state = '<div  class="documentCheck">Documents</div>';
+              		  }else if(item.state==1){
+              			  	state = '<div  class="readyforShipping">Ready</div>';
+              		  }else if(item.state==2){
+              			  	state = '<div  class="intransit">In Transit</div>';
+              		  }else if(item.state==3){
+              			  	state = '<div  class="transportinProcess">Transport</div>';
+              		  }else if(item.state==4){
+              			  	state = '<div  class="documentCheck">Documents</div>';
+              		  }else if(item.state==5){
+              			  	state = '<div  class="readyforShipping">Ready</div>';
+              		  }else if(item.state==6){
+              			  	state = '<div  class="intransit">In Transit</div>';
+              		  }else if(item.state==7){
+              			  	state = '<div  class="arrivingSoon">Arriving Soon</div>';
+              		  }else if(item.state==8){
+              			  	state = '<div  class="sentForPayment">Sent For Payment</div>';
+              		  }else if(item.state==9){
+              			  	state = '<div  class="readyforShipping">New</div>';
+              		  }else if(item.state==10){
+              			  	state = '<div  class="documentCheck">Rejected</div>';
+              		  }else if(item.state==11){
+              			  	state = '<div  class="intransit">Payed</div>';
+              		  }else if(item.state==12){
+              			  	state = '<div  class="readyforShipping">Ready</div>';
+              		  }else if(item.state==13){
+              			  	state = '<div  class="transportinProcess">Delivered</div>';
+              		  }
+                    return state;
+                    }
+                  },
               {
                   className: "styleImage", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                       

@@ -2142,6 +2142,7 @@ public class car {
 		      obj.addProperty("uuid", String.valueOf(this.uuid));
 		      obj.addProperty("make", String.valueOf(this.make));
 		      obj.addProperty("model", String.valueOf(this.model));
+		      obj.addProperty("state", String.valueOf(this.state));
 		      obj.addProperty("year", String.valueOf(this.year));
 		      obj.addProperty("mainImage", String.valueOf(this.mainUrl));
 		      obj.addProperty("containerLink", String.valueOf(this.containerLink));

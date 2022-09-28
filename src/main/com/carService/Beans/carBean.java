@@ -212,7 +212,7 @@ public class carBean implements Serializable{
 
 		visibilityOptions = new ArrayList<String>();
 		
-		for(int i=0;i<15;i++) {
+		for(int i=0;i<16;i++) {
 			visibilityOptions.add("true");
 		}
 		
