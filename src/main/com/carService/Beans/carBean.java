@@ -2465,84 +2465,104 @@ public void updateCarForCustomer() {
 	}
 
 */
-	private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
-        double boundSize = size;
-           int origWidth = bufferedImage.getWidth();
-           int origHeight = bufferedImage.getHeight();
-           double scale;
-           if (origHeight > origWidth)
-               scale = boundSize / origHeight;
-           else
-               scale = boundSize / origWidth;
-            //* Don't scale up small images.
-           if (scale > 1.0)
-               return (bufferedImage);
-           int scaledWidth = (int) (scale * origWidth);
-           int scaledHeight = (int) (scale * origHeight);
-           
-           BufferedImage after = new BufferedImage(origWidth, origHeight, BufferedImage.TYPE_INT_ARGB);
-           AffineTransform at = new AffineTransform();
-           at.scale(scale, scale);
-           AffineTransformOp scaleOp = 
-              new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-           after = scaleOp.filter(bufferedImage, after);
-           
-           BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-           Graphics2D g = scaledBI.createGraphics();
-                g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-           g.drawImage(after, 0, 0, null);
-           g.dispose();
-           return (scaledBI);
-   }
 	
-	public String saveImageToDirectory(byte[] image,String directory) {
-		String fileName="";
-		try {
-			File file=File.createTempFile("img", ".jpg", new File(directory));
-		      byte [] data = image;
-		      ByteArrayInputStream bis = new ByteArrayInputStream(data);
-		      BufferedImage bImage2;
-			bImage2 = ImageIO.read(bis);
-			
-			
-			 
-		        OutputStream os = new FileOutputStream(file);
-			
-			// create a BufferedImage as the result of decoding the supplied InputStream
-	        BufferedImage image2=scaleImage(bImage2, 800);
-			// get all image writers for JPG format
-	        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
-	 
-	        float quality = 0.5f;
-	        ImageWriter writer = (ImageWriter) writers.next();
-	        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-	        writer.setOutput(ios);
-	 
-	        ImageWriteParam param = writer.getDefaultWriteParam();
-	 
-	        // compress to a given quality
-	        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-	        param.setCompressionQuality(quality);
-	 
-	        // appends a complete image stream containing a single image and
-	        //associated stream and image metadata and thumbnails to the output
-	        writer.write(null, new IIOImage(image2, null, null), param);
-	 
-	     // close all streams
-	        os.close();
-	        ios.close();
-	        writer.dispose();
-			
-			
-			fileName=file.getName();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
+	
+//	int w = before.getWidth();
+//	int h = before.getHeight();
+//	BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//	AffineTransform at = new AffineTransform();
+//	at.scale(2.0, 2.0);
+//	AffineTransformOp scaleOp = 
+//	   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+//	after = scaleOp.filter(before, after);
+	
+	
+    double boundSize = size;
+       int origWidth = bufferedImage.getWidth();
+       int origHeight = bufferedImage.getHeight();
+       double scale;
+       if (origHeight > origWidth)
+           scale = boundSize / origHeight;
+       else
+           scale = boundSize / origWidth;
+        //* Don't scale up small images.
+       if (scale > 1.0)
+           return (bufferedImage);
+       int scaledWidth = (int) (scale * origWidth);
+       int scaledHeight = (int) (scale * origHeight);
+       
+       BufferedImage after = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
+       AffineTransform at = new AffineTransform();
+       at.scale(scale, scale);
+       AffineTransformOp scaleOp = 
+          new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+       after = scaleOp.filter(bufferedImage, after);
+       
+//       BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+//       Graphics2D g = scaledBI.createGraphics();
+//            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//       g.drawImage(after, 0, 0, null);
+//       g.dispose();
+       return (after);
+}
+
+
+	
+
+public String saveImageToDirectory(byte[] image,String directory) {
+	String fileName="";
+	try {
+		File file=File.createTempFile("img", ".jpg", new File(directory));
+	      byte [] data = image;
+	      ByteArrayInputStream bis = new ByteArrayInputStream(data);
+	      BufferedImage bImage2;
+		bImage2 = ImageIO.read(bis);
 		
-		return fileName;
-	      
+		
+		 
+	        OutputStream os = new FileOutputStream(file);
+		
+		// create a BufferedImage as the result of decoding the supplied InputStream
+        BufferedImage image2=scaleImage(bImage2, 800);
+        ImageIO.write(image2, "png", file);
+		// get all image writers for JPG format
+//        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+// 
+//        float quality = 0.5f;
+//        ImageWriter writer = (ImageWriter) writers.next();
+//        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+//        writer.setOutput(ios);
+// 
+//        ImageWriteParam param = writer.getDefaultWriteParam();
+// 
+//        // compress to a given quality
+//        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//        param.setCompressionQuality(quality);
+// 
+//        // appends a complete image stream containing a single image and
+//        //associated stream and image metadata and thumbnails to the output
+//        writer.write(null, new IIOImage(image2, null, null), param);
+// 
+//     // close all streams
+//        os.close();
+//        ios.close();
+//        writer.dispose();
+		
+		
+		fileName=file.getName();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+	
+	return fileName;
+      
+}
+
+
+	
 	public void previewImage(FileUploadEvent event) {
 		byte[] image =event.getFile().getContents();
 		String fileName =saveImageToDirectory(image, System.getProperty("catalina.base")+"/images/");

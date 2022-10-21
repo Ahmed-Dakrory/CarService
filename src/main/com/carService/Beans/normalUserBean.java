@@ -1200,8 +1200,18 @@ public void saveNewCarDataMain() {
 	}
 }
 
-
 private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
+	
+//	int w = before.getWidth();
+//	int h = before.getHeight();
+//	BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//	AffineTransform at = new AffineTransform();
+//	at.scale(2.0, 2.0);
+//	AffineTransformOp scaleOp = 
+//	   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+//	after = scaleOp.filter(before, after);
+	
+	
     double boundSize = size;
        int origWidth = bufferedImage.getWidth();
        int origHeight = bufferedImage.getHeight();
@@ -1216,19 +1226,19 @@ private BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
        int scaledWidth = (int) (scale * origWidth);
        int scaledHeight = (int) (scale * origHeight);
        
-       BufferedImage after = new BufferedImage(origWidth, origHeight, BufferedImage.TYPE_INT_ARGB);
+       BufferedImage after = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
        AffineTransform at = new AffineTransform();
        at.scale(scale, scale);
        AffineTransformOp scaleOp = 
           new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
        after = scaleOp.filter(bufferedImage, after);
        
-       BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
-       Graphics2D g = scaledBI.createGraphics();
-            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-       g.drawImage(after, 0, 0, null);
-       g.dispose();
-       return (scaledBI);
+//       BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
+//       Graphics2D g = scaledBI.createGraphics();
+//            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//       g.drawImage(after, 0, 0, null);
+//       g.dispose();
+       return (after);
 }
 
 public String saveImageToDirectory(byte[] image,String directory) {
@@ -1246,28 +1256,29 @@ public String saveImageToDirectory(byte[] image,String directory) {
 		
 		// create a BufferedImage as the result of decoding the supplied InputStream
         BufferedImage image2=scaleImage(bImage2, 800);
+        ImageIO.write(image2, "png", file);
 		// get all image writers for JPG format
-        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
- 
-        float quality = 0.5f;
-        ImageWriter writer = (ImageWriter) writers.next();
-        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-        writer.setOutput(ios);
- 
-        ImageWriteParam param = writer.getDefaultWriteParam();
- 
-        // compress to a given quality
-        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(quality);
- 
-        // appends a complete image stream containing a single image and
-        //associated stream and image metadata and thumbnails to the output
-        writer.write(null, new IIOImage(image2, null, null), param);
- 
-     // close all streams
-        os.close();
-        ios.close();
-        writer.dispose();
+//        Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+// 
+//        float quality = 0.5f;
+//        ImageWriter writer = (ImageWriter) writers.next();
+//        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+//        writer.setOutput(ios);
+// 
+//        ImageWriteParam param = writer.getDefaultWriteParam();
+// 
+//        // compress to a given quality
+//        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//        param.setCompressionQuality(quality);
+// 
+//        // appends a complete image stream containing a single image and
+//        //associated stream and image metadata and thumbnails to the output
+//        writer.write(null, new IIOImage(image2, null, null), param);
+// 
+//     // close all streams
+//        os.close();
+//        ios.close();
+//        writer.dispose();
 		
 		
 		fileName=file.getName();
