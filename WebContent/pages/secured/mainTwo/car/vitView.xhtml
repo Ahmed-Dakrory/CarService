@@ -141,7 +141,7 @@
 				});
             
             $(function() {
-				$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
+            	$('#aspnetForm\\:ctl00_BodyHolder_txtETD').datepicker({
 				    dateFormat: 'yy-dd-mm',
 				    onSelect: function(datetext){
 
@@ -159,6 +159,30 @@
 				        datetext = datetext + " " + h + ":" + m + ":" + s;
 
 				        $('#aspnetForm\\:ctl00_BodyHolder_txtETD').val(datetext);
+				    }
+				});
+            	
+            	
+            	
+            	
+            	$('#aspnetForm\\:payment_date').datepicker({
+				    dateFormat: 'yy-dd-mm',
+				    onSelect: function(datetext){
+
+				        var d = new Date(); // for now
+
+				        var h = d.getHours();
+				        h = (h &lt; 10) ? ("0" + h) : h ;
+
+				        var m = d.getMinutes();
+				        m = (m &lt; 10) ? ("0" + m) : m ;
+
+				        var s = d.getSeconds();
+				        s = (s &lt; 10) ? ("0" + s) : s ;
+
+				        datetext = datetext + " " + h + ":" + m + ":" + s;
+
+				        $('#aspnetForm\\:payment_date').val(datetext);
 				    }
 				});
 				});
@@ -401,6 +425,33 @@
                                                                                                 <td bgcolor="#ffffff" colspan="6">
                                                                                                 </td>
                                                                                             </tr>
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            <tr height="23">
+                                                                                                <td class="tbltxt">
+                                                                                                    <div style="margin-left: 6px">
+                                                                                                        Payment Date:</div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h:inputText type="text" value="#{carBean.payment_dateDate}" class="timePicker" id="payment_date"  style="font-size:11px;height:19px;width:200px;" />
+                                                                                                </td>
+                                                                                                <td class="tbltxt">
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                 </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr height="2">
+                                                                                                <td bgcolor="#ffffff" colspan="6">
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            
+                                                                                            
                                                                                             <tr height="23">
                                                                                                 <td class="tbltxt">
                                                                                                     <div style="margin-left: 6px">
@@ -5698,7 +5749,12 @@
 																										<f:selectItem itemValue="1" itemLabel="NEW YORK, NY (1001)"/>
 																										<f:selectItem itemValue="39" itemLabel="SAVANNAH, GA (1703)"/>
 																										<f:selectItem itemValue="391" itemLabel="Indianapolis IN (4110)"/>
+																										
 																										<f:selectItem itemValue="410" itemLabel="Baltimore BL (1303)"/>
+																										
+																										<f:selectItem itemValue="301" itemLabel="Seattel WA (3001)"/>
+																										<f:selectItem itemValue="393" itemLabel="Chicago IL (3901)"/>
+																										<f:selectItem itemValue="461" itemLabel="New Jersey NJ (4601)"/>
 																									</h:selectOneMenu>
                                                                                                 </td>
                                                                                                 <td colspan="2" />

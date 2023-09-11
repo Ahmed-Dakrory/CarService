@@ -146,6 +146,7 @@ public class carBean implements Serializable{
 	private List<String> visibilityOptions;
 
 	private  String cargoRecievedDate;
+	private  String payment_dateDate;
 	private  String dvlDate;
 	private  String stRecievedDate;
 	private  String etdDate;
@@ -176,6 +177,7 @@ public class carBean implements Serializable{
 
 	private List<String> images;
 	private List<String> docs;
+	private List<String> pdfs;
 
 	private Map<Integer, String> distinationMap;
 	private Map<Integer, String> origineMap;
@@ -189,6 +191,7 @@ public class carBean implements Serializable{
 	
 	private List<String> images_deleted;
 	private List<String> docs_deleted;
+	private List<String> pdfs_deleted;
 	
 	
 
@@ -199,6 +202,7 @@ public class carBean implements Serializable{
 	private String portForContainer;
 	private String stateForContainer;
 	private Integer shipperIdOFContainer;
+	private String pdfView="";
 	
 	private int numberOfAny = 0;
 	
@@ -212,7 +216,7 @@ public class carBean implements Serializable{
 
 		visibilityOptions = new ArrayList<String>();
 		
-		for(int i=0;i<16;i++) {
+		for(int i=0;i<18;i++) {
 			visibilityOptions.add("true");
 		}
 		
@@ -369,11 +373,14 @@ public void visiblityShowing() {
 	public void releaseVariablesForMain() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
+		pdfs=new ArrayList<String>();
 		
 		images_deleted=new ArrayList<String>();
 		docs_deleted=new ArrayList<String>();
+		pdfs_deleted=new ArrayList<String>();
 		
 		cargoRecievedDate="";
+		payment_dateDate="";
 		titleRecievedSelected=0;
 		dvlDate="";
 		stRecievedDate="";
@@ -397,9 +404,11 @@ public void visiblityShowing() {
 	public void releaseVariablesForMainTwo() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
+		pdfs=new ArrayList<String>();
 
 		images_deleted=new ArrayList<String>();
 		docs_deleted=new ArrayList<String>();
+		pdfs_deleted=new ArrayList<String>();
 		
 		cargoRecievedDate="";
 		titleRecievedSelected=0;
@@ -425,12 +434,15 @@ public void visiblityShowing() {
 	public void releaseVariablesForShipper() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
+		pdfs=new ArrayList<String>();
 
 		images_deleted=new ArrayList<String>();
 		docs_deleted=new ArrayList<String>();
+		pdfs_deleted=new ArrayList<String>();
 		
 		
 		cargoRecievedDate="";
+		payment_dateDate="";
 		titleRecievedSelected=0;
 		dvlDate="";
 		stRecievedDate="";
@@ -454,10 +466,12 @@ public void visiblityShowing() {
 	public void releaseVariablesForRemind() {
 		images=new ArrayList<String>();
 		docs=new ArrayList<String>();
+		pdfs=new ArrayList<String>();
 		
 
 		images_deleted=new ArrayList<String>();
 		docs_deleted=new ArrayList<String>();
+		pdfs_deleted=new ArrayList<String>();
 		
 		
 		consigneeId=-1;
@@ -481,6 +495,11 @@ public void visiblityShowing() {
 				removeFileFromDoc(fileURL);
 			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:docsPanel");
 			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The Document Has Been Deleted\", \"success\");");
+		}else if(typeOfFile==carimage.TYPE_PDFS) {
+			
+			removeFileFromPdf(fileURL);
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:pdfdocsPanel");
+			PrimeFaces.current().executeScript("swal(\"Action Done\", \"The PDF Has Been Deleted\", \"success\");");
 		}else if(typeOfFile==carimage.TYPE_PIC) {
 			
 				removeFileFromImages(fileURL);
@@ -489,6 +508,19 @@ public void visiblityShowing() {
 		}
 		
 	}
+	
+	
+	private void removeFileFromPdf(String fileURL) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<pdfs.size();i++) {
+			if(pdfs.get(i).equalsIgnoreCase(fileURL)) {
+				pdfs.remove(i);
+				pdfs_deleted.add(fileURL);
+				return;
+			}
+		}
+	}
+	
 	
 	private void removeFileFromImages(String fileURL) {
 		// TODO Auto-generated method stub
@@ -1641,12 +1673,15 @@ public void setCarsContainerDetails() {
 
 					images=new ArrayList<String>();
 					docs=new ArrayList<String>();
+					pdfs=new ArrayList<String>();
 
 					images_deleted=new ArrayList<String>();
 					docs_deleted=new ArrayList<String>();
+					pdfs_deleted=new ArrayList<String>();
 					
 					List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 					List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+					List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 					
 					
 					if(imagesOfCar!=null) {
@@ -1661,7 +1696,11 @@ public void setCarsContainerDetails() {
 					}
 					
 					
-					
+					if(pdfsOfCar!=null){
+						for(int i=0;i<pdfsOfCar.size();i++) {
+							pdfs.add(pdfsOfCar.get(i).getUrl());
+						}
+					}
 					
 					
 					
@@ -1737,6 +1776,7 @@ public void setCarsContainerDetails() {
 		
 		List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 		List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+		List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 		
 		if(imagesOfCar!=null) {
 			for(int i=0;i<imagesOfCar.size();i++) {
@@ -1746,6 +1786,11 @@ public void setCarsContainerDetails() {
 		if(docsOfCar!=null){
 			for(int i=0;i<docsOfCar.size();i++) {
 				docs.add(docsOfCar.get(i).getUrl());
+			}
+		}
+		if(pdfsOfCar!=null){
+			for(int i=0;i<pdfsOfCar.size();i++) {
+				pdfs.add(pdfsOfCar.get(i).getUrl());
 			}
 		}
 		
@@ -1786,6 +1831,7 @@ public void refreshSelectedCarVendor() {
 	
 	List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 	List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+	List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 	
 	if(imagesOfCar!=null) {
 		for(int i=0;i<imagesOfCar.size();i++) {
@@ -1795,6 +1841,11 @@ public void refreshSelectedCarVendor() {
 	if(docsOfCar!=null){
 		for(int i=0;i<docsOfCar.size();i++) {
 			docs.add(docsOfCar.get(i).getUrl());
+		}
+	}
+	if(pdfsOfCar!=null){
+		for(int i=0;i<pdfsOfCar.size();i++) {
+			pdfs.add(pdfsOfCar.get(i).getUrl());
 		}
 	}
 	
@@ -1928,6 +1979,7 @@ public void refreshSelectedCarVendor() {
 		public void refreshSelectedCarMain() {
 			List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 			List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+			List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 			
 			if(imagesOfCar!=null) {
 				for(int i=0;i<imagesOfCar.size();i++) {
@@ -1940,10 +1992,17 @@ public void refreshSelectedCarVendor() {
 				}
 			}
 			
+			if(pdfsOfCar!=null){
+				for(int i=0;i<pdfsOfCar.size();i++) {
+					pdfs.add(pdfsOfCar.get(i).getUrl());
+				}
+			}
+			
 			
 			
 			
 			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
+			payment_dateDate = getStringFromCalendar(selectedCar.getPayment_date());
 			dvlDate=getStringFromCalendar(selectedCar.getDvl());
 			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
 			etdDate=getStringFromCalendar(selectedCar.getEtd());
@@ -1971,6 +2030,7 @@ public void refreshSelectedCarVendor() {
 		public void refreshSelectedCarMainTwo() {
 			List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 			List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+			List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 			
 			if(imagesOfCar!=null) {
 				for(int i=0;i<imagesOfCar.size();i++) {
@@ -1983,8 +2043,15 @@ public void refreshSelectedCarVendor() {
 				}
 			}
 			
+			if(pdfsOfCar!=null){
+				for(int i=0;i<pdfsOfCar.size();i++) {
+					pdfs.add(pdfsOfCar.get(i).getUrl());
+				}
+			}
 			
 			cargoRecievedDate=getStringFromCalendar(selectedCar.getCargoRecieved());
+			payment_dateDate = getStringFromCalendar(selectedCar.getPayment_date());
+			
 			dvlDate=getStringFromCalendar(selectedCar.getDvl());
 			stRecievedDate=getStringFromCalendar(selectedCar.getStRecieved());
 			etdDate=getStringFromCalendar(selectedCar.getEtd());
@@ -2022,6 +2089,7 @@ public void refreshSelectedCarVendor() {
 			
 			List<carimage> imagesOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PIC);
 			List<carimage> docsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_DOC);
+			List<carimage> pdfsOfCar =carimageFacade.getAllByCarIdAndType(selectedCar.getId(), carimage.TYPE_PDFS);
 			
 			if(imagesOfCar!=null) {
 				for(int i=0;i<imagesOfCar.size();i++) {
@@ -2034,6 +2102,11 @@ public void refreshSelectedCarVendor() {
 				}
 			}
 			
+			if(pdfsOfCar!=null){
+				for(int i=0;i<pdfsOfCar.size();i++) {
+					pdfs.add(pdfsOfCar.get(i).getUrl());
+				}
+			}
 				
 		}
 		/*
@@ -2259,8 +2332,10 @@ public void updateCarForCustomer() {
 			addNewCar.setEmailToSendComment("");
 		}
 		addNewCar.setTitleRecieved(titleRecievedSelected);
-		
+
 		addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
+		addNewCar.setPayment_date(setCalendarFromString(payment_dateDate));
+		
 		addNewCar.setDvl(setCalendarFromString(dvlDate));
 		addNewCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		addNewCar.setEtd(setCalendarFromString(etdDate));
@@ -2310,6 +2385,16 @@ public void updateCarForCustomer() {
 				addNewCar.setDocExist(false);
 			}
 			
+			for(int i=0;i<pdfs_deleted.size();i++) {
+				carimage cPDFs=new carimage();
+				cPDFs.setCarId(addNewCar);
+				cPDFs.setUrl(pdfs_deleted.get(i));
+				cPDFs.setType(carimage.TYPE_PDFS);
+				cPDFs.setDeleted(true);
+				carimageFacade.addcarimage(cPDFs);
+				addNewCar.setDocExist(false);
+			}
+			
 			
 			
 			
@@ -2332,7 +2417,14 @@ public void updateCarForCustomer() {
 				addNewCar.setDocExist(true);
 			}
 			
-		
+			for(int i=0;i<pdfs.size();i++) {
+				carimage cPDFs=new carimage();
+				cPDFs.setCarId(addNewCar);
+				cPDFs.setUrl(pdfs.get(i));
+				cPDFs.setType(carimage.TYPE_PDFS);
+				carimageFacade.addcarimage(cPDFs);
+				addNewCar.setDocExist(true);
+			}
 			
 			
 			
@@ -2381,6 +2473,40 @@ public void updateCarForCustomer() {
 					"			left:\"2%\"\r\n" + 
 					"		});");
 		}
+	}
+	
+	
+	
+	public String savePdfToDirectory(byte[] pdf,String directory) {
+		String fileName="";
+		try {
+			File file=File.createTempFile("pdf", ".pdf", new File(directory));
+			OutputStream out = new FileOutputStream(file);
+			out.write(pdf);
+			out.close();
+			 
+		       
+			
+			
+			fileName=file.getName();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return fileName;
+		
+	}
+	
+	
+	public void previewFilePdf(FileUploadEvent event) {
+		byte[] fileDoc =event.getFile().getContents();
+		
+		System.out.println("___________________________________________________");
+		System.out.println(System.getProperty("catalina.base"));
+		String fileName =savePdfToDirectory(fileDoc, System.getProperty("catalina.base")+"/pdfs/");
+		pdfs.add(fileName);
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("aspnetForm:pdfdocsPanel");
 	}
 
 	public String getStringFromCalendar(Calendar calendar) {
@@ -2634,6 +2760,7 @@ public String saveImageToDirectory(byte[] image,String directory) {
 		selectedCar.setTitleRecieved(titleRecievedSelected);
 		
 		selectedCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
+		selectedCar.setPayment_date(setCalendarFromString(payment_dateDate));
 		selectedCar.setDvl(setCalendarFromString(dvlDate));
 		selectedCar.setStRecieved(setCalendarFromString(stRecievedDate));
 		selectedCar.setEtd(setCalendarFromString(etdDate));
@@ -2686,6 +2813,16 @@ public String saveImageToDirectory(byte[] image,String directory) {
 				selectedCar.setDocExist(false);
 			}
 			
+			for(int i=0;i<pdfs_deleted.size();i++) {
+				carimage cPDFs=new carimage();
+				cPDFs.setCarId(selectedCar);
+				cPDFs.setUrl(pdfs_deleted.get(i));
+				cPDFs.setType(carimage.TYPE_PDFS);
+				cPDFs.setDeleted(true);
+				carimageFacade.addcarimage(cPDFs);
+				selectedCar.setDocExist(false);
+			}
+			
 			
 			for(int i=0;i<images.size();i++) {
 				carimage cImage=new carimage();
@@ -2705,7 +2842,14 @@ public String saveImageToDirectory(byte[] image,String directory) {
 				selectedCar.setDocExist(true);
 			}
 			
-			
+			for(int i=0;i<pdfs.size();i++) {
+				carimage cpdfs=new carimage();
+				cpdfs.setCarId(selectedCar);
+				cpdfs.setUrl(pdfs.get(i));
+				cpdfs.setType(carimage.TYPE_PDFS);
+				carimageFacade.addcarimage(cpdfs);
+				selectedCar.setDocExist(true);
+			}
 			
 
 			
@@ -2831,6 +2975,10 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 		origineMap2.put(39, "GA");
 		origineMap2.put(391, "IN");
 		origineMap2.put(410, "BL");
+		
+		origineMap2.put(301, "WA");
+		origineMap2.put(393, "IL");
+		origineMap2.put(461, "NJ");
 		
 		String country=origineMap2.get(codeCountry);
 		
@@ -3051,6 +3199,16 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 	}
 
 	
+
+	public String getPayment_dateDate() {
+		return payment_dateDate;
+	}
+
+
+	public void setPayment_dateDate(String payment_dateDate) {
+		this.payment_dateDate = payment_dateDate;
+	}
+
 
 	public List<String> getVisibilityOptions() {
 		return visibilityOptions;
@@ -3313,6 +3471,37 @@ private Map<Integer, String> origineMap2=new LinkedHashMap<Integer,String>();
 	
 	
 	
+	
+	public List<String> getPdfs() {
+		return pdfs;
+	}
+
+
+	public void setPdfs(List<String> pdfs) {
+		this.pdfs = pdfs;
+	}
+
+
+	public List<String> getPdfs_deleted() {
+		return pdfs_deleted;
+	}
+
+
+	public void setPdfs_deleted(List<String> pdfs_deleted) {
+		this.pdfs_deleted = pdfs_deleted;
+	}
+
+
+	public String getPdfView() {
+		return pdfView;
+	}
+
+
+	public void setPdfView(String pdfView) {
+		this.pdfView = pdfView;
+	}
+
+
 	public List<car> getAllCarsToContainer() {
 		return allCarsToContainer;
 	}

@@ -168,6 +168,7 @@ public class normalUserBean implements Serializable{
 	
 
 	private  String cargoRecievedDate;
+	private  String payment_dateDate;
 	private  String dvlDate;
 	private  String stRecievedDate;
 	private  String etdDate;
@@ -703,6 +704,7 @@ public void calcValueOfTotalFeesCarSelected_after() {
 					docs_deleted=new ArrayList<String>();
 					
 					cargoRecievedDate="";
+					payment_dateDate="";
 					titleRecievedSelected=0;
 					dvlDate="";
 					stRecievedDate="";
@@ -734,6 +736,8 @@ public void calcValueOfTotalFeesCarSelected_after() {
 
 					
 					cargoRecievedDate=getStringFromCalendar(addNewCar.getCargoRecieved());
+
+					payment_dateDate=getStringFromCalendar(addNewCar.getPayment_date());
 					dvlDate=getStringFromCalendar(addNewCar.getDvl());
 					stRecievedDate=getStringFromCalendar(addNewCar.getStRecieved());
 					etdDate=getStringFromCalendar(addNewCar.getEtd());
@@ -1087,8 +1091,9 @@ public void saveNewCarDataMain() {
 	loginBean.getTheUserOfThisAccount();
 	
 	addNewCar.setTitleRecieved(titleRecievedSelected);
-	
+
 	addNewCar.setCargoRecieved(setCalendarFromString(cargoRecievedDate));
+	addNewCar.setPayment_date(setCalendarFromString(payment_dateDate));
 	addNewCar.setDvl(setCalendarFromString(dvlDate));
 	addNewCar.setStRecieved(setCalendarFromString(stRecievedDate));
 	addNewCar.setEtd(setCalendarFromString(etdDate));
@@ -1373,6 +1378,7 @@ public void releaseVariablesForMain() {
 	docs_deleted=new ArrayList<String>();
 	
 	cargoRecievedDate="";
+	payment_dateDate="";
 	titleRecievedSelected=0;
 	dvlDate="";
 	stRecievedDate="";
@@ -1733,6 +1739,20 @@ public String getCargoRecievedDate() {
 public void setCargoRecievedDate(String cargoRecievedDate) {
 	this.cargoRecievedDate = cargoRecievedDate;
 }
+
+
+
+
+public String getPayment_dateDate() {
+	return payment_dateDate;
+}
+
+
+
+public void setPayment_dateDate(String payment_dateDate) {
+	this.payment_dateDate = payment_dateDate;
+}
+
 
 
 public String getDvlDate() {

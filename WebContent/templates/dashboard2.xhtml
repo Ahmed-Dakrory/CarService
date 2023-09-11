@@ -167,7 +167,7 @@ margin-right: 0!important;
 												<span class="message pull-right text-dark">#{loginBean.getTransactionType(var.typeOfTransaction).name}</span>
 											</p>
 											
-												<div class="container ">
+												<div class=" ">
 													<div class="row">
 														<div class="col-md-2">
 															Last: $#{var.amountBefore}
@@ -196,19 +196,44 @@ margin-right: 0!important;
 						<li>
 							<a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
 								<i class="fa fa-envelope"></i>
-								<span class="badge" style="display:none;">0</span>
+								<span class="badge" style="display:#{(loginBean.all_messages.size()>0)?'block':'none'};">#{loginBean.all_messages.size()}</span>
 							</a>
 			
 							<div class="dropdown-menu notification-menu">
 								<div class="notification-title">
-									<span class="pull-right label label-default">0</span>
+									<span class="pull-right label label-default">#{loginBean.all_messages.size()}</span>
 									Messages
 								</div>
 			
 								<div class="content">
 									<ul>
 									
-									<!--  
+									<ui:repeat var="var" value="#{loginBean.all_messages}">
+										<li style="    border: black;    border-block-end: solid;    border-width: 1px;    padding-bottom: 9px;">
+										
+											<p class="clearfix mb-xs">
+												<span class="message pull-left">Message From: </span>
+												<span class="message pull-right text-dark">#{var.from_userId.userName}</span>
+											</p>
+											
+												<div class=" ">
+													<div class="row">
+														<div class="col-md-6">
+															Subject: #{var.subject}
+														</div>
+														
+														<div class="col-md-6">
+															Date: #{var.date}
+														</div>
+														
+													
+													</div>
+												</div>
+											
+										</li>
+										</ui:repeat>
+										
+									<!-- 
 										<li>
 											<a href="#" class="clearfix">
 												<figure class="image">
@@ -218,7 +243,8 @@ margin-right: 0!important;
 												<span class="message">Lorem ipsum dolor sit.</span>
 											</a>
 										</li>
-										-->
+										
+										 -->
 									</ul>
 			
 									<hr />
@@ -498,7 +524,7 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li  style="display:none;">
+										<li  style="display:">
 											<a href="/pages/secured/admin/car/AddNewInventory.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>اضافة سيارة</span>
@@ -506,7 +532,7 @@ margin-right: 0!important;
 											
 										</li>
 										
-										<li  style="display:none;">
+										<li  style="display:#{(loginBean.theUserOfThisAccount.role==1)?'block':'none'};">
 											<a href="/pages/secured/shipper/car/vitView.jsf?faces-redirect=true">
 												<i class="fa fa-plus-square" aria-hidden="true"></i>
 												<span>اضافة سيارة</span>
@@ -571,6 +597,15 @@ margin-right: 0!important;
 											<a href="/pages/secured/shipper/pricesAllSettings.jsf?faces-redirect=true">
 												<i class="fa fa-calendar-o" aria-hidden="true"></i>
 												<span>ادارة أسعار النقل</span>
+											</a>
+											
+										</li>
+										
+										
+										<li >
+											<a href="/pages/secured/userData/message/list.jsf?faces-redirect=true">
+												<i class="fa fa-calendar-o" aria-hidden="true"></i>
+												<span>قائمة الرسائل</span>
 											</a>
 											
 										</li>

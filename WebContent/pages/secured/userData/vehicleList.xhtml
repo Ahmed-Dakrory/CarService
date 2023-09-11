@@ -782,6 +782,8 @@ vertical-align: middle;
 											<th class="hidden-phone">Origin</th>
 											<th class="hidden-phone">All Images</th>
 											<th class="hidden-phone">Docs</th>
+											<th class="hidden-phone">Date Added</th>
+											<th class="hidden-phone">Payment Date</th>
 
 										</tr>
 									</thead>
@@ -994,7 +996,7 @@ vertical-align: middle;
                                   return '<span style="overflow: hidden; display: inline-flex; "><a  style="color: #371cc3; " onclick="openThisSite('+item.containerLink+');">'+item.container+'</a></span>';
                                   }
                                 },
-                                
+                                 
                                 {
                                     className: "center hidden-phone", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
                                         
@@ -1062,7 +1064,21 @@ vertical-align: middle;
 												'<img style="    width: 40px;" src = "/resources/images/public/img/doc.png"/>'+
 													'</a>';
                                               }
-                                            }]
+                                            },
+                                            
+                                            {
+                                                className: "center hidden-phone", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                                    
+                                              	  return '<span style="overflow: hidden; display: inline-flex;width: max-content; ">'+item.formatedDate_added+'</span>';
+                                                    }
+                                              },
+                                              
+                                              {
+                                                  className: "center hidden-phone", "orderable": false, "mData": null, "sWidth": "100%","mRender": function (item) {
+                                                      
+                                                	  return '<span style="overflow: hidden; display: inline-flex;width: max-content; ">'+item.formatedDate_payment_date+'</span>';
+                                                      }
+                                                }]
     } );
     
     
@@ -1127,7 +1143,7 @@ vertical-align: middle;
 			  
 		  }); 
 		  
-		  
+		   
 		  openDialog([{name: 'carsId', value: tmpDataId}]);
 		  //console.log(tmpData);
 		  console.log(tmpDataId);

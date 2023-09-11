@@ -129,9 +129,11 @@ public class bidBean implements Serializable{
 		List<moneybox> AllMoneyBoxs = loginBean.getMoneyboxDataFacede().getAll();
 		if (AllMoneyBoxs!=null) {
 			for(int i=0;i<AllMoneyBoxs.size();i++) {
+				if(AllMoneyBoxs.get(i).getUserId()!=null) {
+					moneyBoxWithDetails mO=new moneyBoxWithDetails(filterCarToGetTotalMoneyBox(AllMoneyBoxs.get(i).getUserId()), AllMoneyBoxs.get(i));
+					listOfAllUsersMoneyBox.add(mO);
+				}
 				
-				moneyBoxWithDetails mO=new moneyBoxWithDetails(filterCarToGetTotalMoneyBox(AllMoneyBoxs.get(i).getUserId()), AllMoneyBoxs.get(i));
-				listOfAllUsersMoneyBox.add(mO);
 			}
 		}
 		if(loginBean.isLoggedIn()) {

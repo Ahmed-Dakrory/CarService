@@ -364,6 +364,12 @@ function ViewDocById(strID) {
     }
 }
 
+function ViewPDFById(strID) {
+    if (strID != '-1') {
+    	window.open('/images/?file='+strID+'&Pdf=1','_blank', 'fullscreen=yes');
+    }
+}
+
 function ViewDocByIdOutSide(strID) {
     if (strID != '-1') {
     	window.open(strID,'Image', 'width=850,height=900,scrollbars=yes,resizable=yes');

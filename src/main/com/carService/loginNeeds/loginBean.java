@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
 
 import main.com.carService.moneyBox.moneybox;
 import main.com.carService.moneyBox.moneyboxAppServiceImpl;
 import main.com.carService.moneyBox.moneyboxConfig;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_details;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_details.depositeTypes;
+import main.com.carService.car.car;
+import main.com.carService.message.message;
+import main.com.carService.message.messageAppServiceImpl;
 import main.com.carService.moneyTransactionDetails.moneybox_transaction_detailsAppServiceImpl;
 import main.com.carService.security.AuthenticationService;
 
@@ -60,9 +65,19 @@ public class loginBean implements Serializable{
 
 	@ManagedProperty(value = "#{authenticationService}")
 	private AuthenticationService authenticationService;
-	
+
 	public moneybox thisAccountMoneyBox;
 	private List<moneybox_transaction_details> mymoneyTransactions;
+	
+	
+
+	@ManagedProperty(value = "#{messageFacadeImpl}")
+	private messageAppServiceImpl messageFacade;
+	
+
+	public message message_handler;
+	private List<message> all_messages;
+	private int number_redund;
 	
 	@PostConstruct
 	public void init() {
@@ -70,6 +85,8 @@ public class loginBean implements Serializable{
 		theUserOfThisAccount=new user();
 		thisAccountMoneyBox=new moneybox();
 		mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
+		all_messages=new ArrayList<message>();
+		message_handler = new message();
 		
 	}
 	
@@ -159,12 +176,18 @@ public class loginBean implements Serializable{
 		catch(Exception ex){
 			 
 		}
+		
+		load_user_emails();
 	}
 	
 
+	public void load_user_emails() {
+		all_messages = messageFacade.getAllByto_userId(theUserOfThisAccount.getId());
+	}
 	
 	public void reloadedParametersAndPanelRefresh() {
 if(isLoggedIn) {
+	load_user_emails();
 		thisAccountMoneyBox=new moneybox();
 		mymoneyTransactions=new ArrayList<moneybox_transaction_details>();
 		thisAccountMoneyBox = moneyboxDataFacede.getByUserId(theUserOfThisAccount.getId());
@@ -176,10 +199,40 @@ if(isLoggedIn) {
 		}
 		
 		
+		
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("notifiactionPanel");
 }
 	}
 	
+	
+	public void addMessage_and_send() {
+	
+		user userTo = userDataFacede.getById(number_redund);
+		message_handler.setFrom_userId(theUserOfThisAccount);
+		message_handler.setDate(new Date());
+		message_handler.setReaded(false);
+		message_handler.setTo_userId(userTo);
+		
+		messageFacade.addmessage(message_handler);
+		
+		 try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/secured/userData/message/list.jsf");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
+	public void openDialogForMessage() {
+		
+		
+		message_handler = new message();
+		 FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formOfDialog");
+			
+		 PrimeFaces.current().executeScript("runFromBackEndToReloadDialog();");
+			
+		 
+	}
 	
 	public void saveBankAccountDetails() {
 		
@@ -596,6 +649,38 @@ public void updateDataOfUser() {
 
 	public void setRegister_checked(boolean register_checked) {
 		this.register_checked = register_checked;
+	}
+
+	public messageAppServiceImpl getMessageFacade() {
+		return messageFacade;
+	}
+
+	public void setMessageFacade(messageAppServiceImpl messageFacade) {
+		this.messageFacade = messageFacade;
+	}
+
+	public message getMessage_handler() {
+		return message_handler;
+	}
+
+	public void setMessage_handler(message message_handler) {
+		this.message_handler = message_handler;
+	}
+
+	public List<message> getAll_messages() {
+		return all_messages;
+	}
+
+	public void setAll_messages(List<message> all_messages) {
+		this.all_messages = all_messages;
+	}
+
+	public int getNumber_redund() {
+		return number_redund;
+	}
+
+	public void setNumber_redund(int number_redund) {
+		this.number_redund = number_redund;
 	}
 	
 	

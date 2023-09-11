@@ -430,9 +430,15 @@ public class car {
 	
 	@Column(name = "dvl")
 	private Calendar dvl;
-	
+
 	@Column(name = "stRecieved")
 	private Calendar stRecieved;
+	
+	
+	
+
+	@Column(name = "payment_date")
+	private Calendar payment_date;
 	
 
 	@Column(name = "origin")
@@ -2065,6 +2071,24 @@ public class car {
 
 
 
+	public Calendar getPayment_date() {
+		return payment_date;
+	}
+
+
+
+
+
+
+	public void setPayment_date(Calendar payment_date) {
+		this.payment_date = payment_date;
+	}
+
+
+
+
+
+
 	public String getFormatedDate(Calendar c) {
 		String dateTime="";
 		if(c!=null) {
@@ -2149,6 +2173,9 @@ public class car {
 		      obj.addProperty("container", String.valueOf(this.container));
 		      obj.addProperty("numberOfDays", String.valueOf(getNumberOfDays(this.storageStartDate,this.storageEndDate)));
 		      obj.addProperty("formatedDate", String.valueOf(getFormatedDate(this.cargoRecieved)));
+
+		      obj.addProperty("formatedDate_added", String.valueOf(getFormatedDate(this.add_datetime)));
+		      obj.addProperty("formatedDate_payment_date", String.valueOf(getFormatedDate(this.payment_date)));
 		      
 		      
 		      obj.addProperty("titleRecieved", String.valueOf(this.titleRecieved));
