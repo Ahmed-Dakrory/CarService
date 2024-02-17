@@ -34,7 +34,7 @@ body{
 }
 
 .navbar{
-    background-color: #405264;
+    background-color: #0c336c;
     padding: 0;
 }
 
@@ -81,12 +81,11 @@ margin: auto;
 
 .car-search{
     color: white;
-    background: #405264;
+    background: #13417f;
     border-radius: 10px;
     border: white 1px solid;
     padding: 1rem 1rem;
     box-shadow: 3px 5px 7px rgb(77, 77, 77);
-
 }
 .btn-secondary {
     color: #405264 !important;
@@ -398,7 +397,12 @@ right: -5%;
 
 
 @media only screen and (max-width: 768px){
-
+	.header-main{
+	display: none!important;
+	}
+	
+	.main_buttons_header{
+	margin-top: 0px!important}
     .col-md-4 {
         /* flex: 0 0 33.333333%; */
         /* max-width: 33.333333%; */
