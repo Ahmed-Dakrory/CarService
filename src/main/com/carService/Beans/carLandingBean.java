@@ -728,7 +728,7 @@ if(loginBean.getTheUserOfThisAccount().getId()!=null) {
 		    			
 
 		    			if(images.size()==0) {
-		    				images.add("https://almzzad.com/resources/Image/caromoto logo-04.png");
+		    				images.add("https://shipping.macchinaa.com/resources/Image/caromoto logo-04.png");
 				    		
 		    			}
 		    			
